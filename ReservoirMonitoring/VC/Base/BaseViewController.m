@@ -16,6 +16,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UITextField.appearance.tintColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
     if (UITextField.appearance.placeholder.length>0) {
         NSMutableAttributedString * placeholder = [[NSMutableAttributedString alloc] initWithString:UITextField.appearance.placeholder];
         [placeholder addAttributes:@{NSFontAttributeName:[UIColor colorWithHexString:@"#747474"]} range:NSMakeRange(0, placeholder.length)];

@@ -15,7 +15,7 @@
 
 
 //间距
-#define margin 10
+#define margin 20
 
 //滑块大小
 #define codeSize 50
@@ -27,7 +27,7 @@
 #define imageHeight 200
 
 //滑块高度
-#define sliderHeight 40
+#define sliderHeight 20
 
 //默认需要点击文本的数量
 #define codeLabelCount 4
@@ -36,7 +36,7 @@
 #define codeAddLabelCount 3
 
 //字体
-#define WMZfont 24
+#define WMZfont 16
 
 #import "WMZCodeView.h"
 @interface WMZCodeView()
@@ -142,22 +142,26 @@
 - (void)CodeTypeImageView{
     [self addSubview:({
         self.tipLabel.text = @"拖动下方滑块完成拼图";
-        self.tipLabel.frame = CGRectMake(margin, margin, self.width-margin*2, 30);
+        self.tipLabel.frame = CGRectMake(margin, 0, self.width-margin*2, 0);
         self.tipLabel;
     })];
     
     [self addSubview:({
-        self.mainImage.frame = CGRectMake(margin, CGRectGetMaxY(self.tipLabel.frame)+margin, self.width-margin*2, imageHeight);
+        self.mainImage.frame = CGRectMake(margin, CGRectGetMaxY(self.tipLabel.frame)+margin/2, self.width-margin*2, imageHeight);
         self.mainImage.contentMode =  UIViewContentModeScaleAspectFill;
         self.mainImage.clipsToBounds = YES;
         self.mainImage;
     })];
     
     [self addSubview:({
-        self.slider.frame = CGRectMake(margin, CGRectGetMaxY(self.mainImage.frame)+margin, self.width-margin*2, 30);
+        self.slider.frame = CGRectMake(margin, CGRectGetMaxY(self.mainImage.frame)+margin/2, self.width-margin*2, sliderHeight);
+        [self.slider setThumbImage:[UIImage imageNamed:@"process_btn"] forState:UIControlStateNormal];
+        [self.slider setThumbImage:[UIImage imageNamed:@"process_btn"] forState:UIControlStateHighlighted];
+        self.slider.minimumTrackTintColor = UIColor.clearColor;
+        self.slider.maximumTrackTintColor = UIColor.clearColor;
         [self.slider addTarget:self action:@selector(buttonAction:forEvent:) forControlEvents:UIControlEventAllTouchEvents];
         self.slider.layer.masksToBounds = YES;
-        self.slider.layer.cornerRadius = 15;
+        self.slider.layer.cornerRadius = sliderHeight/2;
         self.slider;
     })];
     
@@ -757,9 +761,23 @@ static inline UIBezierPath* getCodePath(){
 @end
 
 @implementation WMZSlider
+
+- (void)drawRect:(CGRect)rect{
+    UIBezierPath * path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(rect.origin.x, rect.size.height/2-3, rect.size.width, 6) cornerRadius:3];
+    [[UIColor colorWithRed:0.455 green:0.455 blue:0.455 alpha:1] setFill];
+    [path fill];
+}
+
 //改变滑动条高度
 - (CGRect)trackRectForBounds:(CGRect)bounds{
     return CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+}
+
+- (CGRect)thumbRectForBounds:(CGRect)bounds trackRect:(CGRect)rect value:(float)value{
+    rect.origin.x = rect.origin.x-15;
+    rect.origin.y = rect.origin.y+1.5;
+    rect.size.width = rect.size.width+15;
+    return CGRectInset([super thumbRectForBounds:bounds trackRect:rect value:value], 15, 10);
 }
 
 

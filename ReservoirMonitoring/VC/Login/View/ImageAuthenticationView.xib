@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ImageAuthenticationView">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mo9-dz-qWc">
+                    <rect key="frame" x="34.5" y="306.5" width="345" height="283"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="拖动下方滑动完成拼图" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFT-vq-zX9">
+                            <rect key="frame" x="91" y="10" width="163.5" height="19.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LfB-3V-iFt">
+                            <rect key="frame" x="301" y="0.0" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="NyG-nJ-bfq"/>
+                                <constraint firstAttribute="height" constant="44" id="i3M-9S-zqO"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="close"/>
+                            <connections>
+                                <action selector="dismiss" destination="iN0-l3-epB" eventType="touchUpInside" id="tWr-U6-N1G"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.15294117647058825" green="0.15294117647058825" blue="0.15294117647058825" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="283" id="C6x-gG-e0g"/>
+                        <constraint firstItem="LfB-3V-iFt" firstAttribute="top" secondItem="mo9-dz-qWc" secondAttribute="top" id="Qqw-us-fHI"/>
+                        <constraint firstAttribute="trailing" secondItem="LfB-3V-iFt" secondAttribute="trailing" id="SVO-AR-e10"/>
+                        <constraint firstItem="QFT-vq-zX9" firstAttribute="top" secondItem="mo9-dz-qWc" secondAttribute="top" constant="10" id="qlU-cA-72e"/>
+                        <constraint firstItem="QFT-vq-zX9" firstAttribute="centerX" secondItem="mo9-dz-qWc" secondAttribute="centerX" id="qle-fG-mhQ"/>
+                        <constraint firstAttribute="width" constant="345" id="wLm-TP-DGJ"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="4"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="mo9-dz-qWc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="IgD-96-HAd"/>
+                <constraint firstItem="mo9-dz-qWc" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="agC-AX-NaM"/>
+            </constraints>
+            <connections>
+                <outlet property="contentView" destination="mo9-dz-qWc" id="M5h-wk-X5d"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="84"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="close" width="16" height="16"/>
+    </resources>
+</document>

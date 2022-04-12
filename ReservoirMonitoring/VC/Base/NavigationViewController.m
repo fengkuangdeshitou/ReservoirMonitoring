@@ -19,8 +19,9 @@
     self.navigationBar.translucent = NO;
     self.navigationBar.tintColor = UIColor.whiteColor;
     self.navigationBar.shadowImage = [UIImage new];
-    self.navigationBar.backgroundColor = [UIColor colorWithHexString:COLOR_BACK_COLOR];
-    self.navigationBar.barTintColor = [UIColor colorWithHexString:COLOR_BACK_COLOR];
+    self.navigationBar.backgroundColor = [UIColor colorWithHexString:@"#1E1E1E"];
+    self.navigationBar.barTintColor = [UIColor colorWithHexString:@"#1E1E1E"];
+    self.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:UIColor.whiteColor,NSFontAttributeName:[UIFont systemFontOfSize:18 weight:UIFontWeightMedium]};
 //    if (@available(iOS 13.0, *)) {
 //        UINavigationBarAppearance * appearance = [[UINavigationBarAppearance alloc] init];
 //        appearance.backgroundColor = [UIColor colorWithHexString:COLOR_BACK_COLOR];

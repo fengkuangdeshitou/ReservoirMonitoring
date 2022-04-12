@@ -33,6 +33,18 @@
 		BDE88A132804714E00081114 /* BaseViewController+BarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A122804714E00081114 /* BaseViewController+BarButtonItem.m */; };
 		BDE88A1828047B2600081114 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A1628047B2600081114 /* LoginViewController.m */; };
 		BDE88A1928047B2600081114 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A1728047B2600081114 /* LoginViewController.xib */; };
+		BDE88A1D2805A0BF00081114 /* ImageAuthenticationView.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A1C2805A0BF00081114 /* ImageAuthenticationView.m */; };
+		BDE88A1F2805A0D800081114 /* ImageAuthenticationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A1E2805A0D800081114 /* ImageAuthenticationView.xib */; };
+		BDE88A232805C3F800081114 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A212805C3F800081114 /* RegisterViewController.m */; };
+		BDE88A242805C3F800081114 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A222805C3F800081114 /* RegisterViewController.xib */; };
+		BDE88A2A2805C47C00081114 /* RegisterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A282805C47C00081114 /* RegisterTableViewCell.m */; };
+		BDE88A2B2805C47C00081114 /* RegisterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A292805C47C00081114 /* RegisterTableViewCell.xib */; };
+		BDE88A2E2805CDC100081114 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A2D2805CDC100081114 /* UIView+Border.m */; };
+		BDE88A332805D05000081114 /* ForgotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A312805D05000081114 /* ForgotViewController.m */; };
+		BDE88A342805D05000081114 /* ForgotViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A322805D05000081114 /* ForgotViewController.xib */; };
+		BDE88A382805D66200081114 /* SetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A362805D66200081114 /* SetPasswordViewController.m */; };
+		BDE88A392805D66200081114 /* SetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A372805D66200081114 /* SetPasswordViewController.xib */; };
+		BDE88A3C2805DA0700081114 /* UITextField+PlaceholderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A3B2805DA0700081114 /* UITextField+PlaceholderColor.m */; };
 		EE5872C07D0EEF180B2864E7 /* Pods_ReservoirMonitoringTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263B1F2000C58A09A71CC682 /* Pods_ReservoirMonitoringTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -104,6 +116,25 @@
 		BDE88A1528047B2600081114 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		BDE88A1628047B2600081114 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		BDE88A1728047B2600081114 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		BDE88A1B2805A0BF00081114 /* ImageAuthenticationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageAuthenticationView.h; sourceTree = "<group>"; };
+		BDE88A1C2805A0BF00081114 /* ImageAuthenticationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageAuthenticationView.m; sourceTree = "<group>"; };
+		BDE88A1E2805A0D800081114 /* ImageAuthenticationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageAuthenticationView.xib; sourceTree = "<group>"; };
+		BDE88A202805C3F800081114 /* RegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		BDE88A212805C3F800081114 /* RegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		BDE88A222805C3F800081114 /* RegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
+		BDE88A272805C47C00081114 /* RegisterTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterTableViewCell.h; sourceTree = "<group>"; };
+		BDE88A282805C47C00081114 /* RegisterTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterTableViewCell.m; sourceTree = "<group>"; };
+		BDE88A292805C47C00081114 /* RegisterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterTableViewCell.xib; sourceTree = "<group>"; };
+		BDE88A2C2805CDC100081114 /* UIView+Border.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Border.h"; sourceTree = "<group>"; };
+		BDE88A2D2805CDC100081114 /* UIView+Border.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Border.m"; sourceTree = "<group>"; };
+		BDE88A302805D05000081114 /* ForgotViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgotViewController.h; sourceTree = "<group>"; };
+		BDE88A312805D05000081114 /* ForgotViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgotViewController.m; sourceTree = "<group>"; };
+		BDE88A322805D05000081114 /* ForgotViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ForgotViewController.xib; sourceTree = "<group>"; };
+		BDE88A352805D66200081114 /* SetPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetPasswordViewController.h; sourceTree = "<group>"; };
+		BDE88A362805D66200081114 /* SetPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetPasswordViewController.m; sourceTree = "<group>"; };
+		BDE88A372805D66200081114 /* SetPasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetPasswordViewController.xib; sourceTree = "<group>"; };
+		BDE88A3A2805DA0700081114 /* UITextField+PlaceholderColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+PlaceholderColor.h"; sourceTree = "<group>"; };
+		BDE88A3B2805DA0700081114 /* UITextField+PlaceholderColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+PlaceholderColor.m"; sourceTree = "<group>"; };
 		F2A4884BA2636547281AEFF1 /* Pods-ReservoirMonitoring.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReservoirMonitoring.release.xcconfig"; path = "Target Support Files/Pods-ReservoirMonitoring/Pods-ReservoirMonitoring.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -266,6 +297,10 @@
 			children = (
 				BDE889FB28044E7C00081114 /* UIColor+HexString.h */,
 				BDE889FC28044E7C00081114 /* UIColor+HexString.m */,
+				BDE88A2C2805CDC100081114 /* UIView+Border.h */,
+				BDE88A2D2805CDC100081114 /* UIView+Border.m */,
+				BDE88A3A2805DA0700081114 /* UITextField+PlaceholderColor.h */,
+				BDE88A3B2805DA0700081114 /* UITextField+PlaceholderColor.m */,
 				BDE88A022804574700081114 /* NSString+Localiced.h */,
 				BDE88A032804574700081114 /* NSString+Localiced.m */,
 				BDE88A112804714E00081114 /* BaseViewController+BarButtonItem.h */,
@@ -300,8 +335,55 @@
 				BDE88A1528047B2600081114 /* LoginViewController.h */,
 				BDE88A1628047B2600081114 /* LoginViewController.m */,
 				BDE88A1728047B2600081114 /* LoginViewController.xib */,
+				BDE88A1A2805A09A00081114 /* View */,
+				BDE88A252805C45800081114 /* Register */,
+				BDE88A2F2805D03E00081114 /* Forgot */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		BDE88A1A2805A09A00081114 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BDE88A1B2805A0BF00081114 /* ImageAuthenticationView.h */,
+				BDE88A1C2805A0BF00081114 /* ImageAuthenticationView.m */,
+				BDE88A1E2805A0D800081114 /* ImageAuthenticationView.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BDE88A252805C45800081114 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				BDE88A202805C3F800081114 /* RegisterViewController.h */,
+				BDE88A212805C3F800081114 /* RegisterViewController.m */,
+				BDE88A222805C3F800081114 /* RegisterViewController.xib */,
+				BDE88A262805C46800081114 /* View */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		BDE88A262805C46800081114 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BDE88A272805C47C00081114 /* RegisterTableViewCell.h */,
+				BDE88A282805C47C00081114 /* RegisterTableViewCell.m */,
+				BDE88A292805C47C00081114 /* RegisterTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BDE88A2F2805D03E00081114 /* Forgot */ = {
+			isa = PBXGroup;
+			children = (
+				BDE88A302805D05000081114 /* ForgotViewController.h */,
+				BDE88A312805D05000081114 /* ForgotViewController.m */,
+				BDE88A322805D05000081114 /* ForgotViewController.xib */,
+				BDE88A352805D66200081114 /* SetPasswordViewController.h */,
+				BDE88A362805D66200081114 /* SetPasswordViewController.m */,
+				BDE88A372805D66200081114 /* SetPasswordViewController.xib */,
+			);
+			path = Forgot;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -414,11 +496,16 @@
 			files = (
 				BD2DEF2E28044A74004E8D7D /* LaunchScreen.storyboard in Resources */,
 				BDE88A0A28046F7D00081114 /* DataViewController.xib in Resources */,
+				BDE88A2B2805C47C00081114 /* RegisterTableViewCell.xib in Resources */,
+				BDE88A1F2805A0D800081114 /* ImageAuthenticationView.xib in Resources */,
 				BD2DEF2B28044A74004E8D7D /* Assets.xcassets in Resources */,
 				BD2DEF2928044A6E004E8D7D /* Main.storyboard in Resources */,
+				BDE88A242805C3F800081114 /* RegisterViewController.xib in Resources */,
 				BD2DEF6628044C1F004E8D7D /* HomeViewController.xib in Resources */,
+				BDE88A392805D66200081114 /* SetPasswordViewController.xib in Resources */,
 				BDE88A1928047B2600081114 /* LoginViewController.xib in Resources */,
 				BDE88A1028046FE100081114 /* SetViewController.xib in Resources */,
+				BDE88A342805D05000081114 /* ForgotViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,13 +633,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDE88A382805D66200081114 /* SetPasswordViewController.m in Sources */,
 				BD2DEF5928044B27004E8D7D /* TabbarViewController.m in Sources */,
+				BDE88A2A2805C47C00081114 /* RegisterTableViewCell.m in Sources */,
 				BD2DEF2028044A6E004E8D7D /* AppDelegate.m in Sources */,
 				BDE88A132804714E00081114 /* BaseViewController+BarButtonItem.m in Sources */,
+				BDE88A1D2805A0BF00081114 /* ImageAuthenticationView.m in Sources */,
 				BDE88A012804540C00081114 /* GlobalValue.m in Sources */,
+				BDE88A2E2805CDC100081114 /* UIView+Border.m in Sources */,
 				BDE88A1828047B2600081114 /* LoginViewController.m in Sources */,
+				BDE88A3C2805DA0700081114 /* UITextField+PlaceholderColor.m in Sources */,
 				BDE889FD28044E7C00081114 /* UIColor+HexString.m in Sources */,
+				BDE88A232805C3F800081114 /* RegisterViewController.m in Sources */,
 				BDE88A042804574700081114 /* NSString+Localiced.m in Sources */,
+				BDE88A332805D05000081114 /* ForgotViewController.m in Sources */,
 				BDE88A0F28046FE100081114 /* SetViewController.m in Sources */,
 				BD2DEF5D28044B58004E8D7D /* NavigationViewController.m in Sources */,
 				BD2DEF5628044B05004E8D7D /* BaseViewController.m in Sources */,

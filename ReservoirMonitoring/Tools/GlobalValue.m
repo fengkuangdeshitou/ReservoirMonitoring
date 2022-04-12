@@ -9,6 +9,10 @@
 
 @implementation GlobalValue
 
+const CGFloat NavagationBarHeight = 44;
+
+
+
 NSString * const COLOR_MAIN_COLOR = @"#8CDFA5";
 
 NSString * const COLOR_BACK_COLOR = @"#0C0C0C";

@@ -6,9 +6,13 @@
 //
 
 #import "LoginViewController.h"
-@import WMZCode;
+#import "ImageAuthenticationView.h"
+#import "Register/RegisterViewController.h"
+#import "ForgotViewController.h"
 
-@interface LoginViewController ()
+@interface LoginViewController ()<ImageAuthenticationViewDelegate>
+
+@property(nonatomic,weak)IBOutlet UIButton * loginBtn;
 
 @end
 
@@ -17,15 +21,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self.loginBtn showBorderWithRadius:25];
 }
 
 - (IBAction)loginAction:(id)sender{
-    WMZCodeView *codeView = [[WMZCodeView shareInstance] addCodeViewWithType:CodeTypeImage withImageName:@"A" witgFrame:CGRectMake(0, 50, 300, 50)  withBlock:^(BOOL success) {
-            if (success) {
-                NSLog(@"成功");
-            }
-    }];
-    [self.view addSubview: codeView];
+    [ImageAuthenticationView showImageAuthemticationWithDelegate:self];
+}
+
+- (IBAction)registerAction:(id)sender{
+    RegisterViewController * regist = [[RegisterViewController alloc] init];
+    regist.title = @"New user registration".localized;
+    [self.navigationController pushViewController:regist animated:true];
+}
+
+- (IBAction)forgotAction:(id)sender{
+    ForgotViewController * forgot = [[ForgotViewController alloc] init];
+    forgot.title = @"Forgot Password";
+    [self.navigationController pushViewController:forgot animated:true];
 }
 
 /*
