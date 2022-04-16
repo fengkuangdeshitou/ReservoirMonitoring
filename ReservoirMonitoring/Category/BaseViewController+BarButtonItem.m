@@ -10,7 +10,7 @@
 @implementation BaseViewController (BarButtonItem)
 
 - (void)setLeftBatButtonItemWithImage:(UIImage *)image
-                                  sel:(SEL)sel{
+                                  sel:(nullable SEL)sel{
     UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:sel];
     self.navigationItem.leftBarButtonItem = item;
 }

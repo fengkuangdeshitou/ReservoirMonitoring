@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PeakTimeTableViewCell" rowHeight="152" id="KGk-i7-Jjw" customClass="PeakTimeTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="348" height="152"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="348" height="152"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="JOr-vf-hHb">
+                        <rect key="frame" x="15" y="0.0" width="318" height="152"/>
+                        <color key="backgroundColor" red="0.10588235294117647" green="0.10588235294117647" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="slg-AR-VNR">
+                            <rect key="frame" x="0.0" y="0.0" width="318" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Power grid charging enable switch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ygP-AR-NT1">
+                                    <rect key="frame" x="35" y="2" width="221.5" height="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="niD-1l-Qe2">
+                                    <rect key="frame" x="276.5" y="-0.5" width="27" height="22"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="turn_off"/>
+                                    <state key="selected" image="turn_on"/>
+                                </button>
+                            </subviews>
+                            <viewLayoutGuide key="safeArea" id="5Ce-7P-0RG"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="ygP-AR-NT1" firstAttribute="centerY" secondItem="slg-AR-VNR" secondAttribute="centerY" id="NcO-4W-JJk"/>
+                                <constraint firstItem="ygP-AR-NT1" firstAttribute="leading" secondItem="5Ce-7P-0RG" secondAttribute="leading" constant="35" id="OT5-jM-AE8"/>
+                                <constraint firstItem="niD-1l-Qe2" firstAttribute="leading" secondItem="ygP-AR-NT1" secondAttribute="trailing" constant="20" id="uBM-Zm-bTw"/>
+                                <constraint firstItem="niD-1l-Qe2" firstAttribute="centerY" secondItem="slg-AR-VNR" secondAttribute="centerY" id="wjM-9Z-fwq"/>
+                            </constraints>
+                        </view>
+                        <connections>
+                            <outlet property="dataSource" destination="KGk-i7-Jjw" id="P0R-qX-8w1"/>
+                            <outlet property="delegate" destination="KGk-i7-Jjw" id="38R-8a-ZUC"/>
+                        </connections>
+                    </tableView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="JOr-vf-hHb" secondAttribute="trailing" constant="15" id="8Gb-EV-W3n"/>
+                    <constraint firstItem="JOr-vf-hHb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="cxG-zr-gO0"/>
+                    <constraint firstItem="JOr-vf-hHb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="flT-qq-AAd"/>
+                    <constraint firstAttribute="bottom" secondItem="JOr-vf-hHb" secondAttribute="bottom" id="zt4-mh-gC6"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="tableView" destination="JOr-vf-hHb" id="Oa9-qB-wm7"/>
+            </connections>
+            <point key="canvasLocation" x="157.97101449275362" y="117.85714285714285"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="turn_off" width="27" height="14"/>
+        <image name="turn_on" width="27" height="14"/>
+    </resources>
+</document>

@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BaseViewController (BarButtonItem)
 
 - (void)setLeftBatButtonItemWithImage:(UIImage *)imageName
-                                  sel:(SEL)sel;
+                                  sel:(nullable SEL)sel;
 
 @end
 

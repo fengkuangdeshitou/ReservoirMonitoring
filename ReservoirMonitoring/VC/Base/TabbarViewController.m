@@ -71,22 +71,22 @@
     [self addOneChildViewController:[[NavigationViewController alloc]initWithRootViewController:[[HomeViewController alloc]init]]
                           WithTitle:@"Home".localized
                           imageName:@"tabbar_home_normal"
-                  selectedImageName:@"tabbar_home_selected"];
+                  selectedImageName:@"tabbar_home_active"];
     
     [self addOneChildViewController:[[NavigationViewController alloc]initWithRootViewController:[[DataViewController alloc] init]]
                           WithTitle:@"Data".localized
-                          imageName:@"tabbar_ride_normal"
-                  selectedImageName:@"tabbar_ride_selected"];
+                          imageName:@"tabbar_data_normal"
+                  selectedImageName:@"tabbar_data_active"];
     
 //    [self addOneChildViewController:[[CustomNavagationController alloc]initWithRootViewController:[[ServiceViewController alloc]init]]
 //            WithTitle:@"Service".localized
 //            imageName:@"tabbar_service_normal"
-//    selectedImageName:@"tabbar_service_selected"];
+//    selectedImageName:@"tabbar_service_active"];
     
     [self addOneChildViewController:[[NavigationViewController alloc]initWithRootViewController:[[SetViewController alloc]init]]
                           WithTitle:@"Me".localized
-                          imageName:@"tabbar_user_normal"
-                  selectedImageName:@"tabbar_user_selected"];
+                          imageName:@"tabbar_set_normal"
+                  selectedImageName:@"tabbar_set_active"];
     
 }
 

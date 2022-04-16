@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SwitchModelTableViewCell" id="KGk-i7-Jjw" customClass="SwitchModelTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cf4-ex-G9V">
+                        <rect key="frame" x="15" y="0.0" width="290" height="44"/>
+                        <color key="backgroundColor" red="0.10588235294117647" green="0.10588235294117647" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_unchoose" translatesAutoresizingMaskIntoConstraints="NO" id="yu5-vG-3ui">
+                        <rect key="frame" x="30" y="15.5" width="13" height="13"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Self-consumption" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8lH-gF-u2G">
+                        <rect key="frame" x="53" y="13" width="125.5" height="18"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eog-wd-BlX">
+                        <rect key="frame" x="185.5" y="11" width="15" height="22"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="icon_question"/>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="cf4-ex-G9V" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="4Dp-6g-vzY"/>
+                    <constraint firstAttribute="trailing" secondItem="cf4-ex-G9V" secondAttribute="trailing" constant="15" id="A64-3t-9cJ"/>
+                    <constraint firstItem="yu5-vG-3ui" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="DPN-BS-8rx"/>
+                    <constraint firstItem="8lH-gF-u2G" firstAttribute="leading" secondItem="yu5-vG-3ui" secondAttribute="trailing" constant="10" id="KgR-Er-XDa"/>
+                    <constraint firstAttribute="bottom" secondItem="cf4-ex-G9V" secondAttribute="bottom" id="Qbp-4Z-Wjt"/>
+                    <constraint firstItem="Eog-wd-BlX" firstAttribute="leading" secondItem="8lH-gF-u2G" secondAttribute="trailing" constant="7" id="gX6-MH-Jio"/>
+                    <constraint firstItem="yu5-vG-3ui" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="iUH-4y-xTj"/>
+                    <constraint firstItem="8lH-gF-u2G" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="lDv-Lr-zYI"/>
+                    <constraint firstItem="cf4-ex-G9V" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ssv-3P-Et2"/>
+                    <constraint firstItem="Eog-wd-BlX" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="z5W-9u-GsW"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="icon" destination="yu5-vG-3ui" id="HNh-xV-Z4I"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="112"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_question" width="15" height="15"/>
+        <image name="icon_unchoose" width="13" height="13"/>
+    </resources>
+</document>

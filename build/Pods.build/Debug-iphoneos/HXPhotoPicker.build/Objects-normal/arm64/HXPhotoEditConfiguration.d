@@ -1,0 +1,7 @@
+dependencies: \
+  /Users/huangjing/Desktop/ReservoirMonitoring/Pods/HXPhotoPicker/HXPhotoPicker/HXPhotoEdit/HXPhotoEditConfiguration.m \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Pods.build/Debug-iphoneos/HXPhotoPicker.build/module.modulemap \
+  /Users/huangjing/Desktop/ReservoirMonitoring/Pods/Target\ Support\ Files/HXPhotoPicker/HXPhotoPicker-prefix.pch \
+  /Users/huangjing/Desktop/ReservoirMonitoring/Pods/HXPhotoPicker/HXPhotoPicker/HXPhotoEdit/HXPhotoEditConfiguration.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/Pods/HXPhotoPicker/HXPhotoPicker/HXPhotoEdit/Model/HXPhotoEditChartletModel.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/Pods/HXPhotoPicker/HXPhotoPicker/Category/UIColor+HXExtension.h

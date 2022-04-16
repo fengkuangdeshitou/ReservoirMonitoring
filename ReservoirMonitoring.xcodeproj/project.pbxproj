@@ -45,6 +45,28 @@
 		BDE88A382805D66200081114 /* SetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A362805D66200081114 /* SetPasswordViewController.m */; };
 		BDE88A392805D66200081114 /* SetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A372805D66200081114 /* SetPasswordViewController.xib */; };
 		BDE88A3C2805DA0700081114 /* UITextField+PlaceholderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A3B2805DA0700081114 /* UITextField+PlaceholderColor.m */; };
+		BDE88A4128070EA000081114 /* HomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A3F28070EA000081114 /* HomeTableViewCell.m */; };
+		BDE88A4228070EA000081114 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A4028070EA000081114 /* HomeTableViewCell.xib */; };
+		BDE88A452807187600081114 /* HomeItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A442807187600081114 /* HomeItemView.m */; };
+		BDE88A482808771B00081114 /* HomeProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A472808771B00081114 /* HomeProgressView.m */; };
+		BDE88A4B28087E2F00081114 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A4A28087E2F00081114 /* UIView+Extension.m */; };
+		BDE88A4E280A776500081114 /* DeviceSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A4D280A776500081114 /* DeviceSwitchView.m */; };
+		BDE88A52280A7C0300081114 /* DeviceSwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A50280A7C0300081114 /* DeviceSwitchTableViewCell.m */; };
+		BDE88A53280A7C0300081114 /* DeviceSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A51280A7C0300081114 /* DeviceSwitchTableViewCell.xib */; };
+		BDE88A58280AB78B00081114 /* SwitchModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A56280AB78B00081114 /* SwitchModeViewController.m */; };
+		BDE88A59280AB78B00081114 /* SwitchModeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A57280AB78B00081114 /* SwitchModeViewController.xib */; };
+		BDE88A5E280ABD4600081114 /* SwitchModelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A5C280ABD4600081114 /* SwitchModelTableViewCell.m */; };
+		BDE88A5F280ABD4600081114 /* SwitchModelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A5D280ABD4600081114 /* SwitchModelTableViewCell.xib */; };
+		BDE88A63280AC2B200081114 /* SwitchProgressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A61280AC2B200081114 /* SwitchProgressTableViewCell.m */; };
+		BDE88A64280AC2B200081114 /* SwitchProgressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A62280AC2B200081114 /* SwitchProgressTableViewCell.xib */; };
+		BDE88A68280AC7C600081114 /* PeakTimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A66280AC7C600081114 /* PeakTimeTableViewCell.m */; };
+		BDE88A69280AC7C600081114 /* PeakTimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A67280AC7C600081114 /* PeakTimeTableViewCell.xib */; };
+		BDE88A6D280ACA8B00081114 /* TimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A6B280ACA8B00081114 /* TimeTableViewCell.m */; };
+		BDE88A6E280ACA8C00081114 /* TimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A6C280ACA8B00081114 /* TimeTableViewCell.xib */; };
+		BDE88A73280B0E5D00081114 /* DataCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A71280B0E5D00081114 /* DataCollectionViewCell.m */; };
+		BDE88A74280B0E5D00081114 /* DataCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A72280B0E5D00081114 /* DataCollectionViewCell.xib */; };
+		BDE88A78280B12A900081114 /* DataEchartsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A76280B12A900081114 /* DataEchartsCollectionViewCell.m */; };
+		BDE88A79280B12A900081114 /* DataEchartsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A77280B12A900081114 /* DataEchartsCollectionViewCell.xib */; };
 		EE5872C07D0EEF180B2864E7 /* Pods_ReservoirMonitoringTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263B1F2000C58A09A71CC682 /* Pods_ReservoirMonitoringTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -135,6 +157,41 @@
 		BDE88A372805D66200081114 /* SetPasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetPasswordViewController.xib; sourceTree = "<group>"; };
 		BDE88A3A2805DA0700081114 /* UITextField+PlaceholderColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+PlaceholderColor.h"; sourceTree = "<group>"; };
 		BDE88A3B2805DA0700081114 /* UITextField+PlaceholderColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+PlaceholderColor.m"; sourceTree = "<group>"; };
+		BDE88A3E28070EA000081114 /* HomeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTableViewCell.h; sourceTree = "<group>"; };
+		BDE88A3F28070EA000081114 /* HomeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTableViewCell.m; sourceTree = "<group>"; };
+		BDE88A4028070EA000081114 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
+		BDE88A432807187600081114 /* HomeItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeItemView.h; sourceTree = "<group>"; };
+		BDE88A442807187600081114 /* HomeItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeItemView.m; sourceTree = "<group>"; };
+		BDE88A462808771B00081114 /* HomeProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeProgressView.h; sourceTree = "<group>"; };
+		BDE88A472808771B00081114 /* HomeProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeProgressView.m; sourceTree = "<group>"; };
+		BDE88A4928087E2F00081114 /* UIView+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		BDE88A4A28087E2F00081114 /* UIView+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		BDE88A4C280A776500081114 /* DeviceSwitchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceSwitchView.h; sourceTree = "<group>"; };
+		BDE88A4D280A776500081114 /* DeviceSwitchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceSwitchView.m; sourceTree = "<group>"; };
+		BDE88A4F280A7C0300081114 /* DeviceSwitchTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceSwitchTableViewCell.h; sourceTree = "<group>"; };
+		BDE88A50280A7C0300081114 /* DeviceSwitchTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceSwitchTableViewCell.m; sourceTree = "<group>"; };
+		BDE88A51280A7C0300081114 /* DeviceSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceSwitchTableViewCell.xib; sourceTree = "<group>"; };
+		BDE88A55280AB78B00081114 /* SwitchModeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchModeViewController.h; sourceTree = "<group>"; };
+		BDE88A56280AB78B00081114 /* SwitchModeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwitchModeViewController.m; sourceTree = "<group>"; };
+		BDE88A57280AB78B00081114 /* SwitchModeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwitchModeViewController.xib; sourceTree = "<group>"; };
+		BDE88A5B280ABD4600081114 /* SwitchModelTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchModelTableViewCell.h; sourceTree = "<group>"; };
+		BDE88A5C280ABD4600081114 /* SwitchModelTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwitchModelTableViewCell.m; sourceTree = "<group>"; };
+		BDE88A5D280ABD4600081114 /* SwitchModelTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwitchModelTableViewCell.xib; sourceTree = "<group>"; };
+		BDE88A60280AC2B200081114 /* SwitchProgressTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchProgressTableViewCell.h; sourceTree = "<group>"; };
+		BDE88A61280AC2B200081114 /* SwitchProgressTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwitchProgressTableViewCell.m; sourceTree = "<group>"; };
+		BDE88A62280AC2B200081114 /* SwitchProgressTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwitchProgressTableViewCell.xib; sourceTree = "<group>"; };
+		BDE88A65280AC7C600081114 /* PeakTimeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PeakTimeTableViewCell.h; sourceTree = "<group>"; };
+		BDE88A66280AC7C600081114 /* PeakTimeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PeakTimeTableViewCell.m; sourceTree = "<group>"; };
+		BDE88A67280AC7C600081114 /* PeakTimeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PeakTimeTableViewCell.xib; sourceTree = "<group>"; };
+		BDE88A6A280ACA8B00081114 /* TimeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeTableViewCell.h; sourceTree = "<group>"; };
+		BDE88A6B280ACA8B00081114 /* TimeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeTableViewCell.m; sourceTree = "<group>"; };
+		BDE88A6C280ACA8B00081114 /* TimeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeTableViewCell.xib; sourceTree = "<group>"; };
+		BDE88A70280B0E5D00081114 /* DataCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataCollectionViewCell.h; sourceTree = "<group>"; };
+		BDE88A71280B0E5D00081114 /* DataCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataCollectionViewCell.m; sourceTree = "<group>"; };
+		BDE88A72280B0E5D00081114 /* DataCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DataCollectionViewCell.xib; sourceTree = "<group>"; };
+		BDE88A75280B12A900081114 /* DataEchartsCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataEchartsCollectionViewCell.h; sourceTree = "<group>"; };
+		BDE88A76280B12A900081114 /* DataEchartsCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataEchartsCollectionViewCell.m; sourceTree = "<group>"; };
+		BDE88A77280B12A900081114 /* DataEchartsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DataEchartsCollectionViewCell.xib; sourceTree = "<group>"; };
 		F2A4884BA2636547281AEFF1 /* Pods-ReservoirMonitoring.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReservoirMonitoring.release.xcconfig"; path = "Target Support Files/Pods-ReservoirMonitoring/Pods-ReservoirMonitoring.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -277,6 +334,8 @@
 				BD2DEF6228044C1F004E8D7D /* HomeViewController.h */,
 				BD2DEF6328044C1F004E8D7D /* HomeViewController.m */,
 				BD2DEF6428044C1F004E8D7D /* HomeViewController.xib */,
+				BDE88A54280AB77500081114 /* SwitchMode */,
+				BDE88A3D2807098C00081114 /* View */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -299,6 +358,8 @@
 				BDE889FC28044E7C00081114 /* UIColor+HexString.m */,
 				BDE88A2C2805CDC100081114 /* UIView+Border.h */,
 				BDE88A2D2805CDC100081114 /* UIView+Border.m */,
+				BDE88A4928087E2F00081114 /* UIView+Extension.h */,
+				BDE88A4A28087E2F00081114 /* UIView+Extension.m */,
 				BDE88A3A2805DA0700081114 /* UITextField+PlaceholderColor.h */,
 				BDE88A3B2805DA0700081114 /* UITextField+PlaceholderColor.m */,
 				BDE88A022804574700081114 /* NSString+Localiced.h */,
@@ -315,6 +376,7 @@
 				BDE88A0628046F7D00081114 /* DataViewController.h */,
 				BDE88A0728046F7D00081114 /* DataViewController.m */,
 				BDE88A0828046F7D00081114 /* DataViewController.xib */,
+				BDE88A6F280B0E2D00081114 /* View */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -384,6 +446,68 @@
 				BDE88A372805D66200081114 /* SetPasswordViewController.xib */,
 			);
 			path = Forgot;
+			sourceTree = "<group>";
+		};
+		BDE88A3D2807098C00081114 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BDE88A3E28070EA000081114 /* HomeTableViewCell.h */,
+				BDE88A3F28070EA000081114 /* HomeTableViewCell.m */,
+				BDE88A4028070EA000081114 /* HomeTableViewCell.xib */,
+				BDE88A432807187600081114 /* HomeItemView.h */,
+				BDE88A442807187600081114 /* HomeItemView.m */,
+				BDE88A462808771B00081114 /* HomeProgressView.h */,
+				BDE88A472808771B00081114 /* HomeProgressView.m */,
+				BDE88A4C280A776500081114 /* DeviceSwitchView.h */,
+				BDE88A4D280A776500081114 /* DeviceSwitchView.m */,
+				BDE88A4F280A7C0300081114 /* DeviceSwitchTableViewCell.h */,
+				BDE88A50280A7C0300081114 /* DeviceSwitchTableViewCell.m */,
+				BDE88A51280A7C0300081114 /* DeviceSwitchTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BDE88A54280AB77500081114 /* SwitchMode */ = {
+			isa = PBXGroup;
+			children = (
+				BDE88A55280AB78B00081114 /* SwitchModeViewController.h */,
+				BDE88A56280AB78B00081114 /* SwitchModeViewController.m */,
+				BDE88A57280AB78B00081114 /* SwitchModeViewController.xib */,
+				BDE88A5A280ABD2100081114 /* View */,
+			);
+			path = SwitchMode;
+			sourceTree = "<group>";
+		};
+		BDE88A5A280ABD2100081114 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BDE88A60280AC2B200081114 /* SwitchProgressTableViewCell.h */,
+				BDE88A61280AC2B200081114 /* SwitchProgressTableViewCell.m */,
+				BDE88A62280AC2B200081114 /* SwitchProgressTableViewCell.xib */,
+				BDE88A5B280ABD4600081114 /* SwitchModelTableViewCell.h */,
+				BDE88A5C280ABD4600081114 /* SwitchModelTableViewCell.m */,
+				BDE88A5D280ABD4600081114 /* SwitchModelTableViewCell.xib */,
+				BDE88A65280AC7C600081114 /* PeakTimeTableViewCell.h */,
+				BDE88A66280AC7C600081114 /* PeakTimeTableViewCell.m */,
+				BDE88A67280AC7C600081114 /* PeakTimeTableViewCell.xib */,
+				BDE88A6A280ACA8B00081114 /* TimeTableViewCell.h */,
+				BDE88A6B280ACA8B00081114 /* TimeTableViewCell.m */,
+				BDE88A6C280ACA8B00081114 /* TimeTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BDE88A6F280B0E2D00081114 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BDE88A70280B0E5D00081114 /* DataCollectionViewCell.h */,
+				BDE88A71280B0E5D00081114 /* DataCollectionViewCell.m */,
+				BDE88A72280B0E5D00081114 /* DataCollectionViewCell.xib */,
+				BDE88A75280B12A900081114 /* DataEchartsCollectionViewCell.h */,
+				BDE88A76280B12A900081114 /* DataEchartsCollectionViewCell.m */,
+				BDE88A77280B12A900081114 /* DataEchartsCollectionViewCell.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -497,11 +621,20 @@
 				BD2DEF2E28044A74004E8D7D /* LaunchScreen.storyboard in Resources */,
 				BDE88A0A28046F7D00081114 /* DataViewController.xib in Resources */,
 				BDE88A2B2805C47C00081114 /* RegisterTableViewCell.xib in Resources */,
+				BDE88A5F280ABD4600081114 /* SwitchModelTableViewCell.xib in Resources */,
+				BDE88A64280AC2B200081114 /* SwitchProgressTableViewCell.xib in Resources */,
+				BDE88A6E280ACA8C00081114 /* TimeTableViewCell.xib in Resources */,
 				BDE88A1F2805A0D800081114 /* ImageAuthenticationView.xib in Resources */,
 				BD2DEF2B28044A74004E8D7D /* Assets.xcassets in Resources */,
 				BD2DEF2928044A6E004E8D7D /* Main.storyboard in Resources */,
 				BDE88A242805C3F800081114 /* RegisterViewController.xib in Resources */,
+				BDE88A53280A7C0300081114 /* DeviceSwitchTableViewCell.xib in Resources */,
+				BDE88A79280B12A900081114 /* DataEchartsCollectionViewCell.xib in Resources */,
 				BD2DEF6628044C1F004E8D7D /* HomeViewController.xib in Resources */,
+				BDE88A74280B0E5D00081114 /* DataCollectionViewCell.xib in Resources */,
+				BDE88A69280AC7C600081114 /* PeakTimeTableViewCell.xib in Resources */,
+				BDE88A4228070EA000081114 /* HomeTableViewCell.xib in Resources */,
+				BDE88A59280AB78B00081114 /* SwitchModeViewController.xib in Resources */,
 				BDE88A392805D66200081114 /* SetPasswordViewController.xib in Resources */,
 				BDE88A1928047B2600081114 /* LoginViewController.xib in Resources */,
 				BDE88A1028046FE100081114 /* SetViewController.xib in Resources */,
@@ -633,26 +766,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDE88A6D280ACA8B00081114 /* TimeTableViewCell.m in Sources */,
 				BDE88A382805D66200081114 /* SetPasswordViewController.m in Sources */,
 				BD2DEF5928044B27004E8D7D /* TabbarViewController.m in Sources */,
 				BDE88A2A2805C47C00081114 /* RegisterTableViewCell.m in Sources */,
+				BDE88A5E280ABD4600081114 /* SwitchModelTableViewCell.m in Sources */,
 				BD2DEF2028044A6E004E8D7D /* AppDelegate.m in Sources */,
 				BDE88A132804714E00081114 /* BaseViewController+BarButtonItem.m in Sources */,
+				BDE88A452807187600081114 /* HomeItemView.m in Sources */,
+				BDE88A482808771B00081114 /* HomeProgressView.m in Sources */,
 				BDE88A1D2805A0BF00081114 /* ImageAuthenticationView.m in Sources */,
 				BDE88A012804540C00081114 /* GlobalValue.m in Sources */,
 				BDE88A2E2805CDC100081114 /* UIView+Border.m in Sources */,
+				BDE88A73280B0E5D00081114 /* DataCollectionViewCell.m in Sources */,
 				BDE88A1828047B2600081114 /* LoginViewController.m in Sources */,
 				BDE88A3C2805DA0700081114 /* UITextField+PlaceholderColor.m in Sources */,
 				BDE889FD28044E7C00081114 /* UIColor+HexString.m in Sources */,
 				BDE88A232805C3F800081114 /* RegisterViewController.m in Sources */,
 				BDE88A042804574700081114 /* NSString+Localiced.m in Sources */,
 				BDE88A332805D05000081114 /* ForgotViewController.m in Sources */,
+				BDE88A4128070EA000081114 /* HomeTableViewCell.m in Sources */,
 				BDE88A0F28046FE100081114 /* SetViewController.m in Sources */,
 				BD2DEF5D28044B58004E8D7D /* NavigationViewController.m in Sources */,
+				BDE88A58280AB78B00081114 /* SwitchModeViewController.m in Sources */,
 				BD2DEF5628044B05004E8D7D /* BaseViewController.m in Sources */,
+				BDE88A63280AC2B200081114 /* SwitchProgressTableViewCell.m in Sources */,
+				BDE88A4B28087E2F00081114 /* UIView+Extension.m in Sources */,
 				BDE889F928044DA700081114 /* RMHelper.m in Sources */,
+				BDE88A4E280A776500081114 /* DeviceSwitchView.m in Sources */,
+				BDE88A52280A7C0300081114 /* DeviceSwitchTableViewCell.m in Sources */,
+				BDE88A78280B12A900081114 /* DataEchartsCollectionViewCell.m in Sources */,
 				BD2DEF3128044A74004E8D7D /* main.m in Sources */,
 				BDE88A0928046F7D00081114 /* DataViewController.m in Sources */,
+				BDE88A68280AC7C600081114 /* PeakTimeTableViewCell.m in Sources */,
 				BD2DEF6528044C1F004E8D7D /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

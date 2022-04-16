@@ -26,6 +26,10 @@ extern NSString * const COLOR_MAIN_COLOR;
 extern NSString * const COLOR_BACK_COLOR;
 
 
+/**运行模式高度改变通知*/
+extern NSString * const TIME_TABLEVIEW_HEIGHT_CHANGE;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

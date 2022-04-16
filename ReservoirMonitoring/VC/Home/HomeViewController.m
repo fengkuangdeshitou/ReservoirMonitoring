@@ -6,8 +6,14 @@
 //
 
 #import "HomeViewController.h"
+#import "HomeTableViewCell.h"
+#import "DeviceSwitchView.h"
+#import "SwitchModeViewController.h"
 
-@interface HomeViewController ()
+@interface HomeViewController ()<DeviceSwitchViewDelegate>
+
+@property(nonatomic,weak)IBOutlet UIButton * addEquipmentBtn;
+@property(nonatomic,weak)IBOutlet UITableView * tableView;
 
 @end
 
@@ -16,7 +22,39 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self.addEquipmentBtn showBorderWithRadius:25];
     [self setLeftBatButtonItemWithImage:[UIImage imageNamed:@"logo"] sel:nil];
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomeTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([HomeTableViewCell class])];
+}
+
+- (void)changeDeviceAction{
+//    [DeviceSwitchView showDeviceSwitchViewWithDelegate:self];
+    SwitchModeViewController * model = [[SwitchModeViewController alloc] init];
+    model.title = @"Switching operating Mode";
+    model.hidesBottomBarWhenPushed = true;
+    [self.navigationController pushViewController:model animated:true];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    HomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomeTableViewCell class]) forIndexPath:indexPath];
+    [cell.changeDeviceButton addTarget:self action:@selector(changeDeviceAction) forControlEvents:UIControlEventTouchUpInside];
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.001;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.001;
 }
 
 /*
