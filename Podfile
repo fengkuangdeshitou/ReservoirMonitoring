@@ -15,6 +15,7 @@ pod 'MJRefresh'
 pod 'iOS-Echarts'
 pod 'HXPhotoPicker'
 pod 'WMZCode'
+pod 'SGPagingView', '~> 1.7.2'
 
   # Pods for ReservoirMonitoring
 

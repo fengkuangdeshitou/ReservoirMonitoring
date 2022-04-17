@@ -183,6 +183,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SGPagingView/SGPagingView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WMZCode/WMZCode.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/iOS-Echarts/iOS_Echarts.framework"
 fi
@@ -195,6 +196,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SGPagingView/SGPagingView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WMZCode/WMZCode.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/iOS-Echarts/iOS_Echarts.framework"
 fi

@@ -7,5 +7,6 @@ ${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework
 ${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework
 ${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
+${BUILT_PRODUCTS_DIR}/SGPagingView/SGPagingView.framework
 ${BUILT_PRODUCTS_DIR}/WMZCode/WMZCode.framework
 ${BUILT_PRODUCTS_DIR}/iOS-Echarts/iOS_Echarts.framework

@@ -28,4 +28,14 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Data/DataViewController.m \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Data/DataViewController.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Data/View/DataCollectionViewCell.h \
-  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Data/View/DataEchartsCollectionViewCell.h
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Data/View/DataEchartsCollectionViewCell.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/SGPagingView/SGPagingView.framework/Modules/module.modulemap \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/SGPagingView/SGPagingView.framework/Headers/SGPagingView.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/SGPagingView/SGPagingView.framework/Headers/SGPageTitleViewConfigure.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/SGPagingView/SGPagingView.framework/Headers/SGPageTitleView.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/SGPagingView/SGPagingView.framework/Headers/SGPageContentScrollView.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/SGPagingView/SGPagingView.framework/Headers/SGPageContentCollectionView.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/SGPagingView/SGPagingView.framework/Headers/SGPagingViewPopGestureVC.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/SGPagingView/SGPagingView.framework/Headers/UIView+SGPagingView.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/SGPagingView/SGPagingView.framework/Headers/UIButton+SGPagingView.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/SGPagingView/SGPagingView.framework/Headers/SGPagingView-umbrella.h

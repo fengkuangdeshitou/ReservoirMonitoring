@@ -37,6 +37,7 @@ PODS:
   - SDWebImage (5.12.2):
     - SDWebImage/Core (= 5.12.2)
   - SDWebImage/Core (5.12.2)
+  - SGPagingView (1.7.2)
   - WMZCode (1.0.1)
 
 DEPENDENCIES:
@@ -49,6 +50,7 @@ DEPENDENCIES:
   - MJExtension
   - MJRefresh
   - SDWebImage
+  - SGPagingView (~> 1.7.2)
   - WMZCode
 
 SPEC REPOS:
@@ -62,6 +64,7 @@ SPEC REPOS:
     - MJExtension
     - MJRefresh
     - SDWebImage
+    - SGPagingView
     - WMZCode
 
 SPEC CHECKSUMS:
@@ -74,8 +77,9 @@ SPEC CHECKSUMS:
   MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   SDWebImage: 240e5c12b592fb1268c1d03b8c90d90e8c2ffe82
+  SGPagingView: 0b91bd360370e56a6496b06df9b3e28bc3f075cc
   WMZCode: af49031a787947dad474f6dba23270a2600d8124
 
-PODFILE CHECKSUM: 8b2941fc830810f2780ddeac08ef3ff7f1788688
+PODFILE CHECKSUM: b8140f65aa12371dd97e338ca6de51b7ee849e32
 
 COCOAPODS: 1.10.1

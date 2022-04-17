@@ -8,9 +8,11 @@
 #import "DataViewController.h"
 #import "DataCollectionViewCell.h"
 #import "DataEchartsCollectionViewCell.h"
+@import SGPagingView;
 
-@interface DataViewController ()<UICollectionViewDataSource>
+@interface DataViewController ()<UICollectionViewDataSource,SGPageTitleViewDelegate>
 
+@property(nonatomic,strong) SGPageTitleView * titleView;
 @property(nonatomic,weak)IBOutlet UICollectionView * collectionView;
 
 @end
@@ -23,7 +25,16 @@
     [self setLeftBatButtonItemWithImage:[UIImage imageNamed:@"logo"] sel:nil];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DataCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([DataCollectionViewCell class])];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DataEchartsCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([DataEchartsCollectionViewCell class])];
-    
+    SGPageTitleViewConfigure * config = [SGPageTitleViewConfigure pageTitleViewConfigure];
+    config.showBottomSeparator = false;
+    config.titleColor = [UIColor colorWithHexString:@"#747474"];
+    config.titleSelectedColor = [UIColor colorWithHexString:@"#00E252"];
+    config.titleFont = [UIFont systemFontOfSize:14];
+    config.titleSelectedFont = [UIFont systemFontOfSize:14];
+    config.showIndicator = false;
+    self.titleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40) delegate:self titleNames:@[@"天",@"月",@"年",@"全部"] configure:config];
+    self.titleView.backgroundColor = [UIColor colorWithHexString:@"#1E1E1E"];
+    [self.collectionView addSubview:self.titleView];
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -49,7 +60,7 @@
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    return section == 0 ? UIEdgeInsetsMake(15, 15, 0, 15) : UIEdgeInsetsZero;
+    return section == 0 ? UIEdgeInsetsMake(55, 15, 0, 15) : UIEdgeInsetsZero;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{

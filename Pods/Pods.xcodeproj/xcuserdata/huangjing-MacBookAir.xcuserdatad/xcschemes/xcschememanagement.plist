@@ -81,12 +81,19 @@
 			<key>orderHint</key>
 			<integer>12</integer>
 		</dict>
-		<key>WMZCode.xcscheme</key>
+		<key>SGPagingView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>13</integer>
+		</dict>
+		<key>WMZCode.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>14</integer>
 		</dict>
 		<key>iOS-Echarts-iOS-Echarts.xcscheme</key>
 		<dict>
