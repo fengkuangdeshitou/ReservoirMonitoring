@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DebugCollectionViewCell" id="gTV-IL-0wX" customClass="DebugCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="132" height="172"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="132" height="172"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJI-Kx-l3b">
+                        <rect key="frame" x="0.0" y="0.0" width="132" height="172"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pq9-wU-9Wc">
+                                <rect key="frame" x="29.5" y="34" width="73" height="73"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Twy-iq-HaG">
+                                        <rect key="frame" x="20.5" y="20.5" width="32" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="4LZ-bh-spn"/>
+                                            <constraint firstAttribute="width" constant="32" id="Z77-J7-ep0"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.074509803921568626" green="0.078431372549019607" blue="0.082352941176470587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Twy-iq-HaG" firstAttribute="centerX" secondItem="pq9-wU-9Wc" secondAttribute="centerX" id="Fub-jI-H9E"/>
+                                    <constraint firstAttribute="height" constant="73" id="K6P-wN-lji"/>
+                                    <constraint firstAttribute="width" constant="73" id="LDl-Dg-TcM"/>
+                                    <constraint firstItem="Twy-iq-HaG" firstAttribute="centerY" secondItem="pq9-wU-9Wc" secondAttribute="centerY" id="LuL-LC-fiK"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="36.5"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电网设置" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IcL-9E-pZw">
+                                <rect key="frame" x="29.5" y="119" width="73.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.10588235294117647" green="0.10588235294117647" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="IcL-9E-pZw" firstAttribute="top" secondItem="pq9-wU-9Wc" secondAttribute="bottom" constant="12" id="P3c-G4-ltd"/>
+                            <constraint firstItem="pq9-wU-9Wc" firstAttribute="centerX" secondItem="sJI-Kx-l3b" secondAttribute="centerX" id="PVm-ym-miK"/>
+                            <constraint firstItem="IcL-9E-pZw" firstAttribute="centerX" secondItem="sJI-Kx-l3b" secondAttribute="centerX" id="du2-Qf-mf1"/>
+                            <constraint firstItem="pq9-wU-9Wc" firstAttribute="top" secondItem="sJI-Kx-l3b" secondAttribute="top" constant="34" id="vAJ-wW-w1Q"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="4"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="sJI-Kx-l3b" secondAttribute="bottom" id="6uD-je-Scx"/>
+                <constraint firstItem="sJI-Kx-l3b" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ByE-6Z-Rst"/>
+                <constraint firstItem="sJI-Kx-l3b" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="jDe-3v-KUV"/>
+                <constraint firstAttribute="trailing" secondItem="sJI-Kx-l3b" secondAttribute="trailing" id="zpV-g7-qvx"/>
+            </constraints>
+            <size key="customSize" width="132" height="172"/>
+            <point key="canvasLocation" x="197.10144927536234" y="128.57142857142856"/>
+        </collectionViewCell>
+    </objects>
+</document>

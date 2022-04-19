@@ -22,6 +22,36 @@
 		BD2DEF5D28044B58004E8D7D /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2DEF5C28044B58004E8D7D /* NavigationViewController.m */; };
 		BD2DEF6528044C1F004E8D7D /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2DEF6328044C1F004E8D7D /* HomeViewController.m */; };
 		BD2DEF6628044C1F004E8D7D /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD2DEF6428044C1F004E8D7D /* HomeViewController.xib */; };
+		BD8FDA40280D5F91000036DD /* UpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8FDA3E280D5F91000036DD /* UpdateViewController.m */; };
+		BD8FDA41280D5F91000036DD /* UpdateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8FDA3F280D5F91000036DD /* UpdateViewController.xib */; };
+		BD8FDA46280EEB4A000036DD /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8FDA44280EEB4A000036DD /* HelpViewController.m */; };
+		BD8FDA47280EEB4A000036DD /* HelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8FDA45280EEB4A000036DD /* HelpViewController.xib */; };
+		BD8FDA4C280EEBF5000036DD /* HelpTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8FDA4A280EEBF5000036DD /* HelpTableViewCell.m */; };
+		BD8FDA4D280EEBF5000036DD /* HelpTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8FDA4B280EEBF5000036DD /* HelpTableViewCell.xib */; };
+		BD8FDA52280EED5A000036DD /* WarningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8FDA50280EED5A000036DD /* WarningViewController.m */; };
+		BD8FDA53280EED5A000036DD /* WarningViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8FDA51280EED5A000036DD /* WarningViewController.xib */; };
+		BD8FDA57280EEED3000036DD /* WarningListView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8FDA56280EEED3000036DD /* WarningListView.m */; };
+		BD8FDA5B280EEF88000036DD /* WarningTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8FDA59280EEF88000036DD /* WarningTableViewCell.m */; };
+		BD8FDA5C280EEF88000036DD /* WarningTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8FDA5A280EEF88000036DD /* WarningTableViewCell.xib */; };
+		BD8FDA61280EF17E000036DD /* DebugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8FDA5F280EF17E000036DD /* DebugViewController.m */; };
+		BD8FDA62280EF17E000036DD /* DebugViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8FDA60280EF17E000036DD /* DebugViewController.xib */; };
+		BD8FDA67280EF1DE000036DD /* DebugCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8FDA65280EF1DE000036DD /* DebugCollectionViewCell.m */; };
+		BD8FDA68280EF1DE000036DD /* DebugCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8FDA66280EF1DE000036DD /* DebugCollectionViewCell.xib */; };
+		BD8FDA6D280EF582000036DD /* AddDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8FDA6B280EF582000036DD /* AddDeviceViewController.m */; };
+		BD8FDA6E280EF582000036DD /* AddDeviceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8FDA6C280EF582000036DD /* AddDeviceViewController.xib */; };
+		BD8FDA73280EF5D7000036DD /* AddDeviceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8FDA71280EF5D7000036DD /* AddDeviceTableViewCell.m */; };
+		BD8FDA74280EF5D7000036DD /* AddDeviceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8FDA72280EF5D7000036DD /* AddDeviceTableViewCell.xib */; };
+		BD8FDA79280EF904000036DD /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8FDA77280EF904000036DD /* ScanViewController.m */; };
+		BD8FDA7A280EF904000036DD /* ScanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8FDA78280EF904000036DD /* ScanViewController.xib */; };
+		BD8FDA7D280EFDDA000036DD /* ScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8FDA7C280EFDDA000036DD /* ScanView.m */; };
+		BD907360280D4B1A00044013 /* SetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD90735E280D4B1A00044013 /* SetTableViewCell.m */; };
+		BD907361280D4B1A00044013 /* SetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD90735F280D4B1A00044013 /* SetTableViewCell.xib */; };
+		BD907365280D4B4900044013 /* SetInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD907363280D4B4900044013 /* SetInfoTableViewCell.m */; };
+		BD907366280D4B4900044013 /* SetInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD907364280D4B4900044013 /* SetInfoTableViewCell.xib */; };
+		BD90736B280D535700044013 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD907369280D535700044013 /* InfoViewController.m */; };
+		BD90736C280D535700044013 /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD90736A280D535700044013 /* InfoViewController.xib */; };
+		BD907371280D5B0600044013 /* InfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD90736F280D5B0600044013 /* InfoTableViewCell.m */; };
+		BD907372280D5B0600044013 /* InfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD907370280D5B0600044013 /* InfoTableViewCell.xib */; };
 		BDE889F928044DA700081114 /* RMHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE889F828044DA700081114 /* RMHelper.m */; };
 		BDE889FD28044E7C00081114 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE889FC28044E7C00081114 /* UIColor+HexString.m */; };
 		BDE88A012804540C00081114 /* GlobalValue.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A002804540C00081114 /* GlobalValue.m */; };
@@ -118,6 +148,52 @@
 		BD2DEF6228044C1F004E8D7D /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		BD2DEF6328044C1F004E8D7D /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		BD2DEF6428044C1F004E8D7D /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		BD8FDA3D280D5F91000036DD /* UpdateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateViewController.h; sourceTree = "<group>"; };
+		BD8FDA3E280D5F91000036DD /* UpdateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdateViewController.m; sourceTree = "<group>"; };
+		BD8FDA3F280D5F91000036DD /* UpdateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateViewController.xib; sourceTree = "<group>"; };
+		BD8FDA43280EEB4A000036DD /* HelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		BD8FDA44280EEB4A000036DD /* HelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		BD8FDA45280EEB4A000036DD /* HelpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HelpViewController.xib; sourceTree = "<group>"; };
+		BD8FDA49280EEBF5000036DD /* HelpTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpTableViewCell.h; sourceTree = "<group>"; };
+		BD8FDA4A280EEBF5000036DD /* HelpTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpTableViewCell.m; sourceTree = "<group>"; };
+		BD8FDA4B280EEBF5000036DD /* HelpTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HelpTableViewCell.xib; sourceTree = "<group>"; };
+		BD8FDA4F280EED5A000036DD /* WarningViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarningViewController.h; sourceTree = "<group>"; };
+		BD8FDA50280EED5A000036DD /* WarningViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarningViewController.m; sourceTree = "<group>"; };
+		BD8FDA51280EED5A000036DD /* WarningViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WarningViewController.xib; sourceTree = "<group>"; };
+		BD8FDA55280EEED3000036DD /* WarningListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarningListView.h; sourceTree = "<group>"; };
+		BD8FDA56280EEED3000036DD /* WarningListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarningListView.m; sourceTree = "<group>"; };
+		BD8FDA58280EEF88000036DD /* WarningTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarningTableViewCell.h; sourceTree = "<group>"; };
+		BD8FDA59280EEF88000036DD /* WarningTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarningTableViewCell.m; sourceTree = "<group>"; };
+		BD8FDA5A280EEF88000036DD /* WarningTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WarningTableViewCell.xib; sourceTree = "<group>"; };
+		BD8FDA5E280EF17E000036DD /* DebugViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugViewController.h; sourceTree = "<group>"; };
+		BD8FDA5F280EF17E000036DD /* DebugViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DebugViewController.m; sourceTree = "<group>"; };
+		BD8FDA60280EF17E000036DD /* DebugViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugViewController.xib; sourceTree = "<group>"; };
+		BD8FDA64280EF1DE000036DD /* DebugCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugCollectionViewCell.h; sourceTree = "<group>"; };
+		BD8FDA65280EF1DE000036DD /* DebugCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DebugCollectionViewCell.m; sourceTree = "<group>"; };
+		BD8FDA66280EF1DE000036DD /* DebugCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugCollectionViewCell.xib; sourceTree = "<group>"; };
+		BD8FDA6A280EF582000036DD /* AddDeviceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddDeviceViewController.h; sourceTree = "<group>"; };
+		BD8FDA6B280EF582000036DD /* AddDeviceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddDeviceViewController.m; sourceTree = "<group>"; };
+		BD8FDA6C280EF582000036DD /* AddDeviceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddDeviceViewController.xib; sourceTree = "<group>"; };
+		BD8FDA70280EF5D7000036DD /* AddDeviceTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddDeviceTableViewCell.h; sourceTree = "<group>"; };
+		BD8FDA71280EF5D7000036DD /* AddDeviceTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddDeviceTableViewCell.m; sourceTree = "<group>"; };
+		BD8FDA72280EF5D7000036DD /* AddDeviceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddDeviceTableViewCell.xib; sourceTree = "<group>"; };
+		BD8FDA76280EF904000036DD /* ScanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
+		BD8FDA77280EF904000036DD /* ScanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
+		BD8FDA78280EF904000036DD /* ScanViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanViewController.xib; sourceTree = "<group>"; };
+		BD8FDA7B280EFDDA000036DD /* ScanView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanView.h; sourceTree = "<group>"; };
+		BD8FDA7C280EFDDA000036DD /* ScanView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanView.m; sourceTree = "<group>"; };
+		BD90735D280D4B1A00044013 /* SetTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetTableViewCell.h; sourceTree = "<group>"; };
+		BD90735E280D4B1A00044013 /* SetTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetTableViewCell.m; sourceTree = "<group>"; };
+		BD90735F280D4B1A00044013 /* SetTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetTableViewCell.xib; sourceTree = "<group>"; };
+		BD907362280D4B4900044013 /* SetInfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetInfoTableViewCell.h; sourceTree = "<group>"; };
+		BD907363280D4B4900044013 /* SetInfoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetInfoTableViewCell.m; sourceTree = "<group>"; };
+		BD907364280D4B4900044013 /* SetInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetInfoTableViewCell.xib; sourceTree = "<group>"; };
+		BD907368280D535700044013 /* InfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
+		BD907369280D535700044013 /* InfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
+		BD90736A280D535700044013 /* InfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoViewController.xib; sourceTree = "<group>"; };
+		BD90736E280D5B0600044013 /* InfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoTableViewCell.h; sourceTree = "<group>"; };
+		BD90736F280D5B0600044013 /* InfoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoTableViewCell.m; sourceTree = "<group>"; };
+		BD907370280D5B0600044013 /* InfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoTableViewCell.xib; sourceTree = "<group>"; };
 		BDE889F728044DA700081114 /* RMHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMHelper.h; sourceTree = "<group>"; };
 		BDE889F828044DA700081114 /* RMHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMHelper.m; sourceTree = "<group>"; };
 		BDE889FB28044E7C00081114 /* UIColor+HexString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexString.h"; sourceTree = "<group>"; };
@@ -340,6 +416,150 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		BD8FDA42280EEB3A000036DD /* Help */ = {
+			isa = PBXGroup;
+			children = (
+				BD8FDA43280EEB4A000036DD /* HelpViewController.h */,
+				BD8FDA44280EEB4A000036DD /* HelpViewController.m */,
+				BD8FDA45280EEB4A000036DD /* HelpViewController.xib */,
+				BD8FDA48280EEBDC000036DD /* View */,
+			);
+			path = Help;
+			sourceTree = "<group>";
+		};
+		BD8FDA48280EEBDC000036DD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BD8FDA49280EEBF5000036DD /* HelpTableViewCell.h */,
+				BD8FDA4A280EEBF5000036DD /* HelpTableViewCell.m */,
+				BD8FDA4B280EEBF5000036DD /* HelpTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BD8FDA4E280EED4B000036DD /* Warning */ = {
+			isa = PBXGroup;
+			children = (
+				BD8FDA4F280EED5A000036DD /* WarningViewController.h */,
+				BD8FDA50280EED5A000036DD /* WarningViewController.m */,
+				BD8FDA51280EED5A000036DD /* WarningViewController.xib */,
+				BD8FDA54280EEEBE000036DD /* View */,
+			);
+			path = Warning;
+			sourceTree = "<group>";
+		};
+		BD8FDA54280EEEBE000036DD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BD8FDA55280EEED3000036DD /* WarningListView.h */,
+				BD8FDA56280EEED3000036DD /* WarningListView.m */,
+				BD8FDA58280EEF88000036DD /* WarningTableViewCell.h */,
+				BD8FDA59280EEF88000036DD /* WarningTableViewCell.m */,
+				BD8FDA5A280EEF88000036DD /* WarningTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BD8FDA5D280EF16E000036DD /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				BD8FDA5E280EF17E000036DD /* DebugViewController.h */,
+				BD8FDA5F280EF17E000036DD /* DebugViewController.m */,
+				BD8FDA60280EF17E000036DD /* DebugViewController.xib */,
+				BD8FDA69280EF567000036DD /* AddDevice */,
+				BD8FDA63280EF1C0000036DD /* View */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
+		BD8FDA63280EF1C0000036DD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BD8FDA64280EF1DE000036DD /* DebugCollectionViewCell.h */,
+				BD8FDA65280EF1DE000036DD /* DebugCollectionViewCell.m */,
+				BD8FDA66280EF1DE000036DD /* DebugCollectionViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BD8FDA69280EF567000036DD /* AddDevice */ = {
+			isa = PBXGroup;
+			children = (
+				BD8FDA6A280EF582000036DD /* AddDeviceViewController.h */,
+				BD8FDA6B280EF582000036DD /* AddDeviceViewController.m */,
+				BD8FDA6C280EF582000036DD /* AddDeviceViewController.xib */,
+				BD8FDA75280EF8F4000036DD /* Scan */,
+				BD8FDA6F280EF5C5000036DD /* View */,
+			);
+			path = AddDevice;
+			sourceTree = "<group>";
+		};
+		BD8FDA6F280EF5C5000036DD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BD8FDA70280EF5D7000036DD /* AddDeviceTableViewCell.h */,
+				BD8FDA71280EF5D7000036DD /* AddDeviceTableViewCell.m */,
+				BD8FDA72280EF5D7000036DD /* AddDeviceTableViewCell.xib */,
+				BD8FDA7B280EFDDA000036DD /* ScanView.h */,
+				BD8FDA7C280EFDDA000036DD /* ScanView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BD8FDA75280EF8F4000036DD /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				BD8FDA76280EF904000036DD /* ScanViewController.h */,
+				BD8FDA77280EF904000036DD /* ScanViewController.m */,
+				BD8FDA78280EF904000036DD /* ScanViewController.xib */,
+			);
+			path = Scan;
+			sourceTree = "<group>";
+		};
+		BD90735C280D4B0200044013 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BD90735D280D4B1A00044013 /* SetTableViewCell.h */,
+				BD90735E280D4B1A00044013 /* SetTableViewCell.m */,
+				BD90735F280D4B1A00044013 /* SetTableViewCell.xib */,
+				BD907362280D4B4900044013 /* SetInfoTableViewCell.h */,
+				BD907363280D4B4900044013 /* SetInfoTableViewCell.m */,
+				BD907364280D4B4900044013 /* SetInfoTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BD907367280D534600044013 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				BD907368280D535700044013 /* InfoViewController.h */,
+				BD907369280D535700044013 /* InfoViewController.m */,
+				BD90736A280D535700044013 /* InfoViewController.xib */,
+				BD90736D280D5AEC00044013 /* View */,
+			);
+			path = Info;
+			sourceTree = "<group>";
+		};
+		BD90736D280D5AEC00044013 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BD90736E280D5B0600044013 /* InfoTableViewCell.h */,
+				BD90736F280D5B0600044013 /* InfoTableViewCell.m */,
+				BD907370280D5B0600044013 /* InfoTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BD907373280D5EF400044013 /* Update */ = {
+			isa = PBXGroup;
+			children = (
+				BD8FDA3D280D5F91000036DD /* UpdateViewController.h */,
+				BD8FDA3E280D5F91000036DD /* UpdateViewController.m */,
+				BD8FDA3F280D5F91000036DD /* UpdateViewController.xib */,
+			);
+			path = Update;
+			sourceTree = "<group>";
+		};
 		BDE889F628044D8B00081114 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -387,6 +607,12 @@
 				BDE88A0C28046FE100081114 /* SetViewController.h */,
 				BDE88A0D28046FE100081114 /* SetViewController.m */,
 				BDE88A0E28046FE100081114 /* SetViewController.xib */,
+				BD8FDA5D280EF16E000036DD /* Debug */,
+				BD8FDA4E280EED4B000036DD /* Warning */,
+				BD8FDA42280EEB3A000036DD /* Help */,
+				BD907373280D5EF400044013 /* Update */,
+				BD907367280D534600044013 /* Info */,
+				BD90735C280D4B0200044013 /* View */,
 			);
 			path = Set;
 			sourceTree = "<group>";
@@ -621,23 +847,37 @@
 				BD2DEF2E28044A74004E8D7D /* LaunchScreen.storyboard in Resources */,
 				BDE88A0A28046F7D00081114 /* DataViewController.xib in Resources */,
 				BDE88A2B2805C47C00081114 /* RegisterTableViewCell.xib in Resources */,
+				BD8FDA53280EED5A000036DD /* WarningViewController.xib in Resources */,
 				BDE88A5F280ABD4600081114 /* SwitchModelTableViewCell.xib in Resources */,
+				BD907361280D4B1A00044013 /* SetTableViewCell.xib in Resources */,
 				BDE88A64280AC2B200081114 /* SwitchProgressTableViewCell.xib in Resources */,
+				BD8FDA6E280EF582000036DD /* AddDeviceViewController.xib in Resources */,
 				BDE88A6E280ACA8C00081114 /* TimeTableViewCell.xib in Resources */,
 				BDE88A1F2805A0D800081114 /* ImageAuthenticationView.xib in Resources */,
 				BD2DEF2B28044A74004E8D7D /* Assets.xcassets in Resources */,
 				BD2DEF2928044A6E004E8D7D /* Main.storyboard in Resources */,
+				BD90736C280D535700044013 /* InfoViewController.xib in Resources */,
 				BDE88A242805C3F800081114 /* RegisterViewController.xib in Resources */,
 				BDE88A53280A7C0300081114 /* DeviceSwitchTableViewCell.xib in Resources */,
 				BDE88A79280B12A900081114 /* DataEchartsCollectionViewCell.xib in Resources */,
 				BD2DEF6628044C1F004E8D7D /* HomeViewController.xib in Resources */,
+				BD907372280D5B0600044013 /* InfoTableViewCell.xib in Resources */,
+				BD8FDA62280EF17E000036DD /* DebugViewController.xib in Resources */,
 				BDE88A74280B0E5D00081114 /* DataCollectionViewCell.xib in Resources */,
+				BD8FDA5C280EEF88000036DD /* WarningTableViewCell.xib in Resources */,
+				BD8FDA41280D5F91000036DD /* UpdateViewController.xib in Resources */,
+				BD8FDA4D280EEBF5000036DD /* HelpTableViewCell.xib in Resources */,
+				BD8FDA74280EF5D7000036DD /* AddDeviceTableViewCell.xib in Resources */,
 				BDE88A69280AC7C600081114 /* PeakTimeTableViewCell.xib in Resources */,
 				BDE88A4228070EA000081114 /* HomeTableViewCell.xib in Resources */,
+				BD907366280D4B4900044013 /* SetInfoTableViewCell.xib in Resources */,
 				BDE88A59280AB78B00081114 /* SwitchModeViewController.xib in Resources */,
+				BD8FDA68280EF1DE000036DD /* DebugCollectionViewCell.xib in Resources */,
 				BDE88A392805D66200081114 /* SetPasswordViewController.xib in Resources */,
+				BD8FDA47280EEB4A000036DD /* HelpViewController.xib in Resources */,
 				BDE88A1928047B2600081114 /* LoginViewController.xib in Resources */,
 				BDE88A1028046FE100081114 /* SetViewController.xib in Resources */,
+				BD8FDA7A280EF904000036DD /* ScanViewController.xib in Resources */,
 				BDE88A342805D05000081114 /* ForgotViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -768,18 +1008,26 @@
 			files = (
 				BDE88A6D280ACA8B00081114 /* TimeTableViewCell.m in Sources */,
 				BDE88A382805D66200081114 /* SetPasswordViewController.m in Sources */,
+				BD8FDA5B280EEF88000036DD /* WarningTableViewCell.m in Sources */,
+				BD90736B280D535700044013 /* InfoViewController.m in Sources */,
 				BD2DEF5928044B27004E8D7D /* TabbarViewController.m in Sources */,
 				BDE88A2A2805C47C00081114 /* RegisterTableViewCell.m in Sources */,
+				BD8FDA52280EED5A000036DD /* WarningViewController.m in Sources */,
 				BDE88A5E280ABD4600081114 /* SwitchModelTableViewCell.m in Sources */,
 				BD2DEF2028044A6E004E8D7D /* AppDelegate.m in Sources */,
 				BDE88A132804714E00081114 /* BaseViewController+BarButtonItem.m in Sources */,
+				BD8FDA4C280EEBF5000036DD /* HelpTableViewCell.m in Sources */,
 				BDE88A452807187600081114 /* HomeItemView.m in Sources */,
+				BD907371280D5B0600044013 /* InfoTableViewCell.m in Sources */,
 				BDE88A482808771B00081114 /* HomeProgressView.m in Sources */,
 				BDE88A1D2805A0BF00081114 /* ImageAuthenticationView.m in Sources */,
 				BDE88A012804540C00081114 /* GlobalValue.m in Sources */,
 				BDE88A2E2805CDC100081114 /* UIView+Border.m in Sources */,
 				BDE88A73280B0E5D00081114 /* DataCollectionViewCell.m in Sources */,
+				BD8FDA67280EF1DE000036DD /* DebugCollectionViewCell.m in Sources */,
+				BD8FDA46280EEB4A000036DD /* HelpViewController.m in Sources */,
 				BDE88A1828047B2600081114 /* LoginViewController.m in Sources */,
+				BD8FDA7D280EFDDA000036DD /* ScanView.m in Sources */,
 				BDE88A3C2805DA0700081114 /* UITextField+PlaceholderColor.m in Sources */,
 				BDE889FD28044E7C00081114 /* UIColor+HexString.m in Sources */,
 				BDE88A232805C3F800081114 /* RegisterViewController.m in Sources */,
@@ -790,16 +1038,24 @@
 				BD2DEF5D28044B58004E8D7D /* NavigationViewController.m in Sources */,
 				BDE88A58280AB78B00081114 /* SwitchModeViewController.m in Sources */,
 				BD2DEF5628044B05004E8D7D /* BaseViewController.m in Sources */,
+				BD8FDA73280EF5D7000036DD /* AddDeviceTableViewCell.m in Sources */,
+				BD8FDA79280EF904000036DD /* ScanViewController.m in Sources */,
 				BDE88A63280AC2B200081114 /* SwitchProgressTableViewCell.m in Sources */,
 				BDE88A4B28087E2F00081114 /* UIView+Extension.m in Sources */,
 				BDE889F928044DA700081114 /* RMHelper.m in Sources */,
+				BD8FDA40280D5F91000036DD /* UpdateViewController.m in Sources */,
 				BDE88A4E280A776500081114 /* DeviceSwitchView.m in Sources */,
 				BDE88A52280A7C0300081114 /* DeviceSwitchTableViewCell.m in Sources */,
 				BDE88A78280B12A900081114 /* DataEchartsCollectionViewCell.m in Sources */,
+				BD8FDA57280EEED3000036DD /* WarningListView.m in Sources */,
 				BD2DEF3128044A74004E8D7D /* main.m in Sources */,
 				BDE88A0928046F7D00081114 /* DataViewController.m in Sources */,
+				BD907365280D4B4900044013 /* SetInfoTableViewCell.m in Sources */,
 				BDE88A68280AC7C600081114 /* PeakTimeTableViewCell.m in Sources */,
+				BD907360280D4B1A00044013 /* SetTableViewCell.m in Sources */,
+				BD8FDA6D280EF582000036DD /* AddDeviceViewController.m in Sources */,
 				BD2DEF6528044C1F004E8D7D /* HomeViewController.m in Sources */,
+				BD8FDA61280EF17E000036DD /* DebugViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -978,6 +1234,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ReservoirMonitoring/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReservoirMonitoring/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "扫码";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1009,6 +1266,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ReservoirMonitoring/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReservoirMonitoring/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "扫码";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

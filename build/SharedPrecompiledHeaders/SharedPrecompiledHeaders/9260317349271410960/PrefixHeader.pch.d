@@ -1,6 +1,6 @@
 dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/PrefixHeader.pch \
-  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Category/UIColor+HexString.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Tools/RMHelper.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/UIKit.framework/Modules/module.modulemap \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/usr/include/module.modulemap \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/usr/include/mach-o/module.modulemap \
@@ -1299,6 +1299,7 @@ dependencies: \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIActivityItemProvider.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIActivityViewController.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIDocumentInteractionController.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Category/UIColor+HexString.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Tools/GlobalValue.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Category/NSString+Localiced.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Category/BaseViewController+BarButtonItem.h \

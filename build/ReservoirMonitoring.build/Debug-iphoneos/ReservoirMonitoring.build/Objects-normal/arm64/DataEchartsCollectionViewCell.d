@@ -24,6 +24,7 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Category/NSString+Localiced.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Tools/GlobalValue.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Category/UIColor+HexString.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Tools/RMHelper.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/PrefixHeader.pch \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Data/View/DataEchartsCollectionViewCell.m \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Data/View/DataEchartsCollectionViewCell.h \

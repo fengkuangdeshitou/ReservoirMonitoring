@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HelpTableViewCell" rowHeight="123" id="KGk-i7-Jjw" customClass="HelpTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="333" height="123"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="333" height="123"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="St4-b5-qLY">
+                        <rect key="frame" x="15" y="0.0" width="303" height="123"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Wall" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fbd-2d-Xvf">
+                                <rect key="frame" x="15" y="20" width="59" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="这张具有纪念意义的专辑其实是Pink Flody两位成员真实生活的写照。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQp-uT-beW">
+                                <rect key="frame" x="15" y="44" width="273" height="64"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W17-a8-HZW">
+                                <rect key="frame" x="15" y="122.5" width="273" height="0.5"/>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="w2N-3K-Iyb"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.10588235294117647" green="0.10588235294117647" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="W17-a8-HZW" firstAttribute="leading" secondItem="St4-b5-qLY" secondAttribute="leading" constant="15" id="11L-Q3-UmV"/>
+                            <constraint firstItem="XQp-uT-beW" firstAttribute="top" secondItem="Fbd-2d-Xvf" secondAttribute="bottom" constant="6" id="15W-aw-K4B"/>
+                            <constraint firstItem="XQp-uT-beW" firstAttribute="leading" secondItem="St4-b5-qLY" secondAttribute="leading" constant="15" id="577-5H-k5E"/>
+                            <constraint firstItem="Fbd-2d-Xvf" firstAttribute="leading" secondItem="St4-b5-qLY" secondAttribute="leading" constant="15" id="A2p-Q1-IIP"/>
+                            <constraint firstAttribute="bottom" secondItem="W17-a8-HZW" secondAttribute="bottom" id="AUR-f1-JrW"/>
+                            <constraint firstAttribute="bottom" secondItem="XQp-uT-beW" secondAttribute="bottom" constant="15" id="GIG-KK-oyC"/>
+                            <constraint firstAttribute="trailing" secondItem="XQp-uT-beW" secondAttribute="trailing" constant="15" id="ccc-uV-Afy"/>
+                            <constraint firstAttribute="trailing" secondItem="W17-a8-HZW" secondAttribute="trailing" constant="15" id="feQ-FX-17R"/>
+                            <constraint firstItem="Fbd-2d-Xvf" firstAttribute="top" secondItem="St4-b5-qLY" secondAttribute="top" constant="20" id="oy8-az-DlL"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="St4-b5-qLY" secondAttribute="trailing" constant="15" id="HVA-Co-CSi"/>
+                    <constraint firstItem="St4-b5-qLY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="LRQ-DJ-5d6"/>
+                    <constraint firstAttribute="bottom" secondItem="St4-b5-qLY" secondAttribute="bottom" id="X5v-tn-UEC"/>
+                    <constraint firstItem="St4-b5-qLY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="YL0-xr-eOP"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <point key="canvasLocation" x="147.10144927536234" y="114.17410714285714"/>
+        </tableViewCell>
+    </objects>
+</document>
