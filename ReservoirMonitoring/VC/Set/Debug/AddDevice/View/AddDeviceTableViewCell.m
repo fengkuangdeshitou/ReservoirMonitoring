@@ -8,11 +8,20 @@
 #import "AddDeviceTableViewCell.h"
 #import "ScanViewController.h"
 
+@interface AddDeviceTableViewCell ()
+
+@property(nonatomic,weak)IBOutlet UILabel * titleLabel;
+
+@end
+
 @implementation AddDeviceTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.titleLabel.text = @"Smart Gateway info".localized;
+    self.idtextfield.placeholder = @"Please input device SN".localized;
+    self.nametextfield.placeholder = @"Please input a name for this device".localized;
 }
 
 - (IBAction)scanAction:(id)sender{

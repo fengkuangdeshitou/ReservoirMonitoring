@@ -10,6 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterViewController">
             <connections>
+                <outlet property="agree" destination="8EG-vO-nzf" id="yMr-fD-Pyu"/>
+                <outlet property="agreement" destination="6nj-ep-kFT" id="BoW-oU-fyZ"/>
                 <outlet property="loginBtn" destination="6Yp-wv-Mzp" id="AjN-QB-q6b"/>
                 <outlet property="registerBtn" destination="60K-hT-6xY" id="jv2-BY-K5i"/>
                 <outlet property="tableView" destination="EqP-Vc-FA0" id="iN1-YE-OgN"/>

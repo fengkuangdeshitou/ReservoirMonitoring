@@ -22,7 +22,7 @@
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
 //    LoginViewController * login = [[LoginViewController alloc] init];
 //    NavigationViewController * nav = [[NavigationViewController alloc] initWithRootViewController:login];
-//    nav.title = @"Login";
+//    login.title = @"Login".localized;
 //    self.window.rootViewController = nav;
     TabbarViewController * tabbar = [[TabbarViewController alloc] init];
     self.window.rootViewController = tabbar;

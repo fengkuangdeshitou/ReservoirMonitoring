@@ -97,6 +97,13 @@
 		BDE88A74280B0E5D00081114 /* DataCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A72280B0E5D00081114 /* DataCollectionViewCell.xib */; };
 		BDE88A78280B12A900081114 /* DataEchartsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A76280B12A900081114 /* DataEchartsCollectionViewCell.m */; };
 		BDE88A79280B12A900081114 /* DataEchartsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A77280B12A900081114 /* DataEchartsCollectionViewCell.xib */; };
+		BDFA3A8E28256154004A7E8C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BDFA3A9028256154004A7E8C /* Localizable.strings */; };
+		BDFA3A9528256FF0004A7E8C /* AddDeviceSNTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFA3A9328256FF0004A7E8C /* AddDeviceSNTableViewCell.m */; };
+		BDFA3A9628256FF0004A7E8C /* AddDeviceSNTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDFA3A9428256FF0004A7E8C /* AddDeviceSNTableViewCell.xib */; };
+		BDFA3A9A28257325004A7E8C /* AddDeviceActionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFA3A9828257325004A7E8C /* AddDeviceActionTableViewCell.m */; };
+		BDFA3A9B28257325004A7E8C /* AddDeviceActionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDFA3A9928257325004A7E8C /* AddDeviceActionTableViewCell.xib */; };
+		BDFA3AA028257686004A7E8C /* AddAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFA3A9E28257686004A7E8C /* AddAddressViewController.m */; };
+		BDFA3AA128257686004A7E8C /* AddAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDFA3A9F28257686004A7E8C /* AddAddressViewController.xib */; };
 		EE5872C07D0EEF180B2864E7 /* Pods_ReservoirMonitoringTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263B1F2000C58A09A71CC682 /* Pods_ReservoirMonitoringTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -268,6 +275,19 @@
 		BDE88A75280B12A900081114 /* DataEchartsCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataEchartsCollectionViewCell.h; sourceTree = "<group>"; };
 		BDE88A76280B12A900081114 /* DataEchartsCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataEchartsCollectionViewCell.m; sourceTree = "<group>"; };
 		BDE88A77280B12A900081114 /* DataEchartsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DataEchartsCollectionViewCell.xib; sourceTree = "<group>"; };
+		BDFA3A8A282560D8004A7E8C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		BDFA3A8B282560D9004A7E8C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		BDFA3A8F28256154004A7E8C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BDFA3A9128256158004A7E8C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		BDFA3A9228256FF0004A7E8C /* AddDeviceSNTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddDeviceSNTableViewCell.h; sourceTree = "<group>"; };
+		BDFA3A9328256FF0004A7E8C /* AddDeviceSNTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddDeviceSNTableViewCell.m; sourceTree = "<group>"; };
+		BDFA3A9428256FF0004A7E8C /* AddDeviceSNTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddDeviceSNTableViewCell.xib; sourceTree = "<group>"; };
+		BDFA3A9728257325004A7E8C /* AddDeviceActionTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddDeviceActionTableViewCell.h; sourceTree = "<group>"; };
+		BDFA3A9828257325004A7E8C /* AddDeviceActionTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddDeviceActionTableViewCell.m; sourceTree = "<group>"; };
+		BDFA3A9928257325004A7E8C /* AddDeviceActionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddDeviceActionTableViewCell.xib; sourceTree = "<group>"; };
+		BDFA3A9D28257686004A7E8C /* AddAddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddAddressViewController.h; sourceTree = "<group>"; };
+		BDFA3A9E28257686004A7E8C /* AddAddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddAddressViewController.m; sourceTree = "<group>"; };
+		BDFA3A9F28257686004A7E8C /* AddAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAddressViewController.xib; sourceTree = "<group>"; };
 		F2A4884BA2636547281AEFF1 /* Pods-ReservoirMonitoring.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReservoirMonitoring.release.xcconfig"; path = "Target Support Files/Pods-ReservoirMonitoring/Pods-ReservoirMonitoring.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -356,6 +376,7 @@
 				BD2DEF2A28044A74004E8D7D /* Assets.xcassets */,
 				BD2DEF2C28044A74004E8D7D /* LaunchScreen.storyboard */,
 				BD2DEF2F28044A74004E8D7D /* Info.plist */,
+				BDFA3A9028256154004A7E8C /* Localizable.strings */,
 				BDE889FE28044EE700081114 /* PrefixHeader.pch */,
 				BD2DEF3028044A74004E8D7D /* main.m */,
 			);
@@ -488,6 +509,7 @@
 				BD8FDA6A280EF582000036DD /* AddDeviceViewController.h */,
 				BD8FDA6B280EF582000036DD /* AddDeviceViewController.m */,
 				BD8FDA6C280EF582000036DD /* AddDeviceViewController.xib */,
+				BDFA3A9C28257674004A7E8C /* AddAddress */,
 				BD8FDA75280EF8F4000036DD /* Scan */,
 				BD8FDA6F280EF5C5000036DD /* View */,
 			);
@@ -500,6 +522,12 @@
 				BD8FDA70280EF5D7000036DD /* AddDeviceTableViewCell.h */,
 				BD8FDA71280EF5D7000036DD /* AddDeviceTableViewCell.m */,
 				BD8FDA72280EF5D7000036DD /* AddDeviceTableViewCell.xib */,
+				BDFA3A9228256FF0004A7E8C /* AddDeviceSNTableViewCell.h */,
+				BDFA3A9328256FF0004A7E8C /* AddDeviceSNTableViewCell.m */,
+				BDFA3A9428256FF0004A7E8C /* AddDeviceSNTableViewCell.xib */,
+				BDFA3A9728257325004A7E8C /* AddDeviceActionTableViewCell.h */,
+				BDFA3A9828257325004A7E8C /* AddDeviceActionTableViewCell.m */,
+				BDFA3A9928257325004A7E8C /* AddDeviceActionTableViewCell.xib */,
 				BD8FDA7B280EFDDA000036DD /* ScanView.h */,
 				BD8FDA7C280EFDDA000036DD /* ScanView.m */,
 			);
@@ -736,6 +764,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		BDFA3A9C28257674004A7E8C /* AddAddress */ = {
+			isa = PBXGroup;
+			children = (
+				BDFA3A9D28257686004A7E8C /* AddAddressViewController.h */,
+				BDFA3A9E28257686004A7E8C /* AddAddressViewController.m */,
+				BDFA3A9F28257686004A7E8C /* AddAddressViewController.xib */,
+			);
+			path = AddAddress;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -826,6 +864,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = BD2DEF1228044A6E004E8D7D;
 			productRefGroup = BD2DEF1C28044A6E004E8D7D /* Products */;
@@ -849,14 +888,17 @@
 				BDE88A2B2805C47C00081114 /* RegisterTableViewCell.xib in Resources */,
 				BD8FDA53280EED5A000036DD /* WarningViewController.xib in Resources */,
 				BDE88A5F280ABD4600081114 /* SwitchModelTableViewCell.xib in Resources */,
+				BDFA3AA128257686004A7E8C /* AddAddressViewController.xib in Resources */,
 				BD907361280D4B1A00044013 /* SetTableViewCell.xib in Resources */,
 				BDE88A64280AC2B200081114 /* SwitchProgressTableViewCell.xib in Resources */,
 				BD8FDA6E280EF582000036DD /* AddDeviceViewController.xib in Resources */,
 				BDE88A6E280ACA8C00081114 /* TimeTableViewCell.xib in Resources */,
+				BDFA3A9628256FF0004A7E8C /* AddDeviceSNTableViewCell.xib in Resources */,
 				BDE88A1F2805A0D800081114 /* ImageAuthenticationView.xib in Resources */,
 				BD2DEF2B28044A74004E8D7D /* Assets.xcassets in Resources */,
 				BD2DEF2928044A6E004E8D7D /* Main.storyboard in Resources */,
 				BD90736C280D535700044013 /* InfoViewController.xib in Resources */,
+				BDFA3A8E28256154004A7E8C /* Localizable.strings in Resources */,
 				BDE88A242805C3F800081114 /* RegisterViewController.xib in Resources */,
 				BDE88A53280A7C0300081114 /* DeviceSwitchTableViewCell.xib in Resources */,
 				BDE88A79280B12A900081114 /* DataEchartsCollectionViewCell.xib in Resources */,
@@ -866,6 +908,7 @@
 				BDE88A74280B0E5D00081114 /* DataCollectionViewCell.xib in Resources */,
 				BD8FDA5C280EEF88000036DD /* WarningTableViewCell.xib in Resources */,
 				BD8FDA41280D5F91000036DD /* UpdateViewController.xib in Resources */,
+				BDFA3A9B28257325004A7E8C /* AddDeviceActionTableViewCell.xib in Resources */,
 				BD8FDA4D280EEBF5000036DD /* HelpTableViewCell.xib in Resources */,
 				BD8FDA74280EF5D7000036DD /* AddDeviceTableViewCell.xib in Resources */,
 				BDE88A69280AC7C600081114 /* PeakTimeTableViewCell.xib in Resources */,
@@ -1022,6 +1065,7 @@
 				BDE88A482808771B00081114 /* HomeProgressView.m in Sources */,
 				BDE88A1D2805A0BF00081114 /* ImageAuthenticationView.m in Sources */,
 				BDE88A012804540C00081114 /* GlobalValue.m in Sources */,
+				BDFA3A9528256FF0004A7E8C /* AddDeviceSNTableViewCell.m in Sources */,
 				BDE88A2E2805CDC100081114 /* UIView+Border.m in Sources */,
 				BDE88A73280B0E5D00081114 /* DataCollectionViewCell.m in Sources */,
 				BD8FDA67280EF1DE000036DD /* DebugCollectionViewCell.m in Sources */,
@@ -1048,11 +1092,13 @@
 				BDE88A52280A7C0300081114 /* DeviceSwitchTableViewCell.m in Sources */,
 				BDE88A78280B12A900081114 /* DataEchartsCollectionViewCell.m in Sources */,
 				BD8FDA57280EEED3000036DD /* WarningListView.m in Sources */,
+				BDFA3A9A28257325004A7E8C /* AddDeviceActionTableViewCell.m in Sources */,
 				BD2DEF3128044A74004E8D7D /* main.m in Sources */,
 				BDE88A0928046F7D00081114 /* DataViewController.m in Sources */,
 				BD907365280D4B4900044013 /* SetInfoTableViewCell.m in Sources */,
 				BDE88A68280AC7C600081114 /* PeakTimeTableViewCell.m in Sources */,
 				BD907360280D4B1A00044013 /* SetTableViewCell.m in Sources */,
+				BDFA3AA028257686004A7E8C /* AddAddressViewController.m in Sources */,
 				BD8FDA6D280EF582000036DD /* AddDeviceViewController.m in Sources */,
 				BD2DEF6528044C1F004E8D7D /* HomeViewController.m in Sources */,
 				BD8FDA61280EF17E000036DD /* DebugViewController.m in Sources */,
@@ -1096,6 +1142,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				BD2DEF2828044A6E004E8D7D /* Base */,
+				BDFA3A8A282560D8004A7E8C /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1104,8 +1151,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				BD2DEF2D28044A74004E8D7D /* Base */,
+				BDFA3A8B282560D9004A7E8C /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		BDFA3A9028256154004A7E8C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BDFA3A8F28256154004A7E8C /* en */,
+				BDFA3A9128256158004A7E8C /* zh-Hans */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1115,6 +1172,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1173,6 +1231,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";

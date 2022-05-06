@@ -7,10 +7,14 @@
 
 #import "AddDeviceViewController.h"
 #import "AddDeviceTableViewCell.h"
+#import "AddDeviceSNTableViewCell.h"
+#import "AddDeviceActionTableViewCell.h"
+#import "AddAddressViewController.h"
 
 @interface AddDeviceViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
+@property(nonatomic,weak)IBOutlet UIButton * next;
 @property(nonatomic,strong) NSMutableArray * dataArray;
 
 @end
@@ -20,28 +24,75 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.dataArray = [[NSMutableArray alloc] init];
+    [self.next showBorderWithRadius:25];
+    [self.next setTitle:@"Next".localized forState:UIControlStateNormal];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([AddDeviceTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([AddDeviceTableViewCell class])];
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([AddDeviceSNTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([AddDeviceSNTableViewCell class])];
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([AddDeviceActionTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([AddDeviceActionTableViewCell class])];
+    
+}
+
+- (IBAction)nextAction:(id)sender{
+    AddAddressViewController * address = [[AddAddressViewController alloc] init];
+    address.title = @"Device location".localized;
+    [self.navigationController pushViewController:address animated:true];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    AddDeviceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([AddDeviceTableViewCell class]) forIndexPath:indexPath];
-    return cell;
+    if (indexPath.section == 0) {
+        AddDeviceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([AddDeviceTableViewCell class]) forIndexPath:indexPath];
+        return cell;
+    }else{
+        if (indexPath.row == self.dataArray.count) {
+            AddDeviceActionTableViewCell*cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([AddDeviceActionTableViewCell class]) forIndexPath:indexPath];
+            [cell.addButton addTarget:self action:@selector(addDeviceAction) forControlEvents:UIControlEventTouchUpInside];
+            return cell;
+        }else{
+            AddDeviceSNTableViewCell*cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([AddDeviceSNTableViewCell class]) forIndexPath:indexPath];
+            return cell;
+        }
+    }
+}
+
+- (void)addDeviceAction{
+    [self.dataArray addObject:@""];
+    [self.tableView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return section == 0 ? 1 : self.dataArray.count+1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return UITableViewAutomaticDimension;
+    if (indexPath.section == 0) {
+        return UITableViewAutomaticDimension;
+    }else{
+        return self.dataArray.count == indexPath.row ? 58 : 50;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 0.001;
+    return section == 1 ? 50 : 0.001;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView * header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
+    header.backgroundColor = UIColor.clearColor;
+    UILabel * title = [[UILabel alloc] init];
+    [header addSubview:title];
+    [title mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(15);
+            make.top.bottom.mas_equalTo(0);
+    }];
+    title.text = @"Accessory Hybrid info".localized;
+    title.font = [UIFont systemFontOfSize:18 weight:UIFontWeightMedium];
+    title.textColor = UIColor.whiteColor;
+    return header;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{

@@ -12,8 +12,11 @@
 @interface ForgotViewController ()<ImageAuthenticationViewDelegate>
 
 @property(nonatomic,weak)IBOutlet UIButton * next;
+@property(nonatomic,weak)IBOutlet UIButton * codeButton;
 @property(nonatomic,weak)IBOutlet UITextField * password;
 @property(nonatomic,weak)IBOutlet UITextField * code;
+@property(nonatomic,weak)IBOutlet UILabel * email;
+@property(nonatomic,weak)IBOutlet UILabel * pass;
 
 @end
 
@@ -22,7 +25,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.email.text = @"1.Verify Email".localized;
+    self.pass.text = @"2.New password".localized;
+    [self.next setTitle:@"Next".localized forState:UIControlStateNormal];
     [self.next showBorderWithRadius:25];
+    self.password.placeholder = @"Please enter registration Email".localized;
+    self.code.placeholder = @"Verification code".localized;
+    [self.codeButton setTitle:@"Send code".localized forState:UIControlStateNormal];
 //    self.password.placeholderColor = [UIColor colorWithHexString:@"#BBBBBB"];
 //    self.code.placeholderColor = [UIColor colorWithHexString:@"#BBBBBB"];
 }

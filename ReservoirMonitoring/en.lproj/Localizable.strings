@@ -1,0 +1,53 @@
+/* 
+  Localizable.strings
+  ReservoirMonitoring
+
+  Created by 王帅 on 2022/5/6.
+  
+*/
+"Login" = "Login";
+"Email" = "Email";
+"Password" = "Password";
+"Create account" = "Create account";
+"Forget password" = "Forget password";
+
+"Name" = "Name";
+"Please input your name" = "Please input your name";
+"Please input your Email" = "Please input your Email";
+"Email verification" = "Email verification";
+"Please enter verification code" = "Please enter verification code";
+"Send verification code" = "Send verification code";
+"Please enter 6-20 digit password" = "Please enter 6-20 digit password";
+"Password confirmation" = "Password confirmation";
+"Please enter password again" = "Please enter password again";
+"I have read and agree" = "I have read and agree";
+"EULA" = "EULA";
+"Register" = "Register";
+"Login if you have an account" = "Login if you have an account";
+"Slide the bar to complete the picture." = "Slide the bar to complete the picture.";
+
+"Forgot Password" = "Forgot Password";
+"1.Verify Email" = "1.Verify Email";
+"2.New password" = "2.New password";
+"Next" = "Next";
+"Verification code" = "Verification code";
+"Please enter registration Email" = "Please enter registration Email";
+"Send code" = "Send code";
+"Submit" = "Submit";
+"Please set a 6-20 digit password" = "Please set a 6-20 digit password";
+"Please confirm password" = "Please confirm password";
+
+"Add Equipment" = "Add Equipment";
+"Smart Gateway info" = "Smart Gateway info";
+"Please input device SN" = "Please input device SN";
+"Please input a name for this device" = "Please input a name for this device";
+"Accessory Hybrid info" = "Accessory Hybrid info";
+"Please inpute battery module SN" = "Please inpute battery module SN";
+"Device location" = "Device location";
+"Country" = "Country";
+"State" = "State";
+"Zip code" = "Zip code";
+"Time zone" = "Time zone";
+"Link Email" = "Link Email";
+"Enter Email" = "Enter Email";
+"Confirm" = "Confirm";

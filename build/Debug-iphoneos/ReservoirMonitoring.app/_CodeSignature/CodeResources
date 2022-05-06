@@ -4,17 +4,29 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>AddAddressViewController.nib</key>
+		<data>
+		rq+l8cIbhmn8u9fuZqZDj7sQckA=
+		</data>
+		<key>AddDeviceActionTableViewCell.nib</key>
+		<data>
+		GmmgngO/VEcYgQ4+MQRIpTEoaDE=
+		</data>
+		<key>AddDeviceSNTableViewCell.nib</key>
+		<data>
+		CJFJoMkLt887GpJL1Mw2khLDscI=
+		</data>
 		<key>AddDeviceTableViewCell.nib</key>
 		<data>
-		a9iBiAKbcVUYnEu0U4GGmOMihKw=
+		h9FNl59Z3mlLXatpeFIaQy6hpEs=
 		</data>
 		<key>AddDeviceViewController.nib</key>
 		<data>
-		Ert8x0dtLCS4b3nqlfOC5EeFKRs=
+		46/HjtZWDMa24lmBCuXgxYt+RYE=
 		</data>
 		<key>Assets.car</key>
 		<data>
-		w7DhXByzQ2j9ARzUI+nFERe7+3Q=
+		mWJ2+QA8UWxEnJDaS41voLlv+fo=
 		</data>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
@@ -78,11 +90,11 @@
 		</data>
 		<key>ForgotViewController.nib</key>
 		<data>
-		aSEhy3Sq/X/iDkQzbDDxYr3PnC8=
+		D6zwoKa0XKEH0mxA+tzYVwkX+XI=
 		</data>
 		<key>Frameworks/AFNetworking.framework/AFNetworking</key>
 		<data>
-		N14hZWIDAfxA01fHwgm+dXlTyLY=
+		A/+U4HdEwG35tp05bUNZBas+teY=
 		</data>
 		<key>Frameworks/AFNetworking.framework/Info.plist</key>
 		<data>
@@ -94,7 +106,7 @@
 		</data>
 		<key>Frameworks/BRPickerView.framework/BRPickerView</key>
 		<data>
-		LngFZN/HHDvlbvjKQYOpKqdq86s=
+		GHU0XJmmz9kN6c44tgDWvI8e6gs=
 		</data>
 		<key>Frameworks/BRPickerView.framework/BRPickerView.bundle/BRCity.json</key>
 		<data>
@@ -137,7 +149,7 @@
 		</data>
 		<key>Frameworks/HXPhotoPicker.framework/HXPhotoPicker</key>
 		<data>
-		Wi6re1eAGE8K7NtvhZEhDB446+Y=
+		3AnlRfPcOp5hLSv7ov6UZpV4I/A=
 		</data>
 		<key>Frameworks/HXPhotoPicker.framework/HXPhotoPicker.bundle/HXCameraBottomView.nib</key>
 		<data>
@@ -762,7 +774,7 @@
 		</data>
 		<key>Frameworks/IQKeyboardManager.framework/IQKeyboardManager</key>
 		<data>
-		s5W/8YFzXLWHQ4S3Y61d5Y/7LPI=
+		jK5cAhUiaLr02y7bfo+QjGbuIvc=
 		</data>
 		<key>Frameworks/IQKeyboardManager.framework/Info.plist</key>
 		<data>
@@ -778,7 +790,7 @@
 		</data>
 		<key>Frameworks/MJExtension.framework/MJExtension</key>
 		<data>
-		4C6g8SzEYNNcr70olcjrnz4UG5g=
+		4n/5T/OhiK3Q2fmX3ieCQYJ3C00=
 		</data>
 		<key>Frameworks/MJExtension.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -790,7 +802,7 @@
 		</data>
 		<key>Frameworks/MJRefresh.framework/MJRefresh</key>
 		<data>
-		iboBwEdC+vHyahz02f7B+ldXfYA=
+		uVrnhmW+UyuUGj7/BdYPEzVoqrU=
 		</data>
 		<key>Frameworks/MJRefresh.framework/MJRefresh.bundle/arrow@2x.png</key>
 		<data>
@@ -864,7 +876,7 @@
 		</data>
 		<key>Frameworks/Masonry.framework/Masonry</key>
 		<data>
-		593qylBqBw2Ei5Imqfvb5cgwdbw=
+		I0EJKq1otKbFyPMS1+kB0NPEuug=
 		</data>
 		<key>Frameworks/Masonry.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -876,7 +888,7 @@
 		</data>
 		<key>Frameworks/SDWebImage.framework/SDWebImage</key>
 		<data>
-		4hWt/MJoCWq1pvBfPwzDwJkGsMU=
+		eeTzi+XUSM4zFlUREo74ZLZLVGo=
 		</data>
 		<key>Frameworks/SDWebImage.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -888,7 +900,7 @@
 		</data>
 		<key>Frameworks/SGPagingView.framework/SGPagingView</key>
 		<data>
-		rGQnv+DkK0VevT8eNyl1euNyGg8=
+		IGbKmskkgqUPdufFHCA3BDY2UgI=
 		</data>
 		<key>Frameworks/SGPagingView.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -900,7 +912,7 @@
 		</data>
 		<key>Frameworks/WMZCode.framework/WMZCode</key>
 		<data>
-		3FeaCn9fJzWeWqZ+ZT2PFncjCr4=
+		QNmprwuhbcAhQKoU5pJrzbPrf1M=
 		</data>
 		<key>Frameworks/WMZCode.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -980,7 +992,7 @@
 		</data>
 		<key>Frameworks/iOS_Echarts.framework/iOS_Echarts</key>
 		<data>
-		+jMEgw/M1sCSpQ8D8Zaa5gpyR60=
+		BDECRiLHB0X/kKWazIr63lY4fqA=
 		</data>
 		<key>HelpTableViewCell.nib</key>
 		<data>
@@ -1000,7 +1012,7 @@
 		</data>
 		<key>ImageAuthenticationView.nib</key>
 		<data>
-		f9lW8F1EDe5x082S+MC5O9/fk2M=
+		TZiW0s74E+h1ukPfli6tGa0vAkw=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -1016,7 +1028,7 @@
 		</data>
 		<key>LoginViewController.nib</key>
 		<data>
-		2HITdHP1P0PnNGEIyObMn0iLGf0=
+		RFILvTziJBa2ljipIBbJ2PH6JoI=
 		</data>
 		<key>PeakTimeTableViewCell.nib</key>
 		<data>
@@ -1032,7 +1044,7 @@
 		</data>
 		<key>RegisterViewController.nib</key>
 		<data>
-		C+RRw7OVO3Yz90SsV/Em5BLzLV0=
+		IWACIFsAfHb+GzhIpPxZnz3s21w=
 		</data>
 		<key>ScanViewController.nib</key>
 		<data>
@@ -1044,7 +1056,7 @@
 		</data>
 		<key>SetPasswordViewController.nib</key>
 		<data>
-		e8a0ZuCzN/iCa84CUwAnEiHy3x0=
+		tOnfS8qp6yQ3tt0Fw9KDbpUFXw0=
 		</data>
 		<key>SetTableViewCell.nib</key>
 		<data>
@@ -1086,28 +1098,85 @@
 		<data>
 		SRSIGaM3hViHQTZwJFu/copJUS4=
 		</data>
+		<key>en.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			aT80/4NO6pPmnCK/TNsNmjVy/ZQ=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>zh-Hans.lproj/LaunchScreen.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			rcg7GeeTSRscbqD9i0bNnzLlkvw=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>zh-Hans.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			pYUzgI0h5rdCPuZVGQeLCkHEV/c=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>zh-Hans.lproj/Main.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			rcg7GeeTSRscbqD9i0bNnzLlkvw=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>AddAddressViewController.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			xAdEv81+6fepAPdXAJ52C9RNnn9Wg6KHmnMd7ZyjuQQ=
+			</data>
+		</dict>
+		<key>AddDeviceActionTableViewCell.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			iob4LmqFNQWunPGOZVAGE0b8Ce67SnSPJApjaQumKUQ=
+			</data>
+		</dict>
+		<key>AddDeviceSNTableViewCell.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			2fBQRE4m6OpFNBspl1KE3ESEup/evrSDwIl4Y5IZjCI=
+			</data>
+		</dict>
 		<key>AddDeviceTableViewCell.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			N/kMQlwplLp4OtXxyhyqCG2Xy2UIXq1ACQDbnM6h6ts=
+			FmMIT4c+U+lkEKfZ+rrIfpIwuYhKz1U8I6ZiOJcFTMM=
 			</data>
 		</dict>
 		<key>AddDeviceViewController.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8YxZWTJlEcZmVjy+z55mzNAN7zYiBYUyicQcn/bPfUk=
+			MplZXDf/dRshAc452e4AjNuYndJDsEJ3MY0v4Rhwbdo=
 			</data>
 		</dict>
 		<key>Assets.car</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8YEZ/x9KyyQWjn3RCPzc9SFNzdr23veZeUN7KOJaaTA=
+			sAWIEQBayUutisTQ8O4EWwThfUQ4eRE+Ao6lj5tCdg0=
 			</data>
 		</dict>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
@@ -1219,14 +1288,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			d/ctM/BlgSVg4HgDMtOdmL400RRRpKY0f7dOEKmcR9U=
+			wjupk627t6zsQJsWrkWHGHOAHB0XI4R2+eZw3TTS/CA=
 			</data>
 		</dict>
 		<key>Frameworks/AFNetworking.framework/AFNetworking</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ngicJlRtmpjKfgt370CAU13t66UMT+wihMN6JQslqJY=
+			cV6mpFUP8vCw0OOxIK0ATvNZxv9y+Z5oJQa1ycHah8g=
 			</data>
 		</dict>
 		<key>Frameworks/AFNetworking.framework/Info.plist</key>
@@ -1247,7 +1316,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			vnt00StfN2hwJUrdQiWTfIZ3JkFMeQf9OvHetdeMwpU=
+			z0THFBTunCz1kCbG5kWQR+VWZPNQWb4aA7jAPg3Ymj4=
 			</data>
 		</dict>
 		<key>Frameworks/BRPickerView.framework/BRPickerView.bundle/BRCity.json</key>
@@ -1302,7 +1371,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			AO0FoiLyHU6ZTZSIL/IBMXckPqgwqstAPjxLn3mpRpw=
+			K4W69T6KDJNYG1he3DuElC328gaaYOxNo/tjmh26EI8=
 			</data>
 		</dict>
 		<key>Frameworks/HXPhotoPicker.framework/HXPhotoPicker.bundle/HXCameraBottomView.nib</key>
@@ -2362,7 +2431,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			uhastUvaxRjWxId4WtaArkPXTlWJjFWIUCE/euAfgYo=
+			4lqX9HbhUI8BPmbEz9tUE/4NIdZNP1GklFiR5/atsA4=
 			</data>
 		</dict>
 		<key>Frameworks/IQKeyboardManager.framework/Info.plist</key>
@@ -2390,7 +2459,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			cgUEexpHqR3Z96wU1xcQVI4ncjMnEnpRjksgvPJUFew=
+			1iqjupJVMcz+Tn0gD530ideh5z47d4AWOXYLtHrFvf8=
 			</data>
 		</dict>
 		<key>Frameworks/MJExtension.framework/_CodeSignature/CodeResources</key>
@@ -2411,7 +2480,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			kI82+85AbohxGrwPEjJ0ztlVdXQLzEmcLbB9rlDEI+A=
+			axvFcmnh5NzqaOb08okEDqSNNjjSi1WiqfByBa6eAB4=
 			</data>
 		</dict>
 		<key>Frameworks/MJRefresh.framework/MJRefresh.bundle/arrow@2x.png</key>
@@ -2500,7 +2569,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			p0FEYpW6KWbwC/383VKMKjCfxuJlLq7c7LmlRD4eG64=
+			SoWi2xqGQPTmpQrbeFLwG/Ma6ogD4cgIB0hehLOzWkk=
 			</data>
 		</dict>
 		<key>Frameworks/Masonry.framework/_CodeSignature/CodeResources</key>
@@ -2521,7 +2590,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			gCx4xFz74nG3iTtrI0eLqbbyVmWwutrFLDZa3yOtAB4=
+			MSkO8TURNhtfzZnROO5Rysd5KY4x3arspD3jFd+EBCs=
 			</data>
 		</dict>
 		<key>Frameworks/SDWebImage.framework/_CodeSignature/CodeResources</key>
@@ -2542,7 +2611,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			m8nT2fcrBGZLucnEE75U0GLGHeXF5ZvI9XzPdZ1snj4=
+			meZZZbPD3euJsHnU97IDUAtcXS0HIdLwU6tvFysRbKk=
 			</data>
 		</dict>
 		<key>Frameworks/SGPagingView.framework/_CodeSignature/CodeResources</key>
@@ -2563,7 +2632,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ImSyXPU5vlUjpvrX8I/1yh4bNKbLbmYmsKgVAyz0rqk=
+			4NiVP7utYLriP/uNudp0surPC0TzdcNfLiTTaBKrIz8=
 			</data>
 		</dict>
 		<key>Frameworks/WMZCode.framework/_CodeSignature/CodeResources</key>
@@ -2703,7 +2772,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			U/Ld5viH7Nm6wyLmDb7VSOQHav1+yn+0bBGOSDGDnnk=
+			HSN6LGj25WZZBg5b+4wIkay7ci5YiW88zopgX5Q/wOs=
 			</data>
 		</dict>
 		<key>HelpTableViewCell.nib</key>
@@ -2738,7 +2807,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zcc17g4meHdpR7/ik7wXi4dWhZXw0RHQCHtDX/fTNRQ=
+			3DGNJEWNl4SmQGZ9r0KTBhhrYcf4eAptV7VHGqpkFl0=
 			</data>
 		</dict>
 		<key>InfoTableViewCell.nib</key>
@@ -2759,7 +2828,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			UBHqdAeFZ4GnI0r4nQBWQt2QXndrucYyh/ajB0b/8m0=
+			94ehYDAak0OfeDlEyJLWln3cfJVGR4Tyb7K1a06wljY=
 			</data>
 		</dict>
 		<key>PeakTimeTableViewCell.nib</key>
@@ -2780,7 +2849,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			YwFyLqCjna/TC2wXpWb0QIXP2Lak/7BlONPf3jt4sJM=
+			ZVIyydislG1FjCBpFI4cadNWyXPJ5cLzTHErSlcRN4s=
 			</data>
 		</dict>
 		<key>ScanViewController.nib</key>
@@ -2801,7 +2870,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			eVrxF6tJ9ExR73VnO4wmJxX7t2F3d0QXs9Wwtdw2Q9s=
+			QtkP9WgDgIaD6arxnWfqodGpmB+0I8ZvuDWwDBCuYI8=
 			</data>
 		</dict>
 		<key>SetTableViewCell.nib</key>
@@ -2873,6 +2942,42 @@
 			<data>
 			F1z4J56UfEzMpPMLUV3aspVbMnmrHkH5Qq+t8ZmEGpg=
 			</data>
+		</dict>
+		<key>en.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			WAQL969KhzosV+Q/wOb9DilvYu0tFvvWXVGywnGTpUQ=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>zh-Hans.lproj/LaunchScreen.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			AbpHGcgLb+kRsJGnwFEktk7uzpZOCcBY74+YBdrKVGs=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>zh-Hans.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			o2oS3Z+UO0z55oR2RWlfHyJn6mabW+9zkBj4TBoP1/4=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>zh-Hans.lproj/Main.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			AbpHGcgLb+kRsJGnwFEktk7uzpZOCcBY74+YBdrKVGs=
+			</data>
+			<key>optional</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>rules</key>

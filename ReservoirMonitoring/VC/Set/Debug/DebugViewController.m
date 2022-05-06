@@ -30,7 +30,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPathP{
     AddDeviceViewController * add = [[AddDeviceViewController alloc] init];
-    add.title = @"Add equipment";
+    add.title = @"Add Equipment".localized;
     [self.navigationController pushViewController:add animated:true];
 }
 

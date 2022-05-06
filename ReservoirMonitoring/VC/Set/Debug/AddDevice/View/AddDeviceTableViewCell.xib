@@ -104,6 +104,11 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="idtextfield" destination="juF-e7-d4Y" id="Zt3-fd-H3y"/>
+                <outlet property="nametextfield" destination="6EW-mj-f1n" id="Jpf-pf-hJe"/>
+                <outlet property="titleLabel" destination="coK-4W-pPE" id="Hh8-1Q-ju9"/>
+            </connections>
             <point key="canvasLocation" x="188.40579710144928" y="133.92857142857142"/>
         </tableViewCell>
     </objects>

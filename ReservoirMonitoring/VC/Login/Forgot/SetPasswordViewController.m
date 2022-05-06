@@ -12,6 +12,8 @@
 @property(nonatomic,weak)IBOutlet UIButton * submit;
 @property(nonatomic,weak)IBOutlet UITextField * password;
 @property(nonatomic,weak)IBOutlet UITextField * confirm;
+@property(nonatomic,weak)IBOutlet UILabel * email;
+@property(nonatomic,weak)IBOutlet UILabel * pass;
 
 @end
 
@@ -20,7 +22,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.email.text = @"1.Verify Email".localized;
+    self.pass.text = @"2.New password".localized;
+    [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
     [self.submit showBorderWithRadius:25];
+    self.password.placeholder = @"Please set a 6-20 digit password".localized;
+    self.confirm.placeholder = @"Please confirm password".localized;
     self.password.placeholderColor = [UIColor colorWithHexString:@"#A3A3A3"];
     self.confirm.placeholderColor = [UIColor colorWithHexString:@"#A3A3A3"];
     

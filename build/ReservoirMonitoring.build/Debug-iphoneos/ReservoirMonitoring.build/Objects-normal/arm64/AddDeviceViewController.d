@@ -28,4 +28,7 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/PrefixHeader.pch \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/AddDevice/AddDeviceViewController.m \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/AddDevice/AddDeviceViewController.h \
-  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/AddDevice/View/AddDeviceTableViewCell.h
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/AddDevice/View/AddDeviceTableViewCell.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/AddDevice/View/AddDeviceSNTableViewCell.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/AddDevice/View/AddDeviceActionTableViewCell.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/AddDevice/AddAddress/AddAddressViewController.h

@@ -11,6 +11,7 @@
 @interface ImageAuthenticationView ()
 
 @property(nonatomic,weak)IBOutlet UIView * contentView;
+@property(nonatomic,weak)IBOutlet UILabel * titleLabel;
 @property(nonatomic,weak)id<ImageAuthenticationViewDelegate> delegale;
 
 @end
@@ -29,6 +30,7 @@
         self = [NSBundle.mainBundle loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil].lastObject;
         self.frame = UIScreen.mainScreen.bounds;
         self.delegale = delegate;
+        self.titleLabel.text = @"Slide the bar to complete the picture.".localized;
         [UIApplication.sharedApplication.keyWindow addSubview:self];
         WMZCodeView *codeView = [[WMZCodeView shareInstance] addCodeViewWithType:CodeTypeImage withImageName:@"A" witgFrame:CGRectMake(0, 30, 345, 200)  withBlock:^(BOOL success) {
             if (success) {

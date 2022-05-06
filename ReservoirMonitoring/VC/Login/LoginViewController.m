@@ -13,6 +13,11 @@
 @interface LoginViewController ()<ImageAuthenticationViewDelegate>
 
 @property(nonatomic,weak)IBOutlet UIButton * loginBtn;
+@property(nonatomic,weak)IBOutlet UILabel * email;
+@property(nonatomic,weak)IBOutlet UILabel * password;
+@property(nonatomic,weak)IBOutlet UIButton * create;
+@property(nonatomic,weak)IBOutlet UIButton * forgot;
+
 
 @end
 
@@ -22,6 +27,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.loginBtn showBorderWithRadius:25];
+    self.email.text = @"Email".localized;
+    self.password.text = @"Password".localized;
+    [self.loginBtn setTitle:@"Login".localized forState:UIControlStateNormal];
+    [self.create setTitle:@"Create account".localized forState:UIControlStateNormal];
+    [self.forgot setTitle:@"Forget password".localized forState:UIControlStateNormal];
 }
 
 - (IBAction)loginAction:(id)sender{
@@ -30,13 +40,13 @@
 
 - (IBAction)registerAction:(id)sender{
     RegisterViewController * regist = [[RegisterViewController alloc] init];
-    regist.title = @"New user registration".localized;
+    regist.title = @"Create account".localized;
     [self.navigationController pushViewController:regist animated:true];
 }
 
 - (IBAction)forgotAction:(id)sender{
     ForgotViewController * forgot = [[ForgotViewController alloc] init];
-    forgot.title = @"Forgot Password";
+    forgot.title = @"Forgot Password".localized;
     [self.navigationController pushViewController:forgot animated:true];
 }
 

@@ -1,0 +1,53 @@
+/* 
+  Localizable.strings
+  ReservoirMonitoring
+
+  Created by 王帅 on 2022/5/6.
+  
+*/
+"Login" = "登录";
+"Email" = "邮箱";
+"Password" = "密码";
+"Create account" = "注册新用户";
+"Forget password" = "忘记密码";
+
+"Name" = "名称";
+"Please input your name" = "请输入您的名称";
+"Please input your Email" = "请输入邮箱";
+"Email verification" = "验证码";
+"Please enter verification code" = "请输入邮箱验证码";
+"Send verification code" = "发送验证码";
+"Please enter 6-20 digit password" = "请输入6-20位登录密码";
+"Password confirmation" = "确认密码";
+"Please enter password again" = "请再次确认登录密码";
+"I have read and agree" = "同意";
+"EULA" = "用户服务协议";
+"Register" = "注册";
+"Login if you have an account" = "已有帐户立即登录";
+"Slide the bar to complete the picture." = "拖动下方滑块完成拼图";
+
+"Forgot Password" = "找回密码";
+"1.Verify Email" = "1.验证邮箱";
+"2.New password" = "2.设置新密码";
+"Next" = "下一步";
+"Verification code" = "验证码";
+"Please enter registration Email" = "请输入注册邮箱";
+"Send code" = "发送验证码";
+"Submit" = "提交";
+"Please set a 6-20 digit password" = "请设置6-20位新密码";
+"Please confirm password" = "请确认新密码";
+
+"Add Equipment" = "添加设备";
+"Smart Gateway info" = "链接设备Sn";
+"Please input device SN" = "请输入设备ID";
+"Please input a name for this device" = "请输入设备名称";
+"Accessory Hybrid info" = "链接设备Sn";
+"Please inpute battery module SN" = "请输入设备SN";
+"Device location" = "添加设备-地址输入";
+"Country" = "选择国家";
+"State" = "选择州、省";
+"Zip code" = "输入邮编";
+"Time zone" = "选择时区";
+"Link Email" = "关联用户邮箱";
+"Enter Email" = "请输入邮箱";
+"Confirm" = "确认";

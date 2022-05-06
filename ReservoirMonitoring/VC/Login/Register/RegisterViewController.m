@@ -14,22 +14,40 @@
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * registerBtn;
 @property(nonatomic,weak)IBOutlet UIButton * loginBtn;
+@property(nonatomic,weak)IBOutlet UILabel * agree;
+@property(nonatomic,weak)IBOutlet UIButton * agreement;
 @property(nonatomic,strong)NSArray * dataArray;
+@property(nonatomic,strong)UIButton * sendCodeButton;
 
 @end
 
 @implementation RegisterViewController
 
+- (UIButton *)sendCodeButton{
+    if (!_sendCodeButton) {
+        _sendCodeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_sendCodeButton setTitle:@"Send verification code".localized forState:UIControlStateNormal];
+        [_sendCodeButton setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
+        _sendCodeButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_sendCodeButton addTarget:self action:@selector(sendCodeAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _sendCodeButton;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.dataArray = @[
-    @{@"title":@"Name",@"placeholder":@"Please enter your name"},
-    @{@"title":@"Email address",@"placeholder":@"Please enter your registered email address"},
-    @{@"title":@"Verification code",@"placeholder":@"Email verification code"},
-    @{@"title":@"Login password",@"placeholder":@"Please set 6-20 login password"},
-    @{@"title":@"Confirm password",@"placeholder":@"Please confirm your login password again"}
+    @{@"title":@"Name".localized,@"placeholder":@"Please input your name".localized},
+    @{@"title":@"Email".localized,@"placeholder":@"Please input your Email".localized},
+    @{@"title":@"Email verification".localized,@"placeholder":@"Please enter verification code".localized},
+    @{@"title":@"Password".localized,@"placeholder":@"Please enter 6-20 digit password".localized},
+    @{@"title":@"Password confirmation".localized,@"placeholder":@"Please enter password again".localized}
     ];
+    self.agree.text = @"I have read and agree".localized;
+    [self.agreement setTitle:@"EULA".localized forState:UIControlStateNormal];
+    [self.registerBtn setTitle:@"Register".localized forState:UIControlStateNormal];
+    [self.loginBtn setTitle:@"Login if you have an account".localized forState:UIControlStateNormal];
     [self.registerBtn showBorderWithRadius:25];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RegisterTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([RegisterTableViewCell class])];
 }
@@ -55,6 +73,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     RegisterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([RegisterTableViewCell class]) forIndexPath:indexPath];
+    if (indexPath.row == 2) {
+        [cell.contentView addSubview:self.sendCodeButton];
+        [self.sendCodeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.right.mas_equalTo(-20);
+                    make.centerY.mas_equalTo(cell.textfield.mas_centerY);
+        }];
+    }
     cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
     cell.textfield.placeholder = self.dataArray[indexPath.row][@"placeholder"];
     return cell;
