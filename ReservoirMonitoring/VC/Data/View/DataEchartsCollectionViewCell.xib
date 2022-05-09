@@ -189,8 +189,14 @@
             </constraints>
             <size key="customSize" width="350" height="449"/>
             <connections>
+                <outlet property="coal" destination="ASf-Ea-yp5" id="XpA-nz-o8M"/>
                 <outlet property="echarts" destination="Vsk-rU-Yrz" id="fA9-op-Ksd"/>
+                <outlet property="energyTitle" destination="AsX-v9-bm8" id="irc-Ud-zgk"/>
+                <outlet property="independence" destination="aNW-Nr-LtD" id="Syf-7F-lcB"/>
+                <outlet property="power" destination="moQ-ym-3Du" id="UYn-Em-0X7"/>
+                <outlet property="reducing" destination="amG-3V-J2E" id="5xf-3T-Ocr"/>
                 <outlet property="titleView" destination="kqF-jV-e1V" id="Qky-0M-4es"/>
+                <outlet property="trees" destination="EGf-0i-hAf" id="ZUN-JV-BeU"/>
             </connections>
             <point key="canvasLocation" x="353.62318840579712" y="213.95089285714286"/>
         </collectionViewCell>

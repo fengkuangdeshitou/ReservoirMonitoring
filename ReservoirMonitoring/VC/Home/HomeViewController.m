@@ -24,20 +24,24 @@
     // Do any additional setup after loading the view from its nib.
     [self.addEquipmentBtn showBorderWithRadius:25];
     [self setLeftBatButtonItemWithImage:[UIImage imageNamed:@"logo"] sel:nil];
+    [self setRightBarButtonItemWithTitlt:@"小明的家" sel:@selector(changeDevice)];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomeTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([HomeTableViewCell class])];
 }
 
-- (void)changeDeviceAction{
-//    [DeviceSwitchView showDeviceSwitchViewWithDelegate:self];
+- (void)changeDevice{
+    [DeviceSwitchView showDeviceSwitchViewWithDelegate:self];
+}
+
+- (void)changeCurrentDeviceStatusAction{
     SwitchModeViewController * model = [[SwitchModeViewController alloc] init];
-    model.title = @"Switching operating Mode";
+    model.title = @"Switch operation mode".localized;
     model.hidesBottomBarWhenPushed = true;
     [self.navigationController pushViewController:model animated:true];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomeTableViewCell class]) forIndexPath:indexPath];
-    [cell.changeDeviceButton addTarget:self action:@selector(changeDeviceAction) forControlEvents:UIControlEventTouchUpInside];
+    [cell.changeDeviceButton addTarget:self action:@selector(changeCurrentDeviceStatusAction) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 

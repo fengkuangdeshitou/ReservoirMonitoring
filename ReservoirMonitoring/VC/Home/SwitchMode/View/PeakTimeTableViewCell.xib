@@ -64,6 +64,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="tableView" destination="JOr-vf-hHb" id="Oa9-qB-wm7"/>
+                <outlet property="titleLabel" destination="ygP-AR-NT1" id="gxK-jo-dHX"/>
             </connections>
             <point key="canvasLocation" x="157.97101449275362" y="117.85714285714285"/>
         </tableViewCell>

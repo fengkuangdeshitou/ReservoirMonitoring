@@ -28,7 +28,7 @@
     config.titleSelectedFont = [UIFont systemFontOfSize:14];
     config.showIndicator = false;
     config.showBottomSeparator = false;
-    self.titleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40) delegate:self titleNames:@[@"警告",@"故障"] configure:config];
+    self.titleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40) delegate:self titleNames:@[@"Alarm".localized,@"Fault".localized] configure:config];
     self.titleView.backgroundColor = [UIColor colorWithHexString:@"#1E1E1E"];
     [self.view addSubview:self.titleView];
     self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*2, 0);

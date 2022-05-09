@@ -27,4 +27,5 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Tools/RMHelper.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/PrefixHeader.pch \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/SwitchMode/View/SwitchModelTableViewCell.m \
-  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/SwitchMode/View/SwitchModelTableViewCell.h
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/SwitchMode/View/SwitchModelTableViewCell.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/SwitchMode/View/GlobelDescAlertView.h

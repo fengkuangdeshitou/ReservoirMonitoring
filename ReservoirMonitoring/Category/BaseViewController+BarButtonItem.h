@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setLeftBatButtonItemWithImage:(UIImage *)imageName
                                   sel:(nullable SEL)sel;
 
+- (void)setRightBarButtonItemWithTitlt:(NSString *)title
+                                  sel:(nullable SEL)sel;
+
 @end
 
 NS_ASSUME_NONNULL_END

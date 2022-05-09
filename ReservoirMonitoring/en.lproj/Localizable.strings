@@ -37,7 +37,7 @@
 "Please set a 6-20 digit password" = "Please set a 6-20 digit password";
 "Please confirm password" = "Please confirm password";
 
-"Add Equipment" = "Add Equipment";
+"Add device" = "Add device";
 "Smart Gateway info" = "Smart Gateway info";
 "Please input device SN" = "Please input device SN";
 "Please input a name for this device" = "Please input a name for this device";
@@ -51,3 +51,54 @@
 "Link Email" = "Link Email";
 "Enter Email" = "Enter Email";
 "Confirm" = "Confirm";
+
+"Current mode" = "Current mode";
+"Energy independence rating(Daily):" = "Energy independence rating(Daily):";
+"Device status:" = "Device status:";
+"Switch operation mode" = "Switch operation mode";
+"Weather watch" = "Weather watch";
+"Switch device" = "Switch device";
+"Current device" = "Current device";
+"Other device" = "Other device";
+"Device name" = "Device name";
+"Device SN" = "Device SN";
+"Search by device name or SN" = "Search by device name or SN";
+"Search" = "Search";
+"Allow charging via grid" = "Allow charging via grid";
+"Start time" = "Start time";
+"End time" = "End time";
+"Electricity price" = "Electricity price";
+"Price schedule" = "Price schedule";
+"Input electricity price" = "Input electricity price";
+"Off-peak time" = "Off-peak time";
+"Peak time" = "Peak time";
+"Super peak time" = "Super peak time";
+
+"Day" = "Day";
+"Month" = "Month";
+"Year" = "Year";
+"All" = "All";
+"Solar" = "Solar";
+"Grid" = "Grid";
+"Non Back-up" = "Non Back-up";
+"Back-up load" = "Back-up load";
+"Energy graph" = "Energy graph";
+"Energy independence:" = "Energy independence:";
+"Power outage:" = "Power outage:";
+"Reducing deforestation:" = "Reducing deforestation:";
+"trees" = "trees";
+"Standard coal saved" = "Standard coal saved";
+
+"User Info" = "User Info";
+"Network" = "Network";
+"Update" = "Update";
+"Help" = "Help";
+"Fault&Alarm" = "Fault&Alarm";
+"Debug" = "Debug";
+"User" = "User";
+"Installer" = "Installer";
+"Check update" = "Check update";
+"Opt in/out automatic software update (On: Server is allowed to communicate with device and update firmware automatically; Off: Server is NOT allowed to communicate with the device or update firmware.  )\n\nUpdates can be stored in phone, local firmware update can be performed via bluetooth connection between device and this app." = "Opt in/out automatic software update (On: Server is allowed to communicate with device and update firmware automatically; Off: Server is NOT allowed to communicate with the device or update firmware.  )\n\nUpdates can be stored in phone, local firmware update can be performed via bluetooth connection between device and this app.";
+"Current version:" = "Current version:";
+"Alarm" = "Alarm";
+"Fault" = "Fault";

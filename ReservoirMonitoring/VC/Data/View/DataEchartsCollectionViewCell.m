@@ -13,7 +13,13 @@
 @property(nonatomic,strong) WKEchartsView * echartsView;
 @property(nonatomic,weak)IBOutlet UIView * titleView;
 @property(nonatomic,weak)IBOutlet UIView * echarts;
+@property(nonatomic,weak)IBOutlet UILabel * energyTitle;
 
+@property(nonatomic,weak)IBOutlet UILabel * independence;
+@property(nonatomic,weak)IBOutlet UILabel * power;
+@property(nonatomic,weak)IBOutlet UILabel * reducing;
+@property(nonatomic,weak)IBOutlet UILabel * trees;
+@property(nonatomic,weak)IBOutlet UILabel * coal;
 @end
 
 @implementation DataEchartsCollectionViewCell
@@ -21,7 +27,13 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    NSArray * titleArray = @[@"光伏",@"电网",@"一般负载",@"重要负载",@"EV"];
+    self.energyTitle.text = @"Energy graph".localized;
+    NSArray * titleArray = @[@"Solar".localized,@"Grid".localized,@"Non Back-up".localized,@"Back-up load".localized,@"EV"];
+    self.independence.text = @"Energy independence:".localized;
+    self.power.text = @"Power outage:".localized;
+    self.reducing.text = @"Reducing deforestation:".localized;
+    self.trees.text = @"trees".localized;
+    self.coal.text = @"Standard coal saved".localized;
     CGFloat width = (SCREEN_WIDTH-30)/titleArray.count;
     for (int i=0; i<titleArray.count; i++) {
         UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];

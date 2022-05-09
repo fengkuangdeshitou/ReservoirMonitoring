@@ -104,6 +104,12 @@
 		BDFA3A9B28257325004A7E8C /* AddDeviceActionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDFA3A9928257325004A7E8C /* AddDeviceActionTableViewCell.xib */; };
 		BDFA3AA028257686004A7E8C /* AddAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFA3A9E28257686004A7E8C /* AddAddressViewController.m */; };
 		BDFA3AA128257686004A7E8C /* AddAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDFA3A9F28257686004A7E8C /* AddAddressViewController.xib */; };
+		BDFA3AA42827A6BD004A7E8C /* GlobelDescAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFA3AA32827A6BD004A7E8C /* GlobelDescAlertView.m */; };
+		BDFA3AA62827A6C8004A7E8C /* GlobelDescAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDFA3AA52827A6C8004A7E8C /* GlobelDescAlertView.xib */; };
+		BDFA3AAB28295B63004A7E8C /* NetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFA3AA928295B63004A7E8C /* NetworkViewController.m */; };
+		BDFA3AAC28295B63004A7E8C /* NetworkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDFA3AAA28295B63004A7E8C /* NetworkViewController.xib */; };
+		BDFA3AB1282966B0004A7E8C /* NetworkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFA3AAF282966B0004A7E8C /* NetworkTableViewCell.m */; };
+		BDFA3AB2282966B0004A7E8C /* NetworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDFA3AB0282966B0004A7E8C /* NetworkTableViewCell.xib */; };
 		EE5872C07D0EEF180B2864E7 /* Pods_ReservoirMonitoringTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263B1F2000C58A09A71CC682 /* Pods_ReservoirMonitoringTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -288,6 +294,15 @@
 		BDFA3A9D28257686004A7E8C /* AddAddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddAddressViewController.h; sourceTree = "<group>"; };
 		BDFA3A9E28257686004A7E8C /* AddAddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddAddressViewController.m; sourceTree = "<group>"; };
 		BDFA3A9F28257686004A7E8C /* AddAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAddressViewController.xib; sourceTree = "<group>"; };
+		BDFA3AA22827A6BD004A7E8C /* GlobelDescAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobelDescAlertView.h; sourceTree = "<group>"; };
+		BDFA3AA32827A6BD004A7E8C /* GlobelDescAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlobelDescAlertView.m; sourceTree = "<group>"; };
+		BDFA3AA52827A6C8004A7E8C /* GlobelDescAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GlobelDescAlertView.xib; sourceTree = "<group>"; };
+		BDFA3AA828295B63004A7E8C /* NetworkViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkViewController.h; sourceTree = "<group>"; };
+		BDFA3AA928295B63004A7E8C /* NetworkViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetworkViewController.m; sourceTree = "<group>"; };
+		BDFA3AAA28295B63004A7E8C /* NetworkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NetworkViewController.xib; sourceTree = "<group>"; };
+		BDFA3AAE282966B0004A7E8C /* NetworkTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkTableViewCell.h; sourceTree = "<group>"; };
+		BDFA3AAF282966B0004A7E8C /* NetworkTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetworkTableViewCell.m; sourceTree = "<group>"; };
+		BDFA3AB0282966B0004A7E8C /* NetworkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NetworkTableViewCell.xib; sourceTree = "<group>"; };
 		F2A4884BA2636547281AEFF1 /* Pods-ReservoirMonitoring.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReservoirMonitoring.release.xcconfig"; path = "Target Support Files/Pods-ReservoirMonitoring/Pods-ReservoirMonitoring.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -635,6 +650,7 @@
 				BDE88A0C28046FE100081114 /* SetViewController.h */,
 				BDE88A0D28046FE100081114 /* SetViewController.m */,
 				BDE88A0E28046FE100081114 /* SetViewController.xib */,
+				BDFA3AA728295B4E004A7E8C /* Network */,
 				BD8FDA5D280EF16E000036DD /* Debug */,
 				BD8FDA4E280EED4B000036DD /* Warning */,
 				BD8FDA42280EEB3A000036DD /* Help */,
@@ -747,6 +763,9 @@
 				BDE88A6A280ACA8B00081114 /* TimeTableViewCell.h */,
 				BDE88A6B280ACA8B00081114 /* TimeTableViewCell.m */,
 				BDE88A6C280ACA8B00081114 /* TimeTableViewCell.xib */,
+				BDFA3AA22827A6BD004A7E8C /* GlobelDescAlertView.h */,
+				BDFA3AA32827A6BD004A7E8C /* GlobelDescAlertView.m */,
+				BDFA3AA52827A6C8004A7E8C /* GlobelDescAlertView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -772,6 +791,27 @@
 				BDFA3A9F28257686004A7E8C /* AddAddressViewController.xib */,
 			);
 			path = AddAddress;
+			sourceTree = "<group>";
+		};
+		BDFA3AA728295B4E004A7E8C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				BDFA3AA828295B63004A7E8C /* NetworkViewController.h */,
+				BDFA3AA928295B63004A7E8C /* NetworkViewController.m */,
+				BDFA3AAA28295B63004A7E8C /* NetworkViewController.xib */,
+				BDFA3AAD28296693004A7E8C /* View */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		BDFA3AAD28296693004A7E8C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BDFA3AAE282966B0004A7E8C /* NetworkTableViewCell.h */,
+				BDFA3AAF282966B0004A7E8C /* NetworkTableViewCell.m */,
+				BDFA3AB0282966B0004A7E8C /* NetworkTableViewCell.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -906,12 +946,14 @@
 				BD907372280D5B0600044013 /* InfoTableViewCell.xib in Resources */,
 				BD8FDA62280EF17E000036DD /* DebugViewController.xib in Resources */,
 				BDE88A74280B0E5D00081114 /* DataCollectionViewCell.xib in Resources */,
+				BDFA3AA62827A6C8004A7E8C /* GlobelDescAlertView.xib in Resources */,
 				BD8FDA5C280EEF88000036DD /* WarningTableViewCell.xib in Resources */,
 				BD8FDA41280D5F91000036DD /* UpdateViewController.xib in Resources */,
 				BDFA3A9B28257325004A7E8C /* AddDeviceActionTableViewCell.xib in Resources */,
 				BD8FDA4D280EEBF5000036DD /* HelpTableViewCell.xib in Resources */,
 				BD8FDA74280EF5D7000036DD /* AddDeviceTableViewCell.xib in Resources */,
 				BDE88A69280AC7C600081114 /* PeakTimeTableViewCell.xib in Resources */,
+				BDFA3AB2282966B0004A7E8C /* NetworkTableViewCell.xib in Resources */,
 				BDE88A4228070EA000081114 /* HomeTableViewCell.xib in Resources */,
 				BD907366280D4B4900044013 /* SetInfoTableViewCell.xib in Resources */,
 				BDE88A59280AB78B00081114 /* SwitchModeViewController.xib in Resources */,
@@ -919,6 +961,7 @@
 				BDE88A392805D66200081114 /* SetPasswordViewController.xib in Resources */,
 				BD8FDA47280EEB4A000036DD /* HelpViewController.xib in Resources */,
 				BDE88A1928047B2600081114 /* LoginViewController.xib in Resources */,
+				BDFA3AAC28295B63004A7E8C /* NetworkViewController.xib in Resources */,
 				BDE88A1028046FE100081114 /* SetViewController.xib in Resources */,
 				BD8FDA7A280EF904000036DD /* ScanViewController.xib in Resources */,
 				BDE88A342805D05000081114 /* ForgotViewController.xib in Resources */,
@@ -1083,15 +1126,18 @@
 				BDE88A58280AB78B00081114 /* SwitchModeViewController.m in Sources */,
 				BD2DEF5628044B05004E8D7D /* BaseViewController.m in Sources */,
 				BD8FDA73280EF5D7000036DD /* AddDeviceTableViewCell.m in Sources */,
+				BDFA3AAB28295B63004A7E8C /* NetworkViewController.m in Sources */,
 				BD8FDA79280EF904000036DD /* ScanViewController.m in Sources */,
 				BDE88A63280AC2B200081114 /* SwitchProgressTableViewCell.m in Sources */,
 				BDE88A4B28087E2F00081114 /* UIView+Extension.m in Sources */,
+				BDFA3AB1282966B0004A7E8C /* NetworkTableViewCell.m in Sources */,
 				BDE889F928044DA700081114 /* RMHelper.m in Sources */,
 				BD8FDA40280D5F91000036DD /* UpdateViewController.m in Sources */,
 				BDE88A4E280A776500081114 /* DeviceSwitchView.m in Sources */,
 				BDE88A52280A7C0300081114 /* DeviceSwitchTableViewCell.m in Sources */,
 				BDE88A78280B12A900081114 /* DataEchartsCollectionViewCell.m in Sources */,
 				BD8FDA57280EEED3000036DD /* WarningListView.m in Sources */,
+				BDFA3AA42827A6BD004A7E8C /* GlobelDescAlertView.m in Sources */,
 				BDFA3A9A28257325004A7E8C /* AddDeviceActionTableViewCell.m in Sources */,
 				BD2DEF3128044A74004E8D7D /* main.m in Sources */,
 				BDE88A0928046F7D00081114 /* DataViewController.m in Sources */,

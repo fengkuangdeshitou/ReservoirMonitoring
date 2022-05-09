@@ -15,4 +15,10 @@
     self.navigationItem.leftBarButtonItem = item;
 }
 
+- (void)setRightBarButtonItemWithTitlt:(NSString *)title
+                                   sel:(SEL)sel{
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:sel];
+    self.navigationItem.rightBarButtonItem = item;
+}
+
 @end

@@ -9,12 +9,14 @@
 #import "SwitchModelTableViewCell.h"
 #import "SwitchProgressTableViewCell.h"
 #import "PeakTimeTableViewCell.h"
+#import "GlobelDescAlertView.h"
 
 @interface SwitchModeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * submitButton;
 @property(nonatomic,assign)NSInteger flag;
+@property(nonatomic,weak)IBOutlet UILabel * weather;
 
 @end
 
@@ -23,6 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.weather.text = @"Weather watch".localized;
+    [self.submitButton setTitle:@"Submit".localized forState:UIControlStateNormal];
     [[NSNotificationCenter defaultCenter] addObserverForName:TIME_TABLEVIEW_HEIGHT_CHANGE object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
         [self.tableView reloadData];
     }];
@@ -33,10 +37,16 @@
     
 }
 
+- (IBAction)helpAction:(id)sender{
+    [GlobelDescAlertView showAlertViewWithTitle:@"Weather watch".localized desc:@"Monitor local weather condition, automatically stores energy for hazard backup."];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         SwitchModelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchModelTableViewCell class]) forIndexPath:indexPath];
         cell.icon.image = [UIImage imageNamed:self.flag == indexPath.section ? @"icon_choose" : @"icon_unchoose"];
+        cell.titleLabel.text = indexPath.section == 0 ? @"Self-consumption" : (indexPath.section == 1 ? @"Back up" : @"Time Of Use");
+        cell.indexPath = indexPath;
         return cell;
     }else{
         if (indexPath.section == 2) {
@@ -89,7 +99,7 @@
     
     UILabel * label = [[UILabel alloc] init];
     [colorView addSubview:label];
-    label.text = @"Device operation mode setting:";
+    label.text = @"Switch operation mode".localized;
     label.textColor = UIColor.whiteColor;
     label.font = [UIFont systemFontOfSize:16 weight:UIFontWeightBold];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {

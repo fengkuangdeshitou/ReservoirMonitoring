@@ -12,6 +12,7 @@
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,strong) NSMutableArray * dataArray;
+@property(nonatomic,weak)IBOutlet UILabel * titleLabel;
 
 @end
 
@@ -20,6 +21,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.titleLabel.text = @"Allow charging via grid".localized;
     self.dataArray = [[NSMutableArray alloc] init];
     for (int i=0; i<3; i++) {
         NSArray * array = @[@{@"startTime":@"",@"endTime":@"",@"price":@""}];
@@ -75,7 +77,7 @@
             make.top.mas_equalTo(10);
         make.height.mas_equalTo(20);
     }];
-    label.text = section == 0 ? @"The current bound device" : @"Unbound devices";
+    label.text = section == 0 ? @"Off-peak time".localized : (section == 1 ? @"Peak time".localized : @"Super peak time".localized);
     label.textColor = UIColor.whiteColor;
     return headerView;
 }

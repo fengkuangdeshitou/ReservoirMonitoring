@@ -9,6 +9,7 @@
 #import "SetInfoTableViewCell.h"
 #import "SetTableViewCell.h"
 #import "InfoViewController.h"
+#import "NetworkViewController.h"
 #import "UpdateViewController.h"
 #import "HelpViewController.h"
 #import "WarningViewController.h"
@@ -27,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.dataArray = @[@"Personal information",@"Equipment distribution network",@"Equipment upgrades",@"The help file",@"The alarm of failure",@"debugging"];
+    self.dataArray = @[@"User Info".localized,@"Network".localized,@"Update".localized,@"Help".localized,@"Fault&Alarm".localized,@"Debug".localized];
     self.iconArray = @[@"icon_information",@"icon_list",@"icon_update",@"icon_help",@"icon_warning",@"icon_test"];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SetInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SetInfoTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SetTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SetTableViewCell class])];
@@ -52,6 +53,11 @@
             info.hidesBottomBarWhenPushed = true;
             info.title = self.dataArray[indexPath.row];
             [self.navigationController pushViewController:info animated:true];
+        }else if(indexPath.row == 1){
+            NetworkViewController * network = [[NetworkViewController alloc] init];
+            network.title = self.dataArray[indexPath.row];
+            network.hidesBottomBarWhenPushed = true;
+            [self.navigationController pushViewController:network animated:true];
         }else if(indexPath.row == 2){
             UpdateViewController * update = [[UpdateViewController alloc] init];
             update.title = self.dataArray[indexPath.row];

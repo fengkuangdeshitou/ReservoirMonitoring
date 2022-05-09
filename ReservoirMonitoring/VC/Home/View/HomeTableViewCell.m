@@ -14,6 +14,9 @@
 @property(nonatomic,weak)IBOutlet UIView * itemContentView;
 @property(nonatomic,weak)IBOutlet UIView * currentModelView;
 @property(nonatomic,strong) HomeProgressView * progressView;
+@property(nonatomic,weak)IBOutlet UILabel * currentMode;
+@property(nonatomic,weak)IBOutlet UILabel * family;
+@property(nonatomic,weak)IBOutlet UILabel * status;
 
 @end
 
@@ -23,6 +26,9 @@
     [super awakeFromNib];
     // Initialization code
     
+    self.currentMode.text = @"Current mode".localized;
+    self.family.text = @"Energy independence rating(Daily):".localized;
+    self.status.text = @"Device status:".localized;
     self.currentModelView.layer.cornerRadius = 16;
     self.currentModelView.layer.borderColor = [UIColor colorWithHexString:@"#2E2E2E"].CGColor;
     self.currentModelView.layer.borderWidth = 0.5;

@@ -7,11 +7,18 @@
 
 #import "SetInfoTableViewCell.h"
 
+@interface SetInfoTableViewCell ()
+
+@property(nonatomic,weak)IBOutlet UILabel * type;
+
+@end
+
 @implementation SetInfoTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.type.text = @"User/Installer".localized;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

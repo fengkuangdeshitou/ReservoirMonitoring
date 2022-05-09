@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TimeTableViewCell : UITableViewCell
 
 @property(nonatomic,weak)IBOutlet UIButton * removeButton;
+@property(nonatomic,weak)IBOutlet UITextField * startTime;
+@property(nonatomic,weak)IBOutlet UITextField * endTime;
+@property(nonatomic,weak)IBOutlet UITextField * electricity;
 
 @end
 

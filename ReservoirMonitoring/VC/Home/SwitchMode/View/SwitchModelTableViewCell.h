@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SwitchModelTableViewCell : UITableViewCell
 
 @property(nonatomic,weak)IBOutlet UIImageView * icon;
+@property(nonatomic,weak)IBOutlet UILabel * titleLabel;
+@property(nonatomic,strong) NSIndexPath * indexPath;
 
 @end
 

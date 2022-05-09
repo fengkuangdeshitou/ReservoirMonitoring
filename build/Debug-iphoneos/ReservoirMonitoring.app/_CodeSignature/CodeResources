@@ -6,7 +6,7 @@
 	<dict>
 		<key>AddAddressViewController.nib</key>
 		<data>
-		rq+l8cIbhmn8u9fuZqZDj7sQckA=
+		LIUhmoUP+zp3EJo1r91akDX/wSk=
 		</data>
 		<key>AddDeviceActionTableViewCell.nib</key>
 		<data>
@@ -26,7 +26,7 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		mWJ2+QA8UWxEnJDaS41voLlv+fo=
+		R9+f7tT9ODaMto2t6Iige31TjTo=
 		</data>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
@@ -62,11 +62,11 @@
 		</data>
 		<key>DataEchartsCollectionViewCell.nib/objects-12.3+.nib</key>
 		<data>
-		1KfcjvFK6Zl9Om40tAaKvhSUQno=
+		RuFH0s8gJxHB1vTkJ+ogqzEstoY=
 		</data>
 		<key>DataEchartsCollectionViewCell.nib/runtime.nib</key>
 		<data>
-		MdMfNJffXOLc9CkMLdSP1dsBp9Y=
+		oHLAlVzy3mPqfDNzXFC2UHqr2RI=
 		</data>
 		<key>DataViewController.nib</key>
 		<data>
@@ -86,7 +86,7 @@
 		</data>
 		<key>DeviceSwitchTableViewCell.nib</key>
 		<data>
-		8Z3D9TrjVyuyGRHfmsQhcrUK91c=
+		M4wU0TTTQMtpWnN0TNlcb6kLX1U=
 		</data>
 		<key>ForgotViewController.nib</key>
 		<data>
@@ -994,6 +994,10 @@
 		<data>
 		BDECRiLHB0X/kKWazIr63lY4fqA=
 		</data>
+		<key>GlobelDescAlertView.nib</key>
+		<data>
+		9l+i2OnT7vboOT1110BpeCUXM8Y=
+		</data>
 		<key>HelpTableViewCell.nib</key>
 		<data>
 		prh/IrV3JJnMLBLdTe8VnMKGRiI=
@@ -1004,7 +1008,7 @@
 		</data>
 		<key>HomeTableViewCell.nib</key>
 		<data>
-		JQ40lo9xOF0F6PjbFgZ9Kl5yL0M=
+		RrvNRSQixAg9DR+Mp4s7Xif6KUI=
 		</data>
 		<key>HomeViewController.nib</key>
 		<data>
@@ -1030,9 +1034,17 @@
 		<data>
 		RFILvTziJBa2ljipIBbJ2PH6JoI=
 		</data>
+		<key>NetworkTableViewCell.nib</key>
+		<data>
+		KxOpMP1eGzgo2lPpPP843kXZJRE=
+		</data>
+		<key>NetworkViewController.nib</key>
+		<data>
+		XHWtx3AREPW47lBhF/XwcGLv4Ag=
+		</data>
 		<key>PeakTimeTableViewCell.nib</key>
 		<data>
-		LomAHMOIoLEmF2QhimPbdrri4GU=
+		/GIpyA9btFUg8luiYOIcqx9avnk=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -1052,7 +1064,7 @@
 		</data>
 		<key>SetInfoTableViewCell.nib</key>
 		<data>
-		DUuSkwWDTQxHCyGyKu8bzXdRDBg=
+		9KspjjMs285W0oZxEdCD1zsyiAk=
 		</data>
 		<key>SetPasswordViewController.nib</key>
 		<data>
@@ -1068,11 +1080,11 @@
 		</data>
 		<key>SwitchModeViewController.nib</key>
 		<data>
-		FDGXDbQ/grLt+OIfyIjlfxQflGI=
+		/nY1aIquVOmPP+SMpXVrIs+24ks=
 		</data>
 		<key>SwitchModelTableViewCell.nib</key>
 		<data>
-		t1bsgUsiChhp39htFz5VoiuC2z8=
+		RIe+aF8W+5ktJuvzKQX7xvq+KqQ=
 		</data>
 		<key>SwitchProgressTableViewCell.nib</key>
 		<data>
@@ -1080,11 +1092,11 @@
 		</data>
 		<key>TimeTableViewCell.nib</key>
 		<data>
-		ASw2Zroh+D0r6euNnw64NKTNy+A=
+		MQEh3u32I3d0ry0mGTfP6gnTo0o=
 		</data>
 		<key>UpdateViewController.nib</key>
 		<data>
-		0ZK4q2zPSrQ+UAa3P3lQemBZlEg=
+		bTLX5i5KctnPsxiBdg6HLY+oP5U=
 		</data>
 		<key>WarningTableViewCell.nib</key>
 		<data>
@@ -1102,7 +1114,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			aT80/4NO6pPmnCK/TNsNmjVy/ZQ=
+			+QIYPEptaFdTxZkE1u94hoBRkvw=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1120,7 +1132,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			pYUzgI0h5rdCPuZVGQeLCkHEV/c=
+			MkR+TDp7DAWu1ngI/nFbZC3wwLk=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1141,7 +1153,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			xAdEv81+6fepAPdXAJ52C9RNnn9Wg6KHmnMd7ZyjuQQ=
+			r32S22nSHT/kNtOCKLkZTdv/WJ2rITcbHmSb5eOiMRU=
 			</data>
 		</dict>
 		<key>AddDeviceActionTableViewCell.nib</key>
@@ -1176,7 +1188,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			sAWIEQBayUutisTQ8O4EWwThfUQ4eRE+Ao6lj5tCdg0=
+			OJHbH86gApXH5pk0qhdSd0hovYmxtE+VBlD6mBWU458=
 			</data>
 		</dict>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
@@ -1239,14 +1251,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			TJ2btAWarCNEtyXOL8KWB0lNu+Qy/mf01Vwdc72kP0s=
+			1PiTDQ/lHfGg+12kI++XmOUQiWQqdJ4tzLqLZ4/wEh8=
 			</data>
 		</dict>
 		<key>DataEchartsCollectionViewCell.nib/runtime.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			q98jpbbApdIPEtVYIuhyzmzdMg1Pyj+hy7Ws4Zq0Pm8=
+			BoEuerW0eJmJtzvkg1A7XpZmrh773JxmpR38eEx8EhE=
 			</data>
 		</dict>
 		<key>DataViewController.nib</key>
@@ -1281,7 +1293,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			knIv7tk0YFFLzdaY6ozlB3gfyH/O9Sxy/PTdZheWchY=
+			tqssg8JnxbVLfAh8F1z8yHhxDAYMzIOZFEkkAMp30j0=
 			</data>
 		</dict>
 		<key>ForgotViewController.nib</key>
@@ -2775,6 +2787,13 @@
 			HSN6LGj25WZZBg5b+4wIkay7ci5YiW88zopgX5Q/wOs=
 			</data>
 		</dict>
+		<key>GlobelDescAlertView.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			aCefC3Z3GojD8VVQgulE2AyM/kdEsD+W4O/culVTYcM=
+			</data>
+		</dict>
 		<key>HelpTableViewCell.nib</key>
 		<dict>
 			<key>hash2</key>
@@ -2793,7 +2812,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			xB5WGfjOHcnWWgLvbA9tNqcABCcWteTOO42CVkSVTgU=
+			XUQQIfH1V1QTBbrw9KY8G11lOK0UUxoTXxgUD0m8Ddk=
 			</data>
 		</dict>
 		<key>HomeViewController.nib</key>
@@ -2831,11 +2850,25 @@
 			94ehYDAak0OfeDlEyJLWln3cfJVGR4Tyb7K1a06wljY=
 			</data>
 		</dict>
+		<key>NetworkTableViewCell.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			/IbxVxhdp52V+Dp6LHspLK3gJQasw2UE24QAfclpWJM=
+			</data>
+		</dict>
+		<key>NetworkViewController.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Zjm3SP0FsAkOhEVsac7iQ05+2UnjF0WUE9iVl19+tvo=
+			</data>
+		</dict>
 		<key>PeakTimeTableViewCell.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			eHkvGc/RhS/+Qnfl7yjNOZBFMHBnoBt5tAs9pQKWcL8=
+			LtKvOjEYlYzra+wNjTVwZ8zdQGC1TdaKTRnXlVgqLqY=
 			</data>
 		</dict>
 		<key>RegisterTableViewCell.nib</key>
@@ -2863,7 +2896,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			9y76YIj+DLowSyKZ7r8sPm17WFaU8zAO96jTA4hHsMQ=
+			y3Ub2k4qiSNxv40WQSTfxagCUeVDmaTSeBmenhgsA8o=
 			</data>
 		</dict>
 		<key>SetPasswordViewController.nib</key>
@@ -2891,14 +2924,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			kMJCAZGJsgE24grpGq9kLcXab+N5BkMLM4miIsVM5Ec=
+			rSBUOvNEfNHhG+RFmth0np4x4cHPVyqY9Wx0BqUfvoM=
 			</data>
 		</dict>
 		<key>SwitchModelTableViewCell.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1pJZhMnRubUfwmli5IQgetSSZNquF6SOZBoar8GMH5E=
+			dpig0L/laTE5h2+yDRaWrCSBJYp/SEAkCN9iyi2PDy8=
 			</data>
 		</dict>
 		<key>SwitchProgressTableViewCell.nib</key>
@@ -2912,14 +2945,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			C/cnIQSqJx19eBWUV8d5wN/eTSEhlfyFHbnKGL7Rggg=
+			YYHkvo/pEZqzVGBMn4gNIu/zp7nwRE4BUDXfXxMU/3c=
 			</data>
 		</dict>
 		<key>UpdateViewController.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			JNwUN461oT5cEUkoPcThdajSPotcFhg4a+0PTTJ4OxM=
+			1DhI/axRF9ydl33G8jYq92XawihrhvN3UxA3ddRkD9Y=
 			</data>
 		</dict>
 		<key>WarningTableViewCell.nib</key>
@@ -2947,7 +2980,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			WAQL969KhzosV+Q/wOb9DilvYu0tFvvWXVGywnGTpUQ=
+			rxY82QzyWnauS1OARq7VjuDmNKKo98aolR8+l7KmpuA=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -2965,7 +2998,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			o2oS3Z+UO0z55oR2RWlfHyJn6mabW+9zkBj4TBoP1/4=
+			T6r661x3nKWmMXAOxu18+RfNtldk+bHHPj6ZkBJSyKM=
 			</data>
 			<key>optional</key>
 			<true/>

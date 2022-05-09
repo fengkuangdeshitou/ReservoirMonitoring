@@ -37,7 +37,7 @@
 "Please set a 6-20 digit password" = "请设置6-20位新密码";
 "Please confirm password" = "请确认新密码";
 
-"Add Equipment" = "添加设备";
+"Add device" = "添加设备";
 "Smart Gateway info" = "链接设备Sn";
 "Please input device SN" = "请输入设备ID";
 "Please input a name for this device" = "请输入设备名称";
@@ -51,3 +51,54 @@
 "Link Email" = "关联用户邮箱";
 "Enter Email" = "请输入邮箱";
 "Confirm" = "确认";
+
+"Current mode" = "当前模式";
+"Energy independence rating(Daily):" = "日家庭能源独立率";
+"Device status:" = "设备工作状态:";
+"Switch operation mode" = "切换运行模式";
+"Weather watch" = "天气观察";
+"Switch device" = "设备切换";
+"Current device" = "当前绑定设备";
+"Other device" = "未绑定的设备";
+"Device name" = "设备名称";
+"Device SN" = "设备SN";
+"Search by device name or SN" = "输入用户名称或xx";
+"Search" = "查询";
+"Allow charging via grid" = "电网充电使能开关";
+"Start time" = "开始时间";
+"End time" = "结束时间";
+"Electricity price" = "电价";
+"Price schedule" = "时间段";
+"Input electricity price" = "请输入该时间段的电价";
+"Off-peak time" = "非高峰时间";
+"Peak time" = "高峰时间";
+"Super peak time" = "超级高峰时间";
+
+"Day" = "天";
+"Month" = "月";
+"Year" = "年";
+"All" = "全部";
+"Solar" = "光伏";
+"Grid" = "电网";
+"Non Back-up" = "一般负载";
+"Back-up load" = "重要负载";
+"Energy graph" = "能量曲线图";
+"Energy independence:" = "能量独立比:";
+"Power outage:" = "电网停电次数:";
+"Reducing deforestation:" = "降低碳排约等";
+"trees" = "棵树";
+"Standard coal saved" = "节约标准煤";
+
+"User Info" = "个人信息";
+"Network" = "设备配网";
+"Update" = "设备升级";
+"Help" = "帮助文件";
+"Fault&Alarm" = "告警故障";
+"Debug" = "调试";
+"User" = "用户";
+"Installer" = "安装商";
+"Check update" = "检查更新";
+"Opt in/out automatic software update (On: Server is allowed to communicate with device and update firmware automatically; Off: Server is NOT allowed to communicate with the device or update firmware.  )\n\nUpdates can be stored in phone, local firmware update can be performed via bluetooth connection between device and this app." = "①允许客户打开或者关闭软件自动更新的选项（打开软件自动更新：在储能设备联网后，允许厂家通过监控系统更新设备软件版本； 关闭后，则厂家不能通过监控系统更新设备软件版本）\n\n②可以就地通过蓝牙更新电池储能系统程序版本，监控系统将软件保存在手机，通过手机将升级文件传送给储能设备，";
+"Current version:" = "当前版本";
+"Alarm" = "警告";
+"Fault" = "故障";

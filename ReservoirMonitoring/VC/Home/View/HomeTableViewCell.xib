@@ -139,8 +139,11 @@
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
                 <outlet property="changeDeviceButton" destination="IE0-Lf-Ndo" id="fd5-wn-L2e"/>
+                <outlet property="currentMode" destination="Kwp-lg-x1O" id="b5c-LP-abi"/>
                 <outlet property="currentModelView" destination="ecf-SL-hkB" id="OLB-7I-xl7"/>
+                <outlet property="family" destination="iCa-c9-9F7" id="Pif-k8-pY4"/>
                 <outlet property="itemContentView" destination="pcc-JM-zqN" id="k3i-TH-s9C"/>
+                <outlet property="status" destination="acb-8X-ach" id="NTN-Mr-5z8"/>
             </connections>
             <point key="canvasLocation" x="136.23188405797103" y="-45.200892857142854"/>
         </tableViewCell>

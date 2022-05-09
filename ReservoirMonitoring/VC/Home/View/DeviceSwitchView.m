@@ -54,7 +54,7 @@
             make.left.mas_equalTo(15);
         }];
         label.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
-        label.text = @"The device switch";
+        label.text = @"Switch device".localized;
         label.textColor = UIColor.whiteColor;
         
         UIButton * closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -111,7 +111,7 @@
             make.top.mas_equalTo(0);
         make.height.mas_equalTo(20);
     }];
-    label.text = section == 0 ? @"The current bound device" : @"Unbound devices";
+    label.text = section == 0 ? @"Current device".localized : @"Other device".localized;
     label.textColor = UIColor.whiteColor;
     return headerView;
 }
@@ -130,7 +130,7 @@
         
         UIButton * searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [contentView addSubview:searchButton];
-        [searchButton setTitle:@"Search" forState:UIControlStateNormal];
+        [searchButton setTitle:@"Search".localized forState:UIControlStateNormal];
         searchButton.titleLabel.font = [UIFont systemFontOfSize:13];
         [searchButton setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
         [searchButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -141,7 +141,7 @@
         
         UITextField * search = [[UITextField alloc] init];
         [contentView addSubview:search];
-        search.placeholder = @"Enter the user name or SN filter";
+        search.placeholder = @"Search by device name or SN".localized;
         search.placeholderColor = [UIColor colorWithHexString:@"#999999"];
         search.font = [UIFont systemFontOfSize:13];
         [search mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -153,7 +153,7 @@
         UIButton * addButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [footerView addSubview:addButton];
         [addButton showBorderWithRadius:16];
-        [addButton setTitle:@"Add equipment" forState:UIControlStateNormal];
+        [addButton setTitle:@"Add device".localized forState:UIControlStateNormal];
         addButton.titleLabel.font = [UIFont systemFontOfSize:14];
         [addButton mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.centerX.mas_equalTo(footerView.mas_centerX);

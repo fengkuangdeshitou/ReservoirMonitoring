@@ -30,4 +30,5 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/SwitchMode/SwitchModeViewController.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/SwitchMode/View/SwitchModelTableViewCell.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/SwitchMode/View/SwitchProgressTableViewCell.h \
-  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/SwitchMode/View/PeakTimeTableViewCell.h
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/SwitchMode/View/PeakTimeTableViewCell.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/SwitchMode/View/GlobelDescAlertView.h
