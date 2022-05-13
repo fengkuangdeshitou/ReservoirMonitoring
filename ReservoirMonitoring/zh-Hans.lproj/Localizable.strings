@@ -102,3 +102,9 @@
 "Current version:" = "当前版本";
 "Alarm" = "警告";
 "Fault" = "故障";
+"Installation" = "安装设置";
+"Grid config" = "电网设置";
+"Inverter config" = "逆变器设置";
+"Generator config" = "柴油机设置";
+"Hybrid config" = "RESS数量";
+"Other config" = "其他设置";

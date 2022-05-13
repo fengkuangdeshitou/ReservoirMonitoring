@@ -20,5 +20,6 @@ NSString * const COLOR_BACK_COLOR = @"#0C0C0C";
 
 NSString * const TIME_TABLEVIEW_HEIGHT_CHANGE = @"time_tableview_height_change";
 
+NSString * const LOGIN_SUCCESS = @"login_success";
 
 @end

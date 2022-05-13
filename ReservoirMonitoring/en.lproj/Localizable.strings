@@ -102,3 +102,9 @@
 "Current version:" = "Current version:";
 "Alarm" = "Alarm";
 "Fault" = "Fault";
+"Installation" = "Installation";
+"Grid config" = "Grid config";
+"Inverter config" = "Inverter config";
+"Generator config" = "Generator config";
+"Hybrid config" = "Hybrid config";
+"Other config" = "Other config";

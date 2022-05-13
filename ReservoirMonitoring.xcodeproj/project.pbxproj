@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F3EBC0E282E8A5E009CDBED /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3EBC0C282E8A5E009CDBED /* GridViewController.m */; };
+		0F3EBC0F282E8A5E009CDBED /* GridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3EBC0D282E8A5E009CDBED /* GridViewController.xib */; };
+		0F3EBC14282E8B05009CDBED /* InverterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3EBC12282E8B05009CDBED /* InverterViewController.m */; };
+		0F3EBC15282E8B05009CDBED /* InverterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3EBC13282E8B05009CDBED /* InverterViewController.xib */; };
+		0F3EBC1A282E8B51009CDBED /* GeneratorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3EBC18282E8B51009CDBED /* GeneratorViewController.m */; };
+		0F3EBC1B282E8B51009CDBED /* GeneratorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3EBC19282E8B51009CDBED /* GeneratorViewController.xib */; };
+		0F3EBC20282E8B94009CDBED /* HybridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3EBC1E282E8B94009CDBED /* HybridViewController.m */; };
+		0F3EBC21282E8B94009CDBED /* HybridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3EBC1F282E8B94009CDBED /* HybridViewController.xib */; };
+		0F3EBC26282E8BC9009CDBED /* OtherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3EBC24282E8BC9009CDBED /* OtherViewController.m */; };
+		0F3EBC27282E8BC9009CDBED /* OtherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3EBC25282E8BC9009CDBED /* OtherViewController.xib */; };
 		6529B29C2E0432E1F4C480DD /* Pods_ReservoirMonitoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BA0DE0AA9A215EC56692FA /* Pods_ReservoirMonitoring.framework */; };
 		B387385CB1D93CCC02D43717 /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F582A4DCB34D84D2C390CBD /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework */; };
 		BD2DEF2028044A6E004E8D7D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2DEF1F28044A6E004E8D7D /* AppDelegate.m */; };
@@ -131,6 +141,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F3EBC0B282E8A5E009CDBED /* GridViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridViewController.h; sourceTree = "<group>"; };
+		0F3EBC0C282E8A5E009CDBED /* GridViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GridViewController.m; sourceTree = "<group>"; };
+		0F3EBC0D282E8A5E009CDBED /* GridViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GridViewController.xib; sourceTree = "<group>"; };
+		0F3EBC11282E8B05009CDBED /* InverterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InverterViewController.h; sourceTree = "<group>"; };
+		0F3EBC12282E8B05009CDBED /* InverterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InverterViewController.m; sourceTree = "<group>"; };
+		0F3EBC13282E8B05009CDBED /* InverterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InverterViewController.xib; sourceTree = "<group>"; };
+		0F3EBC17282E8B51009CDBED /* GeneratorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratorViewController.h; sourceTree = "<group>"; };
+		0F3EBC18282E8B51009CDBED /* GeneratorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeneratorViewController.m; sourceTree = "<group>"; };
+		0F3EBC19282E8B51009CDBED /* GeneratorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneratorViewController.xib; sourceTree = "<group>"; };
+		0F3EBC1D282E8B94009CDBED /* HybridViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HybridViewController.h; sourceTree = "<group>"; };
+		0F3EBC1E282E8B94009CDBED /* HybridViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HybridViewController.m; sourceTree = "<group>"; };
+		0F3EBC1F282E8B94009CDBED /* HybridViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HybridViewController.xib; sourceTree = "<group>"; };
+		0F3EBC23282E8BC9009CDBED /* OtherViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OtherViewController.h; sourceTree = "<group>"; };
+		0F3EBC24282E8BC9009CDBED /* OtherViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OtherViewController.m; sourceTree = "<group>"; };
+		0F3EBC25282E8BC9009CDBED /* OtherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OtherViewController.xib; sourceTree = "<group>"; };
 		0F582A4DCB34D84D2C390CBD /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		11BA0DE0AA9A215EC56692FA /* Pods_ReservoirMonitoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		263B1F2000C58A09A71CC682 /* Pods_ReservoirMonitoringTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoringTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -334,6 +359,56 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F3EBC10282E8AF5009CDBED /* Inverter */ = {
+			isa = PBXGroup;
+			children = (
+				0F3EBC11282E8B05009CDBED /* InverterViewController.h */,
+				0F3EBC12282E8B05009CDBED /* InverterViewController.m */,
+				0F3EBC13282E8B05009CDBED /* InverterViewController.xib */,
+			);
+			path = Inverter;
+			sourceTree = "<group>";
+		};
+		0F3EBC16282E8B43009CDBED /* Generator */ = {
+			isa = PBXGroup;
+			children = (
+				0F3EBC17282E8B51009CDBED /* GeneratorViewController.h */,
+				0F3EBC18282E8B51009CDBED /* GeneratorViewController.m */,
+				0F3EBC19282E8B51009CDBED /* GeneratorViewController.xib */,
+			);
+			path = Generator;
+			sourceTree = "<group>";
+		};
+		0F3EBC1C282E8B89009CDBED /* Hybrid */ = {
+			isa = PBXGroup;
+			children = (
+				0F3EBC1D282E8B94009CDBED /* HybridViewController.h */,
+				0F3EBC1E282E8B94009CDBED /* HybridViewController.m */,
+				0F3EBC1F282E8B94009CDBED /* HybridViewController.xib */,
+			);
+			path = Hybrid;
+			sourceTree = "<group>";
+		};
+		0F3EBC22282E8BBE009CDBED /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				0F3EBC23282E8BC9009CDBED /* OtherViewController.h */,
+				0F3EBC24282E8BC9009CDBED /* OtherViewController.m */,
+				0F3EBC25282E8BC9009CDBED /* OtherViewController.xib */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		0F4030D9282E89F5001E1F2D /* Grid */ = {
+			isa = PBXGroup;
+			children = (
+				0F3EBC0B282E8A5E009CDBED /* GridViewController.h */,
+				0F3EBC0C282E8A5E009CDBED /* GridViewController.m */,
+				0F3EBC0D282E8A5E009CDBED /* GridViewController.xib */,
+			);
+			path = Grid;
+			sourceTree = "<group>";
+		};
 		6C601691DA04C12B7D142288 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -502,6 +577,11 @@
 				BD8FDA5E280EF17E000036DD /* DebugViewController.h */,
 				BD8FDA5F280EF17E000036DD /* DebugViewController.m */,
 				BD8FDA60280EF17E000036DD /* DebugViewController.xib */,
+				0F4030D9282E89F5001E1F2D /* Grid */,
+				0F3EBC10282E8AF5009CDBED /* Inverter */,
+				0F3EBC16282E8B43009CDBED /* Generator */,
+				0F3EBC1C282E8B89009CDBED /* Hybrid */,
+				0F3EBC22282E8BBE009CDBED /* Other */,
 				BD8FDA69280EF567000036DD /* AddDevice */,
 				BD8FDA63280EF1C0000036DD /* View */,
 			);
@@ -927,6 +1007,7 @@
 				BDE88A0A28046F7D00081114 /* DataViewController.xib in Resources */,
 				BDE88A2B2805C47C00081114 /* RegisterTableViewCell.xib in Resources */,
 				BD8FDA53280EED5A000036DD /* WarningViewController.xib in Resources */,
+				0F3EBC21282E8B94009CDBED /* HybridViewController.xib in Resources */,
 				BDE88A5F280ABD4600081114 /* SwitchModelTableViewCell.xib in Resources */,
 				BDFA3AA128257686004A7E8C /* AddAddressViewController.xib in Resources */,
 				BD907361280D4B1A00044013 /* SetTableViewCell.xib in Resources */,
@@ -948,7 +1029,10 @@
 				BDE88A74280B0E5D00081114 /* DataCollectionViewCell.xib in Resources */,
 				BDFA3AA62827A6C8004A7E8C /* GlobelDescAlertView.xib in Resources */,
 				BD8FDA5C280EEF88000036DD /* WarningTableViewCell.xib in Resources */,
+				0F3EBC15282E8B05009CDBED /* InverterViewController.xib in Resources */,
 				BD8FDA41280D5F91000036DD /* UpdateViewController.xib in Resources */,
+				0F3EBC1B282E8B51009CDBED /* GeneratorViewController.xib in Resources */,
+				0F3EBC0F282E8A5E009CDBED /* GridViewController.xib in Resources */,
 				BDFA3A9B28257325004A7E8C /* AddDeviceActionTableViewCell.xib in Resources */,
 				BD8FDA4D280EEBF5000036DD /* HelpTableViewCell.xib in Resources */,
 				BD8FDA74280EF5D7000036DD /* AddDeviceTableViewCell.xib in Resources */,
@@ -956,6 +1040,7 @@
 				BDFA3AB2282966B0004A7E8C /* NetworkTableViewCell.xib in Resources */,
 				BDE88A4228070EA000081114 /* HomeTableViewCell.xib in Resources */,
 				BD907366280D4B4900044013 /* SetInfoTableViewCell.xib in Resources */,
+				0F3EBC27282E8BC9009CDBED /* OtherViewController.xib in Resources */,
 				BDE88A59280AB78B00081114 /* SwitchModeViewController.xib in Resources */,
 				BD8FDA68280EF1DE000036DD /* DebugCollectionViewCell.xib in Resources */,
 				BDE88A392805D66200081114 /* SetPasswordViewController.xib in Resources */,
@@ -1102,7 +1187,9 @@
 				BDE88A5E280ABD4600081114 /* SwitchModelTableViewCell.m in Sources */,
 				BD2DEF2028044A6E004E8D7D /* AppDelegate.m in Sources */,
 				BDE88A132804714E00081114 /* BaseViewController+BarButtonItem.m in Sources */,
+				0F3EBC20282E8B94009CDBED /* HybridViewController.m in Sources */,
 				BD8FDA4C280EEBF5000036DD /* HelpTableViewCell.m in Sources */,
+				0F3EBC26282E8BC9009CDBED /* OtherViewController.m in Sources */,
 				BDE88A452807187600081114 /* HomeItemView.m in Sources */,
 				BD907371280D5B0600044013 /* InfoTableViewCell.m in Sources */,
 				BDE88A482808771B00081114 /* HomeProgressView.m in Sources */,
@@ -1120,6 +1207,8 @@
 				BDE88A232805C3F800081114 /* RegisterViewController.m in Sources */,
 				BDE88A042804574700081114 /* NSString+Localiced.m in Sources */,
 				BDE88A332805D05000081114 /* ForgotViewController.m in Sources */,
+				0F3EBC0E282E8A5E009CDBED /* GridViewController.m in Sources */,
+				0F3EBC1A282E8B51009CDBED /* GeneratorViewController.m in Sources */,
 				BDE88A4128070EA000081114 /* HomeTableViewCell.m in Sources */,
 				BDE88A0F28046FE100081114 /* SetViewController.m in Sources */,
 				BD2DEF5D28044B58004E8D7D /* NavigationViewController.m in Sources */,
@@ -1144,6 +1233,7 @@
 				BD907365280D4B4900044013 /* SetInfoTableViewCell.m in Sources */,
 				BDE88A68280AC7C600081114 /* PeakTimeTableViewCell.m in Sources */,
 				BD907360280D4B1A00044013 /* SetTableViewCell.m in Sources */,
+				0F3EBC14282E8B05009CDBED /* InverterViewController.m in Sources */,
 				BDFA3AA028257686004A7E8C /* AddAddressViewController.m in Sources */,
 				BD8FDA6D280EF582000036DD /* AddDeviceViewController.m in Sources */,
 				BD2DEF6528044C1F004E8D7D /* HomeViewController.m in Sources */,
@@ -1339,6 +1429,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ReservoirMonitoring/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReservoirMonitoring/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MoonFlow;
 				INFOPLIST_KEY_NSCameraUsageDescription = "扫码";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1351,7 +1442,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rm.ReservoirMonitoring;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1371,6 +1462,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ReservoirMonitoring/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReservoirMonitoring/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MoonFlow;
 				INFOPLIST_KEY_NSCameraUsageDescription = "扫码";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1383,7 +1475,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rm.ReservoirMonitoring;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = 1;

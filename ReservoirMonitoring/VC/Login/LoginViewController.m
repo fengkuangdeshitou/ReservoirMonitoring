@@ -34,6 +34,10 @@
     [self.forgot setTitle:@"Forget password".localized forState:UIControlStateNormal];
 }
 
+- (void)onAuthemticationSuccess{
+    [[NSNotificationCenter defaultCenter] postNotificationName:LOGIN_SUCCESS object:nil];
+}
+
 - (IBAction)loginAction:(id)sender{
     [ImageAuthenticationView showImageAuthemticationWithDelegate:self];
 }

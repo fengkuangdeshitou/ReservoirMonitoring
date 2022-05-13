@@ -53,6 +53,11 @@
         appearance.shadowColor = [UIColor colorWithHexString:@"#2E2E2E"];
         appearance.backgroundColor = [UIColor colorWithHexString:COLOR_BACK_COLOR];
         [self.tabBar setStandardAppearance:appearance];
+        if (@available(iOS 15.0, *)) {
+            [self.tabBar setScrollEdgeAppearance:appearance];
+        } else {
+            // Fallback on earlier versions
+        }
     }else{
         self.tabBar.shadowImage = [UIImage new];
         self.tabBar.backgroundImage = [UIImage new];

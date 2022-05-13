@@ -21,17 +21,19 @@
     self.navigationBar.shadowImage = [UIImage new];
     self.navigationBar.backgroundColor = [UIColor colorWithHexString:@"#1E1E1E"];
     self.navigationBar.barTintColor = [UIColor colorWithHexString:@"#1E1E1E"];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#1E1E1E"];
     self.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:UIColor.whiteColor,NSFontAttributeName:[UIFont systemFontOfSize:18 weight:UIFontWeightMedium]};
-//    if (@available(iOS 13.0, *)) {
-//        UINavigationBarAppearance * appearance = [[UINavigationBarAppearance alloc] init];
-//        appearance.backgroundColor = [UIColor colorWithHexString:COLOR_BACK_COLOR];
-//        self.navigationItem.standardAppearance = appearance;
-//        self.navigationItem.compactAppearance = appearance;
-//        self.navigationItem.scrollEdgeAppearance = appearance;
-//    } else {
-//        // Fallback on earlier versions
-//
-//    }
+    if (@available(iOS 13.0, *)) {
+        UINavigationBarAppearance * appearance = [[UINavigationBarAppearance alloc] init];
+        appearance.backgroundColor = [UIColor colorWithHexString:@"#1E1E1E"];
+        appearance.backgroundImage = [UIImage new];
+        self.navigationBar.standardAppearance = appearance;
+        self.navigationBar.compactAppearance = appearance;
+        self.navigationBar.scrollEdgeAppearance = appearance;
+    } else {
+        // Fallback on earlier versions
+
+    }
     
 }
 

@@ -19,16 +19,20 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:LOGIN_SUCCESS object:nil];
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-//    LoginViewController * login = [[LoginViewController alloc] init];
-//    NavigationViewController * nav = [[NavigationViewController alloc] initWithRootViewController:login];
-//    login.title = @"Login".localized;
-//    self.window.rootViewController = nav;
-    TabbarViewController * tabbar = [[TabbarViewController alloc] init];
-    self.window.rootViewController = tabbar;
-    [self.window makeKeyAndVisible];
+    self.window.backgroundColor = [UIColor colorWithHexString:@"#1E1E1E"];
+    LoginViewController * login = [[LoginViewController alloc] init];
+    NavigationViewController * nav = [[NavigationViewController alloc] initWithRootViewController:login];
+    login.title = @"Login".localized;
+    self.window.rootViewController = nav;
     return YES;
 }
 
+- (void)loginSuccess{
+    TabbarViewController * tabbar = [[TabbarViewController alloc] init];
+    self.window.rootViewController = tabbar;
+    [self.window makeKeyAndVisible];
+}
 
 @end

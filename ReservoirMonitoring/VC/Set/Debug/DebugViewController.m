@@ -8,10 +8,16 @@
 #import "DebugViewController.h"
 #import "DebugCollectionViewCell.h"
 #import "AddDeviceViewController.h"
+#import "GridViewController.h"
+#import "InverterViewController.h"
+#import "GeneratorViewController.h"
+#import "HybridViewController.h"
+#import "OtherViewController.h"
 
 @interface DebugViewController ()<UICollectionViewDelegate>
 
 @property(nonatomic,weak)IBOutlet UICollectionView * collectionView;
+@property(nonatomic,strong) NSArray * dataArray;
 
 @end
 
@@ -20,6 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.dataArray = @[@"Installation".localized,@"Grid config".localized,@"Inverter config".localized,@"Generator config".localized,@"Hybrid config".localized,@"Other config"];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DebugCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([DebugCollectionViewCell class])];
 }
 
@@ -28,14 +35,37 @@
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPathP{
-    AddDeviceViewController * add = [[AddDeviceViewController alloc] init];
-    add.title = @"Add Equipment".localized;
-    [self.navigationController pushViewController:add animated:true];
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSString * title = self.dataArray[indexPath.row];
+    if (indexPath.row == 0) {
+        AddDeviceViewController * add = [[AddDeviceViewController alloc] init];
+        add.title = @"Add Equipment".localized;
+        [self.navigationController pushViewController:add animated:true];
+    }else if (indexPath.row == 1){
+        GridViewController * grid = [[GridViewController alloc] init];
+        grid.title = title;
+        [self.navigationController pushViewController:grid animated:true];
+    }else if (indexPath.row == 2){
+        InverterViewController * inverter = [[InverterViewController alloc] init];
+        inverter.title = title;
+        [self.navigationController pushViewController:inverter animated:true];
+    }else if (indexPath.row == 3){
+        GeneratorViewController * generator = [[GeneratorViewController alloc] init];
+        generator.title = title;
+        [self.navigationController pushViewController:generator animated:true];
+    }else if (indexPath.row == 4){
+        HybridViewController * hybrid = [[HybridViewController alloc] init];
+        hybrid.title = title;
+        [self.navigationController pushViewController:hybrid animated:true];
+    }else if (indexPath.row == 5){
+        OtherViewController * other = [[OtherViewController alloc] init];
+        other.title = title;
+        [self.navigationController pushViewController:other animated:true];
+    }
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 4;
+    return self.dataArray.count;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
