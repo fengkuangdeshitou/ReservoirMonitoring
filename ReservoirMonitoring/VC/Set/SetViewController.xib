@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SetViewController">
             <connections>
+                <outlet property="loginout" destination="aph-A1-Msy" id="anY-zo-kbx"/>
                 <outlet property="tableView" destination="h6v-kt-SLJ" id="90r-ws-qZY"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,6 +25,29 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <color key="backgroundColor" red="0.047058823529411764" green="0.047058823529411764" blue="0.047058823529411764" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="separatorColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <view key="tableFooterView" contentMode="scaleToFill" id="EYZ-c9-qI7">
+                        <rect key="frame" x="0.0" y="768" width="414" height="150"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aph-A1-Msy">
+                                <rect key="frame" x="35" y="50" width="344" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="LFQ-dm-Ekv"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.54901960780000003" green="0.87450980389999999" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="FD0-cB-Ezv"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="FD0-cB-Ezv" firstAttribute="trailing" secondItem="aph-A1-Msy" secondAttribute="trailing" constant="35" id="44C-oC-Zbb"/>
+                            <constraint firstItem="aph-A1-Msy" firstAttribute="top" secondItem="FD0-cB-Ezv" secondAttribute="top" constant="50" id="TFC-uj-c7w"/>
+                            <constraint firstItem="aph-A1-Msy" firstAttribute="leading" secondItem="FD0-cB-Ezv" secondAttribute="leading" constant="35" id="dAd-bq-M6m"/>
+                        </constraints>
+                    </view>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="Fbk-X4-1bJ"/>
                         <outlet property="delegate" destination="-1" id="7f9-1z-5qx"/>

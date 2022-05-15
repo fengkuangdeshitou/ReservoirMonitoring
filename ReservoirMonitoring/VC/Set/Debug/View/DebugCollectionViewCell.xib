@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="132" height="172"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pq9-wU-9Wc">
-                                <rect key="frame" x="29.5" y="34" width="73" height="73"/>
+                                <rect key="frame" x="29.5" y="17" width="73" height="73"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Twy-iq-HaG">
                                         <rect key="frame" x="20.5" y="20.5" width="32" height="32"/>
@@ -43,7 +43,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电网设置" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IcL-9E-pZw">
-                                <rect key="frame" x="29.5" y="119" width="73.5" height="21"/>
+                                <rect key="frame" x="29.5" y="102" width="73.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -54,7 +54,7 @@
                             <constraint firstItem="IcL-9E-pZw" firstAttribute="top" secondItem="pq9-wU-9Wc" secondAttribute="bottom" constant="12" id="P3c-G4-ltd"/>
                             <constraint firstItem="pq9-wU-9Wc" firstAttribute="centerX" secondItem="sJI-Kx-l3b" secondAttribute="centerX" id="PVm-ym-miK"/>
                             <constraint firstItem="IcL-9E-pZw" firstAttribute="centerX" secondItem="sJI-Kx-l3b" secondAttribute="centerX" id="du2-Qf-mf1"/>
-                            <constraint firstItem="pq9-wU-9Wc" firstAttribute="top" secondItem="sJI-Kx-l3b" secondAttribute="top" constant="34" id="vAJ-wW-w1Q"/>
+                            <constraint firstItem="pq9-wU-9Wc" firstAttribute="top" secondItem="sJI-Kx-l3b" secondAttribute="top" constant="17" id="vAJ-wW-w1Q"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="4"/>
@@ -70,6 +70,10 @@
                 <constraint firstAttribute="trailing" secondItem="sJI-Kx-l3b" secondAttribute="trailing" id="zpV-g7-qvx"/>
             </constraints>
             <size key="customSize" width="132" height="172"/>
+            <connections>
+                <outlet property="icon" destination="Twy-iq-HaG" id="kGZ-dJ-RL3"/>
+                <outlet property="titleLabel" destination="IcL-9E-pZw" id="FDj-eQ-0m7"/>
+            </connections>
             <point key="canvasLocation" x="197.10144927536234" y="128.57142857142856"/>
         </collectionViewCell>
     </objects>

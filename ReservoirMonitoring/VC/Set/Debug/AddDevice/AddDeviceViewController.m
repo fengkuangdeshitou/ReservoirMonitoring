@@ -25,6 +25,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.dataArray = [[NSMutableArray alloc] init];
+    [self.dataArray addObject:@""];
+    [self.dataArray addObject:@""];
+
     [self.next showBorderWithRadius:25];
     [self.next setTitle:@"Next".localized forState:UIControlStateNormal];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([AddDeviceTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([AddDeviceTableViewCell class])];
@@ -50,9 +53,26 @@
             return cell;
         }else{
             AddDeviceSNTableViewCell*cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([AddDeviceSNTableViewCell class]) forIndexPath:indexPath];
+            if (indexPath.row == 0) {
+                cell.scanBtn.hidden = true;
+                [cell.deleteBtm setImage:[UIImage imageNamed:@"ic_set_scan"] forState:UIControlStateNormal];
+                cell.textfield.placeholder = @"Please input inverte SN".localized;
+            }else{
+                cell.scanBtn.hidden = false;
+                cell.textfield.placeholder = @"Please inpute battery module SN".localized;
+                [cell.scanBtn setImage:[UIImage imageNamed:@"ic_set_scan"] forState:UIControlStateNormal];
+                [cell.deleteBtm setImage:[UIImage imageNamed:@"ic_delete"] forState:UIControlStateNormal];
+                cell.deleteBtm.tag = indexPath.row+10;
+                [cell.deleteBtm addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
+            }
             return cell;
         }
     }
+}
+
+- (void)deleteAction:(UIButton *)btn{
+    [self.dataArray removeObjectAtIndex:btn.tag-10];
+    [self.tableView reloadData];
 }
 
 - (void)addDeviceAction{
@@ -86,7 +106,7 @@
     UILabel * title = [[UILabel alloc] init];
     [header addSubview:title];
     [title mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(15);
+        make.left.mas_equalTo(section == 0 ? 15 : 30);
             make.top.bottom.mas_equalTo(0);
     }];
     title.text = @"Accessory Hybrid info".localized;

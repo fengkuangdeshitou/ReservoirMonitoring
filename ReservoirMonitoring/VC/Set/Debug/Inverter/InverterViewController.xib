@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InverterViewController">
             <connections>
+                <outlet property="submit" destination="Hd8-kq-ZFH" id="O8f-rq-P7o"/>
                 <outlet property="tableView" destination="fJA-Tg-hPt" id="7Ru-kp-NCH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -22,10 +23,33 @@
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fJA-Tg-hPt">
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" red="0.047058823530000002" green="0.047058823530000002" blue="0.047058823530000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <view key="tableFooterView" contentMode="scaleToFill" id="xG0-q2-LzA">
+                        <rect key="frame" x="0.0" y="861" width="414" height="100"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hd8-kq-ZFH">
+                                <rect key="frame" x="35" y="50" width="344" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="XcR-KN-gfz"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.54901960780000003" green="0.87450980389999999" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="XpW-BI-15g"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Hd8-kq-ZFH" firstAttribute="leading" secondItem="XpW-BI-15g" secondAttribute="leading" constant="35" id="502-oB-ml7"/>
+                            <constraint firstItem="Hd8-kq-ZFH" firstAttribute="top" secondItem="XpW-BI-15g" secondAttribute="top" constant="50" id="t0x-Wz-E3E"/>
+                            <constraint firstItem="XpW-BI-15g" firstAttribute="trailing" secondItem="Hd8-kq-ZFH" secondAttribute="trailing" constant="35" id="y2L-5F-EdK"/>
+                        </constraints>
+                    </view>
                     <connections>
-                        <outlet property="dataSource" destination="i5M-Pr-FkT" id="DeN-I6-cJV"/>
-                        <outlet property="delegate" destination="i5M-Pr-FkT" id="Ovm-en-n9B"/>
+                        <outlet property="dataSource" destination="-1" id="SiM-md-Yed"/>
+                        <outlet property="delegate" destination="-1" id="sOt-Vy-lDj"/>
                     </connections>
                 </tableView>
             </subviews>

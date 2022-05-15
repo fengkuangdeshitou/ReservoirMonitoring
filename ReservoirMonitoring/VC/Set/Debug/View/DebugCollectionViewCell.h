@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DebugCollectionViewCell : UICollectionViewCell
 
+@property(nonatomic,weak)IBOutlet UIImageView * icon;
+@property(nonatomic,weak)IBOutlet UILabel * titleLabel;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -18,6 +18,7 @@
 @interface SetViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
+@property(nonatomic,weak)IBOutlet UIButton * loginout;
 @property(nonatomic,strong)NSArray * dataArray;
 @property(nonatomic,strong)NSArray * iconArray;
 
@@ -30,6 +31,8 @@
     // Do any additional setup after loading the view from its nib.
     self.dataArray = @[@"User Info".localized,@"Network".localized,@"Update".localized,@"Help".localized,@"Fault&Alarm".localized,@"Debug".localized];
     self.iconArray = @[@"icon_information",@"icon_list",@"icon_update",@"icon_help",@"icon_warning",@"icon_test"];
+    [self.loginout setTitle:@"Log Out".localized forState:UIControlStateNormal];
+    [self.loginout showBorderWithRadius:25];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SetInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SetInfoTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SetTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SetTableViewCell class])];
 }

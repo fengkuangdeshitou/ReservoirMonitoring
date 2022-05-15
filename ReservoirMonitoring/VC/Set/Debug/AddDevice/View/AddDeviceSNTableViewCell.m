@@ -12,7 +12,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.textfield.placeholder = @"Please inpute battery module SN".localized;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

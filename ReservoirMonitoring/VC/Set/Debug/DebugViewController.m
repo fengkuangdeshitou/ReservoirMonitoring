@@ -26,12 +26,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.dataArray = @[@"Installation".localized,@"Grid config".localized,@"Inverter config".localized,@"Generator config".localized,@"Hybrid config".localized,@"Other config"];
+    self.dataArray = @[@"Installation".localized,@"Grid config".localized,@"Inverter config".localized,@"Generator config".localized,@"Hybrid config".localized,@"Other config".localized];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DebugCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([DebugCollectionViewCell class])];
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     DebugCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([DebugCollectionViewCell class]) forIndexPath:indexPath];
+    cell.titleLabel.text = self.dataArray[indexPath.row];
+    cell.icon.image = [UIImage imageNamed:[NSString stringWithFormat:@"debug%ld",indexPath.row]];
     return cell;
 }
 
@@ -39,7 +41,7 @@
     NSString * title = self.dataArray[indexPath.row];
     if (indexPath.row == 0) {
         AddDeviceViewController * add = [[AddDeviceViewController alloc] init];
-        add.title = @"Add Equipment".localized;
+        add.title = title;
         [self.navigationController pushViewController:add animated:true];
     }else if (indexPath.row == 1){
         GridViewController * grid = [[GridViewController alloc] init];
@@ -69,7 +71,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake((SCREEN_WIDTH-26*2-15)/2, 180);
+    return CGSizeMake((SCREEN_WIDTH-26*2-15)/2, 140);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{

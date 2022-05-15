@@ -95,7 +95,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 28)];
+    UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, section == 0 ? 28 : 28+54)];
     headerView.backgroundColor = UIColor.clearColor;
     
     UIView * line = [[UIView alloc] initWithFrame:CGRectMake(15, 4, 2, 12)];
@@ -113,20 +113,15 @@
     }];
     label.text = section == 0 ? @"Current device".localized : @"Other device".localized;
     label.textColor = UIColor.whiteColor;
-    return headerView;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 54)];
-    footerView.backgroundColor = UIColor.clearColor;
     
-    if (section == 0) {
-        UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(15, 8, SCREEN_WIDTH-60, 32)];
+    
+    if (section == 1) {
+        UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(15, 36, SCREEN_WIDTH-60, 32)];
         contentView.backgroundColor = [UIColor colorWithHexString:@"#1B1B1B"];
         contentView.layer.cornerRadius = 16;
         contentView.layer.borderColor = [UIColor colorWithHexString:@"#393939"].CGColor;
         contentView.layer.borderWidth = 1;
-        [footerView addSubview:contentView];
+        [headerView addSubview:contentView];
         
         UIButton * searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [contentView addSubview:searchButton];
@@ -149,7 +144,15 @@
             make.top.bottom.mas_equalTo(0);
             make.right.mas_equalTo(searchButton.mas_left).offset(-15);
         }];
-    }else{
+    }
+    
+    return headerView;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 54)];
+    footerView.backgroundColor = UIColor.clearColor;
+    if (section == 1) {
         UIButton * addButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [footerView addSubview:addButton];
         [addButton showBorderWithRadius:16];
@@ -162,17 +165,15 @@
             make.height.mas_equalTo(32);
         }];
     }
-    
-    
     return footerView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 28;
+    return section == 0 ? 28 : 25 + 54;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 54;
+    return section == 0 ? 10 : 54;
 }
 
 - (void)show{

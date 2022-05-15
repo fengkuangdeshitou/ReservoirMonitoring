@@ -18,10 +18,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aSX-Tx-a9j">
-                        <rect key="frame" x="15" y="0.0" width="290" height="44"/>
+                        <rect key="frame" x="30" y="0.0" width="275" height="44"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aet-Hu-YgZ">
-                                <rect key="frame" x="97.5" y="8" width="95" height="28"/>
+                                <rect key="frame" x="90" y="8" width="95" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="OgZ-Fv-dKS"/>
                                     <constraint firstAttribute="width" constant="95" id="ut0-qB-aZR"/>
@@ -40,7 +40,7 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="aSX-Tx-a9j" secondAttribute="bottom" id="8oY-U3-1jw"/>
-                    <constraint firstItem="aSX-Tx-a9j" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="D51-n1-Jjz"/>
+                    <constraint firstItem="aSX-Tx-a9j" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="D51-n1-Jjz"/>
                     <constraint firstAttribute="trailing" secondItem="aSX-Tx-a9j" secondAttribute="trailing" constant="15" id="ZzG-fO-PDB"/>
                     <constraint firstItem="aSX-Tx-a9j" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="bW6-3V-ize"/>
                 </constraints>

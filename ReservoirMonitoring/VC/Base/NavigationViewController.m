@@ -27,6 +27,7 @@
         UINavigationBarAppearance * appearance = [[UINavigationBarAppearance alloc] init];
         appearance.backgroundColor = [UIColor colorWithHexString:@"#1E1E1E"];
         appearance.backgroundImage = [UIImage new];
+        appearance.titleTextAttributes = @{NSForegroundColorAttributeName:UIColor.whiteColor,NSFontAttributeName:[UIFont systemFontOfSize:18 weight:UIFontWeightMedium]};
         self.navigationBar.standardAppearance = appearance;
         self.navigationBar.compactAppearance = appearance;
         self.navigationBar.scrollEdgeAppearance = appearance;

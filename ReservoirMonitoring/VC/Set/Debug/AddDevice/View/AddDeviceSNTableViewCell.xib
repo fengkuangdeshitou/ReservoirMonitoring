@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0X3-oJ-s9O">
-                        <rect key="frame" x="15" y="0.0" width="290" height="50"/>
+                        <rect key="frame" x="30" y="0.0" width="275" height="50"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ci0-Wx-DD4">
                                 <rect key="frame" x="15" y="16" width="7" height="18"/>
@@ -27,22 +27,27 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eop-nv-zgT">
-                                <rect key="frame" x="253" y="14" width="22" height="22"/>
+                                <rect key="frame" x="238" y="14" width="22" height="22"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="ic_set_scan"/>
+                                <state key="normal" image="ic_delete"/>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter the device ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cPY-dv-ABW">
-                                <rect key="frame" x="24" y="0.0" width="214" height="50"/>
+                                <rect key="frame" x="24" y="0.0" width="147" height="50"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qlh-zx-EPj">
-                                <rect key="frame" x="15" y="49.5" width="260" height="0.5"/>
+                                <rect key="frame" x="15" y="49.5" width="245" height="0.5"/>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="g8Y-pr-zxB"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G8n-1h-hOA">
+                                <rect key="frame" x="186" y="14" width="22" height="22"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="ic_set_scan"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.1058823529" green="0.1058823529" blue="0.1058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -51,9 +56,11 @@
                             <constraint firstAttribute="bottom" secondItem="cPY-dv-ABW" secondAttribute="bottom" id="CcH-dx-6Dw"/>
                             <constraint firstAttribute="trailing" secondItem="Qlh-zx-EPj" secondAttribute="trailing" constant="15" id="GBb-oe-45h"/>
                             <constraint firstItem="ci0-Wx-DD4" firstAttribute="leading" secondItem="0X3-oJ-s9O" secondAttribute="leading" constant="15" id="I3L-8o-BT6"/>
-                            <constraint firstItem="Eop-nv-zgT" firstAttribute="leading" secondItem="cPY-dv-ABW" secondAttribute="trailing" constant="15" id="K2d-ft-e47"/>
+                            <constraint firstItem="G8n-1h-hOA" firstAttribute="centerY" secondItem="0X3-oJ-s9O" secondAttribute="centerY" id="PwD-H9-d8K"/>
                             <constraint firstItem="cPY-dv-ABW" firstAttribute="leading" secondItem="ci0-Wx-DD4" secondAttribute="trailing" constant="2" id="Uc9-7R-826"/>
                             <constraint firstAttribute="height" constant="50" id="XXS-Jx-cs5"/>
+                            <constraint firstItem="Eop-nv-zgT" firstAttribute="leading" secondItem="G8n-1h-hOA" secondAttribute="trailing" constant="30" id="fHa-Wm-Kks"/>
+                            <constraint firstItem="G8n-1h-hOA" firstAttribute="leading" secondItem="cPY-dv-ABW" secondAttribute="trailing" constant="15" id="kzB-1E-7eH"/>
                             <constraint firstItem="Qlh-zx-EPj" firstAttribute="leading" secondItem="0X3-oJ-s9O" secondAttribute="leading" constant="15" id="vVP-cA-9SH"/>
                             <constraint firstItem="cPY-dv-ABW" firstAttribute="top" secondItem="0X3-oJ-s9O" secondAttribute="top" id="wwA-mk-ygm"/>
                             <constraint firstAttribute="trailing" secondItem="Eop-nv-zgT" secondAttribute="trailing" constant="15" id="xih-Cx-6q5"/>
@@ -66,18 +73,21 @@
                     <constraint firstAttribute="trailing" secondItem="0X3-oJ-s9O" secondAttribute="trailing" constant="15" id="Y6a-1m-Kh6"/>
                     <constraint firstItem="0X3-oJ-s9O" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Ych-OU-CQ8"/>
                     <constraint firstAttribute="bottom" secondItem="0X3-oJ-s9O" secondAttribute="bottom" id="ahG-0Y-rQG"/>
-                    <constraint firstItem="0X3-oJ-s9O" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="gr1-2v-l0D"/>
+                    <constraint firstItem="0X3-oJ-s9O" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="gr1-2v-l0D"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="deleteBtm" destination="Eop-nv-zgT" id="SOn-M9-0J5"/>
+                <outlet property="scanBtn" destination="G8n-1h-hOA" id="hGv-nb-iZ1"/>
                 <outlet property="textfield" destination="cPY-dv-ABW" id="VbN-Ig-yNA"/>
             </connections>
             <point key="canvasLocation" x="173.91304347826087" y="91.071428571428569"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="ic_delete" width="22" height="22"/>
         <image name="ic_set_scan" width="22" height="22"/>
     </resources>
 </document>

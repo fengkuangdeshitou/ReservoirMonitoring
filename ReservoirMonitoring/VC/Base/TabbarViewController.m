@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "NavigationViewController.h"
 #import "DataViewController.h"
+#import "ServiceViewController.h"
 #import "SetViewController.h"
 
 @interface TabbarViewController ()
@@ -83,10 +84,10 @@
                           imageName:@"tabbar_data_normal"
                   selectedImageName:@"tabbar_data_active"];
     
-//    [self addOneChildViewController:[[CustomNavagationController alloc]initWithRootViewController:[[ServiceViewController alloc]init]]
-//            WithTitle:@"Service".localized
-//            imageName:@"tabbar_service_normal"
-//    selectedImageName:@"tabbar_service_active"];
+    [self addOneChildViewController:[[NavigationViewController alloc]initWithRootViewController:[[ServiceViewController alloc]init]]
+                          WithTitle:@"Service".localized
+                          imageName:@"tabbar_service_normal"
+                  selectedImageName:@"tabbar_service_active"];
     
     [self addOneChildViewController:[[NavigationViewController alloc]initWithRootViewController:[[SetViewController alloc]init]]
                           WithTitle:@"Me".localized
