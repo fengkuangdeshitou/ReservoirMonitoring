@@ -90,7 +90,7 @@
                   selectedImageName:@"tabbar_service_active"];
     
     [self addOneChildViewController:[[NavigationViewController alloc]initWithRootViewController:[[SetViewController alloc]init]]
-                          WithTitle:@"Me".localized
+                          WithTitle:@"More".localized
                           imageName:@"tabbar_set_normal"
                   selectedImageName:@"tabbar_set_active"];
     

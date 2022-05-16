@@ -144,6 +144,8 @@
                 <outlet property="family" destination="iCa-c9-9F7" id="Pif-k8-pY4"/>
                 <outlet property="itemContentView" destination="pcc-JM-zqN" id="k3i-TH-s9C"/>
                 <outlet property="status" destination="acb-8X-ach" id="NTN-Mr-5z8"/>
+                <outlet property="statusValue" destination="kUE-rW-HLq" id="mhl-el-5aL"/>
+                <outlet property="titleLabel" destination="sOx-KY-mDQ" id="295-rR-IWT"/>
             </connections>
             <point key="canvasLocation" x="136.23188405797103" y="-45.200892857142854"/>
         </tableViewCell>

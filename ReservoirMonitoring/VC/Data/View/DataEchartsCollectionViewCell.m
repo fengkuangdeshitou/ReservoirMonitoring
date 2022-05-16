@@ -20,6 +20,9 @@
 @property(nonatomic,weak)IBOutlet UILabel * reducing;
 @property(nonatomic,weak)IBOutlet UILabel * trees;
 @property(nonatomic,weak)IBOutlet UILabel * coal;
+@property(nonatomic,strong) NSArray * normal;
+@property(nonatomic,strong) NSArray * highlight;
+
 @end
 
 @implementation DataEchartsCollectionViewCell
@@ -28,21 +31,21 @@
     [super awakeFromNib];
     // Initialization code
     self.energyTitle.text = @"Energy graph".localized;
-    NSArray * titleArray = @[@"Solar".localized,@"Grid".localized,@"Non Back-up".localized,@"Back-up load".localized,@"EV"];
+//    NSArray * titleArray = @[@"Solar".localized,@"Grid".localized,@"Non Back-up".localized,@"Back-up load".localized,@"EV"];
     self.independence.text = @"Energy independence:".localized;
     self.power.text = @"Power outage:".localized;
     self.reducing.text = @"Reducing deforestation:".localized;
     self.trees.text = @"trees".localized;
     self.coal.text = @"Standard coal saved".localized;
-    CGFloat width = (SCREEN_WIDTH-30)/titleArray.count;
-    for (int i=0; i<titleArray.count; i++) {
+    self.normal = @[@"icon_grid_inactive",@"icon_solar_inactive",@"icon_generator_inactive",@"icon_ev_inactive",@"icon_non_backup_inactive",@"icon_backup_inactive"];
+    self.highlight = @[@"icon_grid_active",@"icon_solar_active",@"icon_generator_active",@"icon_ev_active",@"icon_non_backup_active",@"icon_backup_active"];
+    CGFloat width = (SCREEN_WIDTH-30)/self.normal.count;
+    for (int i=0; i<self.normal.count; i++) {
         UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake((width-0.5)*i, 0, width, 30);
-        [button setTitle:titleArray[i] forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:self.normal[i]] forState:UIControlStateNormal];
         button.layer.borderWidth = 0.5;
         button.layer.borderColor = [UIColor colorWithHexString:@"#8CDFA5"].CGColor;
-        button.titleLabel.font = [UIFont systemFontOfSize:13];
         button.tag = i+10;
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.titleView addSubview:button];
@@ -198,12 +201,13 @@
 }
 
 - (void)buttonClick:(UIButton *)btn{
-    for (UIButton * button in self.titleView.subviews) {
+    for (int i=0;i<self.normal.count;i++) {
+        UIButton * button = [self.titleView viewWithTag:i+10];
         button.backgroundColor = UIColor.clearColor;
-        [button setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:self.normal[i]] forState:UIControlStateNormal];
     }
     btn.backgroundColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
-    [btn setTitleColor:[UIColor colorWithHexString:@"#444444"] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:self.highlight[btn.tag-10]] forState:UIControlStateNormal];
 }
 
 @end

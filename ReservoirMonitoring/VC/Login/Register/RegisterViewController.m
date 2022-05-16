@@ -26,7 +26,7 @@
 - (UIButton *)sendCodeButton{
     if (!_sendCodeButton) {
         _sendCodeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_sendCodeButton setTitle:@"Send verification code".localized forState:UIControlStateNormal];
+        [_sendCodeButton setTitle:@"Send code".localized forState:UIControlStateNormal];
         [_sendCodeButton setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
         _sendCodeButton.titleLabel.font = [UIFont systemFontOfSize:14];
         [_sendCodeButton addTarget:self action:@selector(sendCodeAction) forControlEvents:UIControlEventTouchUpInside];
@@ -40,7 +40,7 @@
     self.dataArray = @[
     @{@"title":@"Name".localized,@"placeholder":@"Please input your name".localized},
     @{@"title":@"Email".localized,@"placeholder":@"Please input your Email".localized},
-    @{@"title":@"Email verification".localized,@"placeholder":@"Please enter verification code".localized},
+    @{@"title":@"Email verification".localized,@"placeholder":@"Enter verification code".localized},
     @{@"title":@"Password".localized,@"placeholder":@"Please enter 6-20 digit password".localized},
     @{@"title":@"Password confirmation".localized,@"placeholder":@"Please enter password again".localized}
     ];

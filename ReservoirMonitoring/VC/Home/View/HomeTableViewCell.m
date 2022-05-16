@@ -17,6 +17,8 @@
 @property(nonatomic,weak)IBOutlet UILabel * currentMode;
 @property(nonatomic,weak)IBOutlet UILabel * family;
 @property(nonatomic,weak)IBOutlet UILabel * status;
+@property(nonatomic,weak)IBOutlet UILabel * statusValue;
+@property(nonatomic,weak)IBOutlet UILabel * titleLabel;
 
 @end
 
@@ -25,20 +27,22 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
+    self.titleLabel.text = @"Power outage, backup energy in effect.".localized;
     self.currentMode.text = @"Current mode".localized;
     self.family.text = @"Energy independence rating(Daily):".localized;
     self.status.text = @"Device status:".localized;
+    self.statusValue.text = @"online".localized;
     self.currentModelView.layer.cornerRadius = 16;
     self.currentModelView.layer.borderColor = [UIColor colorWithHexString:@"#2E2E2E"].CGColor;
     self.currentModelView.layer.borderWidth = 0.5;
     
     NSArray * normal = @[@"icon_grid_inactive",@"icon_solar_inactive",@"icon_generator_inactive",@"icon_ev_inactive",@"icon_non_backup_inactive",@"icon_backup_inactive"];
     NSArray * highlight = @[@"icon_grid_active",@"icon_solar_active",@"icon_generator_active",@"icon_ev_active",@"icon_non_backup_active",@"icon_backup_active"];
+    NSArray * titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV".localized,@"Other loads".localized,@"Backup loads".localized];
     for (int i=0; i<normal.count; i++) {
         HomeItemView * item = [[HomeItemView alloc] initWithFrame:CGRectMake(i%3*SCREEN_WIDTH/3, i/3*296, SCREEN_WIDTH/3, 100)];
         item.isFlip = i>2;
-        item.titleLabel.text = @"Grid";
+        item.titleLabel.text = titleArray[i];
         item.descLabel.text = @"6 kWh";
         [item.statusButton setImage:[UIImage imageNamed:normal[i]] forState:UIControlStateNormal];
         [item.statusButton setImage:[UIImage imageNamed:highlight[i]] forState:UIControlStateSelected];

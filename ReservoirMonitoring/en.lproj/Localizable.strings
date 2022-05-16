@@ -15,8 +15,8 @@
 "Please input your name" = "Please input your name";
 "Please input your Email" = "Please input your Email";
 "Email verification" = "Email verification";
-"Please enter verification code" = "Please enter verification code";
-"Send verification code" = "Send verification code";
+"Enter verification code" = "Enter verification code";
+"Send code" = "Send code";
 "Please enter 6-20 digit password" = "Please enter 6-20 digit password";
 "Password confirmation" = "Password confirmation";
 "Please enter password again" = "Please enter password again";
@@ -53,6 +53,8 @@
 "Enter Email" = "Enter Email";
 "Confirm" = "Confirm";
 
+"Power outage, backup energy in effect." = "Power outage, backup energy in effect.";
+"online" = "online";
 "Current mode" = "Current mode";
 "Energy independence rating(Daily):" = "Energy independence rating(Daily):";
 "Device status:" = "Device status:";
@@ -154,3 +156,7 @@
 "Enter (number)" = "Enter (number)";
 "Local" = "Local";
 "Remote" = "Remote";
+"Home" = "Home";
+"Data" = "Data";
+"More" = "More";
+"Smart Gateway info" = "Smart Gateway info";

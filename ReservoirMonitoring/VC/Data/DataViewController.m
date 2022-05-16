@@ -14,7 +14,8 @@
 
 @property(nonatomic,strong) SGPageTitleView * titleView;
 @property(nonatomic,weak)IBOutlet UICollectionView * collectionView;
-
+@property(nonatomic,strong) NSArray * titleArray;
+@property(nonatomic,strong) NSArray * imageArray;
 @end
 
 @implementation DataViewController
@@ -23,6 +24,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setLeftBatButtonItemWithImage:[UIImage imageNamed:@"logo"] sel:nil];
+    self.titleArray = @[@"From grid:6 kWh".localized,@"Solar".localized,@"Generator".localized,@"EV".localized,@"Other loads".localized,@"Backup loads".localized];;
+    self.imageArray = @[@"icon_grid_active",@"icon_solar_active",@"icon_generator_active",@"icon_ev_active",@"icon_non_backup_active",@"icon_backup_active"];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DataCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([DataCollectionViewCell class])];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DataEchartsCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([DataEchartsCollectionViewCell class])];
     SGPageTitleViewConfigure * config = [SGPageTitleViewConfigure pageTitleViewConfigure];
@@ -40,6 +43,9 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         DataCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([DataCollectionViewCell class]) forIndexPath:indexPath];
+        cell.icon.image = [UIImage imageNamed:self.imageArray[indexPath.row]];
+        cell.titleLabel.text = self.titleArray[indexPath.row];
+        cell.descLabel.text = @"0 kWh";
         return cell;
     }else{
         DataEchartsCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([DataEchartsCollectionViewCell class]) forIndexPath:indexPath];
@@ -56,7 +62,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return indexPath.section == 0 ? CGSizeMake((SCREEN_WIDTH-50)/3, 155) : CGSizeMake(SCREEN_WIDTH, 460);
+    return indexPath.section == 0 ? CGSizeMake((SCREEN_WIDTH-50)/3, 130) : CGSizeMake(SCREEN_WIDTH, 460);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{

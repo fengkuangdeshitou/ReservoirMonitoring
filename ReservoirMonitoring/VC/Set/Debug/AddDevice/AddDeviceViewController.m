@@ -109,7 +109,7 @@
         make.left.mas_equalTo(section == 0 ? 15 : 30);
             make.top.bottom.mas_equalTo(0);
     }];
-    title.text = @"Accessory Hybrid info".localized;
+    title.text = section == 0 ? @"Smart Gateway info".localized : @"Accessory Hybrid info".localized;
     title.font = [UIFont systemFontOfSize:18 weight:UIFontWeightMedium];
     title.textColor = UIColor.whiteColor;
     return header;
