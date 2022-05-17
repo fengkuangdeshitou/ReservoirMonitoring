@@ -32,8 +32,8 @@
     self.password.placeholder = @"Please enter registration Email".localized;
     self.code.placeholder = @"Verification code".localized;
     [self.codeButton setTitle:@"Send code".localized forState:UIControlStateNormal];
-//    self.password.placeholderColor = [UIColor colorWithHexString:@"#BBBBBB"];
-//    self.code.placeholderColor = [UIColor colorWithHexString:@"#BBBBBB"];
+    self.password.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+    self.code.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
 }
 
 - (IBAction)nextAction:(id)sender{

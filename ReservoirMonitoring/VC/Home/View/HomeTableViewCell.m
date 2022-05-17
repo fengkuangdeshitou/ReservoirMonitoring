@@ -8,6 +8,7 @@
 #import "HomeTableViewCell.h"
 #import "HomeItemView.h"
 #import "HomeProgressView.h"
+#import "WeatherViewController.h"
 
 @interface HomeTableViewCell ()
 
@@ -28,11 +29,11 @@
     [super awakeFromNib];
     // Initialization code
     self.titleLabel.text = @"Power outage, backup energy in effect.".localized;
-    self.currentMode.text = @"Current mode".localized;
+    self.currentMode.text = @"Current mode：".localized;
     self.family.text = @"Energy independence rating(Daily):".localized;
     self.status.text = @"Device status:".localized;
     self.statusValue.text = @"online".localized;
-    self.currentModelView.layer.cornerRadius = 16;
+    [self.currentModelView showBorderWithRadius:16];
     self.currentModelView.layer.borderColor = [UIColor colorWithHexString:@"#2E2E2E"].CGColor;
     self.currentModelView.layer.borderWidth = 0.5;
     
@@ -74,6 +75,13 @@
     self.progressView = [[HomeProgressView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-63, 134+70, 126, 126)];
     [self.contentView addSubview:self.progressView];
     
+}
+
+- (IBAction)weatherAction:(id)sender{
+    WeatherViewController * weather = [[WeatherViewController alloc] init];
+    weather.title = @"Weather forecast".localized;
+    weather.hidesBottomBarWhenPushed = true;
+    [RMHelper.getCurrentVC.navigationController pushViewController:weather animated:true];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

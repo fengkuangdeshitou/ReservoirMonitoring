@@ -95,6 +95,7 @@
             <connections>
                 <outlet property="descLabel" destination="HEJ-P2-aVq" id="L89-P3-OQ0"/>
                 <outlet property="doneButton" destination="Pan-bW-6v3" id="4ym-2m-VSl"/>
+                <outlet property="doneButtonWidth" destination="H0r-MW-UFE" id="zQb-7N-mph"/>
                 <outlet property="titleLabel" destination="qu8-bW-kRd" id="q6k-iF-h37"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="89.732142857142847"/>

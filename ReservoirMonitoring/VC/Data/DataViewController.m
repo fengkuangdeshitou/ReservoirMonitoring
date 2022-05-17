@@ -35,7 +35,7 @@
     config.titleFont = [UIFont systemFontOfSize:14];
     config.titleSelectedFont = [UIFont systemFontOfSize:14];
     config.showIndicator = false;
-    self.titleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40) delegate:self titleNames:@[@"Day".localized,@"Month".localized,@"Year".localized,@"全部"] configure:config];
+    self.titleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40) delegate:self titleNames:@[@"Day".localized,@"Month".localized,@"Year".localized,@"All".localized] configure:config];
     self.titleView.backgroundColor = [UIColor colorWithHexString:@"#1E1E1E"];
     [self.collectionView addSubview:self.titleView];
 }
@@ -62,7 +62,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return indexPath.section == 0 ? CGSizeMake((SCREEN_WIDTH-50)/3, 130) : CGSizeMake(SCREEN_WIDTH, 460);
+    return indexPath.section == 0 ? CGSizeMake((SCREEN_WIDTH-50)/3, 100) : CGSizeMake(SCREEN_WIDTH, 430);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{

@@ -20,6 +20,9 @@
 @property(nonatomic,weak)IBOutlet UILabel * reducing;
 @property(nonatomic,weak)IBOutlet UILabel * trees;
 @property(nonatomic,weak)IBOutlet UILabel * coal;
+
+@property(nonatomic,weak)IBOutlet UILabel * current;
+@property(nonatomic,strong) NSArray * titleArray;
 @property(nonatomic,strong) NSArray * normal;
 @property(nonatomic,strong) NSArray * highlight;
 
@@ -31,21 +34,19 @@
     [super awakeFromNib];
     // Initialization code
     self.energyTitle.text = @"Energy graph".localized;
-//    NSArray * titleArray = @[@"Solar".localized,@"Grid".localized,@"Non Back-up".localized,@"Back-up load".localized,@"EV"];
+    self.titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV",@"Other loads".localized,@"Backup loads".localized];
     self.independence.text = @"Energy independence:".localized;
     self.power.text = @"Power outage:".localized;
     self.reducing.text = @"Reducing deforestation:".localized;
     self.trees.text = @"trees".localized;
     self.coal.text = @"Standard coal saved".localized;
-    self.normal = @[@"icon_grid_inactive",@"icon_solar_inactive",@"icon_generator_inactive",@"icon_ev_inactive",@"icon_non_backup_inactive",@"icon_backup_inactive"];
-    self.highlight = @[@"icon_grid_active",@"icon_solar_active",@"icon_generator_active",@"icon_ev_active",@"icon_non_backup_active",@"icon_backup_active"];
+    self.normal = @[@"data_normal_0",@"data_normal_1",@"data_normal_2",@"data_normal_3",@"data_normal_4",@"data_normal_5"];
+    self.highlight = @[@"data_select_0",@"data_select_1",@"data_select_2",@"data_select_3",@"data_select_4",@"data_select_5"];
     CGFloat width = (SCREEN_WIDTH-30)/self.normal.count;
     for (int i=0; i<self.normal.count; i++) {
         UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake((width-0.5)*i, 0, width, 30);
+        button.frame = CGRectMake((width-0.5)*i, 3, width, 24);
         [button setImage:[UIImage imageNamed:self.normal[i]] forState:UIControlStateNormal];
-        button.layer.borderWidth = 0.5;
-        button.layer.borderColor = [UIColor colorWithHexString:@"#8CDFA5"].CGColor;
         button.tag = i+10;
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.titleView addSubview:button];
@@ -81,7 +82,12 @@
     PYCartesianSeries * series = [[PYCartesianSeries alloc] init];
     series.type = PYSeriesTypeLine;
     series.smooth = true;
-    series.symbolSize = @0;
+    series.symbolSize = @2;
+    PYItemStyle * style = [[PYItemStyle alloc] init];
+    PYItemStyleProp * prop = [[PYItemStyleProp alloc] init];
+    prop.borderColor = [PYColor colorWithHexString:COLOR_MAIN_COLOR];
+    style.normal = prop;
+    series.itemStyle = style;
     series.data = @[@0,@10,@25,@55,@88,@130,@90,@68,@45,@26,@14,@0];
     [seriesArray addObject:series];
     option.series = seriesArray;
@@ -206,8 +212,8 @@
         button.backgroundColor = UIColor.clearColor;
         [button setImage:[UIImage imageNamed:self.normal[i]] forState:UIControlStateNormal];
     }
-    btn.backgroundColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
     [btn setImage:[UIImage imageNamed:self.highlight[btn.tag-10]] forState:UIControlStateNormal];
+    self.current.text = self.titleArray[btn.tag-10];
 }
 
 @end

@@ -9,7 +9,7 @@
 #import "WarningListView.h"
 @import SGPagingView;
 
-@interface WarningViewController ()<SGPageTitleViewDelegate>
+@interface WarningViewController ()<SGPageTitleViewDelegate,UIScrollViewDelegate>
 
 @property(nonatomic,weak)IBOutlet UIScrollView * scrollView;
 @property(nonatomic,strong) SGPageTitleView * titleView;
@@ -36,6 +36,16 @@
         WarningListView * list = [[WarningListView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT-NavagationHeight-self.titleView.height)];
         [self.scrollView addSubview:list];
     }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    if (scrollView == self.scrollView) {
+        [self.titleView setResetSelectedIndex:scrollView.contentOffset.x/SCREEN_WIDTH];
+    }
+}
+
+- (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex{
+    [self.scrollView setContentOffset:CGPointMake(SCREEN_WIDTH*selectedIndex, 0) animated:true];
 }
 
 /*

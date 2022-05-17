@@ -30,7 +30,7 @@
         @{@"title":@"Control mode".localized,@"placeholder":@"Local".localized},
         @{@"title":@"System time".localized,@"placeholder":@"Please select".localized},
         @{@"title":@"Load config via Bluetooth".localized,@"placeholder":@"".localized},
-        @{@"title":@"Regis".localized,@"placeholder":@"Enter (number)".localized},
+        @{@"title":@"Register".localized,@"placeholder":@"Enter (number)".localized},
         @{@"title":@"Value".localized,@"placeholder":@"Enter (number)".localized},
         ]];
     [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];

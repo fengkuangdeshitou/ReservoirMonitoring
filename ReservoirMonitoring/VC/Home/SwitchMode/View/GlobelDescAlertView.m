@@ -12,6 +12,7 @@
 @property(nonatomic,weak)IBOutlet UILabel * titleLabel;
 @property(nonatomic,weak)IBOutlet UILabel * descLabel;
 @property(nonatomic,weak)IBOutlet UIButton * doneButton;
+@property(nonatomic,weak)IBOutlet NSLayoutConstraint * doneButtonWidth;
 
 @end
 
@@ -35,7 +36,12 @@
         self.alpha = 0;
         self.titleLabel.text = title;
         self.descLabel.text = desc;
-        [self.doneButton setTitle:@"Confirm".localized forState:UIControlStateNormal];
+        if ([title isEqualToString:@"Ticket received".localized]) {
+            [self.doneButton setTitle:@"Acknowledge".localized forState:UIControlStateNormal];
+            self.doneButtonWidth.constant = 180;
+        }else{
+            [self.doneButton setTitle:@"Confirm".localized forState:UIControlStateNormal];
+        }
         [self.doneButton showBorderWithRadius:20];
     }
     return self;

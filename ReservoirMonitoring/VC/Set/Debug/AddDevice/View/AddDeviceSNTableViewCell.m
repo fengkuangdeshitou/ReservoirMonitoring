@@ -14,6 +14,10 @@
     // Initialization code
 }
 
+- (void)layoutSubviews{
+    self.textfield.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

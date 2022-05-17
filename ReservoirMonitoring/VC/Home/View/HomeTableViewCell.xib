@@ -26,10 +26,20 @@
                                 <color key="textColor" red="0.54901960780000003" green="0.87450980389999999" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIG-9Q-VDV">
+                                <rect key="frame" x="15" y="20" width="30" height="30"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="sunny"/>
+                                <connections>
+                                    <action selector="weatherAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="huw-XM-oTA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="sOx-KY-mDQ" secondAttribute="trailing" constant="15" id="6dd-A4-YiH"/>
+                            <constraint firstItem="sOx-KY-mDQ" firstAttribute="centerY" secondItem="BIG-9Q-VDV" secondAttribute="centerY" id="9rF-jr-caV"/>
+                            <constraint firstItem="BIG-9Q-VDV" firstAttribute="leading" secondItem="KaZ-Qh-nmU" secondAttribute="leading" constant="15" id="lzp-on-iPg"/>
                             <constraint firstItem="sOx-KY-mDQ" firstAttribute="centerY" secondItem="KaZ-Qh-nmU" secondAttribute="centerY" id="oGM-gk-8Bq"/>
                             <constraint firstAttribute="height" constant="70" id="ttt-B7-f2d"/>
                         </constraints>
@@ -66,7 +76,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="ud7-7U-Zlz" firstAttribute="leading" secondItem="ecf-SL-hkB" secondAttribute="leading" constant="20" id="AXN-K7-IeW"/>
                                     <constraint firstItem="ud7-7U-Zlz" firstAttribute="centerY" secondItem="ecf-SL-hkB" secondAttribute="centerY" id="Ihk-uY-aBw"/>
@@ -152,5 +162,6 @@
     </objects>
     <resources>
         <image name="icon_change" width="32" height="32"/>
+        <image name="sunny" width="30" height="30"/>
     </resources>
 </document>

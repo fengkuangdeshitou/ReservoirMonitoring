@@ -24,12 +24,15 @@ extern CGFloat const NavagationBarHeight;
 extern NSString * const COLOR_MAIN_COLOR;
 /**背景色*/
 extern NSString * const COLOR_BACK_COLOR;
-
+/**输入框placehodel颜色*/
+extern NSString * const COLOR_PLACEHOLDER_COLOR;
 
 /**运行模式高度改变通知*/
 extern NSString * const TIME_TABLEVIEW_HEIGHT_CHANGE;
 /**登录成功*/
 extern NSString * const LOGIN_SUCCESS;
+/**退出登录*/
+extern NSString * const LOG_OUT;
 
 @end
 

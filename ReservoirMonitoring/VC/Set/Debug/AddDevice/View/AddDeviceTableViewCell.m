@@ -29,6 +29,11 @@
     [RMHelper.getCurrentVC.navigationController pushViewController:scan animated:true];
 }
 
+- (void)layoutSubviews{
+    self.idtextfield.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+    self.nametextfield.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

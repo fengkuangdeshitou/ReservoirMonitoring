@@ -28,9 +28,12 @@
     [self.submit showBorderWithRadius:25];
     self.password.placeholder = @"Please set a 6-20 digit password".localized;
     self.confirm.placeholder = @"Please confirm password".localized;
-    self.password.placeholderColor = [UIColor colorWithHexString:@"#A3A3A3"];
-    self.confirm.placeholderColor = [UIColor colorWithHexString:@"#A3A3A3"];
-    
+    self.password.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+    self.confirm.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+}
+
+- (IBAction)submitAction:(id)sender{
+
 }
 
 /*

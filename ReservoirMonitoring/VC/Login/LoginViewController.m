@@ -17,6 +17,8 @@
 @property(nonatomic,weak)IBOutlet UILabel * password;
 @property(nonatomic,weak)IBOutlet UIButton * create;
 @property(nonatomic,weak)IBOutlet UIButton * forgot;
+@property(nonatomic,weak)IBOutlet UITextField * emailtf;
+@property(nonatomic,weak)IBOutlet UITextField * passwordtf;
 
 
 @end
@@ -29,9 +31,14 @@
     [self.loginBtn showBorderWithRadius:25];
     self.email.text = @"Email".localized;
     self.password.text = @"Password".localized;
+    self.emailtf.placeholder = @"Please input your Email".localized;
+    self.passwordtf.placeholder = @"Please input your Password".localized;
     [self.loginBtn setTitle:@"Login".localized forState:UIControlStateNormal];
     [self.create setTitle:@"Create account".localized forState:UIControlStateNormal];
     [self.forgot setTitle:@"Forget password".localized forState:UIControlStateNormal];
+    self.emailtf.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+    self.passwordtf.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+
 }
 
 - (void)onAuthemticationSuccess{

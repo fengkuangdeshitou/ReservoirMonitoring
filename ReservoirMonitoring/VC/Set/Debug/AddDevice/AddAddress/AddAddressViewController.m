@@ -34,6 +34,12 @@
     self.email.placeholder = @"Enter Email".localized;
     [self.confirm setTitle:@"Confirm".localized forState:UIControlStateNormal];
     [self.confirm showBorderWithRadius:25];
+    
+    self.countries.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+    self.province.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+    self.code.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+    self.email.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+    
 }
 
 /*

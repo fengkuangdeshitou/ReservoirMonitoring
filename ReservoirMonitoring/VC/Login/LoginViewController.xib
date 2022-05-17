@@ -12,9 +12,11 @@
             <connections>
                 <outlet property="create" destination="15n-av-zCa" id="8GM-f1-v5n"/>
                 <outlet property="email" destination="DuT-qd-6Px" id="KgF-P2-odH"/>
+                <outlet property="emailtf" destination="kaO-pS-DGp" id="iOF-1r-m25"/>
                 <outlet property="forgot" destination="XPm-lT-40m" id="zc7-96-lU5"/>
                 <outlet property="loginBtn" destination="0Bx-sB-Jrh" id="Laz-AB-JHL"/>
                 <outlet property="password" destination="ZhU-Tc-Otw" id="jPm-hW-Nnw"/>
+                <outlet property="passwordtf" destination="g8D-BI-NYL" id="Pfn-Te-vDZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

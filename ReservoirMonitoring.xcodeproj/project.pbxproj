@@ -17,6 +17,14 @@
 		0F3EBC21282E8B94009CDBED /* HybridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3EBC1F282E8B94009CDBED /* HybridViewController.xib */; };
 		0F3EBC26282E8BC9009CDBED /* OtherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3EBC24282E8BC9009CDBED /* OtherViewController.m */; };
 		0F3EBC27282E8BC9009CDBED /* OtherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3EBC25282E8BC9009CDBED /* OtherViewController.xib */; };
+		0F6968232833AF2600F22E47 /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6968212833AF2600F22E47 /* WeatherViewController.m */; };
+		0F6968242833AF2600F22E47 /* WeatherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F6968222833AF2600F22E47 /* WeatherViewController.xib */; };
+		0F6968292833B0F100F22E47 /* WeatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6968272833B0F100F22E47 /* WeatherTableViewCell.m */; };
+		0F69682A2833B0F100F22E47 /* WeatherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F6968282833B0F100F22E47 /* WeatherTableViewCell.xib */; };
+		0F69682E2833B28A00F22E47 /* WeatherInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F69682C2833B28A00F22E47 /* WeatherInfoTableViewCell.m */; };
+		0F69682F2833B28A00F22E47 /* WeatherInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F69682D2833B28A00F22E47 /* WeatherInfoTableViewCell.xib */; };
+		0F6968332833B70F00F22E47 /* WeatherCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6968312833B70F00F22E47 /* WeatherCollectionViewCell.m */; };
+		0F6968342833B70F00F22E47 /* WeatherCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F6968322833B70F00F22E47 /* WeatherCollectionViewCell.xib */; };
 		6529B29C2E0432E1F4C480DD /* Pods_ReservoirMonitoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BA0DE0AA9A215EC56692FA /* Pods_ReservoirMonitoring.framework */; };
 		B387385CB1D93CCC02D43717 /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F582A4DCB34D84D2C390CBD /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework */; };
 		BD2DEF2028044A6E004E8D7D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2DEF1F28044A6E004E8D7D /* AppDelegate.m */; };
@@ -166,6 +174,18 @@
 		0F3EBC24282E8BC9009CDBED /* OtherViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OtherViewController.m; sourceTree = "<group>"; };
 		0F3EBC25282E8BC9009CDBED /* OtherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OtherViewController.xib; sourceTree = "<group>"; };
 		0F582A4DCB34D84D2C390CBD /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F6968202833AF2600F22E47 /* WeatherViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherViewController.h; sourceTree = "<group>"; };
+		0F6968212833AF2600F22E47 /* WeatherViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherViewController.m; sourceTree = "<group>"; };
+		0F6968222833AF2600F22E47 /* WeatherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherViewController.xib; sourceTree = "<group>"; };
+		0F6968262833B0F100F22E47 /* WeatherTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherTableViewCell.h; sourceTree = "<group>"; };
+		0F6968272833B0F100F22E47 /* WeatherTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherTableViewCell.m; sourceTree = "<group>"; };
+		0F6968282833B0F100F22E47 /* WeatherTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherTableViewCell.xib; sourceTree = "<group>"; };
+		0F69682B2833B28900F22E47 /* WeatherInfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherInfoTableViewCell.h; sourceTree = "<group>"; };
+		0F69682C2833B28A00F22E47 /* WeatherInfoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherInfoTableViewCell.m; sourceTree = "<group>"; };
+		0F69682D2833B28A00F22E47 /* WeatherInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherInfoTableViewCell.xib; sourceTree = "<group>"; };
+		0F6968302833B70F00F22E47 /* WeatherCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherCollectionViewCell.h; sourceTree = "<group>"; };
+		0F6968312833B70F00F22E47 /* WeatherCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherCollectionViewCell.m; sourceTree = "<group>"; };
+		0F6968322833B70F00F22E47 /* WeatherCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherCollectionViewCell.xib; sourceTree = "<group>"; };
 		11BA0DE0AA9A215EC56692FA /* Pods_ReservoirMonitoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		263B1F2000C58A09A71CC682 /* Pods_ReservoirMonitoringTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoringTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB1F4E5989AEB4DD5663FDE /* Pods-ReservoirMonitoringTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReservoirMonitoringTests.debug.xcconfig"; path = "Target Support Files/Pods-ReservoirMonitoringTests/Pods-ReservoirMonitoringTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -435,6 +455,33 @@
 			path = Grid;
 			sourceTree = "<group>";
 		};
+		0F69681F2833AF0600F22E47 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				0F6968202833AF2600F22E47 /* WeatherViewController.h */,
+				0F6968212833AF2600F22E47 /* WeatherViewController.m */,
+				0F6968222833AF2600F22E47 /* WeatherViewController.xib */,
+				0F6968252833B0DB00F22E47 /* View */,
+			);
+			path = Weather;
+			sourceTree = "<group>";
+		};
+		0F6968252833B0DB00F22E47 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0F6968262833B0F100F22E47 /* WeatherTableViewCell.h */,
+				0F6968272833B0F100F22E47 /* WeatherTableViewCell.m */,
+				0F6968282833B0F100F22E47 /* WeatherTableViewCell.xib */,
+				0F69682B2833B28900F22E47 /* WeatherInfoTableViewCell.h */,
+				0F69682C2833B28A00F22E47 /* WeatherInfoTableViewCell.m */,
+				0F69682D2833B28A00F22E47 /* WeatherInfoTableViewCell.xib */,
+				0F6968302833B70F00F22E47 /* WeatherCollectionViewCell.h */,
+				0F6968312833B70F00F22E47 /* WeatherCollectionViewCell.m */,
+				0F6968322833B70F00F22E47 /* WeatherCollectionViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		6C601691DA04C12B7D142288 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,6 +596,7 @@
 				BD2DEF6228044C1F004E8D7D /* HomeViewController.h */,
 				BD2DEF6328044C1F004E8D7D /* HomeViewController.m */,
 				BD2DEF6428044C1F004E8D7D /* HomeViewController.xib */,
+				0F69681F2833AF0600F22E47 /* Weather */,
 				BDE88A54280AB77500081114 /* SwitchMode */,
 				BDE88A3D2807098C00081114 /* View */,
 			);
@@ -1060,9 +1108,11 @@
 				BDE88A0A28046F7D00081114 /* DataViewController.xib in Resources */,
 				BDE88A2B2805C47C00081114 /* RegisterTableViewCell.xib in Resources */,
 				BD8FDA53280EED5A000036DD /* WarningViewController.xib in Resources */,
+				0F69682F2833B28A00F22E47 /* WeatherInfoTableViewCell.xib in Resources */,
 				0F3EBC21282E8B94009CDBED /* HybridViewController.xib in Resources */,
 				BDE88A5F280ABD4600081114 /* SwitchModelTableViewCell.xib in Resources */,
 				BDFA3AA128257686004A7E8C /* AddAddressViewController.xib in Resources */,
+				0F69682A2833B0F100F22E47 /* WeatherTableViewCell.xib in Resources */,
 				BD907361280D4B1A00044013 /* SetTableViewCell.xib in Resources */,
 				BDE88A64280AC2B200081114 /* SwitchProgressTableViewCell.xib in Resources */,
 				BD8FDA6E280EF582000036DD /* AddDeviceViewController.xib in Resources */,
@@ -1081,6 +1131,7 @@
 				BD8FDA62280EF17E000036DD /* DebugViewController.xib in Resources */,
 				BDE88A74280B0E5D00081114 /* DataCollectionViewCell.xib in Resources */,
 				BDFA3AA62827A6C8004A7E8C /* GlobelDescAlertView.xib in Resources */,
+				0F6968242833AF2600F22E47 /* WeatherViewController.xib in Resources */,
 				BD8FDA5C280EEF88000036DD /* WarningTableViewCell.xib in Resources */,
 				BDFA3AB8282F7D1B004A7E8C /* ServiceViewController.xib in Resources */,
 				0F3EBC15282E8B05009CDBED /* InverterViewController.xib in Resources */,
@@ -1090,6 +1141,7 @@
 				BDFA3AC2282F878F004A7E8C /* SelecteTableViewCell.xib in Resources */,
 				0F3EBC0F282E8A5E009CDBED /* GridViewController.xib in Resources */,
 				BDFA3A9B28257325004A7E8C /* AddDeviceActionTableViewCell.xib in Resources */,
+				0F6968342833B70F00F22E47 /* WeatherCollectionViewCell.xib in Resources */,
 				BD8FDA4D280EEBF5000036DD /* HelpTableViewCell.xib in Resources */,
 				BD8FDA74280EF5D7000036DD /* AddDeviceTableViewCell.xib in Resources */,
 				BDE88A69280AC7C600081114 /* PeakTimeTableViewCell.xib in Resources */,
@@ -1261,7 +1313,9 @@
 				BDFA3AC5282F89F0004A7E8C /* SelectItemAlertView.m in Sources */,
 				BD8FDA7D280EFDDA000036DD /* ScanView.m in Sources */,
 				BDE88A3C2805DA0700081114 /* UITextField+PlaceholderColor.m in Sources */,
+				0F69682E2833B28A00F22E47 /* WeatherInfoTableViewCell.m in Sources */,
 				BDE889FD28044E7C00081114 /* UIColor+HexString.m in Sources */,
+				0F6968292833B0F100F22E47 /* WeatherTableViewCell.m in Sources */,
 				BDE88A232805C3F800081114 /* RegisterViewController.m in Sources */,
 				BDE88A042804574700081114 /* NSString+Localiced.m in Sources */,
 				BDE88A332805D05000081114 /* ForgotViewController.m in Sources */,
@@ -1286,10 +1340,12 @@
 				BDE88A4E280A776500081114 /* DeviceSwitchView.m in Sources */,
 				BDE88A52280A7C0300081114 /* DeviceSwitchTableViewCell.m in Sources */,
 				BDE88A78280B12A900081114 /* DataEchartsCollectionViewCell.m in Sources */,
+				0F6968232833AF2600F22E47 /* WeatherViewController.m in Sources */,
 				BD8FDA57280EEED3000036DD /* WarningListView.m in Sources */,
 				BDFA3AA42827A6BD004A7E8C /* GlobelDescAlertView.m in Sources */,
 				BDFA3A9A28257325004A7E8C /* AddDeviceActionTableViewCell.m in Sources */,
 				BD2DEF3128044A74004E8D7D /* main.m in Sources */,
+				0F6968332833B70F00F22E47 /* WeatherCollectionViewCell.m in Sources */,
 				BDE88A0928046F7D00081114 /* DataViewController.m in Sources */,
 				BD907365280D4B4900044013 /* SetInfoTableViewCell.m in Sources */,
 				BDE88A68280AC7C600081114 /* PeakTimeTableViewCell.m in Sources */,

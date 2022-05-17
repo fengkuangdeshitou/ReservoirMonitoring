@@ -147,6 +147,7 @@
             <connections>
                 <outlet property="electricity" destination="1YQ-57-3Xv" id="eAn-YV-I7q"/>
                 <outlet property="endTime" destination="L06-RY-9B5" id="7Xi-Qd-XJe"/>
+                <outlet property="price" destination="R4I-3N-lCp" id="TeC-zj-xda"/>
                 <outlet property="removeButton" destination="TJD-wA-eca" id="R6j-TA-eDY"/>
                 <outlet property="startTime" destination="nfg-a7-8Q2" id="Od1-cL-j5y"/>
                 <outlet property="time" destination="R4Z-V7-avp" id="DIT-Kg-y1P"/>

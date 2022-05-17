@@ -26,6 +26,12 @@
     self.electricity.placeholder = @"Input electricity price".localized;
 }
 
+- (void)layoutSubviews{
+    self.startTime.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+    self.endTime.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+    self.electricity.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

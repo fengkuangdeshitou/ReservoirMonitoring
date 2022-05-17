@@ -55,7 +55,7 @@
 
 "Power outage, backup energy in effect." = "Power outage, backup energy in effect.";
 "online" = "online";
-"Current mode" = "Current mode";
+"Current mode：" = "Current mode：";
 "Energy independence rating(Daily):" = "Energy independence rating(Daily):";
 "Device status:" = "Device status:";
 "Switch operation mode" = "Switch operation mode";
@@ -160,3 +160,10 @@
 "Data" = "Data";
 "More" = "More";
 "Smart Gateway info" = "Smart Gateway info";
+"Generator" = "Generator";
+"Weather forecast" = "Weather forecast";
+"Ticket received" = "Ticket received";
+"The manufacturer will contact you via Email or phone call within the next hour regarding the case, please pay attention." = "The manufacturer will contact you via Email or phone call within the next hour regarding the case, please pay attention.";
+"Acknowledge" = "Acknowledge";
+"Please inpute battery SN" = "Please inpute battery SN";
+"Please input your Password" = "Please input your Password";

@@ -55,7 +55,7 @@
 //
 //"Power outage, backup energy in effect." = "电网停电，您正在使用备用电量";
 //"online" = "并网";
-//"Current mode" = "当前模式";
+//"Current mode：" = "当前模式：";
 //"Energy independence rating(Daily):" = "日家庭能源独立率";
 //"Device status:" = "设备工作状态:";
 //"Switch operation mode" = "切换运行模式";
@@ -160,3 +160,10 @@
 //"Data" = "能量图";
 //"More" = "更多";
 //"Smart Gateway info" = "链接设备Sn"
+//"Generator" = "柴油机";
+//"Weather forecast" = "天气预测";
+//"Ticket received" = "工单已收到";
+//"The manufacturer will contact you via Email or phone call within the next hour regarding the case, please pay attention." = "报修后厂家会在一小时内给您打电话或发送邮件，联系您处理，请您注意查收";
+//"Acknowledge" = "我知道了";
+//"Please inpute battery SN" = "请输入设备SN";
+//"Please input your Password" = "请输入您的密码";

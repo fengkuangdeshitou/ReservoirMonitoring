@@ -20,14 +20,18 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:LOGIN_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadLoginController) name:LOG_OUT object:nil];
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     self.window.backgroundColor = [UIColor colorWithHexString:@"#1E1E1E"];
-//    LoginViewController * login = [[LoginViewController alloc] init];
-//    NavigationViewController * nav = [[NavigationViewController alloc] initWithRootViewController:login];
-//    login.title = @"Login".localized;
-//    self.window.rootViewController = nav;
-    [self loginSuccess];
+    [self loadLoginController];
     return YES;
+}
+
+- (void)loadLoginController{
+    LoginViewController * login = [[LoginViewController alloc] init];
+    NavigationViewController * nav = [[NavigationViewController alloc] initWithRootViewController:login];
+    login.title = @"Login".localized;
+    self.window.rootViewController = nav;
 }
 
 - (void)loginSuccess{

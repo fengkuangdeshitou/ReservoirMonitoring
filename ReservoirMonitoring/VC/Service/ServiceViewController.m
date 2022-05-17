@@ -9,6 +9,7 @@
 #import "InputTableViewCell.h"
 #import "SelecteTableViewCell.h"
 #import "SelectItemAlertView.h"
+#import "GlobelDescAlertView.h"
 @import AFNetworking;
 
 @interface ServiceViewController ()<UITableViewDelegate>
@@ -25,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Service".localized;
+    [self setLeftBatButtonItemWithImage:[UIImage imageNamed:@"logo"] sel:nil];
     self.time.text = @"Can't submit twice in 30 minutes.".localized;
     [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
     [self.submit showBorderWithRadius:25];
@@ -63,6 +64,7 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSString * data = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSLog(@"obj=%@",data);
+        [GlobelDescAlertView showAlertViewWithTitle:@"Ticket received".localized desc:@"The manufacturer will contact you via Email or phone call within the next hour regarding the case, please pay attention.".localized];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 
     }];

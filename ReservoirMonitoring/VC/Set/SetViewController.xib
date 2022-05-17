@@ -38,6 +38,9 @@
                                 <state key="normal" title="Button">
                                     <color key="titleColor" red="0.54901960780000003" green="0.87450980389999999" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="logoutAtion:" destination="-1" eventType="touchUpInside" id="vxb-Rh-VDq"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FD0-cB-Ezv"/>

@@ -29,12 +29,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self setLeftBatButtonItemWithImage:[UIImage imageNamed:@"logo"] sel:nil];
     self.dataArray = @[@"User Info".localized,@"Network".localized,@"Update".localized,@"Help".localized,@"Fault&Alarm".localized,@"Debug".localized];
     self.iconArray = @[@"icon_information",@"icon_list",@"icon_update",@"icon_help",@"icon_warning",@"icon_test"];
     [self.loginout setTitle:@"Log Out".localized forState:UIControlStateNormal];
     [self.loginout showBorderWithRadius:25];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SetInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SetInfoTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SetTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SetTableViewCell class])];
+}
+
+- (IBAction)logoutAtion:(id)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:LOG_OUT object:nil];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -82,7 +87,6 @@
             debug.hidesBottomBarWhenPushed = true;
             [self.navigationController pushViewController:debug animated:true];
         }
-        
     }
 }
 

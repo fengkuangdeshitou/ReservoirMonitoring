@@ -9,7 +9,7 @@
 #import "RegisterTableViewCell.h"
 #import "ImageAuthenticationView.h"
 
-@interface RegisterViewController ()<ImageAuthenticationViewDelegate>
+@interface RegisterViewController ()<ImageAuthenticationViewDelegate,UITableViewDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * registerBtn;
@@ -65,6 +65,7 @@
     for (RegisterTableViewCell * cell in cells) {
         NSLog(@"%@",cell.textfield.text);
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:LOGIN_SUCCESS object:nil];
 }
 
 - (IBAction)popViewAction:(id)sender{
@@ -90,7 +91,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return UITableViewAutomaticDimension;
+    return 96;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

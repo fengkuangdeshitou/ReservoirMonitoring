@@ -59,7 +59,7 @@
                 cell.textfield.placeholder = @"Please input inverte SN".localized;
             }else{
                 cell.scanBtn.hidden = false;
-                cell.textfield.placeholder = @"Please inpute battery module SN".localized;
+                cell.textfield.placeholder = @"Please inpute battery SN".localized;
                 [cell.scanBtn setImage:[UIImage imageNamed:@"ic_set_scan"] forState:UIControlStateNormal];
                 [cell.deleteBtm setImage:[UIImage imageNamed:@"ic_delete"] forState:UIControlStateNormal];
                 cell.deleteBtm.tag = indexPath.row+10;
