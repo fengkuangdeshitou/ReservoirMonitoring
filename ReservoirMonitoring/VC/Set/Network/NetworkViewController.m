@@ -7,6 +7,7 @@
 
 #import "NetworkViewController.h"
 #import "NetworkTableViewCell.h"
+#import "WifiViewController.h"
 
 @interface NetworkViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -26,6 +27,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NetworkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NetworkTableViewCell class]) forIndexPath:indexPath];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        WifiViewController * wifi = [[WifiViewController alloc] init];
+        wifi.title = @"Wi-Fi config";
+        [self.navigationController pushViewController:wifi animated:true];
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{

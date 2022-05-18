@@ -37,7 +37,7 @@
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="icon_unchoose"/>
-                                <state key="selected" image="icon_choose"/>
+                                <state key="selected" image="icon_login_choose"/>
                                 <connections>
                                     <action selector="statusChange:" destination="-1" eventType="touchUpInside" id="1DE-hw-6G5"/>
                                 </connections>
@@ -122,7 +122,7 @@
         </view>
     </objects>
     <resources>
-        <image name="icon_choose" width="13" height="13"/>
+        <image name="icon_login_choose" width="13" height="13"/>
         <image name="icon_unchoose" width="13" height="13"/>
     </resources>
 </document>

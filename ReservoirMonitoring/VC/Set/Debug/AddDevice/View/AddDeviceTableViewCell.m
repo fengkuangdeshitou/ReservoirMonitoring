@@ -21,7 +21,7 @@
     // Initialization code
     self.titleLabel.text = @"Smart Gateway info".localized;
     self.idtextfield.placeholder = @"Please input device SN".localized;
-    self.nametextfield.placeholder = @"Please input a name for this device".localized;
+    self.nametextfield.placeholder = @"Please input name for this device".localized;
 }
 
 - (IBAction)scanAction:(id)sender{

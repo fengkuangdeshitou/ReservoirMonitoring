@@ -23,7 +23,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadLoginController) name:LOG_OUT object:nil];
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     self.window.backgroundColor = [UIColor colorWithHexString:@"#1E1E1E"];
-    [self loadLoginController];
+    [self loginSuccess];
     return YES;
 }
 

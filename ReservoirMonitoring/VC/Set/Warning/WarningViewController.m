@@ -34,6 +34,7 @@
     self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*2, 0);
     for (int i=0; i<2; i++) {
         WarningListView * list = [[WarningListView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT-NavagationHeight-self.titleView.height)];
+        list.tag = i+10;
         [self.scrollView addSubview:list];
     }
 }

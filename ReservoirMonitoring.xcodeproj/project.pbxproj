@@ -25,6 +25,14 @@
 		0F69682F2833B28A00F22E47 /* WeatherInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F69682D2833B28A00F22E47 /* WeatherInfoTableViewCell.xib */; };
 		0F6968332833B70F00F22E47 /* WeatherCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6968312833B70F00F22E47 /* WeatherCollectionViewCell.m */; };
 		0F6968342833B70F00F22E47 /* WeatherCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F6968322833B70F00F22E47 /* WeatherCollectionViewCell.xib */; };
+		0F6968392834964500F22E47 /* WifiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6968372834964500F22E47 /* WifiViewController.m */; };
+		0F69683A2834964500F22E47 /* WifiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F6968382834964500F22E47 /* WifiViewController.xib */; };
+		0F69683F2834967700F22E47 /* WifiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F69683D2834967700F22E47 /* WifiTableViewCell.m */; };
+		0F6968402834967700F22E47 /* WifiTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F69683E2834967700F22E47 /* WifiTableViewCell.xib */; };
+		0F69684428349A3800F22E47 /* WifiInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F69684228349A3800F22E47 /* WifiInfoTableViewCell.m */; };
+		0F69684528349A3800F22E47 /* WifiInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F69684328349A3800F22E47 /* WifiInfoTableViewCell.xib */; };
+		0F69684828349FBF00F22E47 /* WifiAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F69684728349FBF00F22E47 /* WifiAlertView.m */; };
+		0F69684A28349FCB00F22E47 /* WifiAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F69684928349FCB00F22E47 /* WifiAlertView.xib */; };
 		6529B29C2E0432E1F4C480DD /* Pods_ReservoirMonitoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BA0DE0AA9A215EC56692FA /* Pods_ReservoirMonitoring.framework */; };
 		B387385CB1D93CCC02D43717 /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F582A4DCB34D84D2C390CBD /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework */; };
 		BD2DEF2028044A6E004E8D7D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2DEF1F28044A6E004E8D7D /* AppDelegate.m */; };
@@ -186,6 +194,18 @@
 		0F6968302833B70F00F22E47 /* WeatherCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherCollectionViewCell.h; sourceTree = "<group>"; };
 		0F6968312833B70F00F22E47 /* WeatherCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherCollectionViewCell.m; sourceTree = "<group>"; };
 		0F6968322833B70F00F22E47 /* WeatherCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherCollectionViewCell.xib; sourceTree = "<group>"; };
+		0F6968362834964500F22E47 /* WifiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WifiViewController.h; sourceTree = "<group>"; };
+		0F6968372834964500F22E47 /* WifiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiViewController.m; sourceTree = "<group>"; };
+		0F6968382834964500F22E47 /* WifiViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WifiViewController.xib; sourceTree = "<group>"; };
+		0F69683C2834967700F22E47 /* WifiTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WifiTableViewCell.h; sourceTree = "<group>"; };
+		0F69683D2834967700F22E47 /* WifiTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiTableViewCell.m; sourceTree = "<group>"; };
+		0F69683E2834967700F22E47 /* WifiTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WifiTableViewCell.xib; sourceTree = "<group>"; };
+		0F69684128349A3800F22E47 /* WifiInfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WifiInfoTableViewCell.h; sourceTree = "<group>"; };
+		0F69684228349A3800F22E47 /* WifiInfoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiInfoTableViewCell.m; sourceTree = "<group>"; };
+		0F69684328349A3800F22E47 /* WifiInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WifiInfoTableViewCell.xib; sourceTree = "<group>"; };
+		0F69684628349FBF00F22E47 /* WifiAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WifiAlertView.h; sourceTree = "<group>"; };
+		0F69684728349FBF00F22E47 /* WifiAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiAlertView.m; sourceTree = "<group>"; };
+		0F69684928349FCB00F22E47 /* WifiAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WifiAlertView.xib; sourceTree = "<group>"; };
 		11BA0DE0AA9A215EC56692FA /* Pods_ReservoirMonitoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		263B1F2000C58A09A71CC682 /* Pods_ReservoirMonitoringTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoringTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB1F4E5989AEB4DD5663FDE /* Pods-ReservoirMonitoringTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReservoirMonitoringTests.debug.xcconfig"; path = "Target Support Files/Pods-ReservoirMonitoringTests/Pods-ReservoirMonitoringTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -478,6 +498,33 @@
 				0F6968302833B70F00F22E47 /* WeatherCollectionViewCell.h */,
 				0F6968312833B70F00F22E47 /* WeatherCollectionViewCell.m */,
 				0F6968322833B70F00F22E47 /* WeatherCollectionViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0F696835283495A300F22E47 /* Wifi */ = {
+			isa = PBXGroup;
+			children = (
+				0F6968362834964500F22E47 /* WifiViewController.h */,
+				0F6968372834964500F22E47 /* WifiViewController.m */,
+				0F6968382834964500F22E47 /* WifiViewController.xib */,
+				0F69683B2834965D00F22E47 /* View */,
+			);
+			path = Wifi;
+			sourceTree = "<group>";
+		};
+		0F69683B2834965D00F22E47 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0F69683C2834967700F22E47 /* WifiTableViewCell.h */,
+				0F69683D2834967700F22E47 /* WifiTableViewCell.m */,
+				0F69683E2834967700F22E47 /* WifiTableViewCell.xib */,
+				0F69684128349A3800F22E47 /* WifiInfoTableViewCell.h */,
+				0F69684228349A3800F22E47 /* WifiInfoTableViewCell.m */,
+				0F69684328349A3800F22E47 /* WifiInfoTableViewCell.xib */,
+				0F69684628349FBF00F22E47 /* WifiAlertView.h */,
+				0F69684728349FBF00F22E47 /* WifiAlertView.m */,
+				0F69684928349FCB00F22E47 /* WifiAlertView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -963,6 +1010,7 @@
 				BDFA3AA828295B63004A7E8C /* NetworkViewController.h */,
 				BDFA3AA928295B63004A7E8C /* NetworkViewController.m */,
 				BDFA3AAA28295B63004A7E8C /* NetworkViewController.xib */,
+				0F696835283495A300F22E47 /* Wifi */,
 				BDFA3AAD28296693004A7E8C /* View */,
 			);
 			path = Network;
@@ -1109,6 +1157,7 @@
 				BDE88A2B2805C47C00081114 /* RegisterTableViewCell.xib in Resources */,
 				BD8FDA53280EED5A000036DD /* WarningViewController.xib in Resources */,
 				0F69682F2833B28A00F22E47 /* WeatherInfoTableViewCell.xib in Resources */,
+				0F69683A2834964500F22E47 /* WifiViewController.xib in Resources */,
 				0F3EBC21282E8B94009CDBED /* HybridViewController.xib in Resources */,
 				BDE88A5F280ABD4600081114 /* SwitchModelTableViewCell.xib in Resources */,
 				BDFA3AA128257686004A7E8C /* AddAddressViewController.xib in Resources */,
@@ -1117,6 +1166,7 @@
 				BDE88A64280AC2B200081114 /* SwitchProgressTableViewCell.xib in Resources */,
 				BD8FDA6E280EF582000036DD /* AddDeviceViewController.xib in Resources */,
 				BDE88A6E280ACA8C00081114 /* TimeTableViewCell.xib in Resources */,
+				0F69684528349A3800F22E47 /* WifiInfoTableViewCell.xib in Resources */,
 				BDFA3A9628256FF0004A7E8C /* AddDeviceSNTableViewCell.xib in Resources */,
 				BDE88A1F2805A0D800081114 /* ImageAuthenticationView.xib in Resources */,
 				BD2DEF2B28044A74004E8D7D /* Assets.xcassets in Resources */,
@@ -1146,6 +1196,7 @@
 				BD8FDA74280EF5D7000036DD /* AddDeviceTableViewCell.xib in Resources */,
 				BDE88A69280AC7C600081114 /* PeakTimeTableViewCell.xib in Resources */,
 				BDFA3AB2282966B0004A7E8C /* NetworkTableViewCell.xib in Resources */,
+				0F69684A28349FCB00F22E47 /* WifiAlertView.xib in Resources */,
 				BDE88A4228070EA000081114 /* HomeTableViewCell.xib in Resources */,
 				BDFA3ACD2830EFA2004A7E8C /* SwitchTableViewCell.xib in Resources */,
 				BD907366280D4B4900044013 /* SetInfoTableViewCell.xib in Resources */,
@@ -1158,6 +1209,7 @@
 				BDFA3AAC28295B63004A7E8C /* NetworkViewController.xib in Resources */,
 				BDE88A1028046FE100081114 /* SetViewController.xib in Resources */,
 				BD8FDA7A280EF904000036DD /* ScanViewController.xib in Resources */,
+				0F6968402834967700F22E47 /* WifiTableViewCell.xib in Resources */,
 				BDE88A342805D05000081114 /* ForgotViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1286,6 +1338,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F69683F2834967700F22E47 /* WifiTableViewCell.m in Sources */,
 				BDE88A6D280ACA8B00081114 /* TimeTableViewCell.m in Sources */,
 				BDE88A382805D66200081114 /* SetPasswordViewController.m in Sources */,
 				BD8FDA5B280EEF88000036DD /* WarningTableViewCell.m in Sources */,
@@ -1315,6 +1368,7 @@
 				BDE88A3C2805DA0700081114 /* UITextField+PlaceholderColor.m in Sources */,
 				0F69682E2833B28A00F22E47 /* WeatherInfoTableViewCell.m in Sources */,
 				BDE889FD28044E7C00081114 /* UIColor+HexString.m in Sources */,
+				0F69684828349FBF00F22E47 /* WifiAlertView.m in Sources */,
 				0F6968292833B0F100F22E47 /* WeatherTableViewCell.m in Sources */,
 				BDE88A232805C3F800081114 /* RegisterViewController.m in Sources */,
 				BDE88A042804574700081114 /* NSString+Localiced.m in Sources */,
@@ -1323,7 +1377,9 @@
 				0F3EBC1A282E8B51009CDBED /* GeneratorViewController.m in Sources */,
 				BDE88A4128070EA000081114 /* HomeTableViewCell.m in Sources */,
 				BDE88A0F28046FE100081114 /* SetViewController.m in Sources */,
+				0F6968392834964500F22E47 /* WifiViewController.m in Sources */,
 				BDFA3ABC282F85F5004A7E8C /* InputTableViewCell.m in Sources */,
+				0F69684428349A3800F22E47 /* WifiInfoTableViewCell.m in Sources */,
 				BD2DEF5D28044B58004E8D7D /* NavigationViewController.m in Sources */,
 				BDFA3ACC2830EFA2004A7E8C /* SwitchTableViewCell.m in Sources */,
 				BDE88A58280AB78B00081114 /* SwitchModeViewController.m in Sources */,
@@ -1547,7 +1603,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ReservoirMonitoring/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReservoirMonitoring/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MoonFlow;
+				INFOPLIST_KEY_CFBundleDisplayName = Moonflow;
 				INFOPLIST_KEY_NSCameraUsageDescription = "扫码";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1580,7 +1636,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ReservoirMonitoring/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReservoirMonitoring/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MoonFlow;
+				INFOPLIST_KEY_CFBundleDisplayName = Moonflow;
 				INFOPLIST_KEY_NSCameraUsageDescription = "扫码";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

@@ -16,7 +16,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if (@available(iOS 15.0, *)) {
+        UITableView.appearance.sectionHeaderTopPadding = 0;
+    } else {
+        // Fallback on earlier versions
+    }
     UITextField.appearance.tintColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+    UITextField.appearance.textColor = UIColor.whiteColor;
     if (UITextField.appearance.placeholder.length>0) {
         NSMutableAttributedString * placeholder = [[NSMutableAttributedString alloc] initWithString:UITextField.appearance.placeholder];
         [placeholder addAttributes:@{NSFontAttributeName:[UIColor colorWithHexString:@"#747474"]} range:NSMakeRange(0, placeholder.length)];

@@ -41,6 +41,11 @@
 
 }
 
+- (IBAction)previewChangeAction:(UIButton *)sender{
+    sender.selected = !sender.selected;
+    self.passwordtf.secureTextEntry = !sender.selected;
+}
+
 - (void)onAuthemticationSuccess{
     [[NSNotificationCenter defaultCenter] postNotificationName:LOGIN_SUCCESS object:nil];
 }
@@ -57,7 +62,7 @@
 
 - (IBAction)forgotAction:(id)sender{
     ForgotViewController * forgot = [[ForgotViewController alloc] init];
-    forgot.title = @"Forgot Password".localized;
+    forgot.title = @"Retrieve password".localized;
     [self.navigationController pushViewController:forgot animated:true];
 }
 

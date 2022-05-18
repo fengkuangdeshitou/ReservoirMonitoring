@@ -1,19 +1,13 @@
 //
-//  WarningTableViewCell.m
+//  WifiTableViewCell.m
 //  ReservoirMonitoring
 //
-//  Created by 王帅 on 2022/4/19.
+//  Created by maiyou on 2022/5/18.
 //
 
-#import "WarningTableViewCell.h"
+#import "WifiTableViewCell.h"
 
-@interface WarningTableViewCell ()
-
-@property(nonatomic,weak)IBOutlet UILabel * timeLabel;
-
-@end
-
-@implementation WarningTableViewCell
+@implementation WifiTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WarningTableViewCell : UITableViewCell
 
+@property(nonatomic,weak)IBOutlet UILabel * typeLabel;
+@property(nonatomic,weak)IBOutlet UILabel * time;
+
 @end
 
 NS_ASSUME_NONNULL_END

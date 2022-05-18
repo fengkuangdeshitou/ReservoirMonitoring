@@ -27,8 +27,8 @@
 "Slide the bar to complete the picture." = "Slide the bar to complete the picture.";
 
 "Forgot Password" = "Forgot Password";
-"1.Verify Email" = "1.Verify Email";
-"2.New password" = "2.New password";
+"1.Verify Email" = "1. Verify Email";
+"2.New password" = "2. New password";
 "Next" = "Next";
 "Verification code" = "Verification code";
 "Please enter registration Email" = "Please enter registration Email";
@@ -40,7 +40,7 @@
 "Add device" = "Add device";
 "Smart Gateway info" = "Smart Gateway info";
 "Please input device SN" = "Please input device SN";
-"Please input a name for this device" = "Please input a name for this device";
+"Please input name for this device" = "Please input name for this device";
 "Accessory Hybrid info" = "Accessory Hybrid info";
 "Please inpute battery module SN" = "Please inpute battery module SN";
 "Please input inverte SN" = "Please input inverte SN";
@@ -167,3 +167,12 @@
 "Acknowledge" = "Acknowledge";
 "Please inpute battery SN" = "Please inpute battery SN";
 "Please input your Password" = "Please input your Password";
+"Retrieve password" = "Retrieve password";
+"Wi-Fi config" = "Wi-Fi config";
+"SN Address：" = "SN Address：";
+"BLE status：" = "BLE status：";
+"Disconnect" = "Disconnect";
+"Please input Wi-Fi password" = "Please input Wi-Fi password";
+"Cancel" = "Cancel";
+"Alarm Time" = "Alarm Time：";
+"Fault Time" = "Fault Time：";
