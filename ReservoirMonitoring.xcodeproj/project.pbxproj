@@ -33,6 +33,8 @@
 		0F69684528349A3800F22E47 /* WifiInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F69684328349A3800F22E47 /* WifiInfoTableViewCell.xib */; };
 		0F69684828349FBF00F22E47 /* WifiAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F69684728349FBF00F22E47 /* WifiAlertView.m */; };
 		0F69684A28349FCB00F22E47 /* WifiAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F69684928349FCB00F22E47 /* WifiAlertView.xib */; };
+		0F69684E2834C8F900F22E47 /* BleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F69684D2834C8F900F22E47 /* BleManager.m */; };
+		0F6968512834CED800F22E47 /* PeripheralModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6968502834CED800F22E47 /* PeripheralModel.m */; };
 		6529B29C2E0432E1F4C480DD /* Pods_ReservoirMonitoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BA0DE0AA9A215EC56692FA /* Pods_ReservoirMonitoring.framework */; };
 		B387385CB1D93CCC02D43717 /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F582A4DCB34D84D2C390CBD /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework */; };
 		BD2DEF2028044A6E004E8D7D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2DEF1F28044A6E004E8D7D /* AppDelegate.m */; };
@@ -206,6 +208,10 @@
 		0F69684628349FBF00F22E47 /* WifiAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WifiAlertView.h; sourceTree = "<group>"; };
 		0F69684728349FBF00F22E47 /* WifiAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiAlertView.m; sourceTree = "<group>"; };
 		0F69684928349FCB00F22E47 /* WifiAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WifiAlertView.xib; sourceTree = "<group>"; };
+		0F69684C2834C8F900F22E47 /* BleManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleManager.h; sourceTree = "<group>"; };
+		0F69684D2834C8F900F22E47 /* BleManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleManager.m; sourceTree = "<group>"; };
+		0F69684F2834CED800F22E47 /* PeripheralModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PeripheralModel.h; sourceTree = "<group>"; };
+		0F6968502834CED800F22E47 /* PeripheralModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PeripheralModel.m; sourceTree = "<group>"; };
 		11BA0DE0AA9A215EC56692FA /* Pods_ReservoirMonitoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		263B1F2000C58A09A71CC682 /* Pods_ReservoirMonitoringTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoringTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB1F4E5989AEB4DD5663FDE /* Pods-ReservoirMonitoringTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReservoirMonitoringTests.debug.xcconfig"; path = "Target Support Files/Pods-ReservoirMonitoringTests/Pods-ReservoirMonitoringTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -529,6 +535,17 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		0F69684B2834C8C900F22E47 /* BLE */ = {
+			isa = PBXGroup;
+			children = (
+				0F69684C2834C8F900F22E47 /* BleManager.h */,
+				0F69684D2834C8F900F22E47 /* BleManager.m */,
+				0F69684F2834CED800F22E47 /* PeripheralModel.h */,
+				0F6968502834CED800F22E47 /* PeripheralModel.m */,
+			);
+			path = BLE;
+			sourceTree = "<group>";
+		};
 		6C601691DA04C12B7D142288 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -579,6 +596,7 @@
 			children = (
 				BD2DEF1E28044A6E004E8D7D /* AppDelegate.h */,
 				BD2DEF1F28044A6E004E8D7D /* AppDelegate.m */,
+				0F69684B2834C8C900F22E47 /* BLE */,
 				BDFA3AC82830E8B8004A7E8C /* API */,
 				BDE889F628044D8B00081114 /* Tools */,
 				BDE889FA28044E6300081114 /* Category */,
@@ -1346,6 +1364,7 @@
 				BD2DEF5928044B27004E8D7D /* TabbarViewController.m in Sources */,
 				BDE88A2A2805C47C00081114 /* RegisterTableViewCell.m in Sources */,
 				BD8FDA52280EED5A000036DD /* WarningViewController.m in Sources */,
+				0F69684E2834C8F900F22E47 /* BleManager.m in Sources */,
 				BDE88A5E280ABD4600081114 /* SwitchModelTableViewCell.m in Sources */,
 				BD2DEF2028044A6E004E8D7D /* AppDelegate.m in Sources */,
 				BDE88A132804714E00081114 /* BaseViewController+BarButtonItem.m in Sources */,
@@ -1394,6 +1413,7 @@
 				BDE889F928044DA700081114 /* RMHelper.m in Sources */,
 				BD8FDA40280D5F91000036DD /* UpdateViewController.m in Sources */,
 				BDE88A4E280A776500081114 /* DeviceSwitchView.m in Sources */,
+				0F6968512834CED800F22E47 /* PeripheralModel.m in Sources */,
 				BDE88A52280A7C0300081114 /* DeviceSwitchTableViewCell.m in Sources */,
 				BDE88A78280B12A900081114 /* DataEchartsCollectionViewCell.m in Sources */,
 				0F6968232833AF2600F22E47 /* WeatherViewController.m in Sources */,

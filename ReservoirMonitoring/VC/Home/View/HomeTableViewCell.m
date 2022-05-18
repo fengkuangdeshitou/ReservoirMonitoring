@@ -58,6 +58,7 @@
         }else{
             animationImageView.frame = CGRectMake((SCREEN_WIDTH/2+21), i/3*160+99, SCREEN_WIDTH/3*2/2-21, 37);
         }
+        animationImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"normal%d",i]];
         NSMutableArray * animationImageArray = [[NSMutableArray alloc] init];
         for (int j=0; j<3; j++) {
             if ((i == 1||i==4) && j == 2) {
@@ -68,7 +69,7 @@
         animationImageView.animationImages = animationImageArray;
         animationImageView.animationDuration = 2;
         animationImageView.animationRepeatCount = 0;
-        [animationImageView startAnimating];
+//        [animationImageView startAnimating];
         [self.itemContentView addSubview:animationImageView];
     }
     

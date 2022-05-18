@@ -6,10 +6,14 @@
 //
 
 #import "BaseViewController.h"
+#import "PeripheralModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WifiViewController : BaseViewController
+
+@property(nonatomic,strong) PeripheralModel * model;
+
 
 @end
 
