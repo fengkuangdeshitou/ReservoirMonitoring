@@ -64,18 +64,27 @@ static BleManager * _manager = nil;
     [self.peripheral writeValue:data forCharacteristic:self.readCharacteristic type:CBCharacteristicWriteWithoutResponse];
 }
 
-- (void)readValueWithStartAddress:(Byte)address count:(int)count{
-    Byte addressByte = (Byte)0xff& [self convertHexToDecimal:@"34"];
-    Byte byte[] = {0x64,0x03,06,addressByte,0x00,count};
-    int value = [self CRC16Table:byte len:sizeof(byte)];
-    Byte CRCByte[4] = {};
-    CRCByte[0] = (Byte) ((value>>24) & 0xFF);
-    CRCByte[1] = (Byte) ((value>>16) & 0xFF);
-    CRCByte[2] = (Byte) ((value>>8) & 0xFF);
-    CRCByte[3] = (Byte) (value & 0xFF);
-    Byte readByte[] = {0x64,0x03,06,addressByte,0x00,count,CRCByte[3],CRCByte[2]};
+- (void)readWithCMDString:(NSString *)string count:(int)count{
+    long value = [self convertHexToDecimal:string];
+    Byte * byte = [self longToByte:value];
+    Byte stringByte[2] = {byte[3],byte[2]};
+    
+    Byte crcByte[6] = {0x64,0x03,stringByte[1],stringByte[0],0x00,count};
+    long crcValue = [self CRC16Table:crcByte len:sizeof(crcByte)];
+    Byte * crc = [self longToByte:crcValue];
+    
+    Byte readByte[] = {0x64,0x03,stringByte[1],stringByte[0],0x00,count,crc[3],crc[2]};
     NSData * readData = [[NSData alloc] initWithBytes:readByte length:sizeof(readByte)];
     [self.peripheral writeValue:readData forCharacteristic:self.readCharacteristic type:CBCharacteristicWriteWithoutResponse];
+}
+
+- (Byte*)longToByte:(long)value{
+    Byte byte[4] = {};
+    byte[0] =(Byte) ((value>>24) & 0xFF);
+    byte[1] =(Byte) ((value>>16) & 0xFF);
+    byte[2] =(Byte) ((value>>8) & 0xFF);
+    byte[3] =(Byte) (value & 0xFF);
+    return byte;
 }
 
 /// 16进制字符串转10进制数字
@@ -86,6 +95,62 @@ static BleManager * _manager = nil;
     return decimal;
 }
 
+- (void)writeWithCMDString:(NSString *)string value:(NSArray *)array{
+    long value = [self convertHexToDecimal:string];
+    Byte * byte = [self longToByte:value];
+    Byte stringByte[2] = {byte[3],byte[2]};
+    
+    long hexCount = [self convertHexToDecimal:[NSString stringWithFormat:@"%ld",array.count]];
+    Byte * countByte = [self longToByte:hexCount];
+    Byte countByte2[2] = {countByte[3],countByte[2]};
+    
+    long length = array.count*2+7;
+    Byte crcByte[length];
+    crcByte[0] = 0x64;
+    crcByte[1] = 0x10;
+    crcByte[2] = stringByte[1];
+    crcByte[3] = stringByte[0];
+    crcByte[4] = countByte2[1];
+    crcByte[5] = countByte2[0];
+    crcByte[6] = array.count*2;
+    for (int i=0; i<array.count; i++) {
+        NSString * str = array[i];
+        long a = str.intValue;
+        Byte * longByte = [self longToByte:a];
+        for (int j=0; j<2; j++) {
+            crcByte[i*2+7+j] = j == 0 ? longByte[2] : longByte[3];
+        }
+    }
+    long crcValue = [self CRC16Table:crcByte len:sizeof(crcByte)];
+    Byte * crc = [self longToByte:crcValue];
+    Byte writeByte[length+2];
+    for (int i=0; i<length; i++) {
+        writeByte[i] = crcByte[i];
+    }
+    writeByte[length] = crc[3];
+    writeByte[length+1] = crc[2];
+    NSData * data = [[NSData alloc] initWithBytes:writeByte length:sizeof(writeByte)];
+    [self.peripheral writeValue:data forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithResponse];
+}
+
+- (void)writeWithCMDString:(NSString *)string string:(NSString *)value{
+    long hexValue = [self convertHexToDecimal:string];
+    Byte * byte = [self longToByte:hexValue];
+    Byte stringByte[2] = {byte[3],byte[2]};
+    
+    long hexValue2 = [self convertHexToDecimal:value];
+    Byte * longByte = [self longToByte:hexValue2];
+    Byte stringByte2[2] = {longByte[3],longByte[2]};
+    
+    Byte crcByte[6] = {0x64,0x06,stringByte[1],stringByte[0],stringByte2[1],stringByte2[0]};
+    long crcValue = [self CRC16Table:crcByte len:sizeof(crcByte)];
+    Byte * crc = [self longToByte:crcValue];
+    
+    Byte readByte[] = {0x64,0x06,stringByte[1],stringByte[0],stringByte2[1],stringByte2[0],crc[3],crc[2]};
+    NSData * readData = [[NSData alloc] initWithBytes:readByte length:sizeof(readByte)];
+    [self.peripheral writeValue:readData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithoutResponse];
+    
+}
 
 /// int 转byte
 - (Byte)getByteWithInt:(int)value{

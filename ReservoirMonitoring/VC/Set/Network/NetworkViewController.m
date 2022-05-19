@@ -36,8 +36,9 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    Byte byte[] = {0x64,0x03};
-    [self.manager readValueWithStartAddress:byte count:6];
+//    [self.manager readWithCMDString:@"634" count:6];
+    [self.manager writeWithCMDString:@"634" value:@[@"1",@"2",@"3",@"4",@"5",@"6"]];
+//    [self.manager writeWithCMDString:@"620" string:@"1"];
 }
 
 - (void)bluetoothDidUpdateState:(CBCentralManager *)central{

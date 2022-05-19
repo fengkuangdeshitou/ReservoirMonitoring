@@ -7,12 +7,12 @@
 
 #import "DebugViewController.h"
 #import "DebugCollectionViewCell.h"
-#import "AddDeviceViewController.h"
 #import "GridViewController.h"
 #import "InverterViewController.h"
 #import "GeneratorViewController.h"
 #import "HybridViewController.h"
 #import "OtherViewController.h"
+#import "InstallViewController.h"
 
 @interface DebugViewController ()<UICollectionViewDelegate>
 
@@ -40,9 +40,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSString * title = self.dataArray[indexPath.row];
     if (indexPath.row == 0) {
-        AddDeviceViewController * add = [[AddDeviceViewController alloc] init];
-        add.title = title;
-        [self.navigationController pushViewController:add animated:true];
+        InstallViewController * install = [[InstallViewController alloc] init];
+        install.title = title;
+        [self.navigationController pushViewController:install animated:true];
     }else if (indexPath.row == 1){
         GridViewController * grid = [[GridViewController alloc] init];
         grid.title = title;

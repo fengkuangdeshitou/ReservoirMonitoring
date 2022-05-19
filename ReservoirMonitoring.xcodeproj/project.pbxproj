@@ -35,6 +35,10 @@
 		0F69684A28349FCB00F22E47 /* WifiAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F69684928349FCB00F22E47 /* WifiAlertView.xib */; };
 		0F69684E2834C8F900F22E47 /* BleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F69684D2834C8F900F22E47 /* BleManager.m */; };
 		0F6968512834CED800F22E47 /* PeripheralModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6968502834CED800F22E47 /* PeripheralModel.m */; };
+		0F69685828364D0500F22E47 /* InstallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F69685628364D0400F22E47 /* InstallViewController.m */; };
+		0F69685928364D0500F22E47 /* InstallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F69685728364D0400F22E47 /* InstallViewController.xib */; };
+		0F69685E28364E7B00F22E47 /* InstallCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F69685C28364E7B00F22E47 /* InstallCollectionViewCell.m */; };
+		0F69685F28364E7B00F22E47 /* InstallCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F69685D28364E7B00F22E47 /* InstallCollectionViewCell.xib */; };
 		6529B29C2E0432E1F4C480DD /* Pods_ReservoirMonitoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BA0DE0AA9A215EC56692FA /* Pods_ReservoirMonitoring.framework */; };
 		B387385CB1D93CCC02D43717 /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F582A4DCB34D84D2C390CBD /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework */; };
 		BD2DEF2028044A6E004E8D7D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2DEF1F28044A6E004E8D7D /* AppDelegate.m */; };
@@ -212,6 +216,12 @@
 		0F69684D2834C8F900F22E47 /* BleManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleManager.m; sourceTree = "<group>"; };
 		0F69684F2834CED800F22E47 /* PeripheralModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PeripheralModel.h; sourceTree = "<group>"; };
 		0F6968502834CED800F22E47 /* PeripheralModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PeripheralModel.m; sourceTree = "<group>"; };
+		0F69685528364D0400F22E47 /* InstallViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InstallViewController.h; sourceTree = "<group>"; };
+		0F69685628364D0400F22E47 /* InstallViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstallViewController.m; sourceTree = "<group>"; };
+		0F69685728364D0400F22E47 /* InstallViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallViewController.xib; sourceTree = "<group>"; };
+		0F69685B28364E7B00F22E47 /* InstallCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InstallCollectionViewCell.h; sourceTree = "<group>"; };
+		0F69685C28364E7B00F22E47 /* InstallCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstallCollectionViewCell.m; sourceTree = "<group>"; };
+		0F69685D28364E7B00F22E47 /* InstallCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallCollectionViewCell.xib; sourceTree = "<group>"; };
 		11BA0DE0AA9A215EC56692FA /* Pods_ReservoirMonitoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		263B1F2000C58A09A71CC682 /* Pods_ReservoirMonitoringTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoringTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB1F4E5989AEB4DD5663FDE /* Pods-ReservoirMonitoringTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReservoirMonitoringTests.debug.xcconfig"; path = "Target Support Files/Pods-ReservoirMonitoringTests/Pods-ReservoirMonitoringTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -546,6 +556,27 @@
 			path = BLE;
 			sourceTree = "<group>";
 		};
+		0F69685428364CE600F22E47 /* Install */ = {
+			isa = PBXGroup;
+			children = (
+				0F69685528364D0400F22E47 /* InstallViewController.h */,
+				0F69685628364D0400F22E47 /* InstallViewController.m */,
+				0F69685728364D0400F22E47 /* InstallViewController.xib */,
+				0F69685A28364E6700F22E47 /* View */,
+			);
+			path = Install;
+			sourceTree = "<group>";
+		};
+		0F69685A28364E6700F22E47 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0F69685B28364E7B00F22E47 /* InstallCollectionViewCell.h */,
+				0F69685C28364E7B00F22E47 /* InstallCollectionViewCell.m */,
+				0F69685D28364E7B00F22E47 /* InstallCollectionViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		6C601691DA04C12B7D142288 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -718,6 +749,7 @@
 				BD8FDA5E280EF17E000036DD /* DebugViewController.h */,
 				BD8FDA5F280EF17E000036DD /* DebugViewController.m */,
 				BD8FDA60280EF17E000036DD /* DebugViewController.xib */,
+				0F69685428364CE600F22E47 /* Install */,
 				0F4030D9282E89F5001E1F2D /* Grid */,
 				0F3EBC10282E8AF5009CDBED /* Inverter */,
 				0F3EBC16282E8B43009CDBED /* Generator */,
@@ -1218,6 +1250,8 @@
 				BDE88A4228070EA000081114 /* HomeTableViewCell.xib in Resources */,
 				BDFA3ACD2830EFA2004A7E8C /* SwitchTableViewCell.xib in Resources */,
 				BD907366280D4B4900044013 /* SetInfoTableViewCell.xib in Resources */,
+				0F69685928364D0500F22E47 /* InstallViewController.xib in Resources */,
+				0F69685F28364E7B00F22E47 /* InstallCollectionViewCell.xib in Resources */,
 				0F3EBC27282E8BC9009CDBED /* OtherViewController.xib in Resources */,
 				BDE88A59280AB78B00081114 /* SwitchModeViewController.xib in Resources */,
 				BD8FDA68280EF1DE000036DD /* DebugCollectionViewCell.xib in Resources */,
@@ -1362,6 +1396,7 @@
 				BD8FDA5B280EEF88000036DD /* WarningTableViewCell.m in Sources */,
 				BD90736B280D535700044013 /* InfoViewController.m in Sources */,
 				BD2DEF5928044B27004E8D7D /* TabbarViewController.m in Sources */,
+				0F69685E28364E7B00F22E47 /* InstallCollectionViewCell.m in Sources */,
 				BDE88A2A2805C47C00081114 /* RegisterTableViewCell.m in Sources */,
 				BD8FDA52280EED5A000036DD /* WarningViewController.m in Sources */,
 				0F69684E2834C8F900F22E47 /* BleManager.m in Sources */,
@@ -1423,6 +1458,7 @@
 				BD2DEF3128044A74004E8D7D /* main.m in Sources */,
 				0F6968332833B70F00F22E47 /* WeatherCollectionViewCell.m in Sources */,
 				BDE88A0928046F7D00081114 /* DataViewController.m in Sources */,
+				0F69685828364D0500F22E47 /* InstallViewController.m in Sources */,
 				BD907365280D4B4900044013 /* SetInfoTableViewCell.m in Sources */,
 				BDE88A68280AC7C600081114 /* PeakTimeTableViewCell.m in Sources */,
 				BDFA3AC1282F878F004A7E8C /* SelecteTableViewCell.m in Sources */,
