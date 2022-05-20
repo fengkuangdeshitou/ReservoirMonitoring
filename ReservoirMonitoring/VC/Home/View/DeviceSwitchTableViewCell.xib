@@ -105,6 +105,7 @@
             <connections>
                 <outlet property="SN" destination="MSZ-2y-fRm" id="CkC-Wj-6qO"/>
                 <outlet property="name" destination="vgH-db-3zw" id="IsE-Wl-SNU"/>
+                <outlet property="status" destination="cdx-Eq-9da" id="GNf-yp-QNw"/>
             </connections>
             <point key="canvasLocation" x="139.13043478260872" y="82.366071428571431"/>
         </tableViewCell>

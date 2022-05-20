@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,weak)IBOutlet UILabel * typeLabel;
 @property(nonatomic,weak)IBOutlet UILabel * time;
+@property(nonatomic,weak)IBOutlet UIView * line;
 
 @end
 

@@ -40,6 +40,13 @@
                                     <constraint firstAttribute="height" constant="7" id="dpg-uo-Nmz"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aEq-d0-tc4">
+                                <rect key="frame" x="15" y="43" width="290" height="1"/>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="yXc-ve-e7p"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.047058823530000002" green="0.047058823530000002" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -51,6 +58,9 @@
                             <constraint firstItem="DPh-hQ-3xH" firstAttribute="leading" secondItem="JIq-xf-Quj" secondAttribute="trailing" constant="15" id="Ki5-Cb-mtH"/>
                             <constraint firstItem="JIq-xf-Quj" firstAttribute="leading" secondItem="fmi-Ve-X52" secondAttribute="trailing" constant="15" id="Kyc-9w-gnW"/>
                             <constraint firstItem="fmi-Ve-X52" firstAttribute="leading" secondItem="BEc-WA-Buc" secondAttribute="leading" constant="15" id="N65-at-5tw"/>
+                            <constraint firstAttribute="bottom" secondItem="aEq-d0-tc4" secondAttribute="bottom" id="OmE-Da-WJ5"/>
+                            <constraint firstAttribute="trailing" secondItem="aEq-d0-tc4" secondAttribute="trailing" constant="15" id="Uxe-iZ-a8h"/>
+                            <constraint firstItem="aEq-d0-tc4" firstAttribute="leading" secondItem="BEc-WA-Buc" secondAttribute="leading" constant="15" id="Vya-lD-yPI"/>
                             <constraint firstItem="JIq-xf-Quj" firstAttribute="top" secondItem="BEc-WA-Buc" secondAttribute="top" id="tmG-4S-Z8i"/>
                         </constraints>
                     </view>
@@ -67,7 +77,7 @@
                 <outlet property="content" destination="JIq-xf-Quj" id="bFQ-pu-c27"/>
                 <outlet property="titleLabel" destination="fmi-Ve-X52" id="Ev4-RQ-Ifp"/>
             </connections>
-            <point key="canvasLocation" x="139" y="90"/>
+            <point key="canvasLocation" x="137.68115942028987" y="89.732142857142847"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -48,14 +48,21 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_mask" translatesAutoresizingMaskIntoConstraints="NO" id="eN8-aP-pXQ">
+                        <rect key="frame" x="277" y="26" width="7" height="11"/>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="fkc-tJ-oXD" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="BPz-rC-nu0"/>
                     <constraint firstItem="tdK-XA-Um6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="FiU-gC-9Bb"/>
+                    <constraint firstItem="fkc-tJ-oXD" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="J9g-EN-zqu"/>
                     <constraint firstItem="fkc-tJ-oXD" firstAttribute="leading" secondItem="tdK-XA-Um6" secondAttribute="trailing" constant="10" id="MIG-yC-X2s"/>
                     <constraint firstAttribute="bottom" secondItem="gOz-ga-G9z" secondAttribute="bottom" id="T3U-DG-Vec"/>
                     <constraint firstItem="gOz-ga-G9z" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="WVf-BV-iXa"/>
+                    <constraint firstItem="fkc-tJ-oXD" firstAttribute="centerY" secondItem="gOz-ga-G9z" secondAttribute="centerY" id="hFz-59-Ugy"/>
+                    <constraint firstAttribute="trailing" secondItem="eN8-aP-pXQ" secondAttribute="trailing" constant="36" id="iBg-Um-gk8"/>
+                    <constraint firstItem="fkc-tJ-oXD" firstAttribute="centerY" secondItem="eN8-aP-pXQ" secondAttribute="centerY" id="kVn-AN-yXv"/>
                     <constraint firstItem="tdK-XA-Um6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="nIg-6G-Byw"/>
                     <constraint firstItem="gOz-ga-G9z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="o4n-AB-Ry3"/>
                     <constraint firstAttribute="trailing" secondItem="gOz-ga-G9z" secondAttribute="trailing" constant="15" id="uq3-d3-u6D"/>
@@ -70,4 +77,7 @@
             <point key="canvasLocation" x="137.68115942028987" y="118.19196428571428"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="ic_mask" width="7" height="11"/>
+    </resources>
 </document>

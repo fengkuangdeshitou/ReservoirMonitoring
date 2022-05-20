@@ -12,6 +12,7 @@
 
 @property(nonatomic,strong)UIView * contentView;
 @property(nonatomic,strong)UITableView * tableView;
+@property(nonatomic,strong)UITableView * otherTableView;
 
 @end
 
@@ -38,11 +39,23 @@
         self.contentView.clipsToBounds = true;
         [self addSubview:self.contentView];
         
-        self.tableView = [[UITableView alloc] initWithFrame:self.contentView.bounds style:UITableViewStyleGrouped];
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, self.contentView.height-56) style:UITableViewStyleGrouped];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.backgroundColor = UIColor.clearColor;
+        self.tableView.scrollEnabled = false;
         [self.contentView addSubview:self.tableView];
+        
+        self.otherTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 230, SCREEN_WIDTH-30, self.contentView.height-295) style:UITableViewStylePlain];
+        self.otherTableView.delegate = self;
+        self.otherTableView.dataSource = self;
+        self.otherTableView.backgroundColor = UIColor.clearColor;
+        self.otherTableView.bounces = false;
+        self.otherTableView.tableFooterView = [UIView new];
+        self.otherTableView.tableHeaderView = [UIView new];
+        self.otherTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        self.otherTableView.estimatedSectionFooterHeight = 0;
+        [self.contentView addSubview:self.otherTableView];
         
         UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 52)];
         headerView.backgroundColor = UIColor.clearColor;
@@ -68,6 +81,19 @@
         self.tableView.tableHeaderView = headerView;
         
         [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([DeviceSwitchTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([DeviceSwitchTableViewCell class])];
+        [self.otherTableView registerNib:[UINib nibWithNibName:NSStringFromClass([DeviceSwitchTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([DeviceSwitchTableViewCell class])];
+        
+        UIButton * addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.contentView addSubview:addButton];
+        [addButton showBorderWithRadius:16];
+        [addButton setTitle:@"Add device".localized forState:UIControlStateNormal];
+        addButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        [addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.centerX.mas_equalTo(self.contentView.mas_centerX);
+            make.bottom.mas_equalTo(-15);
+            make.width.mas_equalTo(200);
+            make.height.mas_equalTo(32);
+        }];
         
     }
     return self;
@@ -83,11 +109,14 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return tableView == self.tableView ? 2 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return section == 0 ? 1 : 5;
+    if (tableView == self.tableView) {
+        return section == 0 ? 1 : 0;
+    }
+    return 6;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -95,85 +124,77 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, section == 0 ? 28 : 28+54)];
-    headerView.backgroundColor = UIColor.clearColor;
-    
-    UIView * line = [[UIView alloc] initWithFrame:CGRectMake(15, 4, 2, 12)];
-    line.backgroundColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
-    line.layer.cornerRadius = 1;
-    [headerView addSubview:line];
-    
-    UILabel * label = [[UILabel alloc] init];
-    [headerView addSubview:label];
-    label.font = [UIFont systemFontOfSize:14];
-    [label mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(line.mas_left).offset(10);
-            make.top.mas_equalTo(0);
-        make.height.mas_equalTo(20);
-    }];
-    label.text = section == 0 ? @"Current device".localized : @"Other device".localized;
-    label.textColor = UIColor.whiteColor;
-    
-    
-    if (section == 1) {
-        UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(15, 36, SCREEN_WIDTH-60, 32)];
-        contentView.backgroundColor = [UIColor colorWithHexString:@"#1B1B1B"];
-        contentView.layer.cornerRadius = 16;
-        contentView.layer.borderColor = [UIColor colorWithHexString:@"#393939"].CGColor;
-        contentView.layer.borderWidth = 1;
-        [headerView addSubview:contentView];
+    if (tableView == self.tableView) {
+        UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, section == 0 ? 28 : 28+54)];
+        headerView.backgroundColor = UIColor.clearColor;
         
-        UIButton * searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [contentView addSubview:searchButton];
-        [searchButton setTitle:@"Search".localized forState:UIControlStateNormal];
-        searchButton.titleLabel.font = [UIFont systemFontOfSize:13];
-        [searchButton setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
-        [searchButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.mas_equalTo(0);
-            make.right.mas_equalTo(-15);
-            make.width.mas_equalTo(50);
-        }];
+        UIView * line = [[UIView alloc] initWithFrame:CGRectMake(15, 4, 2, 12)];
+        line.backgroundColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+        line.layer.cornerRadius = 1;
+        [headerView addSubview:line];
         
-        UITextField * search = [[UITextField alloc] init];
-        [contentView addSubview:search];
-        search.placeholder = @"Search by device name or SN".localized;
-        search.placeholderColor = [UIColor colorWithHexString:@"#999999"];
-        search.font = [UIFont systemFontOfSize:13];
-        [search mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(15);
-            make.top.bottom.mas_equalTo(0);
-            make.right.mas_equalTo(searchButton.mas_left).offset(-15);
+        UILabel * label = [[UILabel alloc] init];
+        [headerView addSubview:label];
+        label.font = [UIFont systemFontOfSize:14];
+        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(line.mas_left).offset(10);
+                make.top.mas_equalTo(0);
+            make.height.mas_equalTo(20);
         }];
+        label.text = section == 0 ? @"Current device".localized : @"Other device".localized;
+        label.textColor = UIColor.whiteColor;
+        
+        
+        if (section == 1) {
+            UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(15, 36, SCREEN_WIDTH-60, 32)];
+            contentView.backgroundColor = [UIColor colorWithHexString:@"#1B1B1B"];
+            contentView.layer.cornerRadius = 16;
+            contentView.layer.borderColor = [UIColor colorWithHexString:@"#393939"].CGColor;
+            contentView.layer.borderWidth = 1;
+            [headerView addSubview:contentView];
+            
+            UIButton * searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            [contentView addSubview:searchButton];
+            [searchButton setTitle:@"Query".localized forState:UIControlStateNormal];
+            searchButton.titleLabel.font = [UIFont systemFontOfSize:13];
+            [searchButton setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
+            [searchButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.bottom.mas_equalTo(0);
+                make.right.mas_equalTo(-15);
+                make.width.mas_equalTo(50);
+            }];
+            
+            UITextField * search = [[UITextField alloc] init];
+            [contentView addSubview:search];
+            search.placeholder = @"Search by device name or SN".localized;
+            search.placeholderColor = [UIColor colorWithHexString:@"#999999"];
+            search.font = [UIFont systemFontOfSize:13];
+            [search mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(15);
+                make.top.bottom.mas_equalTo(0);
+                make.right.mas_equalTo(searchButton.mas_left).offset(-15);
+            }];
+        }
+        
+        return headerView;
+    }else{
+        return [UIView new];
     }
-    
-    return headerView;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 54)];
-    footerView.backgroundColor = UIColor.clearColor;
-    if (section == 1) {
-        UIButton * addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [footerView addSubview:addButton];
-        [addButton showBorderWithRadius:16];
-        [addButton setTitle:@"Add device".localized forState:UIControlStateNormal];
-        addButton.titleLabel.font = [UIFont systemFontOfSize:14];
-        [addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.centerX.mas_equalTo(footerView.mas_centerX);
-            make.top.mas_equalTo(8);
-            make.width.mas_equalTo(200);
-            make.height.mas_equalTo(32);
-        }];
-    }
-    return footerView;
+    return [UIView new];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return section == 0 ? 28 : 25 + 54;
+    if (tableView == self.tableView){
+        return section == 0 ? 28 : 25 + 54;
+    }
+    return 0.01;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return section == 0 ? 10 : 54;
+    return 0.01;
 }
 
 - (void)show{

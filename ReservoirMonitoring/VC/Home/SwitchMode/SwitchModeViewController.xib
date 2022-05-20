@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="KVL-rZ-22O">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="709"/>
                     <color key="backgroundColor" red="0.047058823529411764" green="0.047058823529411764" blue="0.047058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <view key="tableHeaderView" contentMode="scaleToFill" id="DbX-tz-JFE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -73,52 +72,52 @@
                             <constraint firstItem="xZZ-Tp-W0D" firstAttribute="leading" secondItem="bk4-qb-vub" secondAttribute="leading" constant="15" id="lJ3-1y-Imy"/>
                         </constraints>
                     </view>
-                    <view key="tableFooterView" contentMode="scaleToFill" id="aY8-d5-QDh">
-                        <rect key="frame" x="0.0" y="848" width="414" height="150"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XgZ-1K-Pj5">
-                                <rect key="frame" x="35" y="50" width="344" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="zzB-L0-Zei"/>
-                                </constraints>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Submit">
-                                    <color key="titleColor" red="0.54901960780000003" green="0.87450980389999999" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="e3z-au-iVw"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="e3z-au-iVw" firstAttribute="trailing" secondItem="XgZ-1K-Pj5" secondAttribute="trailing" constant="35" id="EOD-lo-8eH"/>
-                            <constraint firstItem="XgZ-1K-Pj5" firstAttribute="leading" secondItem="e3z-au-iVw" secondAttribute="leading" constant="35" id="Xxq-bQ-HVo"/>
-                            <constraint firstItem="XgZ-1K-Pj5" firstAttribute="top" secondItem="e3z-au-iVw" secondAttribute="top" constant="50" id="tMO-ce-rkQ"/>
-                        </constraints>
-                    </view>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="aY4-UN-4qJ"/>
                         <outlet property="delegate" destination="-1" id="kB1-Sj-yz9"/>
                     </connections>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aY8-d5-QDh">
+                    <rect key="frame" x="9" y="753" width="414" height="100"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XgZ-1K-Pj5">
+                            <rect key="frame" x="35" y="25" width="344" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="zzB-L0-Zei"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Submit">
+                                <color key="titleColor" red="0.54901960780000003" green="0.87450980389999999" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="e3z-au-iVw"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="e3z-au-iVw" firstAttribute="trailing" secondItem="XgZ-1K-Pj5" secondAttribute="trailing" constant="35" id="EOD-lo-8eH"/>
+                        <constraint firstAttribute="height" constant="100" id="P9t-9E-gHQ"/>
+                        <constraint firstItem="XgZ-1K-Pj5" firstAttribute="leading" secondItem="e3z-au-iVw" secondAttribute="leading" constant="35" id="Xxq-bQ-HVo"/>
+                        <constraint firstItem="XgZ-1K-Pj5" firstAttribute="top" secondItem="e3z-au-iVw" secondAttribute="top" constant="25" id="tMO-ce-rkQ"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" red="0.047058823529411764" green="0.047058823529411764" blue="0.047058823529411764" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="KVL-rZ-22O" secondAttribute="trailing" id="2gl-BU-jqh"/>
+                <constraint firstItem="aY8-d5-QDh" firstAttribute="top" secondItem="KVL-rZ-22O" secondAttribute="bottom" id="B2O-Ri-Zd6"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="aY8-d5-QDh" secondAttribute="bottom" constant="9" id="GqG-GA-GKV"/>
+                <constraint firstItem="aY8-d5-QDh" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" constant="9" id="MSb-1l-XOG"/>
                 <constraint firstItem="KVL-rZ-22O" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="W8d-r1-QBW"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="KVL-rZ-22O" secondAttribute="bottom" id="X9p-T2-GLx"/>
+                <constraint firstItem="aY8-d5-QDh" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="9" id="Zdk-T9-pdM"/>
                 <constraint firstItem="KVL-rZ-22O" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="Zmc-nY-182"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="75"/>
+            <point key="canvasLocation" x="137.68115942028987" y="75"/>
         </view>
     </objects>
     <resources>
         <image name="icon_question" width="15" height="15"/>
         <image name="turn_off" width="27" height="14"/>
         <image name="turn_on" width="27" height="14"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

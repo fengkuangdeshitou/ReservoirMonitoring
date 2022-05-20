@@ -46,6 +46,7 @@
         SelecteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SelecteTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
         cell.content.text = self.dataArray[indexPath.row][@"placeholder"];
+        cell.content.textColor = indexPath.row == 0 ? UIColor.whiteColor : [UIColor colorWithHexString:@"#999999"];
         return cell;
     }else if (indexPath.row == 2){
         SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchTableViewCell class]) forIndexPath:indexPath];

@@ -35,6 +35,7 @@
     cell.typeLabel.textColor = [UIColor colorWithHexString:self.tag == 10 ? @"#EE8805" : @"#AE0000"];
     cell.typeLabel.text = self.tag == 10 ? @"Alarm".localized : @"Fault".localized;
     cell.time.text = self.tag == 10 ? @"Alarm Time".localized : @"Fault Time".localized;
+    cell.line.hidden = indexPath.row == 4;
     return cell;
 }
 

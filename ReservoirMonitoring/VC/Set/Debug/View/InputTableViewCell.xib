@@ -31,16 +31,26 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bek-yk-RjT">
+                                <rect key="frame" x="15" y="43" width="290" height="1"/>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="luI-kd-RVM"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.047058823529411764" green="0.047058823529411764" blue="0.047058823529411764" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="Wys-3S-tiN" secondAttribute="bottom" id="4JW-z1-Lur"/>
                             <constraint firstAttribute="bottom" secondItem="Ajd-LU-Mab" secondAttribute="bottom" id="7f0-qD-J3z"/>
                             <constraint firstItem="Ajd-LU-Mab" firstAttribute="top" secondItem="hKk-tm-6Yf" secondAttribute="top" id="7kR-Yh-3x9"/>
+                            <constraint firstItem="bek-yk-RjT" firstAttribute="leading" secondItem="hKk-tm-6Yf" secondAttribute="leading" constant="15" id="82g-il-FB1"/>
                             <constraint firstItem="Wys-3S-tiN" firstAttribute="leading" secondItem="hKk-tm-6Yf" secondAttribute="leading" constant="15" id="Im7-rG-roZ"/>
+                            <constraint firstAttribute="bottom" secondItem="bek-yk-RjT" secondAttribute="bottom" id="J6N-4J-P54"/>
                             <constraint firstAttribute="trailing" secondItem="Ajd-LU-Mab" secondAttribute="trailing" constant="15" id="Kla-xe-NIN"/>
                             <constraint firstItem="Ajd-LU-Mab" firstAttribute="leading" secondItem="Wys-3S-tiN" secondAttribute="trailing" constant="15" id="Rai-bS-6eO"/>
                             <constraint firstItem="Wys-3S-tiN" firstAttribute="top" secondItem="hKk-tm-6Yf" secondAttribute="top" id="cyb-gJ-tBr"/>
+                            <constraint firstAttribute="trailing" secondItem="bek-yk-RjT" secondAttribute="trailing" constant="15" id="gdj-EA-eim"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -56,7 +66,7 @@
                 <outlet property="textfield" destination="Ajd-LU-Mab" id="TLc-O9-q2p"/>
                 <outlet property="titleLabel" destination="Wys-3S-tiN" id="hwi-dy-XlU"/>
             </connections>
-            <point key="canvasLocation" x="139" y="90"/>
+            <point key="canvasLocation" x="137.68115942028987" y="89.732142857142847"/>
         </tableViewCell>
     </objects>
 </document>

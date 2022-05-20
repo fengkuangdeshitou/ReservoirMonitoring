@@ -25,7 +25,7 @@
     self.content.attributedText = att;
     
     [self.update showBorderWithRadius:25];
-    [self.update setTitle:@"Check update".localized forState:UIControlStateNormal];
+    [self.update setTitle:@"Check for updates".localized forState:UIControlStateNormal];
     self.version.text = @"Current version:".localized;
 }
 

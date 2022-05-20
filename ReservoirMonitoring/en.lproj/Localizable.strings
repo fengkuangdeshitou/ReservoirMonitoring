@@ -21,7 +21,7 @@
 "Password confirmation" = "Password confirmation";
 "Please enter password again" = "Please enter password again";
 "I have read and agree" = "I have read and agree";
-"EULA" = "EULA";
+"EULA" = "《EULA》";
 "Register" = "Register";
 "Login if you have an account" = "Login if you have an account";
 "Slide the bar to complete the picture." = "Slide the bar to complete the picture.";
@@ -56,8 +56,8 @@
 "Power outage, backup energy in effect." = "Power outage, backup energy in effect.";
 "online" = "online";
 "Current mode：" = "Current mode：";
-"Energy independence rating(Daily):" = "Energy independence rating(Daily):";
-"Device status:" = "Device status:";
+"Energy independence rating(Daily):" = "Energy independence rating(Daily)：";
+"Device status:" = "Device status：";
 "Switch operation mode" = "Switch operation mode";
 "Weather watch" = "Weather watch";
 "Switch device" = "Switch device";
@@ -66,7 +66,7 @@
 "Device name" = "Device name";
 "Device SN" = "Device SN";
 "Search by device name or SN" = "Search by device name or SN";
-"Search" = "Search";
+"Query" = "Query";
 "Allow charging via grid" = "Allow charging via grid";
 "Start time" = "Start time";
 "End time" = "End time";
@@ -85,12 +85,12 @@
 "Grid" = "Grid";
 "Non Back-up" = "Non Back-up";
 "Back-up load" = "Back-up load";
-"Energy graph" = "Energy graph";
+"Energy curve" = "Energy curve：";
 "Energy independence:" = "Energy independence:";
 "Power outage:" = "Power outage:";
 "Reducing deforestation:" = "Reducing deforestation:";
 "trees" = "trees";
-"Standard coal saved" = "Standard coal saved";
+"Standard coal saved" = "Standard coal saved：";
 
 "User Info" = "User Info";
 "Network" = "Network";
@@ -178,3 +178,6 @@
 "Fault Time" = "Fault Time：";
 "Connect" = "Connect";
 "Config" = "Config";
+"Check for updates" = "Check for updates";
+"On-line" = "Online";
+"Offine" = "Offine";

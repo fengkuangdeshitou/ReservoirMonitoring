@@ -33,7 +33,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.energyTitle.text = @"Energy graph".localized;
+    self.energyTitle.text = @"Energy curve".localized;
     self.titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV",@"Other loads".localized,@"Backup loads".localized];
     self.independence.text = @"Energy independence:".localized;
     self.power.text = @"Power outage:".localized;

@@ -33,12 +33,22 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ST-KB-tQ0">
+                                <rect key="frame" x="15" y="43" width="260" height="1"/>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="GI5-Oc-2WT"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.10588235294117647" green="0.10588235294117647" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Nzy-9Y-xmm" secondAttribute="trailing" constant="15" id="0CQ-zc-3gl"/>
                             <constraint firstItem="ppP-1h-0iU" firstAttribute="centerY" secondItem="4Xf-ko-vBB" secondAttribute="centerY" id="FEy-Nw-67I"/>
+                            <constraint firstItem="5ST-KB-tQ0" firstAttribute="leading" secondItem="4Xf-ko-vBB" secondAttribute="leading" constant="15" id="Oy7-cI-Bch"/>
+                            <constraint firstAttribute="bottom" secondItem="5ST-KB-tQ0" secondAttribute="bottom" id="SgP-ku-adg"/>
                             <constraint firstItem="Nzy-9Y-xmm" firstAttribute="centerY" secondItem="4Xf-ko-vBB" secondAttribute="centerY" id="a2A-jh-Ssc"/>
+                            <constraint firstAttribute="trailing" secondItem="5ST-KB-tQ0" secondAttribute="trailing" constant="15" id="eFm-Sn-ufK"/>
                             <constraint firstItem="Nzy-9Y-xmm" firstAttribute="leading" secondItem="ppP-1h-0iU" secondAttribute="trailing" constant="8" id="w1H-Iy-qcD"/>
                             <constraint firstItem="ppP-1h-0iU" firstAttribute="leading" secondItem="4Xf-ko-vBB" secondAttribute="leading" constant="15" id="zGW-J7-Rxk"/>
                         </constraints>
@@ -56,9 +66,10 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="icon" destination="ppP-1h-0iU" id="lRJ-Ri-WA9"/>
+                <outlet property="line" destination="5ST-KB-tQ0" id="ZJZ-hc-CWf"/>
                 <outlet property="textfield" destination="Nzy-9Y-xmm" id="bCF-CD-cGS"/>
             </connections>
-            <point key="canvasLocation" x="139" y="88"/>
+            <point key="canvasLocation" x="137.68115942028987" y="87.723214285714278"/>
         </tableViewCell>
     </objects>
 </document>

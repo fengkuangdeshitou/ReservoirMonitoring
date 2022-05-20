@@ -42,7 +42,7 @@
 
 - (void)onAuthemticationSuccess{
     SetPasswordViewController * set = [[SetPasswordViewController alloc] init];
-    set.title = @"Set a new password";
+    set.title = self.title.localized;
     [self.navigationController pushViewController:set animated:true];
 }
 

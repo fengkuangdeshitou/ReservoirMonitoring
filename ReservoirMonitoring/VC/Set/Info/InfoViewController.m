@@ -34,6 +34,7 @@
     cell.textfield.placeholder = self.dataArray[indexPath.row];
     cell.textfield.placeholderColor = [UIColor colorWithHexString:@"#A3A3A3"];
     cell.icon.image = [UIImage imageNamed:self.iconArray[indexPath.row]];
+    cell.line.hidden = indexPath.row == self.iconArray.count - 1;
     return cell;
 }
 

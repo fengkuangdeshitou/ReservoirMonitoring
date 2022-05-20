@@ -39,16 +39,21 @@
                                     <constraint firstAttribute="height" constant="0.5" id="w2N-3K-Iyb"/>
                                 </constraints>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_mask" translatesAutoresizingMaskIntoConstraints="NO" id="slc-jX-hCP">
+                                <rect key="frame" x="278" y="23.5" width="7" height="11"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.10588235294117647" green="0.10588235294117647" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="W17-a8-HZW" firstAttribute="leading" secondItem="St4-b5-qLY" secondAttribute="leading" constant="15" id="11L-Q3-UmV"/>
                             <constraint firstItem="XQp-uT-beW" firstAttribute="top" secondItem="Fbd-2d-Xvf" secondAttribute="bottom" constant="6" id="15W-aw-K4B"/>
                             <constraint firstItem="XQp-uT-beW" firstAttribute="leading" secondItem="St4-b5-qLY" secondAttribute="leading" constant="15" id="577-5H-k5E"/>
+                            <constraint firstItem="slc-jX-hCP" firstAttribute="centerY" secondItem="Fbd-2d-Xvf" secondAttribute="centerY" id="69i-yl-UZw"/>
                             <constraint firstItem="Fbd-2d-Xvf" firstAttribute="leading" secondItem="St4-b5-qLY" secondAttribute="leading" constant="15" id="A2p-Q1-IIP"/>
                             <constraint firstAttribute="bottom" secondItem="W17-a8-HZW" secondAttribute="bottom" id="AUR-f1-JrW"/>
                             <constraint firstAttribute="bottom" secondItem="XQp-uT-beW" secondAttribute="bottom" constant="15" id="GIG-KK-oyC"/>
                             <constraint firstAttribute="trailing" secondItem="XQp-uT-beW" secondAttribute="trailing" constant="15" id="ccc-uV-Afy"/>
+                            <constraint firstAttribute="trailing" secondItem="slc-jX-hCP" secondAttribute="trailing" constant="18" id="eST-Iu-4NM"/>
                             <constraint firstAttribute="trailing" secondItem="W17-a8-HZW" secondAttribute="trailing" constant="15" id="feQ-FX-17R"/>
                             <constraint firstItem="Fbd-2d-Xvf" firstAttribute="top" secondItem="St4-b5-qLY" secondAttribute="top" constant="20" id="oy8-az-DlL"/>
                         </constraints>
@@ -67,4 +72,7 @@
             <point key="canvasLocation" x="147.10144927536234" y="114.17410714285714"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="ic_mask" width="7" height="11"/>
+    </resources>
 </document>
