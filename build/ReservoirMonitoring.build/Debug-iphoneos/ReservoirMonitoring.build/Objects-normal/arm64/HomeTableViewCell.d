@@ -16,6 +16,7 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/Masonry/Masonry.framework/Headers/MASConstraint.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/Masonry/Masonry.framework/Headers/MASCompositeConstraint.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/Masonry/Masonry.framework/Headers/Masonry-umbrella.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/BLE/BleManager.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Category/UIView+Extension.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Category/UITextField+PlaceholderColor.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Category/UIView+Border.h \
@@ -29,4 +30,5 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/View/HomeTableViewCell.m \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/View/HomeTableViewCell.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/View/HomeItemView.h \
-  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/View/HomeProgressView.h
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/View/HomeProgressView.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/Weather/WeatherViewController.h

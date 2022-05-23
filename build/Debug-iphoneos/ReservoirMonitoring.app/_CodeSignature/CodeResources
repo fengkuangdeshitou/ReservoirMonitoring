@@ -34,7 +34,7 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		TZAm9CoKnULqkahg2OSf++WtdV4=
+		Fjn1QgNPwyQnXaq+jgUkcJrJeUc=
 		</data>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
@@ -62,19 +62,19 @@
 		</data>
 		<key>DataCollectionViewCell.nib/objects-12.3+.nib</key>
 		<data>
-		cFUiuvKSviQ/quNgyucxiIAwdzM=
+		8q3uWZ77V5SVl3dQcxsNn7PG0yw=
 		</data>
 		<key>DataCollectionViewCell.nib/runtime.nib</key>
 		<data>
-		moWxUCF1MbuF7dCPbZFavnrxIZA=
+		tzHLkYEi23IUvI2o/8SaTHCGA/I=
 		</data>
 		<key>DataEchartsCollectionViewCell.nib/objects-12.3+.nib</key>
 		<data>
-		RuFH0s8gJxHB1vTkJ+ogqzEstoY=
+		6QG6kY+js7pO1ns7bLtQk7SrkwU=
 		</data>
 		<key>DataEchartsCollectionViewCell.nib/runtime.nib</key>
 		<data>
-		oHLAlVzy3mPqfDNzXFC2UHqr2RI=
+		N/UXVFERqNQuvK/cApWVZVsY/0Y=
 		</data>
 		<key>DataViewController.nib</key>
 		<data>
@@ -82,11 +82,11 @@
 		</data>
 		<key>DebugCollectionViewCell.nib/objects-12.3+.nib</key>
 		<data>
-		UqABarWU16Eb7m6y/W1vObjjIiw=
+		TGLBxmak6WfGOgVlKQLomByf6wI=
 		</data>
 		<key>DebugCollectionViewCell.nib/runtime.nib</key>
 		<data>
-		6BOqGNjByW7rr0jrNcddQ4YcIRU=
+		6LLrRAsR4kNxAh90cdJQjA1adz0=
 		</data>
 		<key>DebugViewController.nib</key>
 		<data>
@@ -94,7 +94,7 @@
 		</data>
 		<key>DeviceSwitchTableViewCell.nib</key>
 		<data>
-		M4wU0TTTQMtpWnN0TNlcb6kLX1U=
+		NFpPX0pns5hdx1yhuR9d+kniSqc=
 		</data>
 		<key>ForgotViewController.nib</key>
 		<data>
@@ -102,7 +102,7 @@
 		</data>
 		<key>Frameworks/AFNetworking.framework/AFNetworking</key>
 		<data>
-		giknTJ1eGeiMQ+NppNJkLWZ13Es=
+		Rnp4q5tqcydlnV5qTvRP+7KSuek=
 		</data>
 		<key>Frameworks/AFNetworking.framework/Info.plist</key>
 		<data>
@@ -114,7 +114,7 @@
 		</data>
 		<key>Frameworks/BRPickerView.framework/BRPickerView</key>
 		<data>
-		fM1X+hlFsOxBrJiI5/WcopcsEzY=
+		kAvTNl7Z5xksJvX6JaOpiH4uy/c=
 		</data>
 		<key>Frameworks/BRPickerView.framework/BRPickerView.bundle/BRCity.json</key>
 		<data>
@@ -157,7 +157,7 @@
 		</data>
 		<key>Frameworks/HXPhotoPicker.framework/HXPhotoPicker</key>
 		<data>
-		yiWIOqhQg1fpvhB4aU3sHg3/5oU=
+		HuKeg4Parv8SBdErA3yxhA1cQ2g=
 		</data>
 		<key>Frameworks/HXPhotoPicker.framework/HXPhotoPicker.bundle/HXCameraBottomView.nib</key>
 		<data>
@@ -782,7 +782,7 @@
 		</data>
 		<key>Frameworks/IQKeyboardManager.framework/IQKeyboardManager</key>
 		<data>
-		XIfA97STD6+sIRj1F62K9T64cDg=
+		OghQ+1TFbhX/Sj0OMDIh2mxoaxU=
 		</data>
 		<key>Frameworks/IQKeyboardManager.framework/Info.plist</key>
 		<data>
@@ -798,7 +798,7 @@
 		</data>
 		<key>Frameworks/MJExtension.framework/MJExtension</key>
 		<data>
-		48B0bwWWBaxD3SVry5zLtbKveD4=
+		lNewLAhjLGxPUL+IH6SF3FvQMPs=
 		</data>
 		<key>Frameworks/MJExtension.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -810,7 +810,7 @@
 		</data>
 		<key>Frameworks/MJRefresh.framework/MJRefresh</key>
 		<data>
-		zpSoTJoDxuY7puWCSGGh7ifOzyc=
+		NudOAt/i/GIHY2sIozkt5zNxrRU=
 		</data>
 		<key>Frameworks/MJRefresh.framework/MJRefresh.bundle/arrow@2x.png</key>
 		<data>
@@ -884,7 +884,7 @@
 		</data>
 		<key>Frameworks/Masonry.framework/Masonry</key>
 		<data>
-		JodoH3UoCBJvJbvFZilHZ1/bleg=
+		Vu4a+h9PImSnnhAOOv11cVNK7yk=
 		</data>
 		<key>Frameworks/Masonry.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -896,7 +896,7 @@
 		</data>
 		<key>Frameworks/SDWebImage.framework/SDWebImage</key>
 		<data>
-		ojNvmO7tTw9cn6ild/o6T9rw2H8=
+		tASkVLsr6FyzEmPE3MJZz27+Lv8=
 		</data>
 		<key>Frameworks/SDWebImage.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -908,7 +908,7 @@
 		</data>
 		<key>Frameworks/SGPagingView.framework/SGPagingView</key>
 		<data>
-		SD5E5wZKuU/KAl+wCIZJyo/mx5M=
+		SFGNz30ZlXffDjJJFllAA3lMrjs=
 		</data>
 		<key>Frameworks/SGPagingView.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -920,7 +920,7 @@
 		</data>
 		<key>Frameworks/WMZCode.framework/WMZCode</key>
 		<data>
-		MMMtRixV9b/F0Aw/aBL42HxAOio=
+		SwDdf6z1BlgrSfAT6RZZmBk8zzo=
 		</data>
 		<key>Frameworks/WMZCode.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -1000,7 +1000,7 @@
 		</data>
 		<key>Frameworks/iOS_Echarts.framework/iOS_Echarts</key>
 		<data>
-		7bxBRfaEiw1aOg9Jqxm4tfGby/s=
+		iOzMaqKvsp1AesYlRiaE1OnYfb0=
 		</data>
 		<key>GeneratorViewController.nib</key>
 		<data>
@@ -1008,7 +1008,7 @@
 		</data>
 		<key>GlobelDescAlertView.nib</key>
 		<data>
-		9l+i2OnT7vboOT1110BpeCUXM8Y=
+		Vd3p2zhTKh4d/FSeQJk+xJKlAgk=
 		</data>
 		<key>GridViewController.nib</key>
 		<data>
@@ -1016,7 +1016,7 @@
 		</data>
 		<key>HelpTableViewCell.nib</key>
 		<data>
-		prh/IrV3JJnMLBLdTe8VnMKGRiI=
+		RqcsEOsD/sX2SC6zapPYyO1Vs+k=
 		</data>
 		<key>HelpViewController.nib</key>
 		<data>
@@ -1024,7 +1024,7 @@
 		</data>
 		<key>HomeTableViewCell.nib</key>
 		<data>
-		RrvNRSQixAg9DR+Mp4s7Xif6KUI=
+		f+tCQLd96tz6wF3ep9IQZWeJDK4=
 		</data>
 		<key>HomeViewController.nib</key>
 		<data>
@@ -1040,11 +1040,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		BV+2rqEn3KrHuGJP7Ee3ghg7gPE=
+		fpYfNz8OqzrwIw2cobj2PpJNH64=
 		</data>
 		<key>InfoTableViewCell.nib</key>
 		<data>
-		XOToJwAiibGs2bLVT9B9kXehWGs=
+		f1tdeJxnkFCXaSEYggdVXqMxLE0=
 		</data>
 		<key>InfoViewController.nib</key>
 		<data>
@@ -1052,7 +1052,19 @@
 		</data>
 		<key>InputTableViewCell.nib</key>
 		<data>
-		IuSE5fOehcvOJO3qDEOSmyzxk+g=
+		/Q6rJ3HeL6tL24kAqgp+apA2Fm4=
+		</data>
+		<key>InstallCollectionViewCell.nib/objects-12.3+.nib</key>
+		<data>
+		Msq5c/nDVF9tbhakDII1W2FWYAY=
+		</data>
+		<key>InstallCollectionViewCell.nib/runtime.nib</key>
+		<data>
+		c14mV+ScwFsHWfeRhxTik+LePRk=
+		</data>
+		<key>InstallViewController.nib</key>
+		<data>
+		SAsMc5rCSV37h97wKLvwoWPSIx4=
 		</data>
 		<key>InverterViewController.nib</key>
 		<data>
@@ -1060,11 +1072,11 @@
 		</data>
 		<key>LoginViewController.nib</key>
 		<data>
-		RFILvTziJBa2ljipIBbJ2PH6JoI=
+		8eqs7v2D+IpEBHxXiwX1N9dFKbs=
 		</data>
 		<key>NetworkTableViewCell.nib</key>
 		<data>
-		KxOpMP1eGzgo2lPpPP843kXZJRE=
+		3sbhQbXnj1q7F8iqIv8K0bjipNU=
 		</data>
 		<key>NetworkViewController.nib</key>
 		<data>
@@ -1072,7 +1084,7 @@
 		</data>
 		<key>OtherViewController.nib</key>
 		<data>
-		Rn8U+S6MvDMNQrF7q9nJffTz29U=
+		XFUcIPGXd2c+PvK1BEaJ9SW7ax4=
 		</data>
 		<key>PeakTimeTableViewCell.nib</key>
 		<data>
@@ -1084,11 +1096,11 @@
 		</data>
 		<key>RegisterTableViewCell.nib</key>
 		<data>
-		4/Oii6+qdJQm49hSy78VqXyiBp0=
+		c0BksL1BGDcPVqGtXc1bFPVyWu0=
 		</data>
 		<key>RegisterViewController.nib</key>
 		<data>
-		IWACIFsAfHb+GzhIpPxZnz3s21w=
+		9P4nZcSxV4aLrn88nmagczj3yoA=
 		</data>
 		<key>ScanViewController.nib</key>
 		<data>
@@ -1096,7 +1108,7 @@
 		</data>
 		<key>SelecteTableViewCell.nib</key>
 		<data>
-		DyQsP7VxoSvPbCG+I2XsXVrX9aI=
+		BAMFdAxQgMBDM7DCmySWkG58gn0=
 		</data>
 		<key>ServiceViewController.nib</key>
 		<data>
@@ -1104,23 +1116,23 @@
 		</data>
 		<key>SetInfoTableViewCell.nib</key>
 		<data>
-		9KspjjMs285W0oZxEdCD1zsyiAk=
+		Ehcno8RVc84klFQBWZIJdF4qV7c=
 		</data>
 		<key>SetPasswordViewController.nib</key>
 		<data>
-		tOnfS8qp6yQ3tt0Fw9KDbpUFXw0=
+		9iYvRqwSMRZjuM7dJzEW6X4Hujk=
 		</data>
 		<key>SetTableViewCell.nib</key>
 		<data>
-		VOvyZSwLLUpEdJUkOKFGwlhevxs=
+		ty4pqQkSGf9Td7S5zPZSkLlYxUA=
 		</data>
 		<key>SetViewController.nib</key>
 		<data>
-		aRiIvNkLQBYa/UMIj/CmtrK0GRM=
+		xcpqR3EWX/hhYTh5BIbVO9dhIsY=
 		</data>
 		<key>SwitchModeViewController.nib</key>
 		<data>
-		/nY1aIquVOmPP+SMpXVrIs+24ks=
+		5uhQVOJ+YFpfA3+aKsPIOMIFm5I=
 		</data>
 		<key>SwitchModelTableViewCell.nib</key>
 		<data>
@@ -1132,11 +1144,11 @@
 		</data>
 		<key>SwitchTableViewCell.nib</key>
 		<data>
-		qAVAaa37vmFGqzMXPdA46M0pehw=
+		pIaDEbh+U6gJLZ2svVHtzQ+WtaA=
 		</data>
 		<key>TimeTableViewCell.nib</key>
 		<data>
-		MQEh3u32I3d0ry0mGTfP6gnTo0o=
+		m3Mpzk1nfMg31CErzLjb7oLzo1s=
 		</data>
 		<key>UpdateViewController.nib</key>
 		<data>
@@ -1144,21 +1156,57 @@
 		</data>
 		<key>WarningTableViewCell.nib</key>
 		<data>
-		NJQTjNHistk1+iZS6i/NQaEtDEc=
+		+DIa1bpse0tiBeQMA4bioR3ZuB8=
 		</data>
 		<key>WarningViewController.nib</key>
 		<data>
 		dLwAECBPUiM6gcP5X7Sm1BA8dCo=
 		</data>
+		<key>WeatherCollectionViewCell.nib/objects-12.3+.nib</key>
+		<data>
+		CJCw14TEgR9SFv+zf0UQzVqpCAY=
+		</data>
+		<key>WeatherCollectionViewCell.nib/runtime.nib</key>
+		<data>
+		/dwp9F11NV+pA3960QvJmjNy3DQ=
+		</data>
+		<key>WeatherInfoTableViewCell.nib</key>
+		<data>
+		MqJQi52kkHSarDhsNMWQuFj5qtk=
+		</data>
+		<key>WeatherTableViewCell.nib</key>
+		<data>
+		yLvYGs5L+OhqDMxgROiIHvwGq6U=
+		</data>
+		<key>WeatherViewController.nib</key>
+		<data>
+		8fOuoSlDLwvi79Y8J/af1PaNbmk=
+		</data>
+		<key>WifiAlertView.nib</key>
+		<data>
+		cXv5p+1JWIwwm6XyNRxqClGSSxE=
+		</data>
+		<key>WifiInfoTableViewCell.nib</key>
+		<data>
+		Gecb1zqCuUutYGJI4Y1OiY9393o=
+		</data>
+		<key>WifiTableViewCell.nib</key>
+		<data>
+		sn6rENXo551OPVqhK62ASD6LVEY=
+		</data>
+		<key>WifiViewController.nib</key>
+		<data>
+		BpTok8qnPMi3vEWfDzHH5VlReKc=
+		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
-		LoqkrYUlrimxBaCMdsE/7MZ4N74=
+		jvUY3QCmJrIouxrx1vO/yL255+I=
 		</data>
 		<key>en.lproj/Localizable.strings</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			tbjdu6q+uDDZyQn9dj4hFUXmkqI=
+			Tdit34iaI8k63YwhwNqlqtj9ml8=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1176,7 +1224,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			SUoxi1c9/N8Wllnhw9J6wXMRo/s=
+			Tdit34iaI8k63YwhwNqlqtj9ml8=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1246,7 +1294,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			OI5RtEbvqu6/Zwu35H59P7KMNyBf96fCIVrQSPnaKLM=
+			1Y7F/Vzcu7WhXDt0LoxzwMPLcIv9L/qwilZhxSCrWQY=
 			</data>
 		</dict>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
@@ -1295,28 +1343,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			hQp2Ge50yGblieVpATzZRXafnOCzoRVKxJZ5IqaaA50=
+			bqye1pRyYkbm19oVZqiUz2oc6eY6geUg+Vcle3KlGpw=
 			</data>
 		</dict>
 		<key>DataCollectionViewCell.nib/runtime.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yS2iLdjBLQMuWvbKKFryZjTlD7FwLV4Ri53DxCDlMc4=
+			+BkRvoVGvwbD9qpQrLyvd0pbdUHbpgg82nkLQ/2aIFA=
 			</data>
 		</dict>
 		<key>DataEchartsCollectionViewCell.nib/objects-12.3+.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1PiTDQ/lHfGg+12kI++XmOUQiWQqdJ4tzLqLZ4/wEh8=
+			6LQ78atrKLxVhuUfpQWsYArAaKwhx8gLBaGYkF01Px8=
 			</data>
 		</dict>
 		<key>DataEchartsCollectionViewCell.nib/runtime.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			BoEuerW0eJmJtzvkg1A7XpZmrh773JxmpR38eEx8EhE=
+			ioVlUsgIRcwxATByMnK4nF0Fd7gCNaV4f7GO7gucp1k=
 			</data>
 		</dict>
 		<key>DataViewController.nib</key>
@@ -1330,14 +1378,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZjkMyD0oj+pUqll6HMZoty6wBJU7RDt8qfYJIAovqFM=
+			Tq5pkIxQkqZVpkwZEYgUz3fOLVgR4KKkz6g3Cx4keo8=
 			</data>
 		</dict>
 		<key>DebugCollectionViewCell.nib/runtime.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5Uw+D+uONokr+EJjNeWAziXRT1eiMGYgswTl3jbUkO0=
+			JRNlG0Z2PE6MpLRInD6KL7+6rHh+r7QEdYiN1HGkYAY=
 			</data>
 		</dict>
 		<key>DebugViewController.nib</key>
@@ -1351,7 +1399,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tqssg8JnxbVLfAh8F1z8yHhxDAYMzIOZFEkkAMp30j0=
+			YU270tNNSn8QucpAe6ysCAE1HWPvQVI5RPXE9YGOF9A=
 			</data>
 		</dict>
 		<key>ForgotViewController.nib</key>
@@ -1365,7 +1413,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			WoLynmPXA+Td+UaKS6axUcUjbk0Y3WTbmR7kO6EKkcU=
+			pDo5lK5UbM64RY8bQmLyDMMcShQ+ZTqgkC3VBedFzYc=
 			</data>
 		</dict>
 		<key>Frameworks/AFNetworking.framework/Info.plist</key>
@@ -1386,7 +1434,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Mk6JkveNtIJ86H7+OQ59NSg4KwdOpsuVD8XWkXorIQk=
+			2HsuYWPusR5lAHcPhyYbuDRQXXHSLYxw8R+wZUJ61aw=
 			</data>
 		</dict>
 		<key>Frameworks/BRPickerView.framework/BRPickerView.bundle/BRCity.json</key>
@@ -1441,7 +1489,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			pCpVWDp6bWeIg7plLync7OzOlzrFUPpCx5DIAPjhLWo=
+			eimxBmDrZBXtvi4iC6+magv64ac5IIjZdkfwfMyNF3Q=
 			</data>
 		</dict>
 		<key>Frameworks/HXPhotoPicker.framework/HXPhotoPicker.bundle/HXCameraBottomView.nib</key>
@@ -2501,7 +2549,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Rrnx3Pg11Yjd0u4at09wHeUsulqmIctgMRCJ8QKM3bc=
+			WmH54ETrIu/SbaO8B4ekw1Tglwjpt8rZIz82vBUM2K4=
 			</data>
 		</dict>
 		<key>Frameworks/IQKeyboardManager.framework/Info.plist</key>
@@ -2529,7 +2577,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			TRZNuLim3tl/DBy9y7ZqAY7nQ/K1Swf9A/WYjEWgFgQ=
+			13u6gf/ce4uA/NvAGggmT7AzjMNWuFlvBrtqk9uPZzo=
 			</data>
 		</dict>
 		<key>Frameworks/MJExtension.framework/_CodeSignature/CodeResources</key>
@@ -2550,7 +2598,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			9+VDjh0Z31i/C6XRpQIzTa1ACOX9Nnbzhjvb3UOXCXU=
+			aSkLXn/p+sTXGWbOexYSIhWxQctERBuJiqlfeb9+gKw=
 			</data>
 		</dict>
 		<key>Frameworks/MJRefresh.framework/MJRefresh.bundle/arrow@2x.png</key>
@@ -2639,7 +2687,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			FwGFr4mjJ9TUJ5uL75swy50ERwFvEJ9AtWtSz7y0HZ8=
+			VwOnSUjNyhpXLe1Q34axqPqPRcTUGH5Pdew4maa+/MI=
 			</data>
 		</dict>
 		<key>Frameworks/Masonry.framework/_CodeSignature/CodeResources</key>
@@ -2660,7 +2708,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			PKujo5hk8b5oKqDPpmgAbK375NWVm35Qd8FgnA+JeTk=
+			po9QnYwrPsfdSwcWNG/Bn3NTZRE6ocpb37R2s91j6NI=
 			</data>
 		</dict>
 		<key>Frameworks/SDWebImage.framework/_CodeSignature/CodeResources</key>
@@ -2681,7 +2729,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			wkWysImf3wZ+KnEpZ+1wjHGHzt0+S9dODqHZXphSOXE=
+			tIm9qb05wDd8+1bSVPffVoa9TY2K1g+0bOqVlHLocxQ=
 			</data>
 		</dict>
 		<key>Frameworks/SGPagingView.framework/_CodeSignature/CodeResources</key>
@@ -2702,7 +2750,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			PepXgk4m+iKIg3qxFFC2dFyQ+KZlbXHNi/mWZNizh4M=
+			sAjR1Ej1lh3MUmKMjdneTw4X5Wy9KYSGrDD3X4nGB8U=
 			</data>
 		</dict>
 		<key>Frameworks/WMZCode.framework/_CodeSignature/CodeResources</key>
@@ -2842,7 +2890,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Aj01h2yC4T5uD701UzbKvkmBPrExP8j3Wpnbq779ADY=
+			XNS6PJDW8/qMc2MQOwzUCKgxoZPYAyaxhQBCuEnImqk=
 			</data>
 		</dict>
 		<key>GeneratorViewController.nib</key>
@@ -2856,7 +2904,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			aCefC3Z3GojD8VVQgulE2AyM/kdEsD+W4O/culVTYcM=
+			e25XYrp3hxkgk1NWVln9zKjV75nYGoAlqtAXmjBG3Ok=
 			</data>
 		</dict>
 		<key>GridViewController.nib</key>
@@ -2870,7 +2918,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			c692nmjkv0gGsZafIbuGXeg4OekNnEJPXqXnP3jXg0U=
+			0D8LJROvtl9+koftJNNcFU+wLzxrZ4JB41XcyiMMAF4=
 			</data>
 		</dict>
 		<key>HelpViewController.nib</key>
@@ -2884,7 +2932,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			XUQQIfH1V1QTBbrw9KY8G11lOK0UUxoTXxgUD0m8Ddk=
+			0NLcr1+ltcXBTXV5gcJuD6k9t/p9nGiHDL9Z4+VbdWQ=
 			</data>
 		</dict>
 		<key>HomeViewController.nib</key>
@@ -2912,7 +2960,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			3FyLvaXg4gYo42XDLxLNIUxj6xWSViGZ0tITlUByrTg=
+			FDpBPp1wgv/06ujE/KE8ncva3ux5AksTNbCDHxPUzC8=
 			</data>
 		</dict>
 		<key>InfoViewController.nib</key>
@@ -2926,7 +2974,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			2nUX751q87fPqCrnBCLGKFKLHuDPhvduI2/GXGFLvhc=
+			uRDWNAO3rhmZlgNoxqwDZ3KBmsfVvL9KbQDRnn2v9bE=
+			</data>
+		</dict>
+		<key>InstallCollectionViewCell.nib/objects-12.3+.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			dDN34MKXEQt9NMObnH5WZPkrl2QaK/xjKJ9uKhLh8R8=
+			</data>
+		</dict>
+		<key>InstallCollectionViewCell.nib/runtime.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			SORdakSIICrb7iqwWM4/WEd6JHVzyyP67+ixn/w1Znk=
+			</data>
+		</dict>
+		<key>InstallViewController.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9CYcs434cQGeBiE7O5Q3IkMC90d51UPPYvsXldk51BQ=
 			</data>
 		</dict>
 		<key>InverterViewController.nib</key>
@@ -2940,14 +3009,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			94ehYDAak0OfeDlEyJLWln3cfJVGR4Tyb7K1a06wljY=
+			pHMLNuLa7X2SmX0wtbbHc/t77bMJjI4GdQokS3zdRIQ=
 			</data>
 		</dict>
 		<key>NetworkTableViewCell.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/IbxVxhdp52V+Dp6LHspLK3gJQasw2UE24QAfclpWJM=
+			KhcXuoMc5LIMJ5UvNpI6IcLTUBcLTVMfCyZTUsh3J0E=
 			</data>
 		</dict>
 		<key>NetworkViewController.nib</key>
@@ -2961,7 +3030,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			QcgFgcC4OuH4njRN9WQpLVwXREFnVoeBxh026haLpMU=
+			aDnMghRz8Udwx6+ePp2QeJXHi+/kTeClyyvjQ4SIv4o=
 			</data>
 		</dict>
 		<key>PeakTimeTableViewCell.nib</key>
@@ -2975,14 +3044,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			9/RFANDWN10i5CsBISt+T87aXsNzcVcMzOc5eWLWTj0=
+			RSKwBfLePJNb/GcGEjAbSzFBaytCuzq5ySvmk2uXLRg=
 			</data>
 		</dict>
 		<key>RegisterViewController.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZVIyydislG1FjCBpFI4cadNWyXPJ5cLzTHErSlcRN4s=
+			3DiEAU5PnLlb5YB43PBoCya2RvXfOL+06rpxd7vg9H0=
 			</data>
 		</dict>
 		<key>ScanViewController.nib</key>
@@ -2996,7 +3065,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			s8pi5//hysJrY7auBBUhZ+FJ2zx8ol6vrSWdCwiR+rE=
+			dwKIfy+X4AA5brDCF0LoCS2C5jkftYq27iu8/ZeD1y4=
 			</data>
 		</dict>
 		<key>ServiceViewController.nib</key>
@@ -3010,35 +3079,35 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			y3Ub2k4qiSNxv40WQSTfxagCUeVDmaTSeBmenhgsA8o=
+			f5MndCpnhKUAsp+5nxYbLNZEEissu0ay6GGryOnCTvM=
 			</data>
 		</dict>
 		<key>SetPasswordViewController.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			QtkP9WgDgIaD6arxnWfqodGpmB+0I8ZvuDWwDBCuYI8=
+			9xyMBuTCCUfyRb8FbVi4Mo6NY5vHbNpGH1pFF8uGKtA=
 			</data>
 		</dict>
 		<key>SetTableViewCell.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			opM3cqMAGONiQMyHDbmQBbnidYOfsR34WwJYgF8obXM=
+			JSAE5rtk7WVeD5f4dZd0dgbnMOzWylT5kqR+m/g0sxY=
 			</data>
 		</dict>
 		<key>SetViewController.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			7k1ohAI0McF4M7jv3nINLb0SZ/utlnRtkPjcm1iR02o=
+			7baWeQPtFFI20wMB5kepDnAPLa6owBPQKFO9iFGHRYQ=
 			</data>
 		</dict>
 		<key>SwitchModeViewController.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			rSBUOvNEfNHhG+RFmth0np4x4cHPVyqY9Wx0BqUfvoM=
+			ldsUfQza+QQwhDc6DUARlD2/4ZMZ9se6l/v5z+Ufd40=
 			</data>
 		</dict>
 		<key>SwitchModelTableViewCell.nib</key>
@@ -3059,14 +3128,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			L9buF2/FHXyfkbl8JqjyXEnX2q0bvIv4bivTebR59o0=
+			FXSomOJze8+vjO/EMVI3TquK2dOgg1GmApxpnBVfuO0=
 			</data>
 		</dict>
 		<key>TimeTableViewCell.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			YYHkvo/pEZqzVGBMn4gNIu/zp7nwRE4BUDXfXxMU/3c=
+			VloIQE4xnJH9x8EfWxNnXP2kp6tbsziXSBMNd90OFDA=
 			</data>
 		</dict>
 		<key>UpdateViewController.nib</key>
@@ -3080,7 +3149,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			09nzijqwkzhfDG4Qm6Lhji3moXRBj5zORnujGdoA3+8=
+			zZL6/WzWYI6WOA0P4P+Po0G+jjWw44u1vwJzjocw3uU=
 			</data>
 		</dict>
 		<key>WarningViewController.nib</key>
@@ -3090,18 +3159,81 @@
 			xN0t9QLMu10xROEtd3wkRj6x6qNRu4R+vzzC3gxdUOs=
 			</data>
 		</dict>
+		<key>WeatherCollectionViewCell.nib/objects-12.3+.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			6fLHur+Rxipg8CZXQLnaxP0rEXFw6GV42UB1PcR8tAU=
+			</data>
+		</dict>
+		<key>WeatherCollectionViewCell.nib/runtime.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			YQIZ6SAp1rMf/XstZWVmRqvOmo2UBBX62oSCPPXcTMA=
+			</data>
+		</dict>
+		<key>WeatherInfoTableViewCell.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			6GWCniSu/kgInPnYNirVrdGCls3t/3Un1AdEYCtkjbg=
+			</data>
+		</dict>
+		<key>WeatherTableViewCell.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			xLV1615uwOT1hOTTf9mm4y/ZB4+X1DadX0rZT2c6ito=
+			</data>
+		</dict>
+		<key>WeatherViewController.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			M1BGCwUZXn5y0kPNFZIT7DG9jMClfYHA5FmFhjDJRWY=
+			</data>
+		</dict>
+		<key>WifiAlertView.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ehaparHCO6ECDhJnCRGKiMR0xqXftJgmc6Y43uU3sPI=
+			</data>
+		</dict>
+		<key>WifiInfoTableViewCell.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wJKg16XSuOyVIr0I1W8+hghKzspc52Ek5yVVRCeBiCk=
+			</data>
+		</dict>
+		<key>WifiTableViewCell.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			j7lmW5lTgfZ4lMglBtIugpuuPldMYa5Xxg8c+onc0+Q=
+			</data>
+		</dict>
+		<key>WifiViewController.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			rBP9UUQ29rWsFL93wNV3B4HS0mjr4KYNu39NaHzkX6I=
+			</data>
+		</dict>
 		<key>embedded.mobileprovision</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5cbkMsVqx3za27MR24Ti98RBr8+fZ3TYiA0Cz35cs50=
+			HA0ngpWVdJTop5XZHg2/t0VKoTSrbYXukVje4SEQDBY=
 			</data>
 		</dict>
 		<key>en.lproj/Localizable.strings</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Gnz0OSyn5wOLPpWqJK4kITZxEiZzGGGV3it7rlkfWyI=
+			rl/wLbjYrW0ZmMwsVo5kfQ9pMfpBxzSl3+8Ev2YSwx8=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3119,7 +3251,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			exKb4o9KFs0OV0iO0DgJKBlOLA+gmonlIesyuICpdFY=
+			rl/wLbjYrW0ZmMwsVo5kfQ9pMfpBxzSl3+8Ev2YSwx8=
 			</data>
 			<key>optional</key>
 			<true/>

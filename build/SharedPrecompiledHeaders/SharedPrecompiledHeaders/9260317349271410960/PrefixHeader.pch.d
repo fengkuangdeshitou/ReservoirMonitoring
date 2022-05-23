@@ -1307,6 +1307,28 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Category/UIView+Border.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Category/UITextField+PlaceholderColor.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Category/UIView+Extension.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/BLE/BleManager.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Modules/module.modulemap \
+  /Users/huangjing/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/2AOJLE6AKRF57/CoreBluetooth-OTHDZYNRH8AI.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CoreBluetooth.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBCentralManager.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBAdvertisementData.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBDefines.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBCentralManagerConstants.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBManager.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBPeripheralManager.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBError.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBL2CAPChannel.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBPeer.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBPeripheralManagerConstants.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBPeripheral.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBCentral.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBService.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBAttribute.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBCharacteristic.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBDescriptor.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBUUID.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CoreBluetooth.framework/Headers/CBATTRequest.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/Masonry/Masonry.framework/Modules/module.modulemap \
   /Users/huangjing/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/2AOJLE6AKRF57/Masonry-2SVBPPPXP4ZOF.pcm \
   /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/Masonry/Masonry.framework/Headers/NSLayoutConstraint+MASDebugAdditions.h \

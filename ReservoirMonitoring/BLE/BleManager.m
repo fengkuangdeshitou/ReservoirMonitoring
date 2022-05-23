@@ -53,7 +53,7 @@ static BleManager * _manager = nil;
 
 - (void)readValueWithCMD:(Byte)cmd{
     Byte byte[3] = {0x52,0x01,cmd};
-    int value = [self CRC16Table:byte len:sizeof(byte)];
+    long value = [self CRC16Table:byte len:sizeof(byte)];
     Byte CRCByte[4] = {};
     CRCByte[0] = (Byte) ((value>>24) & 0xFF);
     CRCByte[1] = (Byte) ((value>>16) & 0xFF);
@@ -75,7 +75,10 @@ static BleManager * _manager = nil;
     
     Byte readByte[] = {0x64,0x03,stringByte[1],stringByte[0],0x00,count,crc[3],crc[2]};
     NSData * readData = [[NSData alloc] initWithBytes:readByte length:sizeof(readByte)];
-    [self.peripheral writeValue:readData forCharacteristic:self.readCharacteristic type:CBCharacteristicWriteWithoutResponse];
+    NSString * readString = [self convertDataToHexStr:readData];
+    NSDictionary * dictionary = @{@"RawModbus":readString};
+    NSData * dictData = [NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingFragmentsAllowed error:nil];
+    [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithoutResponse];
 }
 
 - (Byte*)longToByte:(long)value{
@@ -87,6 +90,13 @@ static BleManager * _manager = nil;
     return byte;
 }
 
+- (Byte *)longTo2Byte:(long)value{
+    Byte byte[2] = {};
+    byte[0] = (Byte) (value & 0xFF);
+    byte[1] = (Byte) ((value>>8) & 0xFF);
+    return (Byte *)byte;
+}
+
 /// 16进制字符串转10进制数字
 - (unsigned long long)convertHexToDecimal:(NSString *)hexStr {
     unsigned long long decimal = 0;
@@ -95,7 +105,7 @@ static BleManager * _manager = nil;
     return decimal;
 }
 
-- (void)writeWithCMDString:(NSString *)string value:(NSArray *)array{
+- (void)writeWithCMDString:(NSString *)string array:(NSArray *)array{
     long value = [self convertHexToDecimal:string];
     Byte * byte = [self longToByte:value];
     Byte stringByte[2] = {byte[3],byte[2]};
@@ -115,22 +125,31 @@ static BleManager * _manager = nil;
     crcByte[6] = array.count*2;
     for (int i=0; i<array.count; i++) {
         NSString * str = array[i];
-        long a = str.intValue;
-        Byte * longByte = [self longToByte:a];
+        int a = str.intValue;
+        Byte * longByte = [self longTo2Byte:a];
+        Byte HByte = longByte[1];
+        Byte LByte = longByte[0];
         for (int j=0; j<2; j++) {
-            crcByte[i*2+7+j] = j == 0 ? longByte[2] : longByte[3];
+            crcByte[i*2+7+j] = j == 0 ? HByte : LByte;
         }
     }
-    long crcValue = [self CRC16Table:crcByte len:sizeof(crcByte)];
-    Byte * crc = [self longToByte:crcValue];
     Byte writeByte[length+2];
     for (int i=0; i<length; i++) {
         writeByte[i] = crcByte[i];
     }
-    writeByte[length] = crc[3];
-    writeByte[length+1] = crc[2];
+    long crcValue = [self CRC16Table:crcByte len:sizeof(crcByte)];
+    Byte * crc = [self longTo2Byte:crcValue];
+    Byte crcHByte = crc[1];
+    Byte crcLbyte = crc[0];
+
+    writeByte[length] = crcLbyte;
+    writeByte[length+1] = crcHByte;
+    
     NSData * data = [[NSData alloc] initWithBytes:writeByte length:sizeof(writeByte)];
-    [self.peripheral writeValue:data forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithResponse];
+    NSString * readString = [self convertDataToHexStr:data];
+    NSDictionary * dictionary = @{@"RawModbus":readString};
+    NSData * dictData = [NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingFragmentsAllowed error:nil];
+    [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 - (void)writeWithCMDString:(NSString *)string string:(NSString *)value{
@@ -148,7 +167,10 @@ static BleManager * _manager = nil;
     
     Byte readByte[] = {0x64,0x06,stringByte[1],stringByte[0],stringByte2[1],stringByte2[0],crc[3],crc[2]};
     NSData * readData = [[NSData alloc] initWithBytes:readByte length:sizeof(readByte)];
-    [self.peripheral writeValue:readData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithoutResponse];
+    NSString * readString = [self convertDataToHexStr:readData];
+    NSDictionary * dictionary = @{@"RawModbus":readString};
+    NSData * dictData = [NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingFragmentsAllowed error:nil];
+    [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithoutResponse];
     
 }
 
@@ -159,7 +181,7 @@ static BleManager * _manager = nil;
 
 - (void)writeValueWithCMD:(Byte)cmd value:(Byte)valueByte{
     Byte byte[5] = {0x57,0x03,cmd,0x01,valueByte};
-    int value = [self CRC16Table:byte len:sizeof(byte)];
+    long value = [self CRC16Table:byte len:sizeof(byte)];
     Byte CRCByte[4] = {};
     CRCByte[0] = (Byte) ((value>>24) & 0xFF);
     CRCByte[1] = (Byte) ((value>>16) & 0xFF);
@@ -230,7 +252,7 @@ static unsigned char auchCRCLo[] = {
     0x43, 0x83, 0x41, 0x81, 0x80, 0x40
 };
 
-- (int)CRC16Table:(uint8_t *)puchMsg len:(uint8_t)leng
+- (long)CRC16Table:(uint8_t *)puchMsg len:(uint8_t)leng
 {
     uint8_t uchCRCHi = 0xFF;
     uint8_t uchCRCLo = 0xFF;
@@ -320,23 +342,15 @@ static unsigned char auchCRCLo[] = {
     }
     NSLog(@"name=%@,%@",peripheral.name,RSSI);
     if (self.isAutoConnect) {
-        if ([self.bluetoothName isEqualToString:peripheral.name]) {
+        if([peripheral.name hasPrefix:@"Moonflow"]){
             self.peripheral = peripheral;
             self.peripheral.delegate = self;
             //发起连接的命令
             [self.centralManager connectPeripheral:self.peripheral options:nil];
-        }else{
-            if([peripheral.name hasPrefix:@"Moonflow"]){
-                self.peripheral = peripheral;
-                self.peripheral.delegate = self;
-                //发起连接的命令
-                [self.centralManager connectPeripheral:self.peripheral options:nil];
-            }
         }
-    }else{
-        if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothdidDiscoverPeripheral:RSSI:)]) {
-            [self.delegate bluetoothdidDiscoverPeripheral:peripheral RSSI:RSSI];
-        }
+    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothdidDiscoverPeripheral:RSSI:)]) {
+        [self.delegate bluetoothdidDiscoverPeripheral:peripheral RSSI:RSSI];
     }
 }
 
@@ -491,8 +505,37 @@ static unsigned char auchCRCLo[] = {
     if([characteristic.UUID.UUIDString isEqualToString:UUID_READ_CHARACTERISTICS]){
         //获取订阅特征回复的数据
         NSData *data = characteristic.value;
-        NSString *response = [self valueStringWithResponse:data];
-        NSLog(@"读取蓝牙回复：%@,%@",response,data);
+        NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//        NSString *response = [self valueStringWithResponse:data];
+        /// 成功
+        NSLog(@"读取蓝牙回复：%@",dict);
+        if ([dict objectForKey:@"RawModbus"]) {
+            NSString * string = dict[@"RawModbus"];
+            NSString * cmd = [string substringWithRange:NSMakeRange(4, 4)];
+            if ([[cmd substringToIndex:1] isEqualToString:@"0"]) {
+                cmd = [cmd substringFromIndex:1];
+            }
+            NSString * countHex = [string substringWithRange:NSMakeRange(12, 2)];
+
+            int count = [[self decimalStringFromHexString:countHex] intValue];
+            NSString * countValue = [string substringWithRange:NSMakeRange(14, count*2)];
+
+            NSMutableArray * array = [[NSMutableArray alloc] init];
+            for (int i=0; i<countValue.length; i+=4) {
+                NSString * hexString = [countValue substringWithRange:NSMakeRange(i, 4)];
+                [array addObject:[self decimalStringFromHexString:hexString]];
+            }
+            if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidReceivedCMD:array:)]) {
+                [self.delegate bluetoothDidReceivedCMD:cmd array:array];
+            }
+        }
+        
+        
+        /// 失败
+//        {
+//            code = 2;
+//        }
+        
     } else if ([characteristic.UUID.UUIDString isEqualToString:UUID_WRITE_CHARACTERISTICS]){
         NSData *data = characteristic.value;
 //        NSLog(@"蓝牙写入广播数据：%@,length=%lu",data,(unsigned long)data.length);

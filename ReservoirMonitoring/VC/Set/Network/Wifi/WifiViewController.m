@@ -9,6 +9,7 @@
 #import "WifiTableViewCell.h"
 #import "WifiInfoTableViewCell.h"
 #import "WifiAlertView.h"
+#import "BleManager.h"
 
 @interface WifiViewController ()<UITableViewDelegate>
 
@@ -44,9 +45,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 1) {
-        [WifiAlertView showWifiAlertViewWithTitle:@"KLX TEST TWS" completion:^(NSString * _Nonnull value) {
-                    
-        }];
+//        [WifiAlertView showWifiAlertViewWithTitle:@"KLX TEST TWS" completion:^(NSString * _Nonnull value) {
+//
+//        }];
+        [BleManager.shareInstance readWithCMDString:@"620" count:1];
     }
 }
 

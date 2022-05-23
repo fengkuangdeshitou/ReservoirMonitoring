@@ -41,6 +41,14 @@
     
 }
 
+- (IBAction)submitAction:(id)sender{
+//    [BleManager.shareInstance readWithCMDString:@"600" count:1];
+//    [BleManager.shareInstance readWithCMDString:@"611" count:6];
+//    [BleManager.shareInstance writeWithCMDString:@"600" string:@"1"];
+//    [BleManager.shareInstance writeWithCMDString:@"611" array:@[@"2022",@"05",@"22",@"22",@"22",@"22"]];
+//    [BleManager.shareInstance readWithCMDString:@"611" count:6];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0 || indexPath.row == 1) {
         SelecteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SelecteTableViewCell class]) forIndexPath:indexPath];

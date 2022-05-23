@@ -16,6 +16,7 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/Masonry/Masonry.framework/Headers/MASConstraint.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/Masonry/Masonry.framework/Headers/MASCompositeConstraint.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/Masonry/Masonry.framework/Headers/Masonry-umbrella.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/BLE/BleManager.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Category/UIView+Extension.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Category/UITextField+PlaceholderColor.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Category/UIView+Border.h \
@@ -28,4 +29,6 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/PrefixHeader.pch \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Network/NetworkViewController.m \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Network/NetworkViewController.h \
-  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Network/View/NetworkTableViewCell.h
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Network/View/NetworkTableViewCell.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/BLE/PeripheralModel.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Network/Wifi/WifiViewController.h
