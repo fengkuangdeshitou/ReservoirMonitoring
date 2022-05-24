@@ -39,7 +39,7 @@
 }
 
 - (void)requestUserInfo{
-    Request.shareInstance getUrl:<#(nonnull NSString *)#> params:<#(nonnull NSDictionary *)#> progress:<#^(float progress)progress#> success:<#^(NSDictionary * _Nonnull result)success#> failure:<#^(NSString * _Nonnull errorMsg)failure#>
+//    Request.shareInstance getUrl:<#(nonnull NSString *)#> params:<#(nonnull NSDictionary *)#> progress:<#^(float progress)progress#> success:<#^(NSDictionary * _Nonnull result)success#> failure:<#^(NSString * _Nonnull errorMsg)failure#>
 }
 
 - (IBAction)logoutAtion:(id)sender{
