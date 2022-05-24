@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RegisterViewController : BaseViewController
 
+@property(nonatomic,copy) void(^registerSuccess)(NSString * username, NSString * password);
+
 @end
 
 NS_ASSUME_NONNULL_END

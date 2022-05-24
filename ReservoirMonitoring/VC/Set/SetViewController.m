@@ -38,6 +38,10 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SetTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SetTableViewCell class])];
 }
 
+- (void)requestUserInfo{
+    Request.shareInstance getUrl:<#(nonnull NSString *)#> params:<#(nonnull NSDictionary *)#> progress:<#^(float progress)progress#> success:<#^(NSDictionary * _Nonnull result)success#> failure:<#^(NSString * _Nonnull errorMsg)failure#>
+}
+
 - (IBAction)logoutAtion:(id)sender{
     [[NSNotificationCenter defaultCenter] postNotificationName:LOG_OUT object:nil];
 }
@@ -50,6 +54,7 @@
         SetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SetTableViewCell class]) forIndexPath:indexPath];
         cell.icon.image = [UIImage imageNamed:self.iconArray[indexPath.row]];
         cell.titleLabel.text = self.dataArray[indexPath.row];
+        cell.line.hidden = indexPath.row == self.dataArray.count-1;
         return cell;
     }
 }

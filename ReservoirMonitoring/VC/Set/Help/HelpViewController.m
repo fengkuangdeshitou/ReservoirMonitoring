@@ -24,6 +24,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HelpTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HelpTableViewCell class]) forIndexPath:indexPath];
+    cell.line.hidden = indexPath.row == 4;
     return cell;
 }
 

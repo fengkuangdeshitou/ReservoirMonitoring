@@ -47,15 +47,34 @@
 }
 
 - (void)onAuthemticationSuccess{
-    [[NSNotificationCenter defaultCenter] postNotificationName:LOGIN_SUCCESS object:nil];
+    [Request.shareInstance postUrl:Login params:@{@"userName":self.emailtf.text,@"password":self.passwordtf.text} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        [NSUserDefaults.standardUserDefaults setValue:result[@"data"][@"token"] forKey:@"token"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:LOGIN_SUCCESS object:nil];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (IBAction)loginAction:(id)sender{
+    if (self.email.text.length == 0) {
+        [RMHelper showToast:self.emailtf.placeholder toView:self.view];
+        return;
+    }
+    if (self.passwordtf.text.length == 0) {
+        [RMHelper showToast:self.passwordtf.placeholder toView:self.view];
+        return;
+    }
     [ImageAuthenticationView showImageAuthemticationWithDelegate:self];
 }
 
 - (IBAction)registerAction:(id)sender{
     RegisterViewController * regist = [[RegisterViewController alloc] init];
+    regist.registerSuccess = ^(NSString * _Nonnull username, NSString * _Nonnull password) {
+        self.emailtf.text = username;
+        self.passwordtf.text = password;
+    };
     regist.title = @"Create account".localized;
     [self.navigationController pushViewController:regist animated:true];
 }

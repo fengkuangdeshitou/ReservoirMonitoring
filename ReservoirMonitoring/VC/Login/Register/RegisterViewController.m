@@ -14,10 +14,14 @@
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * registerBtn;
 @property(nonatomic,weak)IBOutlet UIButton * loginBtn;
+@property(nonatomic,weak)IBOutlet UIButton * statusBtn;
 @property(nonatomic,weak)IBOutlet UILabel * agree;
 @property(nonatomic,weak)IBOutlet UIButton * agreement;
 @property(nonatomic,strong)NSArray * dataArray;
 @property(nonatomic,strong)UIButton * sendCodeButton;
+@property(nonatomic,assign)NSInteger time;
+@property(nonatomic,strong)NSTimer * timer;
+@property(nonatomic,strong)NSString * uuid;
 
 @end
 
@@ -37,6 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.time = 60;
     self.dataArray = @[
     @{@"title":@"Name".localized,@"placeholder":@"Please input your name".localized},
     @{@"title":@"Email".localized,@"placeholder":@"Please input your Email".localized},
@@ -57,19 +62,85 @@
 }
 
 - (IBAction)registration:(id)sender{
-    [ImageAuthenticationView showImageAuthemticationWithDelegate:self];
+    NSArray<RegisterTableViewCell *> * cells = self.tableView.visibleCells;
+    for (int i=0; i<cells.count; i++) {
+        RegisterTableViewCell * cell = cells[i];
+        NSLog(@"%@",cell.textfield.text);
+        if (i == 2 && self.uuid == nil) {
+            [RMHelper showToast:@"Please get verification code".localized toView:self.view];
+            return;
+        }
+        if (cell.textfield.text.length == 0) {
+            [RMHelper showToast:cell.textfield.placeholder toView:self.view];
+            return;
+        }
+    }
+    if (![cells[3].textfield.text isEqualToString:cells[4].textfield.text]) {
+        [RMHelper showToast:@"The passwords are inconsistent".localized toView:self.view];
+        return;
+    }
+    if (!self.statusBtn.selected) {
+        [RMHelper showToast:@"Please read and agree EULA".localized toView:self.view];
+        return;
+    }
+    for (int i=0; i<cells.count; i++) {
+        RegisterTableViewCell * cell = cells[i];
+        NSLog(@"%@",cell.textfield.text);
+        if (cell.textfield.text.length == 0) {
+            [RMHelper showToast:cell.textfield.placeholder.localized toView:self.view];
+            return;
+        }
+    }
+    [Request.shareInstance postUrl:CommonRegister params:@{@"nickName":cells[0].textfield.text,@"userName":cells[1].textfield.text,@"code":cells[2].textfield.text,@"password":cells[3].textfield.text,@"uuid":self.uuid} progress:^(float progress) {
+
+    } success:^(NSDictionary * _Nonnull result) {
+        if (self.registerSuccess) {
+            self.registerSuccess(cells[1].textfield.text, cells[3].textfield.text);
+        }
+        [self.navigationController popViewControllerAnimated:true];
+    } failure:^(NSString * _Nonnull errorMsg) {
+
+    }];
 }
 
 - (void)onAuthemticationSuccess{
-    NSArray * cells = self.tableView.visibleCells;
-    for (RegisterTableViewCell * cell in cells) {
-        NSLog(@"%@",cell.textfield.text);
+    RegisterTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    [Request.shareInstance postUrl:EmailCode params:@{@"type":@"1",@"email":cell.textfield.text} progress:^(float progress) {
+
+    } success:^(NSDictionary * _Nonnull result) {
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:true block:^(NSTimer * _Nonnull timer) {
+        self.uuid = [NSString stringWithFormat:@"%@",result[@"data"]];
+            self.time--;
+            if (self.time == 0) {
+                self.time = 60;
+                [timer invalidate];
+                self.sendCodeButton.userInteractionEnabled = true;
+                [self.sendCodeButton setTitle:@"Send code".localized forState:UIControlStateNormal];
+            }else{
+                self.sendCodeButton.userInteractionEnabled = false;
+                [self.sendCodeButton setTitle:[NSString stringWithFormat:@"%ld",self.time] forState:UIControlStateNormal];
+            }
+        }];
+    } failure:^(NSString * _Nonnull errorMsg) {
+
+    }];
+}
+
+- (void)sendCodeAction{
+    RegisterTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    if (cell.textfield.text.length == 0) {
+        [RMHelper showToast:cell.textfield.placeholder.localized toView:self.view];
+        return;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:LOGIN_SUCCESS object:nil];
+    [ImageAuthenticationView showImageAuthemticationWithDelegate:self];
 }
 
 - (IBAction)popViewAction:(id)sender{
     [self.navigationController popViewControllerAnimated:true];
+}
+
+- (IBAction)agrementAction:(id)sender{
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -83,6 +154,11 @@
     }
     cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
     cell.textfield.placeholder = self.dataArray[indexPath.row][@"placeholder"];
+    if (indexPath.row == 3 || indexPath.row == 4) {
+        cell.textfield.secureTextEntry = true;
+    }else{
+        cell.textfield.secureTextEntry = false;
+    }
     return cell;
 }
 

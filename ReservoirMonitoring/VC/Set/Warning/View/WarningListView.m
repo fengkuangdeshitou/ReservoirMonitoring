@@ -24,6 +24,7 @@
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.backgroundColor = [UIColor colorWithHexString:@"#0C0C0C"];
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self addSubview:self.tableView];
         [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([WarningTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([WarningTableViewCell class])];
     }

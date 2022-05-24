@@ -44,9 +44,10 @@
         self.tableView.dataSource = self;
         self.tableView.backgroundColor = UIColor.clearColor;
         self.tableView.scrollEnabled = false;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.contentView addSubview:self.tableView];
         
-        self.otherTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 230, SCREEN_WIDTH-30, self.contentView.height-295) style:UITableViewStylePlain];
+        self.otherTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 255, SCREEN_WIDTH-30, self.contentView.height-320) style:UITableViewStylePlain];
         self.otherTableView.delegate = self;
         self.otherTableView.dataSource = self;
         self.otherTableView.backgroundColor = UIColor.clearColor;
@@ -109,14 +110,14 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return tableView == self.tableView ? 2 : 1;
+    return tableView == self.tableView ? 2 : 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView == self.tableView) {
         return section == 0 ? 1 : 0;
     }
-    return 6;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -188,13 +189,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (tableView == self.tableView){
-        return section == 0 ? 28 : 25 + 54;
+        return section == 0 ? 35 : 35 + 54;
     }
     return 0.01;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0.01;
+    return tableView == self.tableView ? 10 : 10;
 }
 
 - (void)show{

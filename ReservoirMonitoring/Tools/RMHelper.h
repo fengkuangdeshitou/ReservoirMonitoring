@@ -13,6 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIViewController *)getCurrentVC;
 
++ (void)showToast:(NSString *)toast toView:(UIView *)view;
+
++ (void)saveUserInfo:(NSDictionary *)userInfo;
+
 @end
 
 NS_ASSUME_NONNULL_END

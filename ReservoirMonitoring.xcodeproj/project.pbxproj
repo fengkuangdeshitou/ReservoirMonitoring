@@ -39,6 +39,9 @@
 		0F69685928364D0500F22E47 /* InstallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F69685728364D0400F22E47 /* InstallViewController.xib */; };
 		0F69685E28364E7B00F22E47 /* InstallCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F69685C28364E7B00F22E47 /* InstallCollectionViewCell.m */; };
 		0F69685F28364E7B00F22E47 /* InstallCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F69685D28364E7B00F22E47 /* InstallCollectionViewCell.xib */; };
+		0FE713F4283C830400B0733A /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE713F3283C830400B0733A /* Request.m */; };
+		0FE713F7283C831A00B0733A /* RequestURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE713F6283C831A00B0733A /* RequestURL.m */; };
+		0FE713FC283C859000B0733A /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE713FA283C859000B0733A /* Toast+UIView.m */; };
 		6529B29C2E0432E1F4C480DD /* Pods_ReservoirMonitoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BA0DE0AA9A215EC56692FA /* Pods_ReservoirMonitoring.framework */; };
 		B387385CB1D93CCC02D43717 /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F582A4DCB34D84D2C390CBD /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework */; };
 		BD2DEF2028044A6E004E8D7D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2DEF1F28044A6E004E8D7D /* AppDelegate.m */; };
@@ -222,6 +225,12 @@
 		0F69685B28364E7B00F22E47 /* InstallCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InstallCollectionViewCell.h; sourceTree = "<group>"; };
 		0F69685C28364E7B00F22E47 /* InstallCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstallCollectionViewCell.m; sourceTree = "<group>"; };
 		0F69685D28364E7B00F22E47 /* InstallCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallCollectionViewCell.xib; sourceTree = "<group>"; };
+		0FE713F2283C830400B0733A /* Request.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Request.h; sourceTree = "<group>"; };
+		0FE713F3283C830400B0733A /* Request.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Request.m; sourceTree = "<group>"; };
+		0FE713F5283C831A00B0733A /* RequestURL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestURL.h; sourceTree = "<group>"; };
+		0FE713F6283C831A00B0733A /* RequestURL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestURL.m; sourceTree = "<group>"; };
+		0FE713FA283C859000B0733A /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
+		0FE713FB283C859000B0733A /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
 		11BA0DE0AA9A215EC56692FA /* Pods_ReservoirMonitoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		263B1F2000C58A09A71CC682 /* Pods_ReservoirMonitoringTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoringTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB1F4E5989AEB4DD5663FDE /* Pods-ReservoirMonitoringTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReservoirMonitoringTests.debug.xcconfig"; path = "Target Support Files/Pods-ReservoirMonitoringTests/Pods-ReservoirMonitoringTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -577,6 +586,34 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		0FE713F1283C803D00B0733A /* API */ = {
+			isa = PBXGroup;
+			children = (
+				0FE713F2283C830400B0733A /* Request.h */,
+				0FE713F3283C830400B0733A /* Request.m */,
+				0FE713F5283C831A00B0733A /* RequestURL.h */,
+				0FE713F6283C831A00B0733A /* RequestURL.m */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		0FE713F8283C857600B0733A /* Third */ = {
+			isa = PBXGroup;
+			children = (
+				0FE713F9283C859000B0733A /* Toast */,
+			);
+			path = Third;
+			sourceTree = "<group>";
+		};
+		0FE713F9283C859000B0733A /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				0FE713FA283C859000B0733A /* Toast+UIView.m */,
+				0FE713FB283C859000B0733A /* Toast+UIView.h */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
 		6C601691DA04C12B7D142288 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -627,8 +664,9 @@
 			children = (
 				BD2DEF1E28044A6E004E8D7D /* AppDelegate.h */,
 				BD2DEF1F28044A6E004E8D7D /* AppDelegate.m */,
+				0FE713F8283C857600B0733A /* Third */,
+				0FE713F1283C803D00B0733A /* API */,
 				0F69684B2834C8C900F22E47 /* BLE */,
-				BDFA3AC82830E8B8004A7E8C /* API */,
 				BDE889F628044D8B00081114 /* Tools */,
 				BDE889FA28044E6300081114 /* Category */,
 				BD2DEF5328044AEC004E8D7D /* VC */,
@@ -1086,13 +1124,6 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		BDFA3AC82830E8B8004A7E8C /* API */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = API;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1390,6 +1421,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FE713FC283C859000B0733A /* Toast+UIView.m in Sources */,
 				0F69683F2834967700F22E47 /* WifiTableViewCell.m in Sources */,
 				BDE88A6D280ACA8B00081114 /* TimeTableViewCell.m in Sources */,
 				BDE88A382805D66200081114 /* SetPasswordViewController.m in Sources */,
@@ -1420,6 +1452,7 @@
 				BDFA3AC5282F89F0004A7E8C /* SelectItemAlertView.m in Sources */,
 				BD8FDA7D280EFDDA000036DD /* ScanView.m in Sources */,
 				BDE88A3C2805DA0700081114 /* UITextField+PlaceholderColor.m in Sources */,
+				0FE713F4283C830400B0733A /* Request.m in Sources */,
 				0F69682E2833B28A00F22E47 /* WeatherInfoTableViewCell.m in Sources */,
 				BDE889FD28044E7C00081114 /* UIColor+HexString.m in Sources */,
 				0F69684828349FBF00F22E47 /* WifiAlertView.m in Sources */,
@@ -1440,6 +1473,7 @@
 				BD2DEF5628044B05004E8D7D /* BaseViewController.m in Sources */,
 				BD8FDA73280EF5D7000036DD /* AddDeviceTableViewCell.m in Sources */,
 				BDFA3AAB28295B63004A7E8C /* NetworkViewController.m in Sources */,
+				0FE713F7283C831A00B0733A /* RequestURL.m in Sources */,
 				BD8FDA79280EF904000036DD /* ScanViewController.m in Sources */,
 				BDFA3AB7282F7D1B004A7E8C /* ServiceViewController.m in Sources */,
 				BDE88A63280AC2B200081114 /* SwitchProgressTableViewCell.m in Sources */,
@@ -1654,7 +1688,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 86A98AB3KG;
+				DEVELOPMENT_TEAM = LMDZYJF4B6;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ReservoirMonitoring/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1688,7 +1722,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 86A98AB3KG;
+				DEVELOPMENT_TEAM = LMDZYJF4B6;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ReservoirMonitoring/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;

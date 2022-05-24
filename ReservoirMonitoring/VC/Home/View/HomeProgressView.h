@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HomeProgressView : UIView
 
-@property(nonatomic,weak)IBOutlet UILabel * titleLabel;
+@property(nonatomic,strong) UILabel * titleLabel;
 
 @end
 

@@ -6,8 +6,11 @@
 //
 
 #import "RMHelper.h"
+#import "Toast+UIView.h"
 
 @implementation RMHelper
+
+static NSString * K_USERINFO = @"PFUserInfo";
 
 + (UIViewController *)jsd_getRootViewController{
 
@@ -35,6 +38,15 @@
         }
     }
     return currentViewController;
+}
+
++ (void)showToast:(NSString *)toast toView:(UIView *)view{
+    [view makeToast:toast duration:2 position:@"bottom"];
+}
+
++ (void)saveUserInfo:(NSDictionary *)userInfo{
+    [[NSUserDefaults standardUserDefaults] setValue:userInfo forKey:K_USERINFO];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

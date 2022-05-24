@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,weak)IBOutlet UIImageView * icon;
 @property(nonatomic,weak)IBOutlet UILabel * titleLabel;
+@property(nonatomic,weak)IBOutlet UIView * line;
 
 @end
 

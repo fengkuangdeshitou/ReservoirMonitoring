@@ -1,0 +1,24 @@
+//
+//  RequestURL.m
+//  ReservoirMonitoring
+//
+//  Created by maiyou on 2022/5/24.
+//
+
+#import "RequestURL.h"
+
+@implementation RequestURL
+
+#ifdef DEBUG
+NSString * const Host = @"http://52.8.81.210:8502";
+#else
+NSString * const Host = @"http://52.8.81.210:8502";
+#endif
+
+NSString * const EmailCode = @"/open/common/getEmailCode";
+
+NSString * const CommonRegister = @"/open/common/register";
+
+NSString * const Login = @"/open/common/login";
+
+@end
