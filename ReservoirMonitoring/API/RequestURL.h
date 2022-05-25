@@ -19,9 +19,9 @@ extern NSString * const CommonRegister;
 
 extern NSString * const Login;
 
-//extern NSString * const Login;
+extern NSString * const ResetPwd;
 
-
+extern NSString * const UserInfo;
 
 
 

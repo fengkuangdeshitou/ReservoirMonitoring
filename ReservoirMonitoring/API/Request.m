@@ -30,9 +30,9 @@ static Request * _request = nil;
     if (!_headers) {
         _headers = [[NSMutableDictionary alloc] init];
     }
-    
+    [_headers setValue:@"en_US" forKey:@"currentLanguage"];
     if ([NSUserDefaults.standardUserDefaults objectForKey:@"token"]) {
-        [_headers setValue:[NSUserDefaults.standardUserDefaults objectForKey:@"token"] forKey:@"token"];
+        [_headers setValue:[NSUserDefaults.standardUserDefaults objectForKey:@"token"] forKey:@"Authorization"];
     }
     return _headers;
 }

@@ -35,7 +35,7 @@
 - (void)resetNumberData{
     self.dataArray = [[NSMutableArray alloc] init];
     for (int i=0; i<self.count; i++) {
-        NSDictionary * dic = @{@"title":[NSString stringWithFormat:@"Qty of Hybrid %d battery",i+1].localized,@"placeholder":@"Enter (number)".localized};
+        NSDictionary * dic = @{@"title":[NSString stringWithFormat:@"Qty of Hybrid %d battery",i+1],@"placeholder":@"Enter (number)".localized};
         [self.dataArray addObject:dic];
     }
     [self.tableView reloadData];

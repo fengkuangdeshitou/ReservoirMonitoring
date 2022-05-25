@@ -46,6 +46,8 @@
         cell.icon.image = [UIImage imageNamed:self.imageArray[indexPath.row]];
         cell.titleLabel.text = self.titleArray[indexPath.row];
         cell.descLabel.text = @"0 kWh";
+        cell.titleLabel.font = [UIFont systemFontOfSize:indexPath.row == 0 ? 9 : 12];
+        cell.descLabel.font = [UIFont systemFontOfSize:indexPath.row == 0 ? 9 : 12];
         return cell;
     }else{
         DataEchartsCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([DataEchartsCollectionViewCell class]) forIndexPath:indexPath];

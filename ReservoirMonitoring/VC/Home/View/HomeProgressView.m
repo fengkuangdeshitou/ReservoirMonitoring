@@ -18,7 +18,8 @@
         self.layer.masksToBounds = true;
         
         UIImageView * imageview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"machine"]];
-        imageview.frame = CGRectMake(self.width/2-21, 18, 42, 68);
+        imageview.frame = CGRectMake(self.width/2-30, 23, 60, 60);
+        imageview.contentMode = UIViewContentModeScaleAspectFill;
         [self addSubview:imageview];
         
         self.titleLabel = [[UILabel alloc] init];

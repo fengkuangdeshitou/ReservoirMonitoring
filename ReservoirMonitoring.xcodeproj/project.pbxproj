@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F0511B3283E4AF8007E7680 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0511B2283E4AF8007E7680 /* UserModel.m */; };
 		0F3EBC0E282E8A5E009CDBED /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3EBC0C282E8A5E009CDBED /* GridViewController.m */; };
 		0F3EBC0F282E8A5E009CDBED /* GridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3EBC0D282E8A5E009CDBED /* GridViewController.xib */; };
 		0F3EBC14282E8B05009CDBED /* InverterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3EBC12282E8B05009CDBED /* InverterViewController.m */; };
@@ -175,6 +176,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F0511B1283E4AF8007E7680 /* UserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		0F0511B2283E4AF8007E7680 /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		0F3EBC0B282E8A5E009CDBED /* GridViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridViewController.h; sourceTree = "<group>"; };
 		0F3EBC0C282E8A5E009CDBED /* GridViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GridViewController.m; sourceTree = "<group>"; };
 		0F3EBC0D282E8A5E009CDBED /* GridViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GridViewController.xib; sourceTree = "<group>"; };
@@ -949,6 +952,8 @@
 				BDE88A0C28046FE100081114 /* SetViewController.h */,
 				BDE88A0D28046FE100081114 /* SetViewController.m */,
 				BDE88A0E28046FE100081114 /* SetViewController.xib */,
+				0F0511B1283E4AF8007E7680 /* UserModel.h */,
+				0F0511B2283E4AF8007E7680 /* UserModel.m */,
 				BDFA3AA728295B4E004A7E8C /* Network */,
 				BD8FDA5D280EF16E000036DD /* Debug */,
 				BD8FDA4E280EED4B000036DD /* Warning */,
@@ -1491,6 +1496,7 @@
 				BDFA3A9A28257325004A7E8C /* AddDeviceActionTableViewCell.m in Sources */,
 				BD2DEF3128044A74004E8D7D /* main.m in Sources */,
 				0F6968332833B70F00F22E47 /* WeatherCollectionViewCell.m in Sources */,
+				0F0511B3283E4AF8007E7680 /* UserModel.m in Sources */,
 				BDE88A0928046F7D00081114 /* DataViewController.m in Sources */,
 				0F69685828364D0500F22E47 /* InstallViewController.m in Sources */,
 				BD907365280D4B4900044013 /* SetInfoTableViewCell.m in Sources */,

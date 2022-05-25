@@ -6,10 +6,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SetInfoTableViewCell : UITableViewCell
+
+@property(nonatomic,strong)UserModel * model;
 
 @end
 

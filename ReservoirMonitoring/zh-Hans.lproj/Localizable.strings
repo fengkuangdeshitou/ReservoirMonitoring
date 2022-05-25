@@ -91,7 +91,7 @@
 "Power outage:" = "Power outage:";
 "Reducing deforestation:" = "Reducing deforestation:";
 "trees" = "trees";
-"Standard coal saved" = "Standard coal saved：";
+"Standard coal saved" = "Standard coal saved:";
 
 "User Info" = "User Info";
 "Network" = "Network";
@@ -269,7 +269,7 @@
 //"Power outage:" = "电网停电次数:";
 //"Reducing deforestation:" = "降低碳排约等";
 //"trees" = "棵树";
-//"Standard coal saved" = "节约标准煤：";
+//"Standard coal saved" = "节约标准煤:";
 //
 //"User Info" = "个人信息";
 //"Network" = "设备配网";

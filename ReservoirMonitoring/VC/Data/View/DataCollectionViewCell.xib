@@ -28,14 +28,14 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="电网取电：" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fz7-Ho-CZh">
-                                <rect key="frame" x="0.0" y="60" width="119" height="12"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <rect key="frame" x="0.0" y="60" width="119" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电网取电：" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mpE-Po-Bmv">
-                                <rect key="frame" x="0.0" y="78" width="119" height="12"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <rect key="frame" x="0.0" y="78.5" width="119" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -47,7 +47,7 @@
                             <constraint firstItem="fz7-Ho-CZh" firstAttribute="top" secondItem="oSz-Es-4bv" secondAttribute="bottom" constant="6" id="Wpx-u9-8dK"/>
                             <constraint firstItem="mpE-Po-Bmv" firstAttribute="leading" secondItem="fz7-Ho-CZh" secondAttribute="leading" id="X1h-Wq-3Lq"/>
                             <constraint firstItem="oSz-Es-4bv" firstAttribute="centerX" secondItem="dME-aH-JPJ" secondAttribute="centerX" id="YH6-WT-ObK"/>
-                            <constraint firstItem="mpE-Po-Bmv" firstAttribute="top" secondItem="fz7-Ho-CZh" secondAttribute="bottom" constant="6" id="cYy-9H-UiN"/>
+                            <constraint firstItem="mpE-Po-Bmv" firstAttribute="top" secondItem="fz7-Ho-CZh" secondAttribute="bottom" constant="4" id="cYy-9H-UiN"/>
                             <constraint firstAttribute="trailing" secondItem="fz7-Ho-CZh" secondAttribute="trailing" id="nAi-rl-ZVj"/>
                             <constraint firstAttribute="trailing" secondItem="mpE-Po-Bmv" secondAttribute="trailing" id="udU-tg-9Up"/>
                             <constraint firstItem="mpE-Po-Bmv" firstAttribute="leading" secondItem="dME-aH-JPJ" secondAttribute="leading" id="xRz-mq-KoY"/>

@@ -33,7 +33,13 @@
 }
 
 - (IBAction)submitAction:(id)sender{
-
+    [Request.shareInstance postUrl:ResetPwd params:@{@"userName":self.userName,@"password":self.password.text,@"code":self.code,@"uuid":self.uuid} progress:^(float progress) {
+        [self.navigationController popViewControllerAnimated:true];
+    } success:^(NSDictionary * _Nonnull result) {
+        
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 /*

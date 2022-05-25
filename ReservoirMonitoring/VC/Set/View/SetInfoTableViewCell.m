@@ -6,10 +6,14 @@
 //
 
 #import "SetInfoTableViewCell.h"
+#import "SDWebImage.h"
 
 @interface SetInfoTableViewCell ()
 
+@property(nonatomic,weak)IBOutlet UILabel * nickname;
+@property(nonatomic,weak)IBOutlet UILabel * email;
 @property(nonatomic,weak)IBOutlet UILabel * type;
+@property(nonatomic,weak)IBOutlet UIImageView * avatar;
 
 @end
 
@@ -18,7 +22,14 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.type.text = @"User/Installer".localized;
+}
+
+- (void)setModel:(UserModel *)model{
+    _model = model;
+    self.type.text = model.userType.intValue == 1 ? @"Installer".localized : @"User".localized;
+    self.nickname.text = model.nickName;
+    self.email.text = model.email;
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:model.avatar] placeholderImage:[UIImage imageNamed:@"info"]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

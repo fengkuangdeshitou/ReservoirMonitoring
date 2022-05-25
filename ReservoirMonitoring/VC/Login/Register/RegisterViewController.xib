@@ -39,9 +39,6 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="icon_unchoose"/>
                                 <state key="selected" image="icon_login_choose"/>
-                                <connections>
-                                    <action selector="statusChange:" destination="-1" eventType="touchUpInside" id="1DE-hw-6G5"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Agree to the" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8EG-vO-nzf">
                                 <rect key="frame" x="43" y="15" width="74.5" height="18"/>
@@ -89,10 +86,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wwe-cg-wq7">
-                                <rect key="frame" x="43" y="15" width="227.5" height="18"/>
+                                <rect key="frame" x="20" y="15" width="97.5" height="18"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <connections>
-                                    <action selector="agrementAction:" destination="-1" eventType="touchUpInside" id="1Yl-y1-Oab"/>
+                                    <action selector="statusChange:" destination="-1" eventType="touchUpInside" id="3s6-IM-aVf"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -100,17 +97,17 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="60K-hT-6xY" firstAttribute="top" secondItem="6nj-ep-kFT" secondAttribute="bottom" constant="50" id="3bz-wI-0pC"/>
+                            <constraint firstItem="Wwe-cg-wq7" firstAttribute="leading" secondItem="IIx-N7-tID" secondAttribute="leading" id="B1F-cT-Mb1"/>
                             <constraint firstItem="8EG-vO-nzf" firstAttribute="top" secondItem="rKD-RH-Sbr" secondAttribute="top" constant="15" id="LcE-fR-Zaz"/>
                             <constraint firstItem="IIx-N7-tID" firstAttribute="top" secondItem="rKD-RH-Sbr" secondAttribute="top" constant="18" id="OPr-P9-Ucm"/>
-                            <constraint firstItem="Wwe-cg-wq7" firstAttribute="leading" secondItem="8EG-vO-nzf" secondAttribute="leading" id="RbI-rg-Eso"/>
                             <constraint firstItem="rKD-RH-Sbr" firstAttribute="trailing" secondItem="60K-hT-6xY" secondAttribute="trailing" constant="35" id="Ry7-V7-NGQ"/>
                             <constraint firstItem="Wwe-cg-wq7" firstAttribute="bottom" secondItem="8EG-vO-nzf" secondAttribute="bottom" id="U0P-Hs-9Vc"/>
                             <constraint firstItem="6nj-ep-kFT" firstAttribute="leading" secondItem="8EG-vO-nzf" secondAttribute="trailing" constant="5" id="U8B-RB-bun"/>
-                            <constraint firstItem="6nj-ep-kFT" firstAttribute="trailing" secondItem="Wwe-cg-wq7" secondAttribute="trailing" id="WRz-EU-iEK"/>
                             <constraint firstItem="60K-hT-6xY" firstAttribute="leading" secondItem="rKD-RH-Sbr" secondAttribute="leading" constant="35" id="aPI-gY-rWE"/>
                             <constraint firstItem="6nj-ep-kFT" firstAttribute="top" secondItem="rKD-RH-Sbr" secondAttribute="top" constant="15" id="d96-yW-Imb"/>
                             <constraint firstItem="6Yp-wv-Mzp" firstAttribute="centerX" secondItem="fCY-af-4Zm" secondAttribute="centerX" id="fE0-03-IE8"/>
                             <constraint firstItem="6Yp-wv-Mzp" firstAttribute="top" secondItem="60K-hT-6xY" secondAttribute="bottom" constant="15" id="h6m-4O-TeD"/>
+                            <constraint firstItem="8EG-vO-nzf" firstAttribute="trailing" secondItem="Wwe-cg-wq7" secondAttribute="trailing" id="hjQ-xG-QkD"/>
                             <constraint firstItem="IIx-N7-tID" firstAttribute="leading" secondItem="rKD-RH-Sbr" secondAttribute="leading" constant="20" id="nHm-Wl-M8D"/>
                             <constraint firstItem="8EG-vO-nzf" firstAttribute="leading" secondItem="IIx-N7-tID" secondAttribute="trailing" constant="10" id="otP-3N-Ers"/>
                             <constraint firstItem="Wwe-cg-wq7" firstAttribute="top" secondItem="8EG-vO-nzf" secondAttribute="top" id="rMj-6a-lGf"/>

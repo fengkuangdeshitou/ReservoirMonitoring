@@ -18,6 +18,7 @@
 #import "UIView+Extension.h"
 #import "BleManager.h"
 #import "Request.h"
+#import "MJExtension.h"
 @import Masonry;
 
 

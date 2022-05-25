@@ -14,6 +14,7 @@
 #import "HelpViewController.h"
 #import "WarningViewController.h"
 #import "DebugViewController.h"
+#import "UserModel.h"
 
 @interface SetViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -21,15 +22,22 @@
 @property(nonatomic,weak)IBOutlet UIButton * loginout;
 @property(nonatomic,strong)NSArray * dataArray;
 @property(nonatomic,strong)NSArray * iconArray;
+@property(nonatomic,strong)UserModel * model;
 
 @end
 
 @implementation SetViewController
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self requestUserInfo];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setLeftBatButtonItemWithImage:[UIImage imageNamed:@"logo"] sel:nil];
+    self.loginout.hidden = true;
     self.dataArray = @[@"User Info".localized,@"Network".localized,@"Update".localized,@"Help".localized,@"Fault&Alarm".localized,@"Debug".localized];
     self.iconArray = @[@"icon_information",@"icon_list",@"icon_update",@"icon_help",@"icon_warning",@"icon_test"];
     [self.loginout setTitle:@"Log Out".localized forState:UIControlStateNormal];
@@ -39,7 +47,15 @@
 }
 
 - (void)requestUserInfo{
-//    Request.shareInstance getUrl:<#(nonnull NSString *)#> params:<#(nonnull NSDictionary *)#> progress:<#^(float progress)progress#> success:<#^(NSDictionary * _Nonnull result)success#> failure:<#^(NSString * _Nonnull errorMsg)failure#>
+    [Request.shareInstance getUrl:UserInfo params:@{} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        self.loginout.hidden = false;
+        self.model = [UserModel mj_objectWithKeyValues:result[@"data"]];
+        [self.tableView reloadData];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (IBAction)logoutAtion:(id)sender{
@@ -49,12 +65,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         SetInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SetInfoTableViewCell class]) forIndexPath:indexPath];
+        cell.model = self.model;
         return cell;
     }else{
         SetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SetTableViewCell class]) forIndexPath:indexPath];
         cell.icon.image = [UIImage imageNamed:self.iconArray[indexPath.row]];
         cell.titleLabel.text = self.dataArray[indexPath.row];
-        cell.line.hidden = indexPath.row == self.dataArray.count-1;
+        cell.line.hidden = self.model.userType.intValue == 1 ? indexPath.row == self.dataArray.count-1 : 3;
         return cell;
     }
 }
@@ -96,11 +113,11 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return self.model == nil ? 0 : 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return section == 0 ? 1 : self.dataArray.count;
+    return section == 0 ? 1 : self.model.userType.intValue == 2 ? 4 : self.dataArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

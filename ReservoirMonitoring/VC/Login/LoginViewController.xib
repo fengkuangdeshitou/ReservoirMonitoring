@@ -90,7 +90,7 @@
                             <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ag2-6C-XME">
-                            <rect key="frame" x="0.0" y="63" width="310" height="0.5"/>
+                            <rect key="frame" x="0.0" y="63" width="349" height="0.5"/>
                             <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="0.5" id="1nV-v7-7Pu"/>
@@ -103,7 +103,7 @@
                         <constraint firstItem="g8D-BI-NYL" firstAttribute="leading" secondItem="YNB-hj-yXK" secondAttribute="leading" id="GJ8-aC-UOE"/>
                         <constraint firstAttribute="trailing" secondItem="g8D-BI-NYL" secondAttribute="trailing" id="I5T-zD-DKR"/>
                         <constraint firstItem="g8D-BI-NYL" firstAttribute="top" secondItem="ZhU-Tc-Otw" secondAttribute="bottom" constant="10" id="LRO-v4-e8w"/>
-                        <constraint firstAttribute="trailing" secondItem="Ag2-6C-XME" secondAttribute="trailing" id="Mtf-9z-K24"/>
+                        <constraint firstAttribute="trailing" secondItem="Ag2-6C-XME" secondAttribute="trailing" constant="-39" id="Mtf-9z-K24"/>
                         <constraint firstItem="ZhU-Tc-Otw" firstAttribute="leading" secondItem="YNB-hj-yXK" secondAttribute="leading" id="cc1-jD-c7c"/>
                         <constraint firstItem="ZhU-Tc-Otw" firstAttribute="top" secondItem="YNB-hj-yXK" secondAttribute="top" id="igl-Df-CU2"/>
                         <constraint firstItem="Ag2-6C-XME" firstAttribute="top" secondItem="g8D-BI-NYL" secondAttribute="bottom" constant="15" id="obp-6p-MdH"/>

@@ -58,7 +58,7 @@
 }
 
 - (IBAction)statusChange:(UIButton *)sender{
-    sender.selected = !sender.selected;
+    self.statusBtn.selected = !self.statusBtn.selected;
 }
 
 - (IBAction)registration:(id)sender{

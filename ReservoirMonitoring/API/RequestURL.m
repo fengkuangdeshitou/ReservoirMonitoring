@@ -21,4 +21,10 @@ NSString * const CommonRegister = @"/open/common/register";
 
 NSString * const Login = @"/open/common/login";
 
+NSString * const ResetPwd = @"/open/common/resetPwd";
+
+NSString * const UserInfo = @"/user/user/base";
+
+
+
 @end
