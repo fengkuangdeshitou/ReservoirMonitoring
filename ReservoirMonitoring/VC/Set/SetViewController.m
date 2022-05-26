@@ -71,7 +71,7 @@
         SetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SetTableViewCell class]) forIndexPath:indexPath];
         cell.icon.image = [UIImage imageNamed:self.iconArray[indexPath.row]];
         cell.titleLabel.text = self.dataArray[indexPath.row];
-        cell.line.hidden = self.model.userType.intValue == 1 ? indexPath.row == self.dataArray.count-1 : 3;
+        cell.line.hidden = self.model.userType.intValue == 1 ? indexPath.row == self.dataArray.count-1 : indexPath.row == 3;
         return cell;
     }
 }
@@ -80,6 +80,7 @@
     if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             InfoViewController * info = [[InfoViewController alloc] init];
+            info.model = self.model;
             info.hidesBottomBarWhenPushed = true;
             info.title = self.dataArray[indexPath.row];
             [self.navigationController pushViewController:info animated:true];

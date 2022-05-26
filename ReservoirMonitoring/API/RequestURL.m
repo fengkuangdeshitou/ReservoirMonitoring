@@ -25,6 +25,11 @@ NSString * const ResetPwd = @"/open/common/resetPwd";
 
 NSString * const UserInfo = @"/user/user/base";
 
+NSString * const EditUserInfo = @"/user/user/editUserInfo";
 
+NSString * const UploadImg = @"/open/common/uploadImg/123";
 
+NSString * const HelpList = @"/help/helpList";
+
+NSString * const HelpDetail = @"/help/helpDetail";
 @end

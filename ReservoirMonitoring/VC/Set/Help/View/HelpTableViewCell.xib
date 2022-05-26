@@ -70,7 +70,9 @@
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="content" destination="XQp-uT-beW" id="AHE-6g-qJd"/>
                 <outlet property="line" destination="W17-a8-HZW" id="Slm-78-GaT"/>
+                <outlet property="titleLabel" destination="Fbd-2d-Xvf" id="drD-CN-8wb"/>
             </connections>
             <point key="canvasLocation" x="147.10144927536234" y="114.17410714285714"/>
         </tableViewCell>

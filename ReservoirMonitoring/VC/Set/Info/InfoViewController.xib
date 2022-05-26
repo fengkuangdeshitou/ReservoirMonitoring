@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InfoViewController">
             <connections>
+                <outlet property="photoBtn" destination="jum-6C-UhO" id="OdO-gc-gT3"/>
                 <outlet property="save" destination="tfI-XM-6sR" id="dSP-ZJ-OaQ"/>
                 <outlet property="tableView" destination="fGc-mW-4Pj" id="90b-vm-stO"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -36,6 +37,9 @@
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="info"/>
+                                <connections>
+                                    <action selector="selectPhoto:" destination="-1" eventType="touchUpInside" id="gEz-mr-thH"/>
+                                </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-camera" translatesAutoresizingMaskIntoConstraints="NO" id="ZLp-Fi-TQD">
                                 <rect key="frame" x="225" y="108" width="30" height="26"/>
@@ -63,6 +67,9 @@
                                 <state key="normal" title="Save">
                                     <color key="titleColor" red="0.54901960780000003" green="0.87450980389999999" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="updateInfo:" destination="-1" eventType="touchUpInside" id="oqS-jV-1Gb"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xyz-YC-68F"/>

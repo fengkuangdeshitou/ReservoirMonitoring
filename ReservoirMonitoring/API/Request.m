@@ -93,5 +93,48 @@ static Request * _request = nil;
     }];
 }
 
+- (void)putUrl:(NSString *)url
+         params:(NSDictionary *)params
+        success:(RequestSuccessBlock)success
+       failure:(RequestFailureBlock)failure{
+    [self.manager PUT:[Host stringByAppendingString:url] parameters:params headers:self.headers success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSString * code = json[@"status"];
+        NSLog(@"url=%@,result=%@",url,json);
+        if (code.intValue == 200) {
+            success(json);
+        }else{
+            failure(json[@"message"]);
+            [RMHelper showToast:json[@"message"] toView:RMHelper.getCurrentVC.view];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"err=%@",error);
+    }];
+}
+
+- (void)upload:(NSString *)url
+        params:(NSDictionary *)params
+         image:(UIImage *)image
+      progress:(RequestProgressBlock)progress
+       success:(RequestSuccessBlock)success
+       failure:(RequestFailureBlock)failure{
+    [self.manager POST:[Host stringByAppendingString:url] parameters:params headers:self.headers constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [formData appendPartWithFileData:UIImageJPEGRepresentation(image, 0.4) name:@"file" fileName:@"1.jpg" mimeType:@"image/jpg/png"];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSString * code = json[@"status"];
+        NSLog(@"url=%@,result=%@",url,json);
+        if (code.intValue == 200) {
+            success(json);
+        }else{
+            failure(json[@"message"]);
+            [RMHelper showToast:json[@"message"] toView:RMHelper.getCurrentVC.view];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"err=%@",error);
+    }];
+}
 
 @end

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0F0511B3283E4AF8007E7680 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0511B2283E4AF8007E7680 /* UserModel.m */; };
+		0F0511BC283F87D4007E7680 /* HelpDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0511BA283F87D4007E7680 /* HelpDetailViewController.m */; };
+		0F0511BD283F87D4007E7680 /* HelpDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F0511BB283F87D4007E7680 /* HelpDetailViewController.xib */; };
 		0F3EBC0E282E8A5E009CDBED /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3EBC0C282E8A5E009CDBED /* GridViewController.m */; };
 		0F3EBC0F282E8A5E009CDBED /* GridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3EBC0D282E8A5E009CDBED /* GridViewController.xib */; };
 		0F3EBC14282E8B05009CDBED /* InverterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3EBC12282E8B05009CDBED /* InverterViewController.m */; };
@@ -178,6 +180,9 @@
 /* Begin PBXFileReference section */
 		0F0511B1283E4AF8007E7680 /* UserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		0F0511B2283E4AF8007E7680 /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
+		0F0511B9283F87D4007E7680 /* HelpDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpDetailViewController.h; sourceTree = "<group>"; };
+		0F0511BA283F87D4007E7680 /* HelpDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpDetailViewController.m; sourceTree = "<group>"; };
+		0F0511BB283F87D4007E7680 /* HelpDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HelpDetailViewController.xib; sourceTree = "<group>"; };
 		0F3EBC0B282E8A5E009CDBED /* GridViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridViewController.h; sourceTree = "<group>"; };
 		0F3EBC0C282E8A5E009CDBED /* GridViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GridViewController.m; sourceTree = "<group>"; };
 		0F3EBC0D282E8A5E009CDBED /* GridViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GridViewController.xib; sourceTree = "<group>"; };
@@ -746,6 +751,9 @@
 				BD8FDA43280EEB4A000036DD /* HelpViewController.h */,
 				BD8FDA44280EEB4A000036DD /* HelpViewController.m */,
 				BD8FDA45280EEB4A000036DD /* HelpViewController.xib */,
+				0F0511B9283F87D4007E7680 /* HelpDetailViewController.h */,
+				0F0511BA283F87D4007E7680 /* HelpDetailViewController.m */,
+				0F0511BB283F87D4007E7680 /* HelpDetailViewController.xib */,
 				BD8FDA48280EEBDC000036DD /* View */,
 			);
 			path = Help;
@@ -1258,6 +1266,7 @@
 				BD2DEF2B28044A74004E8D7D /* Assets.xcassets in Resources */,
 				BD2DEF2928044A6E004E8D7D /* Main.storyboard in Resources */,
 				BD90736C280D535700044013 /* InfoViewController.xib in Resources */,
+				0F0511BD283F87D4007E7680 /* HelpDetailViewController.xib in Resources */,
 				BDFA3A8E28256154004A7E8C /* Localizable.strings in Resources */,
 				BDE88A242805C3F800081114 /* RegisterViewController.xib in Resources */,
 				BDE88A53280A7C0300081114 /* DeviceSwitchTableViewCell.xib in Resources */,
@@ -1456,6 +1465,7 @@
 				BDE88A1828047B2600081114 /* LoginViewController.m in Sources */,
 				BDFA3AC5282F89F0004A7E8C /* SelectItemAlertView.m in Sources */,
 				BD8FDA7D280EFDDA000036DD /* ScanView.m in Sources */,
+				0F0511BC283F87D4007E7680 /* HelpDetailViewController.m in Sources */,
 				BDE88A3C2805DA0700081114 /* UITextField+PlaceholderColor.m in Sources */,
 				0FE713F4283C830400B0733A /* Request.m in Sources */,
 				0F69682E2833B28A00F22E47 /* WeatherInfoTableViewCell.m in Sources */,

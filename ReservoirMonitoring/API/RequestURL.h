@@ -23,9 +23,13 @@ extern NSString * const ResetPwd;
 
 extern NSString * const UserInfo;
 
+extern NSString * const EditUserInfo;
 
+extern NSString * const UploadImg;
 
+extern NSString * const HelpList;
 
+extern NSString * const HelpDetail;
 
 
 @end

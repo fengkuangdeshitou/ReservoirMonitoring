@@ -30,6 +30,17 @@ typedef void(^RequestFailureBlock)(NSString *errorMsg);
         success:(RequestSuccessBlock)success
         failure:(RequestFailureBlock)failure;
 
+- (void)putUrl:(NSString *)url
+         params:(NSDictionary *)params
+        success:(RequestSuccessBlock)success
+        failure:(RequestFailureBlock)failure;
+
+- (void)upload:(NSString *)url
+         params:(NSDictionary *)params
+         image:(UIImage *)image
+      progress:(RequestProgressBlock)progress
+        success:(RequestSuccessBlock)success
+        failure:(RequestFailureBlock)failure;
 @end
 
 NS_ASSUME_NONNULL_END

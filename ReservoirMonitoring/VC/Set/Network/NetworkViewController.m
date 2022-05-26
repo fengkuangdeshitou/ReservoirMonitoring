@@ -10,6 +10,7 @@
 #import "WifiViewController.h"
 #import "BleManager.h"
 #import "PeripheralModel.h"
+#import "AddDeviceViewController.h"
 
 @interface NetworkViewController ()<UITableViewDelegate,UITableViewDataSource,BleManagerDelegate>
 
@@ -27,13 +28,20 @@
     // Do any additional setup after loading the view from its nib.
     
     self.dataArray = [[NSMutableArray alloc] init];
-    
+    UIBarButtonItem * add = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDevice)];
+    self.navigationItem.rightBarButtonItem = add;
     self.tableView.rowHeight = 80;
     [self.tableView registerNib:[UINib  nibWithNibName:NSStringFromClass([NetworkTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([NetworkTableViewCell class])];
     self.manager = BleManager.shareInstance;
     self.manager.delegate = self;
     [self.manager startScanning];
 //    self.tableView.hidden = true;
+}
+
+- (void)addDevice{
+    AddDeviceViewController * add = [[AddDeviceViewController alloc] init];
+    add.title = @"Add Device".localized;
+    [self.navigationController pushViewController:add animated:true];
 }
 
 //- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

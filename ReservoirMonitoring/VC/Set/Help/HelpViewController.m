@@ -7,10 +7,12 @@
 
 #import "HelpViewController.h"
 #import "HelpTableViewCell.h"
+#import "HelpDetailViewController.h"
 
-@interface HelpViewController ()
+@interface HelpViewController ()<UITableViewDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
+@property(nonatomic,strong) NSArray * dataArray;
 
 @end
 
@@ -19,17 +21,39 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self getHelpData];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([HelpTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([HelpTableViewCell class])];
+}
+
+- (void)getHelpData{
+    [Request.shareInstance getUrl:HelpList params:@{} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        self.dataArray = result[@"data"];
+        [self.tableView reloadData];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HelpTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HelpTableViewCell class]) forIndexPath:indexPath];
-    cell.line.hidden = indexPath.row == 4;
+    cell.line.hidden = indexPath.row == self.dataArray.count-1;
+    NSDictionary * item = self.dataArray[indexPath.row];
+    cell.titleLabel.text = item[@"title"];
+    cell.content.text = item[@"contentZh"];
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary * item = self.dataArray[indexPath.row];
+    HelpDetailViewController * detail = [[HelpDetailViewController alloc] init];
+    detail.helpId = [NSString stringWithFormat:@"%@",item[@"id"]];
+    [self.navigationController pushViewController:detail animated:true];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return self.dataArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
