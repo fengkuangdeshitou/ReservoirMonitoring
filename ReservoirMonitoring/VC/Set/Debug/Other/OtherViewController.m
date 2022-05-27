@@ -18,10 +18,29 @@
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * submit;
 @property(nonatomic,strong)NSMutableArray * dataArray;
+@property(nonatomic,strong)BRPickerStyle * style;
 
 @end
 
 @implementation OtherViewController
+
+- (BRPickerStyle *)style{
+    if (!_style) {
+        _style = [[BRPickerStyle alloc] init];
+        _style.alertViewColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
+        _style.maskColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
+        _style.pickerColor = [UIColor colorWithHexString:COLOR_BACK_COLOR];
+        _style.doneTextColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+        _style.cancelTextColor = [UIColor colorWithHexString:@"#999999"];
+        _style.titleBarColor = [UIColor colorWithHexString:COLOR_BACK_COLOR];
+        _style.selectRowColor = UIColor.clearColor;
+        _style.pickerTextColor = [UIColor colorWithHexString:@"#F6F6F6"];
+        _style.titleLineColor = [UIColor colorWithHexString:@"#333333"];
+        _style.doneBtnTitle = @"OK".localized;
+        _style.cancelBtnTitle = @"Cancel".localized;
+    }
+    return _style;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -79,12 +98,16 @@
             [tableView reloadData];
         }];
     }else if (indexPath.row == 1) {
-        [BRDatePickerView showDatePickerWithMode:BRDatePickerModeYMDHMS title:@"" selectValue:@"" minDate:[NSDate br_setYear:2012] maxDate:[NSDate br_setYear:2032] isAutoSelect:false resultBlock:^(NSDate * _Nullable selectDate, NSString * _Nullable selectValue) {
+        BRDatePickerView * picker = [[BRDatePickerView alloc] initWithPickerMode:BRDatePickerModeYMDHMS];
+        picker.showUnitType = BRShowUnitTypeNone;
+        picker.pickerStyle = self.style;
+        picker.resultBlock = ^(NSDate * _Nullable selectDate, NSString * _Nullable selectValue) {
             NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[indexPath.row]];
             dict[@"placeholder"] = selectValue;
             self.dataArray[indexPath.row] = dict;
             [tableView reloadData];
-        }];
+        };
+        [picker show];
     }
 }
 

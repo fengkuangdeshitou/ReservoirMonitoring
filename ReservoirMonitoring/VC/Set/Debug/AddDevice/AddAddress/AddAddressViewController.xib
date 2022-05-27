@@ -219,7 +219,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iKJ-O1-6aM">
-                            <rect key="frame" x="108" y="0.0" width="261" height="18.5"/>
+                            <rect key="frame" x="108" y="0.0" width="261" height="62"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
@@ -227,6 +227,7 @@
                     <color key="backgroundColor" red="0.10588235294117647" green="0.10588235294117647" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="iKJ-O1-6aM" firstAttribute="top" secondItem="j75-Hw-TEb" secondAttribute="top" id="1cH-mf-nnL"/>
+                        <constraint firstAttribute="bottom" secondItem="iKJ-O1-6aM" secondAttribute="bottom" id="7Iq-Yb-war"/>
                         <constraint firstAttribute="height" constant="62" id="B3T-GQ-rOC"/>
                         <constraint firstItem="AcT-Yj-9or" firstAttribute="leading" secondItem="1ej-M7-o28" secondAttribute="trailing" constant="2" id="EnC-qF-Aio"/>
                         <constraint firstAttribute="trailing" secondItem="iKJ-O1-6aM" secondAttribute="trailing" constant="15" id="chX-Ov-kXh"/>

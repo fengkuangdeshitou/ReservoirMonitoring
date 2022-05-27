@@ -539,22 +539,22 @@ static inline CABasicAnimation *failAnimal(){
 
 //成功的操作
 - (void)successShow{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         __weak WMZCodeView *codeView = self;
         NSString *tip = @"";
         if (self.seconds>0) {
             tip = [NSString stringWithFormat:@"耗时%.1fs",self.seconds];
         }
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"验证成功" message:tip preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"验证成功" message:tip preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if (codeView.block) {
                 codeView.block(YES);
             }
             [codeView refreshAction];
-        }];
-        [alert addAction:action];
-        [[self getCurrentVC] presentViewController:alert animated:YES completion:nil];
-    });
+//        }];
+//        [alert addAction:action];
+//        [[self getCurrentVC] presentViewController:alert animated:YES completion:nil];
+//    });
    
 }
 

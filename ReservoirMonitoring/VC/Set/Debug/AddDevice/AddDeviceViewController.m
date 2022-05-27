@@ -10,6 +10,7 @@
 #import "AddDeviceSNTableViewCell.h"
 #import "AddDeviceActionTableViewCell.h"
 #import "AddAddressViewController.h"
+#import "ScanViewController.h"
 
 @interface AddDeviceViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -57,6 +58,7 @@
                 cell.scanBtn.hidden = true;
                 [cell.deleteBtm setImage:[UIImage imageNamed:@"ic_set_scan"] forState:UIControlStateNormal];
                 cell.textfield.placeholder = @"Please input inverte SN".localized;
+                [cell.deleteBtm addTarget:self action:@selector(scanAction) forControlEvents:UIControlEventTouchUpInside];
             }else{
                 cell.scanBtn.hidden = false;
                 cell.textfield.placeholder = @"Please inpute battery SN".localized;
@@ -64,6 +66,7 @@
                 [cell.deleteBtm setImage:[UIImage imageNamed:@"ic_delete"] forState:UIControlStateNormal];
                 cell.deleteBtm.tag = indexPath.row+10;
                 [cell.deleteBtm addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
+                [cell.scanBtn addTarget:self action:@selector(scanAction) forControlEvents:UIControlEventTouchUpInside];
             }
             return cell;
         }
@@ -78,6 +81,11 @@
 - (void)addDeviceAction{
     [self.dataArray addObject:@""];
     [self.tableView reloadData];
+}
+
+- (void)scanAction{
+    ScanViewController * scan = [[ScanViewController alloc] init];
+    [self.navigationController pushViewController:scan animated:true];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
