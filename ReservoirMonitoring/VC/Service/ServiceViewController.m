@@ -10,6 +10,7 @@
 #import "SelecteTableViewCell.h"
 #import "SelectItemAlertView.h"
 #import "GlobelDescAlertView.h"
+#import "UserModel.h"
 @import AFNetworking;
 
 @interface ServiceViewController ()<UITableViewDelegate>
@@ -18,38 +19,86 @@
 @property(nonatomic,strong)NSMutableArray * dataArray;
 @property(nonatomic,weak)IBOutlet UIButton * submit;
 @property(nonatomic,weak)IBOutlet UILabel * time;
+@property(nonatomic,strong) NSTimer * timer;
+@property(nonatomic,assign) NSInteger timeCount;
+@property(nonatomic,strong)UserModel * model;
 
 @end
 
 @implementation ServiceViewController
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self requestUserInfo];
+}
+
+- (void)requestUserInfo{
+    [Request.shareInstance getUrl:UserInfo params:@{} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        self.model = [UserModel mj_objectWithKeyValues:result[@"data"]];
+        [self loadTimer];
+        self.dataArray = [[NSMutableArray alloc] initWithArray:@[
+            @{@"title":@"Contact name".localized,@"placeholder":self.model.nickName},
+            @{@"title":@"Email".localized,@"placeholder":self.model.email},
+            @{@"title":@"Phone".localized,@"placeholder":self.model.phonenumber},
+            @{@"title":@"SN",@"placeholder":@"".localized},
+            @{@"title":@"Case Reason",@"placeholder":@"None".localized},
+            @{@"title":@"Description".localized,@"placeholder":@"".localized}
+            ]];
+        [self.tableView reloadData];
+        self.submit.hidden = false;
+        self.time.hidden = false;
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setLeftBatButtonItemWithImage:[UIImage imageNamed:@"logo"] sel:nil];
     self.time.text = @"Can't submit twice in 30 minutes.".localized;
-    [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
     [self.submit showBorderWithRadius:25];
-    self.dataArray = [[NSMutableArray alloc] initWithArray:@[
-        @{@"title":@"Contact name".localized,@"placeholder":@"".localized},
-        @{@"title":@"Email".localized,@"placeholder":@"".localized},
-        @{@"title":@"Phone".localized,@"placeholder":@"".localized},
-        @{@"title":@"SN",@"placeholder":@"".localized},
-        @{@"title":@"Case Reason",@"placeholder":@"None".localized},
-        @{@"title":@"Description".localized,@"placeholder":@"".localized}
-        ]];
+    self.submit.hidden = true;
+    self.time.hidden = true;
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
 
+}
+
+- (void)loadTimer{
+    if ([NSUserDefaults.standardUserDefaults objectForKey:self.model.email]) {
+        NSString * string = [NSUserDefaults.standardUserDefaults objectForKey:self.model.email];
+        self.timeCount = 30*60-([[self getCurrentTimeString] integerValue] - [string integerValue]);
+        NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"mm:ss"];
+        [self.submit setTitle:[formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.timeCount]] forState:UIControlStateNormal];
+        if (!_timer) {
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:true block:^(NSTimer * _Nonnull timer) {
+                self.timeCount --;
+                if (self.timeCount == 0) {
+                    self.submit.userInteractionEnabled = true;
+                    [NSUserDefaults.standardUserDefaults removeObjectForKey:self.model.email];
+                    [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
+                }else{
+                    self.submit.userInteractionEnabled = false;
+                    [self.submit setTitle:[formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.timeCount]] forState:UIControlStateNormal];
+                }
+            }];
+        }
+    }else{
+        [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
+    }
 }
 
 - (IBAction)submitAction:(id)sender{
     NSDictionary * params = @{@"encoding":@"UTF-8",
                               @"orgid":@"00D8c000003UHSM",
                               @"retURL":@"www.moonflow.com",
-                              @"name":@"1",
-                              @"email":@"409744573@qq.com",
-                              @"phone":@"18700850373",
+                              @"name":self.model.nickName,
+                              @"email":self.model.email,
+                              @"phone":self.model.phonenumber,
                               @"subject":@"abc",
                               @"reason":@"abc",
                               @"description":@"a",
@@ -64,10 +113,22 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSString * data = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSLog(@"obj=%@",data);
+        
+        NSString * string = [self getCurrentTimeString];
+        NSLog(@"strint=%@",string);
+        [NSUserDefaults.standardUserDefaults setValue:string forKey:self.model.email];
+        [self loadTimer];
         [GlobelDescAlertView showAlertViewWithTitle:@"Ticket received".localized desc:@"The manufacturer will contact you via Email or phone call within the next hour regarding the case, please pay attention.".localized];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 
     }];
+}
+
+- (NSString *)getCurrentTimeString{
+    NSDate * date = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval time = [date timeIntervalSince1970];
+    NSString * string = [NSString stringWithFormat:@"%.0f",time];
+    return string;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -79,8 +140,13 @@
     }else{
         InputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
-        cell.textfield.placeholder = self.dataArray[indexPath.row][@"placeholder"];
-        cell.textfield.text = @"12122";
+        if (indexPath.row <= 2) {
+            cell.textfield.text = self.dataArray[indexPath.row][@"placeholder"];
+            cell.textfield.userInteractionEnabled = false;
+        }else{
+            cell.textfield.placeholder = self.dataArray[indexPath.row][@"placeholder"];
+            cell.textfield.userInteractionEnabled = true;
+        }
         return cell;
     }
 }

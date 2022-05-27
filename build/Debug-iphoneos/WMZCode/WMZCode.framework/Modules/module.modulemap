@@ -1,6 +1,0 @@
-framework module WMZCode {
-  umbrella header "WMZCode-umbrella.h"
-
-  export *
-  module * { export * }
-}
