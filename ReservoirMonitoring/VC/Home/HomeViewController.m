@@ -9,11 +9,14 @@
 #import "HomeTableViewCell.h"
 #import "DeviceSwitchView.h"
 #import "SwitchModeViewController.h"
+#import "DevideModel.h"
 
-@interface HomeViewController ()<DeviceSwitchViewDelegate>
+@interface HomeViewController ()<DeviceSwitchViewDelegate,BleManagerDelegate>
 
 @property(nonatomic,weak)IBOutlet UIButton * addEquipmentBtn;
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
+@property(nonatomic,strong)DevideModel * model;
+@property(nonatomic,strong)BleManager * manager;
 
 @end
 
@@ -23,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
                 
-
+    self.model = [[DevideModel alloc] init];
     [self.addEquipmentBtn showBorderWithRadius:25];
     [self setLeftBatButtonItemWithImage:[UIImage imageNamed:@"logo"] sel:nil];
     [self setRightBarButtonItemWithTitlt:@"小明的家" sel:@selector(changeDevice)];
@@ -33,7 +36,79 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [BleManager.shareInstance readWithCMDString:@"511" count:1];
-    
+    [BleManager.shareInstance readWithCMDString:@"510" count:1];
+    [BleManager.shareInstance readWithCMDString:@"515" count:2];
+    [BleManager.shareInstance readWithCMDString:@"51F" count:1];
+    [BleManager.shareInstance readWithCMDString:@"527" count:2];
+    [BleManager.shareInstance readWithCMDString:@"543" count:1];
+    [BleManager.shareInstance readWithCMDString:@"529" count:4];
+    [BleManager.shareInstance readWithCMDString:@"521" count:1];
+    [BleManager.shareInstance readWithCMDString:@"52D" count:2];
+    [BleManager.shareInstance readWithCMDString:@"524" count:1];
+    [BleManager.shareInstance readWithCMDString:@"52F" count:2];
+    [BleManager.shareInstance readWithCMDString:@"541" count:1];
+    [BleManager.shareInstance readWithCMDString:@"533" count:2];
+    [BleManager.shareInstance readWithCMDString:@"542" count:1];
+    [BleManager.shareInstance readWithCMDString:@"531" count:2];
+
+}
+
+- (void)bluetoothDidReceivedCMD:(NSString *)cmd array:(NSArray *)array{
+    if ([cmd isEqualToString:@"511"]) {
+        self.model.currentMode = array.firstObject;
+    }
+    if ([cmd isEqualToString:@"510"]) {
+        self.model.deviceStatus = array.firstObject;
+    }
+    if ([cmd isEqualToString:@"515"]) {
+        self.model.soc = array.firstObject;
+        self.model.socValue = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:@[array.lastObject]]/100];
+    }
+    if ([cmd isEqualToString:@"51F"]) {
+        self.model.gridDirection = array.firstObject;
+    }
+    if ([cmd isEqualToString:@"51F"]) {
+        self.model.gridValue = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+    }
+    if ([cmd isEqualToString:@"543"]) {
+        self.model.solarDirection = array.firstObject;
+    }
+    if ([cmd isEqualToString:@"529"]) {
+        self.model.solarValue = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+    }
+    if ([cmd isEqualToString:@"521"]) {
+        self.model.generatorDirection = array.firstObject;
+    }
+    if ([cmd isEqualToString:@"52D"]) {
+        self.model.generatorValue = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+    }
+    if ([cmd isEqualToString:@"524"]) {
+        self.model.EVDirection = array.firstObject;
+    }
+    if ([cmd isEqualToString:@"52F"]) {
+        self.model.EVValue = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+    }
+    if ([cmd isEqualToString:@"541"]) {
+        self.model.otherLoadsDirection = array.firstObject;
+    }
+    if ([cmd isEqualToString:@"533"]) {
+        self.model.otherLoadsValue = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+    }
+    if ([cmd isEqualToString:@"542"]) {
+        self.model.backupLoadsDirection = array.firstObject;
+    }
+    if ([cmd isEqualToString:@"531"]) {
+        self.model.backupLoadsValue = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+    }
+    [self.tableView reloadData];
+}
+
+- (CGFloat)cumulativeWithArray:(NSArray *)array{
+    __block CGFloat value = 0;
+    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        value +=  [obj floatValue];
+    }];
+    return value;
 }
 
 - (void)changeDevice{
@@ -49,6 +124,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomeTableViewCell class]) forIndexPath:indexPath];
+    cell.model = self.model;
     [cell.changeDeviceButton addTarget:self action:@selector(changeCurrentDeviceStatusAction) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }

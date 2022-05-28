@@ -20,6 +20,7 @@
 		0F3EBC21282E8B94009CDBED /* HybridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3EBC1F282E8B94009CDBED /* HybridViewController.xib */; };
 		0F3EBC26282E8BC9009CDBED /* OtherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3EBC24282E8BC9009CDBED /* OtherViewController.m */; };
 		0F3EBC27282E8BC9009CDBED /* OtherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3EBC25282E8BC9009CDBED /* OtherViewController.xib */; };
+		0F56766A28422744008271E0 /* DevideModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F56766928422744008271E0 /* DevideModel.m */; };
 		0F6968232833AF2600F22E47 /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6968212833AF2600F22E47 /* WeatherViewController.m */; };
 		0F6968242833AF2600F22E47 /* WeatherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F6968222833AF2600F22E47 /* WeatherViewController.xib */; };
 		0F6968292833B0F100F22E47 /* WeatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6968272833B0F100F22E47 /* WeatherTableViewCell.m */; };
@@ -198,6 +199,8 @@
 		0F3EBC23282E8BC9009CDBED /* OtherViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OtherViewController.h; sourceTree = "<group>"; };
 		0F3EBC24282E8BC9009CDBED /* OtherViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OtherViewController.m; sourceTree = "<group>"; };
 		0F3EBC25282E8BC9009CDBED /* OtherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OtherViewController.xib; sourceTree = "<group>"; };
+		0F56766828422744008271E0 /* DevideModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevideModel.h; sourceTree = "<group>"; };
+		0F56766928422744008271E0 /* DevideModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevideModel.m; sourceTree = "<group>"; };
 		0F582A4DCB34D84D2C390CBD /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F6968202833AF2600F22E47 /* WeatherViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherViewController.h; sourceTree = "<group>"; };
 		0F6968212833AF2600F22E47 /* WeatherViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherViewController.m; sourceTree = "<group>"; };
@@ -508,6 +511,15 @@
 			path = Grid;
 			sourceTree = "<group>";
 		};
+		0F5676672842272B008271E0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0F56766828422744008271E0 /* DevideModel.h */,
+				0F56766928422744008271E0 /* DevideModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		0F69681F2833AF0600F22E47 /* Weather */ = {
 			isa = PBXGroup;
 			children = (
@@ -738,6 +750,7 @@
 				BD2DEF6228044C1F004E8D7D /* HomeViewController.h */,
 				BD2DEF6328044C1F004E8D7D /* HomeViewController.m */,
 				BD2DEF6428044C1F004E8D7D /* HomeViewController.xib */,
+				0F5676672842272B008271E0 /* Model */,
 				0F69681F2833AF0600F22E47 /* Weather */,
 				BDE88A54280AB77500081114 /* SwitchMode */,
 				BDE88A3D2807098C00081114 /* View */,
@@ -1513,6 +1526,7 @@
 				BDE88A68280AC7C600081114 /* PeakTimeTableViewCell.m in Sources */,
 				BDFA3AC1282F878F004A7E8C /* SelecteTableViewCell.m in Sources */,
 				BD907360280D4B1A00044013 /* SetTableViewCell.m in Sources */,
+				0F56766A28422744008271E0 /* DevideModel.m in Sources */,
 				0F3EBC14282E8B05009CDBED /* InverterViewController.m in Sources */,
 				BDFA3AA028257686004A7E8C /* AddAddressViewController.m in Sources */,
 				BD8FDA6D280EF582000036DD /* AddDeviceViewController.m in Sources */,

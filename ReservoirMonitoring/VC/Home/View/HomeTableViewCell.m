@@ -16,6 +16,7 @@
 @property(nonatomic,weak)IBOutlet UIView * currentModelView;
 @property(nonatomic,strong) HomeProgressView * progressView;
 @property(nonatomic,weak)IBOutlet UILabel * currentMode;
+@property(nonatomic,weak)IBOutlet UILabel * currentModeValue;
 @property(nonatomic,weak)IBOutlet UILabel * family;
 @property(nonatomic,weak)IBOutlet UILabel * status;
 @property(nonatomic,weak)IBOutlet UILabel * statusValue;
@@ -44,7 +45,7 @@
         HomeItemView * item = [[HomeItemView alloc] initWithFrame:CGRectMake(i%3*SCREEN_WIDTH/3, i/3*296, SCREEN_WIDTH/3, 100)];
         item.isFlip = i>2;
         item.titleLabel.text = titleArray[i];
-        item.descLabel.text = @"6 kWh";
+        item.tag = i+10;
         [item.statusButton setImage:[UIImage imageNamed:normal[i]] forState:UIControlStateNormal];
         [item.statusButton setImage:[UIImage imageNamed:highlight[i]] forState:UIControlStateSelected];
         [self.itemContentView addSubview:item];
@@ -76,6 +77,51 @@
     self.progressView = [[HomeProgressView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-63, 134+70, 126, 126)];
     [self.contentView addSubview:self.progressView];
     
+}
+
+- (void)setModel:(DevideModel *)model{
+    _model = model;
+    if (model.currentMode.intValue == 0) {
+        self.currentModeValue.text = @"Self-consumption";
+    }else if(model.currentMode.intValue == 1){
+        self.currentModeValue.text = @"Back up";
+    }else if (model.currentMode.intValue == 2){
+        self.currentModeValue.text = @"Time Of Use";
+    }else{
+        self.currentModeValue.text = @"Offine";
+    }
+    
+    if (model.deviceStatus.intValue == 0) {
+        self.statusValue.text = @"自检";
+    }else if (model.deviceStatus.intValue == 1) {
+        self.statusValue.text = @"故障";
+    }else if (model.deviceStatus.intValue == 2) {
+        self.statusValue.text = @"空闲";
+    }else if (model.deviceStatus.intValue == 3) {
+        self.statusValue.text = @"待机";
+    }else{
+        self.statusValue.text = @"运行";
+    }
+    
+    for (UIView * view in self.itemContentView.subviews) {
+        if ([view isKindOfClass:[HomeItemView class]]) {
+            HomeItemView * itemView = (HomeItemView *)view;
+            if (itemView.tag == 10) {
+                itemView.descLabel.text = model.gridValue;
+            }else if (itemView.tag == 11) {
+                itemView.descLabel.text = model.socValue;
+            }else if (itemView.tag == 12) {
+                itemView.descLabel.text = model.generatorValue;
+            }else if (itemView.tag == 13) {
+                itemView.descLabel.text = model.EVValue;
+            }else if (itemView.tag == 14) {
+                itemView.descLabel.text = model.otherLoadsValue;
+            }else{
+                itemView.descLabel.text = model.backupLoadsValue;
+            }
+        }
+    }
+    self.progressView.titleLabel.text = [NSString stringWithFormat:@"%@ kWh (%@%)",model.socValue,model.soc];
 }
 
 - (IBAction)weatherAction:(id)sender{

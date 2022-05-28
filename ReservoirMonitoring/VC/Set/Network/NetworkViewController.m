@@ -102,10 +102,12 @@
 }
 
 - (void)bluetoothDidDisconnectPeripheral:(CBPeripheral *)peripheral{
-    if (self.model) {
-        self.model.isConnected = false;
-        [self.tableView reloadData];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.model) {
+            self.model.isConnected = false;
+            [self.tableView reloadData];
+        }
+    });
 }
 
 - (void)bluetoothdidDiscoverPeripheral:(CBPeripheral *)peripheral RSSI:(NSNumber *)RSSI{

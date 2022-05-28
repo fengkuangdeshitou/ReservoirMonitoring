@@ -27,7 +27,7 @@
         self.titleLabel.textAlignment = 1;
         self.titleLabel.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
         self.titleLabel.font = [UIFont systemFontOfSize:10];
-        self.titleLabel.text = @"3 kWh (30%)";
+        self.titleLabel.text = @"";
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.mas_equalTo(imageview.mas_centerX);
                 make.top.mas_equalTo(imageview.mas_bottom).offset(8);

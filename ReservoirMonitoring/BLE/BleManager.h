@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 读取蓝牙回调
 /// @param cmd 通讯命令
-- (void)bluetoothDidReceivedCMD:(NSString *)cmd array:(NSString *)array;
+- (void)bluetoothDidReceivedCMD:(NSString *)cmd array:(NSArray *)array;
 
 /// 蓝牙状态
 /// @param central 蓝牙状态
