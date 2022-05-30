@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)showSelectItemAlertViewWithDataArray:(NSArray<NSString *> *)dataArray
                               tableviewFrame:(CGRect)tableviewFrame
-                                  completion:(void (^)(NSString * value))completion;
+                                  completion:(void (^)(NSString * value, NSInteger idx))completion;
 
 @end
 

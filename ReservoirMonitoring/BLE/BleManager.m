@@ -14,6 +14,8 @@
 @property(nonatomic,strong) CBCharacteristic *readCharacteristic;
 @property(nonatomic,strong) CBCharacteristic *writecCharacteristic;
 @property(nonatomic,strong) NSMutableData * blueData;
+@property(nonatomic,copy)void(^finish)(NSArray * array);
+@property(nonatomic,copy)void(^writeFinish)(void);
 
 @end
 
@@ -64,7 +66,9 @@ static BleManager * _manager = nil;
     [self.peripheral writeValue:data forCharacteristic:self.readCharacteristic type:CBCharacteristicWriteWithoutResponse];
 }
 
-- (void)readWithCMDString:(NSString *)string count:(int)count{
+- (void)readWithCMDString:(NSString *)string count:(int)count finish:(void (^)(NSArray * array))finish{
+    self.finish = finish;
+    [NSUserDefaults.standardUserDefaults setValue:string forKey:BLE_CMD];
     long value = [self convertHexToDecimal:string];
     Byte * byte = [self longToByte:value];
     Byte stringByte[2] = {byte[3],byte[2]};
@@ -105,7 +109,8 @@ static BleManager * _manager = nil;
     return decimal;
 }
 
-- (void)writeWithCMDString:(NSString *)string array:(NSArray *)array{
+- (void)writeWithCMDString:(NSString *)string array:(NSArray *)array finish:(nonnull void (^)(void))finish{
+    self.writeFinish = finish;
     long value = [self convertHexToDecimal:string];
     Byte * byte = [self longToByte:value];
     Byte stringByte[2] = {byte[3],byte[2]};
@@ -511,25 +516,46 @@ static unsigned char auchCRCLo[] = {
         NSLog(@"读取蓝牙回复：%@",dict);
         if ([dict objectForKey:@"RawModbus"]) {
             NSString * string = dict[@"RawModbus"];
-            NSString * cmd = [string substringWithRange:NSMakeRange(4, 4)];
-            if ([[cmd substringToIndex:1] isEqualToString:@"0"]) {
-                cmd = [cmd substringFromIndex:1];
+            if (string.length < 4) {
+                return;
             }
-            NSString * countHex = [string substringWithRange:NSMakeRange(12, 2)];
+            NSString * cmd = [NSUserDefaults.standardUserDefaults objectForKey:BLE_CMD];
+            
+            NSString * style = [string substringWithRange:NSMakeRange(2, 2)];
+            if (style.intValue == 3) {
+                NSString * countHex = [string substringWithRange:NSMakeRange(4, 2)];
+                int count = [[self decimalStringFromHexString:countHex] intValue];
+                NSString * countValue = [string substringWithRange:NSMakeRange(6, count*2)];
 
-            int count = [[self decimalStringFromHexString:countHex] intValue];
-            NSString * countValue = [string substringWithRange:NSMakeRange(14, count*2)];
-
-            NSMutableArray * array = [[NSMutableArray alloc] init];
-            for (int i=0; i<countValue.length; i+=4) {
-                NSString * hexString = [countValue substringWithRange:NSMakeRange(i, 4)];
-                [array addObject:[self decimalStringFromHexString:hexString]];
-            }
-            if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidReceivedCMD:array:)]) {
-                [self.delegate bluetoothDidReceivedCMD:cmd array:array];
+                NSMutableArray * array = [[NSMutableArray alloc] init];
+                for (int i=0; i<countValue.length; i+=4) {
+                    int value = 0;
+                    NSString * str = [countValue substringWithRange:NSMakeRange(i, 4)];
+                    for(int j=0;j<str.length;j+=2){
+                        NSString * hexString = [str substringWithRange:NSMakeRange(j, 2)];
+                        value += [[self decimalStringFromHexString:hexString] intValue];
+                    }
+                    [array addObject:[NSString stringWithFormat:@"%d",value]];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidReceivedCMD:array:)]) {
+                        [self.delegate bluetoothDidReceivedCMD:cmd array:array];
+                    }
+                    if (self.finish) {
+                        self.finish(array);
+                    }
+                });
+            }else{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidReceivedCMD:array:)]) {
+                        [self.delegate bluetoothDidReceivedCMD:cmd array:@[]];
+                    }
+                    if (self.finish) {
+                        self.finish(@[]);
+                    }
+                });
             }
         }
-        
         
         /// 失败
 //        {
@@ -743,6 +769,11 @@ static unsigned char auchCRCLo[] = {
         NSLog(@"===写入错误：%@",error);
     }else{
         NSLog(@"===写入成功=%@",characteristic.value);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(self.writeFinish){
+                self.writeFinish();
+            }
+        });
     }
 }
 

@@ -53,7 +53,7 @@
     if (indexPath.row == 0) {
         UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section]];
         CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
-        [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"Generator enabled".localized,@"EV charger enabled".localized,@"None".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-200, frame.origin.y, 200, 50*3) completion:^(NSString * _Nonnull value) {
+        [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"Generator enabled".localized,@"EV charger enabled".localized,@"None".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-200, frame.origin.y, 200, 50*3) completion:^(NSString * _Nonnull value, NSInteger idx) {
             NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[indexPath.row]];
             dict[@"placeholder"] = value;
             self.dataArray[indexPath.row] = dict;
@@ -62,7 +62,7 @@
     }else if (indexPath.row == 3) {
         UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
         CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
-        [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"Operation at maxinum efficiency".localized,@"Lowest noise operation".localized] tableviewFrame:CGRectMake(100, frame.origin.y+50, SCREEN_WIDTH-100, 50*2) completion:^(NSString * _Nonnull value) {
+        [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"Operation at maxinum efficiency".localized,@"Lowest noise operation".localized] tableviewFrame:CGRectMake(100, frame.origin.y+50, SCREEN_WIDTH-100, 50*2) completion:^(NSString * _Nonnull value, NSInteger idx) {
             NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[indexPath.row]];
             dict[@"placeholder"] = value;
             self.dataArray[indexPath.row] = dict;

@@ -19,6 +19,8 @@ NSString * const COLOR_BACK_COLOR = @"#0C0C0C";
 
 NSString * const COLOR_PLACEHOLDER_COLOR = @"#747474";
 
+NSString * const BLE_CMD = @"cmd";
+
 NSString * const TIME_TABLEVIEW_HEIGHT_CHANGE = @"time_tableview_height_change";
 
 NSString * const LOGIN_SUCCESS = @"login_success";

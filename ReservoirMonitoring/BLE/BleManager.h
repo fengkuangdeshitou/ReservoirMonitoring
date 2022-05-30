@@ -68,12 +68,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 读取指令
 /// @param string 开始指令
 /// @param count 读取位数
-- (void)readWithCMDString:(NSString *)string count:(int)count;
+- (void)readWithCMDString:(NSString *)string count:(int)count finish:(void(^)(NSArray * array))finish;
 
 /// 写入多个指令
 /// @param string 开始指令
 /// @param array 值
-- (void)writeWithCMDString:(NSString *)string array:(NSArray *)array;
+- (void)writeWithCMDString:(NSString *)string array:(NSArray *)array finish:(void(^)(void))finish;
 
 /// 写入单个指令
 /// @param string 指令

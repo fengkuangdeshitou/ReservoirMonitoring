@@ -11,13 +11,13 @@
 
 @property(nonatomic,strong) UITableView * tableView;
 @property(nonatomic,strong) NSArray * dataArray;
-@property(nonatomic,copy) void(^completion)(NSString * value);
+@property(nonatomic,copy) void(^completion)(NSString * value, NSInteger idx);
 
 @end
 
 @implementation SelectItemAlertView
 
-+ (void)showSelectItemAlertViewWithDataArray:(NSArray<NSString *> *)dataArray tableviewFrame:(CGRect)tableviewFrame completion:(void (^)(NSString * _Nonnull))completion{
++ (void)showSelectItemAlertViewWithDataArray:(NSArray<NSString *> *)dataArray tableviewFrame:(CGRect)tableviewFrame completion:(void (^)(NSString * _Nonnull, NSInteger idx))completion{
     SelectItemAlertView * alertView = [[SelectItemAlertView alloc] init];
     alertView.frame = UIScreen.mainScreen.bounds;
     alertView.alpha = 0;
@@ -76,7 +76,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if(self.completion){
         [self dismiss];
-        self.completion(self.dataArray[indexPath.row]);
+        self.completion(self.dataArray[indexPath.row],indexPath.row);
     }
 }
 

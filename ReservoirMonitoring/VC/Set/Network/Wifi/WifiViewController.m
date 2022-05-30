@@ -48,7 +48,7 @@
 //        [WifiAlertView showWifiAlertViewWithTitle:@"KLX TEST TWS" completion:^(NSString * _Nonnull value) {
 //
 //        }];
-        [BleManager.shareInstance readWithCMDString:@"620" count:1];
+//        [BleManager.shareInstance readWithCMDString:@"620" count:1];
     }
 }
 
