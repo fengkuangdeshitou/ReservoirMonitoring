@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InstallViewController">
             <connections>
+                <outlet property="back" destination="ecJ-Td-oeD" id="AdD-hQ-hzV"/>
                 <outlet property="collectionView" destination="lsF-6b-Vly" id="rtS-bH-26p"/>
                 <outlet property="config" destination="uAH-fs-gpo" id="1I0-Zh-Cdd"/>
                 <outlet property="next" destination="egv-Lz-YVD" id="4dQ-0r-j2U"/>
@@ -52,7 +53,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="egv-Lz-YVD">
-                    <rect key="frame" x="35" y="250" width="344" height="50"/>
+                    <rect key="frame" x="214.5" y="250" width="184.5" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="sdE-rm-ck9"/>
                     </constraints>
@@ -64,17 +65,34 @@
                         <action selector="nextAction:" destination="-1" eventType="touchUpInside" id="ZMJ-pW-4DD"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ecJ-Td-oeD">
+                    <rect key="frame" x="15" y="250" width="184.5" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="hKZ-A3-0bA"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Next">
+                        <color key="titleColor" red="0.54901960780000003" green="0.87450980389999999" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="backAction:" destination="-1" eventType="touchUpInside" id="Zy0-iP-2vX"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <color key="backgroundColor" red="0.047058823529411764" green="0.047058823529411764" blue="0.047058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="egv-Lz-YVD" firstAttribute="top" secondItem="uAH-fs-gpo" secondAttribute="bottom" constant="50" id="1d7-NN-HM5"/>
-                <constraint firstItem="egv-Lz-YVD" firstAttribute="leading" secondItem="uAH-fs-gpo" secondAttribute="leading" id="5pt-Rm-ZzF"/>
+                <constraint firstItem="egv-Lz-YVD" firstAttribute="bottom" secondItem="ecJ-Td-oeD" secondAttribute="bottom" id="2H4-TO-Mq6"/>
+                <constraint firstItem="egv-Lz-YVD" firstAttribute="leading" secondItem="ecJ-Td-oeD" secondAttribute="trailing" constant="15" id="CNF-kz-Tm1"/>
+                <constraint firstItem="egv-Lz-YVD" firstAttribute="width" secondItem="ecJ-Td-oeD" secondAttribute="width" id="ClF-Sm-PI3"/>
+                <constraint firstItem="egv-Lz-YVD" firstAttribute="top" secondItem="ecJ-Td-oeD" secondAttribute="top" id="Gjg-c9-ZBz"/>
                 <constraint firstItem="lsF-6b-Vly" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="LAf-ME-WZT"/>
                 <constraint firstItem="uAH-fs-gpo" firstAttribute="top" secondItem="lsF-6b-Vly" secondAttribute="bottom" constant="50" id="PMQ-Rq-aby"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="lsF-6b-Vly" secondAttribute="trailing" id="d0L-gz-Vc5"/>
                 <constraint firstItem="uAH-fs-gpo" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="35" id="fA5-S3-eZ1"/>
-                <constraint firstItem="egv-Lz-YVD" firstAttribute="trailing" secondItem="uAH-fs-gpo" secondAttribute="trailing" id="iXr-Ox-dNa"/>
+                <constraint firstItem="ecJ-Td-oeD" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="15" id="gJp-CT-XgK"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="egv-Lz-YVD" secondAttribute="trailing" constant="15" id="iMQ-Cd-Fdr"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="uAH-fs-gpo" secondAttribute="trailing" constant="35" id="kLX-PR-xcg"/>
                 <constraint firstItem="lsF-6b-Vly" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="lJ1-cc-m5T"/>
             </constraints>

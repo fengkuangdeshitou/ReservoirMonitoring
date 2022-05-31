@@ -26,7 +26,8 @@
     
     [self.update showBorderWithRadius:25];
     [self.update setTitle:@"Check for updates".localized forState:UIControlStateNormal];
-    self.version.text = @"Current version:".localized;
+    NSString * version = [NSBundle.mainBundle infoDictionary][@"CFBundleShortVersionString"];
+    self.version.text = [@"Current version:".localized stringByAppendingString:version];
 }
 
 

@@ -27,16 +27,13 @@
         @{@"title":@"PV1 voltage".localized,@"placeholder":@"PV1 voltage".localized},
         @{@"title":@"PV2 voltage".localized,@"placeholder":@"PV2 voltage".localized},
         @{@"title":@"PV3 voltage".localized,@"placeholder":@"PV3 voltage".localized},
-        @{@"title":@"PV4 voltage".localized,@"placeholder":@"PV4 voltage".localized},
-        @{@"title":@"PV inverter/EV status".localized,@"placeholder":@"None".localized},
-        @{@"title":@"PV inverter/EV brand".localized,@"placeholder":@"PV inverter/EV brand".localized},
-        @{@"title":@"PV inverter/EV model".localized,@"placeholder":@"PV inverter/EV model".localized},
+        @{@"title":@"PV4 voltage".localized,@"placeholder":@"PV4 voltage".localized}
         ]];
     [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
     [self.submit showBorderWithRadius:25];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
-    [BleManager.shareInstance readWithCMDString:@"629" count:7 finish:^(NSArray * _Nonnull array) {
+    [BleManager.shareInstance readWithCMDString:@"629" count:4 finish:^(NSArray * _Nonnull array) {
         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSLog(@"arr=%@",obj);
             if (idx == 0 && [obj intValue] > 0) {
@@ -46,14 +43,6 @@
             }else if (idx == 2 && [obj intValue] > 0) {
                 [self getCellWithRow:idx].textfield.text = obj;
             }else if (idx == 3 && [obj intValue] > 0) {
-                [self getCellWithRow:idx].textfield.text = obj;
-            }else if (idx == 4) {
-                SelecteTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0]];
-                NSInteger index = [array.firstObject intValue];
-                cell.content.text = @[@"PV inverter enabled".localized,@"EV charger enabled".localized,@"None".localized][index];
-            }else if (idx == 5 && [obj intValue] > 0) {
-                [self getCellWithRow:idx].textfield.text = obj;
-            }else if (idx == 6 && [obj intValue] > 0) {
                 [self getCellWithRow:idx].textfield.text = obj;
             }
         }];
@@ -70,7 +59,7 @@
 }
 
 - (IBAction)submitAction:(id)sender{
-    [BleManager.shareInstance writeWithCMDString:@"629" array:@[[self getInputTextWithRow:0],[self getInputTextWithRow:1],[self getInputTextWithRow:2],[self getInputTextWithRow:3],self.dataArray[4][@"value"],[self getInputTextWithRow:5],[self getInputTextWithRow:6]] finish:^{
+    [BleManager.shareInstance writeWithCMDString:@"629" array:@[[self getInputTextWithRow:0],[self getInputTextWithRow:1],[self getInputTextWithRow:2],[self getInputTextWithRow:3]] finish:^{
         NSLog(@"成功");
         [RMHelper showToast:@"Write success" toView:self.view];
     }];

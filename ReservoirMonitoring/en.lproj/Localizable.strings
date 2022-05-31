@@ -107,9 +107,9 @@
 "Fault" = "Fault";
 "Installation" = "Installation";
 "Grid config" = "Grid config";
-"Inverter config" = "Inverter config";
+"PV config" = "PV config";
 "Generator config" = "Generator config";
-"Hybrid config" = "Hybrid config";
+"SG config" = "SG config";
 "Other config" = "Other config";
 "Log Out" = "Log Out";
 

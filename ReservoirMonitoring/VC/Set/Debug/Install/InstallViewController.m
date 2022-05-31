@@ -19,6 +19,7 @@
 
 @property(nonatomic,weak)IBOutlet UICollectionView * collectionView;
 @property(nonatomic,weak)IBOutlet UIButton * config;
+@property(nonatomic,weak)IBOutlet UIButton * back;
 @property(nonatomic,weak)IBOutlet UIButton * next;
 @property(nonatomic,strong) NSArray * dataArray;
 @property(nonatomic,assign) NSInteger current;
@@ -30,11 +31,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.dataArray = @[@"Add Device".localized,@"BLE connection".localized,@"Grid config".localized,@"Inverter config".localized,@"Generator config".localized,@"Hybrid config".localized,@"NetworK".localized];
+    self.dataArray = @[@"Add Device".localized,@"BLE connection".localized,@"Grid config".localized,@"PV config".localized,@"Generator config".localized,@"Hybrid config".localized,@"NetworK".localized];
     [self.config showBorderWithRadius:25];
     [self.next showBorderWithRadius:25];
+    [self.back showBorderWithRadius:25];
+
     [self.config setTitle:@"Config".localized forState:UIControlStateNormal];
     [self.next setTitle:@"Next".localized forState:UIControlStateNormal];
+    [self.back setTitle:@"Back".localized forState:UIControlStateNormal];
+
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([InstallCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([InstallCollectionViewCell class])];
 }
 
@@ -77,6 +82,15 @@
         return;
     }
     self.current++;
+    [self.collectionView reloadData];
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.current inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:true];
+}
+
+- (IBAction)backAction:(id)sender{
+    if (self.current == 0) {
+        return;
+    }
+    self.current--;
     [self.collectionView reloadData];
     [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.current inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:true];
 }

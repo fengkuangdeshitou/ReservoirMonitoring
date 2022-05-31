@@ -108,9 +108,9 @@
 "Fault" = "Fault";
 "Installation" = "Installation";
 "Grid config" = "Grid config";
-"Inverter config" = "Inverter config";
+"PV config" = "PV config";
 "Generator config" = "Generator config";
-"Hybrid config" = "Hybrid config";
+"SG config" = "SG config";
 "Other config" = "Other config";
 "Log Out" = "Log Out";
 
@@ -286,9 +286,9 @@
 //"Fault" = "故障";
 //"Installation" = "安装设置";
 //"Grid config" = "电网设置";
-//"Inverter config" = "逆变器设置";
+//"PV config" = "逆变器设置";
 //"Generator config" = "柴油机设置";
-//"Hybrid config" = "RESS数量";
+//"SG config" = "RESS数量";
 //"Other config" = "其他设置";
 //"Log Out" = "退出";
 //
