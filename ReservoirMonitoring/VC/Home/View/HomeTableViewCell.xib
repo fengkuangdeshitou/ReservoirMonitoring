@@ -110,17 +110,30 @@
                                 <color key="textColor" red="0.54901960780000003" green="0.87450980389999999" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZEE-KF-FsK">
+                                <rect key="frame" x="189.5" y="40" width="25" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="Zj2-w1-GZA"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="icon_question"/>
+                                <connections>
+                                    <action selector="timeAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ugl-pf-f8R"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="5bX-Uo-GCw" firstAttribute="leading" secondItem="iCa-c9-9F7" secondAttribute="trailing" id="0es-lo-DNd"/>
                             <constraint firstItem="ecf-SL-hkB" firstAttribute="centerY" secondItem="Kwp-lg-x1O" secondAttribute="centerY" id="0fY-XN-cq7"/>
                             <constraint firstItem="acb-8X-ach" firstAttribute="top" secondItem="iCa-c9-9F7" secondAttribute="bottom" constant="10" id="5M6-nD-QAP"/>
+                            <constraint firstItem="ZEE-KF-FsK" firstAttribute="centerY" secondItem="5bX-Uo-GCw" secondAttribute="centerY" id="5uJ-YG-ffX"/>
                             <constraint firstItem="kUE-rW-HLq" firstAttribute="centerY" secondItem="acb-8X-ach" secondAttribute="centerY" id="Dzc-6f-C0m"/>
                             <constraint firstItem="5bX-Uo-GCw" firstAttribute="centerY" secondItem="iCa-c9-9F7" secondAttribute="centerY" id="SnB-j3-6kj"/>
                             <constraint firstAttribute="bottom" secondItem="acb-8X-ach" secondAttribute="bottom" constant="20" id="TJn-SV-8Sf"/>
                             <constraint firstItem="acb-8X-ach" firstAttribute="leading" secondItem="iCa-c9-9F7" secondAttribute="leading" id="TzT-FC-3ZR"/>
                             <constraint firstAttribute="trailing" secondItem="IE0-Lf-Ndo" secondAttribute="trailing" constant="20" id="UPH-6w-PYv"/>
+                            <constraint firstItem="ZEE-KF-FsK" firstAttribute="leading" secondItem="5bX-Uo-GCw" secondAttribute="trailing" id="V6u-RK-XME"/>
                             <constraint firstItem="IE0-Lf-Ndo" firstAttribute="top" secondItem="7sK-ZX-Bfi" secondAttribute="top" id="d8W-KW-54w"/>
                             <constraint firstItem="kUE-rW-HLq" firstAttribute="leading" secondItem="acb-8X-ach" secondAttribute="trailing" id="dT5-jI-Qzh"/>
                             <constraint firstItem="IE0-Lf-Ndo" firstAttribute="leading" secondItem="ecf-SL-hkB" secondAttribute="trailing" constant="10" id="dXi-u8-n22"/>
@@ -162,6 +175,7 @@
     </objects>
     <resources>
         <image name="icon_change" width="32" height="32"/>
+        <image name="icon_question" width="15" height="15"/>
         <image name="sunny" width="30" height="30"/>
     </resources>
 </document>

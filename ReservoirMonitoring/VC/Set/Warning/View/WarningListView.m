@@ -7,6 +7,7 @@
 
 #import "WarningListView.h"
 #import "WarningTableViewCell.h"
+#import "GlobelDescAlertView.h"
 
 @interface WarningListView ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -38,6 +39,10 @@
     cell.time.text = self.tag == 10 ? @"Alarm Time".localized : @"Fault Time".localized;
     cell.line.hidden = indexPath.row == 4;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [GlobelDescAlertView showAlertViewWithTitle:@"Suggested remedy".localized desc:@"TBD."];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

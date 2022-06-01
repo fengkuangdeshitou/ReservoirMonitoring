@@ -6,6 +6,7 @@
 //
 
 #import "DataEchartsCollectionViewCell.h"
+#import "GlobelDescAlertView.h"
 @import iOS_Echarts;
 
 @interface DataEchartsCollectionViewCell ()
@@ -29,6 +30,19 @@
 @end
 
 @implementation DataEchartsCollectionViewCell
+
+- (IBAction)timeAction:(id)sender{
+    if (self.time == 0) {
+        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Energy independence rating = (battery energy consumption/ total energy consumption ) %, daily rating stands for the performance of last 24h"];
+    }else if (self.time == 1){
+        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Energy independence rating = (battery energy consumption/ total energy consumption ) %, monthly rating stands for the performance of last month."];
+    }else if (self.time == 2){
+        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Energy independence rating = (battery energy consumption/ total energy consumption ) %, annual rating stands for the performance of last year."];
+    }else{
+        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Energy independence rating = (battery energy consumption/ total energy consumption ) %, total rating stands for the performance since installation."];
+    }
+    
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

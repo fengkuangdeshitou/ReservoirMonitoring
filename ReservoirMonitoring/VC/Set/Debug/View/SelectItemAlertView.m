@@ -25,6 +25,9 @@
     [UIApplication.sharedApplication.keyWindow addSubview:alertView];
     alertView.completion = completion;
     alertView.dataArray = dataArray;
+    if (tableviewFrame.origin.y + tableviewFrame.size.height > SCREEN_HEIGHT) {
+        tableviewFrame = CGRectMake(tableviewFrame.origin.x, SCREEN_HEIGHT-tableviewFrame.size.height, tableviewFrame.size.width, tableviewFrame.size.height);
+    }
     alertView.tableView = [[UITableView alloc] initWithFrame:tableviewFrame style:UITableViewStylePlain];
     alertView.tableView.delegate = alertView;
     alertView.tableView.dataSource = alertView;

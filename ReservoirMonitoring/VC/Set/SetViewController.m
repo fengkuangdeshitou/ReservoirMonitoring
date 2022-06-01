@@ -91,7 +91,7 @@
             [self.navigationController pushViewController:network animated:true];
         }else if(indexPath.row == 2){
             UpdateViewController * update = [[UpdateViewController alloc] init];
-            update.title = @"Check for updates".localized;
+            update.title = @"Software Version".localized;
             update.hidesBottomBarWhenPushed = true;
             [self.navigationController pushViewController:update animated:true];
         }else if (indexPath.row == 3){

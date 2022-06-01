@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.dataArray = @[@"Add Device".localized,@"BLE connection".localized,@"Grid config".localized,@"PV config".localized,@"Generator config".localized,@"Hybrid config".localized,@"NetworK".localized];
+    self.dataArray = @[@"Add Device".localized,@"BLE connection".localized,@"Grid config".localized,@"PV config".localized,@"SG config".localized,@"NetworK".localized];
     [self.config showBorderWithRadius:25];
     [self.next showBorderWithRadius:25];
     [self.back showBorderWithRadius:25];
@@ -61,15 +61,17 @@
         InverterViewController * inverter = [[InverterViewController alloc] init];
         inverter.title = self.dataArray[self.current];
         [self.navigationController pushViewController:inverter animated:true];
-    }else if (self.current == 4){
-        GeneratorViewController * generator = [[GeneratorViewController alloc] init];
-        generator.title = self.dataArray[self.current];
-        [self.navigationController pushViewController:generator animated:true];
-    }else if (self.current == 5){
+    }
+//    else if (self.current == 4){
+//        GeneratorViewController * generator = [[GeneratorViewController alloc] init];
+//        generator.title = self.dataArray[self.current];
+//        [self.navigationController pushViewController:generator animated:true];
+//    }
+    else if (self.current == 4){
         HybridViewController * hybrid = [[HybridViewController alloc] init];
         hybrid.title = self.dataArray[self.current];
         [self.navigationController pushViewController:hybrid animated:true];
-    }else if (self.current == 6){
+    }else if (self.current == 5){
         WifiViewController * wifi = [[WifiViewController alloc] init];
         wifi.title = @"Wi-Fi".localized;
         wifi.hidesBottomBarWhenPushed = true;

@@ -9,6 +9,7 @@
 #import "HomeItemView.h"
 #import "HomeProgressView.h"
 #import "WeatherViewController.h"
+#import "GlobelDescAlertView.h"
 
 @interface HomeTableViewCell ()
 
@@ -122,6 +123,10 @@
         }
     }
     self.progressView.titleLabel.text = [NSString stringWithFormat:@"%@ kWh (%@%)",model.socValue,model.soc];
+}
+
+- (IBAction)timeAction:(id)sender{
+    [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Energy independence rating = (battery energy consumption/ total energy consumption ) %, daily rating stands for the performance of last 24h"];
 }
 
 - (IBAction)weatherAction:(id)sender{

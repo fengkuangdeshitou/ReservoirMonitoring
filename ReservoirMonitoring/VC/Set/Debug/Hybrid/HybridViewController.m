@@ -93,8 +93,8 @@
     }else if (indexPath.section == 1){
         UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
         CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
-        [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"PV inverter enabled".localized,@"EV charger enabled".localized,@"None".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-200, frame.origin.y+50, 185, 50*3) completion:^(NSString * _Nonnull value, NSInteger idx) {
-            self.rightOpen = idx != 2;
+        [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"Generator enabled".localized,@"None".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-200, frame.origin.y+50, 185, 50*2) completion:^(NSString * _Nonnull value, NSInteger idx) {
+            self.rightOpen = idx != 1;
             self.rightValue = value;
             [tableView reloadData];
         }];
