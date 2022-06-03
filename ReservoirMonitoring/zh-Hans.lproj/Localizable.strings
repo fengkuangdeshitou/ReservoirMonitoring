@@ -57,8 +57,8 @@
 "Power outage, backup energy in effect." = "Power outage, backup energy in effect.";
 "online" = "online";
 "Current mode：" = "Current mode：";
-"Energy independence rating(Daily):" = "Energy independence rating(Daily)：";
-"Device status:" = "Device status：";
+"Self reliable rating:" = "Self reliable rating：";
+"Operation status:" = "Operation status：";
 "Switch operation mode" = "Switch operation mode";
 "Weather watch" = "Weather watch";
 "Switch device" = "Switch device";
@@ -87,7 +87,7 @@
 "Non Back-up" = "Non Back-up";
 "Back-up load" = "Back-up load";
 "Energy curve" = "Energy curve：";
-"Energy independence:" = "Energy independence:";
+"Self reliable:" = "Self reliable:";
 "Power outage:" = "Power outage:";
 "Reducing deforestation:" = "Reducing deforestation:";
 "trees" = "trees";
@@ -97,14 +97,14 @@
 "Network" = "Network";
 "Update" = "Update";
 "Help" = "Help";
-"Fault&Alarm" = "Fault&Alarm";
-"Debug" = "Debug";
+"Fault&Warning" = "Fault&Warning";
+"Commissioning" = "Commissioning";
 "User" = "User";
 "Installer" = "Installer";
 "Check update" = "Check update";
 "Opt in/out automatic software update (On: Server is allowed to communicate with device and update firmware automatically; Off: Server is NOT allowed to communicate with the device or update firmware.  )\n" = "Opt in/out automatic software update (On: Server is allowed to communicate with device and update firmware automatically; Off: Server is NOT allowed to communicate with the device or update firmware.  )\n";
-"Current version:" = "Current version:";
-"Alarm" = "Alarm";
+"Firmware version:" = "Firmware version:";
+"Alarm" = "Warning";
 "Fault" = "Fault";
 "Installation" = "Installation";
 "Grid config" = "Grid config";
@@ -182,7 +182,7 @@
 "Check for updates" = "Check for updates";
 "On-line" = "Online";
 "Offine" = "Offine";
-
+"Remote firmware update" = "Remote firmware update";
 
 //"Login" = "登录";
 //"Email" = "邮箱";
@@ -235,8 +235,8 @@
 //"Power outage, backup energy in effect." = "电网停电，您正在使用备用电量";
 //"online" = "并网";
 //"Current mode：" = "当前模式：";
-//"Energy independence rating(Daily):" = "日家庭能源独立率：";
-//"Device status:" = "设备工作状态：";
+//"Self reliable rating:" = "日家庭能源独立率：";
+//"Operation status:" = "设备工作状态：";
 //"Switch operation mode" = "切换运行模式";
 //"Weather watch" = "天气观察";
 //"Switch device" = "设备切换";
@@ -265,7 +265,7 @@
 //"Non Back-up" = "一般负载";
 //"Back-up load" = "重要负载";
 //"Energy curve" = "能量曲线图：";
-//"Energy independence:" = "能量独立比:";
+//"Self reliable:" = "能量独立比:";
 //"Power outage:" = "电网停电次数:";
 //"Reducing deforestation:" = "降低碳排约等";
 //"trees" = "棵树";
@@ -275,14 +275,14 @@
 //"Network" = "设备配网";
 //"Update" = "设备升级";
 //"Help" = "帮助文件";
-//"Fault&Alarm" = "告警故障";
-//"Debug" = "调试";
+//"Fault&Warning" = "告警故障";
+//"Commissioning" = "调试";
 //"User" = "用户";
 //"Installer" = "安装商";
 //"Check update" = "检查更新";
 //"Opt in/out automatic software update (On: Server is allowed to communicate with device and update firmware automatically; Off: Server is NOT allowed to communicate with the device or update firmware.  )\n" = "允许客户打开或者关闭软件自动更新的选项（打开软件自动更新：在储能设备联网后，允许厂家通过监控系统更新设备软件版本； 关闭后，则厂家不能通过监控系统更新设备软件版本）\n";
-//"Current version:" = "当前版本";
-//"Alarm" = "警告";
+//"Firmware version:" = "当前版本";
+//"Warning" = "警告";
 //"Fault" = "故障";
 //"Installation" = "安装设置";
 //"Grid config" = "电网设置";

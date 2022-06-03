@@ -57,15 +57,39 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SwitchTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SwitchTableViewCell class])];
-    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        [BleManager.shareInstance readWithCMDString:@"512" count:1 finish:^(NSArray * _Nonnull array) {
+            NSInteger idx = [array.firstObject integerValue];
+            NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[0]];
+            dict[@"placeholder"] = @[@"Local".localized,@"Remote".localized][idx];
+            self.dataArray[0] = dict;
+            dispatch_semaphore_signal(semaphore);
+        }];
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"611" count:6 finish:^(NSArray * _Nonnull array) {
+            NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[1]];
+            dict[@"placeholder"] = [NSString stringWithFormat:@"%@-%@-%@ %@:%@:%@",array[0],array[1],array[2],array[3],array[4],array[5]];
+            self.dataArray[1] = dict;
+            [self.tableView reloadData];
+        }];
+    });
 }
 
 - (IBAction)submitAction:(id)sender{
-//    [BleManager.shareInstance readWithCMDString:@"600" count:1];
-//    [BleManager.shareInstance readWithCMDString:@"611" count:6];
-//    [BleManager.shareInstance writeWithCMDString:@"600" string:@"1"];
-//    [BleManager.shareInstance writeWithCMDString:@"611" array:@[@"2022",@"05",@"22",@"22",@"22",@"22"]];
-//    [BleManager.shareInstance readWithCMDString:@"611" count:6];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        [BleManager.shareInstance writeWithCMDString:@"600" array:@[self.dataArray[0][@"value"]] finish:^{
+            dispatch_semaphore_signal(semaphore);
+        }];
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        NSString * time = self.dataArray[1][@"placeholder"];
+        NSArray * timeArray = @[[time substringToIndex:3],[time substringWithRange:NSMakeRange(5, 2)],[time substringWithRange:NSMakeRange(8, 2)],[time substringWithRange:NSMakeRange(11, 2)],[time substringWithRange:NSMakeRange(14, 2)],[time substringWithRange:NSMakeRange(17, 2)]];
+        [BleManager.shareInstance writeWithCMDString:@"611" array:timeArray finish:^{
+            [RMHelper showToast:@"Write success" toView:self.view];
+        }];
+        
+    });
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -94,6 +118,7 @@
         [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"Local".localized,@"Remote".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-100, frame.origin.y, 100, 50*2) completion:^(NSString * _Nonnull value, NSInteger idx) {
             NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[indexPath.row]];
             dict[@"placeholder"] = value;
+            dict[@"value"] = [NSString stringWithFormat:@"%ld",idx];
             self.dataArray[indexPath.row] = dict;
             [tableView reloadData];
         }];

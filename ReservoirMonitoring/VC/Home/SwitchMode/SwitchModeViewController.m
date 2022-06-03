@@ -15,8 +15,10 @@
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * submitButton;
+@property(nonatomic,weak)IBOutlet UIButton * weatherBtn;
 @property(nonatomic,assign)NSInteger flag;
 @property(nonatomic,weak)IBOutlet UILabel * weather;
+@property(nonatomic,strong)NSArray * progressArray;
 
 @end
 
@@ -35,10 +37,90 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SwitchProgressTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SwitchProgressTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([PeakTimeTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([PeakTimeTableViewCell class])];
     
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        [BleManager.shareInstance readWithCMDString:@"621" count:1 finish:^(NSArray * _Nonnull array) {
+            self.weatherBtn.selected = [array.firstObject boolValue];
+            dispatch_semaphore_signal(semaphore);
+        }];
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"623" count:2 finish:^(NSArray * _Nonnull array) {
+            self.progressArray = array;
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+    
 }
 
 - (IBAction)helpAction:(id)sender{
     [GlobelDescAlertView showAlertViewWithTitle:@"Weather watch".localized desc:@"Monitor local weather condition, automatically stores energy for hazard backup."];
+}
+
+- (IBAction)submitAction:(id)sender{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        [BleManager.shareInstance writeWithCMDString:@"621" array:@[[NSString stringWithFormat:@"%@",self.weatherBtn.selected ? @"1" : @"0"]] finish:^{
+            dispatch_semaphore_signal(semaphore);
+        }];
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        SwitchProgressTableViewCell * cell1 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        SwitchProgressTableViewCell * cell2 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        [BleManager.shareInstance writeWithCMDString:@"623" array:@[[NSString stringWithFormat:@"%.0f",cell1.progress],[NSString stringWithFormat:@"%.0f",cell2.progress]] finish:^{
+            dispatch_semaphore_signal(semaphore);
+        }];
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        PeakTimeTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
+        [BleManager.shareInstance writeWithCMDString:@"6FF" array:@[[NSString stringWithFormat:@"%ld",[cell.dataArray[0] count]]] finish:^{
+            dispatch_semaphore_signal(semaphore);
+        }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        NSArray * timeArray = cell.dataArray[0];
+        NSString * startTime0 = timeArray[0][@"startTime"];
+        NSString * endTime0 = timeArray[0][@"endTime"];
+        [BleManager.shareInstance writeWithCMDString:@"702" array:@[[startTime0 componentsSeparatedByString:@":"].firstObject,[startTime0 componentsSeparatedByString:@":"].lastObject,[endTime0 componentsSeparatedByString:@":"].firstObject,[endTime0 componentsSeparatedByString:@":"].lastObject,] finish:^{
+            dispatch_semaphore_signal(semaphore);
+        }];
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        if (timeArray.count > 1) {
+            NSString * startTime1 = timeArray[1][@"startTime"];
+            NSString * endTime1 = timeArray[1][@"endTime"];
+            [BleManager.shareInstance writeWithCMDString:@"708" array:@[[startTime1 componentsSeparatedByString:@":"].firstObject,[startTime1 componentsSeparatedByString:@":"].lastObject,[endTime1 componentsSeparatedByString:@":"].firstObject,[endTime1 componentsSeparatedByString:@":"].lastObject,] finish:^{
+                dispatch_semaphore_signal(semaphore);
+            }];
+        }else{
+            dispatch_semaphore_signal(semaphore);
+        }
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        if (timeArray.count>2) {
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            NSString * startTime2 = timeArray[2][@"startTime"];
+            NSString * endTime2 = timeArray[2][@"endTime"];
+            [BleManager.shareInstance writeWithCMDString:@"70E" array:@[[startTime2 componentsSeparatedByString:@":"].firstObject,[startTime2 componentsSeparatedByString:@":"].lastObject,[endTime2 componentsSeparatedByString:@":"].firstObject,[endTime2 componentsSeparatedByString:@":"].lastObject,] finish:^{
+                dispatch_semaphore_signal(semaphore);
+            }];
+        }else{
+            dispatch_semaphore_signal(semaphore);
+        }
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance writeWithCMDString:@"750" array:@[@"1"] finish:^{
+            dispatch_semaphore_signal(semaphore);
+        }];
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"752" count:1 finish:^(NSArray * _Nonnull array) {
+            NSInteger idx = [array.firstObject intValue];
+            if (idx == 1) {
+                [RMHelper showToast:@"Configuration is successful" toView:self.view];
+            }
+            if (idx == 2) {
+                [RMHelper showToast:@"In the configuration" toView:self.view];
+            }
+            if (idx == 3) {
+                [RMHelper showToast:@"Configuration failed" toView:self.view];
+            }
+        }];
+    });
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -54,6 +136,7 @@
             return cell;
         }else{
             SwitchProgressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchProgressTableViewCell class]) forIndexPath:indexPath];
+            cell.progress = [self.progressArray[indexPath.section] floatValue]/100;
             return cell;
         }
     }

@@ -21,6 +21,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        [self getListData];
         self.tableView = [[UITableView alloc] initWithFrame:self.bounds style:UITableViewStyleGrouped];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
@@ -32,17 +33,23 @@
     return self;
 }
 
+- (void)getListData{
+    [BleManager.shareInstance readWithCMDString:self.tag == 10 ? @"550" : @"553" count:3 finish:^(NSArray * _Nonnull array) {
+        
+    }];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     WarningTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WarningTableViewCell class]) forIndexPath:indexPath];
     cell.typeLabel.textColor = [UIColor colorWithHexString:self.tag == 10 ? @"#EE8805" : @"#AE0000"];
-    cell.typeLabel.text = self.tag == 10 ? @"Alarm".localized : @"Fault".localized;
-    cell.time.text = self.tag == 10 ? @"Alarm Time".localized : @"Fault Time".localized;
+    cell.typeLabel.text = self.tag == 10 ? @"Warning".localized : @"Fault".localized;
+    cell.time.text = self.tag == 10 ? @"Warning time：".localized : @"Fault Time".localized;
     cell.line.hidden = indexPath.row == 4;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [GlobelDescAlertView showAlertViewWithTitle:@"Suggested remedy".localized desc:@"TBD."];
+    [GlobelDescAlertView showAlertViewWithTitle:@"Tips".localized desc:@"TBD."];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

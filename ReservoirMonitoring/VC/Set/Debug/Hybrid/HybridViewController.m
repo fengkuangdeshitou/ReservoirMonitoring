@@ -15,7 +15,7 @@
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * submit;
 @property(nonatomic,strong)NSMutableArray * dataArray;
-@property(nonatomic,assign)NSInteger count;
+@property(nonatomic,assign)int count;
 @property(nonatomic,assign)BOOL leftOpen;
 @property(nonatomic,assign)BOOL rightOpen;
 @property(nonatomic,strong)NSString * leftValue;
@@ -30,15 +30,60 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.count = 1;
+    
     self.leftValue = @"None".localized;
     self.rightValue = @"None".localized;
-    self.modelValue = @"Quiet mode".localized;
+    
     [self resetNumberData];
     [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
     [self.submit showBorderWithRadius:25];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        [BleManager.shareInstance readWithCMDString:@"633" count:1 finish:^(NSArray * _Nonnull array) {
+            dispatch_semaphore_signal(semaphore);
+            NSInteger inx = [array.firstObject intValue];
+            self.modelValue = @[@"Efficient mode".localized,@"Quiet mode".localized][inx];
+            [self.tableView reloadData];
+        }];
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"540" count:1 finish:^(NSArray * _Nonnull array) {
+            int inx = [array.firstObject intValue];
+            self.count = inx;
+            [self requestHybridData];
+        }];
+    });
+}
+
+- (IBAction)submitAction:(id)sender{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        [BleManager.shareInstance writeWithCMDString:@"620" array:@[[NSString stringWithFormat:@"%d",self.count]] finish:^{
+            dispatch_semaphore_signal(semaphore);
+        }];
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        NSMutableArray * array = [[NSMutableArray alloc] init];
+        for (int i=0; i<self.count; i++) {
+            SelecteTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:4]];
+            [array addObject:cell.content.text];
+        }
+        [BleManager.shareInstance writeWithCMDString:@"634" array:array finish:^{
+            [RMHelper showToast:@"Write success" toView:self.view];
+        }];
+    });
+    
+}
+
+- (void)requestHybridData{
+    [BleManager.shareInstance readWithCMDString:@"634" count:self.count finish:^(NSArray * _Nonnull array) {
+        self.dataArray = [[NSMutableArray alloc] init];
+        for (int i=0; i<self.count; i++) {
+            NSDictionary * dic = @{@"title":[NSString stringWithFormat:@"Qty of Hybrid %d battery",i+1],@"placeholder":[NSString stringWithFormat:@"%@",array[i]]};
+            [self.dataArray addObject:dic];
+        }
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)resetNumberData{
@@ -74,10 +119,6 @@
         cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
         cell.content.text = self.dataArray[indexPath.row][@"placeholder"];
         return cell;
-//        InputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
-//        cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
-//        cell.textfield.placeholder = self.dataArray[indexPath.row][@"placeholder"];
-//        return cell;
     }
 }
 

@@ -72,6 +72,9 @@
                                 <rect key="frame" x="40" y="31.5" width="158" height="31"/>
                                 <color key="minimumTrackTintColor" red="0.54901960780000003" green="0.87450980389999999" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="maximumTrackTintColor" red="0.45490196078431372" green="0.45490196078431372" blue="0.45490196078431372" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="valueChante:" destination="KGk-i7-Jjw" eventType="valueChanged" id="tX3-o9-OGg"/>
+                                </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nwF-kz-wjF">
                                 <rect key="frame" x="15" y="38" width="17" height="17"/>
@@ -113,6 +116,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="slider" destination="QMr-BK-lej" id="yRt-Jy-74U"/>
+                <outlet property="titleLabel" destination="Ge5-ki-1Wq" id="zU0-t1-AsK"/>
             </connections>
             <point key="canvasLocation" x="142.75362318840581" y="97.098214285714278"/>
         </tableViewCell>

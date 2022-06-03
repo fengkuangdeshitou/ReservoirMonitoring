@@ -22,6 +22,8 @@
 @property(nonatomic,weak)IBOutlet UILabel * status;
 @property(nonatomic,weak)IBOutlet UILabel * statusValue;
 @property(nonatomic,weak)IBOutlet UILabel * titleLabel;
+@property(nonatomic,weak)IBOutlet UILabel * communication;
+@property(nonatomic,weak)IBOutlet UILabel * communicationValue;
 
 @end
 
@@ -32,16 +34,17 @@
     // Initialization code
     self.titleLabel.text = @"Power outage, backup energy in effect.".localized;
     self.currentMode.text = @"Current mode：".localized;
-    self.family.text = @"Energy independence rating(Daily):".localized;
-    self.status.text = @"Device status:".localized;
+    self.family.text = @"Self reliable rating:".localized;
+    self.status.text = @"Operation status:".localized;
     self.statusValue.text = @"online".localized;
+    self.communication.text = @"Communication status：".localized;
     [self.currentModelView showBorderWithRadius:16];
     self.currentModelView.layer.borderColor = [UIColor colorWithHexString:@"#2E2E2E"].CGColor;
     self.currentModelView.layer.borderWidth = 0.5;
     
     NSArray * normal = @[@"icon_grid_inactive",@"icon_solar_inactive",@"icon_generator_inactive",@"icon_ev_inactive",@"icon_non_backup_inactive",@"icon_backup_inactive"];
     NSArray * highlight = @[@"icon_grid_active",@"icon_solar_active",@"icon_generator_active",@"icon_ev_active",@"icon_non_backup_active",@"icon_backup_active"];
-    NSArray * titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV".localized,@"Other loads".localized,@"Backup loads".localized];
+    NSArray * titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV".localized,@"Non-backup".localized,@"Backup loads".localized];
     for (int i=0; i<normal.count; i++) {
         HomeItemView * item = [[HomeItemView alloc] initWithFrame:CGRectMake(i%3*SCREEN_WIDTH/3, i/3*296, SCREEN_WIDTH/3, 100)];
         item.isFlip = i>2;
@@ -93,40 +96,44 @@
     }
     
     if (model.deviceStatus.intValue == 0) {
-        self.statusValue.text = @"自检";
-    }else if (model.deviceStatus.intValue == 1) {
-        self.statusValue.text = @"故障";
-    }else if (model.deviceStatus.intValue == 2) {
-        self.statusValue.text = @"空闲";
-    }else if (model.deviceStatus.intValue == 3) {
-        self.statusValue.text = @"待机";
+        self.statusValue.text = @"normal";
     }else{
-        self.statusValue.text = @"运行";
+        self.statusValue.text = @"fault";
     }
+    
+    if (BleManager.shareInstance.isConnented) {
+        self.communicationValue.text = @"Online".localized;
+        self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+    }else{
+        self.communicationValue.text = @"Offline".localized;
+        self.communicationValue.textColor = [UIColor colorWithHexString:@"#999999"];
+    }
+    
     
     for (UIView * view in self.itemContentView.subviews) {
         if ([view isKindOfClass:[HomeItemView class]]) {
             HomeItemView * itemView = (HomeItemView *)view;
             if (itemView.tag == 10) {
-                itemView.descLabel.text = model.gridValue;
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.gridValue floatValue]];
             }else if (itemView.tag == 11) {
-                itemView.descLabel.text = model.socValue;
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.socValue floatValue]];
             }else if (itemView.tag == 12) {
-                itemView.descLabel.text = model.generatorValue;
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.generatorValue floatValue]];
             }else if (itemView.tag == 13) {
-                itemView.descLabel.text = model.EVValue;
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.EVValue floatValue]];
             }else if (itemView.tag == 14) {
-                itemView.descLabel.text = model.otherLoadsValue;
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.otherLoadsValue floatValue]];
             }else{
-                itemView.descLabel.text = model.backupLoadsValue;
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.backupLoadsValue floatValue]];
             }
         }
     }
-    self.progressView.titleLabel.text = [NSString stringWithFormat:@"%@ kWh (%@%)",model.socValue,model.soc];
+    self.progressView.titleLabel.text = [NSString stringWithFormat:@"%.0f kWh (%.0f%@)",[model.socValue floatValue],[model.soc floatValue],@"%"];
+    self.progressView.progress = [model.soc floatValue]/100;
 }
 
 - (IBAction)timeAction:(id)sender{
-    [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Energy independence rating = (battery energy consumption/ total energy consumption ) %, daily rating stands for the performance of last 24h"];
+    [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Self reliable rating = (battery energy consumption/ total energy consumption ) %, daily rating stands for the performance of last 24h"];
 }
 
 - (IBAction)weatherAction:(id)sender{

@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PeakTimeTableViewCell : UITableViewCell
 
+@property(nonatomic,strong) NSMutableArray * dataArray;
+
 @end
 
 NS_ASSUME_NONNULL_END

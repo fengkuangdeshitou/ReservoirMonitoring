@@ -38,7 +38,7 @@
     // Do any additional setup after loading the view from its nib.
     [self setLeftBatButtonItemWithImage:[UIImage imageNamed:@"logo"] sel:nil];
     self.loginout.hidden = true;
-    self.dataArray = @[@"User Info".localized,@"Network".localized,@"Update".localized,@"Help".localized,@"Fault&Alarm".localized,@"Debug".localized];
+    self.dataArray = @[@"User Info".localized,@"Network".localized,@"Update".localized,@"FAQ".localized,@"Fault&Warning".localized,@"Commissioning".localized];
     self.iconArray = @[@"icon_information",@"icon_list",@"icon_update",@"icon_help",@"icon_warning",@"icon_test"];
     [self.loginout setTitle:@"Log Out".localized forState:UIControlStateNormal];
     [self.loginout showBorderWithRadius:25];

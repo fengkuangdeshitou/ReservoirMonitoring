@@ -82,6 +82,9 @@ static BleManager * _manager = nil;
     NSString * readString = [self convertDataToHexStr:readData];
     NSDictionary * dictionary = @{@"RawModbus":readString};
     NSData * dictData = [NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingFragmentsAllowed error:nil];
+    if (!self.writecCharacteristic) {
+        return;
+    }
     [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithoutResponse];
 }
 
@@ -154,6 +157,9 @@ static BleManager * _manager = nil;
     NSString * readString = [self convertDataToHexStr:data];
     NSDictionary * dictionary = @{@"RawModbus":readString};
     NSData * dictData = [NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingFragmentsAllowed error:nil];
+    if (!self.writecCharacteristic) {
+        return;
+    }
     [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
@@ -391,6 +397,7 @@ static unsigned char auchCRCLo[] = {
 /// @param central 蓝牙管理
 /// @param peripheral 外设
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral{
+    _isConnented = true;
     [self.centralManager stopScan];
     self.peripheral = peripheral;
     //连接成功之后寻找服务，传nil会寻找所有服务
@@ -411,7 +418,7 @@ static unsigned char auchCRCLo[] = {
 /// @param error 错误
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error{
     NSLog(@"连接断开%s",__func__);
-//    BluetoothData.shareInstance.model.isConnect = NO;
+    _isConnented = false;
     if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidDisconnectPeripheral:)]) {
         [self.delegate bluetoothDidDisconnectPeripheral:peripheral];
     }

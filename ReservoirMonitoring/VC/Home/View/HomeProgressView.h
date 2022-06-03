@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HomeProgressView : UIView
 
 @property(nonatomic,strong) UILabel * titleLabel;
+@property(nonatomic,assign) float progress;
+
 
 @end
 

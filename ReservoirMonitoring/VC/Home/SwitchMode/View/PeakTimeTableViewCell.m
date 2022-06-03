@@ -11,8 +11,8 @@
 @interface PeakTimeTableViewCell ()<UITableViewDataSource,UITableViewDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
-@property(nonatomic,strong) NSMutableArray * dataArray;
 @property(nonatomic,weak)IBOutlet UILabel * titleLabel;
+@property(nonatomic,weak)IBOutlet UIButton * gridBtn;
 
 @end
 
@@ -30,6 +30,63 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([TimeTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([TimeTableViewCell class])];
     [self updateTableViewHeight];
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        [BleManager.shareInstance readWithCMDString:@"6FE" count:2 finish:^(NSArray * _Nonnull array) {
+            dispatch_semaphore_signal(semaphore);
+            self.gridBtn.selected = [array.firstObject boolValue];
+            NSInteger count = [array.lastObject integerValue];
+            NSMutableArray * countArray = [[NSMutableArray alloc] init];
+            for (int i=0; i<count; i++) {
+                NSDictionary * dict = @{@"startTime":@"",@"endTime":@"",@"price":@""};
+                [countArray addObject:dict];
+            }
+            [self.dataArray replaceObjectAtIndex:0 withObject:countArray];
+            [self.tableView reloadData];
+        }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"702" count:4 finish:^(NSArray * _Nonnull array) {
+            NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+            [dict setValue:[NSString stringWithFormat:@"%@:%@",array[0],array[1]] forKey:@"startTime"];
+            [dict setValue:[NSString stringWithFormat:@"%@:%@",array[2],array[3]] forKey:@"endTime"];
+            NSMutableArray * indexArray = [[NSMutableArray alloc] initWithArray:self.dataArray[0]];
+            NSMutableArray * valueArray = [[NSMutableArray alloc] initWithArray:indexArray[0]];
+            [valueArray replaceObjectAtIndex:0 withObject:dict];
+            [indexArray replaceObjectAtIndex:0 withObject:valueArray];
+            [self.dataArray replaceObjectAtIndex:0 withObject:indexArray];
+            dispatch_semaphore_signal(semaphore);
+        }];
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"708" count:4 finish:^(NSArray * _Nonnull array) {
+            if ([self.dataArray[0] count] >=2) {
+                NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+                [dict setValue:[NSString stringWithFormat:@"%@:%@",array[0],array[1]] forKey:@"startTime"];
+                [dict setValue:[NSString stringWithFormat:@"%@:%@",array[2],array[3]] forKey:@"endTime"];
+                NSMutableArray * indexArray = [[NSMutableArray alloc] initWithArray:self.dataArray[0]];
+                NSMutableArray * valueArray = [[NSMutableArray alloc] initWithArray:indexArray[1]];
+                [valueArray replaceObjectAtIndex:0 withObject:dict];
+                [indexArray replaceObjectAtIndex:1 withObject:valueArray];
+                [self.dataArray replaceObjectAtIndex:0 withObject:indexArray];
+            }
+            dispatch_semaphore_signal(semaphore);
+        }];
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"70E" count:4 finish:^(NSArray * _Nonnull array) {
+            if ([self.dataArray[0] count] >=3) {
+                NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+                [dict setValue:[NSString stringWithFormat:@"%@:%@",array[0],array[1]] forKey:@"startTime"];
+                [dict setValue:[NSString stringWithFormat:@"%@:%@",array[2],array[3]] forKey:@"endTime"];
+                NSMutableArray * indexArray = [[NSMutableArray alloc] initWithArray:self.dataArray[0]];
+                NSMutableArray * valueArray = [[NSMutableArray alloc] initWithArray:indexArray[2]];
+                [valueArray replaceObjectAtIndex:0 withObject:dict];
+                [indexArray replaceObjectAtIndex:2 withObject:valueArray];
+                [self.dataArray replaceObjectAtIndex:0 withObject:indexArray];
+            }
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
 }
 
 - (void)updateTableViewHeight{
@@ -46,6 +103,9 @@
     TimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([TimeTableViewCell class]) forIndexPath:indexPath];
     cell.removeButton.hidden = indexPath.row == 0;
     [cell.removeButton addTarget:self action:@selector(removeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    NSDictionary * item = self.dataArray[indexPath.section][indexPath.row];
+    cell.startTime.text = item[@"startTime"];
+    cell.endTime.text = item[@"endTime"];
     return cell;
 }
 
@@ -89,6 +149,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 43)];
+    footerView.clipsToBounds = true;
     footerView.backgroundColor = UIColor.clearColor;
     
     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(35, 0, tableView.width-65, 43)];
@@ -133,7 +194,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 43;
+    return [self.dataArray[section] count] < 3 ? 43 : 0.01;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -32,8 +32,8 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="12"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geF-hR-Nwm">
-                        <rect key="frame" x="35.5" y="60" width="35.5" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geF-hR-Nwm">
+                        <rect key="frame" x="0.0" y="60" width="106" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -57,7 +57,6 @@
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="TK7-QM-za0" secondAttribute="trailing" id="1On-SE-PWK"/>
-                <constraint firstItem="geF-hR-Nwm" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="53C-Ha-NMS"/>
                 <constraint firstItem="TK7-QM-za0" firstAttribute="centerY" secondItem="Kzn-JU-LKd" secondAttribute="centerY" id="JHG-Ms-Z7m"/>
                 <constraint firstItem="CKN-q5-06I" firstAttribute="centerY" secondItem="Kzn-JU-LKd" secondAttribute="centerY" id="LXW-NV-1Nf"/>
                 <constraint firstItem="Kzn-JU-LKd" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="24" id="Qg1-F3-vx7"/>
@@ -65,7 +64,9 @@
                 <constraint firstItem="Kzn-JU-LKd" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="ZXa-vT-22T"/>
                 <constraint firstItem="geF-hR-Nwm" firstAttribute="top" secondItem="Kzn-JU-LKd" secondAttribute="bottom" constant="12" id="eYp-4e-NiK"/>
                 <constraint firstItem="Kzn-JU-LKd" firstAttribute="leading" secondItem="CKN-q5-06I" secondAttribute="trailing" id="lNJ-7n-tCr"/>
+                <constraint firstItem="geF-hR-Nwm" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="n2A-Am-kg2"/>
                 <constraint firstItem="CKN-q5-06I" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="nCg-oa-FzO"/>
+                <constraint firstAttribute="trailing" secondItem="geF-hR-Nwm" secondAttribute="trailing" id="yca-6X-zep"/>
             </constraints>
             <size key="customSize" width="106" height="116"/>
             <connections>

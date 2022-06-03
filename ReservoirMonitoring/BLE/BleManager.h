@@ -42,8 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign)BOOL isAutoConnect;
 /// 蓝牙名称
 @property(nonatomic,copy)NSString * bluetoothName;
-/// 是否记录数据
-@property(nonatomic,assign)BOOL isRecordingData;
+/// 是否已连接
+@property(nonatomic,assign,readonly)BOOL isConnented;
 
 @property(nonatomic,weak)id<BleManagerDelegate>delegate;
 

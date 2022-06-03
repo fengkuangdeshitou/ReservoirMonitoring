@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.dataArray = @[@"Add Device".localized,@"BLE connection".localized,@"Grid config".localized,@"PV config".localized,@"SG config".localized,@"NetworK".localized];
+    self.dataArray = @[@"Add Device".localized,@"BLE connection".localized,@"Grid config".localized,@"PV config".localized,@"Smart Gateway config".localized,@"networK".localized];
     [self.config showBorderWithRadius:25];
     [self.next showBorderWithRadius:25];
     [self.back showBorderWithRadius:25];
@@ -127,7 +127,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake(SCREEN_WIDTH/3, 100);
+    return CGSizeMake(SCREEN_WIDTH/3+20, 100);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
