@@ -61,6 +61,7 @@
         UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake((width-0.5)*i, 3, width, 24);
         [button setImage:[UIImage imageNamed:self.normal[i]] forState:UIControlStateNormal];
+        button.imageView.contentMode = UIViewContentModeScaleAspectFit;
         button.tag = i+10;
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.titleView addSubview:button];
