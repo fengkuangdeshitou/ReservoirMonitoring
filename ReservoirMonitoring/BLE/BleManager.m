@@ -114,6 +114,7 @@ static BleManager * _manager = nil;
 
 - (void)writeWithCMDString:(NSString *)string array:(NSArray *)array finish:(nonnull void (^)(void))finish{
     self.writeFinish = finish;
+    [NSUserDefaults.standardUserDefaults setValue:string forKey:BLE_CMD];
     long value = [self convertHexToDecimal:string];
     Byte * byte = [self longToByte:value];
     Byte stringByte[2] = {byte[3],byte[2]};

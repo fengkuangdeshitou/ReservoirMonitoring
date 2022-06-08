@@ -42,6 +42,7 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/PrefixHeader.pch \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Data/View/DataEchartsCollectionViewCell.m \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Data/View/DataEchartsCollectionViewCell.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/SwitchMode/View/GlobelDescAlertView.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/iOS-Echarts/iOS_Echarts.framework/Modules/module.modulemap \
   /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/iOS-Echarts/iOS_Echarts.framework/Headers/PYJsonUtil.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/iOS-Echarts/iOS_Echarts.framework/Headers/PYRoamController.h \

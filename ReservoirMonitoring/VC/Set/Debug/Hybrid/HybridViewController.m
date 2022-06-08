@@ -20,8 +20,11 @@
 @property(nonatomic,assign)BOOL rightOpen;
 @property(nonatomic,strong)NSString * leftValue;
 @property(nonatomic,strong)NSString * rightValue;
+@property(nonatomic,strong)NSString * leftController;
+@property(nonatomic,strong)NSString * rightController;
 @property(nonatomic,strong)NSString * modelValue;
-
+@property(nonatomic,strong)NSArray * leftValueArray;
+@property(nonatomic,strong)NSArray * rightValueArray;
 
 @end
 
@@ -30,10 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    self.leftValue = @"None".localized;
-    self.rightValue = @"None".localized;
-    
+        
     [self resetNumberData];
     [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
     [self.submit showBorderWithRadius:25];
@@ -41,49 +41,112 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-        [BleManager.shareInstance readWithCMDString:@"633" count:1 finish:^(NSArray * _Nonnull array) {
+        [BleManager.shareInstance readWithCMDString:@"62D" count:3 finish:^(NSArray * _Nonnull array) {
+            self.leftOpen = [array.firstObject intValue] != 0;
+            self.leftController = [NSString stringWithFormat:@"%@",array.firstObject];
+            self.leftValue = !self.leftOpen ? @"None".localized : @[@"PV inverter enabled".localized,@"EV charger enabled".localized][([array.firstObject intValue]-1)];
+            if (self.leftOpen) {
+                self.leftValueArray = @[array[1],array[2]];
+            }
             dispatch_semaphore_signal(semaphore);
+        }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"630" count:3 finish:^(NSArray * _Nonnull array) {
+            self.rightOpen = [array.firstObject intValue] != 0;
+            self.rightController = [NSString stringWithFormat:@"%@",array.firstObject];
+            if (self.rightOpen) {
+                self.rightValueArray = @[array[1],array[2]];
+            }
+            self.rightValue = self.rightOpen ? @"Generator enabled".localized :  @"None".localized;
+            dispatch_semaphore_signal(semaphore);
+        }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"633" count:1 finish:^(NSArray * _Nonnull array) {
             NSInteger inx = [array.firstObject intValue];
             self.modelValue = @[@"Efficient mode".localized,@"Quiet mode".localized][inx];
-            [self.tableView reloadData];
+            dispatch_semaphore_signal(semaphore);
         }];
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"540" count:1 finish:^(NSArray * _Nonnull array) {
             int inx = [array.firstObject intValue];
             self.count = inx;
-            [self requestHybridData];
+            dispatch_semaphore_signal(semaphore);
         }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"634" count:self.count finish:^(NSArray * _Nonnull array) {
+            NSLog(@"arr=%@",array);
+            if (array.count == 0) {
+                return;
+            }
+            self.dataArray = [[NSMutableArray alloc] init];
+            for (int i=0; i<self.count; i++) {
+                int value = [array[i] intValue];
+                NSDictionary * dic = @{@"title":[NSString stringWithFormat:@"Qty of Hybrid %d battery",i+1],@"placeholder":[NSString stringWithFormat:@"%d",value]};
+                [self.dataArray addObject:dic];
+            }
+            dispatch_semaphore_signal(semaphore);
+        }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
     });
 }
 
 - (IBAction)submitAction:(id)sender{
+    NSArray * leftArray = @[];
+    if (self.leftOpen) {
+        InputTableViewCell * brand = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        InputTableViewCell * model = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+        leftArray = @[self.leftController,brand.textfield.text,model.textfield.text];
+    }
+    NSArray * rightArray = @[];
+    if (self.rightOpen) {
+        InputTableViewCell * brand = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
+        InputTableViewCell * model = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1]];
+        rightArray = @[self.rightController,brand.textfield.text,model.textfield.text];
+    }
+    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-        [BleManager.shareInstance writeWithCMDString:@"620" array:@[[NSString stringWithFormat:@"%d",self.count]] finish:^{
+        
+        [BleManager.shareInstance writeWithCMDString:@"62D" array:self.leftOpen ? leftArray : @[@"0"] finish:^{
             dispatch_semaphore_signal(semaphore);
         }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance writeWithCMDString:@"630" array:self.rightOpen ? rightArray : @[@"0"] finish:^{
+            dispatch_semaphore_signal(semaphore);
+        }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        NSMutableArray * countArray = [[NSMutableArray alloc] init];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            SelecteTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
+            [countArray addObject:cell.content.text];
+            NSLog(@"count=%@",countArray);
+            [BleManager.shareInstance writeWithCMDString:@"620" array:countArray finish:^{
+                dispatch_semaphore_signal(semaphore);
+            }];
+        });
+
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         NSMutableArray * array = [[NSMutableArray alloc] init];
-        for (int i=0; i<self.count; i++) {
-            SelecteTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:4]];
-            [array addObject:cell.content.text];
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            for (int i=0; i<self.count; i++) {
+                SelecteTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:4]];
+                [array addObject:cell.content.text];
+            }
+        });
+        
         [BleManager.shareInstance writeWithCMDString:@"634" array:array finish:^{
+            dispatch_semaphore_signal(semaphore);
             [RMHelper showToast:@"Write success" toView:self.view];
         }];
     });
     
-}
-
-- (void)requestHybridData{
-    [BleManager.shareInstance readWithCMDString:@"634" count:self.count finish:^(NSArray * _Nonnull array) {
-        self.dataArray = [[NSMutableArray alloc] init];
-        for (int i=0; i<self.count; i++) {
-            NSDictionary * dic = @{@"title":[NSString stringWithFormat:@"Qty of Hybrid %d battery",i+1],@"placeholder":[NSString stringWithFormat:@"%@",array[i]]};
-            [self.dataArray addObject:dic];
-        }
-        [self.tableView reloadData];
-    }];
 }
 
 - (void)resetNumberData{
@@ -106,6 +169,7 @@
             InputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
             cell.titleLabel.text = indexPath.row == 1 ? @"Brand".localized : @"Model".localized;
             cell.textfield.placeholder = indexPath.row == 1 ? @"Brand".localized : @"Model".localized;
+            cell.textfield.text = indexPath.section == 0 ? self.leftValueArray[indexPath.row-1] : self.rightValueArray[indexPath.row-1];
             return cell;
         }
     }else if (indexPath.section == 2 || indexPath.section == 3){
@@ -129,6 +193,7 @@
         [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"PV inverter enabled".localized,@"EV charger enabled".localized,@"None".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-200, frame.origin.y+50, 185, 50*3) completion:^(NSString * _Nonnull value, NSInteger idx) {
             self.leftOpen = idx != 2;
             self.leftValue = value;
+            self.leftController = [NSString stringWithFormat:@"%ld",idx == 2 ? 0 : idx+1];
             [tableView reloadData];
         }];
     }else if (indexPath.section == 1){
@@ -137,6 +202,7 @@
         [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"Generator enabled".localized,@"None".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-200, frame.origin.y+50, 185, 50*2) completion:^(NSString * _Nonnull value, NSInteger idx) {
             self.rightOpen = idx != 1;
             self.rightValue = value;
+            self.rightController = [NSString stringWithFormat:@"%ld",idx == 2 ? 0 : idx+1];
             [tableView reloadData];
         }];
     }else if (indexPath.section == 2) {

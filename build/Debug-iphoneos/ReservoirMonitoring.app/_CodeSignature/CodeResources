@@ -34,7 +34,7 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		nCvmLcBKAbqklq2Yvsq07IiaTt4=
+		4lQq6F50dygnzeUOedTQOEzAaNw=
 		</data>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
@@ -70,11 +70,11 @@
 		</data>
 		<key>DataEchartsCollectionViewCell.nib/objects-12.3+.nib</key>
 		<data>
-		pwRDDPAfvqc34fLBLe+4e3oAhvE=
+		Vj8FFM82+CyPh3wljHsYxs8RRWY=
 		</data>
 		<key>DataEchartsCollectionViewCell.nib/runtime.nib</key>
 		<data>
-		hk1Uk2CL0Ww0GIRsYr0BHjACET8=
+		wPMKRQ6mD3h67E2oGnKXBUcmEP0=
 		</data>
 		<key>DataViewController.nib</key>
 		<data>
@@ -102,7 +102,7 @@
 		</data>
 		<key>Frameworks/AFNetworking.framework/AFNetworking</key>
 		<data>
-		YTjUrSTlxQNsWsYpuThDYzfg+uw=
+		hIf9EDDYGLPSjQ4cRUJGYzYv3ZQ=
 		</data>
 		<key>Frameworks/AFNetworking.framework/Info.plist</key>
 		<data>
@@ -114,7 +114,7 @@
 		</data>
 		<key>Frameworks/BRPickerView.framework/BRPickerView</key>
 		<data>
-		z2ryLd16kNbT5Xny3UP7kozvEEY=
+		lbHfu1tLy1q5CgUOMfG4SSFt4aE=
 		</data>
 		<key>Frameworks/BRPickerView.framework/BRPickerView.bundle/BRCity.json</key>
 		<data>
@@ -157,7 +157,7 @@
 		</data>
 		<key>Frameworks/HXPhotoPicker.framework/HXPhotoPicker</key>
 		<data>
-		SV7vpic3glzKiq2zujJcOV6he7A=
+		e5yjFCCKbt0XWRvsIUiYq4j6XtA=
 		</data>
 		<key>Frameworks/HXPhotoPicker.framework/HXPhotoPicker.bundle/HXCameraBottomView.nib</key>
 		<data>
@@ -782,7 +782,7 @@
 		</data>
 		<key>Frameworks/IQKeyboardManager.framework/IQKeyboardManager</key>
 		<data>
-		Q+5zYTmnbbCJvViVwJsORfs6dRI=
+		JcTho62BchCaftV0PnQARm+9wno=
 		</data>
 		<key>Frameworks/IQKeyboardManager.framework/Info.plist</key>
 		<data>
@@ -798,7 +798,7 @@
 		</data>
 		<key>Frameworks/MJExtension.framework/MJExtension</key>
 		<data>
-		WvhihW1Q2o1RbpXy8TVw4QFol/Q=
+		lhHtDKFVLVFEvW/Vlk8Lgeb+u6Y=
 		</data>
 		<key>Frameworks/MJExtension.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -810,7 +810,7 @@
 		</data>
 		<key>Frameworks/MJRefresh.framework/MJRefresh</key>
 		<data>
-		9I/SoyIKPissKV61TU2dzmgFZak=
+		mKn1Rx9MGpNA3wOk6BI9zztpUuQ=
 		</data>
 		<key>Frameworks/MJRefresh.framework/MJRefresh.bundle/arrow@2x.png</key>
 		<data>
@@ -884,7 +884,7 @@
 		</data>
 		<key>Frameworks/Masonry.framework/Masonry</key>
 		<data>
-		5oyrRsJABYQRlm1T7njVdZpI+wQ=
+		GS2+kFWAHXk+7Exguni9N5ERkGI=
 		</data>
 		<key>Frameworks/Masonry.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -896,7 +896,7 @@
 		</data>
 		<key>Frameworks/SDWebImage.framework/SDWebImage</key>
 		<data>
-		V8EioB9CkOXgvrfr/eTe69gI6j8=
+		5592OVQragJnQeZfXNuLRkZ2Q2U=
 		</data>
 		<key>Frameworks/SDWebImage.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -908,7 +908,7 @@
 		</data>
 		<key>Frameworks/SGPagingView.framework/SGPagingView</key>
 		<data>
-		tygg2v6j+HBYurBw2qdZ+NUxFyQ=
+		4rTJEKXxShV23P4L8/xjDMt3CUk=
 		</data>
 		<key>Frameworks/SGPagingView.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -920,7 +920,7 @@
 		</data>
 		<key>Frameworks/WMZCode.framework/WMZCode</key>
 		<data>
-		fY9f3CqonDjMfOTngV4Uq2Z3U+A=
+		q/SvnBQd87f4aRRk6qNH4BwHB5A=
 		</data>
 		<key>Frameworks/WMZCode.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -932,7 +932,7 @@
 		</data>
 		<key>Frameworks/iOS_Echarts.framework/_CodeSignature/CodeResources</key>
 		<data>
-		+5ZsiRYHFmjjyRi4nx9YhuqeP2w=
+		dq3HiGwLu48VJ2JhfDUG8GbfF9g=
 		</data>
 		<key>Frameworks/iOS_Echarts.framework/iOS-Echarts.bundle/Info.plist</key>
 		<data>
@@ -944,7 +944,7 @@
 		</data>
 		<key>Frameworks/iOS_Echarts.framework/iOS-Echarts.bundle/js/echarts-all.js</key>
 		<data>
-		2bDvs1ZRU8MXfcaEHUJrCP3JK68=
+		aFkH/r3VReT8dVHhvAgeUURbyMw=
 		</data>
 		<key>Frameworks/iOS_Echarts.framework/iOS-Echarts.bundle/theme/blue.js</key>
 		<data>
@@ -1000,7 +1000,7 @@
 		</data>
 		<key>Frameworks/iOS_Echarts.framework/iOS_Echarts</key>
 		<data>
-		k7kGepAKuSFiL1IWvuwzFvA7sb4=
+		jKD21+cUrpzO2Euj30MMxB92NAs=
 		</data>
 		<key>GeneratorViewController.nib</key>
 		<data>
@@ -1028,7 +1028,7 @@
 		</data>
 		<key>HomeTableViewCell.nib</key>
 		<data>
-		f+tCQLd96tz6wF3ep9IQZWeJDK4=
+		MvAyk+kqHztLHFUXZv4svnWqZn8=
 		</data>
 		<key>HomeViewController.nib</key>
 		<data>
@@ -1036,7 +1036,7 @@
 		</data>
 		<key>HybridViewController.nib</key>
 		<data>
-		Rn8U+S6MvDMNQrF7q9nJffTz29U=
+		XFUcIPGXd2c+PvK1BEaJ9SW7ax4=
 		</data>
 		<key>ImageAuthenticationView.nib</key>
 		<data>
@@ -1060,15 +1060,15 @@
 		</data>
 		<key>InstallCollectionViewCell.nib/objects-12.3+.nib</key>
 		<data>
-		Msq5c/nDVF9tbhakDII1W2FWYAY=
+		H48HmlWJHSmbP7odUrx1Zofysh8=
 		</data>
 		<key>InstallCollectionViewCell.nib/runtime.nib</key>
 		<data>
-		c14mV+ScwFsHWfeRhxTik+LePRk=
+		znaBJHzzWXx0tbNChMfUXLHexok=
 		</data>
 		<key>InstallViewController.nib</key>
 		<data>
-		SAsMc5rCSV37h97wKLvwoWPSIx4=
+		pjziXZjWcPsBwc2HIcHu7+RhFyo=
 		</data>
 		<key>InverterViewController.nib</key>
 		<data>
@@ -1136,7 +1136,7 @@
 		</data>
 		<key>SwitchModeViewController.nib</key>
 		<data>
-		5uhQVOJ+YFpfA3+aKsPIOMIFm5I=
+		qsodYQdVoi4b3U63avUD+uvPPAA=
 		</data>
 		<key>SwitchModelTableViewCell.nib</key>
 		<data>
@@ -1144,7 +1144,7 @@
 		</data>
 		<key>SwitchProgressTableViewCell.nib</key>
 		<data>
-		/6zBLDHXctoaTm1LPPJytU49Fb4=
+		H/YGNelx6ey2XlUzqJodWz4OnWs=
 		</data>
 		<key>SwitchTableViewCell.nib</key>
 		<data>
@@ -1156,7 +1156,7 @@
 		</data>
 		<key>UpdateViewController.nib</key>
 		<data>
-		sBzAzPCJvmugwvpIG1oTyBrak6g=
+		xEv8TbF3KmwuCLPlMpN80hJqQQk=
 		</data>
 		<key>WarningTableViewCell.nib</key>
 		<data>
@@ -1210,7 +1210,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			QOst9udxRrloMm6t19sjxTiSW0w=
+			ftts+Yh0jFNRChSNuWYePssvaGU=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1228,7 +1228,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			QOst9udxRrloMm6t19sjxTiSW0w=
+			ftts+Yh0jFNRChSNuWYePssvaGU=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1298,7 +1298,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			HrSOPBbYVbmj5RRtuAlAoKyoBc6TBRfrdG2aX5AEcio=
+			LIqO/hhE+PT4fdc7FAup2vJCAdR7I+nKVaW7PzUydpo=
 			</data>
 		</dict>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
@@ -1361,14 +1361,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			kuBpYsQWuodEB4Kyn2GjkZrgeE7ErOU/S4Dcoi8u474=
+			nsyZi7D4QLEbqUyVm/L//aahxaVC4uRwQ5Y3c+4srLc=
 			</data>
 		</dict>
 		<key>DataEchartsCollectionViewCell.nib/runtime.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			C0oS+AaG/oeQqa7GDe7nR2vWkRF1HUNutxy86NVBAio=
+			g/GUZ0txp08Ke1LGTfY6lmV4kNMHRukuu+4UPvA8b28=
 			</data>
 		</dict>
 		<key>DataViewController.nib</key>
@@ -1417,7 +1417,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			R2rN23BvJ6B65iRoLo+/TrTuS9OfEiVKpCgrnO9IAdM=
+			STuuTfzp65fwg+Eul77xlSAk1ncKlWgtRRkIoS7Jk/g=
 			</data>
 		</dict>
 		<key>Frameworks/AFNetworking.framework/Info.plist</key>
@@ -1438,7 +1438,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			mw4n39Qhdr0lLXJHAssz6CJD4xCwCdVR+ojwjq1qAsc=
+			VW7d/O3O8Pr86c+tJGnhF7s+LGehVhElQd+e6ce8+dA=
 			</data>
 		</dict>
 		<key>Frameworks/BRPickerView.framework/BRPickerView.bundle/BRCity.json</key>
@@ -1493,7 +1493,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			88SPGYwCL4bGZgf81AT09AbFR1DZYtU4BjK2jiGoINo=
+			uVJlS31Cq9ndHd8Bs6+RWkcZcQc5eUujrV5DKWuha/8=
 			</data>
 		</dict>
 		<key>Frameworks/HXPhotoPicker.framework/HXPhotoPicker.bundle/HXCameraBottomView.nib</key>
@@ -2553,7 +2553,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			oFTvz9cF0C0JRVV6t5C9u9mq/Uvu1ey3y0v1CG41/sc=
+			fVfR6VzFMKF+tV7S2go1V/je/X6saoGAYWizu4PGdE8=
 			</data>
 		</dict>
 		<key>Frameworks/IQKeyboardManager.framework/Info.plist</key>
@@ -2581,7 +2581,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			PRlvycbuGw/QjOOFAK/JfY4Hzi4jD9hZlVBUrWKGZp4=
+			qgumNvqz0kk2/BGpGIPm5fZSqO9WHeMyg5JfIzulCcE=
 			</data>
 		</dict>
 		<key>Frameworks/MJExtension.framework/_CodeSignature/CodeResources</key>
@@ -2602,7 +2602,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			gxQ5Bk+hMQtWQatgh7ZQ0NYGCsggfzAUM86XBdgPLFc=
+			TvFF2uq5d5r4jAQuar2NqtEZZZTeScxjQl0xAkUK6qE=
 			</data>
 		</dict>
 		<key>Frameworks/MJRefresh.framework/MJRefresh.bundle/arrow@2x.png</key>
@@ -2691,7 +2691,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			pWdaqiUataM5oEalIXNYf+VUP9AUT/2pUMqvG3Faypo=
+			FBIHiE+rHBqRnOD0m8jyOmbxoWJCXT9IFYLMxnk5We0=
 			</data>
 		</dict>
 		<key>Frameworks/Masonry.framework/_CodeSignature/CodeResources</key>
@@ -2712,7 +2712,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			UbXgYnPBXNDidLNwyZb1p+mx8BRs1OCHBYq8ClBIXbI=
+			YeXIgeiAyGyn5cLCKtpf7YdtC8QFcydsEFMOl2ivFdY=
 			</data>
 		</dict>
 		<key>Frameworks/SDWebImage.framework/_CodeSignature/CodeResources</key>
@@ -2733,7 +2733,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			AqQKrSEquYHB27IkLmpYuFhvY7wek0jFkky4ibQlSBo=
+			v8p3w1u39sKnPHJ4EkIFAMAJ5d0B5jp+sT7YJ96LpuU=
 			</data>
 		</dict>
 		<key>Frameworks/SGPagingView.framework/_CodeSignature/CodeResources</key>
@@ -2754,7 +2754,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ms0bcZpWFvw//wxhc8U1OZ72OPoqMAwLNuQavkfGKzc=
+			8lZ2BnLfk06t3od6WN0nf2ncUPB07asZdJgXV9HYYy4=
 			</data>
 		</dict>
 		<key>Frameworks/WMZCode.framework/_CodeSignature/CodeResources</key>
@@ -2775,7 +2775,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			cF2dSkw5AX6vIOccegRcjl5yfJNrOOCSlDxe+uN8hi8=
+			RhGeMS0Bt97VTY7pB2gUTS39NnsHwFtHSnGHdgRdaCw=
 			</data>
 		</dict>
 		<key>Frameworks/iOS_Echarts.framework/iOS-Echarts.bundle/Info.plist</key>
@@ -2796,7 +2796,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			nZGYJJpcCCHSNdMY+EjHE5zGqGkIib+9qHAeI1NpUqg=
+			nfQmBJNKLuJ2gTZDCuYdMJe0GeOGflwcnP9IfTbz2e8=
 			</data>
 		</dict>
 		<key>Frameworks/iOS_Echarts.framework/iOS-Echarts.bundle/theme/blue.js</key>
@@ -2894,7 +2894,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zSbwBofxNoWQWSVIDCUmYUfKZfkSCM4g8jA5+NT24d4=
+			Ky3eX5ZhsJefTWF66vaGeMqRoVR1JTQQtYKaWO7EFjk=
 			</data>
 		</dict>
 		<key>GeneratorViewController.nib</key>
@@ -2943,7 +2943,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			0NLcr1+ltcXBTXV5gcJuD6k9t/p9nGiHDL9Z4+VbdWQ=
+			KT2DYC7TN++D6cn+FRen01jaVqPr3IPegir2AsGtaZg=
 			</data>
 		</dict>
 		<key>HomeViewController.nib</key>
@@ -2957,7 +2957,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			QcgFgcC4OuH4njRN9WQpLVwXREFnVoeBxh026haLpMU=
+			aDnMghRz8Udwx6+ePp2QeJXHi+/kTeClyyvjQ4SIv4o=
 			</data>
 		</dict>
 		<key>ImageAuthenticationView.nib</key>
@@ -2992,21 +2992,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			dDN34MKXEQt9NMObnH5WZPkrl2QaK/xjKJ9uKhLh8R8=
+			kJT6ojbmID/KYRXk9reoHkzLFxTJSsZp9dPBvMtXJKE=
 			</data>
 		</dict>
 		<key>InstallCollectionViewCell.nib/runtime.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			SORdakSIICrb7iqwWM4/WEd6JHVzyyP67+ixn/w1Znk=
+			XAC+92MGtrAGKMZBRWOX/0JVbeXsrdkuqeou6BgWO+Y=
 			</data>
 		</dict>
 		<key>InstallViewController.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9CYcs434cQGeBiE7O5Q3IkMC90d51UPPYvsXldk51BQ=
+			mQpy+i9kI3GMLnzvDLftBwTgzcHm5pohehjkUSTXVRg=
 			</data>
 		</dict>
 		<key>InverterViewController.nib</key>
@@ -3118,7 +3118,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ldsUfQza+QQwhDc6DUARlD2/4ZMZ9se6l/v5z+Ufd40=
+			LCMzv7FqmwgJhIsXgZmASruCVhmijjie36cRBKA+l2Q=
 			</data>
 		</dict>
 		<key>SwitchModelTableViewCell.nib</key>
@@ -3132,7 +3132,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			4A5NEZFJF+hNEOWCY+qpIhkw4HdMHM4CSQqGWsdjL2g=
+			dIfmZhLauWuyudotgGKhtSH7fRBUDw4QqOQE005gQJo=
 			</data>
 		</dict>
 		<key>SwitchTableViewCell.nib</key>
@@ -3153,7 +3153,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Aaz/f02jy+B4oJSHjMAsZa6C+apmipv+3iSOJ+0cnWY=
+			RHA8MULUj3Jf7tYI1VqcVFdinhVJmjQ5vNAwJJ2umY4=
 			</data>
 		</dict>
 		<key>WarningTableViewCell.nib</key>
@@ -3244,7 +3244,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5zKzqe7yO5aspexWBEMzF/L7uYrUp8Ir12q7anM9854=
+			jwPWOTXkkk4skvwNKc9q+WKD0F8CWEzk3SYeyhDsm+0=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3262,7 +3262,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5zKzqe7yO5aspexWBEMzF/L7uYrUp8Ir12q7anM9854=
+			jwPWOTXkkk4skvwNKc9q+WKD0F8CWEzk3SYeyhDsm+0=
 			</data>
 			<key>optional</key>
 			<true/>
