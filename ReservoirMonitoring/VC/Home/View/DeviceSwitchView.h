@@ -6,12 +6,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DevideModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol DeviceSwitchViewDelegate <NSObject>
 
-- (void)onSelectDevice;
+- (void)onSwitchDeviceSuccess;
 
 @end
 

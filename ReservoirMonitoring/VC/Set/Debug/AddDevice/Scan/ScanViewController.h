@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ScanViewController : BaseViewController
 
+@property(nonatomic,copy) void(^scanCode)(NSString * code);
+
 @end
 
 NS_ASSUME_NONNULL_END

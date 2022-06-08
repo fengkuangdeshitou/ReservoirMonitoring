@@ -32,4 +32,24 @@ NSString * const UploadImg = @"/open/common/uploadImg/123";
 NSString * const HelpList = @"/help/helpList";
 
 NSString * const HelpDetail = @"/help/helpDetail";
+
+NSString * const ScanSgsn = @"/device/scanSgsn";
+
+NSString * const DeviceBindAddressInfo = @"/device/deviceBindAddressInfo";
+
+NSString * const TimeZoneList = @"/common/locationCountryZone/getTimeZoneList";
+
+NSString * const BindDevice = @"/device/bindDevice";
+
+NSString * const DeviceList = @"/device/deviceList";
+
+NSString * const HomeDeviceInfo = @"/device/homeDeviceInfo";
+
+NSString * const CurrentDeviceInfo = @"/device/currentDeviceInfo";
+
+NSString * const DeviceInfoToId = @"/device/getDeviceInfoToId";
+
+NSString * const SwitchMode = @"/device/switchMode";
+
+
 @end

@@ -18,6 +18,7 @@
                 <outlet property="link" destination="AcT-Yj-9or" id="8lv-Oe-hHh"/>
                 <outlet property="province" destination="ShR-2S-TkB" id="xPa-XB-3Vr"/>
                 <outlet property="time" destination="aeh-GY-aCX" id="1ec-4G-8rb"/>
+                <outlet property="timeZone" destination="qNn-5R-F5r" id="did-zL-ayr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -180,11 +181,20 @@
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_down" translatesAutoresizingMaskIntoConstraints="NO" id="vVo-Ok-CkZ">
                             <rect key="frame" x="357.5" y="27.5" width="10.5" height="7"/>
                         </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNn-5R-F5r">
+                            <rect key="frame" x="349.5" y="31" width="0.0" height="0.0"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aeh-GY-aCX">
                             <rect key="frame" x="24" y="0.0" width="360" height="62"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" title="Time zone"/>
+                            <connections>
+                                <action selector="timeAction:" destination="-1" eventType="touchUpInside" id="yor-9L-UCn"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.10588235294117647" green="0.10588235294117647" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -198,6 +208,8 @@
                         <constraint firstAttribute="height" constant="62" id="V9i-uV-aJR"/>
                         <constraint firstItem="aeh-GY-aCX" firstAttribute="leading" secondItem="IRt-YW-JHA" secondAttribute="trailing" constant="2" id="bdU-1D-P6F"/>
                         <constraint firstAttribute="bottom" secondItem="aeh-GY-aCX" secondAttribute="bottom" id="cdk-di-eDi"/>
+                        <constraint firstItem="vVo-Ok-CkZ" firstAttribute="leading" secondItem="qNn-5R-F5r" secondAttribute="trailing" constant="8" id="mje-i1-3em"/>
+                        <constraint firstItem="vVo-Ok-CkZ" firstAttribute="centerY" secondItem="qNn-5R-F5r" secondAttribute="centerY" id="xQD-A3-1xK"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j75-Hw-TEb">
@@ -246,6 +258,9 @@
                     <state key="normal" title="Confirm">
                         <color key="titleColor" red="0.54901960780000003" green="0.87450980389999999" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="submitAction:" destination="-1" eventType="touchUpInside" id="d7p-AM-elu"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>

@@ -126,7 +126,7 @@ static BleManager * _manager = nil;
     long length = array.count*2+7;
     Byte crcByte[length];
     crcByte[0] = 0x64;
-    crcByte[1] = 0x10;
+    crcByte[1] = array.count == 1 ? 0x06 : 0x10;
     crcByte[2] = stringByte[1];
     crcByte[3] = stringByte[0];
     crcByte[4] = countByte2[1];

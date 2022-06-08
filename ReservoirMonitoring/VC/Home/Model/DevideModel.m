@@ -9,4 +9,9 @@
 
 @implementation DevideModel
 
++ (NSDictionary *)mj_replacedKeyFromPropertyName{
+    return @{
+        @"deviceId":@"id"
+    };
+}
 @end

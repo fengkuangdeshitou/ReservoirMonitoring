@@ -58,34 +58,84 @@
 }
 
 - (IBAction)submitAction:(id)sender{
+    PeakTimeTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:2]];
+    SwitchProgressTableViewCell * cell1 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    SwitchProgressTableViewCell * cell2 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+    [params setValue:self.devId forKey:@"devId"];
+    [params setValue:self.weatherBtn.selected ? @"1" : @"0" forKey:@"weatherWatch"];
+    [params setValue:[NSString stringWithFormat:@"%ld",self.flag] forKey:@"workStatus"];
+    [params setValue:[NSString stringWithFormat:@"%.0f",cell1.progress] forKey:@"selfConsumptioinReserveSoc"];
+    [params setValue:[NSString stringWithFormat:@"%.0f",cell2.progress] forKey:@"backupPowerReserveSoc"];
+    [params setValue:[NSString stringWithFormat:@"%@",cell.switchBtn.selected ? @"1" : @"0"] forKey:@"allowChargingXiaGrid"];
+    NSMutableArray * offPeakArray = [[NSMutableArray alloc] init];
+    for (int i=0; i<[cell.dataArray[0] count]; i++) {
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
+        NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
+        NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];
+        [offPeakArray addObject:string];
+    }
+    [params setValue:offPeakArray forKey:@"offPeakTimeList"];
+    
+    NSMutableArray * peakTimeArray = [[NSMutableArray alloc] init];
+    for (int i=0; i<[cell.dataArray[1] count]; i++) {
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:1];
+        TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
+        NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
+        NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];
+        [peakTimeArray addObject:string];
+    }
+    [params setValue:peakTimeArray forKey:@"peakTimeList"];
+    
+    NSMutableArray * superPeakTimeArray = [[NSMutableArray alloc] init];
+    for (int i=0; i<[cell.dataArray[2] count]; i++) {
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:2];
+        TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
+        NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
+        NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];
+        [superPeakTimeArray addObject:string];
+    }
+    [params setValue:superPeakTimeArray forKey:@"superPeakTimeList"];
+    
+    return;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         [BleManager.shareInstance writeWithCMDString:@"621" array:@[[NSString stringWithFormat:@"%@",self.weatherBtn.selected ? @"1" : @"0"]] finish:^{
             dispatch_semaphore_signal(semaphore);
         }];
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        SwitchProgressTableViewCell * cell1 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-        SwitchProgressTableViewCell * cell2 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
         [BleManager.shareInstance writeWithCMDString:@"623" array:@[[NSString stringWithFormat:@"%.0f",cell1.progress],[NSString stringWithFormat:@"%.0f",cell2.progress]] finish:^{
             dispatch_semaphore_signal(semaphore);
         }];
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        PeakTimeTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
         [BleManager.shareInstance writeWithCMDString:@"6FF" array:@[[NSString stringWithFormat:@"%ld",[cell.dataArray[0] count]]] finish:^{
             dispatch_semaphore_signal(semaphore);
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        NSArray * timeArray = cell.dataArray[0];
-        NSString * startTime0 = timeArray[0][@"startTime"];
-        NSString * endTime0 = timeArray[0][@"endTime"];
+        __block NSString * startTime0 = @"";
+        __block NSString * endTime0 = @"";
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+            TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
+            startTime0 = timeCell.startTime.text;
+            endTime0 = timeCell.endTime.text;
+        });
         [BleManager.shareInstance writeWithCMDString:@"702" array:@[[startTime0 componentsSeparatedByString:@":"].firstObject,[startTime0 componentsSeparatedByString:@":"].lastObject,[endTime0 componentsSeparatedByString:@":"].firstObject,[endTime0 componentsSeparatedByString:@":"].lastObject,] finish:^{
             dispatch_semaphore_signal(semaphore);
         }];
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        NSArray * timeArray = cell.dataArray[0];
         if (timeArray.count > 1) {
-            NSString * startTime1 = timeArray[1][@"startTime"];
-            NSString * endTime1 = timeArray[1][@"endTime"];
+            __block NSString * startTime1 = @"";
+            __block NSString * endTime1 = @"";
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+                TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
+                startTime1 = timeCell.startTime.text;
+                endTime1 = timeCell.endTime.text;
+            });
             [BleManager.shareInstance writeWithCMDString:@"708" array:@[[startTime1 componentsSeparatedByString:@":"].firstObject,[startTime1 componentsSeparatedByString:@":"].lastObject,[endTime1 componentsSeparatedByString:@":"].firstObject,[endTime1 componentsSeparatedByString:@":"].lastObject,] finish:^{
                 dispatch_semaphore_signal(semaphore);
             }];
@@ -95,8 +145,14 @@
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         if (timeArray.count>2) {
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-            NSString * startTime2 = timeArray[2][@"startTime"];
-            NSString * endTime2 = timeArray[2][@"endTime"];
+            __block NSString * startTime2 = @"";
+            __block NSString * endTime2 = @"";
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:2];
+                TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
+                startTime2 = timeCell.startTime.text;
+                endTime2 = timeCell.endTime.text;
+            });
             [BleManager.shareInstance writeWithCMDString:@"70E" array:@[[startTime2 componentsSeparatedByString:@":"].firstObject,[startTime2 componentsSeparatedByString:@":"].lastObject,[endTime2 componentsSeparatedByString:@":"].firstObject,[endTime2 componentsSeparatedByString:@":"].lastObject,] finish:^{
                 dispatch_semaphore_signal(semaphore);
             }];
@@ -112,15 +168,30 @@
             NSInteger idx = [array.firstObject intValue];
             if (idx == 1) {
                 [RMHelper showToast:@"Configuration is successful" toView:self.view];
+                [self switchWithParams:params];
             }
             if (idx == 2) {
                 [RMHelper showToast:@"In the configuration" toView:self.view];
+                [self switchWithParams:params];
             }
             if (idx == 3) {
                 [RMHelper showToast:@"Configuration failed" toView:self.view];
             }
         }];
     });
+}
+
+- (void)switchWithParams:(NSDictionary *)params{
+    [Request.shareInstance postUrl:SwitchMode params:params progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        [RMHelper showToast:@"swithc mode success" toView:self.view];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.navigationController popToRootViewControllerAnimated:true];
+        });
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

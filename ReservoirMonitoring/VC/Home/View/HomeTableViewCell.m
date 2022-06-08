@@ -24,6 +24,7 @@
 @property(nonatomic,weak)IBOutlet UILabel * titleLabel;
 @property(nonatomic,weak)IBOutlet UILabel * communication;
 @property(nonatomic,weak)IBOutlet UILabel * communicationValue;
+@property(nonatomic,weak)IBOutlet UILabel * selfHelpRate;
 
 @end
 
@@ -114,22 +115,25 @@
         if ([view isKindOfClass:[HomeItemView class]]) {
             HomeItemView * itemView = (HomeItemView *)view;
             if (itemView.tag == 10) {
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.gridValue floatValue]];
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.gridElectricity floatValue]];
             }else if (itemView.tag == 11) {
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.socValue floatValue]];
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.batteryCurrentElectricity floatValue]];
             }else if (itemView.tag == 12) {
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.generatorValue floatValue]];
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.generatorElectricity floatValue]];
             }else if (itemView.tag == 13) {
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.EVValue floatValue]];
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.evElectricity floatValue]];
             }else if (itemView.tag == 14) {
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.otherLoadsValue floatValue]];
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.nonBackUpElectricity floatValue]];
             }else{
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.backupLoadsValue floatValue]];
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.backUpElectricity floatValue]];
             }
         }
     }
-    self.progressView.titleLabel.text = [NSString stringWithFormat:@"%.0f kWh (%.0f%@)",[model.socValue floatValue],[model.soc floatValue],@"%"];
-    self.progressView.progress = [model.soc floatValue]/100;
+    self.progressView.titleLabel.text = [NSString stringWithFormat:@"%.0f kWh (%.0f%@)",[model.batteryCurrentElectricity floatValue],[model.batterySoc floatValue],@"%"];
+    self.progressView.progress = [model.batterySoc floatValue]/100;
+    
+    self.selfHelpRate.text = [model.selfHelpRate stringByAppendingString:@"%"];
+    
 }
 
 - (IBAction)timeAction:(id)sender{

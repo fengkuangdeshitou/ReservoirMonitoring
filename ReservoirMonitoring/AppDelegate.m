@@ -9,6 +9,7 @@
 #import "TabbarViewController.h"
 #import "NavigationViewController.h"
 #import "LoginViewController.h"
+#import "UWConfig.h"
 
 @interface AppDelegate ()
 
@@ -19,6 +20,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+//    [UWConfig setUserLanguage:@"zh-Hans"];
+    [UWConfig setUserLanguage:@"en"];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:LOGIN_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadLoginController) name:LOG_OUT object:nil];
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];

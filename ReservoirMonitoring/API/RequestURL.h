@@ -31,6 +31,25 @@ extern NSString * const HelpList;
 
 extern NSString * const HelpDetail;
 
+extern NSString * const ScanSgsn;
+
+extern NSString * const DeviceBindAddressInfo;
+
+extern NSString * const TimeZoneList;
+
+extern NSString * const BindDevice;
+
+extern NSString * const DeviceList;
+
+extern NSString * const HomeDeviceInfo;
+
+extern NSString * const CurrentDeviceInfo;
+
+extern NSString * const DeviceInfoToId;
+
+extern NSString * const SwitchMode;
+
+
 
 @end
 

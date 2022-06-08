@@ -7,12 +7,16 @@
 
 #import "DeviceSwitchView.h"
 #import "DeviceSwitchTableViewCell.h"
+@import MJExtension;
 
 @interface DeviceSwitchView ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UIView * contentView;
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)UITableView * otherTableView;
+@property(nonatomic,strong)DevideModel * currentDevice;
+@property(nonatomic,strong)NSArray<DevideModel*> * dataArray;
+@property(nonatomic,weak)id<DeviceSwitchViewDelegate>delegate;
 
 @end
 
@@ -32,6 +36,10 @@
         self.alpha = 0;
         self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
         [UIApplication.sharedApplication.keyWindow addSubview:self];
+        self.delegate = delegate;
+        
+        [self getCurrentDevice];
+        [self getDeviceList];
         
         self.contentView = [[UIView alloc] initWithFrame:CGRectMake(15, 90, SCREEN_WIDTH-30, self.height-90*2)];
         self.contentView.backgroundColor = [UIColor colorWithHexString:@"#1B1B1B"];
@@ -100,17 +108,57 @@
     return self;
 }
 
+- (void)getCurrentDevice{
+    [Request.shareInstance getUrl:CurrentDeviceInfo params:@{} progress:^(float progress) {
+
+    } success:^(NSDictionary * _Nonnull result) {
+        self.currentDevice = [DevideModel mj_objectWithKeyValues:result[@"data"][@"device"]];
+        [self.tableView reloadData];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
+}
+
+- (void)getDeviceList{
+    [Request.shareInstance getUrl:DeviceList params:@{} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        self.dataArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        [self.otherTableView reloadData];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
+}
+
 - (void)closeAction{
     [self dismiss];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     DeviceSwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([DeviceSwitchTableViewCell class]) forIndexPath:indexPath];
+    cell.model = tableView == self.tableView ? self.currentDevice : self.dataArray[indexPath.row];
+    [cell.switchDeviceBtn addTarget:self action:@selector(switchDeviceAction:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 
+- (void)switchDeviceAction:(UIButton *)btn{
+    DeviceSwitchTableViewCell * cell = (DeviceSwitchTableViewCell *)[[[btn superview] superview] superview];
+    NSIndexPath * indexPath = [self.otherTableView indexPathForCell:cell];
+    DevideModel * model = self.dataArray[indexPath.row];
+    [Request.shareInstance getUrl:DeviceInfoToId params:@{@"id":model.deviceId} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        [self getCurrentDevice];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(onSwitchDeviceSuccess)]) {
+            [self.delegate onSwitchDeviceSuccess];
+        }
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return tableView == self.tableView ? 2 : 6;
+    return tableView == self.tableView ? 2 : self.dataArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

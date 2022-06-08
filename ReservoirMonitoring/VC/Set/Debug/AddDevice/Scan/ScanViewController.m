@@ -75,6 +75,10 @@
         NSString *result = qrObject.stringValue;
         //解析数据进行处理并实现相应的逻辑
         NSLog(@"result=%@",result);
+        if (self.scanCode) {
+            self.scanCode(result);
+        }
+        [self.navigationController popViewControllerAnimated:true];
     }
 }
 

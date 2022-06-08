@@ -11,6 +11,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AddAddressViewController : BaseViewController
 
+@property(nonatomic,strong) NSString * sgSn;
+@property(nonatomic,strong) NSString * name;
+@property(nonatomic,strong) NSString * addressIds;
+@property(nonatomic,strong) NSString * devId;
+@property(nonatomic,strong) NSString * snItems;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

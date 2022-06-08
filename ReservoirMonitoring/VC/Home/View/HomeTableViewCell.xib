@@ -184,6 +184,7 @@
                 <outlet property="currentModelView" destination="ecf-SL-hkB" id="OLB-7I-xl7"/>
                 <outlet property="family" destination="iCa-c9-9F7" id="Pif-k8-pY4"/>
                 <outlet property="itemContentView" destination="pcc-JM-zqN" id="k3i-TH-s9C"/>
+                <outlet property="selfHelpRate" destination="5bX-Uo-GCw" id="skX-YU-v6C"/>
                 <outlet property="status" destination="acb-8X-ach" id="NTN-Mr-5z8"/>
                 <outlet property="statusValue" destination="kUE-rW-HLq" id="mhl-el-5aL"/>
                 <outlet property="titleLabel" destination="sOx-KY-mDQ" id="295-rR-IWT"/>

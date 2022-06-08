@@ -11,7 +11,7 @@
 #import "SwitchModeViewController.h"
 #import "DevideModel.h"
 
-@interface HomeViewController ()<DeviceSwitchViewDelegate,BleManagerDelegate,UITableViewDelegate>
+@interface HomeViewController ()<DeviceSwitchViewDelegate,BleManagerDelegate,UITableViewDelegate,DeviceSwitchViewDelegate>
 
 @property(nonatomic,weak)IBOutlet UIButton * addEquipmentBtn;
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
@@ -32,8 +32,30 @@
     
     [self.addEquipmentBtn showBorderWithRadius:25];
     [self setLeftBatButtonItemWithImage:[UIImage imageNamed:@"logo"] sel:nil];
-    [self setRightBarButtonItemWithTitlt:@"小明的家" sel:@selector(changeDevice)];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomeTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([HomeTableViewCell class])];
+    
+    [self getCurrentDevice];
+}
+
+- (void)getCurrentDevice{
+    [Request.shareInstance getUrl:CurrentDeviceInfo params:@{} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        [self setRightBarButtonItemWithTitlt:result[@"data"][@"device"][@"name"] sel:@selector(changeDevice)];
+        [self getHomeData:result[@"data"][@"device"][@"sgSn"]];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
+}
+
+- (void)getHomeData:(NSString *)sgSn{
+    [Request.shareInstance getUrl:HomeDeviceInfo params:@{@"sgSn":sgSn} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -142,44 +164,44 @@
             self.model.deviceStatus = array.firstObject;
         }
         if ([cmd isEqualToString:@"515"]) {
-            self.model.soc = array.firstObject;
-            self.model.socValue = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:@[array.lastObject]]/100];
+            self.model.batterySoc = array.firstObject;
+            self.model.batteryCurrentElectricity = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:@[array.lastObject]]/100];
         }
         if ([cmd isEqualToString:@"51F"]) {
-            self.model.gridDirection = array.firstObject;
+            self.model.gridPower = array.firstObject;
         }
         if ([cmd isEqualToString:@"51F"]) {
-            self.model.gridValue = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+            self.model.gridElectricity = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
         }
         if ([cmd isEqualToString:@"543"]) {
-            self.model.solarDirection = array.firstObject;
+            self.model.solarPower = array.firstObject;
         }
         if ([cmd isEqualToString:@"529"]) {
-            self.model.solarValue = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+            self.model.solarElectricity = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
         }
         if ([cmd isEqualToString:@"521"]) {
-            self.model.generatorDirection = array.firstObject;
+            self.model.generatorPower = array.firstObject;
         }
         if ([cmd isEqualToString:@"52D"]) {
-            self.model.generatorValue = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+            self.model.generatorElectricity = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
         }
         if ([cmd isEqualToString:@"524"]) {
-            self.model.EVDirection = array.firstObject;
+            self.model.evPower = array.firstObject;
         }
         if ([cmd isEqualToString:@"52F"]) {
-            self.model.EVValue = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+            self.model.evElectricity = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
         }
         if ([cmd isEqualToString:@"541"]) {
-            self.model.otherLoadsDirection = array.firstObject;
+            self.model.nonBackUpPower = array.firstObject;
         }
         if ([cmd isEqualToString:@"533"]) {
-            self.model.otherLoadsValue = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+            self.model.nonBackUpElectricity = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
         }
         if ([cmd isEqualToString:@"542"]) {
-            self.model.backupLoadsDirection = array.firstObject;
+            self.model.backUpPower = array.firstObject;
         }
         if ([cmd isEqualToString:@"531"]) {
-            self.model.backupLoadsValue = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+            self.model.backUpElectricity = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
         }
         [self.tableView reloadData];
     });
@@ -195,6 +217,10 @@
 
 - (void)changeDevice{
     [DeviceSwitchView showDeviceSwitchViewWithDelegate:self];
+}
+
+- (void)onSwitchDeviceSuccess{
+    [self getCurrentDevice];
 }
 
 - (void)changeCurrentDeviceStatusAction{

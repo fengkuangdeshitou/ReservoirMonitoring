@@ -122,6 +122,12 @@
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        NSString * modelValue = [self.modelValue isEqualToString:@"Efficient mode".localized] ? @"1" : @"2";
+        [BleManager.shareInstance writeWithCMDString:@"633" array:@[modelValue] finish:^{
+            dispatch_semaphore_signal(semaphore);
+        }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         NSMutableArray * countArray = [[NSMutableArray alloc] init];
         dispatch_async(dispatch_get_main_queue(), ^{
             SelecteTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
@@ -175,7 +181,7 @@
     }else if (indexPath.section == 2 || indexPath.section == 3){
         SelecteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SelecteTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = indexPath.section == 2 ? @"Generator operation mode".localized : @"Qty of Hybrid".localized;
-        cell.content.text = indexPath.section == 2 ? self.modelValue : [NSString stringWithFormat:@"%ld",self.count];
+        cell.content.text = indexPath.section == 2 ? self.modelValue : [NSString stringWithFormat:@"%d",self.count];
         return cell;
     }
     else{
@@ -217,7 +223,7 @@
         UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
         CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
         [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"1",@"2",@"3",@"4",@"5",@"6"] tableviewFrame:CGRectMake(SCREEN_WIDTH-50, frame.origin.y+50, 50, 50*6) completion:^(NSString * _Nonnull value, NSInteger idx) {
-            self.count = value.integerValue;
+            self.count = value.intValue;
             [self resetNumberData];
         }];
     }else if (indexPath.section == 4) {

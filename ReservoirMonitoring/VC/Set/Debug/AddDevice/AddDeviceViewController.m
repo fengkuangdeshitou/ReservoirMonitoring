@@ -12,12 +12,15 @@
 #import "AddAddressViewController.h"
 #import "ScanViewController.h"
 
-@interface AddDeviceViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface AddDeviceViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * next;
 @property(nonatomic,strong) NSMutableArray * dataArray;
-
+@property(nonatomic,strong) NSString * sgSn;
+@property(nonatomic,strong) NSString * name;
+@property(nonatomic,strong) NSString * addressIds;
+@property(nonatomic,strong) NSString * devId;
 @end
 
 @implementation AddDeviceViewController
@@ -38,14 +41,44 @@
 }
 
 - (IBAction)nextAction:(id)sender{
+    if (!self.sgSn) {
+        [RMHelper showToast:@"Please input device SN".localized toView:self.view];
+        return;
+    }
     AddAddressViewController * address = [[AddAddressViewController alloc] init];
     address.title = @"Device location".localized;
+    address.sgSn = self.sgSn;
+    address.addressIds = self.addressIds;
+    address.devId = self.devId;
+    address.name = self.name;
+    NSMutableArray * array = [[NSMutableArray alloc] init];
+    for (int i=0; i<self.dataArray.count; i++) {
+        AddDeviceSNTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1]];
+        [array addObject:cell.textfield.text];
+    }
+    address.snItems = [array componentsJoinedByString:@","];
     [self.navigationController pushViewController:address animated:true];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    [Request.shareInstance getUrl:ScanSgsn params:@{@"sgSn":textField.text} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        self.sgSn = result[@"data"][@"sgSn"];
+        self.name = result[@"data"][@"name"];
+        self.addressIds = result[@"data"][@"addressIds"];
+        self.devId = result[@"data"][@"id"];
+        [self.tableView reloadData];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         AddDeviceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([AddDeviceTableViewCell class]) forIndexPath:indexPath];
+        cell.idtextfield.delegate = self;
+        cell.nametextfield.text = self.name;
         return cell;
     }else{
         if (indexPath.row == self.dataArray.count) {
@@ -58,7 +91,7 @@
                 cell.scanBtn.hidden = true;
                 [cell.deleteBtm setImage:[UIImage imageNamed:@"ic_set_scan"] forState:UIControlStateNormal];
                 cell.textfield.placeholder = @"Please input inverte SN".localized;
-                [cell.deleteBtm addTarget:self action:@selector(scanAction) forControlEvents:UIControlEventTouchUpInside];
+                [cell.deleteBtm addTarget:self action:@selector(scanAction:) forControlEvents:UIControlEventTouchUpInside];
             }else{
                 cell.scanBtn.hidden = false;
                 cell.textfield.placeholder = @"Please inpute battery SN".localized;
@@ -66,7 +99,7 @@
                 [cell.deleteBtm setImage:[UIImage imageNamed:@"ic_delete"] forState:UIControlStateNormal];
                 cell.deleteBtm.tag = indexPath.row+10;
                 [cell.deleteBtm addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
-                [cell.scanBtn addTarget:self action:@selector(scanAction) forControlEvents:UIControlEventTouchUpInside];
+                [cell.scanBtn addTarget:self action:@selector(scanAction:) forControlEvents:UIControlEventTouchUpInside];
             }
             return cell;
         }
@@ -83,8 +116,12 @@
     [self.tableView reloadData];
 }
 
-- (void)scanAction{
+- (void)scanAction:(UIButton *)btn{
+    AddDeviceSNTableViewCell * cell = (AddDeviceSNTableViewCell *)[[[btn superview] superview] superview];
     ScanViewController * scan = [[ScanViewController alloc] init];
+    scan.scanCode = ^(NSString * _Nonnull code) {
+        cell.textfield.text = code;
+    };
     [self.navigationController pushViewController:scan animated:true];
 }
 

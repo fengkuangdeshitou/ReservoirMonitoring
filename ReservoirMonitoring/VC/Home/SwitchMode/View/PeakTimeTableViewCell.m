@@ -6,11 +6,9 @@
 //
 
 #import "PeakTimeTableViewCell.h"
-#import "TimeTableViewCell.h"
 
 @interface PeakTimeTableViewCell ()<UITableViewDataSource,UITableViewDelegate>
 
-@property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UILabel * titleLabel;
 @property(nonatomic,weak)IBOutlet UIButton * gridBtn;
 
@@ -178,7 +176,7 @@
     [array addObject:@{}];
     [self.dataArray removeObjectAtIndex:index];
     [self.dataArray insertObject:array atIndex:index];
-    [self.tableView reloadData];
+    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.dataArray[index] count]-1 inSection:index]] withRowAnimation:UITableViewRowAnimationNone];
     [self updateTableViewHeight];
 }
 
@@ -187,9 +185,8 @@
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     NSMutableArray * array = [[NSMutableArray alloc] initWithArray:self.dataArray[indexPath.section]];
     [array removeObjectAtIndex:indexPath.row];
-    [self.dataArray removeObjectAtIndex:indexPath.section];
-    [self.dataArray insertObject:array atIndex:indexPath.row];
-    [self.tableView reloadData];
+    [self.dataArray replaceObjectAtIndex:indexPath.section withObject:array];
+    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationNone];
     [self updateTableViewHeight];
 }
 

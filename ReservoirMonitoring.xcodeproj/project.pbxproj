@@ -10,6 +10,9 @@
 		0F0511B3283E4AF8007E7680 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0511B2283E4AF8007E7680 /* UserModel.m */; };
 		0F0511BC283F87D4007E7680 /* HelpDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0511BA283F87D4007E7680 /* HelpDetailViewController.m */; };
 		0F0511BD283F87D4007E7680 /* HelpDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F0511BB283F87D4007E7680 /* HelpDetailViewController.xib */; };
+		0F0E90C7285047270014B329 /* TimeZoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0E90C5285047270014B329 /* TimeZoneViewController.m */; };
+		0F0E90C8285047270014B329 /* TimeZoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F0E90C6285047270014B329 /* TimeZoneViewController.xib */; };
+		0F0E90CB28507A3C0014B329 /* UWConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0E90CA28507A3C0014B329 /* UWConfig.m */; };
 		0F3EBC0E282E8A5E009CDBED /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3EBC0C282E8A5E009CDBED /* GridViewController.m */; };
 		0F3EBC0F282E8A5E009CDBED /* GridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3EBC0D282E8A5E009CDBED /* GridViewController.xib */; };
 		0F3EBC14282E8B05009CDBED /* InverterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3EBC12282E8B05009CDBED /* InverterViewController.m */; };
@@ -184,6 +187,11 @@
 		0F0511B9283F87D4007E7680 /* HelpDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpDetailViewController.h; sourceTree = "<group>"; };
 		0F0511BA283F87D4007E7680 /* HelpDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpDetailViewController.m; sourceTree = "<group>"; };
 		0F0511BB283F87D4007E7680 /* HelpDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HelpDetailViewController.xib; sourceTree = "<group>"; };
+		0F0E90C4285047270014B329 /* TimeZoneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeZoneViewController.h; sourceTree = "<group>"; };
+		0F0E90C5285047270014B329 /* TimeZoneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeZoneViewController.m; sourceTree = "<group>"; };
+		0F0E90C6285047270014B329 /* TimeZoneViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeZoneViewController.xib; sourceTree = "<group>"; };
+		0F0E90C928507A3C0014B329 /* UWConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UWConfig.h; sourceTree = "<group>"; };
+		0F0E90CA28507A3C0014B329 /* UWConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UWConfig.m; sourceTree = "<group>"; };
 		0F3EBC0B282E8A5E009CDBED /* GridViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridViewController.h; sourceTree = "<group>"; };
 		0F3EBC0C282E8A5E009CDBED /* GridViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GridViewController.m; sourceTree = "<group>"; };
 		0F3EBC0D282E8A5E009CDBED /* GridViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GridViewController.xib; sourceTree = "<group>"; };
@@ -458,6 +466,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F0E90C32850470F0014B329 /* TimeZone */ = {
+			isa = PBXGroup;
+			children = (
+				0F0E90C4285047270014B329 /* TimeZoneViewController.h */,
+				0F0E90C5285047270014B329 /* TimeZoneViewController.m */,
+				0F0E90C6285047270014B329 /* TimeZoneViewController.xib */,
+			);
+			path = TimeZone;
+			sourceTree = "<group>";
+		};
 		0F3EBC10282E8AF5009CDBED /* Inverter */ = {
 			isa = PBXGroup;
 			children = (
@@ -933,6 +951,8 @@
 				BDE889F828044DA700081114 /* RMHelper.m */,
 				BDE889FF2804540C00081114 /* GlobalValue.h */,
 				BDE88A002804540C00081114 /* GlobalValue.m */,
+				0F0E90C928507A3C0014B329 /* UWConfig.h */,
+				0F0E90CA28507A3C0014B329 /* UWConfig.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1114,6 +1134,7 @@
 				BDFA3A9D28257686004A7E8C /* AddAddressViewController.h */,
 				BDFA3A9E28257686004A7E8C /* AddAddressViewController.m */,
 				BDFA3A9F28257686004A7E8C /* AddAddressViewController.xib */,
+				0F0E90C32850470F0014B329 /* TimeZone */,
 			);
 			path = AddAddress;
 			sourceTree = "<group>";
@@ -1304,6 +1325,7 @@
 				BD8FDA74280EF5D7000036DD /* AddDeviceTableViewCell.xib in Resources */,
 				BDE88A69280AC7C600081114 /* PeakTimeTableViewCell.xib in Resources */,
 				BDFA3AB2282966B0004A7E8C /* NetworkTableViewCell.xib in Resources */,
+				0F0E90C8285047270014B329 /* TimeZoneViewController.xib in Resources */,
 				0F69684A28349FCB00F22E47 /* WifiAlertView.xib in Resources */,
 				BDE88A4228070EA000081114 /* HomeTableViewCell.xib in Resources */,
 				BDFA3ACD2830EFA2004A7E8C /* SwitchTableViewCell.xib in Resources */,
@@ -1511,6 +1533,7 @@
 				BD8FDA40280D5F91000036DD /* UpdateViewController.m in Sources */,
 				BDE88A4E280A776500081114 /* DeviceSwitchView.m in Sources */,
 				0F6968512834CED800F22E47 /* PeripheralModel.m in Sources */,
+				0F0E90CB28507A3C0014B329 /* UWConfig.m in Sources */,
 				BDE88A52280A7C0300081114 /* DeviceSwitchTableViewCell.m in Sources */,
 				BDE88A78280B12A900081114 /* DataEchartsCollectionViewCell.m in Sources */,
 				0F6968232833AF2600F22E47 /* WeatherViewController.m in Sources */,
@@ -1524,6 +1547,7 @@
 				0F69685828364D0500F22E47 /* InstallViewController.m in Sources */,
 				BD907365280D4B4900044013 /* SetInfoTableViewCell.m in Sources */,
 				BDE88A68280AC7C600081114 /* PeakTimeTableViewCell.m in Sources */,
+				0F0E90C7285047270014B329 /* TimeZoneViewController.m in Sources */,
 				BDFA3AC1282F878F004A7E8C /* SelecteTableViewCell.m in Sources */,
 				BD907360280D4B1A00044013 /* SetTableViewCell.m in Sources */,
 				0F56766A28422744008271E0 /* DevideModel.m in Sources */,
@@ -1726,11 +1750,11 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Moonflow;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "使用蓝牙连接设备";
 				INFOPLIST_KEY_NSCameraUsageDescription = "扫码";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "使用位置";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1760,11 +1784,11 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Moonflow;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "使用蓝牙连接设备";
 				INFOPLIST_KEY_NSCameraUsageDescription = "扫码";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "使用位置";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

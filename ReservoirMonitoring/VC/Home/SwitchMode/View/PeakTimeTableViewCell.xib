@@ -63,6 +63,7 @@
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="switchBtn" destination="niD-1l-Qe2" id="uAh-5m-Ebh"/>
                 <outlet property="tableView" destination="JOr-vf-hHb" id="Oa9-qB-wm7"/>
                 <outlet property="titleLabel" destination="ygP-AR-NT1" id="gxK-jo-dHX"/>
             </connections>
