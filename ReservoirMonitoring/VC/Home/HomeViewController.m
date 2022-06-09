@@ -158,7 +158,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"cmd=%@",cmd);
         if ([cmd isEqualToString:@"511"]) {
-            self.model.currentMode = array.firstObject;
+            self.model.workStatus = array.firstObject;
         }
         if ([cmd isEqualToString:@"510"]) {
             self.model.deviceStatus = array.firstObject;

@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 日家庭能源独立率 单位 %
 @property(nonatomic,strong) NSString * selfHelpRate;
 /// 1:匹配负载模式 2:TOU模式 3:备电模式 4:离网模式
-@property(nonatomic,strong) NSString * currentMode;
+@property(nonatomic,strong) NSString * workStatus;
 /// 0:自检 1:故障 2:空闲 3:待机 4:运行
 @property(nonatomic,strong) NSString * deviceStatus;
 /// 电网功率方向 精度:0.01 单位:kW

@@ -86,11 +86,11 @@
 
 - (void)setModel:(DevideModel *)model{
     _model = model;
-    if (model.currentMode.intValue == 0) {
+    if (model.workStatus.intValue == 0) {
         self.currentModeValue.text = @"Self-consumption";
-    }else if(model.currentMode.intValue == 1){
+    }else if(model.workStatus.intValue == 1){
         self.currentModeValue.text = @"Back up";
-    }else if (model.currentMode.intValue == 2){
+    }else if (model.workStatus.intValue == 2){
         self.currentModeValue.text = @"Time Of Use";
     }else{
         self.currentModeValue.text = @"Offine";
@@ -132,7 +132,8 @@
     self.progressView.titleLabel.text = [NSString stringWithFormat:@"%.0f kWh (%.0f%@)",[model.batteryCurrentElectricity floatValue],[model.batterySoc floatValue],@"%"];
     self.progressView.progress = [model.batterySoc floatValue]/100;
     
-    self.selfHelpRate.text = [model.selfHelpRate stringByAppendingString:@"%"];
+    CGFloat rate = ((model.evElectricity.floatValue + model.nonBackUpElectricity.floatValue + model.backUpElectricity.floatValue)-model.gridElectricity.floatValue)/(model.evElectricity.floatValue+model.nonBackUpElectricity.floatValue+model.backUpElectricity.floatValue)*100;
+    self.selfHelpRate.text = model.gridElectricity.floatValue == 0 ? @"100%" : [NSString stringWithFormat:@"%.0f",rate];
     
 }
 
