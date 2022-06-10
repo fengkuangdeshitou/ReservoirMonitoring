@@ -14,7 +14,7 @@
 @property(nonatomic,strong) CBCharacteristic *readCharacteristic;
 @property(nonatomic,strong) CBCharacteristic *writecCharacteristic;
 @property(nonatomic,strong) NSMutableData * blueData;
-@property(nonatomic,copy)void(^finish)(NSArray * array);
+@property(nonatomic,copy)void(^readFinish)(NSArray * array);
 @property(nonatomic,copy)void(^writeFinish)(void);
 
 @end
@@ -67,7 +67,7 @@ static BleManager * _manager = nil;
 }
 
 - (void)readWithCMDString:(NSString *)string count:(int)count finish:(void (^)(NSArray * array))finish{
-    self.finish = finish;
+    self.readFinish = finish;
     [NSUserDefaults.standardUserDefaults setValue:string forKey:BLE_CMD];
     long value = [self convertHexToDecimal:string];
     Byte * byte = [self longToByte:value];
@@ -113,6 +113,10 @@ static BleManager * _manager = nil;
 }
 
 - (void)writeWithCMDString:(NSString *)string array:(NSArray *)array finish:(nonnull void (^)(void))finish{
+    if (array.count == 1) {
+        [self writeWithCMDString:string string:array.firstObject finish:finish];
+        return;
+    }
     self.writeFinish = finish;
     [NSUserDefaults.standardUserDefaults setValue:string forKey:BLE_CMD];
     long value = [self convertHexToDecimal:string];
@@ -126,7 +130,7 @@ static BleManager * _manager = nil;
     long length = array.count*2+7;
     Byte crcByte[length];
     crcByte[0] = 0x64;
-    crcByte[1] = array.count == 1 ? 0x06 : 0x10;
+    crcByte[1] = 0x10;
     crcByte[2] = stringByte[1];
     crcByte[3] = stringByte[0];
     crcByte[4] = countByte2[1];
@@ -164,7 +168,9 @@ static BleManager * _manager = nil;
     [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
-- (void)writeWithCMDString:(NSString *)string string:(NSString *)value{
+- (void)writeWithCMDString:(NSString *)string string:(NSString *)value finish:(nonnull void (^)(void))finish{
+    self.writeFinish = finish;
+    [NSUserDefaults.standardUserDefaults setValue:string forKey:BLE_CMD];
     long hexValue = [self convertHexToDecimal:string];
     Byte * byte = [self longToByte:hexValue];
     Byte stringByte[2] = {byte[3],byte[2]};
@@ -182,6 +188,9 @@ static BleManager * _manager = nil;
     NSString * readString = [self convertDataToHexStr:readData];
     NSDictionary * dictionary = @{@"RawModbus":readString};
     NSData * dictData = [NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingFragmentsAllowed error:nil];
+    if (!self.writecCharacteristic) {
+        return;
+    }
     [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithoutResponse];
     
 }
@@ -530,6 +539,7 @@ static unsigned char auchCRCLo[] = {
             NSString * cmd = [NSUserDefaults.standardUserDefaults objectForKey:BLE_CMD];
             
             NSString * style = [string substringWithRange:NSMakeRange(2, 2)];
+            NSLog(@"style=%@",style);
             if (style.intValue == 3) {
                 NSString * countHex = [string substringWithRange:NSMakeRange(4, 2)];
                 int count = [[self decimalStringFromHexString:countHex] intValue];
@@ -549,8 +559,8 @@ static unsigned char auchCRCLo[] = {
                     if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidReceivedCMD:array:)]) {
                         [self.delegate bluetoothDidReceivedCMD:cmd array:array];
                     }
-                    if (self.finish) {
-                        self.finish(array);
+                    if (self.readFinish) {
+                        self.readFinish(array);
                     }
                 });
             }else{
@@ -558,8 +568,8 @@ static unsigned char auchCRCLo[] = {
                     if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidReceivedCMD:array:)]) {
                         [self.delegate bluetoothDidReceivedCMD:cmd array:@[]];
                     }
-                    if (self.finish) {
-                        self.finish(@[]);
+                    if (self.writeFinish) {
+                        self.writeFinish();
                     }
                 });
             }

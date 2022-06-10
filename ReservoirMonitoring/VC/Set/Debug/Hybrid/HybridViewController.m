@@ -65,7 +65,7 @@
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"633" count:1 finish:^(NSArray * _Nonnull array) {
             NSInteger inx = [array.firstObject intValue];
-            self.modelValue = @[@"Efficient mode".localized,@"Quiet mode".localized][inx];
+            self.modelValue = @[@"Efficient mode".localized,@"Quiet mode".localized][inx-1];
             dispatch_semaphore_signal(semaphore);
         }];
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);

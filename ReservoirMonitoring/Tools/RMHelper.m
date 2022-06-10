@@ -49,4 +49,9 @@ static NSString * K_USERINFO = @"PFUserInfo";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
++ (int)getBleDataValue:(NSString *)string{
+    int data = string.intValue;
+    return data > 32768 ? (data - 65536) : data;
+}
+
 @end

@@ -44,4 +44,5 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/AppDelegate.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Base/TabbarViewController.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Base/NavigationViewController.h \
-  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Login/LoginViewController.h
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Login/LoginViewController.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Tools/UWConfig.h

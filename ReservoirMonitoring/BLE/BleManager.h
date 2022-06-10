@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 写入单个指令
 /// @param string 指令
 /// @param value 值
-- (void)writeWithCMDString:(NSString *)string string:(NSString *)value;
+- (void)writeWithCMDString:(NSString *)string string:(NSString *)value finish:(void(^)(void))finish;
 
 @end
 

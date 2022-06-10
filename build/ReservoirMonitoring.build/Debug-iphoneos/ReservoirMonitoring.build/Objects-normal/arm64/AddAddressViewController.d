@@ -41,4 +41,5 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Tools/RMHelper.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/PrefixHeader.pch \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/AddDevice/AddAddress/AddAddressViewController.m \
-  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/AddDevice/AddAddress/AddAddressViewController.h
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/AddDevice/AddAddress/AddAddressViewController.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/AddDevice/AddAddress/TimeZone/TimeZoneViewController.h

@@ -17,6 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)saveUserInfo:(NSDictionary *)userInfo;
 
+/// 首页方向
+/// @param string 0 默认 <0 逆向 >0 正向
++ (int)getBleDataValue:(NSString *)string;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

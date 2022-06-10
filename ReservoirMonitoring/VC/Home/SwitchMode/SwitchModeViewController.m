@@ -98,10 +98,13 @@
     }
     [params setValue:superPeakTimeArray forKey:@"superPeakTimeList"];
     
-    return;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-        [BleManager.shareInstance writeWithCMDString:@"621" array:@[[NSString stringWithFormat:@"%@",self.weatherBtn.selected ? @"1" : @"0"]] finish:^{
+        __block NSString * weather = @"";
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weather = self.weatherBtn.selected ? @"1" : @"0";
+        });
+        [BleManager.shareInstance writeWithCMDString:@"621" array:@[weather] finish:^{
             dispatch_semaphore_signal(semaphore);
         }];
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);

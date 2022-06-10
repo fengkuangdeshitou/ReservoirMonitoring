@@ -63,11 +63,15 @@
             NSInteger idx = [array.firstObject integerValue];
             NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[0]];
             dict[@"placeholder"] = @[@"Local".localized,@"Remote".localized][idx];
+            dict[@"value"] = [NSString stringWithFormat:@"%ld",idx];
             self.dataArray[0] = dict;
             dispatch_semaphore_signal(semaphore);
         }];
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"611" count:6 finish:^(NSArray * _Nonnull array) {
+            if (array.count == 0) {
+                return;
+            }
             NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[1]];
             dict[@"placeholder"] = [NSString stringWithFormat:@"%@-%@-%@ %@:%@:%@",array[0],array[1],array[2],array[3],array[4],array[5]];
             self.dataArray[1] = dict;
@@ -83,9 +87,15 @@
             dispatch_semaphore_signal(semaphore);
         }];
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        NSString * time = self.dataArray[1][@"placeholder"];
-        NSArray * timeArray = @[[time substringToIndex:3],[time substringWithRange:NSMakeRange(5, 2)],[time substringWithRange:NSMakeRange(8, 2)],[time substringWithRange:NSMakeRange(11, 2)],[time substringWithRange:NSMakeRange(14, 2)],[time substringWithRange:NSMakeRange(17, 2)]];
+        __block NSString * time = @"";
+        dispatch_async(dispatch_get_main_queue(), ^{
+            SelecteTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+            time = cell.content.text;
+        });
+        NSLog(@"time=%@",time);
+        NSArray * timeArray = @[[time substringToIndex:4],[time substringWithRange:NSMakeRange(6, 2)],[time substringWithRange:NSMakeRange(9, 2)],[time substringWithRange:NSMakeRange(11, 2)],[time substringWithRange:NSMakeRange(14, 2)],[time substringWithRange:NSMakeRange(17, 2)]];
         [BleManager.shareInstance writeWithCMDString:@"611" array:timeArray finish:^{
+            dispatch_semaphore_signal(semaphore);
             [RMHelper showToast:@"Write success" toView:self.view];
         }];
         

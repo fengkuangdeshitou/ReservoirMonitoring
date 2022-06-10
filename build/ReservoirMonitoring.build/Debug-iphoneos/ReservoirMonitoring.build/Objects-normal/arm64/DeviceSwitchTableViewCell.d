@@ -41,4 +41,5 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/Tools/RMHelper.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/PrefixHeader.pch \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/View/DeviceSwitchTableViewCell.m \
-  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/View/DeviceSwitchTableViewCell.h
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/View/DeviceSwitchTableViewCell.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/Model/DevideModel.h
