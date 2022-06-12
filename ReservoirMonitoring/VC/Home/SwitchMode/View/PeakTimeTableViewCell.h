@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong) NSMutableArray * dataArray;
 @property(nonatomic,weak)IBOutlet UIButton * switchBtn;
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
+@property(nonatomic,strong) NSArray * touArray;
 
 @end
 

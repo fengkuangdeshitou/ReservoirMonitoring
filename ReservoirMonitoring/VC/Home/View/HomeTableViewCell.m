@@ -73,9 +73,9 @@
             [animationImageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"%d-%d",i+1,j+1]]];
         }
         animationImageView.animationImages = animationImageArray;
-        animationImageView.animationDuration = 2;
+        animationImageView.animationDuration = 1;
         animationImageView.animationRepeatCount = 0;
-//        [animationImageView startAnimating];
+        animationImageView.tag = i+100;
         [self.itemContentView addSubview:animationImageView];
     }
     
@@ -84,8 +84,17 @@
     
 }
 
+- (NSArray *)loadAnimationArray:(int)i count:(int)count{
+    NSMutableArray * animationImageArray = [[NSMutableArray alloc] init];
+    for (int j=0; j<count; j++) {
+        [animationImageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"%d-%d",i+1,j+1]]];
+    }
+    return animationImageArray;
+}
+
 - (void)setModel:(DevideModel *)model{
     _model = model;
+    NSLog(@"workStatus=%@",model.workStatus);
     if (model.workStatus.intValue == 0) {
         self.currentModeValue.text = @"Self-consumption";
     }else if(model.workStatus.intValue == 1){
@@ -135,6 +144,68 @@
     CGFloat rate = ((model.evElectricity.floatValue + model.nonBackUpElectricity.floatValue + model.backUpElectricity.floatValue)-model.gridElectricity.floatValue)/(model.evElectricity.floatValue+model.nonBackUpElectricity.floatValue+model.backUpElectricity.floatValue)*100;
     self.selfHelpRate.text = model.gridElectricity.floatValue == 0 ? @"100%" : [NSString stringWithFormat:@"%.0f",rate];
     
+    if ([RMHelper getBleDataValue:model.gridPower] > 0) {
+        UIImageView * animation = [self.itemContentView viewWithTag:100];
+        animation.animationImages = [self loadAnimationArray:0 count:3];
+        [animation startAnimating];
+    }else if ([RMHelper getBleDataValue:model.gridPower] < 0){
+        UIImageView * animation = [self.itemContentView viewWithTag:100];
+        animation.animationImages = [self loadAnimationArray:6 count:3];
+        [animation startAnimating];
+    }else{
+        UIImageView * animation = [self.itemContentView viewWithTag:100];
+        [animation stopAnimating];
+    }
+    
+    if ([RMHelper getBleDataValue:model.solarPower] > 0) {
+        UIImageView * animation = [self.itemContentView viewWithTag:101];
+        animation.animationImages = [self loadAnimationArray:1 count:2];
+        [animation startAnimating];
+    }else{
+        UIImageView * animation = [self.itemContentView viewWithTag:101];
+        animation.animationImages = [self loadAnimationArray:1 count:2];
+        [animation startAnimating];
+    }
+    
+    if ([RMHelper getBleDataValue:model.generatorPower] > 0) {
+        UIImageView * animation = [self.itemContentView viewWithTag:102];
+        animation.animationImages = [self loadAnimationArray:2 count:3];
+        [animation startAnimating];
+    }else{
+        UIImageView * animation = [self.itemContentView viewWithTag:102];
+        animation.animationImages = [self loadAnimationArray:2 count:3];
+        [animation startAnimating];
+    }
+    
+    if ([RMHelper getBleDataValue:model.evPower] > 0) {
+        UIImageView * animation = [self.itemContentView viewWithTag:103];
+        animation.animationImages = [self loadAnimationArray:3 count:3];
+        [animation startAnimating];
+    }else{
+        UIImageView * animation = [self.itemContentView viewWithTag:103];
+        animation.animationImages = [self loadAnimationArray:3 count:3];
+        [animation startAnimating];
+    }
+    
+    if ([RMHelper getBleDataValue:model.nonBackUpPower] > 0) {
+        UIImageView * animation = [self.itemContentView viewWithTag:104];
+        animation.animationImages = [self loadAnimationArray:4 count:2];
+        [animation startAnimating];
+    }else{
+        UIImageView * animation = [self.itemContentView viewWithTag:104];
+        animation.animationImages = [self loadAnimationArray:4 count:2];
+        [animation startAnimating];
+    }
+    
+    if ([RMHelper getBleDataValue:model.backUpPower] > 0) {
+        UIImageView * animation = [self.itemContentView viewWithTag:105];
+        animation.animationImages = [self loadAnimationArray:5 count:2];
+        [animation startAnimating];
+    }else{
+        UIImageView * animation = [self.itemContentView viewWithTag:105];
+        animation.animationImages = [self loadAnimationArray:5 count:3];
+        [animation startAnimating];
+    }
 }
 
 - (IBAction)timeAction:(id)sender{

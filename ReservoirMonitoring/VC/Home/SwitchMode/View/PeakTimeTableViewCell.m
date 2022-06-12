@@ -16,6 +16,15 @@
 
 @implementation PeakTimeTableViewCell
 
+- (void)setTouArray:(NSArray *)touArray{
+    _touArray = touArray;
+    [self.dataArray replaceObjectAtIndex:0 withObject:touArray];
+    CGFloat height = self.tableView.contentSize.height;
+    if (height != [[NSUserDefaults.standardUserDefaults objectForKey:TIME_TABLEVIEW_HEIGHT_CHANGE] floatValue]) {
+        [self updateTableViewHeight];
+    }
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

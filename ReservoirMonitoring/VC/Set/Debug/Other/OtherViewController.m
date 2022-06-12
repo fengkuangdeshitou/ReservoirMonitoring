@@ -81,19 +81,20 @@
 }
 
 - (IBAction)submitAction:(id)sender{
+    SelecteTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    if (cell.content.text.length == 0) {
+        [RMHelper showToast:@"Please select".localized toView:self.view];
+        return;
+    }
+    NSString * time = cell.content.text;
+    NSLog(@"%@",self.dataArray[0][@"value"]);
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         [BleManager.shareInstance writeWithCMDString:@"600" array:@[self.dataArray[0][@"value"]] finish:^{
             dispatch_semaphore_signal(semaphore);
         }];
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        __block NSString * time = @"";
-        dispatch_async(dispatch_get_main_queue(), ^{
-            SelecteTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-            time = cell.content.text;
-        });
-        NSLog(@"time=%@",time);
-        NSArray * timeArray = @[[time substringToIndex:4],[time substringWithRange:NSMakeRange(6, 2)],[time substringWithRange:NSMakeRange(9, 2)],[time substringWithRange:NSMakeRange(11, 2)],[time substringWithRange:NSMakeRange(14, 2)],[time substringWithRange:NSMakeRange(17, 2)]];
+        NSArray * timeArray = @[[time substringToIndex:4],[time substringWithRange:NSMakeRange(5, 2)],[time substringWithRange:NSMakeRange(8, 2)],[time substringWithRange:NSMakeRange(11, 2)],[time substringWithRange:NSMakeRange(14, 2)],[time substringWithRange:NSMakeRange(17, 2)]];
         [BleManager.shareInstance writeWithCMDString:@"611" array:timeArray finish:^{
             dispatch_semaphore_signal(semaphore);
             [RMHelper showToast:@"Write success" toView:self.view];

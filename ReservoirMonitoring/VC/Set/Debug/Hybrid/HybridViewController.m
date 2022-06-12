@@ -10,7 +10,7 @@
 #import "SelecteTableViewCell.h"
 #import "SelectItemAlertView.h"
 
-@interface HybridViewController ()<UITableViewDataSource>
+@interface HybridViewController ()<UITableViewDataSource,UITextFieldDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * submit;
@@ -42,6 +42,7 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         [BleManager.shareInstance readWithCMDString:@"62D" count:3 finish:^(NSArray * _Nonnull array) {
+            NSLog(@"62d=%@",array);
             self.leftOpen = [array.firstObject intValue] != 0;
             self.leftController = [NSString stringWithFormat:@"%@",array.firstObject];
             self.leftValue = !self.leftOpen ? @"None".localized : @[@"PV inverter enabled".localized,@"EV charger enabled".localized][([array.firstObject intValue]-1)];
@@ -65,11 +66,15 @@
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"633" count:1 finish:^(NSArray * _Nonnull array) {
             NSInteger inx = [array.firstObject intValue];
-            self.modelValue = @[@"Efficient mode".localized,@"Quiet mode".localized][inx-1];
+            if (inx == 0) {
+                self.modelValue = @"Efficient mode".localized;
+            }else{
+                self.modelValue = @[@"Efficient mode".localized,@"Quiet mode".localized][inx-1];
+            }
             dispatch_semaphore_signal(semaphore);
         }];
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance readWithCMDString:@"540" count:1 finish:^(NSArray * _Nonnull array) {
+        [BleManager.shareInstance readWithCMDString:@"620" count:1 finish:^(NSArray * _Nonnull array) {
             int inx = [array.firstObject intValue];
             self.count = inx;
             dispatch_semaphore_signal(semaphore);
@@ -77,36 +82,47 @@
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"634" count:self.count finish:^(NSArray * _Nonnull array) {
-            NSLog(@"arr=%@",array);
-            if (array.count == 0) {
-                return;
-            }
             self.dataArray = [[NSMutableArray alloc] init];
-            for (int i=0; i<self.count; i++) {
+            for (int i=0; i<array.count; i++) {
                 int value = [array[i] intValue];
                 NSDictionary * dic = @{@"title":[NSString stringWithFormat:@"Qty of Hybrid %d battery",i+1],@"placeholder":[NSString stringWithFormat:@"%d",value]};
                 [self.dataArray addObject:dic];
             }
+            [self.tableView reloadData];
             dispatch_semaphore_signal(semaphore);
         }];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
     });
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    InputTableViewCell * cell = (InputTableViewCell *)[[[textField superview] superview] superview];
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    if (indexPath.section == 0 ){
+        NSArray * left = self.leftValueArray ?:@[@"",@""];
+        if ( indexPath.row == 1) {
+            self.leftValueArray = @[textField.text,left[1]];
+        }else{
+            self.leftValueArray = @[left[0],textField.text];
+        }
+    }else{
+        NSArray * right = self.rightValueArray ?: @[@"",@""];
+        if (indexPath.row == 1) {
+            self.rightValueArray = @[textField.text,right[1]];
+        }else{
+            self.rightValueArray = @[right[0],textField.text];
+        }
+    }
 }
 
 - (IBAction)submitAction:(id)sender{
     NSArray * leftArray = @[];
     if (self.leftOpen) {
-        InputTableViewCell * brand = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-        InputTableViewCell * model = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
-        leftArray = @[self.leftController,brand.textfield.text,model.textfield.text];
+        leftArray = @[self.leftController,self.leftValueArray[0],self.leftValueArray[1]];
     }
+
     NSArray * rightArray = @[];
     if (self.rightOpen) {
-        InputTableViewCell * brand = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
-        InputTableViewCell * model = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1]];
-        rightArray = @[self.rightController,brand.textfield.text,model.textfield.text];
+        rightArray = @[self.rightController,self.rightValueArray[0],self.rightValueArray[1]];
     }
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -141,16 +157,16 @@
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         NSMutableArray * array = [[NSMutableArray alloc] init];
         dispatch_async(dispatch_get_main_queue(), ^{
-            for (int i=0; i<self.count; i++) {
+            SelecteTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
+            for (int i=0; i<cell.content.text.intValue; i++) {
                 SelecteTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:4]];
                 [array addObject:cell.content.text];
             }
+            [BleManager.shareInstance writeWithCMDString:@"634" array:array finish:^{
+                dispatch_semaphore_signal(semaphore);
+                [RMHelper showToast:@"Write success" toView:self.view];
+            }];
         });
-        
-        [BleManager.shareInstance writeWithCMDString:@"634" array:array finish:^{
-            dispatch_semaphore_signal(semaphore);
-            [RMHelper showToast:@"Write success" toView:self.view];
-        }];
     });
     
 }
@@ -176,6 +192,7 @@
             cell.titleLabel.text = indexPath.row == 1 ? @"Brand".localized : @"Model".localized;
             cell.textfield.placeholder = indexPath.row == 1 ? @"Brand".localized : @"Model".localized;
             cell.textfield.text = indexPath.section == 0 ? self.leftValueArray[indexPath.row-1] : self.rightValueArray[indexPath.row-1];
+            cell.textfield.delegate = self;
             return cell;
         }
     }else if (indexPath.section == 2 || indexPath.section == 3){

@@ -23,6 +23,8 @@
 //    [UWConfig setUserLanguage:@"zh-Hans"];
     [UWConfig setUserLanguage:@"en"];
     
+//    NSLog(@"byte=%ld",strtoul("FffF", 0, 16));
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:LOGIN_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadLoginController) name:LOG_OUT object:nil];
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
@@ -33,6 +35,13 @@
         [self loadLoginController];
     }
     return YES;
+}
+
+- (Byte *)longTo2Byte:(long)value{
+    Byte byte[2] = {};
+    byte[0] = (Byte) (value & 0xFF);
+    byte[1] = (Byte) ((value>>8) & 0xFF);
+    return (Byte *)byte;
 }
 
 - (void)loadLoginController{

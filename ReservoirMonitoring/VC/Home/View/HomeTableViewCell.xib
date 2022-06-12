@@ -181,6 +181,7 @@
                 <outlet property="communication" destination="ycP-sE-yJC" id="C6S-LX-uZu"/>
                 <outlet property="communicationValue" destination="k8N-Dz-Pqf" id="DvU-4T-iCU"/>
                 <outlet property="currentMode" destination="Kwp-lg-x1O" id="b5c-LP-abi"/>
+                <outlet property="currentModeValue" destination="ud7-7U-Zlz" id="QW8-pc-3MK"/>
                 <outlet property="currentModelView" destination="ecf-SL-hkB" id="OLB-7I-xl7"/>
                 <outlet property="family" destination="iCa-c9-9F7" id="Pif-k8-pY4"/>
                 <outlet property="itemContentView" destination="pcc-JM-zqN" id="k3i-TH-s9C"/>

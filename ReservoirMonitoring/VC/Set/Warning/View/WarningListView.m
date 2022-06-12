@@ -34,9 +34,12 @@
 }
 
 - (void)getListData{
-    [BleManager.shareInstance readWithCMDString:self.tag == 10 ? @"550" : @"553" count:3 finish:^(NSArray * _Nonnull array) {
-        
+    [BleManager.shareInstance readWithCMDString:@"550" count:3 finish:^(NSArray * _Nonnull array) {
+        NSLog(@"array=%@",array);
     }];
+//    [BleManager.shareInstance readWithCMDString:self.tag == 10 ? @"550" : @"553" count:3 finish:^(NSArray * _Nonnull array) {
+//        NSLog(@"array=%@",array);
+//    }];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

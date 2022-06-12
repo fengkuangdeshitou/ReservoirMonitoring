@@ -73,11 +73,15 @@ static BleManager * _manager = nil;
     Byte * byte = [self longToByte:value];
     Byte stringByte[2] = {byte[3],byte[2]};
     
-    Byte crcByte[6] = {0x64,0x03,stringByte[1],stringByte[0],0x00,count};
+    Byte * longByte = [self longTo2Byte:count];
+    Byte HByte = longByte[1];
+    Byte LByte = longByte[0];
+    
+    Byte crcByte[6] = {0x64,0x03,stringByte[1],stringByte[0],HByte,LByte};
     long crcValue = [self CRC16Table:crcByte len:sizeof(crcByte)];
     Byte * crc = [self longToByte:crcValue];
     
-    Byte readByte[] = {0x64,0x03,stringByte[1],stringByte[0],0x00,count,crc[3],crc[2]};
+    Byte readByte[] = {0x64,0x03,stringByte[1],stringByte[0],HByte,LByte,crc[3],crc[2]};
     NSData * readData = [[NSData alloc] initWithBytes:readByte length:sizeof(readByte)];
     NSString * readString = [self convertDataToHexStr:readData];
     NSDictionary * dictionary = @{@"RawModbus":readString};
@@ -104,6 +108,38 @@ static BleManager * _manager = nil;
     return (Byte *)byte;
 }
 
+//10进制转16进制
+- (NSString *)toHex:(int)tmpid{
+    NSString *nLetterValue;
+    NSString *str =@"";
+    int ttmpig;
+    for (int i =0; i<9; i++) {
+        ttmpig=tmpid%16;
+        tmpid=tmpid/16;
+        switch (ttmpig)
+        {
+            case 10:
+                nLetterValue =@"A";break;
+            case 11:
+                nLetterValue =@"B";break;
+            case 12:
+                nLetterValue =@"C";break;
+            case 13:
+                nLetterValue =@"D";break;
+            case 14:
+                nLetterValue =@"E";break;
+            case 15:
+                nLetterValue =@"F";break;
+            default:nLetterValue=[[NSString alloc]initWithFormat:@"%lli",ttmpig];
+        }
+        str = [nLetterValue stringByAppendingString:str];
+        if (tmpid == 0) {
+            break;
+        }
+    }
+    return str;
+}
+
 /// 16进制字符串转10进制数字
 - (unsigned long long)convertHexToDecimal:(NSString *)hexStr {
     unsigned long long decimal = 0;
@@ -123,7 +159,8 @@ static BleManager * _manager = nil;
     Byte * byte = [self longToByte:value];
     Byte stringByte[2] = {byte[3],byte[2]};
     
-    long hexCount = [self convertHexToDecimal:[NSString stringWithFormat:@"%ld",array.count]];
+//    long hexCount = [self convertHexToDecimal:[NSString stringWithFormat:@"%ld",array.count]];
+    long hexCount = array.count;
     Byte * countByte = [self longToByte:hexCount];
     Byte countByte2[2] = {countByte[3],countByte[2]};
     
@@ -175,7 +212,7 @@ static BleManager * _manager = nil;
     Byte * byte = [self longToByte:hexValue];
     Byte stringByte[2] = {byte[3],byte[2]};
     
-    long hexValue2 = [self convertHexToDecimal:value];
+    long hexValue2 = [value longLongValue];
     Byte * longByte = [self longToByte:hexValue2];
     Byte stringByte2[2] = {longByte[3],longByte[2]};
     
@@ -547,12 +584,8 @@ static unsigned char auchCRCLo[] = {
 
                 NSMutableArray * array = [[NSMutableArray alloc] init];
                 for (int i=0; i<countValue.length; i+=4) {
-                    int value = 0;
                     NSString * str = [countValue substringWithRange:NSMakeRange(i, 4)];
-                    for(int j=0;j<str.length;j+=2){
-                        NSString * hexString = [str substringWithRange:NSMakeRange(j, 2)];
-                        value += [[self decimalStringFromHexString:hexString] intValue];
-                    }
+                    int value = [[self decimalStringFromHexString:str] intValue];
                     [array addObject:[NSString stringWithFormat:@"%d",value]];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -637,88 +670,10 @@ static unsigned char auchCRCLo[] = {
     NSString * valueString = [self convertDataToHexStr:valueData];
     
 //    NSLog(@"cmd=%@,countValue=%@,content=%@",cmd,countValue,valueString);
-    [self  setModelDataWithCMD:cmd value:valueString data:valueData];
     NSData * newData = [data2 subdataWithRange:NSMakeRange([countValue intValue], data.length-1-[countValue intValue]-count.length)];
     if (newData.length > 0) {
         [self segmentationCMDAndValueWithData:newData];
     }
-}
-
-- (void)setModelDataWithCMD:(NSString *)cmd value:(NSString *)value data:(NSData *)data{
-//    BluetoothData * bluetoothData = BluetoothData.shareInstance;
-//    // 当前时速
-//    if ([cmd isEqualToString:@"11"]) {
-//        CGFloat speed = [[self getTimeString:data] floatValue]/10;
-//        bluetoothData.model.speed = [NSString stringWithFormat:@"%.0f",speed];
-//    }
-//    //平均时速
-//    if ([cmd isEqualToString:@"13"]) {
-//        CGFloat averageSpeed = [[self getTimeString:data] floatValue]/10;
-//        bluetoothData.model.averageSpeed = [NSString stringWithFormat:@"%.1f",averageSpeed];
-//    }
-//    //本次骑行公里数
-//    if ([cmd isEqualToString:@"14"]) {
-//        CGFloat distance = [[self getTimeString:data] floatValue]/10;
-//        bluetoothData.model.distance = [NSString stringWithFormat:@"%.1f",distance];
-//    }
-//    //本次骑行时常
-//    if ([cmd isEqualToString:@"15"]) {
-//        CGFloat duration = [[self getTimeString:data] floatValue]/10;
-//        bluetoothData.model.duration = [NSString stringWithFormat:@"%.0f",duration];
-//    }
-//    if ([cmd isEqualToString:@"1a"]) {
-//        NSInteger battery = [[self getTimeString:data] integerValue];
-//        bluetoothData.model.battery = battery;
-//    }
-//    if ([cmd isEqualToString:@"00"]) {
-//        BOOL isConnect = [value boolValue];
-//        bluetoothData.model.isConnect = isConnect;
-//    }
-//    if ([cmd isEqualToString:@"01"]) {
-//        NSData * nameData = [self dataWithHexString:value];
-//        NSString * productName = [[NSString alloc] initWithData:nameData encoding:NSUTF8StringEncoding];
-//        bluetoothData.model.productName = productName;
-//    }
-//    if ([cmd isEqualToString:@"07"]) {
-//        NSData * deviceFactoryCodeData = [self dataWithHexString:value];
-//        NSString * deviceFactoryCode = [[NSString alloc] initWithData:deviceFactoryCodeData encoding:NSUTF8StringEncoding];
-//        bluetoothData.model.deviceFactoryCode = deviceFactoryCode;
-//    }
-//    if ([cmd isEqualToString:@"16"]) {
-//        NSInteger remain = [[self getTimeString:data] integerValue];
-//        bluetoothData.model.remain = remain >= 65534 ? 0 : (remain * 1.7);
-//    }
-////    NSLog(@"dic=%@",[bluetoothData.model mj_JSONObject]);
-//    if (self.isRecordingData) {
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            NSDictionary * rideCacheData = [NSUserDefaults.standardUserDefaults objectForKey:@"RideCacheData"];
-//            if (rideCacheData) {
-//                NSDictionary * item = [self createDataItem];
-//                if ([item[@"time"] longLongValue] - [rideCacheData[@"time"] longLongValue] > 10) {
-//                    [NSUserDefaults.standardUserDefaults setValue:item forKey:@"RideCacheData"];
-//                    [self uploadRideCacheData];
-//                }
-//            }else{
-//                [NSUserDefaults.standardUserDefaults setValue:[self createDataItem] forKey:@"RideCacheData"];
-//            }
-//        });
-//    }
-}
-
-- (NSDictionary *)createDataItem{
-    NSDate * data = [NSDate date];
-    NSString * time = [NSString stringWithFormat:@"%.0f",[data timeIntervalSince1970]];
-//    BluetoothData * bluetoothData = BluetoothData.shareInstance;
-//    return @{@"time":time,@"distance":bluetoothData.model.distance?:@"",@"speed":bluetoothData.model.speed?:@"0",@"duration":bluetoothData.model.duration?:@"",@"id":bluetoothData.model.cycleId?:@"",@"calorie":@"0",@"carbon":@"0"};
-    return @{};
-}
-
-- (void)uploadRideCacheData{
-//    [NetworkWorker networkPost:[NetworkUrlGetter getSynchCycleUrl] params:[NSUserDefaults.standardUserDefaults objectForKey:@"RideCacheData"] success:^(NSDictionary *result) {
-//
-//    } failure:^(NSString *errorMessage) {
-//
-//    }];
 }
 
 #pragma mark-----将十六进制数据转换成NSData

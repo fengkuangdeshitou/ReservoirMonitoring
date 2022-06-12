@@ -27,7 +27,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
                 
-    self.model = [[DevideModel alloc] init];
     self.manager = BleManager.shareInstance;
     
     [self.addEquipmentBtn showBorderWithRadius:25];
@@ -52,7 +51,8 @@
     [Request.shareInstance getUrl:HomeDeviceInfo params:@{@"sgSn":sgSn} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
-        
+        self.model = [DevideModel mj_objectWithKeyValues:result[@"data"]];
+        [self.tableView reloadData];
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];
@@ -66,92 +66,86 @@
         [BleManager.shareInstance readWithCMDString:@"511" count:1 finish:^(NSArray * array){
             dispatch_semaphore_signal(semaphore);
         }];
-        
+
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"510" count:1 finish:^(NSArray * array){
             dispatch_semaphore_signal(semaphore);
         }];
-    
+
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"515" count:2 finish:^(NSArray * array){
             dispatch_semaphore_signal(semaphore);
         }];
-        
+
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"51F" count:1 finish:^(NSArray * array){
             dispatch_semaphore_signal(semaphore);
         }];
-        
+
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"527" count:2 finish:^(NSArray * array){
+            self.model.gridElectricity = [NSString stringWithFormat:@"%d",[array.firstObject intValue]+([array.lastObject intValue]*65536)];
             dispatch_semaphore_signal(semaphore);
         }];
-        
+
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"543" count:1 finish:^(NSArray * array){
             dispatch_semaphore_signal(semaphore);
         }];
-        
+
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"529" count:4 finish:^(NSArray * array){
+            int left = [array[0] intValue]+[array[1] intValue]*65536;
+            int right = [array[2] intValue]+[array[3] intValue]*65536;
+            self.model.solarElectricity = [NSString stringWithFormat:@"%d",left+right*65536];
             dispatch_semaphore_signal(semaphore);
         }];
-        
+
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"521" count:1 finish:^(NSArray * array){
             dispatch_semaphore_signal(semaphore);
         }];
-        
+
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"52D" count:2 finish:^(NSArray * array){
+            self.model.generatorElectricity = [NSString stringWithFormat:@"%d",[array.firstObject intValue]+([array.lastObject intValue]*65536)];
             dispatch_semaphore_signal(semaphore);
         }];
-        
+
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"524" count:1 finish:^(NSArray * array){
             dispatch_semaphore_signal(semaphore);
         }];
-        
+
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"52F" count:2 finish:^(NSArray * array){
+            self.model.evElectricity = [NSString stringWithFormat:@"%d",[array.firstObject intValue]+([array.lastObject intValue]*65536)];
             dispatch_semaphore_signal(semaphore);
         }];
-        
+
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"541" count:1 finish:^(NSArray * array){
             dispatch_semaphore_signal(semaphore);
         }];
-        
+
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"533" count:2 finish:^(NSArray * array){
+            self.model.nonBackUpElectricity = [NSString stringWithFormat:@"%d",[array.firstObject intValue]+([array.lastObject intValue]*65536)];
             dispatch_semaphore_signal(semaphore);
         }];
-        
+
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"542" count:1 finish:^(NSArray * array){
             dispatch_semaphore_signal(semaphore);
         }];
-        
+
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"531" count:2 finish:^(NSArray * array){
+            self.model.backUpElectricity = [NSString stringWithFormat:@"%d",[array.firstObject intValue]+([array.lastObject intValue]*65536)];
             dispatch_semaphore_signal(semaphore);
         }];
-        
-    });
-}
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    NSDictionary * dict = @{@"511":@"1",@"510":@"1",@"515":@"2",@"51F":@"1",@"527":@"2",@"543":@"2",
-//                            @"529":@"4",@"521":@"1",@"52D":@"2",@"524":@"1",@"52F":@"1",@"541":@"1",@"533":@"2",@"542":@"1",@"531":@"2"
-//    };
-//    NSArray * keys = dict.allKeys;
-//    if (self.index == keys.count) {
-//        return;
-//    }
-//    self.index ++;
-//    [BleManager.shareInstance readWithCMDString:keys[self.index] count:[dict[keys[self.index]] intValue] finish:^(NSArray * array){
-//
-//    }];
+    });
 }
 
 - (void)bluetoothDidReceivedCMD:(NSString *)cmd array:(NSArray *)array{

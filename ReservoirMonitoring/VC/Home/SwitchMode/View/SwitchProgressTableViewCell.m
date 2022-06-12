@@ -9,9 +9,6 @@
 
 @interface SwitchProgressTableViewCell ()
 
-@property(nonatomic,weak)IBOutlet UISlider * slider;
-@property(nonatomic,weak)IBOutlet UILabel * titleLabel;
-
 @end
 
 @implementation SwitchProgressTableViewCell
@@ -25,11 +22,7 @@
 - (void)setProgress:(CGFloat)progress{
     _progress = progress;
     self.slider.value = progress;
-    self.titleLabel.text = [NSString stringWithFormat:@"%.0f",progress*100];
-}
-
-- (IBAction)valueChante:(id)sender{
-    self.progress = self.slider.value*100;
+    self.titleLabel.text = [NSString stringWithFormat:@"%.0f",progress];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
