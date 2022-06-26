@@ -10,7 +10,6 @@
 @interface BleManager ()<CBCentralManagerDelegate,CBPeripheralDelegate>
 
 @property(nonatomic,strong) CBCentralManager * centralManager;
-@property(nonatomic,strong) CBPeripheral * peripheral;
 @property(nonatomic,strong) CBCharacteristic *readCharacteristic;
 @property(nonatomic,strong) CBCharacteristic *writecCharacteristic;
 @property(nonatomic,strong) NSMutableData * blueData;
@@ -86,6 +85,15 @@ static BleManager * _manager = nil;
     NSString * readString = [self convertDataToHexStr:readData];
     NSDictionary * dictionary = @{@"RawModbus":readString};
     NSData * dictData = [NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingFragmentsAllowed error:nil];
+    if (!self.writecCharacteristic) {
+        return;
+    }
+    [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithoutResponse];
+}
+
+- (void)readWithDictionary:(NSDictionary *)dic finish:(void (^)(NSArray * _Nonnull))finish{
+    self.readFinish = finish;
+    NSData * dictData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingFragmentsAllowed error:nil];
     if (!self.writecCharacteristic) {
         return;
     }
@@ -400,11 +408,18 @@ static unsigned char auchCRCLo[] = {
     }
     NSLog(@"name=%@,%@",peripheral.name,RSSI);
     if (self.isAutoConnect) {
-        if([peripheral.name hasPrefix:@"Moonflow"]){
+        if (self.bluetoothName && [self.bluetoothName isEqualToString:peripheral.name]) {
             self.peripheral = peripheral;
             self.peripheral.delegate = self;
             //发起连接的命令
             [self.centralManager connectPeripheral:self.peripheral options:nil];
+        }else{
+            if([peripheral.name hasPrefix:@"Moonflow"]){
+                self.peripheral = peripheral;
+                self.peripheral.delegate = self;
+                //发起连接的命令
+                [self.centralManager connectPeripheral:self.peripheral options:nil];
+            }
         }
     }
     if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothdidDiscoverPeripheral:RSSI:)]) {
@@ -605,6 +620,10 @@ static unsigned char auchCRCLo[] = {
                         self.writeFinish();
                     }
                 });
+            }
+        }else{
+            if (self.readFinish) {
+                self.readFinish(@[dict]);
             }
         }
         

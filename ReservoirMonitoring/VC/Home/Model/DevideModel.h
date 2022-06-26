@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DevideModel : NSObject
 
 @property(nonatomic,strong) NSString * deviceId;
+
+@property(nonatomic,strong) NSString * devId;
+
 /// 状态（1-并网 2-离网）
 @property(nonatomic,strong) NSString * status;
 /// 日家庭能源独立率 单位 %
@@ -52,6 +55,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong) NSString * name;
 
 @property(nonatomic,strong) NSString * sgSn;
+
+@property(nonatomic,strong) NSString * rtuSn;
+
+@property(nonatomic,strong) NSString * lastConnect;
+
+@property(nonatomic,assign) BOOL isConnected;
 
 @end
 

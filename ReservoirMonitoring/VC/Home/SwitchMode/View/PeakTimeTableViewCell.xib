@@ -35,6 +35,9 @@
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="turn_off"/>
                                     <state key="selected" image="turn_on"/>
+                                    <connections>
+                                        <action selector="switchChange:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7BS-L3-szR"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <viewLayoutGuide key="safeArea" id="5Ce-7P-0RG"/>

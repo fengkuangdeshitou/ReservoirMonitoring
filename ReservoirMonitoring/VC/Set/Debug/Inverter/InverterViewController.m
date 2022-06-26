@@ -10,11 +10,12 @@
 #import "SelecteTableViewCell.h"
 #import "SelectItemAlertView.h"
 
-@interface InverterViewController ()
+@interface InverterViewController ()<UITableViewDataSource,UITextFieldDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * submit;
 @property(nonatomic,strong)NSMutableArray * dataArray;
+@property(nonatomic,assign)NSInteger resNum;
 
 @end
 
@@ -23,30 +24,98 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.dataArray = [[NSMutableArray alloc] initWithArray:@[
-        @{@"title":@"PV1 voltage".localized,@"placeholder":@"PV1 voltage".localized},
-        @{@"title":@"PV2 voltage".localized,@"placeholder":@"PV2 voltage".localized},
-        @{@"title":@"PV3 voltage".localized,@"placeholder":@"PV3 voltage".localized},
-        @{@"title":@"PV4 voltage".localized,@"placeholder":@"PV4 voltage".localized}
-        ]];
+    self.resNum = 1;
+    [self loadRessNumber];
     [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
     [self.submit showBorderWithRadius:25];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
-    [BleManager.shareInstance readWithCMDString:@"629" count:4 finish:^(NSArray * _Nonnull array) {
-        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSLog(@"arr=%@",obj);
-            if (idx == 0 && [obj intValue] > 0) {
-                [self getCellWithRow:idx].textfield.text = obj;
-            }else if (idx == 1 && [obj intValue] > 0) {
-                [self getCellWithRow:idx].textfield.text = obj;
-            }else if (idx == 2 && [obj intValue] > 0) {
-                [self getCellWithRow:idx].textfield.text = obj;
-            }else if (idx == 3 && [obj intValue] > 0) {
-                [self getCellWithRow:idx].textfield.text = obj;
-            }
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        dispatch_semaphore_t sem = dispatch_semaphore_create(0);
+        [BleManager.shareInstance readWithCMDString:@"620" count:1 finish:^(NSArray * _Nonnull array) {
+            self.resNum = [array.firstObject integerValue] == 0 ? 1 : [array.firstObject integerValue];
+            [self loadRessNumber];
+            dispatch_semaphore_signal(sem);
         }];
-    }];
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"629" count:4 finish:^(NSArray * _Nonnull array) {
+            NSMutableArray * fristArray = [[NSMutableArray alloc] initWithArray:self.dataArray.firstObject];
+            [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:fristArray[idx]];
+                if (idx == 0) {
+                    item[@"value"] = obj;
+                    [fristArray replaceObjectAtIndex:0 withObject:item];
+                }else if (idx == 1) {
+                    item[@"value"] = obj;
+                    [fristArray replaceObjectAtIndex:1 withObject:item];
+                }else if (idx == 2) {
+                    item[@"value"] = obj;
+                    [fristArray replaceObjectAtIndex:2 withObject:item];
+                }else if (idx == 3) {
+                    item[@"value"] = obj;
+                    [fristArray replaceObjectAtIndex:3 withObject:item];
+                }
+                [self.dataArray replaceObjectAtIndex:0 withObject:fristArray];
+            }];
+            dispatch_semaphore_signal(sem);
+        }];
+        
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"63A" count:4*(self.resNum-1) finish:^(NSArray * _Nonnull array) {
+            for (int idx=0; idx<array.count; idx++) {
+                NSMutableArray * sectionArray = [[NSMutableArray alloc] initWithArray:self.dataArray[idx/4+1]];
+                NSString *obj = array[idx];
+                if (idx%4 == 0) {
+                    NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[0]];
+                    item[@"value"] = obj;
+                    [sectionArray replaceObjectAtIndex:0 withObject:item];
+                }else if (idx%4 == 1) {
+                    NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[1]];
+                    item[@"value"] = obj;
+                    [sectionArray replaceObjectAtIndex:1 withObject:item];
+                }else if (idx%4 == 2) {
+                    NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[2]];
+                    item[@"value"] = obj;
+                    [sectionArray replaceObjectAtIndex:2 withObject:item];
+                }else if (idx%4 == 3) {
+                    NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[3]];
+                    item[@"value"] = obj;
+                    [sectionArray replaceObjectAtIndex:3 withObject:item];
+                }
+                [self.dataArray replaceObjectAtIndex:(idx/4+1) withObject:sectionArray];
+            }
+            dispatch_semaphore_signal(sem);
+        }];
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.submit.hidden = false;
+            [self.tableView reloadData];
+        });
+    });
+}
+
+- (void)loadRessNumber{
+    self.dataArray = [[NSMutableArray alloc] init];
+    for (int i=0; i<self.resNum; i++) {
+        NSArray * array = @[
+            @{@"title":[NSString stringWithFormat:@"Hybrid%d PV1 voltage",i+1],@"placeholder":@"PV1 voltage".localized,@"value":@"0"},
+            @{@"title":[NSString stringWithFormat:@"Hybrid%d PV2 voltage",i+1],@"placeholder":@"PV2 voltage".localized,@"value":@"0"},
+            @{@"title":[NSString stringWithFormat:@"Hybrid%d PV3 voltage",i+1],@"placeholder":@"PV3 voltage".localized,@"value":@"0"},
+            @{@"title":[NSString stringWithFormat:@"Hybrid%d PV4 voltage",i+1],@"placeholder":@"PV4 voltage".localized,@"value":@"0"}
+        ];
+        [self.dataArray addObject:array];
+    }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    InputTableViewCell * cell = (InputTableViewCell *)[[[textField superview] superview] superview];
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    NSMutableArray * sectionArray = [[NSMutableArray alloc] initWithArray:self.dataArray[indexPath.section]];
+    NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[indexPath.row]];
+    item[@"value"] = textField.text;
+    [sectionArray replaceObjectAtIndex:indexPath.row withObject:item];
+    [self.dataArray replaceObjectAtIndex:indexPath.section withObject:sectionArray];
 }
 
 - (NSString *)getInputTextWithRow:(NSInteger)row{
@@ -54,15 +123,39 @@
     return cell.textfield.text;
 }
 
-- (InputTableViewCell *)getCellWithRow:(NSInteger)row{
-    return [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
+- (InputTableViewCell *)getCellWithRow:(NSInteger)row section:(NSInteger)section{
+    return [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section]];
 }
 
 - (IBAction)submitAction:(id)sender{
-    [BleManager.shareInstance writeWithCMDString:@"629" array:@[[self getInputTextWithRow:0],[self getInputTextWithRow:1],[self getInputTextWithRow:2],[self getInputTextWithRow:3]] finish:^{
-        NSLog(@"成功");
-        [RMHelper showToast:@"Write success" toView:self.view];
-    }];
+    NSMutableArray * valueArray = [[NSMutableArray alloc] init];
+    for (int i=0; i<self.dataArray.count; i++) {
+        NSArray * sectionArray = self.dataArray[i];
+        for (int j=0; j<4; j++) {
+            [valueArray addObject:sectionArray[j][@"value"]];
+        }
+    }
+    NSMutableArray * fristArray = [[NSMutableArray alloc] init];
+    NSMutableArray * otherArray = [[NSMutableArray alloc] init];
+
+    for (int i=0; i<valueArray.count; i++) {
+        if (i<4) {
+            [fristArray addObject:valueArray[i]];
+        }else{
+            [otherArray addObject:valueArray[i]];
+        }
+    }
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        dispatch_semaphore_t sem = dispatch_semaphore_create(0);
+        [BleManager.shareInstance writeWithCMDString:@"629" array:fristArray finish:^{
+            dispatch_semaphore_signal(sem);
+        }];
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance writeWithCMDString:@"63A" array:otherArray finish:^{
+            [RMHelper showToast:@"Write success" toView:self.view];
+            dispatch_semaphore_signal(sem);
+        }];
+    });
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -73,8 +166,10 @@
         return cell;
     }else{
         InputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
-        cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
-        cell.textfield.placeholder = self.dataArray[indexPath.row][@"placeholder"];
+        cell.titleLabel.text = self.dataArray[indexPath.section][indexPath.row][@"title"];
+        cell.textfield.placeholder = self.dataArray[indexPath.section][indexPath.row][@"placeholder"];
+        cell.textfield.text = self.dataArray[indexPath.section][indexPath.row][@"value"];
+        cell.textfield.delegate = self;
         return cell;
     }
 }
@@ -94,7 +189,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.dataArray.count;
+    return 4;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return self.resNum;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

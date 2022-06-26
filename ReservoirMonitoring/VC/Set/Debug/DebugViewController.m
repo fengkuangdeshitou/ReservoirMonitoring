@@ -12,6 +12,7 @@
 #import "GeneratorViewController.h"
 #import "HybridViewController.h"
 #import "OtherViewController.h"
+#import "CardViewController.h"
 #import "InstallViewController.h"
 
 @interface DebugViewController ()<UICollectionViewDelegate>
@@ -26,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.dataArray = @[@"Installation".localized,@"Grid config".localized,@"PV config".localized,@"SG config".localized,@"Other config".localized];
+    self.dataArray = @[@"Installation".localized,@"Grid config".localized,@"SG config".localized,@"PV config".localized,@"Card config".localized,@"Other config".localized];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DebugCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([DebugCollectionViewCell class])];
 }
 
@@ -48,9 +49,9 @@
         grid.title = title;
         [self.navigationController pushViewController:grid animated:true];
     }else if (indexPath.row == 2){
-        InverterViewController * inverter = [[InverterViewController alloc] init];
-        inverter.title = title;
-        [self.navigationController pushViewController:inverter animated:true];
+        HybridViewController * hybrid = [[HybridViewController alloc] init];
+        hybrid.title = title;
+        [self.navigationController pushViewController:hybrid animated:true];
     }
 //    else if (indexPath.row == 3){
 //        GeneratorViewController * generator = [[GeneratorViewController alloc] init];
@@ -58,10 +59,14 @@
 //        [self.navigationController pushViewController:generator animated:true];
 //    }
     else if (indexPath.row == 3){
-        HybridViewController * hybrid = [[HybridViewController alloc] init];
-        hybrid.title = title;
-        [self.navigationController pushViewController:hybrid animated:true];
+        InverterViewController * inverter = [[InverterViewController alloc] init];
+        inverter.title = title;
+        [self.navigationController pushViewController:inverter animated:true];
     }else if (indexPath.row == 4){
+        CardViewController * card = [[CardViewController alloc] init];
+        card.title = title;
+        [self.navigationController pushViewController:card animated:true];
+    }else if (indexPath.row == 5){
         OtherViewController * other = [[OtherViewController alloc] init];
         other.title = title;
         [self.navigationController pushViewController:other animated:true];

@@ -42,7 +42,7 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/PrefixHeader.pch \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Network/Wifi/WifiViewController.m \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Network/Wifi/WifiViewController.h \
-  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/BLE/PeripheralModel.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/Model/DevideModel.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Network/Wifi/View/WifiTableViewCell.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Network/Wifi/View/WifiInfoTableViewCell.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Network/Wifi/View/WifiAlertView.h

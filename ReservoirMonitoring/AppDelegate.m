@@ -23,8 +23,7 @@
 //    [UWConfig setUserLanguage:@"zh-Hans"];
     [UWConfig setUserLanguage:@"en"];
     
-//    NSLog(@"byte=%ld",strtoul("FffF", 0, 16));
-
+//    @[@{@"sn":@"VC51030001",@"iccid":@"898993770"}]
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:LOGIN_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadLoginController) name:LOG_OUT object:nil];
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];

@@ -43,6 +43,8 @@
             [self.doneButton setTitle:@"Confirm".localized forState:UIControlStateNormal];
         }
         [self.doneButton showBorderWithRadius:20];
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
+        [self addGestureRecognizer:tap];
     }
     return self;
 }

@@ -11,6 +11,9 @@
 @implementation RMHelper
 
 static NSString * K_USERINFO = @"PFUserInfo";
+static NSString * K_DATASOURCE = @"DATASOURCE";
+static NSString * K_USERTYPE = @"USERTYPE";
+
 
 + (UIViewController *)jsd_getRootViewController{
 
@@ -52,6 +55,22 @@ static NSString * K_USERINFO = @"PFUserInfo";
 + (int)getBleDataValue:(NSString *)string{
     int data = string.intValue;
     return data > 32768 ? (data - 65536) : data;
+}
+
++ (void)setUserType:(BOOL)isInstall{
+    [NSUserDefaults.standardUserDefaults setBool:isInstall forKey:K_USERTYPE];
+}
+
++ (BOOL)getUserType{
+    return [NSUserDefaults.standardUserDefaults boolForKey:K_USERTYPE];
+}
+
++ (void)setLoadDataForBluetooth:(BOOL)isBluetooth{
+    [NSUserDefaults.standardUserDefaults setBool:isBluetooth forKey:K_DATASOURCE];
+}
+
++ (BOOL)getLoadDataForBluetooth{
+    return [NSUserDefaults.standardUserDefaults boolForKey:K_DATASOURCE];
 }
 
 @end

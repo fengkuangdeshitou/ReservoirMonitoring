@@ -16,6 +16,7 @@
 
 - (IBAction)switchAction:(UIButton *)sender{
     sender.selected = !sender.selected;
+    [RMHelper setLoadDataForBluetooth:sender.isSelected];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

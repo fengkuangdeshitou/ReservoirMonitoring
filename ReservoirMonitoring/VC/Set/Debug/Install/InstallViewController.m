@@ -14,6 +14,7 @@
 #import "GeneratorViewController.h"
 #import "HybridViewController.h"
 #import "WifiViewController.h"
+#import "CardViewController.h"
 
 @interface InstallViewController ()
 
@@ -31,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.dataArray = @[@"Add Device".localized,@"BLE connection".localized,@"Grid config".localized,@"PV config".localized,@"Smart Gateway config".localized,@"networK".localized];
+    self.dataArray = @[@"Add Device".localized,@"BLE connection".localized,@"Grid config".localized,@"PV config".localized,@"Smart Gateway config".localized,@"networK".localized,@"Card".localized];
     [self.config showBorderWithRadius:25];
     [self.next showBorderWithRadius:25];
     [self.back showBorderWithRadius:25];
@@ -76,6 +77,11 @@
         wifi.title = @"Wi-Fi".localized;
         wifi.hidesBottomBarWhenPushed = true;
         [self.navigationController pushViewController:wifi animated:true];
+    }else if (self.current == 6){
+        CardViewController * card = [[CardViewController alloc] init];
+        card.title = @"Card config".localized;
+        card.hidesBottomBarWhenPushed = true;
+        [self.navigationController pushViewController:card animated:true];
     }
 }
 

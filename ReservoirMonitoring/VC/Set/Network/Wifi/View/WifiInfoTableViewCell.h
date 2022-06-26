@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PeripheralModel.h"
+#import "DevideModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,weak)IBOutlet UILabel * status;
 @property(nonatomic,weak)IBOutlet UIButton * statusButton;
 
-@property(nonatomic,strong) PeripheralModel * model;
+@property(nonatomic,strong) DevideModel * model;
 
 @end
 

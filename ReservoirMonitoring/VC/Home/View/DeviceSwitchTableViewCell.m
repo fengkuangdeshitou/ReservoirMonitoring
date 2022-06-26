@@ -11,7 +11,6 @@
 
 @property(nonatomic,weak)IBOutlet UILabel * name;
 @property(nonatomic,weak)IBOutlet UILabel * SN;
-@property(nonatomic,weak)IBOutlet UILabel * status;
 @property(nonatomic,weak)IBOutlet UILabel * nameValue;
 @property(nonatomic,weak)IBOutlet UILabel * SNValue;
 
@@ -24,7 +23,6 @@
     // Initialization code
     self.name.text = @"Device name".localized;
     self.SN.text = @"Device SN".localized;
-    self.status.text = @"On-line".localized;// Offine
 }
 
 - (void)setModel:(DevideModel *)model{

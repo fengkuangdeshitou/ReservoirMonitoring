@@ -45,4 +45,18 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/View/HomeTableViewCell.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/Model/DevideModel.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/View/DeviceSwitchView.h \
-  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/SwitchMode/SwitchModeViewController.h
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/SwitchMode/SwitchModeViewController.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/BRPickerView/BRPickerView.framework/Modules/module.modulemap \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/BRPickerView/BRPickerView.framework/Headers/BRDatePickerView+BR.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/BRPickerView/BRPickerView.framework/Headers/NSBundle+BRPickerView.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/BRPickerView/BRPickerView.framework/Headers/BRResultModel.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/BRPickerView/BRPickerView.framework/Headers/BRStringPickerView.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/BRPickerView/BRPickerView.framework/Headers/BRAddressModel.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/BRPickerView/BRPickerView.framework/Headers/BRAddressPickerView.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/BRPickerView/BRPickerView.framework/Headers/NSDate+BRPickerView.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/BRPickerView/BRPickerView.framework/Headers/BRPickerViewMacro.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/BRPickerView/BRPickerView.framework/Headers/BRPickerStyle.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/BRPickerView/BRPickerView.framework/Headers/BRBaseView.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/BRPickerView/BRPickerView.framework/Headers/BRDatePickerView.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/BRPickerView/BRPickerView.framework/Headers/BRPickerView.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/BRPickerView/BRPickerView.framework/Headers/BRPickerView-umbrella.h

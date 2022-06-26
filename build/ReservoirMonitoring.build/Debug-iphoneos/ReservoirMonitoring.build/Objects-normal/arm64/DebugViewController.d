@@ -48,4 +48,5 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/Generator/GeneratorViewController.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/Hybrid/HybridViewController.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/Other/OtherViewController.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/Card/CardViewController.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/Install/InstallViewController.h

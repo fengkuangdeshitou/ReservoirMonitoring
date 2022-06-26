@@ -9,12 +9,15 @@
 #import "InputTableViewCell.h"
 #import "SelecteTableViewCell.h"
 #import "SelectItemAlertView.h"
+@import BRPickerView;
 
 @interface HybridViewController ()<UITableViewDataSource,UITextFieldDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * submit;
 @property(nonatomic,strong)NSMutableArray * dataArray;
+@property(nonatomic,strong)NSString * systemTime;
+@property(nonatomic,strong)NSString * stop;
 @property(nonatomic,assign)int count;
 @property(nonatomic,assign)BOOL leftOpen;
 @property(nonatomic,assign)BOOL rightOpen;
@@ -25,10 +28,29 @@
 @property(nonatomic,strong)NSString * modelValue;
 @property(nonatomic,strong)NSArray * leftValueArray;
 @property(nonatomic,strong)NSArray * rightValueArray;
+@property(nonatomic,strong)BRPickerStyle * style;
 
 @end
 
 @implementation HybridViewController
+
+- (BRPickerStyle *)style{
+    if (!_style) {
+        _style = [[BRPickerStyle alloc] init];
+        _style.alertViewColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
+        _style.maskColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
+        _style.pickerColor = [UIColor colorWithHexString:COLOR_BACK_COLOR];
+        _style.doneTextColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+        _style.cancelTextColor = [UIColor colorWithHexString:@"#999999"];
+        _style.titleBarColor = [UIColor colorWithHexString:COLOR_BACK_COLOR];
+        _style.selectRowColor = UIColor.clearColor;
+        _style.pickerTextColor = [UIColor colorWithHexString:@"#F6F6F6"];
+        _style.titleLineColor = [UIColor colorWithHexString:@"#333333"];
+        _style.doneBtnTitle = @"OK".localized;
+        _style.cancelBtnTitle = @"Cancel".localized;
+    }
+    return _style;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,6 +63,18 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        [BleManager.shareInstance readWithCMDString:@"611" count:6 finish:^(NSArray * _Nonnull array) {
+            if (array.count == 6) {
+                self.systemTime = [NSString stringWithFormat:@"%@-%@-%@ %@:%@:%@",array[0],array[1],array[2],array[3],array[4],array[5]];
+            }
+            dispatch_semaphore_signal(semaphore);
+        }];
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"64F" count:1 finish:^(NSArray * _Nonnull array) {
+            self.stop = array.firstObject;
+            dispatch_semaphore_signal(semaphore);
+        }];
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"62D" count:3 finish:^(NSArray * _Nonnull array) {
             NSLog(@"62d=%@",array);
             self.leftOpen = [array.firstObject intValue] != 0;
@@ -124,10 +158,25 @@
     if (self.rightOpen) {
         rightArray = @[self.rightController,self.rightValueArray[0],self.rightValueArray[1]];
     }
+    if (!self.systemTime) {
+        return;
+    }
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         
+        NSString * time = self.systemTime;
+        NSArray * timeArray = @[[time substringToIndex:4],[time substringWithRange:NSMakeRange(5, 2)],[time substringWithRange:NSMakeRange(8, 2)],[time substringWithRange:NSMakeRange(11, 2)],[time substringWithRange:NSMakeRange(14, 2)],[time substringWithRange:NSMakeRange(17, 2)]];
+        [BleManager.shareInstance writeWithCMDString:@"611" array:timeArray finish:^{
+            dispatch_semaphore_signal(semaphore);
+        }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance writeWithCMDString:@"64F" array:@[] finish:^{
+            dispatch_semaphore_signal(semaphore);
+        }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance writeWithCMDString:@"62D" array:self.leftOpen ? leftArray : @[@"0"] finish:^{
             dispatch_semaphore_signal(semaphore);
         }];
@@ -181,24 +230,29 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section <= 1) {
+    if (indexPath.section == 0) {
+        SelecteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SelecteTableViewCell class]) forIndexPath:indexPath];
+        cell.titleLabel.text = indexPath.row == 0 ? @"System time".localized : @"E-stop".localized;
+        cell.content.text = indexPath.row == 0 ? self.systemTime : (self.stop.intValue == 0 ? @"E-Stop Enabled".localized : @"None".localized);
+        return cell;
+    }else if (indexPath.section == 1 || indexPath.section == 2) {
         if (indexPath.row == 0) {
             SelecteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SelecteTableViewCell class]) forIndexPath:indexPath];
-            cell.titleLabel.text = indexPath.section == 0 ? @"Control circuit left".localized : @"Control circuit right".localized;
-            cell.content.text = indexPath.section == 0 ? self.leftValue : self.rightValue;
+            cell.titleLabel.text = indexPath.section == 1 ? @"Control circuit left".localized : @"Control circuit right".localized;
+            cell.content.text = indexPath.section == 1 ? self.leftValue : self.rightValue;
             return cell;
         }else{
             InputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
             cell.titleLabel.text = indexPath.row == 1 ? @"Brand".localized : @"Model".localized;
             cell.textfield.placeholder = indexPath.row == 1 ? @"Brand".localized : @"Model".localized;
-            cell.textfield.text = indexPath.section == 0 ? self.leftValueArray[indexPath.row-1] : self.rightValueArray[indexPath.row-1];
+            cell.textfield.text = indexPath.section == 1 ? self.leftValueArray[indexPath.row-1] : self.rightValueArray[indexPath.row-1];
             cell.textfield.delegate = self;
             return cell;
         }
-    }else if (indexPath.section == 2 || indexPath.section == 3){
+    }else if (indexPath.section == 3 || indexPath.section == 4){
         SelecteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SelecteTableViewCell class]) forIndexPath:indexPath];
-        cell.titleLabel.text = indexPath.section == 2 ? @"Generator operation mode".localized : @"Qty of Hybrid".localized;
-        cell.content.text = indexPath.section == 2 ? self.modelValue : [NSString stringWithFormat:@"%d",self.count];
+        cell.titleLabel.text = indexPath.section == 3 ? @"Generator operation mode".localized : @"Qty of Hybrid".localized;
+        cell.content.text = indexPath.section == 3 ? self.modelValue : [NSString stringWithFormat:@"%d",self.count];
         return cell;
     }
     else{
@@ -211,6 +265,24 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            BRDatePickerView * picker = [[BRDatePickerView alloc] initWithPickerMode:BRDatePickerModeYMDHMS];
+            picker.showUnitType = BRShowUnitTypeNone;
+            picker.pickerStyle = self.style;
+            picker.resultBlock = ^(NSDate * _Nullable selectDate, NSString * _Nullable selectValue) {
+                self.systemTime = selectValue;
+                [tableView reloadData];
+            };
+            [picker show];
+        }else if (indexPath.row == 1){
+            UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
+            CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
+            [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"E-Stop Enabled".localized,@"None".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-100, frame.origin.y+50, 85, 50*2) completion:^(NSString * _Nonnull value, NSInteger idx) {
+                self.stop = [NSString stringWithFormat:@"%ld",idx];
+                [tableView reloadData];
+            }];
+        }
+    }else if (indexPath.section == 1) {
         UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
         CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
         [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"PV inverter enabled".localized,@"EV charger enabled".localized,@"None".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-200, frame.origin.y+50, 185, 50*3) completion:^(NSString * _Nonnull value, NSInteger idx) {
@@ -219,7 +291,7 @@
             self.leftController = [NSString stringWithFormat:@"%ld",idx == 2 ? 0 : idx+1];
             [tableView reloadData];
         }];
-    }else if (indexPath.section == 1){
+    }else if (indexPath.section == 2){
         UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
         CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
         [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"Generator enabled".localized,@"None".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-200, frame.origin.y+50, 185, 50*2) completion:^(NSString * _Nonnull value, NSInteger idx) {
@@ -228,7 +300,7 @@
             self.rightController = [NSString stringWithFormat:@"%ld",idx == 2 ? 0 : idx+1];
             [tableView reloadData];
         }];
-    }else if (indexPath.section == 2) {
+    }else if (indexPath.section == 3) {
         UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
         CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
         [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"Efficient mode".localized,@"Quiet mode".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-150, frame.origin.y+50, 135, 50*2) completion:^(NSString * _Nonnull value, NSInteger idx) {
@@ -236,14 +308,14 @@
             [tableView reloadData];
         }];
     }
-    else if (indexPath.section == 3) {
+    else if (indexPath.section == 4) {
         UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
         CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
         [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"1",@"2",@"3",@"4",@"5",@"6"] tableviewFrame:CGRectMake(SCREEN_WIDTH-50, frame.origin.y+50, 50, 50*6) completion:^(NSString * _Nonnull value, NSInteger idx) {
             self.count = value.intValue;
             [self resetNumberData];
         }];
-    }else if (indexPath.section == 4) {
+    }else if (indexPath.section == 5) {
         SelecteTableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
         CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
         [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"1",@"2",@"3",@"4",@"5",@"6"] tableviewFrame:CGRectMake(SCREEN_WIDTH-50, frame.origin.y+50, 50, 50*6) completion:^(NSString * _Nonnull value, NSInteger idx) {
@@ -253,15 +325,17 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 5;
+    return 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
+        return 2;
+    }else if (section == 1) {
         return self.leftOpen ? 3 : 1;
-    }else if (section == 1){
+    }else if (section == 2){
         return self.rightOpen ? 3 : 1;
-    }else if (section == 2 || section == 3){
+    }else if (section == 3 || section == 4){
         return 1;
     }else{
         return self.dataArray.count;

@@ -27,6 +27,7 @@
         @{@"title":@"Backup type".localized,@"placeholder":@"Partical home".localized,@"value":@""},
         @{@"title":@"Grid nominal voltage".localized,@"placeholder":@"Please enter a rating".localized},
         @{@"title":@"Grid standard".localized,@"placeholder":@"internal standard".localized,@"value":@""},
+        @{@"title":@"Grid frequency".localized,@"placeholder":@"50 Hz",@"value":@""},
         ]];
     [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
     [self.submit showBorderWithRadius:25];
@@ -61,6 +62,12 @@
                 @"ISO-EN".localized,
                 @"internal standard".localized
             ][index]];
+            dispatch_semaphore_signal(semaphore);
+        }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"64E" count:1 finish:^(NSArray * array){
+            [self exchangeDictFor:3 value:[array.firstObject intValue] == 0 ? @"50" : array.firstObject];
         }];
     });
     
@@ -75,10 +82,17 @@
 
 - (IBAction)submitAction:(id)sender{
     InputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    [BleManager.shareInstance writeWithCMDString:@"625" array:@[self.dataArray[0][@"value"],cell.textfield.text,self.dataArray[2][@"value"]] finish:^{
-        NSLog(@"成功");
-        [RMHelper showToast:@"Write success" toView:self.view];
-    }];
+    NSString * input = cell.textfield.text;
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        dispatch_semaphore_t sem = dispatch_semaphore_create(0);
+        [BleManager.shareInstance writeWithCMDString:@"625" array:@[self.dataArray[0][@"value"],input,self.dataArray[2][@"value"]] finish:^{
+            dispatch_semaphore_signal(sem);
+        }];
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance writeWithCMDString:@"64E" array:@[self.dataArray[3][@"value"]] finish:^{
+            [RMHelper showToast:@"Write success" toView:self.view];
+        }];
+    });
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -121,6 +135,19 @@
             NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[indexPath.row]];
             dict[@"placeholder"] = value;
             dict[@"value"] = [NSString stringWithFormat:@"%ld",idx==6?255:idx];
+            self.dataArray[indexPath.row] = dict;
+            [tableView reloadData];
+        }];
+    }else if (indexPath.row == 3){
+        UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
+        CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
+        [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[
+            @"50 Hz",
+            @"60 Hz",
+        ] tableviewFrame:CGRectMake(SCREEN_WIDTH-100, frame.origin.y+50, 100, 50*2) completion:^(NSString * _Nonnull value, NSInteger idx) {
+            NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[indexPath.row]];
+            dict[@"placeholder"] = value;
+            dict[@"value"] = [NSString stringWithFormat:@"%@",idx==0?@"50":@"60"];
             self.dataArray[indexPath.row] = dict;
             [tableView reloadData];
         }];

@@ -21,6 +21,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param string 0 默认 <0 逆向 >0 正向
 + (int)getBleDataValue:(NSString *)string;
 
+/// 获取用户类型是否为安装商
++ (BOOL)getUserType;
+
+/// 设置用户类型是否为安装商，默认为NO
+/// @param isInstall 是否为安装商
++ (void)setUserType:(BOOL)isInstall;
+
+/// 设置数据请求来源是否为蓝牙，默认http
+/// @param isBluetooth 是否蓝牙
++ (void)setLoadDataForBluetooth:(BOOL)isBluetooth;
+
+/// 获取数据来源是否为蓝牙
++ (BOOL)getLoadDataForBluetooth;
+
 
 @end
 

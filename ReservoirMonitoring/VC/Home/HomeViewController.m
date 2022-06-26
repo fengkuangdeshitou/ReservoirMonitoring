@@ -10,6 +10,7 @@
 #import "DeviceSwitchView.h"
 #import "SwitchModeViewController.h"
 #import "DevideModel.h"
+@import BRPickerView;
 
 @interface HomeViewController ()<DeviceSwitchViewDelegate,BleManagerDelegate,UITableViewDelegate,DeviceSwitchViewDelegate>
 
@@ -48,7 +49,8 @@
 }
 
 - (void)getHomeData:(NSString *)sgSn{
-    [Request.shareInstance getUrl:HomeDeviceInfo params:@{@"sgSn":sgSn} progress:^(float progress) {
+    NSDate * date = [NSDate date];
+    [Request.shareInstance getUrl:HomeDeviceInfo params:@{@"sgSn":sgSn,@"dayMonthYearFormat":[NSString stringWithFormat:@"%ld-%ld-%ld",date.br_year,date.br_month,date.br_day]} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         self.model = [DevideModel mj_objectWithKeyValues:result[@"data"]];
@@ -220,6 +222,7 @@
 - (void)changeCurrentDeviceStatusAction{
     SwitchModeViewController * model = [[SwitchModeViewController alloc] init];
     model.title = @"Switch operation mode".localized;
+    model.devId = self.model.devId;
     model.hidesBottomBarWhenPushed = true;
     [self.navigationController pushViewController:model animated:true];
 }

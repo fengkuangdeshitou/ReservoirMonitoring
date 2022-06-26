@@ -19,9 +19,9 @@
     self.statusButton.layer.borderWidth = 0.5;
 }
 
-- (void)setModel:(PeripheralModel *)model{
+- (void)setModel:(DevideModel *)model{
     _model = model;
-    self.addressLabel.text = [model.peripheral.name componentsSeparatedByString:@"-"].lastObject;
+    self.addressLabel.text = [model.name componentsSeparatedByString:@"-"].lastObject;
     if (model.isConnected) {
         [self.statusButton setTitle:@"Disconnect".localized forState:UIControlStateNormal];
         self.statusButton.layer.borderColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR].CGColor;
@@ -40,7 +40,8 @@
     if (sender.selected) {
         [BleManager.shareInstance disconnectPeripheral];
     }else{
-        [BleManager.shareInstance connectPeripheral:self.model.peripheral];
+        BleManager.shareInstance.bluetoothName = self.model.name;
+        [BleManager.shareInstance startScanning];
     }
 }
 

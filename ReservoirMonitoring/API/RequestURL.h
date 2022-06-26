@@ -49,6 +49,7 @@ extern NSString * const DeviceInfoToId;
 
 extern NSString * const SwitchMode;
 
+extern NSString * const GetSwitchMode;
 
 
 @end

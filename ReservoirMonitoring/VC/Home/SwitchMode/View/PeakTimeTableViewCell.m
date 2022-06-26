@@ -10,7 +10,6 @@
 @interface PeakTimeTableViewCell ()<UITableViewDataSource,UITableViewDelegate>
 
 @property(nonatomic,weak)IBOutlet UILabel * titleLabel;
-@property(nonatomic,weak)IBOutlet UIButton * gridBtn;
 
 @end
 
@@ -23,6 +22,10 @@
     if (height != [[NSUserDefaults.standardUserDefaults objectForKey:TIME_TABLEVIEW_HEIGHT_CHANGE] floatValue]) {
         [self updateTableViewHeight];
     }
+}
+
+- (IBAction)switchChange:(UIButton *)sender{
+    sender.selected = !sender.selected;
 }
 
 - (void)awakeFromNib {
@@ -42,7 +45,7 @@
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         [BleManager.shareInstance readWithCMDString:@"6FE" count:2 finish:^(NSArray * _Nonnull array) {
             dispatch_semaphore_signal(semaphore);
-            self.gridBtn.selected = [array.firstObject boolValue];
+            self.switchBtn.selected = [array.firstObject boolValue];
             NSInteger count = [array.lastObject integerValue] == 0 ? 1 : [array.lastObject integerValue];
             NSMutableArray * countArray = [[NSMutableArray alloc] init];
             for (int i=0; i<count; i++) {
@@ -119,6 +122,7 @@
     NSDictionary * item = self.dataArray[indexPath.section][indexPath.row];
     cell.startTime.text = item[@"startTime"];
     cell.endTime.text = item[@"endTime"];
+    cell.electricity.text = item[@"price"];
     return cell;
 }
 

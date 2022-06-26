@@ -45,4 +45,5 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/Model/DevideModel.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/View/DeviceSwitchTableViewCell.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/MJExtension/MJExtension.framework/Modules/module.modulemap \
-  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/MJExtension/MJExtension.framework/Headers/MJExtension-umbrella.h
+  /Users/huangjing/Desktop/ReservoirMonitoring/build/Debug-iphoneos/MJExtension/MJExtension.framework/Headers/MJExtension-umbrella.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/AddDevice/AddDeviceViewController.h

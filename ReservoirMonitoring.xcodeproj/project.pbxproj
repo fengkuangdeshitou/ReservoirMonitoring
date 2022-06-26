@@ -94,6 +94,8 @@
 		BD90736C280D535700044013 /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD90736A280D535700044013 /* InfoViewController.xib */; };
 		BD907371280D5B0600044013 /* InfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD90736F280D5B0600044013 /* InfoTableViewCell.m */; };
 		BD907372280D5B0600044013 /* InfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD907370280D5B0600044013 /* InfoTableViewCell.xib */; };
+		BD935B3628685B1A00F1AF1A /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD935B3428685B1A00F1AF1A /* CardViewController.m */; };
+		BD935B3728685B1A00F1AF1A /* CardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD935B3528685B1A00F1AF1A /* CardViewController.xib */; };
 		BDE889F928044DA700081114 /* RMHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE889F828044DA700081114 /* RMHelper.m */; };
 		BDE889FD28044E7C00081114 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE889FC28044E7C00081114 /* UIColor+HexString.m */; };
 		BDE88A012804540C00081114 /* GlobalValue.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A002804540C00081114 /* GlobalValue.m */; };
@@ -325,6 +327,9 @@
 		BD90736E280D5B0600044013 /* InfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoTableViewCell.h; sourceTree = "<group>"; };
 		BD90736F280D5B0600044013 /* InfoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoTableViewCell.m; sourceTree = "<group>"; };
 		BD907370280D5B0600044013 /* InfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoTableViewCell.xib; sourceTree = "<group>"; };
+		BD935B3328685B1A00F1AF1A /* CardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardViewController.h; sourceTree = "<group>"; };
+		BD935B3428685B1A00F1AF1A /* CardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
+		BD935B3528685B1A00F1AF1A /* CardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardViewController.xib; sourceTree = "<group>"; };
 		BDE889F728044DA700081114 /* RMHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMHelper.h; sourceTree = "<group>"; };
 		BDE889F828044DA700081114 /* RMHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMHelper.m; sourceTree = "<group>"; };
 		BDE889FB28044E7C00081114 /* UIColor+HexString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexString.h"; sourceTree = "<group>"; };
@@ -829,6 +834,7 @@
 				BD8FDA5E280EF17E000036DD /* DebugViewController.h */,
 				BD8FDA5F280EF17E000036DD /* DebugViewController.m */,
 				BD8FDA60280EF17E000036DD /* DebugViewController.xib */,
+				BD935B3228685B0400F1AF1A /* Card */,
 				0F69685428364CE600F22E47 /* Install */,
 				0F4030D9282E89F5001E1F2D /* Grid */,
 				0F3EBC10282E8AF5009CDBED /* Inverter */,
@@ -942,6 +948,16 @@
 				BD8FDA3F280D5F91000036DD /* UpdateViewController.xib */,
 			);
 			path = Update;
+			sourceTree = "<group>";
+		};
+		BD935B3228685B0400F1AF1A /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				BD935B3328685B1A00F1AF1A /* CardViewController.h */,
+				BD935B3428685B1A00F1AF1A /* CardViewController.m */,
+				BD935B3528685B1A00F1AF1A /* CardViewController.xib */,
+			);
+			path = Card;
 			sourceTree = "<group>";
 		};
 		BDE889F628044D8B00081114 /* Tools */ = {
@@ -1280,6 +1296,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD935B3728685B1A00F1AF1A /* CardViewController.xib in Resources */,
 				BD2DEF2E28044A74004E8D7D /* LaunchScreen.storyboard in Resources */,
 				BDE88A0A28046F7D00081114 /* DataViewController.xib in Resources */,
 				BDE88A2B2805C47C00081114 /* RegisterTableViewCell.xib in Resources */,
@@ -1529,6 +1546,7 @@
 				BDE88A63280AC2B200081114 /* SwitchProgressTableViewCell.m in Sources */,
 				BDE88A4B28087E2F00081114 /* UIView+Extension.m in Sources */,
 				BDFA3AB1282966B0004A7E8C /* NetworkTableViewCell.m in Sources */,
+				BD935B3628685B1A00F1AF1A /* CardViewController.m in Sources */,
 				BDE889F928044DA700081114 /* RMHelper.m in Sources */,
 				BD8FDA40280D5F91000036DD /* UpdateViewController.m in Sources */,
 				BDE88A4E280A776500081114 /* DeviceSwitchView.m in Sources */,

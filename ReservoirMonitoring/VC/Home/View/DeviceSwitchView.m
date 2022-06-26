@@ -8,6 +8,7 @@
 #import "DeviceSwitchView.h"
 #import "DeviceSwitchTableViewCell.h"
 @import MJExtension;
+#import "AddDeviceViewController.h"
 
 @interface DeviceSwitchView ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -96,6 +97,7 @@
         [self.contentView addSubview:addButton];
         [addButton showBorderWithRadius:16];
         [addButton setTitle:@"Add device".localized forState:UIControlStateNormal];
+        [addButton addTarget:self action:@selector(addDeviceClick) forControlEvents:UIControlEventTouchUpInside];
         addButton.titleLabel.font = [UIFont systemFontOfSize:14];
         [addButton mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.centerX.mas_equalTo(self.contentView.mas_centerX);
@@ -106,6 +108,14 @@
         
     }
     return self;
+}
+
+- (void)addDeviceClick{
+    [self dismiss];
+    AddDeviceViewController * add = [[AddDeviceViewController alloc] init];
+    add.title = @"Add Device".localized;
+    add.hidesBottomBarWhenPushed = true;
+    [RMHelper.getCurrentVC.navigationController pushViewController:add animated:true];
 }
 
 - (void)getCurrentDevice{
@@ -136,7 +146,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     DeviceSwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([DeviceSwitchTableViewCell class]) forIndexPath:indexPath];
-    cell.model = tableView == self.tableView ? self.currentDevice : self.dataArray[indexPath.row];
+    cell.model = tableView == self.tableView ? self.currentDevice : self.dataArray[indexPath.section];
+    cell.status.text = tableView == self.tableView ? @"On-line".localized :  @"Offine".localized;
+    cell.status.textColor = [UIColor colorWithHexString:tableView == self.tableView ? COLOR_MAIN_COLOR : @"#999999"];
     [cell.switchDeviceBtn addTarget:self action:@selector(switchDeviceAction:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
@@ -144,7 +156,7 @@
 - (void)switchDeviceAction:(UIButton *)btn{
     DeviceSwitchTableViewCell * cell = (DeviceSwitchTableViewCell *)[[[btn superview] superview] superview];
     NSIndexPath * indexPath = [self.otherTableView indexPathForCell:cell];
-    DevideModel * model = self.dataArray[indexPath.row];
+    DevideModel * model = self.dataArray[indexPath.section];
     [Request.shareInstance getUrl:DeviceInfoToId params:@{@"id":model.deviceId} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {

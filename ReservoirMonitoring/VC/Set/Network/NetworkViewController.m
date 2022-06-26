@@ -11,13 +11,15 @@
 #import "BleManager.h"
 #import "PeripheralModel.h"
 #import "AddDeviceViewController.h"
+#import "DevideModel.h"
+#import "GlobelDescAlertView.h"
 
 @interface NetworkViewController ()<UITableViewDelegate,UITableViewDataSource,BleManagerDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
-@property(nonatomic,strong) PeripheralModel * model;
+@property(nonatomic,strong) DevideModel * model;
 @property(nonatomic,strong) BleManager * manager;
-@property(nonatomic,strong) NSMutableArray<PeripheralModel *> * dataArray;
+@property(nonatomic,strong) NSArray * dataArray;
 
 @end
 
@@ -27,15 +29,37 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.dataArray = [[NSMutableArray alloc] init];
     UIBarButtonItem * add = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDevice)];
     self.navigationItem.rightBarButtonItem = add;
     self.tableView.rowHeight = 80;
     [self.tableView registerNib:[UINib  nibWithNibName:NSStringFromClass([NetworkTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([NetworkTableViewCell class])];
     self.manager = BleManager.shareInstance;
     self.manager.delegate = self;
-    [self.manager startScanning];
-//    self.tableView.hidden = true;
+    [self getDeviceList];
+}
+
+- (void)getDeviceList{
+    [Request.shareInstance getUrl:DeviceList params:@{} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        self.dataArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        NSArray<DevideModel*> * filter = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect == %@",@"1"]];
+        if (filter.count > 0) {
+            self.model = filter.firstObject;
+            NSString * filterString = [self.model.rtuSn componentsSeparatedByString:@"-"].lastObject;
+            NSLog(@"name=%@",BleManager.shareInstance.peripheral.name);
+            NSString * name = BleManager.shareInstance.peripheral.name;
+            if (name && [name rangeOfString:@"-"].location != NSNotFound) {
+                NSString * bleString = [BleManager.shareInstance.peripheral.name componentsSeparatedByString:@"-"].lastObject;
+                if ([filterString rangeOfString:bleString].location != NSNotFound && BleManager.shareInstance.peripheral.state == 2) {
+                    self.model.isConnected = true;
+                }
+            }
+        }
+        [self.tableView reloadData];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (void)addDevice{
@@ -43,12 +67,6 @@
     add.title = @"Add Device".localized;
     [self.navigationController pushViewController:add animated:true];
 }
-
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-////    [self.manager readWithCMDString:@"634" count:6];
-//    [self.manager writeWithCMDString:@"634" value:@[@"1",@"2",@"3",@"4",@"5",@"6"]];
-////    [self.manager writeWithCMDString:@"620" string:@"1"];
-//}
 
 - (void)bluetoothDidUpdateState:(CBCentralManager *)central{
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -95,10 +113,12 @@
 }
 
 - (void)bluetoothDidConnectPeripheral:(CBPeripheral *)peripheral{
-    self.model = [[PeripheralModel alloc] init];
-    self.model.peripheral = peripheral;
-    self.model.isConnected = true;
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.model) {
+            self.model.isConnected = true;
+            [self.tableView reloadData];
+        }
+    });
 }
 
 - (void)bluetoothDidDisconnectPeripheral:(CBPeripheral *)peripheral{
@@ -110,15 +130,15 @@
     });
 }
 
-- (void)bluetoothdidDiscoverPeripheral:(CBPeripheral *)peripheral RSSI:(NSNumber *)RSSI{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        PeripheralModel * model = [[PeripheralModel alloc] init];
-        model.peripheral = peripheral;
-        model.rssi = RSSI;
-        [self.dataArray addObject:model];
-        [self.tableView reloadData];
-    });
-}
+//- (void)bluetoothdidDiscoverPeripheral:(CBPeripheral *)peripheral RSSI:(NSNumber *)RSSI{
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        PeripheralModel * model = [[PeripheralModel alloc] init];
+//        model.peripheral = peripheral;
+//        model.rssi = RSSI;
+//        [self.dataArray addObject:model];
+//        [self.tableView reloadData];
+//    });
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NetworkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NetworkTableViewCell class]) forIndexPath:indexPath];
@@ -138,10 +158,20 @@
         wifi.model = self.model;
         [self.navigationController pushViewController:wifi animated:true];
     }else{
-        [self.manager connectPeripheral:self.dataArray[indexPath.row].peripheral];
-//        [self.dataArray removeObjectAtIndex:indexPath.row];
-//        [self.tableView reloadData];
+        if (self.model.isConnected) {
+            [RMHelper showToast:@"do not reconnect" toView:self.view];
+        }else{
+            DevideModel * model = self.dataArray[indexPath.row];
+            if ([model.rtuSn isEqualToString:self.model.rtuSn]) {
+                self.manager.delegate = self;
+                self.manager.bluetoothName = model.name;
+                [self.manager startScanning];
+            }else{
+                [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:[NSString stringWithFormat:@"Please switch the %@ to the current device",self.model.rtuSn]];
+            }
+        }
     }
+    
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{

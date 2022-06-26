@@ -43,6 +43,8 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Network/NetworkViewController.m \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Network/NetworkViewController.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Network/View/NetworkTableViewCell.h \
-  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/BLE/PeripheralModel.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/Model/DevideModel.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Network/Wifi/WifiViewController.h \
-  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/AddDevice/AddDeviceViewController.h
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/BLE/PeripheralModel.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/AddDevice/AddDeviceViewController.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/SwitchMode/View/GlobelDescAlertView.h

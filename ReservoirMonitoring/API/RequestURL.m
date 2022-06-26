@@ -51,5 +51,6 @@ NSString * const DeviceInfoToId = @"/device/getDeviceInfoToId";
 
 NSString * const SwitchMode = @"/device/switchMode";
 
+NSString * const GetSwitchMode = @"/device/getSwitchMode";
 
 @end

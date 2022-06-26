@@ -21,11 +21,56 @@
 @property(nonatomic,strong)NSMutableArray * progressArray;
 @property(nonatomic,strong)NSString * viagrid;
 @property(nonatomic,strong)NSString * touCount;
+@property(nonatomic,assign)BOOL allowChargingXiaGrid;
 @property(nonatomic,strong)NSMutableArray * touArray;
 
 @end
 
 @implementation SwitchModeViewController
+
+- (IBAction)weatherClick:(UIButton *)sender{
+    sender.selected = !sender.selected;
+}
+
+- (void)getSwitchModeData{
+    [Request.shareInstance getUrl:GetSwitchMode params:@{@"devId":self.devId} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        NSDictionary * data = result[@"data"];
+        self.weatherBtn.selected = [data[@"weatherWatch"] boolValue];
+        NSInteger workStatus = [data[@"workStatus"] intValue];
+        if (workStatus == 1) {
+            self.flag = 0;
+        }else if (workStatus == 2){
+            self.flag = 2;
+        }else if (workStatus == 3){
+            self.flag = 1;
+        }
+        NSString * selfConsumptioinReserveSoc = data[@"selfConsumptioinReserveSoc"];
+        NSString * backupPowerReserveSoc = data[@"backupPowerReserveSoc"];
+        self.progressArray = [[NSMutableArray alloc] initWithObjects:selfConsumptioinReserveSoc,backupPowerReserveSoc,@"", nil];
+        self.allowChargingXiaGrid = [data[@"allowChargingXiaGrid"] boolValue];
+        NSArray * offPeakTimeList = data[@"offPeakTimeList"];
+        for (int i=0; i<offPeakTimeList.count; i++) {
+            NSString * string = offPeakTimeList[i];
+            if ([string componentsSeparatedByString:@"_"].count < 2) {
+                continue;
+            }
+            NSArray * timeArray = [string componentsSeparatedByString:@"_"];
+            NSString * startTime = timeArray[0];
+            NSString * endTime = timeArray[1];
+            NSDictionary * dict = @{@"startTime":startTime,@"endTime":endTime,@"price":timeArray[2]};
+            [self.touArray addObject:dict];
+        }
+        [self.tableView reloadData];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,6 +88,18 @@
     self.progressArray = [[NSMutableArray alloc] initWithArray:@[@"0",@"0",@""]];
     self.touArray = [[NSMutableArray alloc] init];
     
+    if (RMHelper.getUserType) {
+        if (RMHelper.getLoadDataForBluetooth) {
+            [self loadBluetoothData];
+        }else{
+            [self getSwitchModeData];
+        }
+    }else{
+        [self getSwitchModeData];
+    }
+}
+
+- (void)loadBluetoothData{
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         [BleManager.shareInstance readWithCMDString:@"621" count:1 finish:^(NSArray * _Nonnull array) {
@@ -137,7 +194,6 @@
             [self.tableView reloadData];
         });
     });
-    
 }
 
 - (IBAction)helpAction:(id)sender{
@@ -323,6 +379,7 @@
         if (indexPath.section == 2) {
             PeakTimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PeakTimeTableViewCell class]) forIndexPath:indexPath];
             cell.touArray = self.touArray;
+            cell.switchBtn.selected = self.allowChargingXiaGrid;
             return cell;
         }else{
             SwitchProgressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchProgressTableViewCell class]) forIndexPath:indexPath];

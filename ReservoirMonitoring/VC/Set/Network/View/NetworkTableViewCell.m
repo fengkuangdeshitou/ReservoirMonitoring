@@ -21,10 +21,10 @@
     // Initialization code
 }
 
-- (void)setModel:(PeripheralModel *)model{
+- (void)setModel:(DevideModel *)model{
     _model = model;
-    self.titleLabel.text = model.peripheral.name;
-    self.address.text = [NSString stringWithFormat:@"SN:%@",[model.peripheral.name componentsSeparatedByString:@"-"].lastObject];
+    self.titleLabel.text = model.name;
+    self.address.text = [NSString stringWithFormat:@"SN:%@",[model.name componentsSeparatedByString:@"-"].lastObject];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

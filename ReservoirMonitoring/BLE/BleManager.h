@@ -47,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,weak)id<BleManagerDelegate>delegate;
 
+@property(nonatomic,strong) CBPeripheral * peripheral;
+
 - (void)startScanning;
 
 - (void)stopScan;
@@ -79,6 +81,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param string 指令
 /// @param value 值
 - (void)writeWithCMDString:(NSString *)string string:(NSString *)value finish:(void(^)(void))finish;
+
+- (void)readWithDictionary:(NSDictionary *)dic finish:(void(^)(NSArray * array))finish;
 
 @end
 

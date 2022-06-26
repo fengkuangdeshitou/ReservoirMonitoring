@@ -123,7 +123,7 @@
             <connections>
                 <outlet property="address" destination="3mb-Ti-d2r" id="gRc-YD-3Cx"/>
                 <outlet property="addressLabel" destination="b8e-Xl-MtN" id="qya-hI-j1s"/>
-                <outlet property="status" destination="TY2-Px-Qf9" id="kzi-wp-xE8"/>
+                <outlet property="status" destination="9KZ-eC-keh" id="gmc-ym-5ud"/>
                 <outlet property="statusButton" destination="gAd-gF-94X" id="qWn-UV-5eQ"/>
             </connections>
             <point key="canvasLocation" x="168.84057971014494" y="119.86607142857142"/>

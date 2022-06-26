@@ -50,4 +50,5 @@ dependencies: \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/Generator/GeneratorViewController.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/Hybrid/HybridViewController.h \
   /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Network/Wifi/WifiViewController.h \
-  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/BLE/PeripheralModel.h
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Home/Model/DevideModel.h \
+  /Users/huangjing/Desktop/ReservoirMonitoring/ReservoirMonitoring/VC/Set/Debug/Card/CardViewController.h

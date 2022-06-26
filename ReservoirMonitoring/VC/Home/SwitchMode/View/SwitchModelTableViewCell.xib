@@ -31,7 +31,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eog-wd-BlX">
-                        <rect key="frame" x="185.5" y="11" width="15" height="22"/>
+                        <rect key="frame" x="178.5" y="0.0" width="40" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="jUn-xT-Y3N"/>
+                        </constraints>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <state key="normal" image="icon_question"/>
                         <connections>
@@ -44,9 +47,11 @@
                     <constraint firstItem="cf4-ex-G9V" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="4Dp-6g-vzY"/>
                     <constraint firstAttribute="trailing" secondItem="cf4-ex-G9V" secondAttribute="trailing" constant="15" id="A64-3t-9cJ"/>
                     <constraint firstItem="yu5-vG-3ui" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="DPN-BS-8rx"/>
+                    <constraint firstAttribute="bottom" secondItem="Eog-wd-BlX" secondAttribute="bottom" id="ESW-K6-C30"/>
                     <constraint firstItem="8lH-gF-u2G" firstAttribute="leading" secondItem="yu5-vG-3ui" secondAttribute="trailing" constant="10" id="KgR-Er-XDa"/>
                     <constraint firstAttribute="bottom" secondItem="cf4-ex-G9V" secondAttribute="bottom" id="Qbp-4Z-Wjt"/>
-                    <constraint firstItem="Eog-wd-BlX" firstAttribute="leading" secondItem="8lH-gF-u2G" secondAttribute="trailing" constant="7" id="gX6-MH-Jio"/>
+                    <constraint firstItem="Eog-wd-BlX" firstAttribute="leading" secondItem="8lH-gF-u2G" secondAttribute="trailing" id="gX6-MH-Jio"/>
+                    <constraint firstItem="Eog-wd-BlX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="h07-gp-4VX"/>
                     <constraint firstItem="yu5-vG-3ui" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="iUH-4y-xTj"/>
                     <constraint firstItem="8lH-gF-u2G" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="lDv-Lr-zYI"/>
                     <constraint firstItem="cf4-ex-G9V" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ssv-3P-Et2"/>
