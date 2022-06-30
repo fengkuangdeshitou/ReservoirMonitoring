@@ -220,6 +220,9 @@
 }
 
 - (void)changeCurrentDeviceStatusAction{
+    if (!self.model.devId) {
+        return;
+    }
     SwitchModeViewController * model = [[SwitchModeViewController alloc] init];
     model.title = @"Switch operation mode".localized;
     model.devId = self.model.devId;

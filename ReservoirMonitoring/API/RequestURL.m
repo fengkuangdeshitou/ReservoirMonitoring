@@ -53,4 +53,7 @@ NSString * const SwitchMode = @"/device/switchMode";
 
 NSString * const GetSwitchMode = @"/device/getSwitchMode";
 
+NSString * const SwitchDevice = @"/device/switchDevice";
+
+
 @end

@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.dataArray = @[@"Add Device".localized,@"BLE connection".localized,@"Grid config".localized,@"PV config".localized,@"Smart Gateway config".localized,@"networK".localized,@"Card".localized];
+    self.dataArray = @[@"Add Device".localized,@"BLE connection".localized,@"Grid config".localized,@"PV config".localized,@"Smart Gateway config".localized,@"Card".localized,@"Network".localized];
     [self.config showBorderWithRadius:25];
     [self.next showBorderWithRadius:25];
     [self.back showBorderWithRadius:25];
@@ -73,15 +73,15 @@
         hybrid.title = self.dataArray[self.current];
         [self.navigationController pushViewController:hybrid animated:true];
     }else if (self.current == 5){
-        WifiViewController * wifi = [[WifiViewController alloc] init];
-        wifi.title = @"Wi-Fi".localized;
-        wifi.hidesBottomBarWhenPushed = true;
-        [self.navigationController pushViewController:wifi animated:true];
-    }else if (self.current == 6){
         CardViewController * card = [[CardViewController alloc] init];
         card.title = @"Card config".localized;
         card.hidesBottomBarWhenPushed = true;
         [self.navigationController pushViewController:card animated:true];
+    }else if (self.current == 6){
+        WifiViewController * wifi = [[WifiViewController alloc] init];
+        wifi.title = @"Wi-Fi".localized;
+        wifi.hidesBottomBarWhenPushed = true;
+        [self.navigationController pushViewController:wifi animated:true];
     }
 }
 
@@ -92,9 +92,13 @@
     self.current++;
     [self.collectionView reloadData];
     [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.current inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:true];
+    if (self.current == self.dataArray.count-1) {
+        [self.next setTitle:@"Finish".localized forState:UIControlStateNormal];
+    }
 }
 
 - (IBAction)backAction:(id)sender{
+    [self.next setTitle:@"Next".localized forState:UIControlStateNormal];
     if (self.current == 0) {
         return;
     }

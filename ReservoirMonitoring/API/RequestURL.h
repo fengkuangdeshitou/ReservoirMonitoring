@@ -51,6 +51,7 @@ extern NSString * const SwitchMode;
 
 extern NSString * const GetSwitchMode;
 
+extern NSString * const SwitchDevice;
 
 @end
 

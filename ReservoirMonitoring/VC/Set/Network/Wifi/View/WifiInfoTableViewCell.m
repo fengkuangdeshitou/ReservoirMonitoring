@@ -29,7 +29,7 @@
         self.status.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
     }else{
         self.statusButton.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
-        [self.statusButton setTitle:@"Connect".localized forState:UIControlStateNormal];
+        [self.statusButton setTitle:@"Connected".localized forState:UIControlStateNormal];
         self.status.text = @"Disconnected".localized;
         self.status.textColor = [UIColor colorWithHexString:@"#999999"];
     }

@@ -33,8 +33,20 @@
 }
 
 - (IBAction)submitAction:(id)sender{
+    if (self.password.text.length == 0) {
+        [RMHelper showToast:self.password.placeholder toView:self.view];
+        return;
+    }
+    if (self.confirm.text.length == 0) {
+        [RMHelper showToast:self.confirm.placeholder toView:self.view];
+        return;
+    }
+    if (![self.password.text isEqualToString:self.confirm.text]) {
+        [RMHelper showToast:@"Inconsistent passwords" toView:self.view];
+        return;
+    }
     [Request.shareInstance postUrl:ResetPwd params:@{@"userName":self.userName,@"password":self.password.text,@"code":self.code,@"uuid":self.uuid} progress:^(float progress) {
-        [self.navigationController popViewControllerAnimated:true];
+        [self.navigationController popToRootViewControllerAnimated:true];
     } success:^(NSDictionary * _Nonnull result) {
         
     } failure:^(NSString * _Nonnull errorMsg) {

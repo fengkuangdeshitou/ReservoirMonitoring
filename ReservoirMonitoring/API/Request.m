@@ -58,7 +58,7 @@ static Request * _request = nil;
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSString * code = json[@"status"];
-        NSLog(@"url=%@,result=%@",url,json);
+        NSLog(@"url=%@,params=%@,result=%@",url,params,json);
         if (code.intValue == 200) {
             success(json);
         }else{

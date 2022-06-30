@@ -45,14 +45,18 @@
         [RMHelper showToast:self.password.placeholder toView:self.view];
         return;
     }
-    if (self.uuid == nil) {
-        [RMHelper showToast:@"Please get verification code".localized toView:self.view];
-        return;
-    }
     [ImageAuthenticationView showImageAuthemticationWithDelegate:self];
 }
 
 - (IBAction)nextAction:(id)sender{
+    if (self.password.text.length == 0) {
+        [RMHelper showToast:self.password.placeholder toView:self.view];
+        return;
+    }
+    if (self.uuid == nil) {
+        [RMHelper showToast:@"Please get verification code".localized toView:self.view];
+        return;
+    }
     SetPasswordViewController * set = [[SetPasswordViewController alloc] init];
     set.uuid = self.uuid;
     set.code = self.code.text;
@@ -62,7 +66,7 @@
 }
 
 - (void)onAuthemticationSuccess{
-    [Request.shareInstance postUrl:EmailCode params:@{@"type":@"2",@"email":self.email.text} progress:^(float progress) {
+    [Request.shareInstance postUrl:EmailCode params:@{@"type":@"2",@"email":self.password.text} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:true block:^(NSTimer * _Nonnull timer) {

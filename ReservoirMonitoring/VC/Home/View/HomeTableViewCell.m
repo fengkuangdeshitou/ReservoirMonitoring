@@ -161,50 +161,65 @@
         UIImageView * animation = [self.itemContentView viewWithTag:101];
         animation.animationImages = [self loadAnimationArray:1 count:2];
         [animation startAnimating];
-    }else{
+    }else if ([RMHelper getBleDataValue:model.solarPower] < 0){
         UIImageView * animation = [self.itemContentView viewWithTag:101];
         animation.animationImages = [self loadAnimationArray:1 count:2];
         [animation startAnimating];
+    }else{
+        UIImageView * animation = [self.itemContentView viewWithTag:101];
+        [animation stopAnimating];
     }
     
     if ([RMHelper getBleDataValue:model.generatorPower] > 0) {
         UIImageView * animation = [self.itemContentView viewWithTag:102];
         animation.animationImages = [self loadAnimationArray:2 count:3];
         [animation startAnimating];
-    }else{
+    }else if ([RMHelper getBleDataValue:model.generatorPower] < 0){
         UIImageView * animation = [self.itemContentView viewWithTag:102];
         animation.animationImages = [self loadAnimationArray:2 count:3];
         [animation startAnimating];
+    }else{
+        UIImageView * animation = [self.itemContentView viewWithTag:102];
+        [animation stopAnimating];
     }
     
     if ([RMHelper getBleDataValue:model.evPower] > 0) {
         UIImageView * animation = [self.itemContentView viewWithTag:103];
         animation.animationImages = [self loadAnimationArray:3 count:3];
         [animation startAnimating];
-    }else{
+    }else if ([RMHelper getBleDataValue:model.evPower] < 0){
         UIImageView * animation = [self.itemContentView viewWithTag:103];
         animation.animationImages = [self loadAnimationArray:3 count:3];
         [animation startAnimating];
+    }else{
+        UIImageView * animation = [self.itemContentView viewWithTag:103];
+        [animation stopAnimating];
     }
     
     if ([RMHelper getBleDataValue:model.nonBackUpPower] > 0) {
         UIImageView * animation = [self.itemContentView viewWithTag:104];
         animation.animationImages = [self loadAnimationArray:4 count:2];
         [animation startAnimating];
-    }else{
+    }else if ([RMHelper getBleDataValue:model.nonBackUpPower] < 0){
         UIImageView * animation = [self.itemContentView viewWithTag:104];
         animation.animationImages = [self loadAnimationArray:4 count:2];
         [animation startAnimating];
+    }else{
+        UIImageView * animation = [self.itemContentView viewWithTag:104];
+        [animation stopAnimating];
     }
     
     if ([RMHelper getBleDataValue:model.backUpPower] > 0) {
         UIImageView * animation = [self.itemContentView viewWithTag:105];
         animation.animationImages = [self loadAnimationArray:5 count:2];
         [animation startAnimating];
-    }else{
+    }else if ([RMHelper getBleDataValue:model.backUpPower] < 0){
         UIImageView * animation = [self.itemContentView viewWithTag:105];
         animation.animationImages = [self loadAnimationArray:5 count:3];
         [animation startAnimating];
+    }else{
+        UIImageView * animation = [self.itemContentView viewWithTag:105];
+        [animation stopAnimating];
     }
 }
 

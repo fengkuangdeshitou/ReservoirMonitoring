@@ -36,11 +36,16 @@
     if (indexPath.section == 0) {
         WifiInfoTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WifiInfoTableViewCell class]) forIndexPath:indexPath];
         cell.model = self.model;
+        [cell.wifiBtn addTarget:self action:@selector(wifiChangeClick:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
     }else{
         WifiTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WifiTableViewCell class]) forIndexPath:indexPath];
         return cell;
     }
+}
+
+- (void)wifiChangeClick:(UIButton *)btn{
+    btn.selected = !btn.selected;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

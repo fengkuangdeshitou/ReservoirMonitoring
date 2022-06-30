@@ -17,7 +17,9 @@
 @property(nonatomic,strong)UITableView * otherTableView;
 @property(nonatomic,strong)DevideModel * currentDevice;
 @property(nonatomic,strong)NSArray<DevideModel*> * dataArray;
+@property(nonatomic,strong)NSArray<DevideModel*> * searchArray;
 @property(nonatomic,weak)id<DeviceSwitchViewDelegate>delegate;
+@property(nonatomic,strong)UITextField * search;
 
 @end
 
@@ -39,7 +41,6 @@
         [UIApplication.sharedApplication.keyWindow addSubview:self];
         self.delegate = delegate;
         
-        [self getCurrentDevice];
         [self getDeviceList];
         
         self.contentView = [[UIView alloc] initWithFrame:CGRectMake(15, 90, SCREEN_WIDTH-30, self.height-90*2)];
@@ -118,22 +119,14 @@
     [RMHelper.getCurrentVC.navigationController pushViewController:add animated:true];
 }
 
-- (void)getCurrentDevice{
-    [Request.shareInstance getUrl:CurrentDeviceInfo params:@{} progress:^(float progress) {
-
-    } success:^(NSDictionary * _Nonnull result) {
-        self.currentDevice = [DevideModel mj_objectWithKeyValues:result[@"data"][@"device"]];
-        [self.tableView reloadData];
-    } failure:^(NSString * _Nonnull errorMsg) {
-        
-    }];
-}
-
 - (void)getDeviceList{
     [Request.shareInstance getUrl:DeviceList params:@{} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         self.dataArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        NSArray * array = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
+        self.currentDevice = array.firstObject;
+        [self.tableView reloadData];
         [self.otherTableView reloadData];
     } failure:^(NSString * _Nonnull errorMsg) {
         
@@ -146,21 +139,22 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     DeviceSwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([DeviceSwitchTableViewCell class]) forIndexPath:indexPath];
-    cell.model = tableView == self.tableView ? self.currentDevice : self.dataArray[indexPath.section];
+    cell.model = tableView == self.tableView ? self.currentDevice : (self.searchArray.count==0?self.dataArray[indexPath.section]:self.searchArray[indexPath.section]);
     cell.status.text = tableView == self.tableView ? @"On-line".localized :  @"Offine".localized;
     cell.status.textColor = [UIColor colorWithHexString:tableView == self.tableView ? COLOR_MAIN_COLOR : @"#999999"];
     [cell.switchDeviceBtn addTarget:self action:@selector(switchDeviceAction:) forControlEvents:UIControlEventTouchUpInside];
+    cell.switchDeviceBtn.hidden = tableView == self.tableView;
     return cell;
 }
 
 - (void)switchDeviceAction:(UIButton *)btn{
     DeviceSwitchTableViewCell * cell = (DeviceSwitchTableViewCell *)[[[btn superview] superview] superview];
     NSIndexPath * indexPath = [self.otherTableView indexPathForCell:cell];
-    DevideModel * model = self.dataArray[indexPath.section];
-    [Request.shareInstance getUrl:DeviceInfoToId params:@{@"id":model.deviceId} progress:^(float progress) {
+    DevideModel * model = self.searchArray.count==0?self.dataArray[indexPath.section]:self.searchArray[indexPath.section];
+    [Request.shareInstance getUrl:SwitchDevice params:@{@"id":model.deviceId} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
-        [self getCurrentDevice];
+        [self getDeviceList];
         if (self.delegate && [self.delegate respondsToSelector:@selector(onSwitchDeviceSuccess)]) {
             [self.delegate onSwitchDeviceSuccess];
         }
@@ -170,7 +164,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return tableView == self.tableView ? 2 : self.dataArray.count;
+    return tableView == self.tableView ? 2 : (self.searchArray.count>0?self.searchArray.count:self.dataArray.count);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -219,6 +213,7 @@
             [searchButton setTitle:@"Query".localized forState:UIControlStateNormal];
             searchButton.titleLabel.font = [UIFont systemFontOfSize:13];
             [searchButton setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
+            [searchButton addTarget:self action:@selector(queryClick) forControlEvents:UIControlEventTouchUpInside];
             [searchButton mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.bottom.mas_equalTo(0);
                 make.right.mas_equalTo(-15);
@@ -235,12 +230,18 @@
                 make.top.bottom.mas_equalTo(0);
                 make.right.mas_equalTo(searchButton.mas_left).offset(-15);
             }];
+            self.search = search;
         }
         
         return headerView;
     }else{
         return [UIView new];
     }
+}
+
+- (void)queryClick{
+    self.searchArray = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name CONTAINS %@",self.search.text]];
+    [self.otherTableView reloadData];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{

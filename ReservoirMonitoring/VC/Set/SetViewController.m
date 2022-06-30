@@ -59,6 +59,7 @@
 }
 
 - (IBAction)logoutAtion:(id)sender{
+    [NSUserDefaults.standardUserDefaults removeObjectForKey:@"token"];
     [[NSNotificationCenter defaultCenter] postNotificationName:LOG_OUT object:nil];
 }
 
