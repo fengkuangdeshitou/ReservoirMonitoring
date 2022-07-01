@@ -55,5 +55,8 @@ NSString * const GetSwitchMode = @"/device/getSwitchMode";
 
 NSString * const SwitchDevice = @"/device/switchDevice";
 
+NSString * const QueryDataElectricity = @"/device/queryDataElectricity";
+
+NSString * const QueryDataGraph = @"/device/queryDataGraph";
 
 @end

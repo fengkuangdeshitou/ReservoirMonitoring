@@ -105,18 +105,19 @@
         self.currentModeValue.text = @"Offine";
     }
     
-    if (model.deviceStatus.intValue == 0) {
-        self.statusValue.text = @"normal";
-    }else{
-        self.statusValue.text = @"fault";
-    }
-    
     if (BleManager.shareInstance.isConnented) {
         self.communicationValue.text = @"Online".localized;
         self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+        if (model.deviceStatus.intValue == 0) {
+            self.statusValue.text = @"normal";
+        }else{
+            self.statusValue.text = @"fault";
+        }
     }else{
         self.communicationValue.text = @"Offline".localized;
         self.communicationValue.textColor = [UIColor colorWithHexString:@"#999999"];
+        self.statusValue.text = @"offline".localized;
+        self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
     }
     
     
@@ -124,26 +125,27 @@
         if ([view isKindOfClass:[HomeItemView class]]) {
             HomeItemView * itemView = (HomeItemView *)view;
             if (itemView.tag == 10) {
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.gridElectricity floatValue]];
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",model.gridElectricity];
             }else if (itemView.tag == 11) {
                 itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.batteryCurrentElectricity floatValue]];
             }else if (itemView.tag == 12) {
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.generatorElectricity floatValue]];
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",model.generatorElectricity];
             }else if (itemView.tag == 13) {
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.evElectricity floatValue]];
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",model.evElectricity];
             }else if (itemView.tag == 14) {
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.nonBackUpElectricity floatValue]];
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",model.nonBackUpElectricity];
             }else{
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.backUpElectricity floatValue]];
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",model.backUpElectricity];
             }
         }
     }
     self.progressView.titleLabel.text = [NSString stringWithFormat:@"%.0f kWh (%.0f%@)",[model.batteryCurrentElectricity floatValue],[model.batterySoc floatValue],@"%"];
     self.progressView.progress = [model.batterySoc floatValue]/100;
     
-    CGFloat rate = ((model.evElectricity.floatValue + model.nonBackUpElectricity.floatValue + model.backUpElectricity.floatValue)-model.gridElectricity.floatValue)/(model.evElectricity.floatValue+model.nonBackUpElectricity.floatValue+model.backUpElectricity.floatValue)*100;
-    self.selfHelpRate.text = model.gridElectricity.floatValue == 0 ? @"100%" : [NSString stringWithFormat:@"%.0f",rate];
-    
+    CGFloat divided = model.evElectricity+model.nonBackUpElectricity+model.backUpElectricity;
+    CGFloat rate = ((model.evElectricity + model.nonBackUpElectricity + model.backUpElectricity)-model.gridElectricity)/divided*100;
+//    self.selfHelpRate.text = model.gridElectricity.floatValue == 0 ? @"100%" : [NSString stringWithFormat:@"%.0f",rate];
+    self.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",divided==0?0:rate] stringByAppendingString:@"%"];
     if ([RMHelper getBleDataValue:model.gridPower] > 0) {
         UIImageView * animation = [self.itemContentView viewWithTag:100];
         animation.animationImages = [self loadAnimationArray:0 count:3];

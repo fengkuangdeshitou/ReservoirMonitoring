@@ -7,6 +7,7 @@
 
 #import "InfoViewController.h"
 #import "InfoTableViewCell.h"
+@import BRPickerView;
 
 @interface InfoViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -17,10 +18,29 @@
 @property(nonatomic,strong)NSArray * dataArray;
 @property(nonatomic,strong)NSArray * iconArray;
 @property(nonatomic,strong)NSString * avatar;
+@property(nonatomic,strong) BRPickerStyle * style;
 
 @end
 
 @implementation InfoViewController
+
+- (BRPickerStyle *)style{
+    if (!_style) {
+        _style = [[BRPickerStyle alloc] init];
+        _style.alertViewColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
+        _style.maskColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
+        _style.pickerColor = [UIColor colorWithHexString:COLOR_BACK_COLOR];
+        _style.doneTextColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+        _style.cancelTextColor = [UIColor colorWithHexString:@"#999999"];
+        _style.titleBarColor = [UIColor colorWithHexString:COLOR_BACK_COLOR];
+        _style.selectRowColor = UIColor.clearColor;
+        _style.pickerTextColor = [UIColor colorWithHexString:@"#F6F6F6"];
+        _style.titleLineColor = [UIColor colorWithHexString:@"#333333"];
+        _style.doneBtnTitle = @"OK".localized;
+        _style.cancelBtnTitle = @"Cancel".localized;
+    }
+    return _style;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,8 +53,18 @@
 }
 
 - (IBAction)selectPhoto:(id)sender{
+    BRStringPickerView * picker = [[BRStringPickerView alloc] initWithPickerMode:BRStringPickerComponentSingle];
+    picker.pickerStyle = self.style;
+    picker.dataSourceArr = @[@"camera",@"photo album"];
+    picker.resultModelBlock = ^(BRResultModel * _Nullable resultModel) {
+        [self selectSourceType:resultModel.index];
+    };
+    [picker show];
+}
+
+- (void)selectSourceType:(NSInteger)index{
     UIImagePickerController * picker = [[UIImagePickerController alloc] init];
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.sourceType = index == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
     picker.delegate = self;
     [self presentViewController:picker animated:true completion:nil];
 }
@@ -79,7 +109,10 @@
         [params setValue:self.avatar forKey:@"avatar"];
     }
     [Request.shareInstance putUrl:EditUserInfo params:params success:^(NSDictionary * _Nonnull result) {
-        [self.navigationController popViewControllerAnimated:true];
+        [RMHelper showToast:@"Update info success" toView:self.view];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:true];
+        });
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];

@@ -198,13 +198,16 @@
             </constraints>
             <size key="customSize" width="350" height="435"/>
             <connections>
-                <outlet property="coal" destination="ASf-Ea-yp5" id="XpA-nz-o8M"/>
+                <outlet property="coal" destination="ASf-Ea-yp5" id="Oqz-Q7-YH4"/>
+                <outlet property="coalValue" destination="YvS-Yl-jS8" id="zK9-YB-QSe"/>
                 <outlet property="current" destination="yov-7A-7T0" id="XfK-5u-uUg"/>
                 <outlet property="echarts" destination="Vsk-rU-Yrz" id="fA9-op-Ksd"/>
                 <outlet property="energyTitle" destination="AsX-v9-bm8" id="irc-Ud-zgk"/>
                 <outlet property="independence" destination="aNW-Nr-LtD" id="Syf-7F-lcB"/>
                 <outlet property="reducing" destination="amG-3V-J2E" id="5xf-3T-Ocr"/>
+                <outlet property="selfHelpRate" destination="hAz-Cp-pHS" id="IaX-qN-Kau"/>
                 <outlet property="titleView" destination="kqF-jV-e1V" id="Qky-0M-4es"/>
+                <outlet property="treeNum" destination="P0d-cZ-Ye1" id="Jcl-im-ffE"/>
                 <outlet property="trees" destination="EGf-0i-hAf" id="ZUN-JV-BeU"/>
             </connections>
             <point key="canvasLocation" x="211.59420289855075" y="197.87946428571428"/>

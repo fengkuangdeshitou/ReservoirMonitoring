@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BaseViewController : UIViewController
 
+@property(nonatomic,strong)UIRefreshControl * refreshController;
+
 @end
 
 NS_ASSUME_NONNULL_END

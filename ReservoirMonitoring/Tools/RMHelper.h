@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 首页方向
 /// @param string 0 默认 <0 逆向 >0 正向
-+ (int)getBleDataValue:(NSString *)string;
++ (int)getBleDataValue:(CGFloat)string;
 
 /// 获取用户类型是否为安装商
 + (BOOL)getUserType;

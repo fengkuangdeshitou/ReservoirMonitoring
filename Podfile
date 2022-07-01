@@ -13,8 +13,9 @@ pod 'IQKeyboardManager'
 pod 'BRPickerView'
 pod 'MJRefresh'
 pod 'iOS-Echarts'
-pod 'HXPhotoPicker'
+#pod 'HXPhotoPicker'
 pod 'WMZCode'
+pod 'MBProgressHUD'
 pod 'SGPagingView', '~> 1.7.2'
 
   # Pods for ReservoirMonitoring

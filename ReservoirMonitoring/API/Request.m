@@ -7,11 +7,13 @@
 
 #import "Request.h"
 #import "AFNetworking.h"
+@import MBProgressHUD;
 
 @interface Request ()
 
 @property(nonatomic,strong) AFHTTPSessionManager *manager;
 @property(nonatomic,strong) NSMutableDictionary *headers;
+@property(nonatomic,strong) MBProgressHUD *hud;
 
 @end
 
@@ -24,6 +26,20 @@ static Request * _request = nil;
         _request = [[Request alloc] init];
     }
     return _request;
+}
+
+- (MBProgressHUD *)hud{
+    if (!_hud) {
+        _hud = [[MBProgressHUD alloc] init];
+    }
+    _hud.mode = MBProgressHUDModeIndeterminate;
+    _hud.removeFromSuperViewOnHide = true;
+    _hud.label.text = @"Loading";
+    _hud.contentColor = UIColor.whiteColor;
+    _hud.bezelView.color = [UIColor colorWithHexString:@"#181818"];
+    _hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+    [UIApplication.sharedApplication.keyWindow addSubview:_hud];
+    return _hud;
 }
 
 - (NSMutableDictionary *)headers{
@@ -53,21 +69,24 @@ static Request * _request = nil;
       progress:(RequestProgressBlock)progress
        success:(RequestSuccessBlock)success
        failure:(RequestFailureBlock)failure{
+    [self.hud showAnimated:true];
     [self.manager GET:[Host stringByAppendingString:url] parameters:params headers:self.headers progress:^(NSProgress * _Nonnull downloadProgress) {
             
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSString * code = json[@"status"];
         NSLog(@"url=%@,params=%@,result=%@",url,params,json);
+        [self.hud hideAnimated:true];
         if (code.intValue == 200) {
             success(json);
         }else{
             failure(json[@"message"]);
-            [RMHelper showToast:json[@"message"] toView:RMHelper.getCurrentVC.view];
+            [RMHelper showToast:json[@"message"] toView:UIApplication.sharedApplication.keyWindow];
             
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"err=%@",error);
+        [self.hud hideAnimated:true];
     }];
 }
 
@@ -76,20 +95,23 @@ static Request * _request = nil;
        progress:(RequestProgressBlock)progress
         success:(RequestSuccessBlock)success
         failure:(RequestFailureBlock)failure{
+    [self.hud showAnimated:true];
     [self.manager POST:[Host stringByAppendingString:url] parameters:params headers:self.headers progress:^(NSProgress * _Nonnull downloadProgress) {
             
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSString * code = json[@"status"];
         NSLog(@"url=%@,result=%@",url,json);
+        [self.hud hideAnimated:true];
         if (code.intValue == 200) {
             success(json);
         }else{
             failure(json[@"message"]);
-            [RMHelper showToast:json[@"message"] toView:RMHelper.getCurrentVC.view];
+            [RMHelper showToast:json[@"message"] toView:UIApplication.sharedApplication.keyWindow];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"err=%@",error);
+        [self.hud hideAnimated:true];
     }];
 }
 
@@ -97,18 +119,21 @@ static Request * _request = nil;
          params:(NSDictionary *)params
         success:(RequestSuccessBlock)success
        failure:(RequestFailureBlock)failure{
+    [self.hud showAnimated:true];
     [self.manager PUT:[Host stringByAppendingString:url] parameters:params headers:self.headers success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSString * code = json[@"status"];
         NSLog(@"url=%@,result=%@",url,json);
+        [self.hud hideAnimated:true];
         if (code.intValue == 200) {
             success(json);
         }else{
             failure(json[@"message"]);
-            [RMHelper showToast:json[@"message"] toView:RMHelper.getCurrentVC.view];
+            [RMHelper showToast:json[@"message"] toView:UIApplication.sharedApplication.keyWindow];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"err=%@",error);
+        [self.hud hideAnimated:true];
     }];
 }
 

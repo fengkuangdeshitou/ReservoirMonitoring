@@ -1767,7 +1767,7 @@
 				INFOPLIST_FILE = ReservoirMonitoring/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Moonflow;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "使用蓝牙连接设备";
-				INFOPLIST_KEY_NSCameraUsageDescription = "扫码";
+				INFOPLIST_KEY_NSCameraUsageDescription = "使用相机拍摄照片";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "使用位置";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1801,7 +1801,7 @@
 				INFOPLIST_FILE = ReservoirMonitoring/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Moonflow;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "使用蓝牙连接设备";
-				INFOPLIST_KEY_NSCameraUsageDescription = "扫码";
+				INFOPLIST_KEY_NSCameraUsageDescription = "使用相机拍摄照片";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "使用位置";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

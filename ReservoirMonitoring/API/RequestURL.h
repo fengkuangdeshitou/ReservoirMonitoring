@@ -53,6 +53,10 @@ extern NSString * const GetSwitchMode;
 
 extern NSString * const SwitchDevice;
 
+extern NSString * const QueryDataElectricity;
+
+extern NSString * const QueryDataGraph;
+
 @end
 
 NS_ASSUME_NONNULL_END

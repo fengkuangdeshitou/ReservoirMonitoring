@@ -87,13 +87,14 @@
 
 - (IBAction)nextAction:(id)sender{
     if (self.current == self.dataArray.count-1) {
-        return;
-    }
-    self.current++;
-    [self.collectionView reloadData];
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.current inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:true];
-    if (self.current == self.dataArray.count-1) {
-        [self.next setTitle:@"Finish".localized forState:UIControlStateNormal];
+        [self.navigationController popViewControllerAnimated:true];
+    }else{
+        self.current++;
+        [self.collectionView reloadData];
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.current inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:true];
+        if (self.current == self.dataArray.count-1) {
+            [self.next setTitle:@"Finish".localized forState:UIControlStateNormal];
+        }
     }
 }
 

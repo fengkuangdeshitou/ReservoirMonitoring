@@ -28,40 +28,62 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
                 
+    self.tableView.refreshControl = self.refreshController;
+    [self.refreshController addTarget:self action:@selector(onRefresh) forControlEvents:UIControlEventValueChanged];
     self.manager = BleManager.shareInstance;
-    
     [self.addEquipmentBtn showBorderWithRadius:25];
     [self setLeftBatButtonItemWithImage:[UIImage imageNamed:@"logo"] sel:nil];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomeTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([HomeTableViewCell class])];
-    
-    [self getCurrentDevice];
 }
 
-- (void)getCurrentDevice{
-    [Request.shareInstance getUrl:CurrentDeviceInfo params:@{} progress:^(float progress) {
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self getHomeDeviceData];
+}
+
+- (void)onRefresh{
+    [self getHomeDeviceData];
+}
+
+- (void)getHomeDeviceData{
+    if (RMHelper.getUserType) {
+        if (RMHelper.getLoadDataForBluetooth) {
+            [self getBluetoothData];
+        }else{
+            [self getNetworkData];
+        }
+    }else{
+        [self getNetworkData];
+    }
+}
+
+- (void)getNetworkData{
+    [Request.shareInstance getUrl:DeviceList params:@{} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
-        [self setRightBarButtonItemWithTitlt:result[@"data"][@"device"][@"name"] sel:@selector(changeDevice)];
-        [self getHomeData:result[@"data"][@"device"][@"sgSn"]];
+        NSArray * modelArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        NSArray<DevideModel*> * array = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
+        [self setRightBarButtonItemWithTitlt:array.firstObject.name sel:@selector(changeDevice)];
+        [self getHomeData:array.firstObject.sgSn];
     } failure:^(NSString * _Nonnull errorMsg) {
-        
+        [self.refreshController endRefreshing];
     }];
 }
 
 - (void)getHomeData:(NSString *)sgSn{
     NSDate * date = [NSDate date];
-    [Request.shareInstance getUrl:HomeDeviceInfo params:@{@"sgSn":sgSn,@"dayMonthYearFormat":[NSString stringWithFormat:@"%ld-%ld-%ld",date.br_year,date.br_month,date.br_day]} progress:^(float progress) {
+    [Request.shareInstance getUrl:HomeDeviceInfo params:@{@"sgSn":sgSn,@"dayMonthYearFormat":[NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year,date.br_month,date.br_day]} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         self.model = [DevideModel mj_objectWithKeyValues:result[@"data"]];
         [self.tableView reloadData];
+        [self.refreshController endRefreshing];
     } failure:^(NSString * _Nonnull errorMsg) {
-        
+        [self.refreshController endRefreshing];
     }];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+- (void)getBluetoothData{
     self.manager.delegate = self;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
@@ -86,7 +108,7 @@
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"527" count:2 finish:^(NSArray * array){
-            self.model.gridElectricity = [NSString stringWithFormat:@"%d",[array.firstObject intValue]+([array.lastObject intValue]*65536)];
+            self.model.gridElectricity = [array.firstObject intValue]+([array.lastObject intValue]*65536);
             dispatch_semaphore_signal(semaphore);
         }];
 
@@ -99,7 +121,7 @@
         [BleManager.shareInstance readWithCMDString:@"529" count:4 finish:^(NSArray * array){
             int left = [array[0] intValue]+[array[1] intValue]*65536;
             int right = [array[2] intValue]+[array[3] intValue]*65536;
-            self.model.solarElectricity = [NSString stringWithFormat:@"%d",left+right*65536];
+            self.model.solarElectricity = left+right*65536;
             dispatch_semaphore_signal(semaphore);
         }];
 
@@ -110,7 +132,7 @@
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"52D" count:2 finish:^(NSArray * array){
-            self.model.generatorElectricity = [NSString stringWithFormat:@"%d",[array.firstObject intValue]+([array.lastObject intValue]*65536)];
+            self.model.generatorElectricity = [array.firstObject intValue]+([array.lastObject intValue]*65536);
             dispatch_semaphore_signal(semaphore);
         }];
 
@@ -121,7 +143,7 @@
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"52F" count:2 finish:^(NSArray * array){
-            self.model.evElectricity = [NSString stringWithFormat:@"%d",[array.firstObject intValue]+([array.lastObject intValue]*65536)];
+            self.model.evElectricity = [array.firstObject intValue]+([array.lastObject intValue]*65536);
             dispatch_semaphore_signal(semaphore);
         }];
 
@@ -132,7 +154,7 @@
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"533" count:2 finish:^(NSArray * array){
-            self.model.nonBackUpElectricity = [NSString stringWithFormat:@"%d",[array.firstObject intValue]+([array.lastObject intValue]*65536)];
+            self.model.nonBackUpElectricity = [array.firstObject intValue]+([array.lastObject intValue]*65536);
             dispatch_semaphore_signal(semaphore);
         }];
 
@@ -143,7 +165,7 @@
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"531" count:2 finish:^(NSArray * array){
-            self.model.backUpElectricity = [NSString stringWithFormat:@"%d",[array.firstObject intValue]+([array.lastObject intValue]*65536)];
+            self.model.backUpElectricity = [array.firstObject intValue]+([array.lastObject intValue]*65536);
             dispatch_semaphore_signal(semaphore);
         }];
 
@@ -164,40 +186,40 @@
             self.model.batteryCurrentElectricity = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:@[array.lastObject]]/100];
         }
         if ([cmd isEqualToString:@"51F"]) {
-            self.model.gridPower = array.firstObject;
+            self.model.gridPower = [array.firstObject floatValue];
         }
         if ([cmd isEqualToString:@"51F"]) {
-            self.model.gridElectricity = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+            self.model.gridElectricity = [self cumulativeWithArray:array]/100;
         }
         if ([cmd isEqualToString:@"543"]) {
-            self.model.solarPower = array.firstObject;
+            self.model.solarPower = [array.firstObject floatValue];
         }
         if ([cmd isEqualToString:@"529"]) {
-            self.model.solarElectricity = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+            self.model.solarElectricity = [self cumulativeWithArray:array]/100;
         }
         if ([cmd isEqualToString:@"521"]) {
-            self.model.generatorPower = array.firstObject;
+            self.model.generatorPower = [array.firstObject floatValue];
         }
         if ([cmd isEqualToString:@"52D"]) {
-            self.model.generatorElectricity = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+            self.model.generatorElectricity = [self cumulativeWithArray:array]/100;
         }
         if ([cmd isEqualToString:@"524"]) {
-            self.model.evPower = array.firstObject;
+            self.model.evPower = [array.firstObject floatValue];
         }
         if ([cmd isEqualToString:@"52F"]) {
-            self.model.evElectricity = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+            self.model.evElectricity = [self cumulativeWithArray:array]/100;
         }
         if ([cmd isEqualToString:@"541"]) {
-            self.model.nonBackUpPower = array.firstObject;
+            self.model.nonBackUpPower = [array.firstObject floatValue];
         }
         if ([cmd isEqualToString:@"533"]) {
-            self.model.nonBackUpElectricity = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+            self.model.nonBackUpElectricity = [self cumulativeWithArray:array]/100;
         }
         if ([cmd isEqualToString:@"542"]) {
-            self.model.backUpPower = array.firstObject;
+            self.model.backUpPower = [array.firstObject floatValue];
         }
         if ([cmd isEqualToString:@"531"]) {
-            self.model.backUpElectricity = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:array]/100];
+            self.model.backUpElectricity = [self cumulativeWithArray:array]/100;
         }
         [self.tableView reloadData];
     });
@@ -216,7 +238,7 @@
 }
 
 - (void)onSwitchDeviceSuccess{
-    [self getCurrentDevice];
+    [self getHomeDeviceData];
 }
 
 - (void)changeCurrentDeviceStatusAction{

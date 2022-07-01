@@ -26,27 +26,25 @@ PODS:
     - BRPickerView/Base
   - BRPickerView/StringPickerView (2.7.6):
     - BRPickerView/Base
-  - HXPhotoPicker (3.3.1):
-    - HXPhotoPicker/Default (= 3.3.1)
-  - HXPhotoPicker/Default (3.3.1)
   - iOS-Echarts (1.4.4)
   - IQKeyboardManager (6.5.9)
   - Masonry (1.1.0)
+  - MBProgressHUD (1.2.0)
   - MJExtension (3.4.1)
   - MJRefresh (3.7.5)
-  - SDWebImage (5.12.2):
-    - SDWebImage/Core (= 5.12.2)
-  - SDWebImage/Core (5.12.2)
+  - SDWebImage (5.12.1):
+    - SDWebImage/Core (= 5.12.1)
+  - SDWebImage/Core (5.12.1)
   - SGPagingView (1.7.2)
   - WMZCode (1.0.1)
 
 DEPENDENCIES:
   - AFNetworking
   - BRPickerView
-  - HXPhotoPicker
   - iOS-Echarts
   - IQKeyboardManager
   - Masonry
+  - MBProgressHUD
   - MJExtension
   - MJRefresh
   - SDWebImage
@@ -57,10 +55,10 @@ SPEC REPOS:
   trunk:
     - AFNetworking
     - BRPickerView
-    - HXPhotoPicker
     - iOS-Echarts
     - IQKeyboardManager
     - Masonry
+    - MBProgressHUD
     - MJExtension
     - MJRefresh
     - SDWebImage
@@ -70,16 +68,16 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   BRPickerView: 2a1620caf218e37a3aca9626732719a419928b15
-  HXPhotoPicker: f1274d0c931ad8564e0f23f33fe8b6110b639bd7
   iOS-Echarts: dbc7423d861e5eedee78906a39d205b5c4da9a13
   IQKeyboardManager: 241cc94ccabc9deb8f8bd7d12f00d73288d13ecc
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
-  SDWebImage: 240e5c12b592fb1268c1d03b8c90d90e8c2ffe82
+  SDWebImage: 4dc3e42d9ec0c1028b960a33ac6b637bb432207b
   SGPagingView: 0b91bd360370e56a6496b06df9b3e28bc3f075cc
   WMZCode: af49031a787947dad474f6dba23270a2600d8124
 
-PODFILE CHECKSUM: b8140f65aa12371dd97e338ca6de51b7ee849e32
+PODFILE CHECKSUM: 1d32ea334ef9c6038ef5b36008fcf40365d89ca4
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.3

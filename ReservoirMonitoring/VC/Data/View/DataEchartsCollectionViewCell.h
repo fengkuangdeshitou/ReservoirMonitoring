@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DataEchartsCollectionViewCell : UICollectionViewCell
 
 @property(nonatomic,assign) NSInteger time;
+@property(nonatomic,weak)IBOutlet UILabel * selfHelpRate;
+@property(nonatomic,weak)IBOutlet UILabel * treeNum;
+@property(nonatomic,weak)IBOutlet UILabel * coalValue;
+@property(nonatomic,assign) NSArray * dataArray;
 
 @end
 

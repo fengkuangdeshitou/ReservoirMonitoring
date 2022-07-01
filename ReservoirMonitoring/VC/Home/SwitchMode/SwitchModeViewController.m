@@ -37,6 +37,9 @@
             
     } success:^(NSDictionary * _Nonnull result) {
         NSDictionary * data = result[@"data"];
+        if (data.count == 0) {
+            return;
+        }
         self.weatherBtn.selected = [data[@"weatherWatch"] boolValue];
         NSInteger workStatus = [data[@"workStatus"] intValue];
         if (workStatus == 1) {

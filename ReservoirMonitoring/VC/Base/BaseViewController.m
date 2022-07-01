@@ -30,6 +30,14 @@
     }
 }
 
+- (UIRefreshControl *)refreshController{
+    if (!_refreshController) {
+        _refreshController = [[UIRefreshControl alloc] init];
+        _refreshController.tintColor = UIColor.whiteColor;
+    }
+    return _refreshController;
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
 }

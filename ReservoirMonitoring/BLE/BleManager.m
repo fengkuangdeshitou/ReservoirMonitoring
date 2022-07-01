@@ -15,6 +15,7 @@
 @property(nonatomic,strong) NSMutableData * blueData;
 @property(nonatomic,copy)void(^readFinish)(NSArray * array);
 @property(nonatomic,copy)void(^writeFinish)(void);
+@property(nonatomic,strong) NSTimer * timer;
 
 @end
 
@@ -464,6 +465,13 @@ static unsigned char auchCRCLo[] = {
     self.peripheral = peripheral;
     //连接成功之后寻找服务，传nil会寻找所有服务
     [peripheral discoverServices:nil];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(heartbeat) userInfo:nil repeats:true];
+}
+
+- (void)heartbeat{
+    [self readWithDictionary:@{@"type":@"info"} finish:^(NSArray * _Nonnull array) {
+            
+    }];
 }
 
 /// 连接失败的回调
@@ -489,6 +497,8 @@ static unsigned char auchCRCLo[] = {
         peripheral.delegate = self;
         self.peripheral = peripheral;
     }
+    [self.timer invalidate];
+    self.timer = nil;
 }
 
 // 发现服务的回调

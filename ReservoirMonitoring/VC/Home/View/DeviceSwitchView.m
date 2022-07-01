@@ -140,8 +140,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     DeviceSwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([DeviceSwitchTableViewCell class]) forIndexPath:indexPath];
     cell.model = tableView == self.tableView ? self.currentDevice : (self.searchArray.count==0?self.dataArray[indexPath.section]:self.searchArray[indexPath.section]);
-    cell.status.text = tableView == self.tableView ? @"On-line".localized :  @"Offine".localized;
-    cell.status.textColor = [UIColor colorWithHexString:tableView == self.tableView ? COLOR_MAIN_COLOR : @"#999999"];
+    if (tableView == self.tableView) {
+        cell.status.text = BleManager.shareInstance.isConnented ? @"On-line".localized : @"Offine".localized;
+        cell.status.textColor = [UIColor colorWithHexString:BleManager.shareInstance.isConnented ? COLOR_MAIN_COLOR : @"#999999"];
+    }else{
+        cell.status.text = @"Offine".localized;
+        cell.status.textColor = [UIColor colorWithHexString:@"#999999"];
+    }
     [cell.switchDeviceBtn addTarget:self action:@selector(switchDeviceAction:) forControlEvents:UIControlEventTouchUpInside];
     cell.switchDeviceBtn.hidden = tableView == self.tableView;
     return cell;
