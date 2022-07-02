@@ -51,6 +51,19 @@
             
     } success:^(NSDictionary * _Nonnull result) {
         [NSUserDefaults.standardUserDefaults setValue:result[@"data"][@"token"] forKey:@"token"];
+        [self getUserInfo];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
+}
+
+- (void)getUserInfo{
+    [Request.shareInstance getUrl:UserInfo params:@{} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        NSDictionary * data = result[@"data"];
+        NSInteger userType = [data[@"userType"] integerValue];
+        [RMHelper setUserType:userType==1];
         [[NSNotificationCenter defaultCenter] postNotificationName:LOGIN_SUCCESS object:nil];
     } failure:^(NSString * _Nonnull errorMsg) {
         

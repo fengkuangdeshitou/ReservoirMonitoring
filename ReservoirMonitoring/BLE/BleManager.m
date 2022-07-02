@@ -17,6 +17,7 @@
 @property(nonatomic,copy)void(^readFinish)(NSArray * array);
 @property(nonatomic,copy)void(^writeFinish)(void);
 @property(nonatomic,strong) NSTimer * timer;
+@property(nonatomic,strong) NSTimer * connectTimer;
 @property(nonatomic,strong) MBProgressHUD *hud;
 
 @end
@@ -64,12 +65,22 @@ static BleManager * _manager = nil;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.hud showAnimated:true];
     });
+    self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(scanningTimeChange) userInfo:nil repeats:false];
     NSDictionary *option = @{CBCentralManagerScanOptionAllowDuplicatesKey:[NSNumber numberWithBool:NO],CBCentralManagerOptionShowPowerAlertKey:@YES};
     [self.centralManager scanForPeripheralsWithServices:nil options:option];
 }
 
 - (void)stopScan{
     [self.centralManager stopScan];
+}
+
+- (void)scanningTimeChange{
+    if (!self.isConnented) {
+        [self.connectTimer invalidate];
+        self.connectTimer = nil;
+        [self.hud hideAnimated:true];
+        [RMHelper showToast:@"The connection fails" toView:RMHelper.getCurrentVC.view];
+    }
 }
 
 - (void)readValueWithCMD:(Byte)cmd{
@@ -361,7 +372,7 @@ static unsigned char auchCRCLo[] = {
 
 /// 断开连接
 - (void)disconnectPeripheral{
-    [self.hud showAnimated:true];
+    [self.hud hideAnimated:true];
     if (self.peripheral != nil) {
         [self.centralManager cancelPeripheralConnection:self.peripheral];
         self.peripheral = nil;
@@ -482,6 +493,10 @@ static unsigned char auchCRCLo[] = {
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral{
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.hud hideAnimated:true];
+        if (self.connectTimer) {
+            [self.connectTimer invalidate];
+            self.connectTimer = nil;
+        }
     });
     _isConnented = true;
     [self.centralManager stopScan];
@@ -505,6 +520,10 @@ static unsigned char auchCRCLo[] = {
     NSLog(@"连接失败%s",__func__);
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.hud hideAnimated:true];
+        if (self.connectTimer) {
+            [self.connectTimer invalidate];
+            self.connectTimer = nil;
+        }
     });
 }
 
@@ -517,6 +536,10 @@ static unsigned char auchCRCLo[] = {
     _isConnented = false;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.hud hideAnimated:true];
+        if (self.connectTimer) {
+            [self.connectTimer invalidate];
+            self.connectTimer = nil;
+        }
     });
     if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidDisconnectPeripheral:)]) {
         [self.delegate bluetoothDidDisconnectPeripheral:peripheral];

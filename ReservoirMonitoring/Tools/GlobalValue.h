@@ -31,6 +31,8 @@ extern NSString * const BLE_CMD;
 
 /**运行模式高度改变通知*/
 extern NSString * const TIME_TABLEVIEW_HEIGHT_CHANGE;
+/**切换设备通知*/
+extern NSString * const SWITCH_DEVICE_NOTIFICATION;
 /**登录成功*/
 extern NSString * const LOGIN_SUCCESS;
 /**退出登录*/

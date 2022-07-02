@@ -48,7 +48,10 @@
 - (void)getHomeDeviceData{
     if (RMHelper.getUserType) {
         if (RMHelper.getLoadDataForBluetooth) {
-            [self getBluetoothData];
+            self.model = [[DevideModel alloc] init];
+            [self getCurrentDevice:^(DevideModel *model) {
+                [self getBluetoothData];
+            }];
         }else{
             [self getNetworkData];
         }
@@ -57,16 +60,22 @@
     }
 }
 
-- (void)getNetworkData{
+- (void)getCurrentDevice:(void(^)(DevideModel * model))completion{
     [Request.shareInstance getUrl:DeviceList params:@{} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         NSArray * modelArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
         NSArray<DevideModel*> * array = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
         [self setRightBarButtonItemWithTitlt:array.firstObject.name sel:@selector(changeDevice)];
-        [self getHomeData:array.firstObject.sgSn];
+        completion(array.firstObject);
     } failure:^(NSString * _Nonnull errorMsg) {
         [self.refreshController endRefreshing];
+    }];
+}
+
+- (void)getNetworkData{
+    [self getCurrentDevice:^(DevideModel *model) {
+        [self getHomeData:model.sgSn];
     }];
 }
 
@@ -169,6 +178,10 @@
             dispatch_semaphore_signal(semaphore);
         }];
 
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    
     });
 }
 

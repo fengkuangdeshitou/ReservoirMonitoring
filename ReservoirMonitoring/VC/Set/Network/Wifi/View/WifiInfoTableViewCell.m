@@ -36,8 +36,7 @@
 }
 
 - (IBAction)disconnectAction:(UIButton *)sender{
-    sender.selected = !sender.selected;
-    if (sender.selected) {
+    if (BleManager.shareInstance.isConnented) {
         [BleManager.shareInstance disconnectPeripheral];
     }else{
         BleManager.shareInstance.bluetoothName = self.model.name;

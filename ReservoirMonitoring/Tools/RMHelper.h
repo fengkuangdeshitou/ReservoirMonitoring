@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 获取用户类型是否为安装商
 + (BOOL)getUserType;
 
-/// 设置用户类型是否为安装商，默认为NO
+/// 设置用户类型是否为安装商
 /// @param isInstall 是否为安装商
 + (void)setUserType:(BOOL)isInstall;
 

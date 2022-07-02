@@ -123,7 +123,7 @@
     for (int i=0; i<self.dataArray.count; i++) {
         NSDictionary * dict = self.dataArray[i];
         NSDictionary * item = dict[@"nodeVo"];
-        [xArray addObject:[NSString stringWithFormat:@"%@",item[@"nodeName"]]];
+        [xArray addObject:[NSString stringWithFormat:@"%@",dict[@"nodeName"]]];
         if (index == 0) {
             [yArray addObject:[NSString stringWithFormat:@"%@",item[@"gridElectricity"]]];
         }else if (index == 1) {
@@ -160,7 +160,7 @@
     xAxis.boundaryGap = @(NO);
     xAxis.splitLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
     xAxis.axisLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
-    xAxis.data = [[NSMutableArray alloc] initWithArray:dataArray.count == 0 ? @[@1,@2,@3,@4,@5,@6,@7,@8,@9] : @[dataArray]];
+    xAxis.data = [[NSMutableArray alloc] initWithArray:dataArray.count == 0 ? @[@1,@2,@3,@4,@5,@6,@7,@8,@9] : dataArray];
     option.xAxis = [[NSMutableArray alloc] initWithObjects:xAxis, nil ];
     PYAxis * yaxis = [[PYAxis alloc] init];
     yaxis.type = PYAxisTypeValue;

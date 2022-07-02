@@ -23,6 +23,8 @@ NSString * const BLE_CMD = @"cmd";
 
 NSString * const TIME_TABLEVIEW_HEIGHT_CHANGE = @"time_tableview_height_change";
 
+NSString * const SWITCH_DEVICE_NOTIFICATION = @"swithc_device_notification";
+
 NSString * const LOGIN_SUCCESS = @"login_success";
 
 NSString * const LOG_OUT = @"log_out";

@@ -163,6 +163,7 @@
         if (self.delegate && [self.delegate respondsToSelector:@selector(onSwitchDeviceSuccess)]) {
             [self.delegate onSwitchDeviceSuccess];
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:SWITCH_DEVICE_NOTIFICATION object:nil];
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];
