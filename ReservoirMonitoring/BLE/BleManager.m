@@ -6,6 +6,7 @@
 //
 
 #import "BleManager.h"
+@import MBProgressHUD;
 
 @interface BleManager ()<CBCentralManagerDelegate,CBPeripheralDelegate>
 
@@ -16,6 +17,7 @@
 @property(nonatomic,copy)void(^readFinish)(NSArray * array);
 @property(nonatomic,copy)void(^writeFinish)(void);
 @property(nonatomic,strong) NSTimer * timer;
+@property(nonatomic,strong) MBProgressHUD *hud;
 
 @end
 
@@ -35,6 +37,20 @@ static BleManager * _manager = nil;
     return _manager;
 }
 
+- (MBProgressHUD *)hud{
+    if (!_hud) {
+        _hud = [[MBProgressHUD alloc] init];
+    }
+    _hud.mode = MBProgressHUDModeIndeterminate;
+    _hud.removeFromSuperViewOnHide = true;
+    _hud.label.text = @"Loading";
+    _hud.contentColor = UIColor.whiteColor;
+    _hud.bezelView.color = [UIColor colorWithHexString:@"#181818"];
+    _hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+    [UIApplication.sharedApplication.keyWindow addSubview:_hud];
+    return _hud;
+}
+
 - (CBCentralManager *)centralManager{
     if (!_centralManager) {
         dispatch_queue_t centralQueue = dispatch_queue_create("centralQueue",DISPATCH_QUEUE_SERIAL);
@@ -45,6 +61,9 @@ static BleManager * _manager = nil;
 }
 
 - (void)startScanning{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.hud showAnimated:true];
+    });
     NSDictionary *option = @{CBCentralManagerScanOptionAllowDuplicatesKey:[NSNumber numberWithBool:NO],CBCentralManagerOptionShowPowerAlertKey:@YES};
     [self.centralManager scanForPeripheralsWithServices:nil options:option];
 }
@@ -342,6 +361,7 @@ static unsigned char auchCRCLo[] = {
 
 /// 断开连接
 - (void)disconnectPeripheral{
+    [self.hud showAnimated:true];
     if (self.peripheral != nil) {
         [self.centralManager cancelPeripheralConnection:self.peripheral];
         self.peripheral = nil;
@@ -460,6 +480,9 @@ static unsigned char auchCRCLo[] = {
 /// @param central 蓝牙管理
 /// @param peripheral 外设
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.hud hideAnimated:true];
+    });
     _isConnented = true;
     [self.centralManager stopScan];
     self.peripheral = peripheral;
@@ -480,6 +503,9 @@ static unsigned char auchCRCLo[] = {
 /// @param error 错误
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error{
     NSLog(@"连接失败%s",__func__);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.hud hideAnimated:true];
+    });
 }
 
 /// 连接断开
@@ -489,6 +515,9 @@ static unsigned char auchCRCLo[] = {
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error{
     NSLog(@"连接断开%s",__func__);
     _isConnented = false;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.hud hideAnimated:true];
+    });
     if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidDisconnectPeripheral:)]) {
         [self.delegate bluetoothDidDisconnectPeripheral:peripheral];
     }

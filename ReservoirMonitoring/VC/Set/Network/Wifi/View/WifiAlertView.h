@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WifiAlertView : UIView
 
 + (void)showWifiAlertViewWithTitle:(NSString *)title
-                        completion:(void(^)(NSString * value))completion;
+                      showWifiName:(BOOL)showWifiName
+                        completion:(void(^)(NSString * wifiName,NSString * password))completion;
 
 @end
 

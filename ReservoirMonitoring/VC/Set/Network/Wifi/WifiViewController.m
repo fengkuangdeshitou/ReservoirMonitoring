@@ -50,9 +50,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 1) {
-//        [WifiAlertView showWifiAlertViewWithTitle:@"KLX TEST TWS" completion:^(NSString * _Nonnull value) {
-//
-//        }];
+        [WifiAlertView showWifiAlertViewWithTitle:@"Config Wi-Fi"
+                                     showWifiName:YES
+                                       completion:^(NSString * wifiName, NSString * password) {
+            [BleManager.shareInstance readWithDictionary:@{@"setwifi":@{wifiName:password}} finish:^(NSArray * _Nonnull array) {
+                [RMHelper showToast:@"Config wi-fi success" toView:self.view];
+            }];
+        }];
 //        [BleManager.shareInstance readWithCMDString:@"620" count:1];
     }
 }

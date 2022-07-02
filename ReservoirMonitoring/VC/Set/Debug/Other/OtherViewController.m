@@ -36,37 +36,22 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SwitchTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SwitchTableViewCell class])];
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-        [BleManager.shareInstance readWithCMDString:@"512" count:1 finish:^(NSArray * _Nonnull array) {
-            NSInteger idx = [array.firstObject integerValue];
-            NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[0]];
-            dict[@"placeholder"] = @[@"Local".localized,@"Remote".localized][idx];
-            dict[@"value"] = [NSString stringWithFormat:@"%ld",idx];
-            self.dataArray[0] = dict;
-            dispatch_semaphore_signal(semaphore);
-        }];
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance readWithCMDString:@"611" count:6 finish:^(NSArray * _Nonnull array) {
-            if (array.count == 0) {
-                return;
-            }
-            NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[1]];
-            dict[@"placeholder"] = [NSString stringWithFormat:@"%@-%@-%@ %@:%@:%@",array[0],array[1],array[2],array[3],array[4],array[5]];
-            self.dataArray[1] = dict;
-            [self.tableView reloadData];
-        }];
-    });
+    [BleManager.shareInstance readWithCMDString:@"512" count:1 finish:^(NSArray * _Nonnull array) {
+        NSInteger idx = [array.firstObject integerValue];
+        NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[0]];
+        dict[@"placeholder"] = @[@"Local".localized,@"Remote".localized][idx];
+        dict[@"value"] = [NSString stringWithFormat:@"%ld",idx];
+        self.dataArray[0] = dict;
+        [self.tableView reloadData];
+    }];
 }
 
 - (IBAction)submitAction:(id)sender{
-    SelecteTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    if (cell.content.text.length == 0) {
-        [RMHelper showToast:@"Please select".localized toView:self.view];
-        return;
+    NSString * value = @"0";
+    if (self.dataArray[0][@"value"]) {
+        value = self.dataArray[0][@"value"];
     }
-
-    [BleManager.shareInstance writeWithCMDString:@"600" array:@[self.dataArray[0][@"value"]] finish:^{
+    [BleManager.shareInstance writeWithCMDString:@"600" array:@[value] finish:^{
         [RMHelper showToast:@"Write success" toView:self.view];
     }];
 }

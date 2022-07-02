@@ -10,24 +10,33 @@
 @interface WifiAlertView ()
 
 @property(nonatomic,weak)IBOutlet UILabel * titleLabel;
-@property(nonatomic,weak)IBOutlet UITextField * textfield;
+@property(nonatomic,weak)IBOutlet UITextField * wifiName;
+@property(nonatomic,weak)IBOutlet UITextField * password;
+@property(nonatomic,weak)IBOutlet NSLayoutConstraint * wifiNameHeight;
 @property(nonatomic,weak)IBOutlet UIButton * cancel;
 @property(nonatomic,weak)IBOutlet UIButton * confirm;
 
-@property(nonatomic,copy)void(^completion)(NSString * value);
+@property(nonatomic,copy)void(^completion)(NSString * wifiName,NSString * password);
 
 @end
 
 @implementation WifiAlertView
 
-+ (void)showWifiAlertViewWithTitle:(NSString *)title completion:(void (^)(NSString * value))completion{
++ (void)showWifiAlertViewWithTitle:(NSString *)title
+                      showWifiName:(BOOL)showWifiName
+                        completion:(void (^)(NSString * wifiName,NSString * password))completion{
     WifiAlertView * alert = [[NSBundle.mainBundle loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil]lastObject];
     alert.frame = UIScreen.mainScreen.bounds;
     alert.alpha = 0;
     [UIApplication.sharedApplication.keyWindow addSubview:alert];
     alert.titleLabel.text = title;
-    alert.textfield.placeholder = @"Please input Wi-Fi password".localized;
-    alert.textfield.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+    if (!showWifiName) {
+        alert.wifiNameHeight.constant = 0;
+    }
+    alert.wifiName.placeholder = @"Please input Wi-Fi name".localized;
+    alert.wifiName.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+    alert.password.placeholder = @"Please input Wi-Fi password".localized;
+    alert.password.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
     [alert.cancel setTitle:@"Cancel".localized forState:UIControlStateNormal];
     [alert.confirm setTitle:@"Confirm".localized forState:UIControlStateNormal];
     alert.cancel.layer.cornerRadius = 20;
@@ -42,12 +51,12 @@
 
 - (IBAction)previewChangeAction:(UIButton *)sender{
     sender.selected = !sender.selected;
-    self.textfield.secureTextEntry = !sender.selected;
+    self.password.secureTextEntry = !sender.selected;
 }
 
 - (IBAction)submitAction{
     if (self.completion) {
-        self.completion(self.textfield.text);
+        self.completion(self.wifiName.text,self.password.text);
     }
     [self dismiss];
 }
