@@ -10,6 +10,7 @@
 #import "HomeProgressView.h"
 #import "WeatherViewController.h"
 #import "GlobelDescAlertView.h"
+#import "LineAnimatiionView.h"
 
 @interface HomeTableViewCell ()
 
@@ -55,8 +56,7 @@
         [item.statusButton setImage:[UIImage imageNamed:highlight[i]] forState:UIControlStateSelected];
         [self.itemContentView addSubview:item];
         
-        UIImageView * animationImageView = [[UIImageView alloc] init];
-        animationImageView.contentMode = UIViewContentModeScaleToFill;
+        LineAnimatiionView * animationImageView = [[LineAnimatiionView alloc] init];
         if (i == 0 || i == 3) {
             animationImageView.frame = CGRectMake(SCREEN_WIDTH/6, i/3*160+99, SCREEN_WIDTH/3*2/2-21, 37);
         }else if (i == 1 || i == 4) {
@@ -64,17 +64,19 @@
         }else{
             animationImageView.frame = CGRectMake((SCREEN_WIDTH/2+21), i/3*160+99, SCREEN_WIDTH/3*2/2-21, 37);
         }
-        animationImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"normal%d",i]];
-        NSMutableArray * animationImageArray = [[NSMutableArray alloc] init];
-        for (int j=0; j<3; j++) {
-            if ((i == 1||i==4) && j == 2) {
-                continue;;
-            }
-            [animationImageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"%d-%d",i+1,j+1]]];
-        }
-        animationImageView.animationImages = animationImageArray;
-        animationImageView.animationDuration = 1;
-        animationImageView.animationRepeatCount = 0;
+        animationImageView.source = i;
+        animationImageView.direction = i;
+//        animationImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"normal%d",i]];
+//        NSMutableArray * animationImageArray = [[NSMutableArray alloc] init];
+//        for (int j=0; j<3; j++) {
+//            if ((i == 1||i==4) && j == 2) {
+//                continue;;
+//            }
+//            [animationImageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"%d-%d",i+1,j+1]]];
+//        }
+//        animationImageView.animationImages = animationImageArray;
+//        animationImageView.animationDuration = 1;
+//        animationImageView.animationRepeatCount = 0;
         animationImageView.tag = i+100;
         [self.itemContentView addSubview:animationImageView];
     }
@@ -147,81 +149,63 @@
 //    self.selfHelpRate.text = model.gridElectricity.floatValue == 0 ? @"100%" : [NSString stringWithFormat:@"%.0f",rate];
     self.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",divided==0?0:rate] stringByAppendingString:@"%"];
     if ([RMHelper getBleDataValue:model.gridPower] > 0) {
-        UIImageView * animation = [self.itemContentView viewWithTag:100];
-        animation.animationImages = [self loadAnimationArray:0 count:3];
-        [animation startAnimating];
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:100];
+        animation.direction = AnimationStartDirectionLeftTop;
+        animation.showAnimation = true;
     }else if ([RMHelper getBleDataValue:model.gridPower] < 0){
-        UIImageView * animation = [self.itemContentView viewWithTag:100];
-        animation.animationImages = [self loadAnimationArray:6 count:3];
-        [animation startAnimating];
-    }else{
-        UIImageView * animation = [self.itemContentView viewWithTag:100];
-        [animation stopAnimating];
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:100];
+        animation.direction = AnimationStartDirectionRightBottom;
+        animation.showAnimation = true;
     }
     
     if ([RMHelper getBleDataValue:model.solarPower] > 0) {
-        UIImageView * animation = [self.itemContentView viewWithTag:101];
-        animation.animationImages = [self loadAnimationArray:1 count:2];
-        [animation startAnimating];
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:101];
+        animation.direction = AnimationStartDirectionTop;
+        animation.showAnimation = true;
     }else if ([RMHelper getBleDataValue:model.solarPower] < 0){
-        UIImageView * animation = [self.itemContentView viewWithTag:101];
-        animation.animationImages = [self loadAnimationArray:1 count:2];
-        [animation startAnimating];
-    }else{
-        UIImageView * animation = [self.itemContentView viewWithTag:101];
-        [animation stopAnimating];
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:101];
+        animation.direction = AnimationStartDirectionBottom;
+        animation.showAnimation = true;
     }
     
     if ([RMHelper getBleDataValue:model.generatorPower] > 0) {
-        UIImageView * animation = [self.itemContentView viewWithTag:102];
-        animation.animationImages = [self loadAnimationArray:2 count:3];
-        [animation startAnimating];
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:102];
+        animation.direction = AnimationStartDirectionRightTop;
+        animation.showAnimation = true;
     }else if ([RMHelper getBleDataValue:model.generatorPower] < 0){
-        UIImageView * animation = [self.itemContentView viewWithTag:102];
-        animation.animationImages = [self loadAnimationArray:2 count:3];
-        [animation startAnimating];
-    }else{
-        UIImageView * animation = [self.itemContentView viewWithTag:102];
-        [animation stopAnimating];
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:102];
+        animation.direction = AnimationStartDirectionLeftBottom;
+        animation.showAnimation = true;
     }
     
     if ([RMHelper getBleDataValue:model.evPower] > 0) {
-        UIImageView * animation = [self.itemContentView viewWithTag:103];
-        animation.animationImages = [self loadAnimationArray:3 count:3];
-        [animation startAnimating];
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:103];
+        animation.direction = AnimationStartDirectionLeftBottom;
+        animation.showAnimation = true;
     }else if ([RMHelper getBleDataValue:model.evPower] < 0){
-        UIImageView * animation = [self.itemContentView viewWithTag:103];
-        animation.animationImages = [self loadAnimationArray:3 count:3];
-        [animation startAnimating];
-    }else{
-        UIImageView * animation = [self.itemContentView viewWithTag:103];
-        [animation stopAnimating];
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:103];
+        animation.direction = AnimationStartDirectionRightTop;
+        animation.showAnimation = true;
     }
     
     if ([RMHelper getBleDataValue:model.nonBackUpPower] > 0) {
-        UIImageView * animation = [self.itemContentView viewWithTag:104];
-        animation.animationImages = [self loadAnimationArray:4 count:2];
-        [animation startAnimating];
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:104];
+        animation.direction = AnimationStartDirectionBottom;
+        animation.showAnimation = true;
     }else if ([RMHelper getBleDataValue:model.nonBackUpPower] < 0){
-        UIImageView * animation = [self.itemContentView viewWithTag:104];
-        animation.animationImages = [self loadAnimationArray:4 count:2];
-        [animation startAnimating];
-    }else{
-        UIImageView * animation = [self.itemContentView viewWithTag:104];
-        [animation stopAnimating];
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:104];
+        animation.direction = AnimationStartDirectionTop;
+        animation.showAnimation = true;
     }
     
     if ([RMHelper getBleDataValue:model.backUpPower] > 0) {
-        UIImageView * animation = [self.itemContentView viewWithTag:105];
-        animation.animationImages = [self loadAnimationArray:5 count:2];
-        [animation startAnimating];
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:105];
+        animation.direction = AnimationStartDirectionRightBottom;
+        animation.showAnimation = true;
     }else if ([RMHelper getBleDataValue:model.backUpPower] < 0){
-        UIImageView * animation = [self.itemContentView viewWithTag:105];
-        animation.animationImages = [self loadAnimationArray:5 count:3];
-        [animation startAnimating];
-    }else{
-        UIImageView * animation = [self.itemContentView viewWithTag:105];
-        [animation stopAnimating];
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:105];
+        animation.direction = AnimationStartDirectionLeftTop;
+        animation.showAnimation = true;
     }
 }
 

@@ -49,6 +49,7 @@
     if (RMHelper.getUserType) {
         if (RMHelper.getLoadDataForBluetooth) {
             self.model = [[DevideModel alloc] init];
+            [self.tableView reloadData];
             [self getCurrentDevice:^(DevideModel *model) {
                 [self getBluetoothData];
             }];
@@ -67,6 +68,7 @@
         NSArray * modelArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
         NSArray<DevideModel*> * array = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
         [self setRightBarButtonItemWithTitlt:array.firstObject.name sel:@selector(changeDevice)];
+        [self.refreshController endRefreshing];
         completion(array.firstObject);
     } failure:^(NSString * _Nonnull errorMsg) {
         [self.refreshController endRefreshing];

@@ -96,6 +96,7 @@
 		BD907372280D5B0600044013 /* InfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD907370280D5B0600044013 /* InfoTableViewCell.xib */; };
 		BD935B3628685B1A00F1AF1A /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD935B3428685B1A00F1AF1A /* CardViewController.m */; };
 		BD935B3728685B1A00F1AF1A /* CardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD935B3528685B1A00F1AF1A /* CardViewController.xib */; };
+		BD935B6028709AF600F1AF1A /* LineAnimatiionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD935B5F28709AF500F1AF1A /* LineAnimatiionView.m */; };
 		BDE889F928044DA700081114 /* RMHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE889F828044DA700081114 /* RMHelper.m */; };
 		BDE889FD28044E7C00081114 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE889FC28044E7C00081114 /* UIColor+HexString.m */; };
 		BDE88A012804540C00081114 /* GlobalValue.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A002804540C00081114 /* GlobalValue.m */; };
@@ -330,6 +331,8 @@
 		BD935B3328685B1A00F1AF1A /* CardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardViewController.h; sourceTree = "<group>"; };
 		BD935B3428685B1A00F1AF1A /* CardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
 		BD935B3528685B1A00F1AF1A /* CardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardViewController.xib; sourceTree = "<group>"; };
+		BD935B5E28709AF500F1AF1A /* LineAnimatiionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineAnimatiionView.h; sourceTree = "<group>"; };
+		BD935B5F28709AF500F1AF1A /* LineAnimatiionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LineAnimatiionView.m; sourceTree = "<group>"; };
 		BDE889F728044DA700081114 /* RMHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMHelper.h; sourceTree = "<group>"; };
 		BDE889F828044DA700081114 /* RMHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMHelper.m; sourceTree = "<group>"; };
 		BDE889FB28044E7C00081114 /* UIColor+HexString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexString.h"; sourceTree = "<group>"; };
@@ -969,6 +972,8 @@
 				BDE88A002804540C00081114 /* GlobalValue.m */,
 				0F0E90C928507A3C0014B329 /* UWConfig.h */,
 				0F0E90CA28507A3C0014B329 /* UWConfig.m */,
+				BD935B5E28709AF500F1AF1A /* LineAnimatiionView.h */,
+				BD935B5F28709AF500F1AF1A /* LineAnimatiionView.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1506,6 +1511,7 @@
 				0F3EBC26282E8BC9009CDBED /* OtherViewController.m in Sources */,
 				BDE88A452807187600081114 /* HomeItemView.m in Sources */,
 				BD907371280D5B0600044013 /* InfoTableViewCell.m in Sources */,
+				BD935B6028709AF600F1AF1A /* LineAnimatiionView.m in Sources */,
 				BDE88A482808771B00081114 /* HomeProgressView.m in Sources */,
 				BDE88A1D2805A0BF00081114 /* ImageAuthenticationView.m in Sources */,
 				BDE88A012804540C00081114 /* GlobalValue.m in Sources */,
