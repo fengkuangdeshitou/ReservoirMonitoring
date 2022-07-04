@@ -119,7 +119,7 @@
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"527" count:2 finish:^(NSArray * array){
-            self.model.gridElectricity = [array.firstObject intValue]+([array.lastObject intValue]*65536);
+            self.model.gridElectricity = [array.firstObject floatValue]+([array.lastObject floatValue]*65536)/100;
             dispatch_semaphore_signal(semaphore);
         }];
 
@@ -130,9 +130,9 @@
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"529" count:4 finish:^(NSArray * array){
-            int left = [array[0] intValue]+[array[1] intValue]*65536;
-            int right = [array[2] intValue]+[array[3] intValue]*65536;
-            self.model.solarElectricity = left+right*65536;
+            int left = [array[0] floatValue]+[array[1] floatValue]*65536/100;
+            int right = [array[2] floatValue]+[array[3] floatValue]*65536/100;
+            self.model.solarElectricity = left+right*65536/100;
             dispatch_semaphore_signal(semaphore);
         }];
 
@@ -143,7 +143,7 @@
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"52D" count:2 finish:^(NSArray * array){
-            self.model.generatorElectricity = [array.firstObject intValue]+([array.lastObject intValue]*65536);
+            self.model.generatorElectricity = [array.firstObject floatValue]+([array.lastObject floatValue]*65536)/100;
             dispatch_semaphore_signal(semaphore);
         }];
 
@@ -154,7 +154,7 @@
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"52F" count:2 finish:^(NSArray * array){
-            self.model.evElectricity = [array.firstObject intValue]+([array.lastObject intValue]*65536);
+            self.model.evElectricity = [array.firstObject floatValue]+([array.lastObject floatValue]*65536)/100;
             dispatch_semaphore_signal(semaphore);
         }];
 
@@ -176,7 +176,7 @@
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"531" count:2 finish:^(NSArray * array){
-            self.model.backUpElectricity = [array.firstObject intValue]+([array.lastObject intValue]*65536);
+            self.model.backUpElectricity = [array.firstObject floatValue]+([array.lastObject floatValue]*65536)/100;
             dispatch_semaphore_signal(semaphore);
         }];
 
@@ -203,39 +203,39 @@
         if ([cmd isEqualToString:@"51F"]) {
             self.model.gridPower = [array.firstObject floatValue];
         }
-        if ([cmd isEqualToString:@"51F"]) {
-            self.model.gridElectricity = [self cumulativeWithArray:array]/100;
-        }
+//        if ([cmd isEqualToString:@"527"]) {
+//            self.model.gridElectricity = [self cumulativeWithArray:array]/100;
+//        }
         if ([cmd isEqualToString:@"543"]) {
             self.model.solarPower = [array.firstObject floatValue];
         }
-        if ([cmd isEqualToString:@"529"]) {
-            self.model.solarElectricity = [self cumulativeWithArray:array]/100;
-        }
+//        if ([cmd isEqualToString:@"529"]) {
+//            self.model.solarElectricity = [self cumulativeWithArray:array]/100;
+//        }
         if ([cmd isEqualToString:@"521"]) {
             self.model.generatorPower = [array.firstObject floatValue];
         }
-        if ([cmd isEqualToString:@"52D"]) {
-            self.model.generatorElectricity = [self cumulativeWithArray:array]/100;
-        }
+//        if ([cmd isEqualToString:@"52D"]) {
+//            self.model.generatorElectricity = [self cumulativeWithArray:array]/100;
+//        }
         if ([cmd isEqualToString:@"524"]) {
             self.model.evPower = [array.firstObject floatValue];
         }
-        if ([cmd isEqualToString:@"52F"]) {
-            self.model.evElectricity = [self cumulativeWithArray:array]/100;
-        }
+//        if ([cmd isEqualToString:@"52F"]) {
+//            self.model.evElectricity = [self cumulativeWithArray:array]/100;
+//        }
         if ([cmd isEqualToString:@"541"]) {
             self.model.nonBackUpPower = [array.firstObject floatValue];
         }
-        if ([cmd isEqualToString:@"533"]) {
-            self.model.nonBackUpElectricity = [self cumulativeWithArray:array]/100;
-        }
+//        if ([cmd isEqualToString:@"533"]) {
+//            self.model.nonBackUpElectricity = [self cumulativeWithArray:array]/100;
+//        }
         if ([cmd isEqualToString:@"542"]) {
             self.model.backUpPower = [array.firstObject floatValue];
         }
-        if ([cmd isEqualToString:@"531"]) {
-            self.model.backUpElectricity = [self cumulativeWithArray:array]/100;
-        }
+//        if ([cmd isEqualToString:@"531"]) {
+//            self.model.backUpElectricity = [self cumulativeWithArray:array]/100;
+//        }
         [self.tableView reloadData];
     });
 }

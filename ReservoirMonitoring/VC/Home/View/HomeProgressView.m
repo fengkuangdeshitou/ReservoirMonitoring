@@ -37,6 +37,11 @@
     return self;
 }
 
+- (void)setProgress:(float)progress{
+    _progress = progress;
+    [self setNeedsDisplay];
+}
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
@@ -48,7 +53,7 @@
     [[UIColor colorWithHexString:@"#313131"] setStroke];
     [normalPath stroke];
     
-    UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(rect.size.width/2, rect.size.height/2) radius:rect.size.width/2-1.5 startAngle:-M_PI_2 endAngle:-M_PI_2+(360*self.progress)*M_PI/180 clockwise:true];
+    UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(rect.size.width/2, rect.size.height/2) radius:rect.size.width/2-1.5 startAngle:M_PI_2 endAngle:M_PI_2+(360*self.progress)*M_PI/180 clockwise:true];
     path.lineWidth = 3;
     path.lineCapStyle = kCGLineCapRound;
     [[UIColor colorWithHexString:COLOR_MAIN_COLOR] setStroke];

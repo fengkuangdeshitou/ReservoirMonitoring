@@ -58,8 +58,8 @@
 }
 
 - (IBAction)queryAction:(id)sender{
-    [BleManager.shareInstance readWithDictionary:@{@"type":@"SN-ICCID"} finish:^(NSArray * _Nonnull array) {
-        self.cardDictionary = array.firstObject;
+    [BleManager.shareInstance readWithDictionary:@{@"type":@"SN-ICCID"} finish:^(NSDictionary * _Nonnull dict) {
+        self.cardDictionary = dict;
         NSLog(@"===%@",self.cardDictionary);
         [self quereWithDevices:self.cardDictionary[@"SN"]];
     }];

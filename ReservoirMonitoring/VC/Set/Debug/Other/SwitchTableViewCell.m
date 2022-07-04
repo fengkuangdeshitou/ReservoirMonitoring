@@ -12,6 +12,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.loadSwitch.selected = RMHelper.getLoadDataForBluetooth;
 }
 
 - (IBAction)switchAction:(UIButton *)sender{

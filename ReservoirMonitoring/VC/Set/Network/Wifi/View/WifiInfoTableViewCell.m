@@ -21,7 +21,7 @@
 
 - (void)setModel:(DevideModel *)model{
     _model = model;
-    self.addressLabel.text = [model.name componentsSeparatedByString:@"-"].lastObject;
+    self.addressLabel.text = model.sgSn;
     if (model.isConnected) {
         [self.statusButton setTitle:@"Disconnect".localized forState:UIControlStateNormal];
         self.statusButton.layer.borderColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR].CGColor;

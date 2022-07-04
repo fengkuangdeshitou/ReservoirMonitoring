@@ -36,13 +36,6 @@
     return YES;
 }
 
-- (Byte *)longTo2Byte:(long)value{
-    Byte byte[2] = {};
-    byte[0] = (Byte) (value & 0xFF);
-    byte[1] = (Byte) ((value>>8) & 0xFF);
-    return (Byte *)byte;
-}
-
 - (void)loadLoginController{
     LoginViewController * login = [[LoginViewController alloc] init];
     NavigationViewController * nav = [[NavigationViewController alloc] initWithRootViewController:login];

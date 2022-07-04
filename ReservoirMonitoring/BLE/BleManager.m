@@ -16,6 +16,7 @@
 @property(nonatomic,strong) NSMutableData * blueData;
 @property(nonatomic,copy)void(^readFinish)(NSArray * array);
 @property(nonatomic,copy)void(^writeFinish)(void);
+@property(nonatomic,copy)void(^readDictionaryFinish)(NSDictionary * dict);
 @property(nonatomic,strong) NSTimer * timer;
 @property(nonatomic,strong) NSTimer * connectTimer;
 @property(nonatomic,strong) MBProgressHUD *hud;
@@ -124,8 +125,8 @@ static BleManager * _manager = nil;
     [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithoutResponse];
 }
 
-- (void)readWithDictionary:(NSDictionary *)dic finish:(void (^)(NSArray * _Nonnull))finish{
-    self.readFinish = finish;
+- (void)readWithDictionary:(NSDictionary *)dic finish:(void (^)(NSDictionary * _Nonnull))finish{
+    self.readDictionaryFinish = finish;
     NSData * dictData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingFragmentsAllowed error:nil];
     if (!self.writecCharacteristic) {
         return;
@@ -134,7 +135,7 @@ static BleManager * _manager = nil;
 }
 
 - (Byte*)longToByte:(long)value{
-    Byte byte[4] = {};
+    Byte * byte = (Byte *)malloc(4);
     byte[0] =(Byte) ((value>>24) & 0xFF);
     byte[1] =(Byte) ((value>>16) & 0xFF);
     byte[2] =(Byte) ((value>>8) & 0xFF);
@@ -143,10 +144,10 @@ static BleManager * _manager = nil;
 }
 
 - (Byte *)longTo2Byte:(long)value{
-    Byte byte[2] = {};
+    Byte * byte = (Byte *)malloc(2);
     byte[0] = (Byte) (value & 0xFF);
     byte[1] = (Byte) ((value>>8) & 0xFF);
-    return (Byte *)byte;
+    return byte;
 }
 
 //10进制转16进制
@@ -455,12 +456,12 @@ static unsigned char auchCRCLo[] = {
 //                发起连接的命令
                 [self.centralManager connectPeripheral:self.peripheral options:nil];
             }
-            if([peripheral.name isEqualToString:@"iPad"]){
-                self.peripheral = peripheral;
-                self.peripheral.delegate = self;
-//                发起连接的命令
-                [self.centralManager connectPeripheral:self.peripheral options:nil];
-            }
+//            if([peripheral.name isEqualToString:@"iPad"]){
+//                self.peripheral = peripheral;
+//                self.peripheral.delegate = self;
+////                发起连接的命令
+//                [self.centralManager connectPeripheral:self.peripheral options:nil];
+//            }
         }
     }
     if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothdidDiscoverPeripheral:RSSI:)]) {
@@ -516,7 +517,7 @@ static unsigned char auchCRCLo[] = {
 }
 
 - (void)heartbeat{
-    [self readWithDictionary:@{@"type":@"info"} finish:^(NSArray * _Nonnull array) {
+    [self readWithDictionary:@{@"type":@"info"} finish:^(NSDictionary * _Nonnull dict) {
             
     }];
 }
@@ -694,8 +695,11 @@ static unsigned char auchCRCLo[] = {
                 });
             }
         }else{
+            if (self.readDictionaryFinish) {
+                self.readDictionaryFinish(dict);
+            }
             if (self.readFinish) {
-                self.readFinish(@[dict]);
+                self.readFinish(@[@"0",@"0",@"0",@"0",@"0",@"0"]);
             }
         }
         

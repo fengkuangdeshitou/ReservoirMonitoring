@@ -70,6 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,assign) CGFloat coal;
 
+@property(nonatomic,strong) NSString * off_ON_Grid_Hint;
 @end
 
 NS_ASSUME_NONNULL_END

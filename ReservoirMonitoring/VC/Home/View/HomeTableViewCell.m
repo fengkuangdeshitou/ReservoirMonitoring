@@ -34,7 +34,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.titleLabel.text = @"Power outage, backup energy in effect.".localized;
+//    self.titleLabel.text = @"Power outage, backup energy in effect.".localized;
     self.currentMode.text = @"Current mode：".localized;
     self.family.text = @"Self reliable rating:".localized;
     self.status.text = @"Operation status:".localized;
@@ -97,6 +97,8 @@
 - (void)setModel:(DevideModel *)model{
     _model = model;
     NSLog(@"workStatus=%@",model.workStatus);
+    self.titleLabel.text = model.off_ON_Grid_Hint;
+    
     if (model.workStatus.intValue == 0) {
         self.currentModeValue.text = @"Self-consumption";
     }else if(model.workStatus.intValue == 1){
@@ -127,17 +129,29 @@
         if ([view isKindOfClass:[HomeItemView class]]) {
             HomeItemView * itemView = (HomeItemView *)view;
             if (itemView.tag == 10) {
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",model.gridElectricity];
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.gridElectricity];
+                itemView.descLabel.textColor = [UIColor colorWithHexString:model.gridElectricity==0?@"#747474":COLOR_MAIN_COLOR];
+                itemView.statusButton.selected = model.gridElectricity>0;
             }else if (itemView.tag == 11) {
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",[model.batteryCurrentElectricity floatValue]];
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.solarElectricity];
+                itemView.descLabel.textColor = [UIColor colorWithHexString:model.solarElectricity==0?@"#747474":COLOR_MAIN_COLOR];
+                itemView.statusButton.selected = model.solarElectricity>0;
             }else if (itemView.tag == 12) {
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",model.generatorElectricity];
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.generatorElectricity];
+                itemView.descLabel.textColor = [UIColor colorWithHexString:model.generatorElectricity==0?@"#747474":COLOR_MAIN_COLOR];
+                itemView.statusButton.selected = model.generatorElectricity>0;
             }else if (itemView.tag == 13) {
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",model.evElectricity];
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.evElectricity];
+                itemView.descLabel.textColor = [UIColor colorWithHexString:model.evElectricity==0?@"#747474":COLOR_MAIN_COLOR];
+                itemView.statusButton.selected = model.evElectricity>0;
             }else if (itemView.tag == 14) {
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",model.nonBackUpElectricity];
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.nonBackUpElectricity];
+                itemView.descLabel.textColor = [UIColor colorWithHexString:model.nonBackUpElectricity==0?@"#747474":COLOR_MAIN_COLOR];
+                itemView.statusButton.selected = model.nonBackUpElectricity>0;
             }else{
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.0f kWh",model.backUpElectricity];
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.backUpElectricity];
+                itemView.descLabel.textColor = [UIColor colorWithHexString:model.backUpElectricity==0?@"#747474":COLOR_MAIN_COLOR];
+                itemView.statusButton.selected = model.backUpElectricity>0;
             }
         }
     }
@@ -180,31 +194,31 @@
     
     if ([RMHelper getBleDataValue:model.evPower] > 0) {
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:103];
-        animation.direction = AnimationStartDirectionLeftBottom;
+        animation.direction = AnimationStartDirectionRightTop;
         animation.showAnimation = true;
     }else if ([RMHelper getBleDataValue:model.evPower] < 0){
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:103];
-        animation.direction = AnimationStartDirectionRightTop;
+        animation.direction = AnimationStartDirectionLeftBottom;
         animation.showAnimation = true;
     }
     
     if ([RMHelper getBleDataValue:model.nonBackUpPower] > 0) {
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:104];
-        animation.direction = AnimationStartDirectionBottom;
+        animation.direction = AnimationStartDirectionTop;
         animation.showAnimation = true;
     }else if ([RMHelper getBleDataValue:model.nonBackUpPower] < 0){
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:104];
-        animation.direction = AnimationStartDirectionTop;
+        animation.direction = AnimationStartDirectionBottom;
         animation.showAnimation = true;
     }
     
     if ([RMHelper getBleDataValue:model.backUpPower] > 0) {
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:105];
-        animation.direction = AnimationStartDirectionRightBottom;
+        animation.direction = AnimationStartDirectionLeftTop;
         animation.showAnimation = true;
     }else if ([RMHelper getBleDataValue:model.backUpPower] < 0){
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:105];
-        animation.direction = AnimationStartDirectionLeftTop;
+        animation.direction = AnimationStartDirectionRightBottom;
         animation.showAnimation = true;
     }
 }

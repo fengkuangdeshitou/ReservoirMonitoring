@@ -82,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param value 值
 - (void)writeWithCMDString:(NSString *)string string:(NSString *)value finish:(void(^)(void))finish;
 
-- (void)readWithDictionary:(NSDictionary *)dic finish:(void(^)(NSArray * array))finish;
+- (void)readWithDictionary:(NSDictionary *)dic finish:(void(^)(NSDictionary * dict))finish;
 
 @end
 

@@ -53,7 +53,7 @@
         [WifiAlertView showWifiAlertViewWithTitle:@"Config Wi-Fi"
                                      showWifiName:YES
                                        completion:^(NSString * wifiName, NSString * password) {
-            [BleManager.shareInstance readWithDictionary:@{@"setwifi":@{wifiName:password}} finish:^(NSArray * _Nonnull array) {
+            [BleManager.shareInstance readWithDictionary:@{@"setwifi":@{wifiName:password}} finish:^(NSDictionary * _Nonnull item) {
                 [RMHelper showToast:@"Config wi-fi success" toView:self.view];
             }];
         }];
