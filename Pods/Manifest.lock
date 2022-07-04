@@ -26,6 +26,7 @@ PODS:
     - BRPickerView/Base
   - BRPickerView/StringPickerView (2.7.6):
     - BRPickerView/Base
+  - Bugly (2.5.91)
   - iOS-Echarts (1.4.4)
   - IQKeyboardManager (6.5.9)
   - Masonry (1.1.0)
@@ -41,6 +42,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - BRPickerView
+  - Bugly
   - iOS-Echarts
   - IQKeyboardManager
   - Masonry
@@ -55,6 +57,7 @@ SPEC REPOS:
   trunk:
     - AFNetworking
     - BRPickerView
+    - Bugly
     - iOS-Echarts
     - IQKeyboardManager
     - Masonry
@@ -68,6 +71,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   BRPickerView: 2a1620caf218e37a3aca9626732719a419928b15
+  Bugly: afe841bba2ea6de6d432a3c125240a5e75949c55
   iOS-Echarts: dbc7423d861e5eedee78906a39d205b5c4da9a13
   IQKeyboardManager: 241cc94ccabc9deb8f8bd7d12f00d73288d13ecc
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
@@ -78,6 +82,6 @@ SPEC CHECKSUMS:
   SGPagingView: 0b91bd360370e56a6496b06df9b3e28bc3f075cc
   WMZCode: af49031a787947dad474f6dba23270a2600d8124
 
-PODFILE CHECKSUM: 1d32ea334ef9c6038ef5b36008fcf40365d89ca4
+PODFILE CHECKSUM: fd396475403c2b6660a8d9ef6e606864ab31e8d3
 
 COCOAPODS: 1.11.3

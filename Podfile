@@ -17,6 +17,7 @@ pod 'iOS-Echarts'
 pod 'WMZCode'
 pod 'MBProgressHUD'
 pod 'SGPagingView', '~> 1.7.2'
+pod 'Bugly'
 
   # Pods for ReservoirMonitoring
 

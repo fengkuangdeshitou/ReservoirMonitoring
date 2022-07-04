@@ -10,6 +10,7 @@
 #import "NavigationViewController.h"
 #import "LoginViewController.h"
 #import "UWConfig.h"
+#import <Bugly/Bugly.h>
 
 @interface AppDelegate ()
 
@@ -22,8 +23,7 @@
     // Override point for customization after application launch.
 //    [UWConfig setUserLanguage:@"zh-Hans"];
     [UWConfig setUserLanguage:@"en"];
-    
-//    @[@{@"sn":@"VC51030001",@"iccid":@"898993770"}]
+    [Bugly startWithAppId:@"0bf89be346"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:LOGIN_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadLoginController) name:LOG_OUT object:nil];
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
