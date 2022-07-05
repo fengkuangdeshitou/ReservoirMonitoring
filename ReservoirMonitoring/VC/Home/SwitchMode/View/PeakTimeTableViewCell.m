@@ -17,7 +17,9 @@
 
 - (void)setTouArray:(NSArray *)touArray{
     _touArray = touArray;
-    [self.dataArray replaceObjectAtIndex:0 withObject:touArray];
+    if (touArray.count > 0) {
+        [self.dataArray replaceObjectAtIndex:0 withObject:touArray];
+    }
     CGFloat height = self.tableView.contentSize.height;
     if (height != [[NSUserDefaults.standardUserDefaults objectForKey:TIME_TABLEVIEW_HEIGHT_CHANGE] floatValue]) {
         [self updateTableViewHeight];
@@ -109,7 +111,6 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.tableView setNeedsLayout];
         [self.tableView layoutIfNeeded];
-        NSLog(@"---%f",self.tableView.contentSize.height);
         [NSUserDefaults.standardUserDefaults setValue:[NSNumber numberWithFloat:self.tableView.contentSize.height] forKey:TIME_TABLEVIEW_HEIGHT_CHANGE];
         [[NSNotificationCenter defaultCenter] postNotificationName:TIME_TABLEVIEW_HEIGHT_CHANGE object:nil];
     });
@@ -123,6 +124,14 @@
     cell.startTime.text = item[@"startTime"];
     cell.endTime.text = item[@"endTime"];
     cell.electricity.text = item[@"price"];
+    cell.indexPath = indexPath;
+    cell.valueChangeCompletion = ^(NSIndexPath * indexPath,NSString * _Nonnull key, NSString * _Nonnull value) {
+        NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[indexPath.section][indexPath.row]];
+        [dict setValue:value forKey:key];
+        NSMutableArray * array = [[NSMutableArray alloc] initWithArray:self.dataArray[indexPath.section]];
+        [array replaceObjectAtIndex:indexPath.row withObject:dict];
+        [self.dataArray replaceObjectAtIndex:indexPath.section withObject:array];
+    };
     return cell;
 }
 
@@ -192,7 +201,7 @@
 - (void)addButtonClck:(UIButton *)btn{
     NSInteger index = btn.tag-10;
     NSMutableArray * array = [[NSMutableArray alloc] initWithArray:self.dataArray[index]];
-    [array addObject:@{}];
+    [array addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
     [self.dataArray removeObjectAtIndex:index];
     [self.dataArray insertObject:array atIndex:index];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.dataArray[index] count]-1 inSection:index]] withRowAnimation:UITableViewRowAnimationNone];

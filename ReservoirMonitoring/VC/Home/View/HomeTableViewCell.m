@@ -99,14 +99,14 @@
     NSLog(@"workStatus=%@",model.workStatus);
     self.titleLabel.text = model.off_ON_Grid_Hint;
     
-    if (model.workStatus.intValue == 0) {
+    if (model.workStatus.intValue == 1) {
         self.currentModeValue.text = @"Self-consumption";
-    }else if(model.workStatus.intValue == 1){
+    }else if(model.workStatus.intValue == 3){
         self.currentModeValue.text = @"Back up";
     }else if (model.workStatus.intValue == 2){
         self.currentModeValue.text = @"Time Of Use";
     }else{
-        self.currentModeValue.text = @"Offine";
+        self.currentModeValue.text = @"Self-consumption";
     }
     
     if (BleManager.shareInstance.isConnented) {

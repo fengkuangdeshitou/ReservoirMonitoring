@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,weak)IBOutlet UITextField * startTime;
 @property(nonatomic,weak)IBOutlet UITextField * endTime;
 @property(nonatomic,weak)IBOutlet UITextField * electricity;
+@property(nonatomic,strong) NSIndexPath * indexPath;
+@property(nonatomic,copy) void(^valueChangeCompletion)(NSIndexPath * indexPath,NSString * key,NSString * value);
 
 @end
 

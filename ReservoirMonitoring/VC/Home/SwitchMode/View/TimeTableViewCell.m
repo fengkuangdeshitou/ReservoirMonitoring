@@ -57,6 +57,9 @@
     picker.selectValue = self.startTime.text;
     picker.pickerStyle = self.style;
     picker.resultBlock = ^(NSDate * _Nullable selectDate, NSString * _Nullable selectValue) {
+        if (self.valueChangeCompletion) {
+            self.valueChangeCompletion(self.indexPath,@"startTime",selectValue);
+        }
         self.startTime.text = selectValue;
     };
     [picker show];
@@ -68,6 +71,9 @@
     picker.selectValue = self.endTime.text;
     picker.pickerStyle = self.style;
     picker.resultBlock = ^(NSDate * _Nullable selectDate, NSString * _Nullable selectValue) {
+        if (self.valueChangeCompletion) {
+            self.valueChangeCompletion(self.indexPath,@"endTime",selectValue);
+        }
         self.endTime.text = selectValue;
     };
     [picker show];

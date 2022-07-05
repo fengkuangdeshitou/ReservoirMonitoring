@@ -18,7 +18,6 @@
 - (IBAction)switchAction:(UIButton *)sender{
     sender.selected = !sender.selected;
     [RMHelper setLoadDataForBluetooth:sender.isSelected];
-    [[NSNotificationCenter defaultCenter] postNotificationName:DATA_TYPE_CHANGE_NOTIFICATION object:nil];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
