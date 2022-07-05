@@ -64,8 +64,6 @@
 #import "PYWordCloudSeries.h"
 #import "PYUtilities.h"
 #import "PYJsonUtil.h"
-#import "PYEchartsView.h"
-#import "PYZoomEchartsView.h"
 #import "WKEchartsView.h"
 
 FOUNDATION_EXPORT double iOS_EchartsVersionNumber;

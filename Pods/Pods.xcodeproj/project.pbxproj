@@ -15,6 +15,7 @@
 			dependencies = (
 			);
 			name = Bugly;
+			productName = Bugly;
 		};
 /* End PBXAggregateTarget section */
 
@@ -97,7 +98,6 @@
 		2C479C91CA8F9C108111AD39BFEF814C /* PYNodeStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F80CF2650A2CA0FB11BBF7CA77D1B72 /* PYNodeStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2C762E5C654B718C19CC98FEB27C2DA4 /* SDFileAttributeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6BC288A2DEAC270DD32732766A09ED /* SDFileAttributeHelper.m */; };
 		2D7E7D5F025A1006C0D373B5884B6E52 /* SDWebImageDownloaderResponseModifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 1022881641B2EB063D847E54E2A5B0B5 /* SDWebImageDownloaderResponseModifier.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2DFE20ACD4A83E99599724B971A3EA99 /* PYEchartsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 306F75075C1B3C59A50F0F7466137A61 /* PYEchartsView.m */; };
 		2F822E3E2AEAA87BAD9A511F5487BA4B /* IQBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 159BEAD63EB6766655974A080ABC8C73 /* IQBarButtonItem.m */; };
 		2F855B52C16F1D0C398DB5915E409386 /* PYLinks.h in Headers */ = {isa = PBXBuildFile; fileRef = 58ADCB1357A7F7F338839D5AB482C67C /* PYLinks.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F85FF5597762E2E3C6961C6DD690A60 /* UIView+WebCacheOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = FF3B46BF0DD75AE3FD7E97282EABC8E3 /* UIView+WebCacheOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -157,7 +157,6 @@
 		4CC9B43AD90714A316815FAA71DC89A2 /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 168A91343CDF991AD746C4A612C36E6F /* MASConstraintMaker.m */; };
 		4D31CCA291F1AAB8DB56EAC5E5100D16 /* MJRefreshAutoStateFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = 945AD8BD5C18375C7D2D0F951B124EB1 /* MJRefreshAutoStateFooter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D44DCC513AD5E580D92EDDF2D6A45A0 /* IQUITextFieldView+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = C6E9A933DBBD073AF6B1A8095D6F7D95 /* IQUITextFieldView+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D4F5815980B1D1ED805B08FC68EFD6A /* PYEchartsView.h in Headers */ = {isa = PBXBuildFile; fileRef = 71ABE403C15B64A7E96DBA5ABE1D8439 /* PYEchartsView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DC8B8FABFE331D3A396A69B1217A337 /* PYEventRiverSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = 528BC4D73039DB83A3072590658EB9C5 /* PYEventRiverSeries.m */; };
 		4DCB59DE84A69063E9485E4D8BF8C637 /* AFNetworking-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FD5FE085635EAA4A5F086459753C02 /* AFNetworking-dummy.m */; };
 		4E04CE7E922D04921EFC609AC7A5DB71 /* PYTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 74834369A702D71CBA4A0F786462D156 /* PYTextStyle.m */; };
@@ -201,7 +200,6 @@
 		5BBE7719912593F1DEFF8E763EAD4ED6 /* SDImageCacheDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = E7F8181F6DC6C98E7D157BBD1170CA58 /* SDImageCacheDefine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BE27AF46E2DE81F61752081EDB7E52B /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = D773AC61E1D1203BD799F4F8BD5EB519 /* AFSecurityPolicy.m */; };
 		5E70A0B61827041C4EEB258D2C45651C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0CE12DC7AFF551AF34BB70C6408310A /* Foundation.framework */; };
-		5ED53AAB0922962D797036D4AF507ACB /* PYZoomEchartsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B05760BB6793E4676430DB4FADCB37F /* PYZoomEchartsView.m */; };
 		5F24CA2DAA215F6E0AEC5AC773198F95 /* MJRefreshConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 70FD9DCB1220BE0938CDFEDB8D897A8A /* MJRefreshConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5F49C3C9A3733CD50642E0B57D405D44 /* SDWebImageError.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF769AE00D5F5FA57FBB9D54666F64B /* SDWebImageError.m */; };
 		5FA14EA0F0DFDD433E00E81E464733B3 /* PYAxisTick.m in Sources */ = {isa = PBXBuildFile; fileRef = 433B0CEA30BA9ADBD2C18471F6077B77 /* PYAxisTick.m */; };
@@ -469,7 +467,6 @@
 		E3226C305B708F68460A437B3A73C0DE /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E971FE72E8DE01E8F6B8A5ED43553DE /* IQToolbar.m */; };
 		E33A7CDF3107CD3426ADD0D906100CD4 /* SDImageHEICCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = C6C02ED0748FC6030F7F48CD0A1CAABA /* SDImageHEICCoder.m */; };
 		E3A90F4FB659B5DDCF5DA603DDEF9E66 /* MJRefreshAutoStateFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 70DE4D14B87067BFED4BD50130753203 /* MJRefreshAutoStateFooter.m */; };
-		E4628D5EA40A13F603DC197953C9403B /* PYZoomEchartsView.h in Headers */ = {isa = PBXBuildFile; fileRef = 71C4254DC9805AC986FD2ABB74F91810 /* PYZoomEchartsView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E4AF87F8012F919F00E2E8698A1A3C33 /* SDWebImageCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = D83488D6084730127D1195F849D219B4 /* SDWebImageCompat.m */; };
 		E515780850EBAD40342EBF2997BFC2D2 /* SDWebImage.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A69E16E9CF449786641BE9FC01B726 /* SDWebImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E53FCD0CD1526B53074ED4EEF00131E9 /* NSArray+MASShorthandAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C590057FF68F12B30A027F3B05FFA53 /* NSArray+MASShorthandAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -832,7 +829,6 @@
 		2FA73E5C3AC275A0DEB345137F7185EF /* SDWebImageOptionsProcessor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImageOptionsProcessor.h; path = SDWebImage/Core/SDWebImageOptionsProcessor.h; sourceTree = "<group>"; };
 		2FE058AFC087498E8C69DE28849F0B09 /* SDDisplayLink.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDDisplayLink.m; path = SDWebImage/Private/SDDisplayLink.m; sourceTree = "<group>"; };
 		300385AA00E3FAF3549FDEAE3C6CDB81 /* AFImageDownloader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFImageDownloader.m; path = "UIKit+AFNetworking/AFImageDownloader.m"; sourceTree = "<group>"; };
-		306F75075C1B3C59A50F0F7466137A61 /* PYEchartsView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PYEchartsView.m; path = "iOS-Echarts/View/PYEchartsView.m"; sourceTree = "<group>"; };
 		3162A5D885C5E2EFE8FE1087542F2F61 /* SDWebImageManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImageManager.h; path = SDWebImage/Core/SDWebImageManager.h; sourceTree = "<group>"; };
 		31A60C25998C1F351429C48FD84032AD /* WMZCodeView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WMZCodeView.m; path = WMZCode/WMZCode/WMZCodeView.m; sourceTree = "<group>"; };
 		324D1E8DA66269682E93165E531C1D5F /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+MJRefresh.m"; path = "MJRefresh/UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
@@ -840,7 +836,7 @@
 		32F32B338FA3D9BCE2B2CA69FDADDB88 /* MBProgressHUD-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "MBProgressHUD-Info.plist"; sourceTree = "<group>"; };
 		33013E48BE8DED831B9B8B7400514390 /* SGPagingView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SGPagingView.release.xcconfig; sourceTree = "<group>"; };
 		331A3323542760B9DEFDD985986D5748 /* SDWebImage-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SDWebImage-prefix.pch"; sourceTree = "<group>"; };
-		332934D94CA2FC134790F39B6ECD422E /* theme */ = {isa = PBXFileReference; includeInIndex = 1; name = theme; path = "iOS-Echarts/Resources/theme"; sourceTree = "<group>"; };
+		332934D94CA2FC134790F39B6ECD422E /* theme */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = theme; path = "iOS-Echarts/Resources/theme"; sourceTree = "<group>"; };
 		345DC0948FF5D8A2817CB6034C9381BC /* PYFunnelSeries.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PYFunnelSeries.h; path = "iOS-Echarts/Model/Series/PYFunnelSeries.h"; sourceTree = "<group>"; };
 		351793D461CB4D35123B79D3C639A21E /* BRPickerView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BRPickerView-umbrella.h"; sourceTree = "<group>"; };
 		37455C67880A6166F84C71A2249C6536 /* IQToolbar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IQToolbar.h; path = IQKeyboardManager/IQToolbar/IQToolbar.h; sourceTree = "<group>"; };
@@ -909,7 +905,7 @@
 		550B650B2D5197B604366FE99196122C /* Pods-ReservoirMonitoring-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ReservoirMonitoring-acknowledgements.plist"; sourceTree = "<group>"; };
 		55389BD1F2B9273646BB310BDB36445F /* PYTimeline.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PYTimeline.m; path = "iOS-Echarts/Model/PYTimeline.m"; sourceTree = "<group>"; };
 		55BFD21E84F0993CDA73DF898630FE5D /* MJRefreshAutoFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshAutoFooter.m; path = MJRefresh/Base/MJRefreshAutoFooter.m; sourceTree = "<group>"; };
-		5650AFBDEFB5A670CC905A3E88F0CB22 /* echarts.html */ = {isa = PBXFileReference; includeInIndex = 1; name = echarts.html; path = "iOS-Echarts/Resources/echarts.html"; sourceTree = "<group>"; };
+		5650AFBDEFB5A670CC905A3E88F0CB22 /* echarts.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; name = echarts.html; path = "iOS-Echarts/Resources/echarts.html"; sourceTree = "<group>"; };
 		565E70227B91ECDF53CC4C59914E43C0 /* UIView+WebCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+WebCache.h"; path = "SDWebImage/Core/UIView+WebCache.h"; sourceTree = "<group>"; };
 		56AFCBB0157610345A42D40AB3FFAFEE /* MJRefreshNormalHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshNormalHeader.m; path = MJRefresh/Custom/Header/MJRefreshNormalHeader.m; sourceTree = "<group>"; };
 		56FD5E7AD71264B17E2213A8C97A2D40 /* WKWebView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WKWebView+AFNetworking.h"; path = "UIKit+AFNetworking/WKWebView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -977,8 +973,6 @@
 		715901B04BDB200C347BE0D195DABA1A /* NSData+ImageContentType.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSData+ImageContentType.h"; path = "SDWebImage/Core/NSData+ImageContentType.h"; sourceTree = "<group>"; };
 		718659A7E4130BC4476469AC9A32099C /* UIImage+Transform.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Transform.m"; path = "SDWebImage/Core/UIImage+Transform.m"; sourceTree = "<group>"; };
 		71A01EE26F46D79EEBA271FF6CBEB0E9 /* SDDeviceHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDDeviceHelper.h; path = SDWebImage/Private/SDDeviceHelper.h; sourceTree = "<group>"; };
-		71ABE403C15B64A7E96DBA5ABE1D8439 /* PYEchartsView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PYEchartsView.h; path = "iOS-Echarts/View/PYEchartsView.h"; sourceTree = "<group>"; };
-		71C4254DC9805AC986FD2ABB74F91810 /* PYZoomEchartsView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PYZoomEchartsView.h; path = "iOS-Echarts/View/PYZoomEchartsView.h"; sourceTree = "<group>"; };
 		72AA87038F4CC25895012D98A571FBFF /* MASViewAttribute.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASViewAttribute.h; path = Masonry/MASViewAttribute.h; sourceTree = "<group>"; };
 		74699DBDCDEC5F5BC1567C2AF50CAB95 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		74834369A702D71CBA4A0F786462D156 /* PYTextStyle.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PYTextStyle.m; path = "iOS-Echarts/Model/PYTextStyle.m"; sourceTree = "<group>"; };
@@ -1002,7 +996,6 @@
 		7A1A6B05C96917CEC28A3CDFAB8D4C15 /* MJRefreshBackFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshBackFooter.m; path = MJRefresh/Base/MJRefreshBackFooter.m; sourceTree = "<group>"; };
 		7A3CEE48E741C16CFFCD196F8A70FF86 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ViewController+MASAdditions.m"; path = "Masonry/ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		7AEC328269263E1A8E0F9A58AB95CC8F /* SDImageIOAnimatedCoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDImageIOAnimatedCoder.m; path = SDWebImage/Core/SDImageIOAnimatedCoder.m; sourceTree = "<group>"; };
-		7B05760BB6793E4676430DB4FADCB37F /* PYZoomEchartsView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PYZoomEchartsView.m; path = "iOS-Echarts/View/PYZoomEchartsView.m"; sourceTree = "<group>"; };
 		7C3C589987C3523DA1259DE475D25B30 /* BRDatePickerView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BRDatePickerView.m; path = BRPickerView/DatePickerView/BRDatePickerView.m; sourceTree = "<group>"; };
 		7C9DFA8E36446C35750CA4481A3F164F /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		7CD98B7F0AC496079869011DA065E6EE /* SDWebImageManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageManager.m; path = SDWebImage/Core/SDWebImageManager.m; sourceTree = "<group>"; };
@@ -1083,7 +1076,7 @@
 		9C590057FF68F12B30A027F3B05FFA53 /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+MASShorthandAdditions.h"; path = "Masonry/NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		9CC055A574464644549E12705AF0D38E /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFHTTPSessionManager.h; path = AFNetworking/AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		9D7B10B15027178464698E2356E982FB /* SDImageCacheConfig.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDImageCacheConfig.m; path = SDWebImage/Core/SDImageCacheConfig.m; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DD343334254F2F3EC42AF0672B84EAA /* SGPagingView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SGPagingView-umbrella.h"; sourceTree = "<group>"; };
 		9E21C67DB6E0FE176C71C3A6D49EF737 /* IQKeyboardManagerConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IQKeyboardManagerConstants.h; path = IQKeyboardManager/Constants/IQKeyboardManagerConstants.h; sourceTree = "<group>"; };
 		9E55610B7459D3C0AD0B94B1FCF8CFAD /* IQNSArray+Sort.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "IQNSArray+Sort.h"; path = "IQKeyboardManager/Categories/IQNSArray+Sort.h"; sourceTree = "<group>"; };
@@ -1289,7 +1282,7 @@
 		FBB3F076F50FCFA5D1C83B3291C8A111 /* PYNoDataLoadingOption.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PYNoDataLoadingOption.h; path = "iOS-Echarts/Model/PYNoDataLoadingOption.h"; sourceTree = "<group>"; };
 		FBF769AE00D5F5FA57FBB9D54666F64B /* SDWebImageError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageError.m; path = SDWebImage/Core/SDWebImageError.m; sourceTree = "<group>"; };
 		FC9ABC320156F0E0F2F10E2FD48BF7A7 /* UIImage+Metadata.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Metadata.m"; path = "SDWebImage/Core/UIImage+Metadata.m"; sourceTree = "<group>"; };
-		FCA9B7ACDB973B750F5386EB941CE645 /* js */ = {isa = PBXFileReference; includeInIndex = 1; name = js; path = "iOS-Echarts/Resources/js"; sourceTree = "<group>"; };
+		FCA9B7ACDB973B750F5386EB941CE645 /* js */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = js; path = "iOS-Echarts/Resources/js"; sourceTree = "<group>"; };
 		FDEA361CE1AE307B9EA582703EA7A96C /* Pods-ReservoirMonitoring.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ReservoirMonitoring.release.xcconfig"; sourceTree = "<group>"; };
 		FE63A3C9DEBA8300EC3BE8A282298D93 /* MASConstraint+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MASConstraint+Private.h"; path = "Masonry/MASConstraint+Private.h"; sourceTree = "<group>"; };
 		FEA206B9C17FD908031F43B5738D1006 /* MJExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MJExtension.debug.xcconfig; sourceTree = "<group>"; };
@@ -1439,7 +1432,6 @@
 				52C22ECCEA34B6F81A357AE6D0F96067 /* Frameworks */,
 				96C8EB3E7F89B090F1F14656360D51FD /* Support Files */,
 			);
-			name = Bugly;
 			path = Bugly;
 			sourceTree = "<group>";
 		};
@@ -1549,7 +1541,6 @@
 				7A3CEE48E741C16CFFCD196F8A70FF86 /* ViewController+MASAdditions.m */,
 				DC848C5F4C46937AC7665C9A98686D6C /* Support Files */,
 			);
-			name = Masonry;
 			path = Masonry;
 			sourceTree = "<group>";
 		};
@@ -1614,7 +1605,6 @@
 				F3E1B85A2F2F3D966812E1711003B61A /* UIView+SGPagingView.m */,
 				65AEA5F7E32A238C4C44100B602A05DB /* Support Files */,
 			);
-			name = SGPagingView;
 			path = SGPagingView;
 			sourceTree = "<group>";
 		};
@@ -1624,7 +1614,6 @@
 				69317841693907A425C03A49CAA16116 /* Core */,
 				EA282D3D0BC6C68FA6792E95D67FAA97 /* Support Files */,
 			);
-			name = SDWebImage;
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
@@ -1698,7 +1687,6 @@
 				8BABDAA4DC9A26FD9B0E0B91B964AB8A /* Support Files */,
 				AF7518D5D6F906A24D9180434E496BF4 /* UIKit */,
 			);
-			name = AFNetworking;
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
@@ -1900,8 +1888,6 @@
 				0B88427D1465B19EFB7D420BC3034CF7 /* PYDataRange.m */,
 				DABAA97D99EAA484D32223F12206EE17 /* PYDataZoom.h */,
 				6E72E119559B7C4325A4F1BBC9813EC6 /* PYDataZoom.m */,
-				71ABE403C15B64A7E96DBA5ABE1D8439 /* PYEchartsView.h */,
-				306F75075C1B3C59A50F0F7466137A61 /* PYEchartsView.m */,
 				4E6302D1041DB941D821DF73F8F8A2DA /* PYEventRiverSeries.h */,
 				528BC4D73039DB83A3072590658EB9C5 /* PYEventRiverSeries.m */,
 				05BB7C6476BB3959912D1E5BB30C01CE /* PYForceSeries.h */,
@@ -1977,14 +1963,11 @@
 				23A322EE5CD7A3383AF8364461E41D54 /* PYVennSeries.m */,
 				D360DDA244C9A8F1D37A75FC646B9B30 /* PYWordCloudSeries.h */,
 				D8255D0E8E2E68C8E21C8F589EA39A06 /* PYWordCloudSeries.m */,
-				71C4254DC9805AC986FD2ABB74F91810 /* PYZoomEchartsView.h */,
-				7B05760BB6793E4676430DB4FADCB37F /* PYZoomEchartsView.m */,
 				BDE6916E437C46AD2458CBA7117EDCE3 /* WKEchartsView.h */,
 				54661266EFE78E607E302B0E63391C09 /* WKEchartsView.m */,
 				43F568176A579B283C6735AD51AA9B0C /* Resources */,
 				0C4C06EB997527C5563F81B6F116E90D /* Support Files */,
 			);
-			name = "iOS-Echarts";
 			path = "iOS-Echarts";
 			sourceTree = "<group>";
 		};
@@ -2112,7 +2095,6 @@
 				83A7DD85391C536B714908170D8048A1 /* Resources */,
 				381E9F9BED3244A15BFEA5605EF7D268 /* Support Files */,
 			);
-			name = MJRefresh;
 			path = MJRefresh;
 			sourceTree = "<group>";
 		};
@@ -2123,7 +2105,6 @@
 				31A60C25998C1F351429C48FD84032AD /* WMZCodeView.m */,
 				1B319277DE3FB7EADA77BEFE42F2A8A8 /* Support Files */,
 			);
-			name = WMZCode;
 			path = WMZCode;
 			sourceTree = "<group>";
 		};
@@ -2172,7 +2153,6 @@
 				E6EE72147D24ACE2C5B6714A8F1BB04E /* MBProgressHUD.m */,
 				83D5444033060F6B3C829CFC43A34D10 /* Support Files */,
 			);
-			name = MBProgressHUD;
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
@@ -2298,7 +2278,6 @@
 				DD763D80326155CB5619B169FDE153CB /* StringPickerView */,
 				C634D68B527B09C18A0FBFED9AB9298A /* Support Files */,
 			);
-			name = BRPickerView;
 			path = BRPickerView;
 			sourceTree = "<group>";
 		};
@@ -2377,7 +2356,6 @@
 				8D6F384D4C06434338C20DBE118A2FC4 /* NSString+MJExtension.m */,
 				308ED8FB25CA78D98E328CDB72A67F59 /* Support Files */,
 			);
-			name = MJExtension;
 			path = MJExtension;
 			sourceTree = "<group>";
 		};
@@ -2414,7 +2392,6 @@
 				666784FC5FF7ED8C05084AA4C32CA53C /* IQUIViewController+Additions.m */,
 				BB610C4D0A853C58BFB8C1DDC5686276 /* Support Files */,
 			);
-			name = IQKeyboardManager;
 			path = IQKeyboardManager;
 			sourceTree = "<group>";
 		};
@@ -2636,7 +2613,6 @@
 				A0D4D62312F999C624799975A0394499 /* PYColor.h in Headers */,
 				D2226A8B55DAD823D1886715E7F8D6BE /* PYDataRange.h in Headers */,
 				D91100061C9E68D60F0159E7FBDCDF55 /* PYDataZoom.h in Headers */,
-				4D4F5815980B1D1ED805B08FC68EFD6A /* PYEchartsView.h in Headers */,
 				FADA411C299831DB10E49F71FB5679F1 /* PYEventRiverSeries.h in Headers */,
 				37890201D86E07CCDCA64F10D68EB2D3 /* PYForceSeries.h in Headers */,
 				F6A13C50B7378F572A82AE3AAC612A50 /* PYFunnelSeries.h in Headers */,
@@ -2675,7 +2651,6 @@
 				C918573B55F06C087FA58A5FFEE5FEA1 /* PYUtilities.h in Headers */,
 				87EB8598DB5A3ED2E7D8F4DC3AFAD392 /* PYVennSeries.h in Headers */,
 				58CC5A85571D9E5D82229E034BFDC3F2 /* PYWordCloudSeries.h in Headers */,
-				E4628D5EA40A13F603DC197953C9403B /* PYZoomEchartsView.h in Headers */,
 				899AA6A2FE652558D40CE2218BCAA9FC /* WKEchartsView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3442,7 +3417,6 @@
 				ECAC4EC7EA221D37F579870165C34245 /* PYColor.m in Sources */,
 				009AF1BFEB841E54A259580DC495711E /* PYDataRange.m in Sources */,
 				6EE06B816F6AE46E2034182229CEA483 /* PYDataZoom.m in Sources */,
-				2DFE20ACD4A83E99599724B971A3EA99 /* PYEchartsView.m in Sources */,
 				4DC8B8FABFE331D3A396A69B1217A337 /* PYEventRiverSeries.m in Sources */,
 				946666D40BD98F5FF2D0FB5E3E27341C /* PYForceSeries.m in Sources */,
 				5B6CBF4FC5DB28642684735EC39F2A98 /* PYFunnelSeries.m in Sources */,
@@ -3480,7 +3454,6 @@
 				C49E5B58A4446CC21F79E9305CDADC3C /* PYTreeSeries.m in Sources */,
 				7B13193361B92F990F30F8AC464DF15C /* PYVennSeries.m in Sources */,
 				9282643DB0B0537BBF9F9C4DE98CA314 /* PYWordCloudSeries.m in Sources */,
-				5ED53AAB0922962D797036D4AF507ACB /* PYZoomEchartsView.m in Sources */,
 				B9F7521092FEE3A926721906487AFBEA /* WKEchartsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
