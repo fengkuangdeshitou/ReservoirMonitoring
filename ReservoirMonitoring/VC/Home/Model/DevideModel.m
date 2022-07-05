@@ -11,7 +11,7 @@
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName{
     return @{
-        @"deviceId":@"id"
+        @"deviceId":@[@"id",@"devId"]
     };
 }
 @end

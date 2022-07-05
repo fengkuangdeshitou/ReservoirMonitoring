@@ -33,7 +33,7 @@
 }
 
 - (void)getSwitchModeData{
-    [Request.shareInstance getUrl:GetSwitchMode params:@{@"devId":self.devId} progress:^(float progress) {
+    [Request.shareInstance getUrl:GetSwitchMode params:@{@"devId":self.deviceId} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         NSDictionary * data = result[@"data"];
@@ -208,7 +208,7 @@
     SwitchProgressTableViewCell * cell1 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     SwitchProgressTableViewCell * cell2 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
     NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
-    [params setValue:self.devId forKey:@"devId"];
+    [params setValue:self.deviceId forKey:@"devId"];
     [params setValue:self.weatherBtn.selected ? @"1" : @"0" forKey:@"weatherWatch"];
     [params setValue:[NSString stringWithFormat:@"%ld",self.flag] forKey:@"workStatus"];
     [params setValue:[NSString stringWithFormat:@"%.0f",cell1.progress] forKey:@"selfConsumptioinReserveSoc"];
@@ -265,7 +265,6 @@
         }
         [BleManager.shareInstance writeWithCMDString:@"601" array:@[deviceMode] finish:^{
             dispatch_semaphore_signal(semaphore);
-            [RMHelper showToast:@"Configuration success" toView:self.view];
         }];
         
         if (self.flag == 0) {

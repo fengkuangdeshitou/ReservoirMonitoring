@@ -33,6 +33,8 @@ extern NSString * const BLE_CMD;
 extern NSString * const TIME_TABLEVIEW_HEIGHT_CHANGE;
 /**切换设备通知*/
 extern NSString * const SWITCH_DEVICE_NOTIFICATION;
+/**是否蓝牙加载数据通知*/
+extern NSString * const DATA_TYPE_CHANGE_NOTIFICATION;
 /**登录成功*/
 extern NSString * const LOGIN_SUCCESS;
 /**退出登录*/

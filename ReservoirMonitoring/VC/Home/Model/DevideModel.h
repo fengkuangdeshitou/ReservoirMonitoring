@@ -13,8 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,strong) NSString * deviceId;
 
-@property(nonatomic,strong) NSString * devId;
-
 /// 状态（1-并网 2-离网）
 @property(nonatomic,strong) NSString * status;
 /// 日家庭能源独立率 单位 %
