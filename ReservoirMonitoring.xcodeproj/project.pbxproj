@@ -49,6 +49,8 @@
 		0FE713F4283C830400B0733A /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE713F3283C830400B0733A /* Request.m */; };
 		0FE713F7283C831A00B0733A /* RequestURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE713F6283C831A00B0733A /* RequestURL.m */; };
 		0FE713FC283C859000B0733A /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE713FA283C859000B0733A /* Toast+UIView.m */; };
+		0FEEECB92875272800604699 /* ProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FEEECB72875272800604699 /* ProtocolViewController.m */; };
+		0FEEECBA2875272800604699 /* ProtocolViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FEEECB82875272800604699 /* ProtocolViewController.xib */; };
 		6529B29C2E0432E1F4C480DD /* Pods_ReservoirMonitoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BA0DE0AA9A215EC56692FA /* Pods_ReservoirMonitoring.framework */; };
 		B387385CB1D93CCC02D43717 /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F582A4DCB34D84D2C390CBD /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework */; };
 		BD2DEF2028044A6E004E8D7D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2DEF1F28044A6E004E8D7D /* AppDelegate.m */; };
@@ -253,6 +255,9 @@
 		0FE713F6283C831A00B0733A /* RequestURL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestURL.m; sourceTree = "<group>"; };
 		0FE713FA283C859000B0733A /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
 		0FE713FB283C859000B0733A /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
+		0FEEECB62875272800604699 /* ProtocolViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProtocolViewController.h; sourceTree = "<group>"; };
+		0FEEECB72875272800604699 /* ProtocolViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProtocolViewController.m; sourceTree = "<group>"; };
+		0FEEECB82875272800604699 /* ProtocolViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProtocolViewController.xib; sourceTree = "<group>"; };
 		11BA0DE0AA9A215EC56692FA /* Pods_ReservoirMonitoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		263B1F2000C58A09A71CC682 /* Pods_ReservoirMonitoringTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoringTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB1F4E5989AEB4DD5663FDE /* Pods-ReservoirMonitoringTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReservoirMonitoringTests.debug.xcconfig"; path = "Target Support Files/Pods-ReservoirMonitoringTests/Pods-ReservoirMonitoringTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1056,6 +1061,9 @@
 				BDE88A202805C3F800081114 /* RegisterViewController.h */,
 				BDE88A212805C3F800081114 /* RegisterViewController.m */,
 				BDE88A222805C3F800081114 /* RegisterViewController.xib */,
+				0FEEECB62875272800604699 /* ProtocolViewController.h */,
+				0FEEECB72875272800604699 /* ProtocolViewController.m */,
+				0FEEECB82875272800604699 /* ProtocolViewController.xib */,
 				BDE88A262805C46800081114 /* View */,
 			);
 			path = Register;
@@ -1332,6 +1340,7 @@
 				BD8FDA62280EF17E000036DD /* DebugViewController.xib in Resources */,
 				BDE88A74280B0E5D00081114 /* DataCollectionViewCell.xib in Resources */,
 				BDFA3AA62827A6C8004A7E8C /* GlobelDescAlertView.xib in Resources */,
+				0FEEECBA2875272800604699 /* ProtocolViewController.xib in Resources */,
 				0F6968242833AF2600F22E47 /* WeatherViewController.xib in Resources */,
 				BD8FDA5C280EEF88000036DD /* WarningTableViewCell.xib in Resources */,
 				BDFA3AB8282F7D1B004A7E8C /* ServiceViewController.xib in Resources */,
@@ -1559,6 +1568,7 @@
 				0F6968512834CED800F22E47 /* PeripheralModel.m in Sources */,
 				0F0E90CB28507A3C0014B329 /* UWConfig.m in Sources */,
 				BDE88A52280A7C0300081114 /* DeviceSwitchTableViewCell.m in Sources */,
+				0FEEECB92875272800604699 /* ProtocolViewController.m in Sources */,
 				BDE88A78280B12A900081114 /* DataEchartsCollectionViewCell.m in Sources */,
 				0F6968232833AF2600F22E47 /* WeatherViewController.m in Sources */,
 				BD8FDA57280EEED3000036DD /* WarningListView.m in Sources */,

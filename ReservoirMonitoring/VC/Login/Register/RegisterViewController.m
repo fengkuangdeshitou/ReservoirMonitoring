@@ -8,15 +8,16 @@
 #import "RegisterViewController.h"
 #import "RegisterTableViewCell.h"
 #import "ImageAuthenticationView.h"
+#import "ProtocolViewController.h"
+@import MLLabel;
 
-@interface RegisterViewController ()<ImageAuthenticationViewDelegate,UITableViewDelegate>
+@interface RegisterViewController ()<ImageAuthenticationViewDelegate,UITableViewDelegate,MLLinkLabelDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * registerBtn;
 @property(nonatomic,weak)IBOutlet UIButton * loginBtn;
 @property(nonatomic,weak)IBOutlet UIButton * statusBtn;
-@property(nonatomic,weak)IBOutlet UILabel * agree;
-@property(nonatomic,weak)IBOutlet UIButton * agreement;
+@property(nonatomic,weak)IBOutlet MLLinkLabel * agree;
 @property(nonatomic,strong)NSArray * dataArray;
 @property(nonatomic,strong)UIButton * sendCodeButton;
 @property(nonatomic,assign)NSInteger time;
@@ -49,12 +50,47 @@
     @{@"title":@"Password".localized,@"placeholder":@"Please enter 6-20 digit password".localized},
     @{@"title":@"Password confirmation".localized,@"placeholder":@"Please enter password again".localized}
     ];
-    self.agree.text = @"I have read and agree".localized;
-    [self.agreement setTitle:@"EULA".localized forState:UIControlStateNormal];
+    
+    NSString * userAgreement = @"《User Agreement》".localized;
+    NSString * policy = @"《Privacy policy》".localized;
+    NSString * string = @"I have read and agree".localized;
+    self.agree.text = [NSString stringWithFormat:@"%@%@%@",string,userAgreement,policy];
+    self.agree.lineBreakMode = NSLineBreakByWordWrapping;
+    self.agree.textColor = [UIColor colorWithHexString:@"#747474"];
+    self.agree.font = [UIFont systemFontOfSize:13];
+    self.agree.numberOfLines = 0;
+    self.agree.dataDetectorTypes = MLDataDetectorTypeAttributedLink;
+    self.agree.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithHexString:COLOR_MAIN_COLOR]};
+    self.agree.activeLinkTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithHexString:COLOR_MAIN_COLOR],NSBackgroundColorAttributeName:UIColor.clearColor};
+    self.agree.activeLinkToNilDelay = 0.3;
+    self.agree.lineSpacing = 8;
+    self.agree.delegate = self;
+
+    NSString * likeString = self.agree.text;
+    NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:likeString];
+    [attributedText setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSLinkAttributeName:userAgreement}
+                            range:[likeString rangeOfString:userAgreement]];
+    [attributedText setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSLinkAttributeName:policy}
+                            range:[likeString rangeOfString:policy]];
+    self.agree.attributedText = attributedText;
+    
     [self.registerBtn setTitle:@"Register".localized forState:UIControlStateNormal];
     [self.loginBtn setTitle:@"Login if you have an account".localized forState:UIControlStateNormal];
     [self.registerBtn showBorderWithRadius:25];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RegisterTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([RegisterTableViewCell class])];
+}
+
+- (void)didClickLink:(MLLink *)link
+            linkText:(NSString *)linkText
+           linkLabel:(MLLinkLabel *)linkLabel{
+    NSString * url = @"";
+    if ([linkText isEqualToString:@"User Agreement".localized]) {
+        url = Agreement;
+    }else{
+        url = Privacy;
+    }
+    ProtocolViewController * protocal = [[ProtocolViewController alloc] initWithUrl:url];
+    [self.navigationController pushViewController:protocal animated:true];
 }
 
 - (IBAction)statusChange:(UIButton *)sender{
@@ -137,10 +173,6 @@
 
 - (IBAction)popViewAction:(id)sender{
     [self.navigationController popViewControllerAnimated:true];
-}
-
-- (IBAction)agrementAction:(id)sender{
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

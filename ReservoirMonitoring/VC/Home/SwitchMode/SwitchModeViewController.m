@@ -117,11 +117,11 @@
             int value = [array.firstObject intValue];
             NSLog(@"flag=%d",value);
             if (value == 3) {
-                self.flag = 0;
+                self.flag = 1;
             }else if (value == 2){
                 self.flag = 2;
             }else if (value == 1){
-                self.flag = 1;
+                self.flag = 0;
             }else{
                 self.flag = 0;
             }
@@ -130,12 +130,12 @@
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         if (self.flag == 0) {
-            [BleManager.shareInstance readWithCMDString:@"623" count:1 finish:^(NSArray * _Nonnull array) {
+            [BleManager.shareInstance readWithCMDString:@"624" count:1 finish:^(NSArray * _Nonnull array) {
                 [self.progressArray replaceObjectAtIndex:0 withObject:array.firstObject];
                 dispatch_semaphore_signal(semaphore);
             }];
         }else if (self.flag == 1){
-            [BleManager.shareInstance readWithCMDString:@"624" count:1 finish:^(NSArray * _Nonnull array) {
+            [BleManager.shareInstance readWithCMDString:@"623" count:1 finish:^(NSArray * _Nonnull array) {
                 [self.progressArray replaceObjectAtIndex:1 withObject:array.firstObject];
                 dispatch_semaphore_signal(semaphore);
             }];
@@ -258,12 +258,12 @@
             
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
             NSString * deviceMode = @"";
-            if (self.flag == 2) {
-                deviceMode = @"2";
-            }else if (self.flag == 0){
-                deviceMode = @"3";
-            }else if (self.flag == 1){
+            if (self.flag == 0){
                 deviceMode = @"1";
+            }else if (self.flag == 1){
+                deviceMode = @"3";
+            }else if (self.flag == 2) {
+                deviceMode = @"2";
             }
             [BleManager.shareInstance writeWithCMDString:@"601" array:@[deviceMode] finish:^{
                 dispatch_semaphore_signal(semaphore);
@@ -271,14 +271,14 @@
             
             if (self.flag == 0) {
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                [BleManager.shareInstance writeWithCMDString:@"623" array:@[[NSString stringWithFormat:@"%.0f",cell1.progress]] finish:^{
+                [BleManager.shareInstance writeWithCMDString:@"624" array:@[[NSString stringWithFormat:@"%.0f",cell1.progress]] finish:^{
                     dispatch_semaphore_signal(semaphore);
                     [self switchWithParams:params];
                     [RMHelper showToast:@"Configuration success" toView:self.view];
                 }];
             }else if (self.flag == 1){
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                [BleManager.shareInstance writeWithCMDString:@"624" array:@[[NSString stringWithFormat:@"%.0f",cell2.progress]] finish:^{
+                [BleManager.shareInstance writeWithCMDString:@"623" array:@[[NSString stringWithFormat:@"%.0f",cell2.progress]] finish:^{
                     dispatch_semaphore_signal(semaphore);
                     [self switchWithParams:params];
                     [RMHelper showToast:@"Configuration success" toView:self.view];
@@ -346,9 +346,6 @@
                 [BleManager.shareInstance readWithCMDString:@"752" count:1 finish:^(NSArray * _Nonnull array) {
                     NSInteger idx = [array.firstObject intValue];
                     if (idx == 1) {
-//                        if (self.modelChangeCompletion) {
-//                            self.modelChangeCompletion(self.flag);
-//                        }
                         [RMHelper showToast:@"Configuration is successful" toView:self.view];
                         [self switchWithParams:params];
                     }

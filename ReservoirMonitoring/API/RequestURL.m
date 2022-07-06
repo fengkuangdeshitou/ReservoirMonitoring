@@ -59,4 +59,9 @@ NSString * const QueryDataElectricity = @"/device/queryDataElectricity";
 
 NSString * const QueryDataGraph = @"/device/queryDataGraph";
 
+NSString * const Agreement = @"";
+
+NSString * const Privacy = @"";
+
+
 @end

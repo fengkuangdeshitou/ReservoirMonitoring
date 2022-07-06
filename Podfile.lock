@@ -33,6 +33,7 @@ PODS:
   - MBProgressHUD (1.2.0)
   - MJExtension (3.4.1)
   - MJRefresh (3.7.5)
+  - MLLabel (1.10.5)
   - SDWebImage (5.12.1):
     - SDWebImage/Core (= 5.12.1)
   - SDWebImage/Core (5.12.1)
@@ -49,6 +50,7 @@ DEPENDENCIES:
   - MBProgressHUD
   - MJExtension
   - MJRefresh
+  - MLLabel
   - SDWebImage
   - SGPagingView (~> 1.7.2)
   - WMZCode
@@ -64,6 +66,7 @@ SPEC REPOS:
     - MBProgressHUD
     - MJExtension
     - MJRefresh
+    - MLLabel
     - SDWebImage
     - SGPagingView
     - WMZCode
@@ -78,10 +81,11 @@ SPEC CHECKSUMS:
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
+  MLLabel: d76124055a2205e7f76878e62cd06ba925ba0c97
   SDWebImage: 4dc3e42d9ec0c1028b960a33ac6b637bb432207b
   SGPagingView: 0b91bd360370e56a6496b06df9b3e28bc3f075cc
   WMZCode: af49031a787947dad474f6dba23270a2600d8124
 
-PODFILE CHECKSUM: fd396475403c2b6660a8d9ef6e606864ab31e8d3
+PODFILE CHECKSUM: 7489e7837be800d7548e5ca1b71a62465b21eb6c
 
 COCOAPODS: 1.11.3

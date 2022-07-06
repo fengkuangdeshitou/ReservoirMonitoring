@@ -58,11 +58,11 @@
         
         LineAnimatiionView * animationImageView = [[LineAnimatiionView alloc] init];
         if (i == 0 || i == 3) {
-            animationImageView.frame = CGRectMake(SCREEN_WIDTH/6, i/3*160+99, SCREEN_WIDTH/3*2/2-21, 37);
+            animationImageView.frame = CGRectMake(SCREEN_WIDTH/6-4, i/3*160+99, SCREEN_WIDTH/3*2/2-21+4, 37);
         }else if (i == 1 || i == 4) {
             animationImageView.frame = CGRectMake(SCREEN_WIDTH/2-12, 162*i/3+46, 24, 35);
         }else{
-            animationImageView.frame = CGRectMake((SCREEN_WIDTH/2+21), i/3*160+99, SCREEN_WIDTH/3*2/2-21, 37);
+            animationImageView.frame = CGRectMake((SCREEN_WIDTH/2+21), i/3*160+99, SCREEN_WIDTH/3*2/2-21+4, 37);
         }
         animationImageView.source = i;
         animationImageView.direction = i;

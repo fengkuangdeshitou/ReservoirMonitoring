@@ -69,8 +69,11 @@
     [self.manager POST:@"https://fudascms.vidagrid.com/querystatus" parameters:@{@"devices":@[device]} headers:self.header progress:^(NSProgress * _Nonnull uploadProgress) {
             
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSJSONSerialization * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"json=%@",json);
+        NSData * data = [NSJSONSerialization dataWithJSONObject:json options:NSJSONWritingSortedKeys error:nil];
+        NSString * string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        [RMHelper showToast:string toView:self.view];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
@@ -80,8 +83,11 @@
     [self.manager POST:@"https://fudascms.vidagrid.com/active" parameters:@{@"devices":@[@{@"sn":self.cardDictionary[@"SN"],@"iccid":self.cardDictionary[@"ICCID"]}]} headers:self.header progress:^(NSProgress * _Nonnull uploadProgress) {
             
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSJSONSerialization * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"res=%@",json);
+        NSData * data = [NSJSONSerialization dataWithJSONObject:json options:NSJSONWritingSortedKeys error:nil];
+        NSString * string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        [RMHelper showToast:string toView:self.view];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error=%@,%@",error,task.currentRequest.allHTTPHeaderFields);
     }];

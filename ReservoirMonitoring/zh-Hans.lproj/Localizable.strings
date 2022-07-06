@@ -22,7 +22,8 @@
 "Password confirmation" = "Password confirmation";
 "Please enter password again" = "Please enter password again";
 "I have read and agree" = "I have read and agree";
-"EULA" = "《EULA》";
+"User Agreement" = "《User Agreement》";
+"Privacy policy" = "《Privacy policy》";
 "Register" = "Register";
 "Login if you have an account" = "Login if you have an account";
 "Slide the bar to complete the picture." = "Slide the bar to complete the picture.";
@@ -200,7 +201,8 @@
 //"Password confirmation" = "确认密码";
 //"Please enter password again" = "请再次确认登录密码";
 //"I have read and agree" = "同意";
-//"EULA" = "《用户服务协议》";
+//"User Agreement" = "《用户协议》";
+//"Privacy policy" = "《隐私协议》";
 //"Register" = "注册";
 //"Login if you have an account" = "已有帐户立即登录";
 //"Slide the bar to complete the picture." = "拖动下方滑块完成拼图";

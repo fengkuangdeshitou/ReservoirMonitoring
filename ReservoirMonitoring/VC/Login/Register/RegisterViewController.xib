@@ -10,8 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterViewController">
             <connections>
-                <outlet property="agree" destination="8EG-vO-nzf" id="yMr-fD-Pyu"/>
-                <outlet property="agreement" destination="6nj-ep-kFT" id="BoW-oU-fyZ"/>
+                <outlet property="agree" destination="8EG-vO-nzf" id="Ug9-K2-q3T"/>
                 <outlet property="loginBtn" destination="6Yp-wv-Mzp" id="AjN-QB-q6b"/>
                 <outlet property="registerBtn" destination="60K-hT-6xY" id="jv2-BY-K5i"/>
                 <outlet property="statusBtn" destination="IIx-N7-tID" id="jWg-eQ-38W"/>
@@ -34,34 +33,21 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IIx-N7-tID">
                                 <rect key="frame" x="20" y="18" width="13" height="13"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="13" id="GaM-Zr-JT8"/>
                                     <constraint firstAttribute="height" constant="13" id="Poz-7f-6I6"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="icon_unchoose"/>
                                 <state key="selected" image="icon_login_choose"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Agree to the" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8EG-vO-nzf">
-                                <rect key="frame" x="43" y="15" width="74.5" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="cxl-gp-GWk"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Agree to the" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8EG-vO-nzf" customClass="MLLinkLabel">
+                                <rect key="frame" x="43" y="15" width="353" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.45490196078431372" green="0.45490196078431372" blue="0.45490196078431372" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6nj-ep-kFT">
-                                <rect key="frame" x="122.5" y="15" width="148" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="3bX-7a-qSD"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="User Service Agreement">
-                                    <color key="titleColor" red="0.5490196078431373" green="0.87450980392156863" blue="0.6470588235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="60K-hT-6xY">
-                                <rect key="frame" x="35" y="83" width="344" height="50"/>
+                                <rect key="frame" x="35" y="81" width="344" height="50"/>
                                 <color key="backgroundColor" red="0.10588235294117647" green="0.10588235294117647" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="C5d-Lg-Bkl"/>
@@ -75,7 +61,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Yp-wv-Mzp">
-                                <rect key="frame" x="97.5" y="148" width="219" height="29"/>
+                                <rect key="frame" x="97.5" y="146" width="219" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="If you have an account, log in now">
@@ -86,7 +72,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wwe-cg-wq7">
-                                <rect key="frame" x="20" y="15" width="97.5" height="18"/>
+                                <rect key="frame" x="20" y="15" width="60" height="13"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="13" id="IW1-q6-rFV"/>
+                                    <constraint firstAttribute="width" constant="60" id="uTG-Fy-dxS"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <connections>
                                     <action selector="statusChange:" destination="-1" eventType="touchUpInside" id="3s6-IM-aVf"/>
@@ -96,18 +86,15 @@
                         <viewLayoutGuide key="safeArea" id="rKD-RH-Sbr"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="60K-hT-6xY" firstAttribute="top" secondItem="6nj-ep-kFT" secondAttribute="bottom" constant="50" id="3bz-wI-0pC"/>
                             <constraint firstItem="Wwe-cg-wq7" firstAttribute="leading" secondItem="IIx-N7-tID" secondAttribute="leading" id="B1F-cT-Mb1"/>
+                            <constraint firstItem="rKD-RH-Sbr" firstAttribute="trailing" secondItem="8EG-vO-nzf" secondAttribute="trailing" constant="18" id="EsC-Tn-yyJ"/>
                             <constraint firstItem="8EG-vO-nzf" firstAttribute="top" secondItem="rKD-RH-Sbr" secondAttribute="top" constant="15" id="LcE-fR-Zaz"/>
                             <constraint firstItem="IIx-N7-tID" firstAttribute="top" secondItem="rKD-RH-Sbr" secondAttribute="top" constant="18" id="OPr-P9-Ucm"/>
                             <constraint firstItem="rKD-RH-Sbr" firstAttribute="trailing" secondItem="60K-hT-6xY" secondAttribute="trailing" constant="35" id="Ry7-V7-NGQ"/>
-                            <constraint firstItem="Wwe-cg-wq7" firstAttribute="bottom" secondItem="8EG-vO-nzf" secondAttribute="bottom" id="U0P-Hs-9Vc"/>
-                            <constraint firstItem="6nj-ep-kFT" firstAttribute="leading" secondItem="8EG-vO-nzf" secondAttribute="trailing" constant="5" id="U8B-RB-bun"/>
+                            <constraint firstItem="60K-hT-6xY" firstAttribute="top" secondItem="8EG-vO-nzf" secondAttribute="bottom" constant="50" id="X2e-v2-TgK"/>
                             <constraint firstItem="60K-hT-6xY" firstAttribute="leading" secondItem="rKD-RH-Sbr" secondAttribute="leading" constant="35" id="aPI-gY-rWE"/>
-                            <constraint firstItem="6nj-ep-kFT" firstAttribute="top" secondItem="rKD-RH-Sbr" secondAttribute="top" constant="15" id="d96-yW-Imb"/>
                             <constraint firstItem="6Yp-wv-Mzp" firstAttribute="centerX" secondItem="fCY-af-4Zm" secondAttribute="centerX" id="fE0-03-IE8"/>
                             <constraint firstItem="6Yp-wv-Mzp" firstAttribute="top" secondItem="60K-hT-6xY" secondAttribute="bottom" constant="15" id="h6m-4O-TeD"/>
-                            <constraint firstItem="8EG-vO-nzf" firstAttribute="trailing" secondItem="Wwe-cg-wq7" secondAttribute="trailing" id="hjQ-xG-QkD"/>
                             <constraint firstItem="IIx-N7-tID" firstAttribute="leading" secondItem="rKD-RH-Sbr" secondAttribute="leading" constant="20" id="nHm-Wl-M8D"/>
                             <constraint firstItem="8EG-vO-nzf" firstAttribute="leading" secondItem="IIx-N7-tID" secondAttribute="trailing" constant="10" id="otP-3N-Ers"/>
                             <constraint firstItem="Wwe-cg-wq7" firstAttribute="top" secondItem="8EG-vO-nzf" secondAttribute="top" id="rMj-6a-lGf"/>
