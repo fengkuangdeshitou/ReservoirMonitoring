@@ -42,10 +42,14 @@
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"626" count:1 finish:^(NSArray * array){
-            NSString * value = [NSString stringWithFormat:@"%@",array.firstObject];
-            if (value.intValue > 0) {
+            int value = [array.firstObject intValue];
+            if (value > 0) {
+                NSString * input = [NSString stringWithFormat:@"%d",value/10];
+                [self exchangeDictFor:1 value:input];
                 InputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-                cell.textfield.text = value;
+                cell.textfield.text = input;
+            }else{
+                [self exchangeDictFor:1 value:@"0"];
             }
             dispatch_semaphore_signal(semaphore);
         }];
@@ -54,20 +58,20 @@
         [BleManager.shareInstance readWithCMDString:@"513" count:1 finish:^(NSArray * array){
             NSInteger index = [array.firstObject intValue] == 255 ? 6 : [array.firstObject intValue];
             [self exchangeDictFor:2 value:@[
-                @"SCE Rule 21".localized,
-                @"SDG&E Rule 21".localized,
-                @"PG&E Rule 21".localized,
-                @"HECO Rule 14H,Oahu,Maui,Hawaii Island".localized,
-                @"HECO Rule 14H,Molokai,Lanai".localized,
-                @"ISO-EN".localized,
-                @"internal standard".localized
+                @"SCE Rule 21",
+                @"SDG&E Rule 21",
+                @"PG&E Rule 21",
+                @"HECO Rule 14H,Oahu,Maui,Hawaii Island",
+                @"HECO Rule 14H,Molokai,Lanai",
+                @"ISO-EN",
+                @"internal standard"
             ][index]];
             dispatch_semaphore_signal(semaphore);
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"64E" count:1 finish:^(NSArray * array){
-            [self exchangeDictFor:3 value:[array.firstObject intValue] == 0 ? @"50" : array.firstObject];
+            [self exchangeDictFor:3 value:[array.firstObject intValue] == 0 ? @"50 Hz" : array.firstObject];
         }];
     });
     
@@ -82,10 +86,11 @@
 
 - (IBAction)submitAction:(id)sender{
     InputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    NSString * input = cell.textfield.text;
+    int input = [cell.textfield.text intValue]*10;
+    NSLog(@"====%@",self.dataArray[2][@"value"]);
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
-        [BleManager.shareInstance writeWithCMDString:@"625" array:@[self.dataArray[0][@"value"],input,self.dataArray[2][@"value"]] finish:^{
+        [BleManager.shareInstance writeWithCMDString:@"625" array:@[self.dataArray[0][@"value"],[NSString stringWithFormat:@"%d",input],self.dataArray[2][@"value"]] finish:^{
             dispatch_semaphore_signal(sem);
         }];
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
@@ -116,7 +121,7 @@
         [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"Whole home".localized,@"Partical home".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-130, frame.origin.y, 130, 50*2) completion:^(NSString * _Nonnull value, NSInteger idx) {
             NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[indexPath.row]];
             dict[@"placeholder"] = value;
-            dict[@"value"] = [NSString stringWithFormat:@"%ld",idx];
+            dict[@"value"] = [NSString stringWithFormat:@"%ld",1-idx];
             self.dataArray[indexPath.row] = dict;
             [tableView reloadData];
         }];
@@ -124,13 +129,13 @@
         UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
         CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
         [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[
-            @"SCE Rule 21".localized,
-            @"SDG&E Rule 21".localized,
-            @"PG&E Rule 21".localized,
-            @"HECO Rule 14H,Oahu,Maui,Hawaii Island".localized,
-            @"HECO Rule 14H,Molokai,Lanai".localized,
-            @"ISO-EN".localized,
-            @"internal standard".localized
+            @"SCE Rule 21",
+            @"SDG&E Rule 21",
+            @"PG&E Rule 21",
+            @"HECO Rule 14H,Oahu,Maui,Hawaii Island",
+            @"HECO Rule 14H,Molokai,Lanai",
+            @"ISO-EN",
+            @"internal standard"
         ] tableviewFrame:CGRectMake(50, frame.origin.y+50, SCREEN_WIDTH-50, 50*7) completion:^(NSString * _Nonnull value, NSInteger idx) {
             NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[indexPath.row]];
             dict[@"placeholder"] = value;

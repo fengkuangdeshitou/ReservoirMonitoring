@@ -58,9 +58,15 @@
 }
 
 - (IBAction)queryAction:(id)sender{
+    if (!BleManager.shareInstance.isConnented) {
+        [RMHelper showToast:@"Please connect device" toView:self.view];
+        return;
+    }
     [BleManager.shareInstance readWithDictionary:@{@"type":@"SN-ICCID"} finish:^(NSDictionary * _Nonnull dict) {
         self.cardDictionary = dict;
-        NSLog(@"===%@",self.cardDictionary);
+        NSData * data = [NSJSONSerialization dataWithJSONObject:self.cardDictionary options:NSJSONWritingSortedKeys error:nil];
+        NSString * string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        [RMHelper showToast:string toView:self.view];
         [self quereWithDevices:self.cardDictionary[@"SN"]];
     }];
 }
@@ -80,6 +86,10 @@
 }
 
 - (IBAction)activationAction:(id)sender{
+    if (!self.cardDictionary) {
+        [RMHelper showToast:@"Please connect device" toView:self.view];
+        return;
+    }
     [self.manager POST:@"https://fudascms.vidagrid.com/active" parameters:@{@"devices":@[@{@"sn":self.cardDictionary[@"SN"],@"iccid":self.cardDictionary[@"ICCID"]}]} headers:self.header progress:^(NSProgress * _Nonnull uploadProgress) {
             
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

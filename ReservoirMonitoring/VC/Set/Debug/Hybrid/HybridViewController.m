@@ -159,9 +159,23 @@
         rightArray = @[self.rightController,self.rightValueArray[0],self.rightValueArray[1]];
     }
     if (!self.systemTime) {
+        [RMHelper showToast:@"Please select time" toView:self.view];
         return;
     }
     
+    SelecteTableViewCell * hybrid = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:4]];
+    if (hybrid.content.text.intValue == 0) {
+        [RMHelper showToast:@"Please select Qry number" toView:self.view];
+        return;
+    }
+    
+    NSArray * countArray = @[hybrid.content.text];
+    NSMutableArray * array = [[NSMutableArray alloc] init];
+    for (int i=0; i<hybrid.content.text.intValue; i++) {
+        SelecteTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:5]];
+        [array addObject:cell.content.text];
+    }
+
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         
@@ -172,7 +186,7 @@
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance writeWithCMDString:@"64F" array:@[] finish:^{
+        [BleManager.shareInstance writeWithCMDString:@"64F" array:@[self.stop] finish:^{
             dispatch_semaphore_signal(semaphore);
         }];
         
@@ -193,29 +207,15 @@
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        NSMutableArray * countArray = [[NSMutableArray alloc] init];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            SelecteTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
-            [countArray addObject:cell.content.text];
-            NSLog(@"count=%@",countArray);
-            [BleManager.shareInstance writeWithCMDString:@"620" array:countArray finish:^{
-                dispatch_semaphore_signal(semaphore);
-            }];
-        });
+        [BleManager.shareInstance writeWithCMDString:@"620" array:countArray finish:^{
+            dispatch_semaphore_signal(semaphore);
+        }];
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        NSMutableArray * array = [[NSMutableArray alloc] init];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            SelecteTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
-            for (int i=0; i<cell.content.text.intValue; i++) {
-                SelecteTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:4]];
-                [array addObject:cell.content.text];
-            }
-            [BleManager.shareInstance writeWithCMDString:@"634" array:array finish:^{
-                dispatch_semaphore_signal(semaphore);
-                [RMHelper showToast:@"Write success" toView:self.view];
-            }];
-        });
+        [BleManager.shareInstance writeWithCMDString:@"634" array:array finish:^{
+            dispatch_semaphore_signal(semaphore);
+            [RMHelper showToast:@"Write success" toView:self.view];
+        }];
     });
     
 }
@@ -233,7 +233,7 @@
     if (indexPath.section == 0) {
         SelecteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SelecteTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = indexPath.row == 0 ? @"System time".localized : @"E-stop".localized;
-        cell.content.text = indexPath.row == 0 ? self.systemTime : (self.stop.intValue == 0 ? @"E-Stop Enabled".localized : @"None".localized);
+        cell.content.text = indexPath.row == 0 ? self.systemTime : (self.stop.intValue == 1 ? @"E-Stop Enabled".localized : @"None".localized);
         return cell;
     }else if (indexPath.section == 1 || indexPath.section == 2) {
         if (indexPath.row == 0) {
@@ -277,8 +277,8 @@
         }else if (indexPath.row == 1){
             UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
             CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
-            [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"E-Stop Enabled".localized,@"None".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-100, frame.origin.y+50, 85, 50*2) completion:^(NSString * _Nonnull value, NSInteger idx) {
-                self.stop = [NSString stringWithFormat:@"%ld",idx];
+            [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"E-Stop Enabled".localized,@"None".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-170, frame.origin.y+50, 155, 50*2) completion:^(NSString * _Nonnull value, NSInteger idx) {
+                self.stop = [NSString stringWithFormat:@"%ld",1-idx];
                 [tableView reloadData];
             }];
         }

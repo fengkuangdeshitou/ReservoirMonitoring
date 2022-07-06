@@ -44,16 +44,16 @@
             [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:fristArray[idx]];
                 if (idx == 0) {
-                    item[@"value"] = obj;
+                    item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];
                     [fristArray replaceObjectAtIndex:0 withObject:item];
                 }else if (idx == 1) {
-                    item[@"value"] = obj;
+                    item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
                     [fristArray replaceObjectAtIndex:1 withObject:item];
                 }else if (idx == 2) {
-                    item[@"value"] = obj;
+                    item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
                     [fristArray replaceObjectAtIndex:2 withObject:item];
                 }else if (idx == 3) {
-                    item[@"value"] = obj;
+                    item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
                     [fristArray replaceObjectAtIndex:3 withObject:item];
                 }
                 [self.dataArray replaceObjectAtIndex:0 withObject:fristArray];
@@ -68,19 +68,19 @@
                 NSString *obj = array[idx];
                 if (idx%4 == 0) {
                     NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[0]];
-                    item[@"value"] = obj;
+                    item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
                     [sectionArray replaceObjectAtIndex:0 withObject:item];
                 }else if (idx%4 == 1) {
                     NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[1]];
-                    item[@"value"] = obj;
+                    item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
                     [sectionArray replaceObjectAtIndex:1 withObject:item];
                 }else if (idx%4 == 2) {
                     NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[2]];
-                    item[@"value"] = obj;
+                    item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
                     [sectionArray replaceObjectAtIndex:2 withObject:item];
                 }else if (idx%4 == 3) {
                     NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[3]];
-                    item[@"value"] = obj;
+                    item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
                     [sectionArray replaceObjectAtIndex:3 withObject:item];
                 }
                 [self.dataArray replaceObjectAtIndex:(idx/4+1) withObject:sectionArray];
@@ -140,9 +140,9 @@
 
     for (int i=0; i<valueArray.count; i++) {
         if (i<4) {
-            [fristArray addObject:valueArray[i]];
+            [fristArray addObject:[NSString stringWithFormat:@"%d",[valueArray[i] intValue]*10]];
         }else{
-            [otherArray addObject:valueArray[i]];
+            [otherArray addObject:[NSString stringWithFormat:@"%d",[valueArray[i] intValue]*10]];
         }
     }
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
