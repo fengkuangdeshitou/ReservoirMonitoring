@@ -186,7 +186,7 @@
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance writeWithCMDString:@"64F" array:@[self.stop] finish:^{
+        [BleManager.shareInstance writeWithCMDString:@"64F" array:self.stop?@[self.stop]:@[@"0"] finish:^{
             dispatch_semaphore_signal(semaphore);
         }];
         
@@ -271,7 +271,7 @@
             picker.pickerStyle = self.style;
             picker.resultBlock = ^(NSDate * _Nullable selectDate, NSString * _Nullable selectValue) {
                 self.systemTime = selectValue;
-                [tableView reloadData];
+                [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             };
             [picker show];
         }else if (indexPath.row == 1){
@@ -279,7 +279,7 @@
             CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
             [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"E-Stop Enabled".localized,@"None".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-170, frame.origin.y+50, 155, 50*2) completion:^(NSString * _Nonnull value, NSInteger idx) {
                 self.stop = [NSString stringWithFormat:@"%ld",1-idx];
-                [tableView reloadData];
+                [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             }];
         }
     }else if (indexPath.section == 1) {
@@ -289,7 +289,7 @@
             self.leftOpen = idx != 2;
             self.leftValue = value;
             self.leftController = [NSString stringWithFormat:@"%ld",idx == 2 ? 0 : idx+1];
-            [tableView reloadData];
+            [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
         }];
     }else if (indexPath.section == 2){
         UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
@@ -298,14 +298,14 @@
             self.rightOpen = idx != 1;
             self.rightValue = value;
             self.rightController = [NSString stringWithFormat:@"%ld",idx == 2 ? 0 : idx+1];
-            [tableView reloadData];
+            [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
         }];
     }else if (indexPath.section == 3) {
         UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
         CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
         [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"Efficient mode".localized,@"Quiet mode".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-150, frame.origin.y+50, 135, 50*2) completion:^(NSString * _Nonnull value, NSInteger idx) {
             self.modelValue = value;
-            [tableView reloadData];
+            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         }];
     }
     else if (indexPath.section == 4) {

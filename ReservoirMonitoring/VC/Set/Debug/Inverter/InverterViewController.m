@@ -15,7 +15,7 @@
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * submit;
 @property(nonatomic,strong)NSMutableArray * dataArray;
-@property(nonatomic,assign)NSInteger resNum;
+@property(nonatomic,assign)int resNum;
 
 @end
 
@@ -34,7 +34,7 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
         [BleManager.shareInstance readWithCMDString:@"620" count:1 finish:^(NSArray * _Nonnull array) {
-            self.resNum = [array.firstObject integerValue] == 0 ? 1 : [array.firstObject integerValue];
+            self.resNum = [array.firstObject intValue] == 0 ? 1 : [array.firstObject intValue];
             [self loadRessNumber];
             dispatch_semaphore_signal(sem);
         }];
@@ -128,6 +128,7 @@
 }
 
 - (IBAction)submitAction:(id)sender{
+    [self.view endEditing:true];
     NSMutableArray * valueArray = [[NSMutableArray alloc] init];
     for (int i=0; i<self.dataArray.count; i++) {
         NSArray * sectionArray = self.dataArray[i];

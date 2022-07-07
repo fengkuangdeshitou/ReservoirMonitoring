@@ -36,7 +36,8 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         [BleManager.shareInstance readWithCMDString:@"625" count:1 finish:^(NSArray * array){
-            [self exchangeDictFor:0 value:@[@"Whole home".localized,@"Partical home".localized][[array.firstObject intValue]]];
+            int value = [array.firstObject intValue];
+            [self exchangeDictFor:0 value:@[@"Whole home".localized,@"Partical home".localized][1-value]];
             dispatch_semaphore_signal(semaphore);
         }];
         
@@ -55,7 +56,8 @@
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance readWithCMDString:@"513" count:1 finish:^(NSArray * array){
+        // 513
+        [BleManager.shareInstance readWithCMDString:@"627" count:1 finish:^(NSArray * array){
             NSInteger index = [array.firstObject intValue] == 255 ? 6 : [array.firstObject intValue];
             [self exchangeDictFor:2 value:@[
                 @"SCE Rule 21",

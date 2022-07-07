@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8hL-15-Odw">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" red="0.047058823530000002" green="0.047058823530000002" blue="0.047058823530000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <view key="tableFooterView" contentMode="scaleToFill" id="ltV-st-Ril">
                         <rect key="frame" x="0.0" y="861" width="414" height="100"/>
@@ -42,12 +41,11 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="NQW-kl-1oX"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="NQW-kl-1oX" firstAttribute="trailing" secondItem="rrq-n3-P1Y" secondAttribute="trailing" constant="35" id="Mmq-7H-cS4"/>
-                            <constraint firstItem="rrq-n3-P1Y" firstAttribute="top" secondItem="NQW-kl-1oX" secondAttribute="top" constant="50" id="PD4-4J-TMX"/>
-                            <constraint firstItem="rrq-n3-P1Y" firstAttribute="leading" secondItem="NQW-kl-1oX" secondAttribute="leading" constant="35" id="uXE-4B-Wnz"/>
+                            <constraint firstAttribute="trailing" secondItem="rrq-n3-P1Y" secondAttribute="trailing" constant="35" id="Mmq-7H-cS4"/>
+                            <constraint firstItem="rrq-n3-P1Y" firstAttribute="top" secondItem="ltV-st-Ril" secondAttribute="top" constant="50" id="PD4-4J-TMX"/>
+                            <constraint firstItem="rrq-n3-P1Y" firstAttribute="leading" secondItem="ltV-st-Ril" secondAttribute="leading" constant="35" id="uXE-4B-Wnz"/>
                         </constraints>
                     </view>
                     <connections>
@@ -56,13 +54,12 @@
                     </connections>
                 </tableView>
             </subviews>
-            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="8hL-15-Odw" secondAttribute="trailing" id="Cl2-Y6-qmf"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="8hL-15-Odw" secondAttribute="bottom" id="fcb-tE-Dih"/>
-                <constraint firstItem="8hL-15-Odw" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="hYJ-eX-IVT"/>
-                <constraint firstItem="8hL-15-Odw" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="ne0-ol-fOH"/>
+                <constraint firstAttribute="trailing" secondItem="8hL-15-Odw" secondAttribute="trailing" id="Cl2-Y6-qmf"/>
+                <constraint firstAttribute="bottom" secondItem="8hL-15-Odw" secondAttribute="bottom" id="fcb-tE-Dih"/>
+                <constraint firstItem="8hL-15-Odw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hYJ-eX-IVT"/>
+                <constraint firstItem="8hL-15-Odw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ne0-ol-fOH"/>
             </constraints>
             <point key="canvasLocation" x="132" y="90"/>
         </view>

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fJA-Tg-hPt">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" red="0.047058823530000002" green="0.047058823530000002" blue="0.047058823530000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <view key="tableFooterView" contentMode="scaleToFill" id="xG0-q2-LzA">
                         <rect key="frame" x="0.0" y="861" width="414" height="100"/>
@@ -42,12 +41,11 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="XpW-BI-15g"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Hd8-kq-ZFH" firstAttribute="leading" secondItem="XpW-BI-15g" secondAttribute="leading" constant="35" id="502-oB-ml7"/>
-                            <constraint firstItem="Hd8-kq-ZFH" firstAttribute="top" secondItem="XpW-BI-15g" secondAttribute="top" constant="50" id="t0x-Wz-E3E"/>
-                            <constraint firstItem="XpW-BI-15g" firstAttribute="trailing" secondItem="Hd8-kq-ZFH" secondAttribute="trailing" constant="35" id="y2L-5F-EdK"/>
+                            <constraint firstItem="Hd8-kq-ZFH" firstAttribute="leading" secondItem="xG0-q2-LzA" secondAttribute="leading" constant="35" id="502-oB-ml7"/>
+                            <constraint firstItem="Hd8-kq-ZFH" firstAttribute="top" secondItem="xG0-q2-LzA" secondAttribute="top" constant="50" id="t0x-Wz-E3E"/>
+                            <constraint firstAttribute="trailing" secondItem="Hd8-kq-ZFH" secondAttribute="trailing" constant="35" id="y2L-5F-EdK"/>
                         </constraints>
                     </view>
                     <connections>
@@ -56,13 +54,12 @@
                     </connections>
                 </tableView>
             </subviews>
-            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="fJA-Tg-hPt" secondAttribute="bottom" id="389-8m-p7R"/>
-                <constraint firstItem="fJA-Tg-hPt" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="H0Q-HF-nEH"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="fJA-Tg-hPt" secondAttribute="trailing" id="XV0-Gp-D3y"/>
-                <constraint firstItem="fJA-Tg-hPt" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="roU-od-7aS"/>
+                <constraint firstAttribute="bottom" secondItem="fJA-Tg-hPt" secondAttribute="bottom" id="389-8m-p7R"/>
+                <constraint firstItem="fJA-Tg-hPt" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="H0Q-HF-nEH"/>
+                <constraint firstAttribute="trailing" secondItem="fJA-Tg-hPt" secondAttribute="trailing" id="XV0-Gp-D3y"/>
+                <constraint firstItem="fJA-Tg-hPt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="roU-od-7aS"/>
             </constraints>
             <point key="canvasLocation" x="132" y="90"/>
         </view>

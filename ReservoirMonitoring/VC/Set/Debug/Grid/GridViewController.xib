@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="XLd-QM-GQ2">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <color key="backgroundColor" red="0.047058823529411764" green="0.047058823529411764" blue="0.047058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <view key="tableFooterView" contentMode="scaleToFill" id="tUG-oi-Nie">
                         <rect key="frame" x="0.0" y="861" width="414" height="100"/>
@@ -59,7 +59,7 @@
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="XLd-QM-GQ2" secondAttribute="bottom" id="3IH-Qq-Uak"/>
+                <constraint firstAttribute="bottom" secondItem="XLd-QM-GQ2" secondAttribute="bottom" id="3IH-Qq-Uak"/>
                 <constraint firstItem="XLd-QM-GQ2" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="UTy-yx-opo"/>
                 <constraint firstItem="XLd-QM-GQ2" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="gxx-3A-4h0"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="XLd-QM-GQ2" secondAttribute="trailing" id="sQ3-6h-bfb"/>
