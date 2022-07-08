@@ -66,17 +66,6 @@
         }
         animationImageView.source = i;
         animationImageView.direction = i;
-//        animationImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"normal%d",i]];
-//        NSMutableArray * animationImageArray = [[NSMutableArray alloc] init];
-//        for (int j=0; j<3; j++) {
-//            if ((i == 1||i==4) && j == 2) {
-//                continue;;
-//            }
-//            [animationImageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"%d-%d",i+1,j+1]]];
-//        }
-//        animationImageView.animationImages = animationImageArray;
-//        animationImageView.animationDuration = 1;
-//        animationImageView.animationRepeatCount = 0;
         animationImageView.tag = i+100;
         [self.itemContentView addSubview:animationImageView];
     }
@@ -109,20 +98,47 @@
         self.currentModeValue.text = @"Self-consumption";
     }
     
-    if (BleManager.shareInstance.isConnented) {
-        self.communicationValue.text = @"Online".localized;
-        self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
-        if (model.deviceStatus.intValue == 0) {
-            self.statusValue.text = @"normal";
+    if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
+        if (BleManager.shareInstance.isConnented) {
+            self.communicationValue.text = @"Online".localized;
+            self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+            if (model.deviceStatus.intValue == 1) {
+                self.statusValue.text = @"Fault";
+                self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
+            }else{
+                self.statusValue.text = @"Normal";
+                self.statusValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+            }
         }else{
-            self.statusValue.text = @"fault";
+            self.communicationValue.text = @"Offline".localized;
+            self.communicationValue.textColor = [UIColor colorWithHexString:@"#999999"];
+            self.statusValue.text = @"Offline".localized;
+            self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
         }
     }else{
-        self.communicationValue.text = @"Offline".localized;
-        self.communicationValue.textColor = [UIColor colorWithHexString:@"#999999"];
-        self.statusValue.text = @"offline".localized;
-        self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
+        if (model.status.intValue == 1) {
+            self.statusValue.text = @"Fault";
+            self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
+        }else{
+            self.statusValue.text = @"Normal";
+            self.statusValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+        }
+        if (model.workStatus.intValue == 1){
+            self.communicationValue.text = @"Self-consumption".localized;
+            self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+        }else if (model.workStatus.intValue == 2){
+            self.communicationValue.text = @"Time Of Use".localized;
+            self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+        }else if (model.workStatus.intValue == 3){
+            self.communicationValue.text = @"Back up".localized;
+            self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+        }else{
+            self.communicationValue.text = @"Offline".localized;
+            self.communicationValue.textColor = [UIColor colorWithHexString:@"#999999"];
+        }
+        
     }
+    
     
     
     for (UIView * view in self.itemContentView.subviews) {
@@ -130,28 +146,28 @@
             HomeItemView * itemView = (HomeItemView *)view;
             if (itemView.tag == 10) {
                 itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.gridElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:model.gridElectricity==0?@"#747474":COLOR_MAIN_COLOR];
-                itemView.statusButton.selected = model.gridElectricity>0;
+                itemView.descLabel.textColor = [UIColor colorWithHexString:[self formatPower:model.gridPower]?COLOR_MAIN_COLOR:@"#747474"];
+                itemView.statusButton.selected = [self formatPower:model.gridPower];
             }else if (itemView.tag == 11) {
                 itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.solarElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:model.solarElectricity==0?@"#747474":COLOR_MAIN_COLOR];
-                itemView.statusButton.selected = model.solarElectricity>0;
+                itemView.descLabel.textColor = [UIColor colorWithHexString:[self formatPower:model.solarPower]?COLOR_MAIN_COLOR:@"#747474"];
+                itemView.statusButton.selected = [self formatPower:model.solarPower];
             }else if (itemView.tag == 12) {
                 itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.generatorElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:model.generatorElectricity==0?@"#747474":COLOR_MAIN_COLOR];
-                itemView.statusButton.selected = model.generatorElectricity>0;
+                itemView.descLabel.textColor = [UIColor colorWithHexString:[self formatPower:model.generatorPower]?COLOR_MAIN_COLOR:@"#747474"];
+                itemView.statusButton.selected = [self formatPower:model.generatorPower];
             }else if (itemView.tag == 13) {
                 itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.evElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:model.evElectricity==0?@"#747474":COLOR_MAIN_COLOR];
-                itemView.statusButton.selected = model.evElectricity>0;
+                itemView.descLabel.textColor = [UIColor colorWithHexString:[self formatPower:model.evPower]?COLOR_MAIN_COLOR:@"#747474"];
+                itemView.statusButton.selected = [self formatPower:model.evPower];
             }else if (itemView.tag == 14) {
                 itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.nonBackUpElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:model.nonBackUpElectricity==0?@"#747474":COLOR_MAIN_COLOR];
-                itemView.statusButton.selected = model.nonBackUpElectricity>0;
+                itemView.descLabel.textColor = [UIColor colorWithHexString:[self formatPower:model.nonBackUpPower]?COLOR_MAIN_COLOR:@"#747474"];
+                itemView.statusButton.selected = [self formatPower:model.nonBackUpPower];
             }else{
                 itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.backUpElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:model.backUpElectricity==0?@"#747474":COLOR_MAIN_COLOR];
-                itemView.statusButton.selected = model.backUpElectricity>0;
+                itemView.descLabel.textColor = [UIColor colorWithHexString:[self formatPower:model.backUpPower]?COLOR_MAIN_COLOR:@"#747474"];
+                itemView.statusButton.selected = [self formatPower:model.backUpPower];
             }
         }
     }
@@ -160,7 +176,6 @@
     
     CGFloat divided = model.evElectricity+model.nonBackUpElectricity+model.backUpElectricity;
     CGFloat rate = ((model.evElectricity + model.nonBackUpElectricity + model.backUpElectricity)-model.gridElectricity)/divided*100;
-//    self.selfHelpRate.text = model.gridElectricity.floatValue == 0 ? @"100%" : [NSString stringWithFormat:@"%.0f",rate];
     self.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",divided==0?0:rate] stringByAppendingString:@"%"];
     if ([RMHelper getBleDataValue:model.gridPower] > 0) {
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:100];
@@ -232,6 +247,21 @@
     weather.title = @"Weather forecast".localized;
     weather.hidesBottomBarWhenPushed = true;
     [RMHelper.getCurrentVC.navigationController pushViewController:weather animated:true];
+}
+
+- (BOOL)formatPower:(CGFloat)value{
+    BOOL power = false;
+    if (value > 32768) {
+        int result = value-65535;
+        if (result > 50) {
+            power = true;
+        }
+    }else{
+        if (value > 0) {
+            power = true;
+        }
+    }
+    return power;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

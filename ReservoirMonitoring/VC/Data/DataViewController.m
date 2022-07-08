@@ -75,16 +75,17 @@
 - (void)getDataWithScopeType:(NSInteger)scopeType{
     /// 0-全部 1-天 2-月 3-年
     NSDate * date = [NSDate date];
-    NSString * formatter = @"";
-    if (scopeType <= 1) {
-        formatter = [NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year,date.br_month,date.br_day];
-    }else if (scopeType == 2){
-        formatter = [NSString stringWithFormat:@"%ld-%02ld",date.br_year,date.br_month];
+    NSString * startDateTime = @"";
+    if (scopeType == 2){
+        startDateTime = [NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year,date.br_month-1,date.br_day];
     }else if (scopeType == 3){
-        formatter = [NSString stringWithFormat:@"%ld",date.br_year];
+        startDateTime = [NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year-1,date.br_month,date.br_day];
+    }else{
+        startDateTime = [NSNull null];
     }
-    [self getEcharsDataWithScopeType:scopeType dateTimeFormatter:formatter];
-    [Request.shareInstance getUrl:QueryDataElectricity params:@{@"devId":self.devId,@"scopeType":[NSString stringWithFormat:@"%ld",scopeType],@"dateTimeFormatter":formatter} progress:^(float progress) {
+    NSString * currentDateTime = [NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year,date.br_month,date.br_day];
+    [self getEcharsDataWithScopeType:scopeType currentDateTime:currentDateTime startDateTime:startDateTime];
+    [Request.shareInstance getUrl:QueryDataElectricity params:@{@"devId":self.devId,@"scopeType":[NSString stringWithFormat:@"%ld",scopeType],@"currentDateTime":currentDateTime,@"startDateTime":startDateTime} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         self.model = [DevideModel mj_objectWithKeyValues:result[@"data"]];
@@ -96,8 +97,8 @@
     }];
 }
 
-- (void)getEcharsDataWithScopeType:(NSInteger)scopeType dateTimeFormatter:(NSString *)dateTimeFormatter{
-    [Request.shareInstance getUrl:QueryDataGraph params:@{@"devId":self.devId,@"scopeType":[NSString stringWithFormat:@"%ld",scopeType],@"dateTimeFormatter":dateTimeFormatter} progress:^(float progress) {
+- (void)getEcharsDataWithScopeType:(NSInteger)scopeType currentDateTime:(NSString *)currentDateTime startDateTime:(NSString *)startDateTime{
+    [Request.shareInstance getUrl:QueryDataGraph params:@{@"devId":self.devId,@"scopeType":[NSString stringWithFormat:@"%ld",scopeType],@"currentDateTime":currentDateTime,@"startDateTime":startDateTime} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         self.data = result[@"data"];

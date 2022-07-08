@@ -82,10 +82,10 @@ static Request * _request = nil;
         }else{
             failure(json[@"message"]);
             [RMHelper showToast:json[@"message"] toView:UIApplication.sharedApplication.keyWindow];
-            
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"err=%@",error);
+        [RMHelper showToast:error.description toView:RMHelper.getCurrentVC.view];
         [self.hud hideAnimated:true];
     }];
 }
@@ -111,6 +111,7 @@ static Request * _request = nil;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"err=%@",error);
+        [RMHelper showToast:error.description toView:RMHelper.getCurrentVC.view];
         [self.hud hideAnimated:true];
     }];
 }
@@ -133,6 +134,7 @@ static Request * _request = nil;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"err=%@",error);
+        [RMHelper showToast:error.description toView:RMHelper.getCurrentVC.view];
         [self.hud hideAnimated:true];
     }];
 }

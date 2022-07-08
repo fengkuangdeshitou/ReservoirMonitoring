@@ -180,7 +180,11 @@
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         
         NSString * time = self.systemTime;
-        NSArray * timeArray = @[[time substringToIndex:4],[time substringWithRange:NSMakeRange(5, 2)],[time substringWithRange:NSMakeRange(8, 2)],[time substringWithRange:NSMakeRange(11, 2)],[time substringWithRange:NSMakeRange(14, 2)],[time substringWithRange:NSMakeRange(17, 2)]];
+        NSString * ymdTime = [time componentsSeparatedByString:@" "].firstObject;
+        NSString * hmsTime = [time componentsSeparatedByString:@" "].lastObject;
+        NSArray * ymdArray = [ymdTime componentsSeparatedByString:@"-"];
+        NSArray * hmsArray = [hmsTime componentsSeparatedByString:@":"];
+        NSArray * timeArray = @[ymdArray[0],ymdArray[1],ymdArray[2],hmsArray[0],hmsArray[1],hmsArray[2]];
         [BleManager.shareInstance writeWithCMDString:@"611" array:timeArray finish:^{
             dispatch_semaphore_signal(semaphore);
         }];

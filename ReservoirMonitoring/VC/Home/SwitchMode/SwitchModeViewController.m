@@ -45,26 +45,27 @@
         NSInteger workStatus = [data[@"workStatus"] intValue];
         if (workStatus == 1) {
             self.flag = 0;
-        }else if (workStatus == 2){
-            self.flag = 2;
+            NSString * selfConsumptioinReserveSoc = data[@"selfConsumptioinReserveSoc"];
+            [self.progressArray replaceObjectAtIndex:self.flag withObject:selfConsumptioinReserveSoc];
         }else if (workStatus == 3){
             self.flag = 1;
-        }
-        NSString * selfConsumptioinReserveSoc = data[@"selfConsumptioinReserveSoc"];
-        NSString * backupPowerReserveSoc = data[@"backupPowerReserveSoc"];
-        self.progressArray = [[NSMutableArray alloc] initWithObjects:selfConsumptioinReserveSoc,backupPowerReserveSoc,@"", nil];
-        self.allowChargingXiaGrid = [data[@"allowChargingXiaGrid"] boolValue];
-        NSArray * offPeakTimeList = data[@"offPeakTimeList"];
-        for (int i=0; i<offPeakTimeList.count; i++) {
-            NSString * string = offPeakTimeList[i];
-            if ([string componentsSeparatedByString:@"_"].count < 2) {
-                continue;
+            NSString * backupPowerReserveSoc = data[@"backupPowerReserveSoc"];
+            [self.progressArray replaceObjectAtIndex:self.flag withObject:backupPowerReserveSoc];
+        }else if (workStatus == 2){
+            self.flag = 2;
+            self.allowChargingXiaGrid = [data[@"allowChargingXiaGrid"] boolValue];
+            NSArray * offPeakTimeList = data[@"offPeakTimeList"];
+            for (int i=0; i<offPeakTimeList.count; i++) {
+                NSString * string = offPeakTimeList[i];
+                if ([string componentsSeparatedByString:@"_"].count < 2) {
+                    continue;
+                }
+                NSArray * timeArray = [string componentsSeparatedByString:@"_"];
+                NSString * startTime = timeArray[0];
+                NSString * endTime = timeArray[1];
+                NSDictionary * dict = @{@"startTime":startTime,@"endTime":endTime,@"price":timeArray[2]};
+                [self.touArray addObject:dict];
             }
-            NSArray * timeArray = [string componentsSeparatedByString:@"_"];
-            NSString * startTime = timeArray[0];
-            NSString * endTime = timeArray[1];
-            NSDictionary * dict = @{@"startTime":startTime,@"endTime":endTime,@"price":timeArray[2]};
-            [self.touArray addObject:dict];
         }
         [self.tableView reloadData];
     } failure:^(NSString * _Nonnull errorMsg) {
@@ -80,6 +81,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.titleArray = @[@"Self-consumption",@"Back up",@"Time Of Use"];
+    self.progressArray = [[NSMutableArray alloc] initWithObjects:@"0",@"0",@"", nil];
     self.weather.text = @"Weather watch".localized;
     [self.submitButton setTitle:@"Submit".localized forState:UIControlStateNormal];
     [[NSNotificationCenter defaultCenter] addObserverForName:TIME_TABLEVIEW_HEIGHT_CHANGE object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
@@ -273,14 +275,14 @@
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance writeWithCMDString:@"624" array:@[[NSString stringWithFormat:@"%.0f",cell1.progress]] finish:^{
                     dispatch_semaphore_signal(semaphore);
-                    [self switchWithParams:params];
+                    [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":self.weatherBtn.selected ? @"1" : @"0",@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"selfConsumptioinReserveSoc":[NSString stringWithFormat:@"%.0f",cell1.progress]}];
                     [RMHelper showToast:@"Configuration success" toView:self.view];
                 }];
             }else if (self.flag == 1){
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance writeWithCMDString:@"623" array:@[[NSString stringWithFormat:@"%.0f",cell2.progress]] finish:^{
                     dispatch_semaphore_signal(semaphore);
-                    [self switchWithParams:params];
+                    [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":self.weatherBtn.selected ? @"1" : @"0",@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"backupPowerReserveSoc":[NSString stringWithFormat:@"%.0f",cell2.progress]}];
                     [RMHelper showToast:@"Configuration success" toView:self.view];
                 }];
             }else{
@@ -360,7 +362,13 @@
             }
         });
     }else{
-        [self switchWithParams:params];
+        if (self.flag == 0) {
+            [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":self.weatherBtn.selected ? @"1" : @"0",@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"selfConsumptioinReserveSoc":[NSString stringWithFormat:@"%.0f",cell1.progress]}];
+        }else if (self.flag == 1){
+            [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":self.weatherBtn.selected ? @"1" : @"0",@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"backupPowerReserveSoc":[NSString stringWithFormat:@"%.0f",cell2.progress]}];
+        }else{
+            [self switchWithParams:params];
+        }
     }
     
 }

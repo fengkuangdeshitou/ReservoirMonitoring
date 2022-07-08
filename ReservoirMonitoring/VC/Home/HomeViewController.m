@@ -199,25 +199,41 @@
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"544" count:8 finish:^(NSArray * array){
             [self showCmd:@"544" message:array];
-            if (self.model.gridPower > 0) {
-                self.model.gridElectricity = [array[0] floatValue];
+            if ([self formatPower:self.model.gridPower]) {
+                self.model.gridElectricity = [array[0] floatValue]/100;
             }else{
-                self.model.gridElectricity = [array[1] floatValue];
+                self.model.gridElectricity = [array[1] floatValue]/100;
             }
-            self.model.solarElectricity = [array[2] floatValue] + [array[3] floatValue];
-            self.model.generatorElectricity = [array[4] floatValue];
-            self.model.evElectricity = [array[5] floatValue];
-            self.model.nonBackUpElectricity = [array[6] floatValue];
-            self.model.backUpElectricity = [array[7] floatValue];
+            self.model.solarElectricity = [array[2] floatValue]/100 + [array[3] floatValue]/100;
+            self.model.generatorElectricity = [array[4] floatValue]/100;
+            self.model.evElectricity = [array[5] floatValue]/100;
+            self.model.nonBackUpElectricity = [array[7] floatValue]/100;
+            self.model.backUpElectricity = [array[6] floatValue]/100;
             dispatch_semaphore_signal(semaphore);
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_semaphore_signal(semaphore);
             [self.tableView reloadData];
         });
     
     });
+}
+
+- (BOOL)formatPower:(CGFloat)value{
+    BOOL power = false;
+    if (value > 32768) {
+        int result = value-65535;
+        if (result > 50) {
+            power = true;
+        }
+    }else{
+        if (value > 0) {
+            power = true;
+        }
+    }
+    return power;
 }
 
 - (CGFloat)cumulativeWithArray:(NSArray *)array{

@@ -73,7 +73,7 @@
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"64E" count:1 finish:^(NSArray * array){
-            [self exchangeDictFor:3 value:[array.firstObject intValue] == 0 ? @"50 Hz" : array.firstObject];
+            [self exchangeDictFor:3 value:[array.firstObject intValue] == 0 ? @"50 Hz" : [NSString stringWithFormat:@"%@ Hz",array.firstObject]];
         }];
     });
     

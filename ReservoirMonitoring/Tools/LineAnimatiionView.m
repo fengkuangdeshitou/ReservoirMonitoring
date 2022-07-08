@@ -28,6 +28,7 @@
         self.pointView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 6, 6)];
         self.pointView.backgroundColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
         self.pointView.layer.cornerRadius = 3;
+        self.pointView.hidden = true;
         [self addSubview:self.pointView];
         self.animation = [CAKeyframeAnimation animation];
         self.animation.keyPath = @"position";
@@ -197,7 +198,7 @@
 
     CABasicAnimation*pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
     pathAnimation.duration = self.duration;
-    pathAnimation.repeatCount = 1;
+    pathAnimation.repeatCount = CGFLOAT_MAX;
     pathAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
     pathAnimation.toValue = [NSNumber numberWithFloat:1.0f];
     pathAnimation.removedOnCompletion = YES;
@@ -217,8 +218,10 @@
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
-    [self removeAllAnimation];
-    [self setNeedsDisplay];
+    if (flag) {
+        [self removeAllAnimation];
+        [self setNeedsDisplay];
+    }
 }
 
 @end

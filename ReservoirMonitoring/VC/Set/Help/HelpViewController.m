@@ -40,8 +40,8 @@
     HelpTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HelpTableViewCell class]) forIndexPath:indexPath];
     cell.line.hidden = indexPath.row == self.dataArray.count-1;
     NSDictionary * item = self.dataArray[indexPath.row];
-    cell.titleLabel.text = item[@"title"];
-    cell.content.text = item[@"contentZh"];
+    cell.titleLabel.text = item[@"titleEn"];
+    cell.content.text = item[@"subtitleEn"];
     return cell;
 }
 
@@ -49,6 +49,7 @@
     NSDictionary * item = self.dataArray[indexPath.row];
     HelpDetailViewController * detail = [[HelpDetailViewController alloc] init];
     detail.helpId = [NSString stringWithFormat:@"%@",item[@"id"]];
+    detail.title = item[@"titleEn"];
     [self.navigationController pushViewController:detail animated:true];
 }
 
