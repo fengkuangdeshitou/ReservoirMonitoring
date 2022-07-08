@@ -159,6 +159,7 @@
     [Request.shareInstance getUrl:SwitchDevice params:@{@"id":model.deviceId} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
+        [BleManager.shareInstance disconnectPeripheral];
         [self getDeviceList];
         if (self.delegate && [self.delegate respondsToSelector:@selector(onSwitchDeviceSuccess)]) {
             [self.delegate onSwitchDeviceSuccess];

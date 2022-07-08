@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hKk-tm-6Yf">
+                    <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hKk-tm-6Yf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wys-3S-tiN">
@@ -63,6 +63,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
+                <outlet property="line" destination="bek-yk-RjT" id="Bat-IT-bpp"/>
                 <outlet property="textfield" destination="Ajd-LU-Mab" id="TLc-O9-q2p"/>
                 <outlet property="titleLabel" destination="Wys-3S-tiN" id="hwi-dy-XlU"/>
             </connections>

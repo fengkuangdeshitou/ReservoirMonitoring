@@ -131,14 +131,14 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     InputTableViewCell * cell = (InputTableViewCell *)[[[textField superview] superview] superview];
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    if (indexPath.section == 0 ){
+    if (indexPath.section == 1){
         NSArray * left = self.leftValueArray ?:@[@"",@""];
         if ( indexPath.row == 1) {
             self.leftValueArray = @[textField.text,left[1]];
         }else{
             self.leftValueArray = @[left[0],textField.text];
         }
-    }else{
+    }else if(indexPath.section == 2){
         NSArray * right = self.rightValueArray ?: @[@"",@""];
         if (indexPath.row == 1) {
             self.rightValueArray = @[textField.text,right[1]];

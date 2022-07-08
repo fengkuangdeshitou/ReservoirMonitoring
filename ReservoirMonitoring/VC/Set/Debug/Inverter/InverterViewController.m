@@ -10,7 +10,7 @@
 #import "SelecteTableViewCell.h"
 #import "SelectItemAlertView.h"
 
-@interface InverterViewController ()<UITableViewDataSource,UITextFieldDelegate>
+@interface InverterViewController ()<UITableViewDataSource,UITextFieldDelegate,UITableViewDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * submit;
@@ -167,6 +167,8 @@
         return cell;
     }else{
         InputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
+        UIView * view = [cell.contentView viewWithTag:10];
+        view.backgroundColor = [UIColor colorWithHexString:@"#1B1B1B"];
         cell.titleLabel.text = self.dataArray[indexPath.section][indexPath.row][@"title"];
         cell.textfield.placeholder = self.dataArray[indexPath.section][indexPath.row][@"placeholder"];
         cell.textfield.text = self.dataArray[indexPath.section][indexPath.row][@"value"];
@@ -206,7 +208,13 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0.001;
+    return 15;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 15)];
+    view.backgroundColor = [UIColor colorWithHexString:@"#0c0c0c"];
+    return view;
 }
 /*
 #pragma mark - Navigation

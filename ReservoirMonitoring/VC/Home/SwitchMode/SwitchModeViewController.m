@@ -15,7 +15,7 @@
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * submitButton;
-@property(nonatomic,weak)IBOutlet UIButton * weatherBtn;
+@property(nonatomic,strong)IBOutlet UIButton * weatherBtn;
 @property(nonatomic,assign)NSInteger flag;
 @property(nonatomic,weak)IBOutlet UILabel * weather;
 @property(nonatomic,strong)NSMutableArray * progressArray;
@@ -208,12 +208,13 @@
 }
 
 - (IBAction)submitAction:(id)sender{
+    NSString * weather = self.weatherBtn.isSelected ? @"1" : @"0";
     PeakTimeTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:2]];
     SwitchProgressTableViewCell * cell1 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     SwitchProgressTableViewCell * cell2 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
     NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
     [params setValue:self.deviceId forKey:@"devId"];
-    [params setValue:self.weatherBtn.selected ? @"1" : @"0" forKey:@"weatherWatch"];
+    [params setValue:weather forKey:@"weatherWatch"];
     [params setValue:self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2" forKey:@"workStatus"];
     [params setValue:[NSString stringWithFormat:@"%.0f",cell1.progress] forKey:@"selfConsumptioinReserveSoc"];
     [params setValue:[NSString stringWithFormat:@"%.0f",cell2.progress] forKey:@"backupPowerReserveSoc"];
@@ -250,10 +251,6 @@
     if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-            __block NSString * weather = @"";
-            dispatch_async(dispatch_get_main_queue(), ^{
-                weather = self.weatherBtn.selected ? @"1" : @"0";
-            });
             [BleManager.shareInstance writeWithCMDString:@"621" array:@[weather] finish:^{
                 dispatch_semaphore_signal(semaphore);
             }];
@@ -275,14 +272,14 @@
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance writeWithCMDString:@"624" array:@[[NSString stringWithFormat:@"%.0f",cell1.progress]] finish:^{
                     dispatch_semaphore_signal(semaphore);
-                    [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":self.weatherBtn.selected ? @"1" : @"0",@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"selfConsumptioinReserveSoc":[NSString stringWithFormat:@"%.0f",cell1.progress]}];
+                    [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":weather,@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"selfConsumptioinReserveSoc":[NSString stringWithFormat:@"%.0f",cell1.progress]}];
                     [RMHelper showToast:@"Configuration success" toView:self.view];
                 }];
             }else if (self.flag == 1){
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance writeWithCMDString:@"623" array:@[[NSString stringWithFormat:@"%.0f",cell2.progress]] finish:^{
                     dispatch_semaphore_signal(semaphore);
-                    [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":self.weatherBtn.selected ? @"1" : @"0",@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"backupPowerReserveSoc":[NSString stringWithFormat:@"%.0f",cell2.progress]}];
+                    [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":weather,@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"backupPowerReserveSoc":[NSString stringWithFormat:@"%.0f",cell2.progress]}];
                     [RMHelper showToast:@"Configuration success" toView:self.view];
                 }];
             }else{
@@ -363,9 +360,9 @@
         });
     }else{
         if (self.flag == 0) {
-            [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":self.weatherBtn.selected ? @"1" : @"0",@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"selfConsumptioinReserveSoc":[NSString stringWithFormat:@"%.0f",cell1.progress]}];
+            [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":weather,@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"selfConsumptioinReserveSoc":[NSString stringWithFormat:@"%.0f",cell1.progress]}];
         }else if (self.flag == 1){
-            [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":self.weatherBtn.selected ? @"1" : @"0",@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"backupPowerReserveSoc":[NSString stringWithFormat:@"%.0f",cell2.progress]}];
+            [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":weather,@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"backupPowerReserveSoc":[NSString stringWithFormat:@"%.0f",cell2.progress]}];
         }else{
             [self switchWithParams:params];
         }

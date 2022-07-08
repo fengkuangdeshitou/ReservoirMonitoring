@@ -378,6 +378,8 @@ static unsigned char auchCRCLo[] = {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.hud hideAnimated:true];
     });
+    [self.timer invalidate];
+    self.timer = nil;
     if (self.peripheral != nil) {
         [self.centralManager cancelPeripheralConnection:self.peripheral];
         self.peripheral = nil;
