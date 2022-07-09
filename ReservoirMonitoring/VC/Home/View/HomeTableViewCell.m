@@ -185,6 +185,9 @@
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:100];
         animation.direction = AnimationStartDirectionRightBottom;
         animation.showAnimation = true;
+    }else{
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:100];
+        animation.showAnimation = false;
     }
     
     if ([RMHelper getBleDataValue:model.solarPower] > 0) {
@@ -195,6 +198,9 @@
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:101];
         animation.direction = AnimationStartDirectionBottom;
         animation.showAnimation = true;
+    }else{
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:101];
+        animation.showAnimation = false;
     }
     
     if ([RMHelper getBleDataValue:model.generatorPower] > 0) {
@@ -205,6 +211,9 @@
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:102];
         animation.direction = AnimationStartDirectionLeftBottom;
         animation.showAnimation = true;
+    }else{
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:102];
+        animation.showAnimation = false;
     }
     
     if ([RMHelper getBleDataValue:model.evPower] > 0) {
@@ -215,6 +224,9 @@
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:103];
         animation.direction = AnimationStartDirectionLeftBottom;
         animation.showAnimation = true;
+    }else{
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:103];
+        animation.showAnimation = false;
     }
     
     if ([RMHelper getBleDataValue:model.nonBackUpPower] > 0) {
@@ -225,6 +237,9 @@
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:104];
         animation.direction = AnimationStartDirectionBottom;
         animation.showAnimation = true;
+    }else{
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:104];
+        animation.showAnimation = false;
     }
     
     if ([RMHelper getBleDataValue:model.backUpPower] > 0) {
@@ -235,6 +250,9 @@
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:105];
         animation.direction = AnimationStartDirectionRightBottom;
         animation.showAnimation = true;
+    }else{
+        LineAnimatiionView * animation = [self.itemContentView viewWithTag:105];
+        animation.showAnimation = false;
     }
 }
 

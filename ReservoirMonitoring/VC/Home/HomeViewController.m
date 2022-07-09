@@ -47,11 +47,13 @@
 - (void)getHomeDeviceData{
     if (RMHelper.getUserType) {
         if (RMHelper.getLoadDataForBluetooth) {
-            self.model = [[DevideModel alloc] init];
-            [self.tableView reloadData];
-            [self getCurrentDevice:^(DevideModel *model) {
+            if (self.model.deviceId) {
                 [self getBluetoothData];
-            }];
+            }else{
+                [self getCurrentDevice:^(DevideModel *model) {
+                    [self getBluetoothData];
+                }];
+            }
         }else{
             [self getNetworkData];
         }
@@ -66,7 +68,10 @@
     } success:^(NSDictionary * _Nonnull result) {
         NSArray * modelArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
         NSArray<DevideModel*> * array = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
-        [self setRightBarButtonItemWithTitlt:array.firstObject.name sel:@selector(changeDevice)];
+        if (array.count > 0) {
+            self.model = array.firstObject;
+            [self setRightBarButtonItemWithTitlt:array.firstObject.name sel:@selector(changeDevice)];
+        }
         [self.refreshController endRefreshing];
         completion(array.firstObject);
     } failure:^(NSString * _Nonnull errorMsg) {
@@ -105,6 +110,10 @@
 
 - (void)getBluetoothData{
     self.manager.delegate = self;
+    NSString * deviceId = self.model.deviceId;
+    self.model = [[DevideModel alloc] init];
+    self.model.deviceId = deviceId;
+    [self.tableView reloadData];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         [BleManager.shareInstance readWithCMDString:@"510" count:2 finish:^(NSArray * array){
@@ -216,6 +225,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             dispatch_semaphore_signal(semaphore);
             [self.tableView reloadData];
+            [self.refreshController endRefreshing];
         });
     
     });

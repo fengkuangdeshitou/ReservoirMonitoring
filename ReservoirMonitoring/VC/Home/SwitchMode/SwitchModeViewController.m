@@ -216,38 +216,44 @@
     [params setValue:self.deviceId forKey:@"devId"];
     [params setValue:weather forKey:@"weatherWatch"];
     [params setValue:self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2" forKey:@"workStatus"];
-    [params setValue:[NSString stringWithFormat:@"%.0f",cell1.progress] forKey:@"selfConsumptioinReserveSoc"];
-    [params setValue:[NSString stringWithFormat:@"%.0f",cell2.progress] forKey:@"backupPowerReserveSoc"];
-    [params setValue:[NSString stringWithFormat:@"%@",cell.switchBtn.selected ? @"1" : @"0"] forKey:@"allowChargingXiaGrid"];
-    NSMutableArray * offPeakArray = [[NSMutableArray alloc] init];
-    for (int i=0; i<[cell.dataArray[0] count]; i++) {
-        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-        TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
-        NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
-        NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];
-        [offPeakArray addObject:string];
+    if (self.flag == 0) {
+        NSString * selfConsumptioinReserveSoc = [NSString stringWithFormat:@"%.0f",cell1.progress];
+        [params setValue:selfConsumptioinReserveSoc forKey:@"selfConsumptioinReserveSoc"];
+    }else if (self.flag == 1){
+        NSString * backupPowerReserveSoc = [NSString stringWithFormat:@"%.0f",cell2.progress];
+        [params setValue:backupPowerReserveSoc forKey:@"backupPowerReserveSoc"];
+    }else if (self.flag == 2) {
+        [params setValue:[NSString stringWithFormat:@"%@",cell.switchBtn.selected ? @"1" : @"0"] forKey:@"allowChargingXiaGrid"];
+        NSMutableArray * offPeakArray = [[NSMutableArray alloc] init];
+        for (int i=0; i<[cell.dataArray[0] count]; i++) {
+            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
+            NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
+            NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];
+            [offPeakArray addObject:string];
+        }
+        [params setValue:offPeakArray forKey:@"offPeakTimeList"];
+        
+        NSMutableArray * peakTimeArray = [[NSMutableArray alloc] init];
+        for (int i=0; i<[cell.dataArray[1] count]; i++) {
+            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:1];
+            TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
+            NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
+            NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];
+            [peakTimeArray addObject:string];
+        }
+        [params setValue:peakTimeArray forKey:@"peakTimeList"];
+        
+        NSMutableArray * superPeakTimeArray = [[NSMutableArray alloc] init];
+        for (int i=0; i<[cell.dataArray[2] count]; i++) {
+            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:2];
+            TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
+            NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
+            NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];
+            [superPeakTimeArray addObject:string];
+        }
+        [params setValue:superPeakTimeArray forKey:@"superPeakTimeList"];
     }
-    [params setValue:offPeakArray forKey:@"offPeakTimeList"];
-    
-    NSMutableArray * peakTimeArray = [[NSMutableArray alloc] init];
-    for (int i=0; i<[cell.dataArray[1] count]; i++) {
-        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:1];
-        TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
-        NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
-        NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];
-        [peakTimeArray addObject:string];
-    }
-    [params setValue:peakTimeArray forKey:@"peakTimeList"];
-    
-    NSMutableArray * superPeakTimeArray = [[NSMutableArray alloc] init];
-    for (int i=0; i<[cell.dataArray[2] count]; i++) {
-        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:2];
-        TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
-        NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
-        NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];
-        [superPeakTimeArray addObject:string];
-    }
-    [params setValue:superPeakTimeArray forKey:@"superPeakTimeList"];
     if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
@@ -270,20 +276,16 @@
             
             if (self.flag == 0) {
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                [BleManager.shareInstance writeWithCMDString:@"624" array:@[[NSString stringWithFormat:@"%.0f",cell1.progress]] finish:^{
+                [BleManager.shareInstance writeWithCMDString:@"624" array:@[params[@"selfConsumptioinReserveSoc"]] finish:^{
                     dispatch_semaphore_signal(semaphore);
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":weather,@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"selfConsumptioinReserveSoc":[NSString stringWithFormat:@"%.0f",cell1.progress]}];
-                    });
+                    [self switchWithParams:params];
                     [RMHelper showToast:@"Configuration success" toView:self.view];
                 }];
             }else if (self.flag == 1){
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                [BleManager.shareInstance writeWithCMDString:@"623" array:@[[NSString stringWithFormat:@"%.0f",cell2.progress]] finish:^{
+                [BleManager.shareInstance writeWithCMDString:@"623" array:@[params[@"backupPowerReserveSoc"]] finish:^{
                     dispatch_semaphore_signal(semaphore);
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":weather,@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"backupPowerReserveSoc":[NSString stringWithFormat:@"%.0f",cell2.progress]}];
-                    });
+                    [self switchWithParams:params];
                     [RMHelper showToast:@"Configuration success" toView:self.view];
                 }];
             }else{
@@ -363,18 +365,13 @@
             }
         });
     }else{
-        if (self.flag == 0) {
-            [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":weather,@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"selfConsumptioinReserveSoc":[NSString stringWithFormat:@"%.0f",cell1.progress]}];
-        }else if (self.flag == 1){
-            [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":weather,@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"backupPowerReserveSoc":[NSString stringWithFormat:@"%.0f",cell2.progress]}];
-        }else{
-            [self switchWithParams:params];
-        }
+        [self switchWithParams:params];
     }
     
 }
 
 - (void)switchWithParams:(NSDictionary *)params{
+    NSLog(@"params=%@",params);
     [Request.shareInstance postUrl:SwitchMode params:params progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {

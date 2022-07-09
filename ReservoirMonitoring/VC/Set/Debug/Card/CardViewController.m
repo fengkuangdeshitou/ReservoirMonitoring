@@ -66,7 +66,9 @@
         self.cardDictionary = dict;
         NSData * data = [NSJSONSerialization dataWithJSONObject:self.cardDictionary options:NSJSONWritingSortedKeys error:nil];
         NSString * string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [RMHelper showToast:string toView:self.view];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [RMHelper showToast:string toView:self.view];
+        });
         [self quereWithDevices:self.cardDictionary[@"SN"]];
     }];
 }
@@ -81,7 +83,7 @@
         NSString * string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         [RMHelper showToast:string toView:self.view];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        [RMHelper showToast:error.description toView:self.view];
     }];
 }
 
@@ -100,6 +102,7 @@
         [RMHelper showToast:string toView:self.view];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error=%@,%@",error,task.currentRequest.allHTTPHeaderFields);
+        [RMHelper showToast:error.description toView:self.view];
     }];
 }
 
