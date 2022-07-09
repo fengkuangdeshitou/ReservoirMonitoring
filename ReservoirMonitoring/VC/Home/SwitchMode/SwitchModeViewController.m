@@ -272,14 +272,18 @@
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance writeWithCMDString:@"624" array:@[[NSString stringWithFormat:@"%.0f",cell1.progress]] finish:^{
                     dispatch_semaphore_signal(semaphore);
-                    [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":weather,@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"selfConsumptioinReserveSoc":[NSString stringWithFormat:@"%.0f",cell1.progress]}];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":weather,@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"selfConsumptioinReserveSoc":[NSString stringWithFormat:@"%.0f",cell1.progress]}];
+                    });
                     [RMHelper showToast:@"Configuration success" toView:self.view];
                 }];
             }else if (self.flag == 1){
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance writeWithCMDString:@"623" array:@[[NSString stringWithFormat:@"%.0f",cell2.progress]] finish:^{
                     dispatch_semaphore_signal(semaphore);
-                    [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":weather,@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"backupPowerReserveSoc":[NSString stringWithFormat:@"%.0f",cell2.progress]}];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self switchWithParams:@{@"devId":self.deviceId,@"weatherWatch":weather,@"workStatus":self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2",@"backupPowerReserveSoc":[NSString stringWithFormat:@"%.0f",cell2.progress]}];
+                    });
                     [RMHelper showToast:@"Configuration success" toView:self.view];
                 }];
             }else{

@@ -164,7 +164,7 @@
             DevideModel * model = self.dataArray[indexPath.row];
             if ([model.rtuSn isEqualToString:self.model.rtuSn]) {
                 self.manager.delegate = self;
-                self.manager.bluetoothName = model.name;
+                self.manager.bluetoothName = model.sgSn;
                 [self.manager startScanning];
             }else{
                 [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:[NSString stringWithFormat:@"Please switch the %@ to the current device",self.model.rtuSn]];

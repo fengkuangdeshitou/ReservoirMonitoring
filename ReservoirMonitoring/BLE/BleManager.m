@@ -66,7 +66,7 @@ static BleManager * _manager = nil;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.hud showAnimated:true];
     });
-    self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(scanningTimeChange) userInfo:nil repeats:false];
+    self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scanningTimeChange) userInfo:nil repeats:false];
     NSDictionary *option = @{CBCentralManagerScanOptionAllowDuplicatesKey:[NSNumber numberWithBool:NO],CBCentralManagerOptionShowPowerAlertKey:@YES};
     [self.centralManager scanForPeripheralsWithServices:nil options:option];
 }
@@ -77,12 +77,12 @@ static BleManager * _manager = nil;
 
 - (void)scanningTimeChange{
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (!self.isConnented) {
+        if (self.connectTimer) {
             [self.connectTimer invalidate];
             self.connectTimer = nil;
-            [self.hud hideAnimated:true];
-            [RMHelper showToast:@"The connection fails" toView:RMHelper.getCurrentVC.view];
         }
+        [self.hud hideAnimated:true];
+        [RMHelper showToast:@"The connection fails" toView:RMHelper.getCurrentVC.view];
     });
 }
 
@@ -378,8 +378,10 @@ static unsigned char auchCRCLo[] = {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.hud hideAnimated:true];
     });
-    [self.timer invalidate];
-    self.timer = nil;
+    if (self.timer) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
     if (self.peripheral != nil) {
         [self.centralManager cancelPeripheralConnection:self.peripheral];
         self.peripheral = nil;
@@ -446,25 +448,23 @@ static unsigned char auchCRCLo[] = {
     }
     NSLog(@"name=%@,%@",peripheral.name,RSSI);
     if (self.isAutoConnect) {
-        if (self.bluetoothName && [self.bluetoothName isEqualToString:peripheral.name]) {
+        if (self.bluetoothName && [peripheral.name containsString:self.bluetoothName]) {
             self.peripheral = peripheral;
             self.peripheral.delegate = self;
             //发起连接的命令
             [self.centralManager connectPeripheral:self.peripheral options:nil];
-        }else{
-            if([peripheral.name hasPrefix:@"Moonflow"]){
-                self.peripheral = peripheral;
-                self.peripheral.delegate = self;
-//                发起连接的命令
-                [self.centralManager connectPeripheral:self.peripheral options:nil];
-            }
+        }
+//            if([peripheral.name hasPrefix:@"Moonflow"]){
+//                self.peripheral = peripheral;
+//                self.peripheral.delegate = self;
+//                [self.centralManager connectPeripheral:self.peripheral options:nil];
+//            }
 //            if([peripheral.name isEqualToString:@"iPad"]){
 //                self.peripheral = peripheral;
 //                self.peripheral.delegate = self;
 ////                发起连接的命令
 //                [self.centralManager connectPeripheral:self.peripheral options:nil];
 //            }
-        }
     }
     if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothdidDiscoverPeripheral:RSSI:)]) {
         [self.delegate bluetoothdidDiscoverPeripheral:peripheral RSSI:RSSI];
@@ -474,29 +474,29 @@ static unsigned char auchCRCLo[] = {
 /// 蓝牙于后台被杀掉时，重连之后会首先调用此方法，可以获取蓝牙恢复时的各种状态
 - (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary<NSString *,id> *)dict{
     NSLog(@"已连接外设=%@",dict);
-    NSArray * peripheralArray = dict[@"kCBRestoredPeripherals"];
-    for (CBPeripheral * peripheral in peripheralArray) {
-        if (peripheral.state == CBPeripheralStateConnected) {
-            for (CBService * service in peripheral.services) {
-                NSLog(@"UUIDString=%@",service.UUID.UUIDString);
-                if ([service.UUID.UUIDString isEqualToString:UUID_CONTROL_SERVICE]) {
-                    self.peripheral = peripheral;
-                    self.peripheral.delegate = self;
-                    //发现特定服务的特征值
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self.peripheral discoverCharacteristics:nil forService:service];
-                        if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidConnectPeripheral:)]) {
-                            [self.delegate bluetoothDidConnectPeripheral:peripheral];
-                        }
-                    });
-                    return;
-                }
-            }
-        }else{
-            [self disconnectPeripheral];
-            [self startScanning];
-        }
-    }
+//    NSArray * peripheralArray = dict[@"kCBRestoredPeripherals"];
+//    for (CBPeripheral * peripheral in peripheralArray) {
+//        if (peripheral.state == CBPeripheralStateConnected) {
+//            for (CBService * service in peripheral.services) {
+//                NSLog(@"UUIDString=%@",service.UUID.UUIDString);
+//                if ([service.UUID.UUIDString isEqualToString:UUID_CONTROL_SERVICE]) {
+//                    self.peripheral = peripheral;
+//                    self.peripheral.delegate = self;
+//                    //发现特定服务的特征值
+//                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                        [self.peripheral discoverCharacteristics:nil forService:service];
+//                        if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidConnectPeripheral:)]) {
+//                            [self.delegate bluetoothDidConnectPeripheral:peripheral];
+//                        }
+//                    });
+//                    return;
+//                }
+//            }
+//        }else{
+//            [self disconnectPeripheral];
+//            [self startScanning];
+//        }
+//    }
 }
 
 /// 连接成功的回调
@@ -505,10 +505,8 @@ static unsigned char auchCRCLo[] = {
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral{
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.hud hideAnimated:true];
-        if (self.connectTimer) {
-            [self.connectTimer invalidate];
-            self.connectTimer = nil;
-        }
+        [self.connectTimer invalidate];
+        self.connectTimer = nil;
     });
     _isConnented = true;
     [self.centralManager stopScan];
@@ -532,10 +530,8 @@ static unsigned char auchCRCLo[] = {
     NSLog(@"连接失败%s",__func__);
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.hud hideAnimated:true];
-        if (self.connectTimer) {
-            [self.connectTimer invalidate];
-            self.connectTimer = nil;
-        }
+        [self.connectTimer invalidate];
+        self.connectTimer = nil;
     });
 }
 
@@ -547,11 +543,6 @@ static unsigned char auchCRCLo[] = {
     NSLog(@"连接断开%s",__func__);
     _isConnented = false;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.hud hideAnimated:true];
-        if (self.connectTimer) {
-            [self.connectTimer invalidate];
-            self.connectTimer = nil;
-        }
         if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidDisconnectPeripheral:)]) {
             [self.delegate bluetoothDidDisconnectPeripheral:peripheral];
         }

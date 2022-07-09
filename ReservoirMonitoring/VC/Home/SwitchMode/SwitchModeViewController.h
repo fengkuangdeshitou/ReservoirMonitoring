@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SwitchModeViewController : BaseViewController
 
-@property(nonatomic,strong) NSString * deviceId;
+@property(nonatomic,copy) NSString * deviceId;
 
 @end
 

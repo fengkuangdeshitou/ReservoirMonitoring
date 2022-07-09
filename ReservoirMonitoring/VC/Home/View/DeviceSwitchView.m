@@ -124,8 +124,10 @@
             
     } success:^(NSDictionary * _Nonnull result) {
         self.dataArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-        NSArray * array = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
-        self.currentDevice = array.firstObject;
+        NSArray<DevideModel*> * array = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
+        if (array.count>0) {
+            self.currentDevice = array.firstObject;
+        }
         [self.tableView reloadData];
         [self.otherTableView reloadData];
     } failure:^(NSString * _Nonnull errorMsg) {
