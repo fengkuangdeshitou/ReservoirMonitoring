@@ -10,6 +10,7 @@
 
 #import "RMHelper.h"
 #import "UIColor+HexString.h"
+#import "UIView+Hud.h"
 #import "GlobalValue.h"
 #import "NSString+Localiced.h"
 #import "BaseViewController+BarButtonItem.h"

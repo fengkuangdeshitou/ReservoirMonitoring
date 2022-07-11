@@ -10,6 +10,8 @@
 #import "WifiInfoTableViewCell.h"
 #import "WifiAlertView.h"
 #import "BleManager.h"
+#import <NetworkExtension/NetworkExtension.h>
+//#import <NetworkExtension/NEHotspotConfigurationManager.h>
 
 @interface WifiViewController ()<UITableViewDelegate>
 
@@ -47,6 +49,9 @@
 
 - (void)wifiChangeClick:(UIButton *)btn{
     btn.selected = !btn.selected;
+    [[NEHotspotConfigurationManager sharedManager] getConfiguredSSIDsWithCompletionHandler:^(NSArray<NSString *> * _Nonnull wifiArray) {
+            
+    }];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -60,6 +65,23 @@
         }];
 //        [BleManager.shareInstance readWithCMDString:@"620" count:1];
     }
+    
+//    NEHotspotConfiguration * hotmode = [[NEHotspotConfiguration alloc] initWithSSID:@"wifiSSID" passphrase:@"password" isWEP:NO];
+//    __weak typeof(self) weakSelf = self;
+//    [[NEHotspotConfigurationManager sharedManager] applyConfiguration:hotmode completionHandler:^(NSError * _Nullable error) {
+//        if (error) {
+//            if (error.code == NEHotspotConfigurationErrorAlreadyAssociated) {
+//                //已连接
+//            }
+//            else if (error.code == NEHotspotConfigurationErrorUserDenied) {
+//                //用户点击取消
+//            }
+//            else{
+//                //注：这个方法存在一个问题，如果你加入一个不存在的WiFi，会弹出无法加入WiFi的弹框，但是本方法的回调error没有值。在这里，我是通过判断当前wifi是否是我要加入的wifi来解决这个问题的
+//            }
+//        }
+//    }];
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

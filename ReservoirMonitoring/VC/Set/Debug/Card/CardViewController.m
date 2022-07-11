@@ -12,7 +12,11 @@
 @interface CardViewController ()
 
 @property(nonatomic,weak)IBOutlet UIButton * queryBtn;
+@property(nonatomic,weak)IBOutlet UIButton * statusBtn;
 @property(nonatomic,weak)IBOutlet UIButton * activaBtn;
+@property(nonatomic,weak)IBOutlet UILabel * sn;
+@property(nonatomic,weak)IBOutlet UILabel * iccid;
+@property(nonatomic,weak)IBOutlet UILabel * state;
 
 @property(nonatomic,strong)AFHTTPSessionManager * manager;
 @property(nonatomic,strong)NSMutableDictionary * header;
@@ -51,9 +55,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self.queryBtn setTitle:@"Query" forState:UIControlStateNormal];
+    [self.queryBtn setTitle:@"Query sn and iccid" forState:UIControlStateNormal];
+    [self.statusBtn setTitle:@"Query device for network state" forState:UIControlStateNormal];
     [self.activaBtn setTitle:@"Activation" forState:UIControlStateNormal];
     [self.queryBtn showBorderWithRadius:25];
+    [self.statusBtn showBorderWithRadius:25];
     [self.activaBtn showBorderWithRadius:25];
 }
 
@@ -64,24 +70,24 @@
     }
     [BleManager.shareInstance readWithDictionary:@{@"type":@"SN-ICCID"} finish:^(NSDictionary * _Nonnull dict) {
         self.cardDictionary = dict;
-        NSData * data = [NSJSONSerialization dataWithJSONObject:self.cardDictionary options:NSJSONWritingSortedKeys error:nil];
-        NSString * string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [RMHelper showToast:string toView:self.view];
+            self.sn.text = self.cardDictionary[@"SN"];
+            self.iccid.text = self.cardDictionary[@"ICCID"];
         });
-        [self quereWithDevices:self.cardDictionary[@"SN"]];
     }];
 }
 
-- (void)quereWithDevices:(NSString *)device{
-    [self.manager POST:@"https://fudascms.vidagrid.com/querystatus" parameters:@{@"devices":@[device]} headers:self.header progress:^(NSProgress * _Nonnull uploadProgress) {
+- (IBAction)queryStatus:(id)sender{
+    if (!self.cardDictionary) {
+        [RMHelper showToast:@"Please connect device" toView:self.view];
+        return;
+    }
+    [self.manager POST:@"https://fudascms.vidagrid.com/querystatus" parameters:@{@"devices":@[self.cardDictionary[@"SN"]]} headers:self.header progress:^(NSProgress * _Nonnull uploadProgress) {
             
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"json=%@",json);
-        NSData * data = [NSJSONSerialization dataWithJSONObject:json options:NSJSONWritingSortedKeys error:nil];
-        NSString * string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [RMHelper showToast:string toView:self.view];
+        self.state.text = [NSString stringWithFormat:@"Device status:%@",json[@"details"][0][@"msg"]];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [RMHelper showToast:error.description toView:self.view];
     }];
@@ -96,10 +102,7 @@
             
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"res=%@",json);
-        NSData * data = [NSJSONSerialization dataWithJSONObject:json options:NSJSONWritingSortedKeys error:nil];
-        NSString * string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [RMHelper showToast:string toView:self.view];
+        [RMHelper showToast:json[@"details"][0][@"msg"] toView:self.view];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error=%@,%@",error,task.currentRequest.allHTTPHeaderFields);
         [RMHelper showToast:error.description toView:self.view];

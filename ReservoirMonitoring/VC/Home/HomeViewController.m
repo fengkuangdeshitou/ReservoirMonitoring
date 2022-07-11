@@ -109,6 +109,9 @@
 }
 
 - (void)getBluetoothData{
+    if (BleManager.shareInstance.isConnented) {
+        [self.view showHUDToast:@"Loading"];
+    }
     self.manager.delegate = self;
     NSString * deviceId = self.model.deviceId;
     self.model = [[DevideModel alloc] init];
@@ -226,6 +229,7 @@
             dispatch_semaphore_signal(semaphore);
             [self.tableView reloadData];
             [self.refreshController endRefreshing];
+            [self.view hiddenHUD];
         });
     
     });

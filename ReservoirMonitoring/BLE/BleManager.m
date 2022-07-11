@@ -448,10 +448,9 @@ static unsigned char auchCRCLo[] = {
     }
     NSLog(@"name=%@,%@",peripheral.name,RSSI);
     if (self.isAutoConnect) {
-        if (self.bluetoothName && [peripheral.name containsString:self.bluetoothName]) {
+        if (self.bluetoothName && [peripheral.name hasPrefix:@"EPCUBE"] && [peripheral.name containsString:self.bluetoothName]) {
             self.peripheral = peripheral;
             self.peripheral.delegate = self;
-            //发起连接的命令
             [self.centralManager connectPeripheral:self.peripheral options:nil];
         }
 //            if([peripheral.name hasPrefix:@"Moonflow"]){

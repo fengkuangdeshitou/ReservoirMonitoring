@@ -153,10 +153,7 @@
                 NSDictionary * item = @{@"startTime":@"",@"endTime":@"",@"price":@""};
                 [self.touArray addObject:item];
                 dispatch_semaphore_signal(semaphore);
-            }
-
-            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-            if (self.touCount.intValue == 1) {
+            }else if (self.touCount.intValue == 1) {
                 [BleManager.shareInstance readWithCMDString:@"702" count:4 finish:^(NSArray * _Nonnull array) {
                     NSDictionary * item = @{
                         @"startTime":[NSString stringWithFormat:@"%@:%@",array[0],array[1]],
@@ -165,11 +162,16 @@
                     [self.touArray addObject:item];
                     dispatch_semaphore_signal(semaphore);
                 }];
-            }else{
-                dispatch_semaphore_signal(semaphore);
-            }
-            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-            if (self.touCount.intValue == 2) {
+            }else if (self.touCount.intValue == 2) {
+                [BleManager.shareInstance readWithCMDString:@"702" count:4 finish:^(NSArray * _Nonnull array) {
+                    NSDictionary * item = @{
+                        @"startTime":[NSString stringWithFormat:@"%@:%@",array[0],array[1]],
+                        @"endTime":[NSString stringWithFormat:@"%@:%@",array[2],array[3]],
+                    };
+                    [self.touArray addObject:item];
+                    dispatch_semaphore_signal(semaphore);
+                }];
+                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance readWithCMDString:@"708" count:4 finish:^(NSArray * _Nonnull array) {
                     NSDictionary * item = @{
                         @"startTime":[NSString stringWithFormat:@"%@:%@",array[0],array[1]],
@@ -178,11 +180,25 @@
                     [self.touArray addObject:item];
                     dispatch_semaphore_signal(semaphore);
                 }];
-            }else{
-                dispatch_semaphore_signal(semaphore);
-            }
-            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-            if (self.touCount.intValue == 3) {
+            }else if (self.touCount.intValue == 3) {
+                [BleManager.shareInstance readWithCMDString:@"702" count:4 finish:^(NSArray * _Nonnull array) {
+                    NSDictionary * item = @{
+                        @"startTime":[NSString stringWithFormat:@"%@:%@",array[0],array[1]],
+                        @"endTime":[NSString stringWithFormat:@"%@:%@",array[2],array[3]],
+                    };
+                    [self.touArray addObject:item];
+                    dispatch_semaphore_signal(semaphore);
+                }];
+                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+                [BleManager.shareInstance readWithCMDString:@"708" count:4 finish:^(NSArray * _Nonnull array) {
+                    NSDictionary * item = @{
+                        @"startTime":[NSString stringWithFormat:@"%@:%@",array[0],array[1]],
+                        @"endTime":[NSString stringWithFormat:@"%@:%@",array[2],array[3]],
+                    };
+                    [self.touArray addObject:item];
+                    dispatch_semaphore_signal(semaphore);
+                }];
+                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance readWithCMDString:@"70E" count:4 finish:^(NSArray * _Nonnull array) {
                     NSDictionary * item = @{
                         @"startTime":[NSString stringWithFormat:@"%@:%@",array[0],array[1]],
@@ -192,6 +208,8 @@
                     dispatch_semaphore_signal(semaphore);
                 }];
             }else{
+                NSDictionary * item = @{@"startTime":@"",@"endTime":@"",@"price":@""};
+                [self.touArray addObject:item];
                 dispatch_semaphore_signal(semaphore);
             }
         }
@@ -216,6 +234,7 @@
     [params setValue:self.deviceId forKey:@"devId"];
     [params setValue:weather forKey:@"weatherWatch"];
     [params setValue:self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2" forKey:@"workStatus"];
+    NSMutableArray * offPeakArray = [[NSMutableArray alloc] init];
     if (self.flag == 0) {
         NSString * selfConsumptioinReserveSoc = [NSString stringWithFormat:@"%.0f",cell1.progress];
         [params setValue:selfConsumptioinReserveSoc forKey:@"selfConsumptioinReserveSoc"];
@@ -224,7 +243,6 @@
         [params setValue:backupPowerReserveSoc forKey:@"backupPowerReserveSoc"];
     }else if (self.flag == 2) {
         [params setValue:[NSString stringWithFormat:@"%@",cell.switchBtn.selected ? @"1" : @"0"] forKey:@"allowChargingXiaGrid"];
-        NSMutableArray * offPeakArray = [[NSMutableArray alloc] init];
         for (int i=0; i<[cell.dataArray[0] count]; i++) {
             NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
@@ -290,7 +308,7 @@
                 }];
             }else{
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                [BleManager.shareInstance writeWithCMDString:@"6FF" array:@[[NSString stringWithFormat:@"%ld",[cell.dataArray[0] count]]] finish:^{
+                [BleManager.shareInstance writeWithCMDString:@"6FF" array:@[[NSString stringWithFormat:@"%ld",offPeakArray.count]] finish:^{
                     dispatch_semaphore_signal(semaphore);
                 }];
                 
@@ -371,14 +389,10 @@
 }
 
 - (void)switchWithParams:(NSDictionary *)params{
-    NSLog(@"params=%@",params);
     [Request.shareInstance postUrl:SwitchMode params:params progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         [RMHelper showToast:@"swithc mode success" toView:self.view];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.navigationController popToRootViewControllerAnimated:true];
-        });
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];
