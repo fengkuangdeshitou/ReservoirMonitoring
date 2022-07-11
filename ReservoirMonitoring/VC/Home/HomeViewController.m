@@ -111,6 +111,8 @@
 - (void)getBluetoothData{
     if (BleManager.shareInstance.isConnented) {
         [self.view showHUDToast:@"Loading"];
+    }else{
+        [self.refreshController endRefreshing];
     }
     self.manager.delegate = self;
     NSString * deviceId = self.model.deviceId;

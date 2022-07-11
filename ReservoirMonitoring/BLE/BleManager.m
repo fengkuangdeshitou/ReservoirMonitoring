@@ -447,14 +447,17 @@ static unsigned char auchCRCLo[] = {
         return;
     }
     NSLog(@"name=%@,%@",peripheral.name,RSSI);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [RMHelper showToast:[NSString stringWithFormat:@"wifi:%@,sgsn:%@",peripheral.name,self.bluetoothName] toView:UIApplication.sharedApplication.keyWindow];
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [RMHelper showToast:[NSString stringWithFormat:@"wifi:%@,sgsn:%@",peripheral.name,self.bluetoothName] toView:UIApplication.sharedApplication.keyWindow];
+//    });
     if (self.isAutoConnect) {
-        if (self.bluetoothName && [peripheral.name hasPrefix:@"EPCUBE"] && [peripheral.name containsString:self.bluetoothName]) {
-            self.peripheral = peripheral;
-            self.peripheral.delegate = self;
-            [self.centralManager connectPeripheral:self.peripheral options:nil];
+        if ([peripheral.name hasPrefix:@"EPCUBE"]) {
+            NSString * sn = [self.bluetoothName componentsSeparatedByString:@"-"].lastObject;
+            if ([self.rtusn containsString:sn]) {
+                self.peripheral = peripheral;
+                self.peripheral.delegate = self;
+                [self.centralManager connectPeripheral:self.peripheral options:nil];
+            }
         }
 //            if([peripheral.name hasPrefix:@"Moonflow"]){
 //                self.peripheral = peripheral;

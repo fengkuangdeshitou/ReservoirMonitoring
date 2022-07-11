@@ -116,7 +116,7 @@
         return;
     }
     if (!self.statusBtn.selected) {
-        [RMHelper showToast:@"Please read and agree EULA".localized toView:self.view];
+        [RMHelper showToast:@"Please agree User Agreement and Privacy policy".localized toView:self.view];
         return;
     }
     for (int i=0; i<cells.count; i++) {

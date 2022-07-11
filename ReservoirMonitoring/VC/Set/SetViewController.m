@@ -87,7 +87,7 @@
             [self.navigationController pushViewController:info animated:true];
         }else if(indexPath.row == 1){
             NetworkViewController * network = [[NetworkViewController alloc] init];
-            network.title = self.dataArray[indexPath.row];
+            network.title = @"Bluetooth config".localized;
             network.hidesBottomBarWhenPushed = true;
             [self.navigationController pushViewController:network animated:true];
         }else if(indexPath.row == 2){

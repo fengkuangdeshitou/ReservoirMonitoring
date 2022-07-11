@@ -87,7 +87,7 @@
         [closeButton addTarget:self action:@selector(closeAction) forControlEvents:UIControlEventTouchUpInside];
         [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.top.bottom.mas_equalTo(0);
-            make.width.mas_equalTo(44);
+            make.width.mas_equalTo(50);
         }];
         self.tableView.tableHeaderView = headerView;
         
@@ -173,7 +173,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return tableView == self.tableView ? 2 : (self.searchArray.count>0?self.searchArray.count:self.dataArray.count);
+    return tableView == self.tableView ? 2 : (self.search.text.length>0? self.searchArray.count:self.dataArray.count);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

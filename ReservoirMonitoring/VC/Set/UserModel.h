@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 //头像
 @property(nonatomic,strong) NSString * avatar;
 
+@property(nonatomic,strong) NSString * defDevSgSn;
+
 @end
 
 NS_ASSUME_NONNULL_END

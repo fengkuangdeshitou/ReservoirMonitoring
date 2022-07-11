@@ -29,7 +29,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    UIBarButtonItem * add = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDevice)];
+    UIBarButtonItem * add = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_more"] style:UIBarButtonItemStylePlain target:self action:@selector(addDevice)];
     self.navigationItem.rightBarButtonItem = add;
     self.tableView.rowHeight = 80;
     [self.tableView registerNib:[UINib  nibWithNibName:NSStringFromClass([NetworkTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([NetworkTableViewCell class])];
@@ -63,9 +63,13 @@
 }
 
 - (void)addDevice{
-    AddDeviceViewController * add = [[AddDeviceViewController alloc] init];
-    add.title = @"Add Device".localized;
-    [self.navigationController pushViewController:add animated:true];
+//    AddDeviceViewController * add = [[AddDeviceViewController alloc] init];
+//    add.title = @"Add Device".localized;
+//    [self.navigationController pushViewController:add animated:true];
+    WifiViewController * wifi = [[WifiViewController alloc] init];
+    wifi.title = @"Wi-Fi config".localized;
+    wifi.model = self.model;
+    [self.navigationController pushViewController:wifi animated:true];
 }
 
 - (void)bluetoothDidUpdateState:(CBCentralManager *)central{
@@ -153,10 +157,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        WifiViewController * wifi = [[WifiViewController alloc] init];
-        wifi.title = @"Wi-Fi config".localized;
-        wifi.model = self.model;
-        [self.navigationController pushViewController:wifi animated:true];
+//        WifiViewController * wifi = [[WifiViewController alloc] init];
+//        wifi.title = @"Wi-Fi config".localized;
+//        wifi.model = self.model;
+//        [self.navigationController pushViewController:wifi animated:true];
     }else{
         if (self.model.isConnected) {
             [RMHelper showToast:@"do not reconnect" toView:self.view];
@@ -164,7 +168,8 @@
             DevideModel * model = self.dataArray[indexPath.row];
             if ([model.rtuSn isEqualToString:self.model.rtuSn]) {
                 self.manager.delegate = self;
-                self.manager.bluetoothName = model.sgSn;
+                self.manager.bluetoothName = model.name;
+                self.manager.rtusn = model.rtuSn;
                 [self.manager startScanning];
             }else{
                 [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:[NSString stringWithFormat:@"Please switch the %@ to the current device",self.model.rtuSn]];

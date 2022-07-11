@@ -42,7 +42,7 @@
             @{@"title":@"Contact name".localized,@"placeholder":self.model.nickName},
             @{@"title":@"Email".localized,@"placeholder":self.model.email},
             @{@"title":@"Phone".localized,@"placeholder":self.model.phonenumber},
-            @{@"title":@"SN",@"placeholder":@"".localized},
+            @{@"title":@"SN",@"placeholder":self.model.defDevSgSn},
             @{@"title":@"Case Reason",@"placeholder":@"None".localized},
             @{@"title":@"Description".localized,@"placeholder":@"".localized}
             ]];
@@ -99,9 +99,9 @@
                               @"name":self.model.nickName,
                               @"email":self.model.email,
                               @"phone":self.model.phonenumber,
-                              @"subject":@"abc",
-                              @"reason":@"abc",
-                              @"description":@"a",
+                              @"subject":@"",
+                              @"reason":self.dataArray[4][@"placeholder"],
+                              @"description":@"",
                               @"external":@"1"};
     NSLog(@"params=%@",params);
     AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
@@ -140,7 +140,7 @@
     }else{
         InputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
-        if (indexPath.row <= 2) {
+        if (indexPath.row <= 3) {
             cell.textfield.text = self.dataArray[indexPath.row][@"placeholder"];
             cell.textfield.userInteractionEnabled = false;
         }else{

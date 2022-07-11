@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign)BOOL isAutoConnect;
 /// 蓝牙名称
 @property(nonatomic,copy)NSString * bluetoothName;
+@property(nonatomic,copy)NSString * rtusn;
 /// 是否已连接
 @property(nonatomic,assign,readonly)BOOL isConnented;
 
