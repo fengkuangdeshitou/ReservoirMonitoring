@@ -35,6 +35,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// 获取数据来源是否为蓝牙
 + (BOOL)getLoadDataForBluetooth;
 
+/// 判断两个时间段是否有交集
+/// @param startTime1 第一个开始时间
+/// @param startTime2 第一个结束时间
+/// @param endTime1 第二个开始时间
+/// @param endTime2 第二个结束时间
++ (BOOL)isBetweenStartTime1:(NSString *)startTime1
+                 startTime2:(NSString *)startTime2
+                   endTime1:(NSString *)endTime1
+                   endTime2:(NSString *)endTime2;
+
++ (BOOL)hasRepeatedTimeForArray:(NSArray *)timeArray;
 
 @end
 

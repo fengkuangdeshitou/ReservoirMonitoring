@@ -107,6 +107,9 @@
 }
 
 - (void)loadBluetoothData{
+    if (BleManager.shareInstance.isConnented) {
+        [self.view showHUDToast:@"Loading"];
+    }
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         [BleManager.shareInstance readWithCMDString:@"621" count:1 finish:^(NSArray * _Nonnull array) {
@@ -217,6 +220,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"reload");
             [self.tableView reloadData];
+            [self.view hiddenHUD];
         });
     });
 }
@@ -392,7 +396,12 @@
     [Request.shareInstance postUrl:SwitchMode params:params progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
-        [RMHelper showToast:@"swithc mode success" toView:self.view];
+        BOOL value = [result[@"data"] boolValue];
+        if (value) {
+            [RMHelper showToast:@"swithc mode success" toView:self.view];
+        }else{
+            [RMHelper showToast:result[@"message"] toView:self.view];
+        }
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];
@@ -458,7 +467,7 @@
             if (self.flag == indexPath.section) {
                 return 77;
             }else{
-                return 0.001;
+                return 0.1;
             }
         }
     }

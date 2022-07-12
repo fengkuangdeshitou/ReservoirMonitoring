@@ -18,7 +18,6 @@
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,strong) DevideModel * model;
-@property(nonatomic,strong) BleManager * manager;
 @property(nonatomic,strong) NSArray * dataArray;
 
 @end
@@ -29,12 +28,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    UIBarButtonItem * add = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_more"] style:UIBarButtonItemStylePlain target:self action:@selector(addDevice)];
+    UIBarButtonItem * add = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(addDevice)];
     self.navigationItem.rightBarButtonItem = add;
     self.tableView.rowHeight = 80;
     [self.tableView registerNib:[UINib  nibWithNibName:NSStringFromClass([NetworkTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([NetworkTableViewCell class])];
-    self.manager = BleManager.shareInstance;
-    self.manager.delegate = self;
     [self getDeviceList];
 }
 
@@ -108,7 +105,6 @@
                     break;
                 case CBManagerStatePoweredOn:{
                     NSLog(@"蓝牙已开启");
-                    [BleManager.shareInstance startScanning];
                     break;;
                 }
             }
@@ -167,10 +163,20 @@
         }else{
             DevideModel * model = self.dataArray[indexPath.row];
             if ([model.rtuSn isEqualToString:self.model.rtuSn]) {
-                self.manager.delegate = self;
-                self.manager.bluetoothName = model.name;
-                self.manager.rtusn = model.rtuSn;
-                [self.manager startScanning];
+                BleManager.shareInstance.bluetoothName = model.name;
+                BleManager.shareInstance.rtusn = model.rtuSn;
+                BleManager.shareInstance.delegate = self;
+                [BleManager.shareInstance startScanning];
+                
+                
+                if ([model.name hasPrefix:@"EPCUBE"]) {
+                    NSString * sn = [model.name componentsSeparatedByString:@"-"].lastObject;
+                    if ([model.rtuSn containsString:sn]) {
+                        NSLog(@"能连接");
+                    }
+                }
+                
+                
             }else{
                 [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:[NSString stringWithFormat:@"Please switch the %@ to the current device",self.model.rtuSn]];
             }

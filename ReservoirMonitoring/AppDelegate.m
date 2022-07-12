@@ -33,6 +33,8 @@
     }else{
         [self loadLoginController];
     }
+//    BOOL result = [RMHelper hasRepeatedTimeForArray:@[@"00:01_00:02",@"00:02_00:03",@"00:01_00:03"]];
+//    NSLog(@"时间交集=%@",result?@"有交集":@"无交集");
     return YES;
 }
 

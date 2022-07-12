@@ -71,8 +71,12 @@
     [BleManager.shareInstance readWithDictionary:@{@"type":@"SN-ICCID"} finish:^(NSDictionary * _Nonnull dict) {
         self.cardDictionary = dict;
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.sn.text = self.cardDictionary[@"SN"];
-            self.iccid.text = self.cardDictionary[@"ICCID"];
+            if (![self.cardDictionary[@"SN"] isEqual:[NSNull null]]) {
+                self.sn.text = self.cardDictionary[@"SN"];
+            }
+            if (![self.cardDictionary[@"ICCID"] isEqual:[NSNull null]]) {
+                self.iccid.text = self.cardDictionary[@"ICCID"];
+            }
         });
     }];
 }
@@ -87,7 +91,9 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"json=%@",json);
-        self.state.text = [NSString stringWithFormat:@"Device status:%@",json[@"details"][0][@"msg"]];
+        if ([json[@"details"] count] > 0) {
+            self.state.text = [NSString stringWithFormat:@"Device status:%@",json[@"details"][0][@"msg"]];
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [RMHelper showToast:error.description toView:self.view];
     }];

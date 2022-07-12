@@ -21,7 +21,7 @@
         [self.dataArray replaceObjectAtIndex:0 withObject:touArray];
     }
     CGFloat height = self.tableView.contentSize.height;
-    if (height != [[NSUserDefaults.standardUserDefaults objectForKey:TIME_TABLEVIEW_HEIGHT_CHANGE] floatValue]) {
+    if (ceilf(height) != ceilf([[NSUserDefaults.standardUserDefaults objectForKey:TIME_TABLEVIEW_HEIGHT_CHANGE] floatValue])) {
         [self updateTableViewHeight];
     }
 }
@@ -108,10 +108,10 @@
 }
 
 - (void)updateTableViewHeight{
+    [self.tableView setNeedsLayout];
+    [self.tableView layoutIfNeeded];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableView setNeedsLayout];
-        [self.tableView layoutIfNeeded];
-        [NSUserDefaults.standardUserDefaults setValue:[NSNumber numberWithFloat:self.tableView.contentSize.height] forKey:TIME_TABLEVIEW_HEIGHT_CHANGE];
+        [NSUserDefaults.standardUserDefaults setValue:[NSNumber numberWithFloat:ceilf(self.tableView.contentSize.height)] forKey:TIME_TABLEVIEW_HEIGHT_CHANGE];
         [[NSNotificationCenter defaultCenter] postNotificationName:TIME_TABLEVIEW_HEIGHT_CHANGE object:nil];
     });
 }
@@ -148,7 +148,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, 40)];
+    UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, 30)];
     headerView.backgroundColor = UIColor.clearColor;
     
     UIView * line = [[UIView alloc] initWithFrame:CGRectMake(35, 14, 2, 12)];
@@ -170,7 +170,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 40;
+    return 30;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{

@@ -59,7 +59,7 @@ static Request * _request = nil;
         _manager.requestSerializer = [AFJSONRequestSerializer serializer];
         _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         _manager.operationQueue.maxConcurrentOperationCount = 5;
-        _manager.requestSerializer.timeoutInterval = 5;
+        _manager.requestSerializer.timeoutInterval = 10;
     }
     return _manager;
 }
@@ -101,7 +101,7 @@ static Request * _request = nil;
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSString * code = json[@"status"];
-        NSLog(@"url=%@,result=%@",url,json);
+        NSLog(@"url=%@,params:%@,result=%@",url,params,json);
         [self.hud hideAnimated:true];
         if (code.intValue == 200) {
             success(json);
