@@ -112,6 +112,10 @@
     return [UIView new];
 }
 
+- (void)dealloc{
+    [self.model removeObserver:self forKeyPath:@"isConnected"];
+}
+
 /*
 #pragma mark - Navigation
 

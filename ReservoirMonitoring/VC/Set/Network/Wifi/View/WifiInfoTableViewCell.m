@@ -39,7 +39,6 @@
     if (BleManager.shareInstance.isConnented) {
         [BleManager.shareInstance disconnectPeripheral];
     }else{
-        BleManager.shareInstance.bluetoothName = self.model.name;
         BleManager.shareInstance.rtusn = self.model.rtuSn;
         [BleManager.shareInstance startScanning];
     }

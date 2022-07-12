@@ -35,6 +35,11 @@
     [self getDeviceList];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    BleManager.shareInstance.delegate = self;
+}
+
 - (void)getDeviceList{
     [Request.shareInstance getUrl:DeviceList params:@{} progress:^(float progress) {
             
@@ -43,15 +48,7 @@
         NSArray<DevideModel*> * filter = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect == %@",@"1"]];
         if (filter.count > 0) {
             self.model = filter.firstObject;
-            NSString * filterString = [self.model.rtuSn componentsSeparatedByString:@"-"].lastObject;
-            NSLog(@"name=%@",BleManager.shareInstance.peripheral.name);
-            NSString * name = BleManager.shareInstance.peripheral.name;
-            if (name && [name rangeOfString:@"-"].location != NSNotFound) {
-                NSString * bleString = [BleManager.shareInstance.peripheral.name componentsSeparatedByString:@"-"].lastObject;
-                if ([filterString rangeOfString:bleString].location != NSNotFound && BleManager.shareInstance.peripheral.state == 2) {
-                    self.model.isConnected = true;
-                }
-            }
+            self.model.isConnected = BleManager.shareInstance.isConnented;
         }
         [self.tableView reloadData];
     } failure:^(NSString * _Nonnull errorMsg) {
@@ -163,20 +160,8 @@
         }else{
             DevideModel * model = self.dataArray[indexPath.row];
             if ([model.rtuSn isEqualToString:self.model.rtuSn]) {
-                BleManager.shareInstance.bluetoothName = model.name;
                 BleManager.shareInstance.rtusn = model.rtuSn;
-                BleManager.shareInstance.delegate = self;
                 [BleManager.shareInstance startScanning];
-                
-                
-                if ([model.name hasPrefix:@"EPCUBE"]) {
-                    NSString * sn = [model.name componentsSeparatedByString:@"-"].lastObject;
-                    if ([model.rtuSn containsString:sn]) {
-                        NSLog(@"能连接");
-                    }
-                }
-                
-                
             }else{
                 [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:[NSString stringWithFormat:@"Please switch the %@ to the current device",self.model.rtuSn]];
             }
