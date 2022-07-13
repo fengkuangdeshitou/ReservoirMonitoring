@@ -6,6 +6,7 @@
 //
 
 #import "UpdateViewController.h"
+#import "DevideModel.h"
 
 @interface UpdateViewController ()
 
@@ -31,16 +32,46 @@
     
     [self.update showBorderWithRadius:25];
     [self.update setTitle:@"Check for updates".localized forState:UIControlStateNormal];
-    NSString * version = [NSBundle.mainBundle infoDictionary][@"CFBundleShortVersionString"];
-    self.version.text = [@"Firmware version:".localized stringByAppendingString:version];
-    
+    [self getDeviceList];
 }
 
-- (void)getDeviceInfo{
-    [Request.shareInstance getUrl:QueryFirmwareInfo params:@{@"devId":@""} progress:^(float progress) {
+- (void)getDeviceList{
+    [Request.shareInstance getUrl:DeviceList params:@{} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
+        NSArray * modelArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        NSArray<DevideModel*> * array = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
+        if (array.count > 0) {
+            DevideModel * model = array.firstObject;
+            [self getDeviceInfoWithDevId:model.deviceId];
+        }
+    } failure:^(NSString * _Nonnull errorMsg) {
+
+    }];
+}
+
+- (void)getDeviceInfoWithDevId:(NSString *)devId{
+    [Request.shareInstance getUrl:QueryFirmwareInfo params:@{@"devId":devId} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        self.update.selected = [result[@"data"][@"aotuUpdateFirmware"] boolValue];
+        NSString * version = [NSString stringWithFormat:@"%@",result[@"data"][@"firmwareVersion"]];
+        self.version.text = [@"Firmware version:".localized stringByAppendingString:version];
+    } failure:^(NSString * _Nonnull errorMsg) {
         
+    }];
+}
+
+- (IBAction)autoUpdateAction:(UIButton *)sender{
+    [Request.shareInstance postUrl:CommitAotuUpdateVersion params:@{@"aotuUpdateFirmware":sender.selected?@"1":@"0"} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        BOOL value = [result[@"data"] boolValue];
+        if (value) {
+            sender.selected = !sender.selected;
+        }else{
+            [RMHelper showToast:result[@"message"] toView:self.view];
+        }
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];

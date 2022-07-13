@@ -59,10 +59,12 @@ NSString * const QueryDataElectricity = @"/device/queryDataElectricity";
 
 NSString * const QueryDataGraph = @"/device/queryDataGraph";
 
-NSString * const Agreement = @"";
+NSString * const Agreement = @"http://52.8.81.210:8500/profile/Terms%20of%20Use%20&%20Service%20290622.pdf";
 
-NSString * const Privacy = @"";
+NSString * const Privacy = @"http://52.8.81.210:8500/profile/EP%20Privacy%20Statement%20290622.pdf";
 
 NSString * const QueryFirmwareInfo = @"/user/user/queryFirmwareInfo";
+
+NSString * const CommitAotuUpdateVersion = @"/user/user/commitAotuUpdateVersion";
 
 @end

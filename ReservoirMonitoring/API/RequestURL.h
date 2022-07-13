@@ -63,6 +63,8 @@ extern NSString * const Privacy;
 
 extern NSString * const QueryFirmwareInfo;
 
+extern NSString * const CommitAotuUpdateVersion;
+
 @end
 
 NS_ASSUME_NONNULL_END
