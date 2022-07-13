@@ -63,5 +63,6 @@ NSString * const Agreement = @"";
 
 NSString * const Privacy = @"";
 
+NSString * const QueryFirmwareInfo = @"/user/user/queryFirmwareInfo";
 
 @end

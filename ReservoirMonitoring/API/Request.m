@@ -59,7 +59,7 @@ static Request * _request = nil;
         _manager.requestSerializer = [AFJSONRequestSerializer serializer];
         _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         _manager.operationQueue.maxConcurrentOperationCount = 5;
-        _manager.requestSerializer.timeoutInterval = 10;
+        _manager.requestSerializer.timeoutInterval = 60;
     }
     return _manager;
 }

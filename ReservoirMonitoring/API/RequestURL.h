@@ -61,6 +61,8 @@ extern NSString * const Agreement;
 
 extern NSString * const Privacy;
 
+extern NSString * const QueryFirmwareInfo;
+
 @end
 
 NS_ASSUME_NONNULL_END

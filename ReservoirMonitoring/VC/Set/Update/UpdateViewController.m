@@ -33,8 +33,18 @@
     [self.update setTitle:@"Check for updates".localized forState:UIControlStateNormal];
     NSString * version = [NSBundle.mainBundle infoDictionary][@"CFBundleShortVersionString"];
     self.version.text = [@"Firmware version:".localized stringByAppendingString:version];
+    
 }
 
+- (void)getDeviceInfo{
+    [Request.shareInstance getUrl:QueryFirmwareInfo params:@{@"devId":@""} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
+}
 
 /*
 #pragma mark - Navigation

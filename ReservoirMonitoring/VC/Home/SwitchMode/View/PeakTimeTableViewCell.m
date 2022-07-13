@@ -202,8 +202,7 @@
     NSInteger index = btn.tag-10;
     NSMutableArray * array = [[NSMutableArray alloc] initWithArray:self.dataArray[index]];
     [array addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
-    [self.dataArray removeObjectAtIndex:index];
-    [self.dataArray insertObject:array atIndex:index];
+    [self.dataArray replaceObjectAtIndex:index withObject:array];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.dataArray[index] count]-1 inSection:index]] withRowAnimation:UITableViewRowAnimationNone];
     [self updateTableViewHeight];
 }

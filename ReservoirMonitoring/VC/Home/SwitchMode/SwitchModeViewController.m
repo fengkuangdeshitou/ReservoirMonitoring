@@ -85,7 +85,10 @@
     self.weather.text = @"Weather watch".localized;
     [self.submitButton setTitle:@"Submit".localized forState:UIControlStateNormal];
     [[NSNotificationCenter defaultCenter] addObserverForName:TIME_TABLEVIEW_HEIGHT_CHANGE object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
-        [self.tableView reloadData];
+        [UIView performWithoutAnimation:^{
+            [self.tableView beginUpdates];
+            [self.tableView endUpdates];
+        }];
     }];
     [self.submitButton showBorderWithRadius:25];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SwitchModelTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SwitchModelTableViewCell class])];
@@ -255,7 +258,10 @@
             [offPeakArray addObject:string];
         }
         [params setValue:offPeakArray forKey:@"offPeakTimeList"];
-        
+        if ([RMHelper hasRepeatedTimeForArray:offPeakArray]) {
+            [RMHelper showToast:@"Off-peak time overlap" toView:self.view];
+            return;
+        }
         NSMutableArray * peakTimeArray = [[NSMutableArray alloc] init];
         for (int i=0; i<[cell.dataArray[1] count]; i++) {
             NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:1];
@@ -265,7 +271,10 @@
             [peakTimeArray addObject:string];
         }
         [params setValue:peakTimeArray forKey:@"peakTimeList"];
-        
+        if ([RMHelper hasRepeatedTimeForArray:peakTimeArray]) {
+            [RMHelper showToast:@"Ppeak time overlap" toView:self.view];
+            return;
+        }
         NSMutableArray * superPeakTimeArray = [[NSMutableArray alloc] init];
         for (int i=0; i<[cell.dataArray[2] count]; i++) {
             NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:2];
@@ -275,6 +284,10 @@
             [superPeakTimeArray addObject:string];
         }
         [params setValue:superPeakTimeArray forKey:@"superPeakTimeList"];
+        if ([RMHelper hasRepeatedTimeForArray:superPeakTimeArray]) {
+            [RMHelper showToast:@"Super peak time overlap" toView:self.view];
+            return;
+        }
     }
     if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
         dispatch_async(dispatch_get_global_queue(0, 0), ^{

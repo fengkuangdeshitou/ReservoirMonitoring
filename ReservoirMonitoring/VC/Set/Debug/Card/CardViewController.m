@@ -69,8 +69,8 @@
         return;
     }
     [BleManager.shareInstance readWithDictionary:@{@"type":@"SN-ICCID"} finish:^(NSDictionary * _Nonnull dict) {
-        self.cardDictionary = dict;
         dispatch_async(dispatch_get_main_queue(), ^{
+            self.cardDictionary = dict;
             if (![self.cardDictionary[@"SN"] isEqual:[NSNull null]]) {
                 self.sn.text = self.cardDictionary[@"SN"];
             }
