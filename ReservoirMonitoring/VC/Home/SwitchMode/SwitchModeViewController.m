@@ -19,7 +19,6 @@
 @property(nonatomic,assign)NSInteger flag;
 @property(nonatomic,weak)IBOutlet UILabel * weather;
 @property(nonatomic,strong)NSMutableArray * progressArray;
-@property(nonatomic,strong)NSString * viagrid;
 @property(nonatomic,strong)NSString * touCount;
 @property(nonatomic,assign)BOOL allowChargingXiaGrid;
 @property(nonatomic,strong)NSMutableArray * touArray;
@@ -57,14 +56,15 @@
             NSArray * offPeakTimeList = data[@"offPeakTimeList"];
             for (int i=0; i<offPeakTimeList.count; i++) {
                 NSString * string = offPeakTimeList[i];
-                if ([string componentsSeparatedByString:@"_"].count < 2) {
-                    continue;
+                if ([string containsString:@"_"]) {
+                    NSArray * timeArray = [string componentsSeparatedByString:@"_"];
+                    NSString * startTime = timeArray[0];
+                    NSString * endTime = timeArray[1];
+                    NSDictionary * dict = @{@"startTime":startTime,@"endTime":endTime,@"price":timeArray.count>=2?timeArray[2]:@"0"};
+                    [self.touArray addObject:dict];
+                }else{
+                    [self.touArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
                 }
-                NSArray * timeArray = [string componentsSeparatedByString:@"_"];
-                NSString * startTime = timeArray[0];
-                NSString * endTime = timeArray[1];
-                NSDictionary * dict = @{@"startTime":startTime,@"endTime":endTime,@"price":timeArray[2]};
-                [self.touArray addObject:dict];
             }
         }
         [self.tableView reloadData];
@@ -98,12 +98,8 @@
     self.progressArray = [[NSMutableArray alloc] initWithArray:@[@"0",@"0",@""]];
     self.touArray = [[NSMutableArray alloc] init];
     
-    if (RMHelper.getUserType) {
-        if (RMHelper.getLoadDataForBluetooth) {
-            [self loadBluetoothData];
-        }else{
-            [self getSwitchModeData];
-        }
+    if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
+        [self loadBluetoothData];
     }else{
         [self getSwitchModeData];
     }
@@ -149,7 +145,7 @@
             }];
         }else if (self.flag == 2){
             [BleManager.shareInstance readWithCMDString:@"6FE" count:2 finish:^(NSArray * _Nonnull array) {
-                self.viagrid = array.firstObject;
+                self.allowChargingXiaGrid = [array.firstObject boolValue];
                 self.touCount = array.lastObject;
                 dispatch_semaphore_signal(semaphore);
             }];
@@ -221,9 +217,9 @@
         }
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"reload");
             [self.tableView reloadData];
             [self.view hiddenHUD];
+            dispatch_semaphore_signal(semaphore);
         });
     });
 }
@@ -313,17 +309,23 @@
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance writeWithCMDString:@"624" array:@[params[@"selfConsumptioinReserveSoc"]] finish:^{
                     dispatch_semaphore_signal(semaphore);
-                    [self switchWithParams:params];
+//                    [self switchWithParams:params];
                     [RMHelper showToast:@"Configuration success" toView:self.view];
                 }];
             }else if (self.flag == 1){
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance writeWithCMDString:@"623" array:@[params[@"backupPowerReserveSoc"]] finish:^{
                     dispatch_semaphore_signal(semaphore);
-                    [self switchWithParams:params];
+//                    [self switchWithParams:params];
                     [RMHelper showToast:@"Configuration success" toView:self.view];
                 }];
             }else{
+    
+                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+                [BleManager.shareInstance writeWithCMDString:@"6FE" array:@[self.allowChargingXiaGrid?@"1":@"0"] finish:^{
+                    dispatch_semaphore_signal(semaphore);
+                }];
+                
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance writeWithCMDString:@"6FF" array:@[[NSString stringWithFormat:@"%ld",offPeakArray.count]] finish:^{
                     dispatch_semaphore_signal(semaphore);
@@ -387,11 +389,11 @@
                     NSInteger idx = [array.firstObject intValue];
                     if (idx == 1) {
                         [RMHelper showToast:@"Configuration is successful" toView:self.view];
-                        [self switchWithParams:params];
+//                        [self switchWithParams:params];
                     }
                     if (idx == 2) {
                         [RMHelper showToast:@"In the configuration" toView:self.view];
-                        [self switchWithParams:params];
+//                        [self switchWithParams:params];
                     }
                     if (idx == 3) {
                         [RMHelper showToast:@"Configuration failed" toView:self.view];
@@ -459,14 +461,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section == 2){
-        if(self.flag == section){
-            return 2;
-        }else{
-            return 1;
-        }
-    }else{
+    if(self.flag == section){
         return 2;
+    }else{
+        return 1;
     }
 }
 

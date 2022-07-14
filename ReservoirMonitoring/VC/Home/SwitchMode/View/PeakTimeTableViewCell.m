@@ -43,39 +43,39 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([TimeTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([TimeTableViewCell class])];
     [self updateTableViewHeight];
     
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-        [BleManager.shareInstance readWithCMDString:@"6FE" count:2 finish:^(NSArray * _Nonnull array) {
-            dispatch_semaphore_signal(semaphore);
-            self.switchBtn.selected = [array.firstObject boolValue];
-            NSInteger count = [array.lastObject integerValue] == 0 ? 1 : [array.lastObject integerValue];
-            NSMutableArray * countArray = [[NSMutableArray alloc] init];
-            for (int i=0; i<count; i++) {
-                NSDictionary * dict = @{@"startTime":@"",@"endTime":@"",@"price":@""};
-                [countArray addObject:dict];
-            }
-            [self.dataArray replaceObjectAtIndex:0 withObject:countArray];
-            [self.tableView reloadData];
-        }];
-
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance readWithCMDString:@"702" count:4 finish:^(NSArray * _Nonnull array) {
-            NSLog(@"array=%@",array);
-            if (array.count < 4) {
-                return;
-            }
-            NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
-            [dict setValue:[NSString stringWithFormat:@"%@:%@",array[0],array[1]] forKey:@"startTime"];
-            [dict setValue:[NSString stringWithFormat:@"%@:%@",array[2],array[3]] forKey:@"endTime"];
-            NSMutableArray * indexArray = [[NSMutableArray alloc] initWithArray:self.dataArray[0]];
-            NSLog(@"%@",indexArray);
-
-            NSMutableArray * valueArray = [[NSMutableArray alloc] initWithArray:@[indexArray[0]]];
-            [valueArray replaceObjectAtIndex:0 withObject:dict];
-            [indexArray replaceObjectAtIndex:0 withObject:valueArray];
-            [self.dataArray replaceObjectAtIndex:0 withObject:indexArray];
-            dispatch_semaphore_signal(semaphore);
-        }];
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+//        [BleManager.shareInstance readWithCMDString:@"6FE" count:2 finish:^(NSArray * _Nonnull array) {
+//            dispatch_semaphore_signal(semaphore);
+//            self.switchBtn.selected = [array.firstObject boolValue];
+//            NSInteger count = [array.lastObject integerValue] == 0 ? 1 : [array.lastObject integerValue];
+//            NSMutableArray * countArray = [[NSMutableArray alloc] init];
+//            for (int i=0; i<count; i++) {
+//                NSDictionary * dict = @{@"startTime":@"",@"endTime":@"",@"price":@""};
+//                [countArray addObject:dict];
+//            }
+//            [self.dataArray replaceObjectAtIndex:0 withObject:countArray];
+//            [self.tableView reloadData];
+//        }];
+//
+//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+//        [BleManager.shareInstance readWithCMDString:@"702" count:4 finish:^(NSArray * _Nonnull array) {
+//            NSLog(@"array=%@",array);
+//            if (array.count < 4) {
+//                return;
+//            }
+//            NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+//            [dict setValue:[NSString stringWithFormat:@"%@:%@",array[0],array[1]] forKey:@"startTime"];
+//            [dict setValue:[NSString stringWithFormat:@"%@:%@",array[2],array[3]] forKey:@"endTime"];
+//            NSMutableArray * indexArray = [[NSMutableArray alloc] initWithArray:self.dataArray[0]];
+//            NSLog(@"%@",indexArray);
+//
+//            NSMutableArray * valueArray = [[NSMutableArray alloc] initWithArray:@[indexArray[0]]];
+//            [valueArray replaceObjectAtIndex:0 withObject:dict];
+//            [indexArray replaceObjectAtIndex:0 withObject:valueArray];
+//            [self.dataArray replaceObjectAtIndex:0 withObject:indexArray];
+//            dispatch_semaphore_signal(semaphore);
+//        }];
 //        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 //        [BleManager.shareInstance readWithCMDString:@"708" count:4 finish:^(NSArray * _Nonnull array) {
 //            if ([self.dataArray[0] count] >=2) {
@@ -104,7 +104,7 @@
 //            }
 //            dispatch_semaphore_signal(semaphore);
 //        }];
-    });
+//    });
 }
 
 - (void)updateTableViewHeight{
