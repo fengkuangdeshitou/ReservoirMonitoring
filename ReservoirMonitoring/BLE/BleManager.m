@@ -457,11 +457,19 @@ static unsigned char auchCRCLo[] = {
 //            [RMHelper showToast:[NSString stringWithFormat:@"wifi:%@",peripheral.name] toView:UIApplication.sharedApplication.keyWindow];
 //        });
         if ([peripheral.name hasPrefix:@"EPCUBE"]) {
-            NSString * sn = [peripheral.name componentsSeparatedByString:@"-"].lastObject;
-            if ([self.rtusn containsString:sn]) {
-                self.peripheral = peripheral;
-                self.peripheral.delegate = self;
-                [self.centralManager connectPeripheral:self.peripheral options:nil];
+            if ([peripheral.name containsString:@"-"]) {
+                NSString * sn = [peripheral.name componentsSeparatedByString:@"-"].lastObject;
+                if ([self.rtusn containsString:sn]) {
+                    self.peripheral = peripheral;
+                    self.peripheral.delegate = self;
+                    [self.centralManager connectPeripheral:self.peripheral options:nil];
+                }
+            }else{
+                if ([self.rtusn containsString:peripheral.name]) {
+                    self.peripheral = peripheral;
+                    self.peripheral.delegate = self;
+                    [self.centralManager connectPeripheral:self.peripheral options:nil];
+                }
             }
         }
 //        if (DEBUG) {

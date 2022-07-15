@@ -286,6 +286,7 @@
         }
     }
     if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
+        NSLog(@"self.params=%@,flag=%ld",params,self.flag);
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
             [BleManager.shareInstance writeWithCMDString:@"621" array:@[weather] finish:^{
@@ -309,18 +310,15 @@
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance writeWithCMDString:@"624" array:@[params[@"selfConsumptioinReserveSoc"]] finish:^{
                     dispatch_semaphore_signal(semaphore);
-//                    [self switchWithParams:params];
                     [RMHelper showToast:@"Configuration success" toView:self.view];
                 }];
             }else if (self.flag == 1){
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance writeWithCMDString:@"623" array:@[params[@"backupPowerReserveSoc"]] finish:^{
                     dispatch_semaphore_signal(semaphore);
-//                    [self switchWithParams:params];
                     [RMHelper showToast:@"Configuration success" toView:self.view];
                 }];
             }else{
-    
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance writeWithCMDString:@"6FE" array:@[self.allowChargingXiaGrid?@"1":@"0"] finish:^{
                     dispatch_semaphore_signal(semaphore);
@@ -331,24 +329,41 @@
                     dispatch_semaphore_signal(semaphore);
                 }];
                 
-                __block NSString * startTime0 = @"";
-                __block NSString * endTime0 = @"";
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-                    TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
-                    startTime0 = timeCell.startTime.text;
-                    endTime0 = timeCell.endTime.text;
-                });
-                if (startTime0.length > 0 && endTime0.length > 0) {
-                    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                    [BleManager.shareInstance writeWithCMDString:@"702" array:@[[startTime0 componentsSeparatedByString:@":"].firstObject,[startTime0 componentsSeparatedByString:@":"].lastObject,[endTime0 componentsSeparatedByString:@":"].firstObject,[endTime0 componentsSeparatedByString:@":"].lastObject,] finish:^{
-                        dispatch_semaphore_signal(semaphore);
-                    }];
-                }
-
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                NSArray * timeArray = cell.dataArray[0];
-                if (timeArray.count > 1) {
+                if (offPeakArray.count == 1) {
+                    __block NSString * startTime0 = @"";
+                    __block NSString * endTime0 = @"";
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                        TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
+                        startTime0 = timeCell.startTime.text;
+                        endTime0 = timeCell.endTime.text;
+                    });
+                    if (startTime0.length > 0 && endTime0.length > 0) {
+                        [BleManager.shareInstance writeWithCMDString:@"702" array:@[[startTime0 componentsSeparatedByString:@":"].firstObject,[startTime0 componentsSeparatedByString:@":"].lastObject,[endTime0 componentsSeparatedByString:@":"].firstObject,[endTime0 componentsSeparatedByString:@":"].lastObject,] finish:^{
+                            dispatch_semaphore_signal(semaphore);
+                        }];
+                    }else{
+                        dispatch_semaphore_signal(semaphore);
+                    }
+                }else if (offPeakArray.count == 2){
+                    __block NSString * startTime0 = @"";
+                    __block NSString * endTime0 = @"";
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                        TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
+                        startTime0 = timeCell.startTime.text;
+                        endTime0 = timeCell.endTime.text;
+                    });
+                    if (startTime0.length > 0 && endTime0.length > 0) {
+                        [BleManager.shareInstance writeWithCMDString:@"702" array:@[[startTime0 componentsSeparatedByString:@":"].firstObject,[startTime0 componentsSeparatedByString:@":"].lastObject,[endTime0 componentsSeparatedByString:@":"].firstObject,[endTime0 componentsSeparatedByString:@":"].lastObject,] finish:^{
+                            dispatch_semaphore_signal(semaphore);
+                        }];
+                    }else{
+                        dispatch_semaphore_signal(semaphore);
+                    }
+                    
+                    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                     __block NSString * startTime1 = @"";
                     __block NSString * endTime1 = @"";
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -357,14 +372,47 @@
                         startTime1 = timeCell.startTime.text;
                         endTime1 = timeCell.endTime.text;
                     });
-                    [BleManager.shareInstance writeWithCMDString:@"708" array:@[[startTime1 componentsSeparatedByString:@":"].firstObject,[startTime1 componentsSeparatedByString:@":"].lastObject,[endTime1 componentsSeparatedByString:@":"].firstObject,[endTime1 componentsSeparatedByString:@":"].lastObject,] finish:^{
+                    if (startTime1.length > 0 && endTime1.length > 0) {
+                        [BleManager.shareInstance writeWithCMDString:@"708" array:@[[startTime1 componentsSeparatedByString:@":"].firstObject,[startTime1 componentsSeparatedByString:@":"].lastObject,[endTime1 componentsSeparatedByString:@":"].firstObject,[endTime1 componentsSeparatedByString:@":"].lastObject,] finish:^{
+                            dispatch_semaphore_signal(semaphore);
+                        }];
+                    }else{
                         dispatch_semaphore_signal(semaphore);
-                    }];
+                    }
                 }else{
-                    dispatch_semaphore_signal(semaphore);
-                }
-                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                if (timeArray.count>2) {
+                    __block NSString * startTime0 = @"";
+                    __block NSString * endTime0 = @"";
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                        TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
+                        startTime0 = timeCell.startTime.text;
+                        endTime0 = timeCell.endTime.text;
+                    });
+                    if (startTime0.length > 0 && endTime0.length > 0) {
+                        [BleManager.shareInstance writeWithCMDString:@"702" array:@[[startTime0 componentsSeparatedByString:@":"].firstObject,[startTime0 componentsSeparatedByString:@":"].lastObject,[endTime0 componentsSeparatedByString:@":"].firstObject,[endTime0 componentsSeparatedByString:@":"].lastObject,] finish:^{
+                            dispatch_semaphore_signal(semaphore);
+                        }];
+                    }else{
+                        dispatch_semaphore_signal(semaphore);
+                    }
+                    
+                    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+                    __block NSString * startTime1 = @"";
+                    __block NSString * endTime1 = @"";
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+                        TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
+                        startTime1 = timeCell.startTime.text;
+                        endTime1 = timeCell.endTime.text;
+                    });
+                    if (startTime1.length > 0 && endTime1.length > 0) {
+                        [BleManager.shareInstance writeWithCMDString:@"708" array:@[[startTime1 componentsSeparatedByString:@":"].firstObject,[startTime1 componentsSeparatedByString:@":"].lastObject,[endTime1 componentsSeparatedByString:@":"].firstObject,[endTime1 componentsSeparatedByString:@":"].lastObject,] finish:^{
+                            dispatch_semaphore_signal(semaphore);
+                        }];
+                    }else{
+                        dispatch_semaphore_signal(semaphore);
+                    }
+                    
                     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                     __block NSString * startTime2 = @"";
                     __block NSString * endTime2 = @"";
@@ -374,12 +422,15 @@
                         startTime2 = timeCell.startTime.text;
                         endTime2 = timeCell.endTime.text;
                     });
-                    [BleManager.shareInstance writeWithCMDString:@"70E" array:@[[startTime2 componentsSeparatedByString:@":"].firstObject,[startTime2 componentsSeparatedByString:@":"].lastObject,[endTime2 componentsSeparatedByString:@":"].firstObject,[endTime2 componentsSeparatedByString:@":"].lastObject,] finish:^{
+                    if (startTime2.length > 0 && endTime2.length > 0) {
+                        [BleManager.shareInstance writeWithCMDString:@"70E" array:@[[startTime2 componentsSeparatedByString:@":"].firstObject,[startTime2 componentsSeparatedByString:@":"].lastObject,[endTime2 componentsSeparatedByString:@":"].firstObject,[endTime2 componentsSeparatedByString:@":"].lastObject,] finish:^{
+                            dispatch_semaphore_signal(semaphore);
+                        }];
+                    }else{
                         dispatch_semaphore_signal(semaphore);
-                    }];
-                }else{
-                    dispatch_semaphore_signal(semaphore);
+                    }
                 }
+                
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance writeWithCMDString:@"750" array:@[@"1"] finish:^{
                     dispatch_semaphore_signal(semaphore);

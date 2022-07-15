@@ -86,15 +86,19 @@
         [RMHelper showToast:@"Please connect device" toView:self.view];
         return;
     }
+    [self.view showHUDToast:@"Loading"];
     [self.manager POST:@"https://fudascms.vidagrid.com/querystatus" parameters:@{@"devices":@[self.cardDictionary[@"SN"]]} headers:self.header progress:^(NSProgress * _Nonnull uploadProgress) {
             
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"json=%@",json);
-        if ([json[@"details"] count] > 0) {
+        [self.view hiddenHUD];
+        if ([json[@"code"] intValue] == 0) {
             self.state.text = [NSString stringWithFormat:@"Device status:%@",json[@"details"][0][@"msg"]];
+        }else{
+            [RMHelper showToast:json[@"msg"] toView:self.view];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [self.view hiddenHUD];
         [RMHelper showToast:error.description toView:self.view];
     }];
 }
@@ -104,13 +108,21 @@
         [RMHelper showToast:@"Please connect device" toView:self.view];
         return;
     }
-    [self.manager POST:@"https://fudascms.vidagrid.com/active" parameters:@{@"devices":@[@{@"sn":self.cardDictionary[@"SN"],@"iccid":self.cardDictionary[@"ICCID"]}]} headers:self.header progress:^(NSProgress * _Nonnull uploadProgress) {
+    // @[@{@"iccid":@"89882390000353142105",@"sn":@"VC51030622208003"}]
+    [self.view showHUDToast:@"Loading"];
+    [self.manager POST:@"https://fudascms.vidagrid.com/active" parameters:@[@{@"sn":self.cardDictionary[@"SN"],@"iccid":self.cardDictionary[@"ICCID"]}] headers:self.header progress:^(NSProgress * _Nonnull uploadProgress) {
             
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [self.view hiddenHUD];
         NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        [RMHelper showToast:json[@"details"][0][@"msg"] toView:self.view];
+        if ([json[@"code"] intValue] == 0) {
+            [RMHelper showToast:json[@"details"][0][@"msg"] toView:self.view];
+        }else{
+            [RMHelper showToast:json[@"msg"] toView:self.view];
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error=%@,%@",error,task.currentRequest.allHTTPHeaderFields);
+        [self.view hiddenHUD];
         [RMHelper showToast:error.description toView:self.view];
     }];
 }

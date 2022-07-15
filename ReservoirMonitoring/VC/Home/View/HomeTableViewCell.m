@@ -85,17 +85,16 @@
 
 - (void)setModel:(DevideModel *)model{
     _model = model;
-    NSLog(@"workStatus=%@",model.workStatus);
     self.titleLabel.text = model.off_ON_Grid_Hint;
     
     if (model.workStatus.intValue == 1) {
         self.currentModeValue.text = @"Self-consumption";
-    }else if(model.workStatus.intValue == 3){
-        self.currentModeValue.text = @"Back up";
     }else if (model.workStatus.intValue == 2){
         self.currentModeValue.text = @"Time Of Use";
+    }else if(model.workStatus.intValue == 3){
+        self.currentModeValue.text = @"Back up";
     }else{
-        self.currentModeValue.text = @"Self-consumption";
+        self.currentModeValue.text = @"Offline";
     }
     
     if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
