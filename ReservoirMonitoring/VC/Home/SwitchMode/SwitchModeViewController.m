@@ -286,7 +286,35 @@
         }
     }
     if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
-        NSLog(@"self.params=%@,flag=%ld",params,self.flag);
+        NSLog(@"self.params=%@,flag=%@",params,offPeakArray);
+        if ([offPeakArray[0] componentsSeparatedByString:@"_"][0].length == 0) {
+            [RMHelper showToast:@"please select start time" toView:self.view];
+            return;
+        }
+        if ([offPeakArray[0] componentsSeparatedByString:@"_"][1].length == 0) {
+            [RMHelper showToast:@"please select end time" toView:self.view];
+            return;
+        }
+        if (offPeakArray.count > 1) {
+            if ([offPeakArray[1] componentsSeparatedByString:@"_"][0].length == 0) {
+                [RMHelper showToast:@"please select start time" toView:self.view];
+                return;
+            }
+            if ([offPeakArray[1] componentsSeparatedByString:@"_"][1].length == 0) {
+                [RMHelper showToast:@"please select end time" toView:self.view];
+                return;
+            }
+        }
+        if (offPeakArray.count > 2) {
+            if ([offPeakArray[2] componentsSeparatedByString:@"_"][0].length == 0) {
+                [RMHelper showToast:@"please select start time" toView:self.view];
+                return;
+            }
+            if ([offPeakArray[2] componentsSeparatedByString:@"_"][1].length == 0) {
+                [RMHelper showToast:@"please select end time" toView:self.view];
+                return;
+            }
+        }
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
             [BleManager.shareInstance writeWithCMDString:@"621" array:@[weather] finish:^{
@@ -320,121 +348,40 @@
                 }];
             }else{
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                [BleManager.shareInstance writeWithCMDString:@"6FE" array:@[self.allowChargingXiaGrid?@"1":@"0"] finish:^{
+                [BleManager.shareInstance writeWithCMDString:@"6FE" array:@[self.allowChargingXiaGrid?@"1":@"0",[NSString stringWithFormat:@"%ld",offPeakArray.count]] finish:^{
                     dispatch_semaphore_signal(semaphore);
                 }];
                 
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                [BleManager.shareInstance writeWithCMDString:@"6FF" array:@[[NSString stringWithFormat:@"%ld",offPeakArray.count]] finish:^{
+                NSString * startTime0 = [offPeakArray[0] componentsSeparatedByString:@"_"][0];
+                NSString * endTime0 = [offPeakArray[0] componentsSeparatedByString:@"_"][1];;
+                [BleManager.shareInstance writeWithCMDString:@"702" array:@[[startTime0 componentsSeparatedByString:@":"].firstObject,[startTime0 componentsSeparatedByString:@":"].lastObject,[endTime0 componentsSeparatedByString:@":"].firstObject,[endTime0 componentsSeparatedByString:@":"].lastObject,] finish:^{
                     dispatch_semaphore_signal(semaphore);
                 }];
                 
-                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                if (offPeakArray.count == 1) {
-                    __block NSString * startTime0 = @"";
-                    __block NSString * endTime0 = @"";
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-                        TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
-                        startTime0 = timeCell.startTime.text;
-                        endTime0 = timeCell.endTime.text;
-                    });
-                    if (startTime0.length > 0 && endTime0.length > 0) {
-                        [BleManager.shareInstance writeWithCMDString:@"702" array:@[[startTime0 componentsSeparatedByString:@":"].firstObject,[startTime0 componentsSeparatedByString:@":"].lastObject,[endTime0 componentsSeparatedByString:@":"].firstObject,[endTime0 componentsSeparatedByString:@":"].lastObject,] finish:^{
-                            dispatch_semaphore_signal(semaphore);
-                        }];
-                    }else{
-                        dispatch_semaphore_signal(semaphore);
-                    }
-                }else if (offPeakArray.count == 2){
-                    __block NSString * startTime0 = @"";
-                    __block NSString * endTime0 = @"";
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-                        TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
-                        startTime0 = timeCell.startTime.text;
-                        endTime0 = timeCell.endTime.text;
-                    });
-                    if (startTime0.length > 0 && endTime0.length > 0) {
-                        [BleManager.shareInstance writeWithCMDString:@"702" array:@[[startTime0 componentsSeparatedByString:@":"].firstObject,[startTime0 componentsSeparatedByString:@":"].lastObject,[endTime0 componentsSeparatedByString:@":"].firstObject,[endTime0 componentsSeparatedByString:@":"].lastObject,] finish:^{
-                            dispatch_semaphore_signal(semaphore);
-                        }];
-                    }else{
-                        dispatch_semaphore_signal(semaphore);
-                    }
-                    
+                if (offPeakArray.count > 1) {
                     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                    __block NSString * startTime1 = @"";
-                    __block NSString * endTime1 = @"";
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
-                        TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
-                        startTime1 = timeCell.startTime.text;
-                        endTime1 = timeCell.endTime.text;
-                    });
-                    if (startTime1.length > 0 && endTime1.length > 0) {
-                        [BleManager.shareInstance writeWithCMDString:@"708" array:@[[startTime1 componentsSeparatedByString:@":"].firstObject,[startTime1 componentsSeparatedByString:@":"].lastObject,[endTime1 componentsSeparatedByString:@":"].firstObject,[endTime1 componentsSeparatedByString:@":"].lastObject,] finish:^{
-                            dispatch_semaphore_signal(semaphore);
-                        }];
-                    }else{
+                    NSString * startTime1 = [offPeakArray[1] componentsSeparatedByString:@"_"][0];
+                    NSString * endTime1 = [offPeakArray[1] componentsSeparatedByString:@"_"][1];;
+                    [BleManager.shareInstance writeWithCMDString:@"708" array:@[[startTime1 componentsSeparatedByString:@":"].firstObject,[startTime1 componentsSeparatedByString:@":"].lastObject,[endTime1 componentsSeparatedByString:@":"].firstObject,[endTime1 componentsSeparatedByString:@":"].lastObject,] finish:^{
                         dispatch_semaphore_signal(semaphore);
-                    }
-                }else{
-                    __block NSString * startTime0 = @"";
-                    __block NSString * endTime0 = @"";
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-                        TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
-                        startTime0 = timeCell.startTime.text;
-                        endTime0 = timeCell.endTime.text;
-                    });
-                    if (startTime0.length > 0 && endTime0.length > 0) {
-                        [BleManager.shareInstance writeWithCMDString:@"702" array:@[[startTime0 componentsSeparatedByString:@":"].firstObject,[startTime0 componentsSeparatedByString:@":"].lastObject,[endTime0 componentsSeparatedByString:@":"].firstObject,[endTime0 componentsSeparatedByString:@":"].lastObject,] finish:^{
-                            dispatch_semaphore_signal(semaphore);
-                        }];
-                    }else{
-                        dispatch_semaphore_signal(semaphore);
-                    }
-                    
-                    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                    __block NSString * startTime1 = @"";
-                    __block NSString * endTime1 = @"";
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
-                        TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
-                        startTime1 = timeCell.startTime.text;
-                        endTime1 = timeCell.endTime.text;
-                    });
-                    if (startTime1.length > 0 && endTime1.length > 0) {
-                        [BleManager.shareInstance writeWithCMDString:@"708" array:@[[startTime1 componentsSeparatedByString:@":"].firstObject,[startTime1 componentsSeparatedByString:@":"].lastObject,[endTime1 componentsSeparatedByString:@":"].firstObject,[endTime1 componentsSeparatedByString:@":"].lastObject,] finish:^{
-                            dispatch_semaphore_signal(semaphore);
-                        }];
-                    }else{
-                        dispatch_semaphore_signal(semaphore);
-                    }
-                    
-                    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                    __block NSString * startTime2 = @"";
-                    __block NSString * endTime2 = @"";
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:2];
-                        TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
-                        startTime2 = timeCell.startTime.text;
-                        endTime2 = timeCell.endTime.text;
-                    });
-                    if (startTime2.length > 0 && endTime2.length > 0) {
-                        [BleManager.shareInstance writeWithCMDString:@"70E" array:@[[startTime2 componentsSeparatedByString:@":"].firstObject,[startTime2 componentsSeparatedByString:@":"].lastObject,[endTime2 componentsSeparatedByString:@":"].firstObject,[endTime2 componentsSeparatedByString:@":"].lastObject,] finish:^{
-                            dispatch_semaphore_signal(semaphore);
-                        }];
-                    }else{
-                        dispatch_semaphore_signal(semaphore);
-                    }
+                    }];
                 }
                 
+                if (offPeakArray.count > 2) {
+                    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+                    NSString * startTime2 = [offPeakArray[2] componentsSeparatedByString:@"_"][0];
+                    NSString * endTime2 = [offPeakArray[2] componentsSeparatedByString:@"_"][1];;
+                    [BleManager.shareInstance writeWithCMDString:@"70E" array:@[[startTime2 componentsSeparatedByString:@":"].firstObject,[startTime2 componentsSeparatedByString:@":"].lastObject,[endTime2 componentsSeparatedByString:@":"].firstObject,[endTime2 componentsSeparatedByString:@":"].lastObject,] finish:^{
+                        dispatch_semaphore_signal(semaphore);
+                    }];
+                }
+
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance writeWithCMDString:@"750" array:@[@"1"] finish:^{
                     dispatch_semaphore_signal(semaphore);
                 }];
+                
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance readWithCMDString:@"752" count:1 finish:^(NSArray * _Nonnull array) {
                     NSInteger idx = [array.firstObject intValue];
