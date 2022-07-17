@@ -65,6 +65,10 @@ extern NSString * const QueryFirmwareInfo;
 
 extern NSString * const CommitAotuUpdateVersion;
 
+extern NSString * const CheckFirmarkVersion;
+
+extern NSString * const Upgrade;
+
 @end
 
 NS_ASSUME_NONNULL_END

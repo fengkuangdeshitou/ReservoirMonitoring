@@ -67,4 +67,8 @@ NSString * const QueryFirmwareInfo = @"/user/user/queryFirmwareInfo";
 
 NSString * const CommitAotuUpdateVersion = @"/user/user/commitAotuUpdateVersion";
 
+NSString * const CheckFirmarkVersion = @"/device/checkFirmarkVersion";
+
+NSString * const Upgrade = @"/device/upgrade";
+
 @end

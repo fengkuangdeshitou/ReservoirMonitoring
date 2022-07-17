@@ -256,7 +256,7 @@
 }
 
 - (IBAction)timeAction:(id)sender{
-    [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Self reliable rating = (battery energy consumption/ total energy consumption ) %, daily rating stands for the performance of last 24h"];
+    [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Self reliable rating = (battery energy consumption/ total energy consumption ) %, daily rating stands for the performance of last 24h" btnTitle:nil completion:nil];
 }
 
 - (IBAction)weatherAction:(id)sender{

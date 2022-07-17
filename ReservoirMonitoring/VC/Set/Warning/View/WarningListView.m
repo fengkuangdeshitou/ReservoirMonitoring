@@ -52,7 +52,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [GlobelDescAlertView showAlertViewWithTitle:@"Tips".localized desc:@"TBD."];
+    [GlobelDescAlertView showAlertViewWithTitle:@"Tips".localized desc:@"TBD." btnTitle:nil completion:nil];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

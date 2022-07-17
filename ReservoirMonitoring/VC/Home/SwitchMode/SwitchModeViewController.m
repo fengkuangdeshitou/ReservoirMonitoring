@@ -167,8 +167,8 @@
             }else if (self.touCount.intValue == 2) {
                 [BleManager.shareInstance readWithCMDString:@"702" count:4 finish:^(NSArray * _Nonnull array) {
                     NSDictionary * item = @{
-                        @"startTime":[NSString stringWithFormat:@"%@:%@",array[0],array[1]],
-                        @"endTime":[NSString stringWithFormat:@"%@:%@",array[2],array[3]],
+                        @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
+                        @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
                     };
                     [self.touArray addObject:item];
                     dispatch_semaphore_signal(semaphore);
@@ -176,8 +176,8 @@
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance readWithCMDString:@"708" count:4 finish:^(NSArray * _Nonnull array) {
                     NSDictionary * item = @{
-                        @"startTime":[NSString stringWithFormat:@"%@:%@",array[0],array[1]],
-                        @"endTime":[NSString stringWithFormat:@"%@:%@",array[2],array[3]],
+                        @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
+                        @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
                     };
                     [self.touArray addObject:item];
                     dispatch_semaphore_signal(semaphore);
@@ -185,8 +185,8 @@
             }else if (self.touCount.intValue == 3) {
                 [BleManager.shareInstance readWithCMDString:@"702" count:4 finish:^(NSArray * _Nonnull array) {
                     NSDictionary * item = @{
-                        @"startTime":[NSString stringWithFormat:@"%@:%@",array[0],array[1]],
-                        @"endTime":[NSString stringWithFormat:@"%@:%@",array[2],array[3]],
+                        @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
+                        @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
                     };
                     [self.touArray addObject:item];
                     dispatch_semaphore_signal(semaphore);
@@ -194,8 +194,8 @@
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance readWithCMDString:@"708" count:4 finish:^(NSArray * _Nonnull array) {
                     NSDictionary * item = @{
-                        @"startTime":[NSString stringWithFormat:@"%@:%@",array[0],array[1]],
-                        @"endTime":[NSString stringWithFormat:@"%@:%@",array[2],array[3]],
+                        @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
+                        @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
                     };
                     [self.touArray addObject:item];
                     dispatch_semaphore_signal(semaphore);
@@ -203,8 +203,8 @@
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance readWithCMDString:@"70E" count:4 finish:^(NSArray * _Nonnull array) {
                     NSDictionary * item = @{
-                        @"startTime":[NSString stringWithFormat:@"%@:%@",array[0],array[1]],
-                        @"endTime":[NSString stringWithFormat:@"%@:%@",array[2],array[3]],
+                        @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
+                        @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
                     };
                     [self.touArray addObject:item];
                     dispatch_semaphore_signal(semaphore);
@@ -225,7 +225,7 @@
 }
 
 - (IBAction)helpAction:(id)sender{
-    [GlobelDescAlertView showAlertViewWithTitle:@"Weather watch".localized desc:@"Monitor local weather condition, automatically stores energy for hazard backup."];
+    [GlobelDescAlertView showAlertViewWithTitle:@"Weather watch".localized desc:@"Monitor local weather condition, automatically stores energy for hazard backup." btnTitle:nil completion:nil];
 }
 
 - (IBAction)submitAction:(id)sender{
@@ -286,33 +286,34 @@
         }
     }
     if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
-        NSLog(@"self.params=%@,flag=%@",params,offPeakArray);
-        if ([offPeakArray[0] componentsSeparatedByString:@"_"][0].length == 0) {
-            [RMHelper showToast:@"please select start time" toView:self.view];
-            return;
-        }
-        if ([offPeakArray[0] componentsSeparatedByString:@"_"][1].length == 0) {
-            [RMHelper showToast:@"please select end time" toView:self.view];
-            return;
-        }
-        if (offPeakArray.count > 1) {
-            if ([offPeakArray[1] componentsSeparatedByString:@"_"][0].length == 0) {
+        if (self.flag == 2) {
+            if ([offPeakArray[0] componentsSeparatedByString:@"_"][0].length == 0) {
                 [RMHelper showToast:@"please select start time" toView:self.view];
                 return;
             }
-            if ([offPeakArray[1] componentsSeparatedByString:@"_"][1].length == 0) {
+            if ([offPeakArray[0] componentsSeparatedByString:@"_"][1].length == 0) {
                 [RMHelper showToast:@"please select end time" toView:self.view];
                 return;
             }
-        }
-        if (offPeakArray.count > 2) {
-            if ([offPeakArray[2] componentsSeparatedByString:@"_"][0].length == 0) {
-                [RMHelper showToast:@"please select start time" toView:self.view];
-                return;
+            if (offPeakArray.count > 1) {
+                if ([offPeakArray[1] componentsSeparatedByString:@"_"][0].length == 0) {
+                    [RMHelper showToast:@"please select start time" toView:self.view];
+                    return;
+                }
+                if ([offPeakArray[1] componentsSeparatedByString:@"_"][1].length == 0) {
+                    [RMHelper showToast:@"please select end time" toView:self.view];
+                    return;
+                }
             }
-            if ([offPeakArray[2] componentsSeparatedByString:@"_"][1].length == 0) {
-                [RMHelper showToast:@"please select end time" toView:self.view];
-                return;
+            if (offPeakArray.count > 2) {
+                if ([offPeakArray[2] componentsSeparatedByString:@"_"][0].length == 0) {
+                    [RMHelper showToast:@"please select start time" toView:self.view];
+                    return;
+                }
+                if ([offPeakArray[2] componentsSeparatedByString:@"_"][1].length == 0) {
+                    [RMHelper showToast:@"please select end time" toView:self.view];
+                    return;
+                }
             }
         }
         dispatch_async(dispatch_get_global_queue(0, 0), ^{

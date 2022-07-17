@@ -7,6 +7,7 @@
 
 #import "UpdateViewController.h"
 #import "DevideModel.h"
+#import "GlobelDescAlertView.h"
 
 @interface UpdateViewController ()
 
@@ -14,6 +15,7 @@
 @property(nonatomic,weak)IBOutlet UILabel * content;
 @property(nonatomic,weak)IBOutlet UILabel * version;
 @property(nonatomic,weak)IBOutlet UILabel * ota;
+@property(nonatomic,copy) NSString * devId;
 
 @end
 
@@ -43,7 +45,8 @@
         NSArray<DevideModel*> * array = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
         if (array.count > 0) {
             DevideModel * model = array.firstObject;
-            [self getDeviceInfoWithDevId:model.deviceId];
+            self.devId = model.deviceId;
+            [self getDeviceInfoWithDevId:self.devId];
         }
     } failure:^(NSString * _Nonnull errorMsg) {
 
@@ -55,6 +58,9 @@
             
     } success:^(NSDictionary * _Nonnull result) {
         self.update.selected = [result[@"data"][@"aotuUpdateFirmware"] boolValue];
+        if (self.update.selected) {
+            [self updateAction];
+        }
         NSString * version = [NSString stringWithFormat:@"%@",result[@"data"][@"firmwareVersion"]];
         self.version.text = [@"Firmware version:".localized stringByAppendingString:version];
     } failure:^(NSString * _Nonnull errorMsg) {
@@ -72,6 +78,36 @@
         }else{
             [RMHelper showToast:result[@"message"] toView:self.view];
         }
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
+}
+
+- (IBAction)updateAction{
+    [Request.shareInstance getUrl:CheckFirmarkVersion params:@{@"devId":self.devId} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        int hasNewVersion = [result[@"data"][@"hasNewVersion"] intValue];
+        [GlobelDescAlertView showAlertViewWithTitle:@"Check for updates" desc:result[@"data"][@"tips"] btnTitle:hasNewVersion==1?nil:@"Update" completion:^{
+            if (hasNewVersion!=1) {
+                [self updateDevice];
+            }
+        }];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
+}
+
+- (void)updateDevice{
+    [Request.shareInstance getUrl:Upgrade params:@{@"devId":self.devId} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        int hasNewVersion = [result[@"data"][@"hasNewVersion"] intValue];
+        [GlobelDescAlertView showAlertViewWithTitle:@"Check for updates" desc:result[@"data"][@"tips"] btnTitle:hasNewVersion==1?nil:@"Update" completion:^{
+            if (hasNewVersion!=1) {
+                [self updateDevice];
+            }
+        }];
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];

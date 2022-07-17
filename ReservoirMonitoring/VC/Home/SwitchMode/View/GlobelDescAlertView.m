@@ -13,20 +13,25 @@
 @property(nonatomic,weak)IBOutlet UILabel * descLabel;
 @property(nonatomic,weak)IBOutlet UIButton * doneButton;
 @property(nonatomic,weak)IBOutlet NSLayoutConstraint * doneButtonWidth;
+@property(nonatomic,copy) void(^completion)(void);
 
 @end
 
 @implementation GlobelDescAlertView
 
 + (void)showAlertViewWithTitle:(NSString *)title
-                          desc:(NSString *)desc{
-    GlobelDescAlertView * alertView = [[GlobelDescAlertView alloc] initWithTitle:title desc:desc];
+                          desc:(NSString *)desc
+                      btnTitle:(nullable NSString *)btnTitle
+                    completion:(void(^)(void))completion{
+    GlobelDescAlertView * alertView = [[GlobelDescAlertView alloc] initWithTitle:title desc:desc btnTitle:btnTitle completion:completion];
     [alertView show];
 }
 
 
 - (instancetype)initWithTitle:(NSString *)title
                          desc:(NSString *)desc
+                     btnTitle:(nullable NSString *)btnTitle
+                   completion:(void(^)(void))completion
 {
     self = [super init];
     if (self) {
@@ -34,13 +39,18 @@
         self.frame = UIScreen.mainScreen.bounds;
         [UIApplication.sharedApplication.keyWindow addSubview:self];
         self.alpha = 0;
+        self.completion = completion;
         self.titleLabel.text = title;
         self.descLabel.text = desc;
-        if ([title isEqualToString:@"Ticket received".localized]) {
-            [self.doneButton setTitle:@"Acknowledge".localized forState:UIControlStateNormal];
-            self.doneButtonWidth.constant = 180;
+        if (btnTitle) {
+            [self.doneButton setTitle:btnTitle forState:UIControlStateNormal];
         }else{
-            [self.doneButton setTitle:@"Confirm".localized forState:UIControlStateNormal];
+            if ([title isEqualToString:@"Ticket received".localized]) {
+                [self.doneButton setTitle:@"Acknowledge".localized forState:UIControlStateNormal];
+                self.doneButtonWidth.constant = 180;
+            }else{
+                [self.doneButton setTitle:@"Confirm".localized forState:UIControlStateNormal];
+            }
         }
         [self.doneButton showBorderWithRadius:20];
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
@@ -62,6 +72,14 @@
             [self removeFromSuperview];
         }];
 }
+
+- (IBAction)doneAction:(UIButton *)sender{
+    if (self.completion) {
+        self.completion();
+    }
+    [self dismiss];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

@@ -662,7 +662,13 @@ static unsigned char auchCRCLo[] = {
     if([characteristic.UUID.UUIDString isEqualToString:UUID_READ_CHARACTERISTICS]){
         //获取订阅特征回复的数据
         NSData *data = characteristic.value;
+        if (!data || [data length] == 0) {
+            return;
+        }
         NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        if (!dict) {
+            return;
+        }
 //        NSString *response = [self valueStringWithResponse:data];
         /// 成功
         NSLog(@"读取蓝牙回复：%@",dict);

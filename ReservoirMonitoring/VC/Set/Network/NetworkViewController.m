@@ -163,7 +163,7 @@
                 BleManager.shareInstance.rtusn = model.rtuSn;
                 [BleManager.shareInstance startScanning];
             }else{
-                [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:[NSString stringWithFormat:@"Please switch the %@ to the current device",self.model.rtuSn]];
+                [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:[NSString stringWithFormat:@"Please switch the %@ to the current device",self.model.rtuSn] btnTitle:nil completion:nil];
             }
         }
     }

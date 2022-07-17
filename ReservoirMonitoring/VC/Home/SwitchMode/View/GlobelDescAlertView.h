@@ -12,7 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GlobelDescAlertView : UIView
 
 + (void)showAlertViewWithTitle:(NSString *)title
-                          desc:(NSString *)desc;
+                          desc:(NSString *)desc
+                      btnTitle:(nullable NSString *)btnTitle
+                    completion:(nullable void(^)(void))completion;
 
 @end
 

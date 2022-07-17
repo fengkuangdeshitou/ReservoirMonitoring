@@ -35,13 +35,13 @@
 
 - (IBAction)timeAction:(id)sender{
     if (self.time == 0) {
-        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Self reliable rating = (battery energy consumption/ total energy consumption ) %, daily rating stands for the performance of last 24h"];
+        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Self reliable rating = (battery energy consumption/ total energy consumption ) %, daily rating stands for the performance of last 24h" btnTitle:nil completion:nil];
     }else if (self.time == 1){
-        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Self reliable rating = (battery energy consumption/ total energy consumption ) %, monthly rating stands for the performance of last month."];
+        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Self reliable rating = (battery energy consumption/ total energy consumption ) %, monthly rating stands for the performance of last month." btnTitle:nil completion:nil];
     }else if (self.time == 2){
-        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Self reliable rating = (battery energy consumption/ total energy consumption ) %, annual rating stands for the performance of last year."];
+        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Self reliable rating = (battery energy consumption/ total energy consumption ) %, annual rating stands for the performance of last year." btnTitle:nil completion:nil];
     }else{
-        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Self reliable rating = (battery energy consumption/ total energy consumption ) %, total rating stands for the performance since installation."];
+        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Self reliable rating = (battery energy consumption/ total energy consumption ) %, total rating stands for the performance since installation." btnTitle:nil completion:nil];
     }
     
 }
