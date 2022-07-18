@@ -158,8 +158,8 @@
             }else if (self.touCount.intValue == 1) {
                 [BleManager.shareInstance readWithCMDString:@"702" count:4 finish:^(NSArray * _Nonnull array) {
                     NSDictionary * item = @{
-                        @"startTime":[NSString stringWithFormat:@"%@:%@",array[0],array[1]],
-                        @"endTime":[NSString stringWithFormat:@"%@:%@",array[2],array[3]],
+                        @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
+                        @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
                     };
                     [self.touArray addObject:item];
                     dispatch_semaphore_signal(semaphore);
