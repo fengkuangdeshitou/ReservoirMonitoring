@@ -78,8 +78,10 @@
 }
 
 - (void)loadIcciData{
-    self.sn.text = self.cardDictionary[@"SN"];
-    self.iccid.text = self.cardDictionary[@"ICCID"];
+    if (self.cardDictionary[@"SN"]) {
+        self.sn.text = self.cardDictionary[@"SN"];
+        self.iccid.text = self.cardDictionary[@"ICCID"];
+    }
 }
 
 - (IBAction)queryStatus:(id)sender{

@@ -34,10 +34,33 @@
     
     [self.update showBorderWithRadius:25];
     [self.update setTitle:@"Check for updates".localized forState:UIControlStateNormal];
-    [self getDeviceList];
+    if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+            [BleManager.shareInstance readWithCMDString:@"503" count:5 finish:^(NSArray * _Nonnull array) {
+                dispatch_semaphore_signal(semaphore);
+                NSString * version = [array componentsJoinedByString:@""];
+                self.version.text = [@"Firmware version:".localized stringByAppendingString:version];
+            }];
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            [BleManager.shareInstance readWithCMDString:@"628" count:1 finish:^(NSArray * _Nonnull array) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.update.selected = [array.firstObject boolValue];
+                    if (self.update.selected) {
+                        [self updateAction];
+                    }
+                });
+            }];
+        });
+        
+    }else{
+        [self getDeviceListCompletion:^{
+            [self getDeviceInfoWithDevId:self.devId];
+        }];
+    }
 }
 
-- (void)getDeviceList{
+- (void)getDeviceListCompletion:(void(^)(void))completion{
     [Request.shareInstance getUrl:DeviceList params:@{} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
@@ -46,8 +69,8 @@
         if (array.count > 0) {
             DevideModel * model = array.firstObject;
             self.devId = model.deviceId;
-            [self getDeviceInfoWithDevId:self.devId];
         }
+        completion();
     } failure:^(NSString * _Nonnull errorMsg) {
 
     }];
@@ -69,12 +92,31 @@
 }
 
 - (IBAction)autoUpdateAction:(UIButton *)sender{
-    [Request.shareInstance postUrl:CommitAotuUpdateVersion params:@{@"aotuUpdateFirmware":sender.selected?@"1":@"0",@"devId":self.devId} progress:^(float progress) {
+    if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
+        NSString * value = self.update.selected ? @"1" : @"0";
+        [BleManager.shareInstance writeWithCMDString:@"628" string:value finish:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                sender.selected = !sender.selected;
+            });
+        }];
+    }else{
+        if (!self.devId) {
+            [self getDeviceListCompletion:^{
+                [self commitAotuUpdateVersiom];
+            }];
+        }else{
+            [self commitAotuUpdateVersiom];
+        }
+    }
+}
+
+- (void)commitAotuUpdateVersiom{
+    [Request.shareInstance postUrl:CommitAotuUpdateVersion params:@{@"aotuUpdateFirmware":self.update.selected?@"1":@"0",@"devId":self.devId} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         BOOL value = [result[@"data"] boolValue];
         if (value) {
-            sender.selected = !sender.selected;
+            self.update.selected = !self.update.selected;
         }else{
             [RMHelper showToast:result[@"message"] toView:self.view];
         }
@@ -82,8 +124,18 @@
         
     }];
 }
-
+    
 - (IBAction)updateAction{
+    if (!self.devId) {
+        [self getDeviceListCompletion:^{
+            [self checkFirmarkVersion];
+        }];
+    }else{
+        [self checkFirmarkVersion];
+    }
+}
+
+- (void)checkFirmarkVersion{
     [Request.shareInstance getUrl:CheckFirmarkVersion params:@{@"devId":self.devId} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {

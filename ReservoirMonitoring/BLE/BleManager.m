@@ -472,11 +472,11 @@ static unsigned char auchCRCLo[] = {
                 }
             }
         }
-//        if([peripheral.name isEqualToString:@"iPad"]){
-//            self.peripheral = peripheral;
-//            self.peripheral.delegate = self;
-//            [self.centralManager connectPeripheral:self.peripheral options:nil];
-//        }
+        if([peripheral.name isEqualToString:@"iPad"]){
+            self.peripheral = peripheral;
+            self.peripheral.delegate = self;
+            [self.centralManager connectPeripheral:self.peripheral options:nil];
+        }
     }
     if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothdidDiscoverPeripheral:RSSI:)]) {
         [self.delegate bluetoothdidDiscoverPeripheral:peripheral RSSI:RSSI];
