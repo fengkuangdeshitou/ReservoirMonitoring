@@ -245,7 +245,8 @@
         NSString * backupPowerReserveSoc = [NSString stringWithFormat:@"%.0f",cell2.progress];
         [params setValue:backupPowerReserveSoc forKey:@"backupPowerReserveSoc"];
     }else if (self.flag == 2) {
-        [params setValue:[NSString stringWithFormat:@"%@",cell.switchBtn.selected ? @"1" : @"0"] forKey:@"allowChargingXiaGrid"];
+        self.allowChargingXiaGrid = cell.switchBtn.selected;
+        [params setValue:[NSString stringWithFormat:@"%@",self.allowChargingXiaGrid ? @"1" : @"0"] forKey:@"allowChargingXiaGrid"];
         for (int i=0; i<[cell.dataArray[0] count]; i++) {
             NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
@@ -387,12 +388,12 @@
                 [BleManager.shareInstance readWithCMDString:@"752" count:1 finish:^(NSArray * _Nonnull array) {
                     NSInteger idx = [array.firstObject intValue];
                     if (idx == 1) {
-                        [RMHelper showToast:@"Configuration is successful" toView:self.view];
-//                        [self switchWithParams:params];
+//                        [RMHelper showToast:@"Configuration is successful" toView:self.view];
+                        [self switchWithParams:params];
                     }
                     if (idx == 2) {
-                        [RMHelper showToast:@"In the configuration" toView:self.view];
-//                        [self switchWithParams:params];
+//                        [RMHelper showToast:@"In the configuration" toView:self.view];
+                        [self switchWithParams:params];
                     }
                     if (idx == 3) {
                         [RMHelper showToast:@"Configuration failed" toView:self.view];
@@ -412,7 +413,7 @@
     } success:^(NSDictionary * _Nonnull result) {
         BOOL value = [result[@"data"] boolValue];
         if (value) {
-            [RMHelper showToast:@"swithc mode success" toView:self.view];
+            [RMHelper showToast:@"Configuration is successful" toView:self.view];
         }else{
             [RMHelper showToast:result[@"message"] toView:self.view];
         }

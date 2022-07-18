@@ -34,6 +34,32 @@
         [self loadLoginController];
     }
     
+//    Byte byte[] = {97,98,99,49,50,51};
+    Byte byte[] = {0x61,0x62,0x63,0x31,0x32,0x33};
+    NSData * data = [[NSData alloc] initWithBytes:byte length:sizeof(byte)];
+    NSString * string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"data=%@,string=%@",data,string);
+    
+    NSString *bcdstr = @"616263313233";
+    int leng = (int)bcdstr.length/2;
+    if (bcdstr.length%2 == 1) //判断奇偶数
+    {
+        leng +=1;
+    }
+    Byte bbte[leng];
+    for (int i = 0; i<leng-1; i++)
+    {
+        bbte[i] = (int)strtoul([[bcdstr substringWithRange:NSMakeRange(i*2, 2)]UTF8String], 0, 16);
+    }
+    if (bcdstr.length%2 == 1)
+    {
+        bbte[leng-1] = (int)strtoul([[bcdstr substringWithRange:NSMakeRange((leng - 1)*2, 1)]UTF8String], 0, 16) *16;
+    }else
+    {
+        bbte[leng-1] = (int)strtoul([[bcdstr substringWithRange:NSMakeRange((leng - 1)*2, 2)]UTF8String], 0, 16);
+    }
+    NSData *de = [[NSData alloc]initWithBytes:bbte length:leng];
+    NSLog(@"%@",de);
 //    BOOL result = [RMHelper hasRepeatedTimeForArray:@[@"00:01_00:02",@"00:02_00:03",@"00:01_00:03"]];
 //    NSLog(@"时间交集=%@",result?@"有交集":@"无交集");
     return YES;

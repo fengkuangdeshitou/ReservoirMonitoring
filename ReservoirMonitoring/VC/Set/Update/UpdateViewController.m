@@ -69,7 +69,7 @@
 }
 
 - (IBAction)autoUpdateAction:(UIButton *)sender{
-    [Request.shareInstance postUrl:CommitAotuUpdateVersion params:@{@"aotuUpdateFirmware":sender.selected?@"1":@"0"} progress:^(float progress) {
+    [Request.shareInstance postUrl:CommitAotuUpdateVersion params:@{@"aotuUpdateFirmware":sender.selected?@"1":@"0",@"devId":self.devId} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         BOOL value = [result[@"data"] boolValue];
@@ -102,12 +102,7 @@
     [Request.shareInstance getUrl:Upgrade params:@{@"devId":self.devId} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
-        int hasNewVersion = [result[@"data"][@"hasNewVersion"] intValue];
-        [GlobelDescAlertView showAlertViewWithTitle:@"Check for updates" desc:result[@"data"][@"tips"] btnTitle:hasNewVersion==1?nil:@"Update" completion:^{
-            if (hasNewVersion!=1) {
-                [self updateDevice];
-            }
-        }];
+        [RMHelper showToast:result[@"data"][@"tips"] toView:self.view];
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];

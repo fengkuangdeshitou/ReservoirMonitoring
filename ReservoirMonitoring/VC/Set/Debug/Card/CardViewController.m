@@ -69,16 +69,17 @@
         return;
     }
     [BleManager.shareInstance readWithDictionary:@{@"type":@"SN-ICCID"} finish:^(NSDictionary * _Nonnull dict) {
+        // {"ICCID":"89882390000353142105","SN":"VC51030622208003"}
+        self.cardDictionary = dict;
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.cardDictionary = dict;
-            if (![self.cardDictionary[@"SN"] isEqual:[NSNull null]]) {
-                self.sn.text = self.cardDictionary[@"SN"];
-            }
-            if (![self.cardDictionary[@"ICCID"] isEqual:[NSNull null]]) {
-                self.iccid.text = self.cardDictionary[@"ICCID"];
-            }
+            [self loadIcciData];
         });
     }];
+}
+
+- (void)loadIcciData{
+    self.sn.text = self.cardDictionary[@"SN"];
+    self.iccid.text = self.cardDictionary[@"ICCID"];
 }
 
 - (IBAction)queryStatus:(id)sender{

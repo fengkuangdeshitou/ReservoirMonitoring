@@ -715,7 +715,7 @@ static unsigned char auchCRCLo[] = {
                 self.readDictionaryFinish(dict);
             }
             if (self.readFinish) {
-                self.readFinish(@[@"0",@"0",@"0",@"0",@"0",@"0"]);
+                self.readFinish(@[@"0",@"0",@"0",@"0",@"0",@"0",@"0",@"0"]);
             }
         }
         
