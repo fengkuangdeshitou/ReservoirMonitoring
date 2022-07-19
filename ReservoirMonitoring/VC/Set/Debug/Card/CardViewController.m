@@ -64,24 +64,24 @@
 }
 
 - (IBAction)queryAction:(id)sender{
+//    self.cardDictionary = @{@"ICCID":@"89882390000353142105",@"SN":@"VC51030622208003"};
     if (!BleManager.shareInstance.isConnented) {
         [RMHelper showToast:@"Please connect device" toView:self.view];
         return;
     }
     [BleManager.shareInstance readWithDictionary:@{@"type":@"SN-ICCID"} finish:^(NSDictionary * _Nonnull dict) {
-        // {"ICCID":"89882390000353142105","SN":"VC51030622208003"}
-        self.cardDictionary = dict;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self loadIcciData];
-        });
+        if (dict[@"SN"]) {
+            self.cardDictionary = dict;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self loadIcciData];
+            });
+        }
     }];
 }
 
 - (void)loadIcciData{
-    if (self.cardDictionary[@"SN"]) {
-        self.sn.text = self.cardDictionary[@"SN"];
-        self.iccid.text = self.cardDictionary[@"ICCID"];
-    }
+    self.sn.text = self.cardDictionary[@"SN"];
+    self.iccid.text = self.cardDictionary[@"ICCID"];
 }
 
 - (IBAction)queryStatus:(id)sender{

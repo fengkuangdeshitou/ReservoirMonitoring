@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setRightBarButtonItemWithImage:(UIImage *)image
                                    sel:(nullable SEL)sel;
 
+- (void)setLeftBarImageForSel:(nullable SEL)sel;
+
 @end
 
 NS_ASSUME_NONNULL_END

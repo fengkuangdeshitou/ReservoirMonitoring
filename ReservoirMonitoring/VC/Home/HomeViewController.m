@@ -31,7 +31,7 @@
     [self.refreshController addTarget:self action:@selector(onRefresh) forControlEvents:UIControlEventValueChanged];
     self.manager = BleManager.shareInstance;
     [self.addEquipmentBtn showBorderWithRadius:25];
-    [self setLeftBatButtonItemWithImage:[UIImage imageNamed:@"logo"] sel:nil];
+    [self setLeftBarImageForSel:nil];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomeTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([HomeTableViewCell class])];
 }
 

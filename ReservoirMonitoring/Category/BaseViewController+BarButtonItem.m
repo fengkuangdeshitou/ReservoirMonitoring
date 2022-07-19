@@ -54,4 +54,14 @@ void swizzleMethod(Class class, SEL originalSelector, SEL swizzledSelector){
     self.navigationItem.rightBarButtonItem = item;
 }
 
+- (void)setLeftBarImageForSel:(SEL)sel{
+    UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 140, 33)];
+    UIImageView * img = [[UIImageView alloc] initWithFrame:view.bounds];
+    img.image = [UIImage imageNamed:@"logo"];
+    img.contentMode = UIViewContentModeScaleAspectFit;
+    [view addSubview:img];
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:view];
+    self.navigationItem.leftBarButtonItem = item;
+}
+
 @end

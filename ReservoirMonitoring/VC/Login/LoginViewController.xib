@@ -26,14 +26,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="64w-6W-4Lx">
-                    <rect key="frame" x="107" y="104" width="200" height="22"/>
+                    <rect key="frame" x="106.5" y="104" width="201" height="33"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="200" id="2MN-L7-VUT"/>
-                        <constraint firstAttribute="height" constant="22" id="QgS-kk-xdb"/>
+                        <constraint firstAttribute="height" constant="33" id="QgS-kk-xdb"/>
+                        <constraint firstAttribute="width" secondItem="64w-6W-4Lx" secondAttribute="height" multiplier="128:21" id="tEh-9G-Z0Z"/>
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQd-YR-xPD">
-                    <rect key="frame" x="35" y="186" width="344" height="63.5"/>
+                    <rect key="frame" x="35" y="197" width="344" height="63.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuT-qd-6Px">
                             <rect key="frame" x="0.0" y="0.0" width="34.5" height="17"/>
@@ -72,7 +72,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YNB-hj-yXK">
-                    <rect key="frame" x="35" y="279.5" width="310" height="63.5"/>
+                    <rect key="frame" x="35" y="290.5" width="310" height="63.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZhU-Tc-Otw">
                             <rect key="frame" x="0.0" y="0.0" width="62.5" height="17"/>
@@ -111,7 +111,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Bx-sB-Jrh">
-                    <rect key="frame" x="35" y="393" width="344" height="50"/>
+                    <rect key="frame" x="35" y="404" width="344" height="50"/>
                     <color key="backgroundColor" red="0.1058823529" green="0.1058823529" blue="0.1058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="P29-Kl-UXo"/>
@@ -125,7 +125,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15n-av-zCa">
-                    <rect key="frame" x="35" y="463" width="153" height="34"/>
+                    <rect key="frame" x="35" y="474" width="153" height="34"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" title="Register new users"/>
                     <connections>
@@ -133,7 +133,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPm-lT-40m">
-                    <rect key="frame" x="244" y="463" width="135" height="34"/>
+                    <rect key="frame" x="244" y="474" width="135" height="34"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" title="Forgot password"/>
                     <connections>
@@ -141,7 +141,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r1o-QI-B6g">
-                    <rect key="frame" x="360" y="299.5" width="24" height="24"/>
+                    <rect key="frame" x="360" y="310.5" width="24" height="24"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="24" id="ELs-03-rVP"/>
                         <constraint firstAttribute="height" constant="24" id="jLk-DX-Ifd"/>
@@ -181,6 +181,6 @@
     <resources>
         <image name="ic_preview_close" width="24" height="24"/>
         <image name="ic_preview_open" width="24" height="24"/>
-        <image name="logo" width="128" height="14"/>
+        <image name="logo" width="200" height="32.5"/>
     </resources>
 </document>
