@@ -41,13 +41,25 @@
                             <action selector="help:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="tae-M6-P8R"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZLL-Bf-S3W">
+                        <rect key="frame" x="218.5" y="9" width="58" height="26"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="26" id="ifV-SV-AGw"/>
+                            <constraint firstAttribute="width" constant="58" id="ig6-Cw-5HS"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" title="Clear"/>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="cf4-ex-G9V" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="4Dp-6g-vzY"/>
+                    <constraint firstItem="ZLL-Bf-S3W" firstAttribute="centerY" secondItem="Eog-wd-BlX" secondAttribute="centerY" id="4X6-A1-sqr"/>
                     <constraint firstAttribute="trailing" secondItem="cf4-ex-G9V" secondAttribute="trailing" constant="15" id="A64-3t-9cJ"/>
                     <constraint firstItem="yu5-vG-3ui" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="DPN-BS-8rx"/>
                     <constraint firstAttribute="bottom" secondItem="Eog-wd-BlX" secondAttribute="bottom" id="ESW-K6-C30"/>
+                    <constraint firstItem="ZLL-Bf-S3W" firstAttribute="leading" secondItem="Eog-wd-BlX" secondAttribute="trailing" id="Gyh-aM-R6X"/>
                     <constraint firstItem="8lH-gF-u2G" firstAttribute="leading" secondItem="yu5-vG-3ui" secondAttribute="trailing" constant="10" id="KgR-Er-XDa"/>
                     <constraint firstAttribute="bottom" secondItem="cf4-ex-G9V" secondAttribute="bottom" id="Qbp-4Z-Wjt"/>
                     <constraint firstItem="Eog-wd-BlX" firstAttribute="leading" secondItem="8lH-gF-u2G" secondAttribute="trailing" id="gX6-MH-Jio"/>
@@ -61,6 +73,7 @@
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="clearBtn" destination="ZLL-Bf-S3W" id="qNI-fz-A6H"/>
                 <outlet property="icon" destination="yu5-vG-3ui" id="HNh-xV-Z4I"/>
                 <outlet property="titleLabel" destination="8lH-gF-u2G" id="aZw-Mn-e0Z"/>
             </connections>

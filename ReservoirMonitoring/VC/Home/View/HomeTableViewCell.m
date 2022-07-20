@@ -115,30 +115,24 @@
             self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
         }
     }else{
-        if (model.status.intValue == 1) {
-            self.statusValue.text = @"Fault";
+        
+        if (model.isOnline.intValue == 1){
+            self.communicationValue.text = @"Online".localized;
+            self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+            if (model.status.intValue == 1) {
+                self.statusValue.text = @"Fault";
+                self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
+            }else{
+                self.statusValue.text = @"Normal";
+                self.statusValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+            }
+        }else{
+            self.statusValue.text = @"Offline".localized;
             self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
-        }else{
-            self.statusValue.text = @"Normal";
-            self.statusValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
-        }
-        if (model.workStatus.intValue == 1){
-            self.communicationValue.text = @"Self-consumption".localized;
-            self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
-        }else if (model.workStatus.intValue == 2){
-            self.communicationValue.text = @"Time Of Use".localized;
-            self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
-        }else if (model.workStatus.intValue == 3){
-            self.communicationValue.text = @"Back up".localized;
-            self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
-        }else{
             self.communicationValue.text = @"Offline".localized;
             self.communicationValue.textColor = [UIColor colorWithHexString:@"#999999"];
         }
-        
     }
-    
-    
     
     for (UIView * view in self.itemContentView.subviews) {
         if ([view isKindOfClass:[HomeItemView class]]) {

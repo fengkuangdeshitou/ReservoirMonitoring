@@ -36,6 +36,7 @@
     [self getCurrentDevice];
     [self setLeftBarImageForSel:nil];
     self.titleArray = [[NSMutableArray alloc] initWithArray:@[@"From grid:0 kWh".localized,@"Solar".localized,@"Generator".localized,@"EV".localized,@"Non-backup".localized,@"Backup loads".localized]];
+    self.valueArray = @[[NSString stringWithFormat:@"To grid:%@",@(0)],@(0),@(0),@(0),@(0),@(0)];
     self.imageArray = @[@"icon_grid_active",@"icon_solar_active",@"icon_generator_active",@"icon_ev_active",@"icon_non_backup_active",@"icon_backup_active"];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DataCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([DataCollectionViewCell class])];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DataEchartsCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([DataEchartsCollectionViewCell class])];
@@ -90,7 +91,7 @@
     } success:^(NSDictionary * _Nonnull result) {
         self.model = [DevideModel mj_objectWithKeyValues:result[@"data"]];
         [self.titleArray replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"From grid:%.0f kWh",self.model.gridElectricityQd]];
-        self.valueArray = @[@(self.model.gridElectricityFd),@(self.model.solarElectricity),@(self.model.generatorElectricity),@(self.model.evElectricity),@(self.model.nonBackUpElectricity),@(self.model.backUpElectricity)];
+        self.valueArray = @[[NSString stringWithFormat:@"To grid:%@",@(self.model.gridElectricityFd)],@(self.model.solarElectricity),@(self.model.generatorElectricity),@(self.model.evElectricity),@(self.model.nonBackUpElectricity),@(self.model.backUpElectricity)];
         [self.collectionView reloadData];
     } failure:^(NSString * _Nonnull errorMsg) {
 
@@ -113,7 +114,7 @@
         DataCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([DataCollectionViewCell class]) forIndexPath:indexPath];
         cell.icon.image = [UIImage imageNamed:self.imageArray[indexPath.row]];
         cell.titleLabel.text = self.titleArray[indexPath.row];
-        cell.descLabel.text = [NSString stringWithFormat:@"%@ kWh",!self.valueArray[indexPath.row]?@"0":self.valueArray[indexPath.row]];
+        cell.descLabel.text = [NSString stringWithFormat:@"%@ kWh",self.valueArray[indexPath.row]];
         cell.titleLabel.font = [UIFont systemFontOfSize:indexPath.row == 0 ? 9 : 12];
         cell.descLabel.font = [UIFont systemFontOfSize:indexPath.row == 0 ? 9 : 12];
         return cell;

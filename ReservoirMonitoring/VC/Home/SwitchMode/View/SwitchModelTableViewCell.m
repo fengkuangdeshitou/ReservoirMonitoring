@@ -13,6 +13,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.clearBtn.layer.cornerRadius = 13;
+    self.clearBtn.layer.borderColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR].CGColor;
+    self.clearBtn.layer.borderWidth = 1;
 }
 
 - (IBAction)help:(id)sender{

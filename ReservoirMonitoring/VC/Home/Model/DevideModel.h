@@ -64,6 +64,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,assign) BOOL isConnected;
 
+@property(nonatomic,strong) NSString * isOnline;
+
 @property(nonatomic,assign) CGFloat treeNum;
 
 @property(nonatomic,assign) CGFloat coal;

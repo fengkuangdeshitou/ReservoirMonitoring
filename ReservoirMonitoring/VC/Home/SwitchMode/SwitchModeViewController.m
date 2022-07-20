@@ -428,6 +428,8 @@
         cell.icon.image = [UIImage imageNamed:self.flag == indexPath.section ? @"icon_choose" : @"icon_unchoose"];
         cell.titleLabel.text = self.titleArray[indexPath.section];
         cell.indexPath = indexPath;
+        cell.clearBtn.hidden = indexPath.section != self.titleArray.count-1;
+        [cell.clearBtn addTarget:self action:@selector(clearBtnClick) forControlEvents:UIControlEventTouchUpInside];
         return cell;
     }else{
         if (indexPath.section == 2) {
@@ -442,6 +444,16 @@
             return cell;
         }
     }
+}
+
+- (void)clearBtnClick{
+    [GlobelDescAlertView showAlertViewWithTitle:@"Clear" desc:@"Are you sure you want to clear the configuration" btnTitle:nil completion:^{
+        [BleManager.shareInstance writeWithCMDString:@"751" string:@"1" finish:^{
+            [self.touArray removeAllObjects];
+            [self.touArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
+            [self.tableView reloadData];
+        }];
+    }];
 }
 
 - (void)progressValueChange:(UISlider *)slider{

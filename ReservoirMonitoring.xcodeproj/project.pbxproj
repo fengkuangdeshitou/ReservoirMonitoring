@@ -189,6 +189,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F041D482887A924000DE04B /* ReservoirMonitoring.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ReservoirMonitoring.entitlements; sourceTree = "<group>"; };
 		0F0511B1283E4AF8007E7680 /* UserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		0F0511B2283E4AF8007E7680 /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		0F0511B9283F87D4007E7680 /* HelpDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpDetailViewController.h; sourceTree = "<group>"; };
@@ -721,6 +722,7 @@
 		BD2DEF1D28044A6E004E8D7D /* ReservoirMonitoring */ = {
 			isa = PBXGroup;
 			children = (
+				0F041D482887A924000DE04B /* ReservoirMonitoring.entitlements */,
 				BD2DEF1E28044A6E004E8D7D /* AppDelegate.h */,
 				BD2DEF1F28044A6E004E8D7D /* AppDelegate.m */,
 				0FE713F8283C857600B0733A /* Third */,
@@ -1786,6 +1788,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ReservoirMonitoring/ReservoirMonitoring.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1821,6 +1824,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ReservoirMonitoring/ReservoirMonitoring.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LMDZYJF4B6;
