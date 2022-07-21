@@ -225,7 +225,7 @@
 }
 
 - (IBAction)helpAction:(id)sender{
-    [GlobelDescAlertView showAlertViewWithTitle:@"Weather watch".localized desc:@"Monitor local weather condition, automatically stores energy for hazard backup." btnTitle:nil completion:nil];
+    [GlobelDescAlertView showAlertViewWithTitle:@"Weather watch".localized desc:@"This will enable the EP CUBE to monitor local weather and charge the batteries for backup in case of extreme future weather event." btnTitle:nil completion:nil];
 }
 
 - (IBAction)submitAction:(id)sender{

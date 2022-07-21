@@ -115,7 +115,6 @@
             self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
         }
     }else{
-        
         if (model.isOnline.intValue == 1){
             self.communicationValue.text = @"Online".localized;
             self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
@@ -164,7 +163,7 @@
             }
         }
     }
-    self.progressView.titleLabel.text = [NSString stringWithFormat:@"%.0f kWh (%.0f%@)",[model.batteryCurrentElectricity floatValue],[model.batterySoc floatValue],@"%"];
+    self.progressView.titleLabel.text = [NSString stringWithFormat:@"%.2f kWh (%.0f%@)",[model.batteryCurrentElectricity floatValue],[model.batterySoc floatValue],@"%"];
     self.progressView.progress = [model.batterySoc floatValue]/100;
     
     CGFloat divided = model.evElectricity+model.nonBackUpElectricity+model.backUpElectricity;

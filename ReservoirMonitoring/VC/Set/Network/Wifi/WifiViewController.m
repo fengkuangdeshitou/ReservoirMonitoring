@@ -31,7 +31,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([WifiInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([WifiInfoTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([WifiTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([WifiTableViewCell class])];
     [self.model addObserver:self forKeyPath:@"isConnected" options:NSKeyValueObservingOptionNew context:nil];
-//    [self getWifiList];
+    [self getWifiList];
 //    NSLog(@"currentWifi=%@",[self wifiName]);
 //    NSString* phoneVersion = [[UIDevice currentDevice] systemVersion];
 //    CGFloat version = [phoneVersion floatValue];

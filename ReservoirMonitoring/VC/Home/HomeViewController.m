@@ -90,7 +90,9 @@
     [Request.shareInstance getUrl:HomeDeviceInfo params:@{@"sgSn":sgSn,@"dayMonthYearFormat":[NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year,date.br_month,date.br_day]} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
+        NSString * isOnline = self.model.isOnline;
         self.model = [DevideModel mj_objectWithKeyValues:result[@"data"]];
+        self.model.isOnline = isOnline;
         [self.tableView reloadData];
         [self.refreshController endRefreshing];
     } failure:^(NSString * _Nonnull errorMsg) {

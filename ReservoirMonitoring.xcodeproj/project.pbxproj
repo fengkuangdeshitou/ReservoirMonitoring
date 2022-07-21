@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F041D4F28882560000DE04B /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F041D4E28882560000DE04B /* NetworkExtension.framework */; };
 		0F0511B3283E4AF8007E7680 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0511B2283E4AF8007E7680 /* UserModel.m */; };
 		0F0511BC283F87D4007E7680 /* HelpDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0511BA283F87D4007E7680 /* HelpDetailViewController.m */; };
 		0F0511BD283F87D4007E7680 /* HelpDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F0511BB283F87D4007E7680 /* HelpDetailViewController.xib */; };
@@ -190,6 +191,7 @@
 
 /* Begin PBXFileReference section */
 		0F041D482887A924000DE04B /* ReservoirMonitoring.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ReservoirMonitoring.entitlements; sourceTree = "<group>"; };
+		0F041D4E28882560000DE04B /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		0F0511B1283E4AF8007E7680 /* UserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		0F0511B2283E4AF8007E7680 /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		0F0511B9283F87D4007E7680 /* HelpDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpDetailViewController.h; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6529B29C2E0432E1F4C480DD /* Pods_ReservoirMonitoring.framework in Frameworks */,
+				0F041D4F28882560000DE04B /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -677,6 +680,7 @@
 		6C601691DA04C12B7D142288 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0F041D4E28882560000DE04B /* NetworkExtension.framework */,
 				11BA0DE0AA9A215EC56692FA /* Pods_ReservoirMonitoring.framework */,
 				0F582A4DCB34D84D2C390CBD /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework */,
 				263B1F2000C58A09A71CC682 /* Pods_ReservoirMonitoringTests.framework */,

@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.dataArray = [[NSMutableArray alloc] initWithArray:@[
-        @{@"title":@"Control mode".localized,@"placeholder":@"Local".localized},
+        @{@"title":@"Control mode".localized,@"placeholder":@"Remote".localized},
         @{@"title":@"Load config via Bluetooth".localized,@"placeholder":@"".localized},
         @{@"title":@"Regis".localized,@"placeholder":@"Enter (number)".localized},
         @{@"title":@"Value".localized,@"placeholder":@"Enter (number)".localized},

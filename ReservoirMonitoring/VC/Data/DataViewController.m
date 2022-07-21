@@ -30,9 +30,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.collectionView.refreshControl = self.refreshController;
     [[NSNotificationCenter defaultCenter] addObserverForName:SWITCH_DEVICE_NOTIFICATION object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
         [self getCurrentDevice];
     }];
+    [self.refreshController addTarget:self action:@selector(getCurrentDevice) forControlEvents:UIControlEventValueChanged];
     [self getCurrentDevice];
     [self setLeftBarImageForSel:nil];
     self.titleArray = [[NSMutableArray alloc] initWithArray:@[@"From grid:0 kWh".localized,@"Solar".localized,@"Generator".localized,@"EV".localized,@"Non-backup".localized,@"Backup loads".localized]];
@@ -69,7 +71,7 @@
         self.devId = array.firstObject.deviceId;
         [self getDataWithScopeType:1];
     } failure:^(NSString * _Nonnull errorMsg) {
-
+        [self.refreshController endRefreshing];
     }];
 }
 
@@ -92,9 +94,10 @@
         self.model = [DevideModel mj_objectWithKeyValues:result[@"data"]];
         [self.titleArray replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"From grid:%.0f kWh",self.model.gridElectricityQd]];
         self.valueArray = @[[NSString stringWithFormat:@"To grid:%@",@(self.model.gridElectricityFd)],@(self.model.solarElectricity),@(self.model.generatorElectricity),@(self.model.evElectricity),@(self.model.nonBackUpElectricity),@(self.model.backUpElectricity)];
+        [self.refreshController endRefreshing];
         [self.collectionView reloadData];
     } failure:^(NSString * _Nonnull errorMsg) {
-
+        [self.refreshController endRefreshing];
     }];
 }
 
