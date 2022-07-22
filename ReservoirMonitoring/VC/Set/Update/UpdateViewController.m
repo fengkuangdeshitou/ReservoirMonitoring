@@ -16,6 +16,7 @@
 @property(nonatomic,weak)IBOutlet UILabel * version;
 @property(nonatomic,weak)IBOutlet UILabel * ota;
 @property(nonatomic,copy) NSString * devId;
+@property(nonatomic,strong) NSDictionary * result;
 
 @end
 
@@ -140,6 +141,7 @@
             
     } success:^(NSDictionary * _Nonnull result) {
         int hasNewVersion = [result[@"data"][@"hasNewVersion"] intValue];
+        self.result = result[@"data"];
         [GlobelDescAlertView showAlertViewWithTitle:@"Check for updates" desc:result[@"data"][@"tips"] btnTitle:hasNewVersion==1?nil:@"Update" completion:^{
             if (hasNewVersion!=1) {
                 [self updateDevice];
@@ -151,7 +153,13 @@
 }
 
 - (void)updateDevice{
-    [Request.shareInstance getUrl:Upgrade params:@{@"devId":self.devId} progress:^(float progress) {
+    [Request.shareInstance getUrl:Upgrade
+                           params:@{
+                                    @"devId":self.devId,
+                                    @"currentVerNum":self.result[@"currentVerNum"],
+                                    @"upgradeTaskId":self.result[@"upgradeTaskId"],
+                                    @"newVerNum":self.result[@"newVerNum"]}
+                         progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         [RMHelper showToast:result[@"data"][@"tips"] toView:self.view];

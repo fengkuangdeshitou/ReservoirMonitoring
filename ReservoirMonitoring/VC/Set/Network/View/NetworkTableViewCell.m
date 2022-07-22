@@ -24,7 +24,7 @@
 - (void)setModel:(DevideModel *)model{
     _model = model;
     self.titleLabel.text = model.name;
-    self.address.text = [NSString stringWithFormat:@"SN:%@",[model.name componentsSeparatedByString:@"-"].lastObject];
+    self.address.text = [NSString stringWithFormat:@"SN:%@",model.sgSn];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

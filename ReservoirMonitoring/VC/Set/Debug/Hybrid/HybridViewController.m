@@ -242,7 +242,7 @@
     }else if (indexPath.section == 1 || indexPath.section == 2) {
         if (indexPath.row == 0) {
             SelecteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SelecteTableViewCell class]) forIndexPath:indexPath];
-            cell.titleLabel.text = indexPath.section == 1 ? @"Control circuit left".localized : @"Control circuit right".localized;
+            cell.titleLabel.text = indexPath.section == 1 ? @"Inverter".localized : @"Generator".localized;
             cell.content.text = indexPath.section == 1 ? self.leftValue : self.rightValue;
             return cell;
         }else{

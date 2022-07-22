@@ -32,7 +32,8 @@
         self.delegale = delegate;
         self.titleLabel.text = @"Slide the bar to complete the picture.".localized;
         [UIApplication.sharedApplication.keyWindow addSubview:self];
-        WMZCodeView *codeView = [[WMZCodeView shareInstance] addCodeViewWithType:CodeTypeImage withImageName:@"A" witgFrame:CGRectMake(0, 30, 345, 200)  withBlock:^(BOOL success) {
+        int value = arc4random()%3;
+        WMZCodeView *codeView = [[WMZCodeView shareInstance] addCodeViewWithType:CodeTypeImage withImageName:[NSString stringWithFormat:@"%d",value] witgFrame:CGRectMake(0, 30, 345, 200)  withBlock:^(BOOL success) {
             if (success) {
                 if (self.delegale && [self.delegale respondsToSelector:@selector(onAuthemticationSuccess)]) {
                     [self.delegale onAuthemticationSuccess];

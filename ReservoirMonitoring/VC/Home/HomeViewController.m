@@ -71,9 +71,11 @@
         if (array.count > 0) {
             self.model = array.firstObject;
             [self setRightBarButtonItemWithTitlt:array.firstObject.name sel:@selector(changeDevice)];
+            completion(array.firstObject);
+        }else{
+            completion(nil);
         }
         [self.refreshController endRefreshing];
-        completion(array.firstObject);
     } failure:^(NSString * _Nonnull errorMsg) {
         [self.refreshController endRefreshing];
     }];
@@ -81,7 +83,9 @@
 
 - (void)getNetworkData{
     [self getCurrentDevice:^(DevideModel *model) {
-        [self getHomeData:model.sgSn];
+        if (model) {
+            [self getHomeData:model.sgSn];
+        }
     }];
 }
 
