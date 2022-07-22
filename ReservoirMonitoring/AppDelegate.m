@@ -22,6 +22,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 //    [UWConfig setUserLanguage:@"zh-Hans"];
+    sleep(2);
     [UWConfig setUserLanguage:@"en"];
     [Bugly startWithAppId:@"dde48f2e31"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:LOGIN_SUCCESS object:nil];
