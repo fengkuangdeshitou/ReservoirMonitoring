@@ -35,20 +35,21 @@
     
     [self.update showBorderWithRadius:25];
     [self.update setTitle:@"Check for updates".localized forState:UIControlStateNormal];
+    __weak typeof(self) weakSelf = self;
     if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
             [BleManager.shareInstance readWithCMDString:@"503" count:5 finish:^(NSArray * _Nonnull array) {
                 dispatch_semaphore_signal(semaphore);
                 NSString * version = [array componentsJoinedByString:@""];
-                self.version.text = [@"Firmware version:".localized stringByAppendingString:version];
+                weakSelf.version.text = [@"Firmware version:".localized stringByAppendingString:version];
             }];
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
             [BleManager.shareInstance readWithCMDString:@"628" count:1 finish:^(NSArray * _Nonnull array) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    self.update.selected = [array.firstObject boolValue];
-                    if (self.update.selected) {
-                        [self updateAction];
+                    weakSelf.update.selected = [array.firstObject boolValue];
+                    if (weakSelf.update.selected) {
+                        [weakSelf updateAction];
                     }
                 });
             }];

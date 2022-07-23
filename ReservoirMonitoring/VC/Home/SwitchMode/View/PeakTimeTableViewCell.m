@@ -19,6 +19,7 @@
     _touArray = touArray;
     if (touArray.count > 0) {
         [self.dataArray replaceObjectAtIndex:0 withObject:touArray];
+        [self.tableView reloadData];
     }
     CGFloat height = self.tableView.contentSize.height;
     if (ceilf(height) != ceilf([[NSUserDefaults.standardUserDefaults objectForKey:TIME_TABLEVIEW_HEIGHT_CHANGE] floatValue])) {

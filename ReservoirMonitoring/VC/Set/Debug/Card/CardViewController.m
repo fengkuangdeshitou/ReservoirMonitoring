@@ -69,11 +69,13 @@
         [RMHelper showToast:@"Please connect device" toView:self.view];
         return;
     }
+    [self.view showHUDToast:@"Loading"];
     [BleManager.shareInstance readWithDictionary:@{@"type":@"SN-ICCID"} finish:^(NSDictionary * _Nonnull dict) {
         if (dict[@"SN"]) {
             self.cardDictionary = dict;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self loadIcciData];
+                [self.view hiddenHUD];
             });
         }
     }];

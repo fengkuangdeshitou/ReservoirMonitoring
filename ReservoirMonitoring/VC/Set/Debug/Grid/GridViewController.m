@@ -33,11 +33,15 @@
     [self.submit showBorderWithRadius:25];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
+    if (BleManager.shareInstance.isConnented) {
+        [self.view showHUDToast:@"Loading"];
+    }
+    __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         [BleManager.shareInstance readWithCMDString:@"625" count:1 finish:^(NSArray * array){
             int value = [array.firstObject intValue];
-            [self exchangeDictFor:0 value:@[@"Whole home".localized,@"Partical home".localized][1-value]];
+            [weakSelf exchangeDictFor:0 value:@[@"Whole home".localized,@"Partical home".localized][1-value]];
             dispatch_semaphore_signal(semaphore);
         }];
         
@@ -46,11 +50,11 @@
             int value = [array.firstObject intValue];
             if (value > 0) {
                 NSString * input = [NSString stringWithFormat:@"%d",value/10];
-                [self exchangeDictFor:1 value:input];
-                InputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+                [weakSelf exchangeDictFor:1 value:input];
+                InputTableViewCell * cell = [weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
                 cell.textfield.text = input;
             }else{
-                [self exchangeDictFor:1 value:@"0"];
+                [weakSelf exchangeDictFor:1 value:@"0"];
             }
             dispatch_semaphore_signal(semaphore);
         }];
@@ -59,7 +63,7 @@
         // 513
         [BleManager.shareInstance readWithCMDString:@"627" count:1 finish:^(NSArray * array){
             NSInteger index = [array.firstObject intValue] == 255 ? 6 : [array.firstObject intValue];
-            [self exchangeDictFor:2 value:@[
+            [weakSelf exchangeDictFor:2 value:@[
                 @"SCE Rule 21",
                 @"SDG&E Rule 21",
                 @"PG&E Rule 21",
@@ -73,8 +77,15 @@
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"64E" count:1 finish:^(NSArray * array){
-            [self exchangeDictFor:3 value:[array.firstObject intValue] == 0 ? @"50 Hz" : [NSString stringWithFormat:@"%@ Hz",array.firstObject]];
+            [weakSelf exchangeDictFor:3 value:[array.firstObject intValue] == 0 ? @"50 Hz" : [NSString stringWithFormat:@"%@ Hz",array.firstObject]];
+            dispatch_semaphore_signal(semaphore);
         }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.view hiddenHUD];
+            dispatch_semaphore_signal(semaphore);
+        });
     });
     
 }
@@ -89,15 +100,20 @@
 - (IBAction)submitAction:(id)sender{
     InputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     int input = [cell.textfield.text intValue]*10;
-    NSLog(@"====%@",self.dataArray[2][@"value"]);
+    NSLog(@"value====%@",self.dataArray[3][@"value"]);
+    __weak typeof(self) weakSelf = self;
+    if (BleManager.shareInstance.isConnented) {
+        [weakSelf.view showHUDToast:@"Loading"];
+    }
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
-        [BleManager.shareInstance writeWithCMDString:@"625" array:@[self.dataArray[0][@"value"],[NSString stringWithFormat:@"%d",input],self.dataArray[2][@"value"]] finish:^{
+        [BleManager.shareInstance writeWithCMDString:@"625" array:@[weakSelf.dataArray[0][@"value"],[NSString stringWithFormat:@"%d",input],weakSelf.dataArray[2][@"value"]] finish:^{
             dispatch_semaphore_signal(sem);
         }];
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance writeWithCMDString:@"64E" array:@[self.dataArray[3][@"value"]] finish:^{
-            [RMHelper showToast:@"Write success" toView:self.view];
+        [BleManager.shareInstance writeWithCMDString:@"64E" array:@[weakSelf.dataArray[3][@"value"]] finish:^{
+            [RMHelper showToast:@"Write success" toView:weakSelf.view];
+            [weakSelf.view hiddenHUD];
         }];
     });
 }

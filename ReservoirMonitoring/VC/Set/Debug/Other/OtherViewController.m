@@ -36,13 +36,20 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SwitchTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SwitchTableViewCell class])];
+    if (BleManager.shareInstance.isConnented) {
+        [self.view showHUDToast:@"Loading"];
+    }
+    __weak typeof(self) weakSelf = self;
     [BleManager.shareInstance readWithCMDString:@"512" count:1 finish:^(NSArray * _Nonnull array) {
         NSInteger idx = [array.firstObject integerValue];
-        NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[0]];
+        NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:weakSelf.dataArray[0]];
         dict[@"placeholder"] = @[@"Local".localized,@"Remote".localized][idx];
         dict[@"value"] = [NSString stringWithFormat:@"%ld",idx];
-        self.dataArray[0] = dict;
-        [self.tableView reloadData];
+        weakSelf.dataArray[0] = dict;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.tableView reloadData];
+            [weakSelf.view hiddenHUD];
+        });
     }];
 }
 

@@ -30,67 +30,76 @@
     [self.submit showBorderWithRadius:25];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
-    
+    if (BleManager.shareInstance.isConnented) {
+        [self.view showHUDToast:@"Loading"];
+    }
+    __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
         [BleManager.shareInstance readWithCMDString:@"620" count:1 finish:^(NSArray * _Nonnull array) {
-            self.resNum = [array.firstObject intValue] == 0 ? 1 : [array.firstObject intValue];
-            [self loadRessNumber];
+            weakSelf.resNum = [array.firstObject intValue] == 0 ? 1 : [array.firstObject intValue];
+            [weakSelf loadRessNumber];
             dispatch_semaphore_signal(sem);
         }];
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"629" count:4 finish:^(NSArray * _Nonnull array) {
-            NSMutableArray * fristArray = [[NSMutableArray alloc] initWithArray:self.dataArray.firstObject];
-            [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:fristArray[idx]];
-                if (idx == 0) {
-                    item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];
-                    [fristArray replaceObjectAtIndex:0 withObject:item];
-                }else if (idx == 1) {
-                    item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
-                    [fristArray replaceObjectAtIndex:1 withObject:item];
-                }else if (idx == 2) {
-                    item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
-                    [fristArray replaceObjectAtIndex:2 withObject:item];
-                }else if (idx == 3) {
-                    item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
-                    [fristArray replaceObjectAtIndex:3 withObject:item];
-                }
-                [self.dataArray replaceObjectAtIndex:0 withObject:fristArray];
-            }];
-            dispatch_semaphore_signal(sem);
-        }];
-        
-        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance readWithCMDString:@"63A" count:4*(self.resNum-1) finish:^(NSArray * _Nonnull array) {
-            for (int idx=0; idx<array.count; idx++) {
-                NSMutableArray * sectionArray = [[NSMutableArray alloc] initWithArray:self.dataArray[idx/4+1]];
-                NSString *obj = array[idx];
-                if (idx%4 == 0) {
-                    NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[0]];
-                    item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
-                    [sectionArray replaceObjectAtIndex:0 withObject:item];
-                }else if (idx%4 == 1) {
-                    NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[1]];
-                    item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
-                    [sectionArray replaceObjectAtIndex:1 withObject:item];
-                }else if (idx%4 == 2) {
-                    NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[2]];
-                    item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
-                    [sectionArray replaceObjectAtIndex:2 withObject:item];
-                }else if (idx%4 == 3) {
-                    NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[3]];
-                    item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
-                    [sectionArray replaceObjectAtIndex:3 withObject:item];
-                }
-                [self.dataArray replaceObjectAtIndex:(idx/4+1) withObject:sectionArray];
+            NSMutableArray * fristArray = [[NSMutableArray alloc] initWithArray:weakSelf.dataArray.firstObject];
+            if (array) {
+                [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:fristArray[idx]];
+                    if (idx == 0) {
+                        item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];
+                        [fristArray replaceObjectAtIndex:0 withObject:item];
+                    }else if (idx == 1) {
+                        item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
+                        [fristArray replaceObjectAtIndex:1 withObject:item];
+                    }else if (idx == 2) {
+                        item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
+                        [fristArray replaceObjectAtIndex:2 withObject:item];
+                    }else if (idx == 3) {
+                        item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
+                        [fristArray replaceObjectAtIndex:3 withObject:item];
+                    }
+                    [weakSelf.dataArray replaceObjectAtIndex:0 withObject:fristArray];
+                }];
             }
             dispatch_semaphore_signal(sem);
         }];
+
+        if (weakSelf.resNum>1) {
+            dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+            [BleManager.shareInstance readWithCMDString:@"63A" count:4*(weakSelf.resNum-1) finish:^(NSArray * _Nonnull array) {
+                for (int idx=0; idx<array.count; idx++) {
+                    NSMutableArray * sectionArray = [[NSMutableArray alloc] initWithArray:weakSelf.dataArray[idx/4+1]];
+                    NSString *obj = array[idx];
+                    if (idx%4 == 0) {
+                        NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[0]];
+                        item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
+                        [sectionArray replaceObjectAtIndex:0 withObject:item];
+                    }else if (idx%4 == 1) {
+                        NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[1]];
+                        item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
+                        [sectionArray replaceObjectAtIndex:1 withObject:item];
+                    }else if (idx%4 == 2) {
+                        NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[2]];
+                        item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
+                        [sectionArray replaceObjectAtIndex:2 withObject:item];
+                    }else if (idx%4 == 3) {
+                        NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[3]];
+                        item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
+                        [sectionArray replaceObjectAtIndex:3 withObject:item];
+                    }
+                    [weakSelf.dataArray replaceObjectAtIndex:(idx/4+1) withObject:sectionArray];
+                }
+                dispatch_semaphore_signal(sem);
+            }];
+        }
+
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.submit.hidden = false;
-            [self.tableView reloadData];
+            weakSelf.submit.hidden = false;
+            [weakSelf.view hiddenHUD];
+            [weakSelf.tableView reloadData];
         });
     });
 }
@@ -146,6 +155,10 @@
             [otherArray addObject:[NSString stringWithFormat:@"%d",[valueArray[i] intValue]*10]];
         }
     }
+    __weak typeof(self) weakSelf = self;
+    if (BleManager.shareInstance.isConnented) {
+        [weakSelf.view showHUDToast:@"Loading"];
+    }
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
         [BleManager.shareInstance writeWithCMDString:@"629" array:fristArray finish:^{
@@ -153,7 +166,10 @@
         }];
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance writeWithCMDString:@"63A" array:otherArray finish:^{
-            [RMHelper showToast:@"Write success" toView:self.view];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [RMHelper showToast:@"Write success" toView:weakSelf.view];
+                [weakSelf.view hiddenHUD];
+            });
             dispatch_semaphore_signal(sem);
         }];
     });
@@ -216,6 +232,11 @@
     view.backgroundColor = [UIColor colorWithHexString:@"#0c0c0c"];
     return view;
 }
+
+- (void)dealloc{
+    
+}
+
 /*
 #pragma mark - Navigation
 

@@ -447,32 +447,33 @@ static unsigned char auchCRCLo[] = {
 /// @param advertisementData 广播值 一般携带设备名，serviceUUIDs等信息
 /// @param RSSI RSSI绝对值越大，表示信号越差，设备离的越远。如果想装换成百分比强度，（RSSI+100）/100
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI{
-    if (!peripheral.name) {
+    NSString * locationName = [advertisementData objectForKey:@"kCBAdvDataLocalName"];
+    if (!locationName) {
         return;
     }
-    NSLog(@"name=%@,%@",peripheral.name,RSSI);
+    NSLog(@"locationName=%@,%@",locationName,RSSI);
     
     if (self.isAutoConnect) {
 //        dispatch_async(dispatch_get_main_queue(), ^{
 //            [RMHelper showToast:[NSString stringWithFormat:@"wifi:%@",peripheral.name] toView:UIApplication.sharedApplication.keyWindow];
 //        });
-        if ([peripheral.name hasPrefix:@"EPCUBE"]) {
-            if ([peripheral.name containsString:@"-"]) {
-                NSString * sn = [peripheral.name componentsSeparatedByString:@"-"].lastObject;
+        if ([locationName hasPrefix:@"EPCUBE"]) {
+            if ([locationName containsString:@"-"]) {
+                NSString * sn = [locationName componentsSeparatedByString:@"-"].lastObject;
                 if ([self.rtusn containsString:sn]) {
                     self.peripheral = peripheral;
                     self.peripheral.delegate = self;
                     [self.centralManager connectPeripheral:self.peripheral options:nil];
                 }
             }else{
-                if ([self.rtusn containsString:peripheral.name]) {
+                if ([self.rtusn containsString:locationName]) {
                     self.peripheral = peripheral;
                     self.peripheral.delegate = self;
                     [self.centralManager connectPeripheral:self.peripheral options:nil];
                 }
             }
         }
-        if([peripheral.name isEqualToString:@"iPad"]){
+        if([locationName isEqualToString:@"iPad"]){
             self.peripheral = peripheral;
             self.peripheral.delegate = self;
             [self.centralManager connectPeripheral:self.peripheral options:nil];
@@ -670,52 +671,54 @@ static unsigned char auchCRCLo[] = {
             return;
         }
 //        NSString *response = [self valueStringWithResponse:data];
-        /// 成功
+        __weak typeof(self) weakSelf = self;
         NSLog(@"读取蓝牙回复：%@",dict);
         if ([dict objectForKey:@"RawModbus"]) {
             NSString * string = dict[@"RawModbus"];
             if (string.length < 4) {
                 return;
             }
-            NSString * cmd = [NSUserDefaults.standardUserDefaults objectForKey:BLE_CMD];
             
+            NSString * cmd = [NSUserDefaults.standardUserDefaults objectForKey:BLE_CMD];
             NSString * style = [string substringWithRange:NSMakeRange(2, 2)];
-            NSLog(@"style=%@",style);
+            
             if (style.intValue == 3) {
                 NSString * countHex = [string substringWithRange:NSMakeRange(4, 2)];
-                int count = [[self decimalStringFromHexString:countHex] intValue];
+                int count = [[weakSelf decimalStringFromHexString:countHex] intValue];
                 NSString * countValue = [string substringWithRange:NSMakeRange(6, count*2)];
 
                 NSMutableArray * array = [[NSMutableArray alloc] init];
                 for (int i=0; i<countValue.length; i+=4) {
                     NSString * str = [countValue substringWithRange:NSMakeRange(i, 4)];
-                    int value = [[self decimalStringFromHexString:str] intValue];
+                    int value = [[weakSelf decimalStringFromHexString:str] intValue];
                     [array addObject:[NSString stringWithFormat:@"%d",value]];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidReceivedCMD:array:)]) {
-                        [self.delegate bluetoothDidReceivedCMD:cmd array:array];
+                    if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(bluetoothDidReceivedCMD:array:)]) {
+                        [weakSelf.delegate bluetoothDidReceivedCMD:cmd array:array];
                     }
-                    if (self.readFinish) {
-                        self.readFinish(array);
+                    if (weakSelf.readFinish) {
+                        weakSelf.readFinish(array);
                     }
                 });
             }else{
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidReceivedCMD:array:)]) {
+                    if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(bluetoothDidReceivedCMD:array:)]) {
                         [self.delegate bluetoothDidReceivedCMD:cmd array:@[]];
                     }
-                    if (self.writeFinish) {
-                        self.writeFinish();
+                    if (weakSelf.writeFinish) {
+                        weakSelf.writeFinish();
                     }
                 });
             }
+            [NSUserDefaults.standardUserDefaults removeObjectForKey:BLE_CMD];
         }else{
-            if (self.readDictionaryFinish) {
-                self.readDictionaryFinish(dict);
+            [NSUserDefaults.standardUserDefaults removeObjectForKey:BLE_CMD];
+            if (weakSelf.readDictionaryFinish) {
+                weakSelf.readDictionaryFinish(dict);
             }
-            if (self.readFinish) {
-                self.readFinish(@[@"0",@"0",@"0",@"0",@"0",@"0",@"0",@"0"]);
+            if (weakSelf.readFinish) {
+                weakSelf.readFinish(@[]);
             }
         }
         

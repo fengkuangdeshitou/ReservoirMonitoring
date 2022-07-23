@@ -61,39 +61,43 @@
     [self.submit showBorderWithRadius:25];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
+    if (BleManager.shareInstance.isConnented) {
+        [self.view showHUDToast:@"Loading"];
+    }
+    __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         [BleManager.shareInstance readWithCMDString:@"611" count:6 finish:^(NSArray * _Nonnull array) {
             if (array.count == 6) {
-                self.systemTime = [NSString stringWithFormat:@"%@-%@-%@ %@:%@:%@",array[0],array[1],array[2],array[3],array[4],array[5]];
+                weakSelf.systemTime = [NSString stringWithFormat:@"%@-%@-%@ %@:%@:%@",array[0],array[1],array[2],array[3],array[4],array[5]];
             }
             dispatch_semaphore_signal(semaphore);
         }];
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"64F" count:1 finish:^(NSArray * _Nonnull array) {
-            self.stop = array.firstObject;
+            weakSelf.stop = array.firstObject;
             dispatch_semaphore_signal(semaphore);
         }];
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"62D" count:3 finish:^(NSArray * _Nonnull array) {
             NSLog(@"62d=%@",array);
-            self.leftOpen = [array.firstObject intValue] != 0;
-            self.leftController = [NSString stringWithFormat:@"%@",array.firstObject];
-            self.leftValue = !self.leftOpen ? @"None".localized : @[@"PV inverter enabled".localized,@"EV charger enabled".localized][([array.firstObject intValue]-1)];
-            if (self.leftOpen) {
-                self.leftValueArray = @[array[1],array[2]];
+            weakSelf.leftOpen = [array.firstObject intValue] != 0;
+            weakSelf.leftController = [NSString stringWithFormat:@"%@",array.firstObject];
+            weakSelf.leftValue = !weakSelf.leftOpen ? @"None".localized : @[@"PV inverter enabled".localized,@"EV charger enabled".localized][([array.firstObject intValue]-1)];
+            if (weakSelf.leftOpen) {
+                weakSelf.leftValueArray = @[array[1],array[2]];
             }
             dispatch_semaphore_signal(semaphore);
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"630" count:3 finish:^(NSArray * _Nonnull array) {
-            self.rightOpen = [array.firstObject intValue] != 0;
-            self.rightController = [NSString stringWithFormat:@"%@",array.firstObject];
-            if (self.rightOpen) {
-                self.rightValueArray = @[array[1],array[2]];
+            weakSelf.rightOpen = [array.firstObject intValue] != 0;
+            weakSelf.rightController = [NSString stringWithFormat:@"%@",array.firstObject];
+            if (weakSelf.rightOpen) {
+                weakSelf.rightValueArray = @[array[1],array[2]];
             }
-            self.rightValue = self.rightOpen ? @"Generator enabled".localized :  @"None".localized;
+            weakSelf.rightValue = weakSelf.rightOpen ? @"Generator enabled".localized :  @"None".localized;
             dispatch_semaphore_signal(semaphore);
         }];
         
@@ -101,30 +105,35 @@
         [BleManager.shareInstance readWithCMDString:@"633" count:1 finish:^(NSArray * _Nonnull array) {
             NSInteger inx = [array.firstObject intValue];
             if (inx == 0) {
-                self.modelValue = @"Efficient mode".localized;
+                weakSelf.modelValue = @"Efficient mode".localized;
             }else{
-                self.modelValue = @[@"Efficient mode".localized,@"Quiet mode".localized][inx-1];
+                weakSelf.modelValue = @[@"Efficient mode".localized,@"Quiet mode".localized][inx-1];
             }
             dispatch_semaphore_signal(semaphore);
         }];
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"620" count:1 finish:^(NSArray * _Nonnull array) {
             int inx = [array.firstObject intValue];
-            self.count = inx;
+            weakSelf.count = inx;
             dispatch_semaphore_signal(semaphore);
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance readWithCMDString:@"634" count:self.count finish:^(NSArray * _Nonnull array) {
-            self.dataArray = [[NSMutableArray alloc] init];
+        [BleManager.shareInstance readWithCMDString:@"634" count:weakSelf.count finish:^(NSArray * _Nonnull array) {
+            weakSelf.dataArray = [[NSMutableArray alloc] init];
             for (int i=0; i<array.count; i++) {
                 int value = [array[i] intValue];
                 NSDictionary * dic = @{@"title":[NSString stringWithFormat:@"Qty of Hybrid %d battery",i+1],@"placeholder":[NSString stringWithFormat:@"%d",value]};
-                [self.dataArray addObject:dic];
+                [weakSelf.dataArray addObject:dic];
             }
-            [self.tableView reloadData];
             dispatch_semaphore_signal(semaphore);
         }];
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.tableView reloadData];
+            [weakSelf.view hiddenHUD];
+            dispatch_semaphore_signal(semaphore);
+        });
     });
 }
 
@@ -175,11 +184,14 @@
         SelecteTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:5]];
         [array addObject:cell.content.text];
     }
-
+    __weak typeof(self) weakSelf = self;
+    if (BleManager.shareInstance.isConnented) {
+        [weakSelf.view showHUDToast:@"Loading"];
+    }
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         
-        NSString * time = self.systemTime;
+        NSString * time = weakSelf.systemTime;
         NSString * ymdTime = [time componentsSeparatedByString:@" "].firstObject;
         NSString * hmsTime = [time componentsSeparatedByString:@" "].lastObject;
         NSArray * ymdArray = [ymdTime componentsSeparatedByString:@"-"];
@@ -190,22 +202,22 @@
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance writeWithCMDString:@"64F" array:self.stop?@[self.stop]:@[@"0"] finish:^{
+        [BleManager.shareInstance writeWithCMDString:@"64F" array:weakSelf.stop?@[weakSelf.stop]:@[@"0"] finish:^{
             dispatch_semaphore_signal(semaphore);
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance writeWithCMDString:@"62D" array:self.leftOpen ? leftArray : @[@"0"] finish:^{
+        [BleManager.shareInstance writeWithCMDString:@"62D" array:weakSelf.leftOpen ? leftArray : @[@"0"] finish:^{
             dispatch_semaphore_signal(semaphore);
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance writeWithCMDString:@"630" array:self.rightOpen ? rightArray : @[@"0"] finish:^{
+        [BleManager.shareInstance writeWithCMDString:@"630" array:weakSelf.rightOpen ? rightArray : @[@"0"] finish:^{
             dispatch_semaphore_signal(semaphore);
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        NSString * modelValue = [self.modelValue isEqualToString:@"Efficient mode".localized] ? @"1" : @"2";
+        NSString * modelValue = [weakSelf.modelValue isEqualToString:@"Efficient mode".localized] ? @"1" : @"2";
         [BleManager.shareInstance writeWithCMDString:@"633" array:@[modelValue] finish:^{
             dispatch_semaphore_signal(semaphore);
         }];
@@ -218,7 +230,10 @@
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance writeWithCMDString:@"634" array:array finish:^{
             dispatch_semaphore_signal(semaphore);
-            [RMHelper showToast:@"Write success" toView:self.view];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [RMHelper showToast:@"Write success" toView:weakSelf.view];
+                [weakSelf.view hiddenHUD];
+            });
         }];
     });
     
