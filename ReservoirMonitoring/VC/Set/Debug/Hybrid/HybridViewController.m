@@ -188,6 +188,7 @@
     if (BleManager.shareInstance.isConnented) {
         [weakSelf.view showHUDToast:@"Loading"];
     }
+    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         
@@ -233,10 +234,46 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [RMHelper showToast:@"Write success" toView:weakSelf.view];
                 [weakSelf.view hiddenHUD];
+                NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+                NSDictionary * item = @{
+                    @"devId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID],
+                    @"formType":@"2",
+                    @"systemTime":weakSelf.systemTime,
+                    @"eStop":weakSelf.stop?:@"0",
+                    @"controlCircuitLeft":weakSelf.leftOpen?@"1":@"0",
+                    @"lbrand":weakSelf.leftOpen?weakSelf.leftValueArray[0]:@"0",
+                    @"lmodel":weakSelf.leftOpen?weakSelf.leftValueArray[1]:@"0",
+                    @"controlCircuitRight":weakSelf.rightOpen?@"1":@"0",
+                    @"rbrand":weakSelf.rightOpen?weakSelf.rightValueArray[0]:@"0",
+                    @"rmodel":weakSelf.rightOpen?weakSelf.rightValueArray[1]:@"0",
+                    @"generatorOperationMode":@"1",
+                    @"qtyOfHybrid":countArray.firstObject
+                };
+                for (NSString * key in item) {
+                    [params setValue:item[key] forKey:key];
+                }
+                for (int i=0; i<array.count; i++) {
+                    NSString * key = [NSString stringWithFormat:@"qtyOfHybrid%dBattery",i+1];
+                    NSString * value = array[i];
+                    [params setValue:value forKey:key];
+                }
+                [self uploadDebugConfig:params];
             });
         }];
     });
-    
+}
+
+- (void)uploadDebugConfig:(NSDictionary *)params{
+    [Request.shareInstance postUrl:SaveDebugConfig params:params progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        BOOL value = [result[@"data"] boolValue];
+        if (!value) {
+            [RMHelper showToast:result[@"message"] toView:self.view];
+        }
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (void)resetNumberData{

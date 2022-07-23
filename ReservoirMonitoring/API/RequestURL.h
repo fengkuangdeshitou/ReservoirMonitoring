@@ -69,6 +69,8 @@ extern NSString * const CheckFirmarkVersion;
 
 extern NSString * const Upgrade;
 
+extern NSString * const SaveDebugConfig;
+
 @end
 
 NS_ASSUME_NONNULL_END

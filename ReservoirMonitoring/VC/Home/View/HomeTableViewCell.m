@@ -234,6 +234,11 @@
         animation.showAnimation = false;
     }
     
+    LineAnimatiionView * animation = [self.itemContentView viewWithTag:104];
+    HomeItemView * itemView = [self.itemContentView viewWithTag:14];
+    animation.hidden = model.backUpType.intValue == 1;
+    itemView.hidden = model.backUpType.intValue == 1;
+    
     if ([RMHelper getBleDataValue:model.backUpPower] > 0) {
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:105];
         animation.direction = AnimationStartDirectionLeftTop;
@@ -246,6 +251,7 @@
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:105];
         animation.showAnimation = false;
     }
+    
 }
 
 - (IBAction)timeAction:(id)sender{

@@ -288,6 +288,7 @@
         }
     }
     if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
+        [params setValue:@"0" forKey:@"onlySave"];
         if (self.flag == 2) {
             if ([offPeakArray[0] componentsSeparatedByString:@"_"][0].length == 0) {
                 [RMHelper showToast:@"please select start time" toView:self.view];
@@ -320,7 +321,7 @@
         }
         __weak typeof(self) weakSelf = self;
         if (BleManager.shareInstance.isConnented) {
-            [weakSelf.view showHUDToast:@"Loading"];
+            [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
         }
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
@@ -345,13 +346,15 @@
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance writeWithCMDString:@"624" array:@[params[@"selfConsumptioinReserveSoc"]] finish:^{
                     dispatch_semaphore_signal(semaphore);
-                    [RMHelper showToast:@"Configuration success" toView:self.view];
+                    [UIApplication.sharedApplication.keyWindow hiddenHUD];
+                    [weakSelf switchWithParams:params];
                 }];
             }else if (self.flag == 1){
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance writeWithCMDString:@"623" array:@[params[@"backupPowerReserveSoc"]] finish:^{
                     dispatch_semaphore_signal(semaphore);
-                    [RMHelper showToast:@"Configuration success" toView:self.view];
+                    [UIApplication.sharedApplication.keyWindow hiddenHUD];
+                    [weakSelf switchWithParams:params];
                 }];
             }else{
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
@@ -391,7 +394,7 @@
                 
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 [BleManager.shareInstance readWithCMDString:@"752" count:1 finish:^(NSArray * _Nonnull array) {
-                    [weakSelf.view hiddenHUD];
+                    [UIApplication.sharedApplication.keyWindow hiddenHUD];
                     NSInteger idx = [array.firstObject intValue];
                     if (idx == 1) {
 //                        [RMHelper showToast:@"Configuration is successful" toView:self.view];
@@ -408,6 +411,7 @@
             }
         });
     }else{
+        [params setValue:@"1" forKey:@"onlySave"];
         [self switchWithParams:params];
     }
     
@@ -417,12 +421,7 @@
     [Request.shareInstance postUrl:SwitchMode params:params progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
-        BOOL value = [result[@"data"] boolValue];
-        if (value) {
-            [RMHelper showToast:@"Configuration is successful" toView:self.view];
-        }else{
-            [RMHelper showToast:result[@"message"] toView:self.view];
-        }
+        [RMHelper showToast:result[@"message"] toView:self.view];
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];

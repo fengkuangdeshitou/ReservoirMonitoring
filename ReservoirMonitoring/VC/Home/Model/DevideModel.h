@@ -45,6 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign) CGFloat nonBackUpPower;
 /// 一般负载电量 精度:0.01 单位:kWh
 @property(nonatomic,assign) CGFloat nonBackUpElectricity;
+/// 是否隐藏
+@property(nonatomic,copy) NSString * backUpType;
 /// 重要负载功率 精度:0.01 单位:kW
 @property(nonatomic,assign) CGFloat backUpPower;
 /// 重要负载电量 精度:0.01 单位:kWh

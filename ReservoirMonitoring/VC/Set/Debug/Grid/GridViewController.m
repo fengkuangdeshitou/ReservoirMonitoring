@@ -42,6 +42,9 @@
         [BleManager.shareInstance readWithCMDString:@"625" count:1 finish:^(NSArray * array){
             int value = [array.firstObject intValue];
             [weakSelf exchangeDictFor:0 value:@[@"Whole home".localized,@"Partical home".localized][1-value]];
+            NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[0]];
+            dict[@"value"] = [NSString stringWithFormat:@"%d",1-value];
+            self.dataArray[0] = dict;
             dispatch_semaphore_signal(semaphore);
         }];
         
@@ -72,12 +75,18 @@
                 @"ISO-EN",
                 @"internal standard"
             ][index]];
+            NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[2]];
+            dict[@"value"] = [NSString stringWithFormat:@"%ld",index];
+            self.dataArray[2] = dict;
             dispatch_semaphore_signal(semaphore);
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"64E" count:1 finish:^(NSArray * array){
             [weakSelf exchangeDictFor:3 value:[array.firstObject intValue] == 0 ? @"50 Hz" : [NSString stringWithFormat:@"%@ Hz",array.firstObject]];
+            NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[3]];
+            dict[@"value"] = [array.firstObject intValue] == 0 ? @"50" : [NSString stringWithFormat:@"%@",array.firstObject];
+            self.dataArray[3] = dict;
             dispatch_semaphore_signal(semaphore);
         }];
         
@@ -100,7 +109,7 @@
 - (IBAction)submitAction:(id)sender{
     InputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     int input = [cell.textfield.text intValue]*10;
-    NSLog(@"value====%@",self.dataArray[3][@"value"]);
+    NSLog(@"value====%@",self.dataArray[0][@"value"]);
     __weak typeof(self) weakSelf = self;
     if (BleManager.shareInstance.isConnented) {
         [weakSelf.view showHUDToast:@"Loading"];
@@ -114,8 +123,29 @@
         [BleManager.shareInstance writeWithCMDString:@"64E" array:@[weakSelf.dataArray[3][@"value"]] finish:^{
             [RMHelper showToast:@"Write success" toView:weakSelf.view];
             [weakSelf.view hiddenHUD];
+            [weakSelf uploadDebugConfig:@{
+                @"devId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID],
+                @"formType":@"1",
+                @"backupType":weakSelf.dataArray[0][@"value"],
+                @"gridNominalVoltage":[NSString stringWithFormat:@"%d",input],
+                @"gridStandard":weakSelf.dataArray[2][@"value"],
+                @"gridFrequency":weakSelf.dataArray[3][@"value"]
+            }];
         }];
     });
+}
+
+- (void)uploadDebugConfig:(NSDictionary *)params{
+    [Request.shareInstance postUrl:SaveDebugConfig params:params progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        BOOL value = [result[@"data"] boolValue];
+        if (!value) {
+            [RMHelper showToast:result[@"message"] toView:self.view];
+        }
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

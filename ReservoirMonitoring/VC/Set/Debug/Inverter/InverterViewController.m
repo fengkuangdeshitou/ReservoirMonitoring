@@ -138,11 +138,18 @@
 
 - (IBAction)submitAction:(id)sender{
     [self.view endEditing:true];
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+    [params setValue:[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID] forKey:@"devId"];
+    [params setValue:@"3" forKey:@"formType"];
     NSMutableArray * valueArray = [[NSMutableArray alloc] init];
     for (int i=0; i<self.dataArray.count; i++) {
         NSArray * sectionArray = self.dataArray[i];
         for (int j=0; j<4; j++) {
             [valueArray addObject:sectionArray[j][@"value"]];
+            NSString * key = [NSString stringWithFormat:@"hybrid%dPV%dVoltage",i+1,j+1];
+            NSString * value = [NSString stringWithFormat:@"%d",[sectionArray[j][@"value"] intValue]*10];
+            NSLog(@"value=%@,key=%@",value,key);
+            [params setValue:value forKey:key];
         }
     }
     NSMutableArray * fristArray = [[NSMutableArray alloc] init];
@@ -169,10 +176,24 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [RMHelper showToast:@"Write success" toView:weakSelf.view];
                 [weakSelf.view hiddenHUD];
+                [self uploadDebugConfig:params];
             });
             dispatch_semaphore_signal(sem);
         }];
     });
+}
+
+- (void)uploadDebugConfig:(NSDictionary *)params{
+    [Request.shareInstance postUrl:SaveDebugConfig params:params progress:^(float progress) {
+
+    } success:^(NSDictionary * _Nonnull result) {
+        BOOL value = [result[@"data"] boolValue];
+        if (!value) {
+            [RMHelper showToast:result[@"message"] toView:self.view];
+        }
+    } failure:^(NSString * _Nonnull errorMsg) {
+
+    }];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

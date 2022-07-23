@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,strong) NSString * defDevSgSn;
 
+@property(nonatomic,strong) NSString * defDevId;
+
 @end
 
 NS_ASSUME_NONNULL_END

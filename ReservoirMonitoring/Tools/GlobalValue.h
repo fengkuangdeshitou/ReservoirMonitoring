@@ -28,6 +28,8 @@ extern NSString * const COLOR_BACK_COLOR;
 extern NSString * const COLOR_PLACEHOLDER_COLOR;
 /**蓝牙CMD*/
 extern NSString * const BLE_CMD;
+/**当前设备id*/
+extern NSString * const CURRENR_DEVID;
 
 /**运行模式高度改变通知*/
 extern NSString * const TIME_TABLEVIEW_HEIGHT_CHANGE;

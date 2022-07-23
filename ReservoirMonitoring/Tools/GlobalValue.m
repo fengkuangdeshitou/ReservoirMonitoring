@@ -21,6 +21,10 @@ NSString * const COLOR_PLACEHOLDER_COLOR = @"#747474";
 
 NSString * const BLE_CMD = @"cmd";
 
+NSString * const CURRENR_DEVID = @"current_devid";
+
+
+
 NSString * const TIME_TABLEVIEW_HEIGHT_CHANGE = @"time_tableview_height_change";
 
 NSString * const SWITCH_DEVICE_NOTIFICATION = @"swithc_device_notification";

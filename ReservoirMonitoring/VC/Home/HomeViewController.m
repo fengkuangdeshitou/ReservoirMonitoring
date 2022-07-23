@@ -135,6 +135,13 @@
         }];
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"625" count:1 finish:^(NSArray * array){
+            NSLog(@"====%@",array);
+            self.model.backUpType = [NSString stringWithFormat:@"%@",array.firstObject];
+            dispatch_semaphore_signal(semaphore);
+        }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"515" count:2 finish:^(NSArray * array){
             [self showCmd:@"515" message:array];
             self.model.batterySoc = array.firstObject;

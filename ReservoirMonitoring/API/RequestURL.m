@@ -71,4 +71,6 @@ NSString * const CheckFirmarkVersion = @"/device/checkFirmarkVersion";
 
 NSString * const Upgrade = @"/device/upgrade";
 
+NSString * const SaveDebugConfig = @"/device/saveDebugConfig";
+
 @end

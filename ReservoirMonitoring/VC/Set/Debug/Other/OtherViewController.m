@@ -58,8 +58,32 @@
     if (self.dataArray[0][@"value"]) {
         value = self.dataArray[0][@"value"];
     }
+    InputTableViewCell * registerCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    InputTableViewCell * valueCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+    
     [BleManager.shareInstance writeWithCMDString:@"600" array:@[value] finish:^{
         [RMHelper showToast:@"Write success" toView:self.view];
+        [self uploadDebugConfig:@{
+            @"devId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID],
+            @"formType":@"5",
+            @"controlMode":value,
+            @"loadConfigViaBlue":RMHelper.getLoadDataForBluetooth?@"1":@"0",
+            @"register":registerCell.textfield.text,
+            @"value":valueCell.textfield.text
+        }];
+    }];
+}
+
+- (void)uploadDebugConfig:(NSDictionary *)params{
+    [Request.shareInstance postUrl:SaveDebugConfig params:params progress:^(float progress) {
+
+    } success:^(NSDictionary * _Nonnull result) {
+        BOOL value = [result[@"data"] boolValue];
+        if (!value) {
+            [RMHelper showToast:result[@"message"] toView:self.view];
+        }
+    } failure:^(NSString * _Nonnull errorMsg) {
+
     }];
 }
 

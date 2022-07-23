@@ -52,6 +52,9 @@
     } success:^(NSDictionary * _Nonnull result) {
         self.loginout.hidden = false;
         self.model = [UserModel mj_objectWithKeyValues:result[@"data"]];
+        if (self.model.defDevId) {
+            [NSUserDefaults.standardUserDefaults setValue:self.model.defDevId forKey:CURRENR_DEVID];
+        }
         [self.tableView reloadData];
     } failure:^(NSString * _Nonnull errorMsg) {
         

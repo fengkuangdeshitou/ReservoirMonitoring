@@ -407,8 +407,18 @@ static unsigned char auchCRCLo[] = {
         case CBManagerStateUnauthorized:
             NSLog(@"未授权");
             break;
-        case CBManagerStatePoweredOff:
+        case CBManagerStatePoweredOff:{
             NSLog(@"蓝牙未开启");
+            _isConnented = false;
+            if (self.timer) {
+                [self.timer invalidate];
+                self.timer = nil;
+            }
+            if (self.connectTimer) {
+                [self.connectTimer invalidate];
+                self.connectTimer = nil;
+            }
+        }
             break;
         case CBManagerStatePoweredOn:{
             NSLog(@"蓝牙已开启");
