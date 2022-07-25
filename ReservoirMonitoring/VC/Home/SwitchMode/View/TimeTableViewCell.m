@@ -54,6 +54,7 @@
 - (IBAction)startTimeAction:(id)sender{
     BRDatePickerView * picker = [[BRDatePickerView alloc] initWithPickerMode:BRDatePickerModeHM];
     picker.showUnitType = BRShowUnitTypeNone;
+    picker.selectDate = [NSDate date];
     picker.selectValue = self.startTime.text;
     picker.pickerStyle = self.style;
     picker.resultBlock = ^(NSDate * _Nullable selectDate, NSString * _Nullable selectValue) {
@@ -68,6 +69,7 @@
 - (IBAction)endTimeAction:(id)sender{
     BRDatePickerView * picker = [[BRDatePickerView alloc] initWithPickerMode:BRDatePickerModeHM];
     picker.showUnitType = BRShowUnitTypeNone;
+    picker.selectDate = [NSDate date];
     picker.selectValue = self.endTime.text;
     picker.pickerStyle = self.style;
     picker.resultBlock = ^(NSDate * _Nullable selectDate, NSString * _Nullable selectValue) {

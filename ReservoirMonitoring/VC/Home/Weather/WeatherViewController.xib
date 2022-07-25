@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gHK-l2-iIw">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" red="0.047058823529411764" green="0.047058823529411764" blue="0.047058823529411764" alpha="1" colorSpace="calibratedRGB"/>
                     <view key="tableHeaderView" contentMode="scaleToFill" id="QQW-Th-ckq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="180"/>
@@ -45,13 +44,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="uS1-M9-LDH"/>
                         <color key="backgroundColor" red="0.047058823530000002" green="0.047058823530000002" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="uQK-UO-nXz" firstAttribute="top" secondItem="me9-6S-x4B" secondAttribute="bottom" id="V0a-ia-ESH"/>
                             <constraint firstItem="me9-6S-x4B" firstAttribute="centerX" secondItem="QQW-Th-ckq" secondAttribute="centerX" id="oGk-uY-T0d"/>
                             <constraint firstItem="uQK-UO-nXz" firstAttribute="centerX" secondItem="QQW-Th-ckq" secondAttribute="centerX" id="wAB-oW-rWd"/>
-                            <constraint firstItem="me9-6S-x4B" firstAttribute="top" secondItem="uS1-M9-LDH" secondAttribute="top" constant="30" id="zZm-Dg-ghZ"/>
+                            <constraint firstItem="me9-6S-x4B" firstAttribute="top" secondItem="QQW-Th-ckq" secondAttribute="top" constant="30" id="zZm-Dg-ghZ"/>
                         </constraints>
                     </view>
                     <connections>
@@ -60,13 +58,12 @@
                     </connections>
                 </tableView>
             </subviews>
-            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="gHK-l2-iIw" secondAttribute="trailing" id="FOQ-Hg-Kua"/>
-                <constraint firstItem="gHK-l2-iIw" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="LWl-wd-TfJ"/>
-                <constraint firstItem="gHK-l2-iIw" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="NYS-qZ-SH7"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="gHK-l2-iIw" secondAttribute="bottom" id="aSb-9F-28K"/>
+                <constraint firstAttribute="trailing" secondItem="gHK-l2-iIw" secondAttribute="trailing" id="FOQ-Hg-Kua"/>
+                <constraint firstItem="gHK-l2-iIw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="LWl-wd-TfJ"/>
+                <constraint firstItem="gHK-l2-iIw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="NYS-qZ-SH7"/>
+                <constraint firstAttribute="bottom" secondItem="gHK-l2-iIw" secondAttribute="bottom" id="aSb-9F-28K"/>
             </constraints>
             <point key="canvasLocation" x="132" y="86"/>
         </view>

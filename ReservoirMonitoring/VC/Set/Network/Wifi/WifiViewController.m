@@ -31,7 +31,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([WifiInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([WifiInfoTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([WifiTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([WifiTableViewCell class])];
     [self.model addObserver:self forKeyPath:@"isConnected" options:NSKeyValueObservingOptionNew context:nil];
-    [self getWifiList];
+//    [self getWifiList];
 //    NSLog(@"currentWifi=%@",[self wifiName]);
 //    NSString* phoneVersion = [[UIDevice currentDevice] systemVersion];
 //    CGFloat version = [phoneVersion floatValue];
@@ -151,7 +151,9 @@
                                      showWifiName:YES
                                        completion:^(NSString * wifiName, NSString * password) {
             [BleManager.shareInstance readWithDictionary:@{@"setwifi":@{wifiName:password}} finish:^(NSDictionary * _Nonnull item) {
-                [RMHelper showToast:@"Config wi-fi success" toView:self.view];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [RMHelper showToast:@"Config wi-fi success" toView:self.view];
+                });
             }];
         }];
 //        [BleManager.shareInstance readWithCMDString:@"620" count:1];

@@ -81,9 +81,13 @@
                     self.submit.userInteractionEnabled = true;
                     [NSUserDefaults.standardUserDefaults removeObjectForKey:self.model.email];
                     [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
+                    [self.submit setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
+                    self.submit.layer.borderColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR].CGColor;
                 }else{
                     self.submit.userInteractionEnabled = false;
                     [self.submit setTitle:[formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.timeCount]] forState:UIControlStateNormal];
+                    [self.submit setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+                    self.submit.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
                 }
             }];
         }

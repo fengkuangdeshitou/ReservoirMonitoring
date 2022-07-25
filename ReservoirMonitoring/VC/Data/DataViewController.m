@@ -63,6 +63,7 @@
 }
 
 - (void)getCurrentDevice{
+    [self.refreshController endRefreshing];
     [Request.shareInstance getUrl:DeviceList params:@{} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {

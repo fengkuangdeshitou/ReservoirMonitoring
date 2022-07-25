@@ -21,13 +21,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2n4-KX-SLR">
-                    <rect key="frame" x="15" y="64" width="384" height="0.0"/>
+                    <rect key="frame" x="15" y="44" width="384" height="0.0"/>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vgu-qb-kNM">
-                    <rect key="frame" x="15" y="84" width="384" height="763"/>
+                    <rect key="frame" x="15" y="64" width="384" height="783"/>
                     <color key="backgroundColor" red="0.047058823529411764" green="0.047058823529411764" blue="0.047058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <color key="textColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -43,7 +43,7 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="vgu-qb-kNM" secondAttribute="trailing" constant="15" id="dbD-g0-hNU"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="2n4-KX-SLR" secondAttribute="trailing" constant="15" id="g8K-HB-R4H"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="vgu-qb-kNM" secondAttribute="bottom" constant="15" id="km9-h7-2QI"/>
-                <constraint firstItem="2n4-KX-SLR" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="20" id="rJn-Xn-ihs"/>
+                <constraint firstItem="2n4-KX-SLR" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="rJn-Xn-ihs"/>
             </constraints>
             <point key="canvasLocation" x="132" y="82"/>
         </view>

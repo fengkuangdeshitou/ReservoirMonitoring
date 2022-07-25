@@ -25,8 +25,8 @@
     [Request.shareInstance getUrl:HelpDetail params:@{@"id":self.helpId} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
-        self.titleLabel.text = result[@"data"][@"title"];
-        NSString * content = result[@"data"][@"contentZh"];
+//        self.titleLabel.text = result[@"data"][@"titleEn"];
+        NSString * content = result[@"data"][@"contentEn"];
         NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[content dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
         NSMutableAttributedString * att = [[NSMutableAttributedString alloc] initWithAttributedString:attrStr];
         [att addAttributes:@{NSForegroundColorAttributeName:UIColor.whiteColor} range:NSMakeRange(0, att.length)];

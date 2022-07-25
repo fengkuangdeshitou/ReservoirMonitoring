@@ -25,6 +25,22 @@
     self.titleLabel.text = [NSString stringWithFormat:@"%.0f",progress];
 }
 
+- (IBAction)addAction:(id)sender{
+    if (self.progress < 100) {
+        self.progress++;
+        self.slider.value = self.progress;
+        self.titleLabel.text = [NSString stringWithFormat:@"%.0f",self.progress];
+    }
+}
+
+- (IBAction)subAction:(id)sender{
+    if (self.progress > 0) {
+        self.progress--;
+        self.slider.value = self.progress;
+        self.titleLabel.text = [NSString stringWithFormat:@"%.0f",self.progress];
+    }
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

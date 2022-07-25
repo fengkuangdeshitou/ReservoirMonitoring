@@ -27,7 +27,7 @@
     // Do any additional setup after loading the view from its nib.
     
     self.ota.text = @"Remote firmware update".localized;
-    NSMutableAttributedString * att = [[NSMutableAttributedString alloc] initWithString:@"Opt in/out automatic software update (On: Server is allowed to communicate with device and update firmware automatically; Off: Server is NOT allowed to communicate with the device or update firmware.  )\n".localized];
+    NSMutableAttributedString * att = [[NSMutableAttributedString alloc] initWithString:@"Opt in/out automatic software update (On: Server is allowed to communicate with device and update firmware automatically; Off: Server is NOT allowed to communicate with the device or update firmware.)\n".localized];
     NSMutableParagraphStyle * style = [[NSMutableParagraphStyle alloc] init];
     style.firstLineHeadIndent = 20;
     [att addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, att.length)];
@@ -41,8 +41,11 @@
             dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
             [BleManager.shareInstance readWithCMDString:@"503" count:5 finish:^(NSArray * _Nonnull array) {
                 dispatch_semaphore_signal(semaphore);
-                NSString * version = [array componentsJoinedByString:@""];
-                weakSelf.version.text = [@"Firmware version:".localized stringByAppendingString:version];
+                NSString * string = @"";
+                for (int i=0; i<array.count; i++) {
+                    string = [string stringByAppendingString:[NSString stringWithFormat:@"%04x",[array[i] intValue]]];
+                }
+                weakSelf.version.text = [@"Firmware version:".localized stringByAppendingString:string];
             }];
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
             [BleManager.shareInstance readWithCMDString:@"628" count:1 finish:^(NSArray * _Nonnull array) {
@@ -71,8 +74,8 @@
         if (array.count > 0) {
             DevideModel * model = array.firstObject;
             self.devId = model.deviceId;
+            completion();
         }
-        completion();
     } failure:^(NSString * _Nonnull errorMsg) {
 
     }];
@@ -95,7 +98,11 @@
 
 - (IBAction)autoUpdateAction:(UIButton *)sender{
     if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
-        NSString * value = self.update.selected ? @"1" : @"0";
+        if (!BleManager.shareInstance.isConnented) {
+            [RMHelper showToast:@"Please connect device" toView:self.view];
+            return;
+        }
+        NSString * value = self.update.selected ? @"0" : @"1";
         [BleManager.shareInstance writeWithCMDString:@"628" string:value finish:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 sender.selected = !sender.selected;

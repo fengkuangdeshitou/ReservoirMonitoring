@@ -141,13 +141,23 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     DeviceSwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([DeviceSwitchTableViewCell class]) forIndexPath:indexPath];
-    cell.model = tableView == self.tableView ? self.currentDevice : (self.searchArray.count==0?self.dataArray[indexPath.section]:self.searchArray[indexPath.section]);
+    DevideModel * model = tableView == self.tableView ? self.currentDevice : (self.searchArray.count==0?self.dataArray[indexPath.section]:self.searchArray[indexPath.section]);
+    cell.model = model;
     if (tableView == self.tableView) {
-        cell.status.text = BleManager.shareInstance.isConnented ? @"On-line".localized : @"Offine".localized;
-        cell.status.textColor = [UIColor colorWithHexString:BleManager.shareInstance.isConnented ? COLOR_MAIN_COLOR : @"#999999"];
+        if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
+            cell.status.text = BleManager.shareInstance.isConnented ? @"Online".localized : @"Offine".localized;
+            cell.status.textColor = [UIColor colorWithHexString:BleManager.shareInstance.isConnented ? COLOR_MAIN_COLOR : @"#999999"];
+            cell.bgView.backgroundColor = BleManager.shareInstance.isConnented ? [[UIColor colorWithHexString:@"#8CDFA5"] colorWithAlphaComponent:0.2] : [UIColor colorWithHexString:@"#333333"];
+        }else{
+            cell.status.text = [self.currentDevice.isOnline boolValue] ? @"Online".localized : @"Offine".localized;
+            cell.status.textColor = [UIColor colorWithHexString:[self.currentDevice.isOnline boolValue] ? COLOR_MAIN_COLOR : @"#999999"];
+            cell.bgView.backgroundColor = [self.currentDevice.isOnline boolValue] ? [[UIColor colorWithHexString:@"#8CDFA5"] colorWithAlphaComponent:0.2] : [UIColor colorWithHexString:@"#333333"];
+        }
+        
     }else{
-        cell.status.text = @"Offine".localized;
-        cell.status.textColor = [UIColor colorWithHexString:@"#999999"];
+        cell.status.text = [model.isOnline boolValue] ? @"Online".localized : @"Offine".localized;
+        cell.status.textColor = [UIColor colorWithHexString:[model.isOnline boolValue] ? COLOR_MAIN_COLOR : @"#999999"];
+        cell.bgView.backgroundColor = [model.isOnline boolValue] ? [[UIColor colorWithHexString:@"#8CDFA5"] colorWithAlphaComponent:0.2] : [UIColor colorWithHexString:@"#333333"];
     }
     [cell.switchDeviceBtn addTarget:self action:@selector(switchDeviceAction:) forControlEvents:UIControlEventTouchUpInside];
     cell.switchDeviceBtn.hidden = tableView == self.tableView;
