@@ -11,6 +11,7 @@
 #import "SwitchModeViewController.h"
 #import "DevideModel.h"
 @import BRPickerView;
+#import "AddDeviceViewController.h"
 
 @interface HomeViewController ()<DeviceSwitchViewDelegate,BleManagerDelegate,UITableViewDelegate,DeviceSwitchViewDelegate>
 
@@ -67,13 +68,18 @@
             
     } success:^(NSDictionary * _Nonnull result) {
         NSArray * modelArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-        NSArray<DevideModel*> * array = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
-        if (array.count > 0) {
-            self.model = array.firstObject;
-            [self setRightBarButtonItemWithTitlt:array.firstObject.name sel:@selector(changeDevice)];
-            completion(array.firstObject);
+        if (modelArray.count > 0){
+            NSArray<DevideModel*> * array = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
+            if (array.count > 0) {
+                self.model = array.firstObject;
+                [self setRightBarButtonItemWithTitlt:array.firstObject.name sel:@selector(changeDevice)];
+                completion(array.firstObject);
+            }else{
+                completion(nil);
+            }
+            self.tableView.hidden = false;
         }else{
-            completion(nil);
+            self.tableView.hidden = true;
         }
         [self.refreshController endRefreshing];
     } failure:^(NSString * _Nonnull errorMsg) {
@@ -102,6 +108,13 @@
     } failure:^(NSString * _Nonnull errorMsg) {
         [self.refreshController endRefreshing];
     }];
+}
+
+- (IBAction)addDeviceAction:(id)sender{
+    AddDeviceViewController * add = [[AddDeviceViewController alloc] init];
+    add.title = @"Add Device".localized;
+    add.hidesBottomBarWhenPushed = true;
+    [self.navigationController pushViewController:add animated:true];
 }
 
 - (void)showCmd:(NSString *)cmd message:(NSArray*)array{

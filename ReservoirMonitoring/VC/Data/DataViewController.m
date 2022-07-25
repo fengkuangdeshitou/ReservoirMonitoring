@@ -68,8 +68,10 @@
     } success:^(NSDictionary * _Nonnull result) {
         NSArray * modelArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
         NSArray<DevideModel*> * array = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
-        self.devId = array.firstObject.deviceId;
-        [self getDataWithScopeType:1];
+        if (array.count > 0) {
+            self.devId = array.firstObject.deviceId;
+            [self getDataWithScopeType:self.titleView.selectedIndex==3?0:self.titleView.selectedIndex+1];
+        }
     } failure:^(NSString * _Nonnull errorMsg) {
         [self.refreshController endRefreshing];
     }];
@@ -107,8 +109,9 @@
     } success:^(NSDictionary * _Nonnull result) {
         self.data = result[@"data"];
         [self.collectionView reloadData];
+        [self.refreshController endRefreshing];
     } failure:^(NSString * _Nonnull errorMsg) {
-
+        [self.refreshController endRefreshing];
     }];
 }
 

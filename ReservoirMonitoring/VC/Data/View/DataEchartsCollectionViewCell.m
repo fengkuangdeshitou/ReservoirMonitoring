@@ -72,43 +72,44 @@
     
     self.echartsView = [[WKEchartsView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 222)];
     [self.echarts addSubview:self.echartsView];
-    PYOption * option = [[PYOption alloc] init];
-    option.calculable = NO;
-    option.color = @[@"#F7B500"];
-    PYGrid * grid = [[PYGrid alloc] init];
-    grid.x = @(34);
-    grid.y = @(23);
-    grid.x2 = @(15);
-    grid.y2 = @(40);
-    option.grid = grid;
-    PYAxis * xAxis = [[PYAxis alloc] init];
-    xAxis.type = PYAxisTypeCategory;
-    xAxis.boundaryGap = @(NO);
-    xAxis.splitLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
-    xAxis.axisLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
-    xAxis.data = [[NSMutableArray alloc] initWithArray:@[]];
-    option.xAxis = [[NSMutableArray alloc] initWithObjects:xAxis, nil ];
-    PYAxis * yaxis = [[PYAxis alloc] init];
-    yaxis.type = PYAxisTypeValue;
-    yaxis.splitNumber = @6;
-    yaxis.splitArea.areaStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
-    yaxis.axisLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
-    yaxis.splitLine.lineStyle.color = [[PYColor alloc] initWithColor:[UIColor colorWithHexString:@"#333333"]];
-    option.yAxis = [[NSMutableArray alloc] initWithObjects:yaxis, nil];
-    NSMutableArray * seriesArray = [[NSMutableArray alloc] init];
-    PYCartesianSeries * series = [[PYCartesianSeries alloc] init];
-    series.type = PYSeriesTypeLine;
-    series.smooth = true;
-    series.symbolSize = @2;
-    PYItemStyle * style = [[PYItemStyle alloc] init];
-    PYItemStyleProp * prop = [[PYItemStyleProp alloc] init];
-    prop.borderColor = [PYColor colorWithHexString:COLOR_MAIN_COLOR];
-    style.normal = prop;
-    series.itemStyle = style;
-    series.data = @[];
-    [seriesArray addObject:series];
-    option.series = seriesArray;
-    [self.echartsView setOption:option];
+//    PYOption * option = [[PYOption alloc] init];
+//    option.calculable = NO;
+//    option.color = @[@"#F7B500"];
+//    PYGrid * grid = [[PYGrid alloc] init];
+//    grid.x = @(34);
+//    grid.y = @(23);
+//    grid.x2 = @(15);
+//    grid.y2 = @(40);
+//    option.grid = grid;
+//    PYAxis * xAxis = [[PYAxis alloc] init];
+//    xAxis.type = PYAxisTypeCategory;
+//    xAxis.boundaryGap = @(NO);
+//    xAxis.splitLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
+//    xAxis.axisLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
+//    xAxis.data = [[NSMutableArray alloc] initWithArray:@[]];
+//    option.xAxis = [[NSMutableArray alloc] initWithObjects:xAxis, nil ];
+//    PYAxis * yaxis = [[PYAxis alloc] init];
+//    yaxis.type = PYAxisTypeValue;
+//    yaxis.splitNumber = @6;
+//    yaxis.splitArea.areaStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
+//    yaxis.axisLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
+//    yaxis.splitLine.lineStyle.color = [[PYColor alloc] initWithColor:[UIColor colorWithHexString:@"#333333"]];
+//    option.yAxis = [[NSMutableArray alloc] initWithObjects:yaxis, nil];
+//    NSMutableArray * seriesArray = [[NSMutableArray alloc] init];
+//    PYCartesianSeries * series = [[PYCartesianSeries alloc] init];
+//    series.type = PYSeriesTypeLine;
+//    series.smooth = true;
+//    series.symbolSize = @2;
+//    PYItemStyle * style = [[PYItemStyle alloc] init];
+//    PYItemStyleProp * prop = [[PYItemStyleProp alloc] init];
+//    prop.borderColor = [PYColor colorWithHexString:COLOR_MAIN_COLOR];
+//    style.normal = prop;
+//    series.itemStyle = style;
+//    series.data = @[];
+//    [seriesArray addObject:series];
+//    option.series = seriesArray;
+//    [self.echartsView setOption:option];
+    [self.echartsView setOption:[self getRideDetailLineOptionWithTimeArray:@[] valueArray:@[] scopeType:1]];
     [self.echartsView loadEcharts];
 }
 
@@ -120,9 +121,11 @@
 - (void)formatEcharsArrayForIndex:(NSInteger)index{
     NSMutableArray * xArray = [[NSMutableArray alloc] init];
     NSMutableArray * yArray = [[NSMutableArray alloc] init];
+    NSInteger scopeType = 0;
     for (int i=0; i<self.dataArray.count; i++) {
         NSDictionary * dict = self.dataArray[i];
         NSDictionary * item = dict[@"nodeVo"];
+        scopeType = [dict[@"scopeType"] integerValue];
         [xArray addObject:[NSString stringWithFormat:@"%@",dict[@"nodeName"]]];
         if (index == 0) {
             [yArray addObject:[NSString stringWithFormat:@"%@",item[@"gridElectricity"]]];
@@ -140,12 +143,14 @@
     }
     self.xArray = xArray;
     self.yArray = yArray;
-    PYOption * option = [self getRideDetailLineOptionWithTimeArray:self.xArray valueArray:self.yArray];
+    PYOption * option = [self getRideDetailLineOptionWithTimeArray:self.xArray valueArray:self.yArray scopeType:scopeType];
     [self.echartsView setOption:option];
     [self.echartsView loadEcharts];
 }
 
-- (PYOption *)getRideDetailLineOptionWithTimeArray:(NSArray *)dataArray valueArray:(NSArray *)valueArray{
+- (PYOption *)getRideDetailLineOptionWithTimeArray:(NSArray *)dataArray
+                                        valueArray:(NSArray *)valueArray
+                                         scopeType:(NSInteger)scopeType{
     PYOption * option = [[PYOption alloc] init];
     option.calculable = NO;
     option.color = @[@"#F7B500"];
@@ -171,9 +176,15 @@
     option.yAxis = [[NSMutableArray alloc] initWithObjects:yaxis, nil];
     NSMutableArray * seriesArray = [[NSMutableArray alloc] init];
     PYCartesianSeries * series = [[PYCartesianSeries alloc] init];
-    series.type = PYSeriesTypeLine;
-    series.smooth = true;
-    series.symbolSize = @2;
+    if (scopeType == 0) {
+        series.type = PYSeriesTypeBar;
+        series.barWidth = @10;
+//        series.barCategoryGap = @"10";
+    }else{
+        series.type = PYSeriesTypeLine;
+        series.smooth = true;
+        series.symbolSize = @2;
+    }
     PYItemStyle * style = [[PYItemStyle alloc] init];
     PYItemStyleProp * prop = [[PYItemStyleProp alloc] init];
     prop.borderColor = [PYColor colorWithHexString:COLOR_MAIN_COLOR];
@@ -291,6 +302,11 @@
 //    [seriesArr addObject:series];
 //    [option setSeries:seriesArr];
     return option;
+}
+
+- (PYOption *)option{
+    
+    return nil;
 }
 
 - (void)buttonClick:(UIButton *)btn{
