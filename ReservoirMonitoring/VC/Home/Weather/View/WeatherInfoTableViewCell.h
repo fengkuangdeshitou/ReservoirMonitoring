@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WeatherInfoTableViewCell : UITableViewCell
 
+@property(nonatomic,strong) NSArray * model;
+
 @end
 
 NS_ASSUME_NONNULL_END

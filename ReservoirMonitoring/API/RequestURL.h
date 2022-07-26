@@ -71,6 +71,8 @@ extern NSString * const Upgrade;
 
 extern NSString * const SaveDebugConfig;
 
+extern NSString * const Weather;
+
 @end
 
 NS_ASSUME_NONNULL_END

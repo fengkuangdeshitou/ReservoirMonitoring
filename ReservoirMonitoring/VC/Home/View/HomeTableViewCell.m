@@ -262,6 +262,7 @@
     WeatherViewController * weather = [[WeatherViewController alloc] init];
     weather.title = @"Weather forecast".localized;
     weather.hidesBottomBarWhenPushed = true;
+    weather.deviceId = self.model.deviceId;
     [RMHelper.getCurrentVC.navigationController pushViewController:weather animated:true];
 }
 

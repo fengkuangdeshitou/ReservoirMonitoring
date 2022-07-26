@@ -12,6 +12,9 @@
 @interface WeatherViewController ()
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
+@property(nonatomic,weak)IBOutlet UILabel * temp;
+@property(nonatomic,weak)IBOutlet UILabel * weather;
+@property(nonatomic,strong) NSMutableArray * list;
 
 @end
 
@@ -23,20 +26,47 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([WeatherInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([WeatherInfoTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([WeatherTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([WeatherTableViewCell class])];
+    self.list = [[NSMutableArray alloc] init];
+    [self getWeatherData];
+}
+
+- (void)getWeatherData{
+    [Request.shareInstance getUrl:Weather params:@{@"deviceId":@"38"} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        NSDictionary * item = result[@"data"][@"list"];
+        NSArray * keys = item.allKeys;
+        NSArray * sortArray = [keys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj1 longLongValue] > [obj2 longLongValue];
+        }];
+        for (int i=0; i<sortArray.count; i++) {
+            NSString * key = sortArray[i];
+            NSArray * value = item[key];
+            [self.list addObject:value];
+        }
+        [self.tableView reloadData];
+        self.temp.text = [NSString stringWithFormat:@"%@",self.list[0][0][@"main"][@"temp"]];
+        NSString * interval = [NSString stringWithFormat:@"%@-%@",self.list[0][0][@"main"][@"temp_min"],self.list[0][0][@"main"][@"temp_max"]];
+        self.weather.text = [NSString stringWithFormat:@"%@\n%@",interval,self.list[0][0][@"weather"][0][@"main"]];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 1) {
         WeatherInfoTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WeatherInfoTableViewCell class]) forIndexPath:indexPath];
+        cell.model = self.list[0];
         return cell;
     }else{
         WeatherTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WeatherTableViewCell class]) forIndexPath:indexPath];
+        cell.model = self.list[indexPath.row==0?0:indexPath.row-1];
         return cell;
     }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 8;
+    return self.list.count == 0 ? 0 : self.list.count+1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

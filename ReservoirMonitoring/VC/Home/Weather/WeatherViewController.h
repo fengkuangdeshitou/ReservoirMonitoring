@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WeatherViewController : BaseViewController
 
+@property(nonatomic,strong) NSString * deviceId;
+
 @end
 
 NS_ASSUME_NONNULL_END

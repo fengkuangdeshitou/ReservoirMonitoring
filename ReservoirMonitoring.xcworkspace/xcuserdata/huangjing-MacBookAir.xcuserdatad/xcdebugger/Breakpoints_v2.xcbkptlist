@@ -18,6 +18,38 @@
             endingLineNumber = "227"
             landmarkName = "-CodeTypeSliderView"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7C0FEB7E-D2AC-4EC5-9819-F7F4C58FF522 - e811058122101"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[WMZCodeView CodeTypeSliderView]"
+                  moduleName = "WMZCode"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/huangjing/Desktop/ReservoirMonitoring/Pods/WMZCode/WMZCode/WMZCode/WMZCodeView.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "227"
+                  endingLineNumber = "227"
+                  offsetFromSymbolStart = "508">
+               </Location>
+               <Location
+                  uuid = "7C0FEB7E-D2AC-4EC5-9819-F7F4C58FF522 - e811058122101"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[WMZCodeView CodeTypeSliderView]"
+                  moduleName = "WMZCode"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/huangjing/Desktop/ReservoirMonitoring/Pods/WMZCode/WMZCode/WMZCode/WMZCodeView.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "227"
+                  endingLineNumber = "227"
+                  offsetFromSymbolStart = "668">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

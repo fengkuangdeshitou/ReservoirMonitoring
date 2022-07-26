@@ -27,10 +27,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sunny" translatesAutoresizingMaskIntoConstraints="NO" id="GSY-fv-Jg8">
-                        <rect key="frame" x="27.5" y="41.5" width="30" height="30"/>
+                        <rect key="frame" x="28.5" y="41.5" width="28" height="28"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Nk-Qd-V71">
-                        <rect key="frame" x="34" y="81.5" width="17" height="20"/>
+                        <rect key="frame" x="34" y="79.5" width="17" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="LJj-Rc-ngH"/>
                         </constraints>
@@ -50,10 +50,15 @@
                 <constraint firstItem="8Sq-Tf-6kM" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="uZZ-iE-1RH"/>
             </constraints>
             <size key="customSize" width="85" height="122"/>
+            <connections>
+                <outlet property="icon" destination="GSY-fv-Jg8" id="cw2-gi-Jhp"/>
+                <outlet property="temp" destination="4Nk-Qd-V71" id="t9N-0J-Yxg"/>
+                <outlet property="time" destination="8Sq-Tf-6kM" id="UDS-Eo-ywQ"/>
+            </connections>
             <point key="canvasLocation" x="157.24637681159422" y="95.089285714285708"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="sunny" width="30" height="30"/>
+        <image name="sunny" width="28" height="28"/>
     </resources>
 </document>

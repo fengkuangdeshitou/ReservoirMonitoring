@@ -73,4 +73,6 @@ NSString * const Upgrade = @"/device/upgrade";
 
 NSString * const SaveDebugConfig = @"/device/saveDebugConfig";
 
+NSString * const Weather = @"/weatherApi/weather/getWeather";
+
 @end

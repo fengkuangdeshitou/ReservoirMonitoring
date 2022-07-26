@@ -22,13 +22,19 @@
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([WeatherCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([WeatherCollectionViewCell class])];
 }
 
+- (void)setModel:(NSArray *)model{
+    _model = model;
+    [self.collectionView reloadData];
+}
+
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     WeatherCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([WeatherCollectionViewCell class]) forIndexPath:indexPath];
+    cell.model = self.model[indexPath.row];
     return cell;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 16;
+    return self.model.count;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
