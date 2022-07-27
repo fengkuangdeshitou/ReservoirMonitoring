@@ -47,11 +47,12 @@
         }else{
             if ([title isEqualToString:@"Ticket received".localized]) {
                 [self.doneButton setTitle:@"Acknowledge".localized forState:UIControlStateNormal];
-                self.doneButtonWidth.constant = 180;
             }else{
                 [self.doneButton setTitle:@"Confirm".localized forState:UIControlStateNormal];
             }
         }
+        CGFloat width = [self.doneButton.titleLabel.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil].size.width;
+        self.doneButtonWidth.constant = width+44;
         [self.doneButton showBorderWithRadius:20];
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
         [self addGestureRecognizer:tap];

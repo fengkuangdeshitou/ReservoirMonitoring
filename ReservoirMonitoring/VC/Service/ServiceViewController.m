@@ -42,9 +42,9 @@
             @{@"title":@"Contact name".localized,@"placeholder":self.model.nickName},
             @{@"title":@"Email".localized,@"placeholder":self.model.email},
             @{@"title":@"Phone".localized,@"placeholder":self.model.phonenumber},
-            @{@"title":@"SN",@"placeholder":self.model.defDevSgSn},
+            @{@"title":@"SN",@"placeholder":self.model.defDevSgSn?:@""},
             @{@"title":@"Case Reason",@"placeholder":@"None".localized},
-            @{@"title":@"Description".localized,@"placeholder":@"".localized}
+            @{@"title":@"Description".localized,@"placeholder":@""}
             ]];
         [self.tableView reloadData];
         self.submit.hidden = false;

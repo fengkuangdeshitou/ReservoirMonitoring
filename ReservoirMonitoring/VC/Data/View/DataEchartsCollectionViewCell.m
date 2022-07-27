@@ -11,7 +11,7 @@
 
 @interface DataEchartsCollectionViewCell ()
 
-@property(nonatomic,strong) WKEchartsView * echartsView;
+@property(nonatomic,strong) PYZoomEchartsView * echartsView;
 @property(nonatomic,weak)IBOutlet UIView * titleView;
 @property(nonatomic,weak)IBOutlet UIView * echarts;
 @property(nonatomic,weak)IBOutlet UILabel * energyTitle;
@@ -70,7 +70,7 @@
     }
     [self buttonClick:[self viewWithTag:10]];
     
-    self.echartsView = [[WKEchartsView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 222)];
+    self.echartsView = [[PYZoomEchartsView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 222)];
     [self.echarts addSubview:self.echartsView];
 //    PYOption * option = [[PYOption alloc] init];
 //    option.calculable = NO;
@@ -109,8 +109,99 @@
 //    [seriesArray addObject:series];
 //    option.series = seriesArray;
 //    [self.echartsView setOption:option];
-    [self.echartsView setOption:[self getRideDetailLineOptionWithTimeArray:@[] valueArray:@[] scopeType:1]];
+//    [self.echartsView setOption:[self getRideDetailLineOptionWithTimeArray:@[] valueArray:@[] scopeType:1]];
+    [self.echartsView setOption:[self basicAreaOption:@"111" XArray:@[@"1",@"3",@"5"] YArray:@[@102,@203,@302]]];
     [self.echartsView loadEcharts];
+}
+
+- (PYOption *)basicAreaOption:(NSString *)title XArray:(NSArray *)Xarray YArray:(NSArray *)Yarray
+{
+    return [PYOption initPYOptionWithBlock:^(PYOption *option) {
+        option.titleEqual([PYTitle initPYTitleWithBlock:^(PYTitle *title) {
+            title.textEqual(@"").subtextEqual(@"");
+        }])
+        .colorEqual(@[@"#56B19C"])
+        .gridEqual([PYGrid initPYGridWithBlock:^(PYGrid *grid) {
+            grid.xEqual(@50).x2Equal(@20).yEqual(@30).y2Equal(@30);
+        }])
+        .tooltipEqual([PYTooltip initPYTooltipWithBlock:^(PYTooltip *tooltip) {
+            tooltip.triggerEqual(PYTooltipTriggerAxis)
+            .backgroundColorEqual([[PYColor alloc] initWithColor:[UIColor colorWithHexString:@"#56B19C"]])
+            .textStyleEqual([PYTextStyle initPYTextStyleWithBlock:^(PYTextStyle *textStyle) {
+                textStyle.fontSize = @12;
+            }])
+            .axisPointerEqual([PYAxisPointer initPYAxisPointerWithBlock:^(PYAxisPointer *axisPoint) {
+                axisPoint.lineStyleEqual([PYLineStyle initPYLineStyleWithBlock:^(PYLineStyle *lineStyle) {
+                    lineStyle.widthEqual(@0);
+                }]);
+            }]);
+        }])
+        .calculableEqual(NO)
+        .addXAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
+            axis.typeEqual(PYAxisTypeCategory)
+            .boundaryGapEqual(@NO)
+            .addDataArr(Xarray)
+            .axisLineEqual([PYAxisLine initPYAxisLineWithBlock:^(PYAxisLine *axisLine) {
+                axisLine.lineStyleEqual([PYLineStyle initPYLineStyleWithBlock:^(PYLineStyle *lineStyle) {
+                    lineStyle.color = [[PYColor alloc] initWithColor:[UIColor colorWithHexString:@"#CCE7E1"]];
+                    lineStyle.width = @1;
+                }]);
+            }])
+            .splitLineEqual([PYAxisSplitLine initPYAxisSplitLineWithBlock:^(PYAxisSplitLine *splitLine) {
+                splitLine.lineStyleEqual([PYLineStyle initPYLineStyleWithBlock:^(PYLineStyle *lineStyle) {
+                    lineStyle.colorEqual(@[@"#EDEDED", @"#EDEDED"]).widthEqual(@1);
+                }]);
+            }]);
+        }])
+        .addYAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
+            axis.typeEqual(PYAxisTypeValue)
+            .axisLineEqual([PYAxisLine initPYAxisLineWithBlock:^(PYAxisLine *axisLine) {
+                axisLine.lineStyleEqual([PYLineStyle initPYLineStyleWithBlock:^(PYLineStyle *lineStyle) {
+                    lineStyle.color = [[PYColor alloc] initWithColor:[UIColor colorWithHexString:@"#CCE7E1"]];
+                    lineStyle.width = @1;
+                }]);
+            }])
+            .splitLineEqual([PYAxisSplitLine initPYAxisSplitLineWithBlock:^(PYAxisSplitLine *splitLine) {
+                splitLine.lineStyleEqual([PYLineStyle initPYLineStyleWithBlock:^(PYLineStyle *lineStyle) {
+                    lineStyle.colorEqual(@[@"#EDEDED", @"#EDEDED"]).widthEqual(@1);
+                }]);
+            }]);
+        }])
+        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
+            series.smoothEqual(YES)
+            .symbolEqual(PYSymbolEmptyCircle)
+            .symbolSizeEqual(@2)
+            .symbolRotateEqual(@1)
+            .nameEqual(title)
+            .typeEqual(PYSeriesTypeLine)
+            .itemStyleEqual([PYItemStyle initPYItemStyleWithBlock:^(PYItemStyle *itemStyle) {
+                itemStyle.emphasisEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *itemStyleProp) {
+                    itemStyleProp.labelEqual([PYLabel initPYLabelWithBlock:^(PYLabel *label) {
+                        label.showEqual(YES)
+                        .positionEqual(PYPositionCenter)
+                        .textStyleEqual([PYTextStyle initPYTextStyleWithBlock:^(PYTextStyle *textStyle) {
+                            textStyle.color = [[PYColor alloc] initWithColor:UIColor.whiteColor];
+                        }]);
+                    }]);
+                }]);
+                itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *normal) {
+                    normal.labelEqual([PYLabel initPYLabelWithBlock:^(PYLabel *label) {
+                        label.showEqual(YES)
+                        .positionEqual(PYPositionTop)
+                        .textStyleEqual([PYTextStyle initPYTextStyleWithBlock:^(PYTextStyle *textStyle) {
+                            textStyle.color = [[PYColor alloc] initWithColor:[UIColor colorWithHexString:@"#282828"]];
+                            textStyle.fontSize = @9;
+                        }]);
+                    }]);
+                    normal.areaStyleEqual([PYAreaStyle initPYAreaStyleWithBlock:^(PYAreaStyle *areaStyle) {
+                        areaStyle.typeEqual(PYAreaStyleTypeDefault);
+                        areaStyle.colorEqual(@"(function (){var zrColor = zrender.tool.color;return zrColor.getLinearGradient(0, 140, 0, 280,[[0, 'rgba(86,177,156,0.4)'],[1, 'rgba(255,255,255,0.1)']])})()");
+                    }]);
+                }]);
+            }])
+            .dataEqual(Yarray);
+        }]);
+    }];
 }
 
 - (void)setDataArray:(NSArray *)dataArray{
@@ -143,8 +234,9 @@
     }
     self.xArray = xArray;
     self.yArray = yArray;
-    PYOption * option = [self getRideDetailLineOptionWithTimeArray:self.xArray valueArray:self.yArray scopeType:scopeType];
-    [self.echartsView setOption:option];
+//    PYOption * option = [self getRideDetailLineOptionWithTimeArray:self.xArray valueArray:self.yArray scopeType:scopeType];
+//    [self.echartsView setOption:option];
+    [self.echartsView setOption:[self basicAreaOption:@"111" XArray:@[@"1",@"3",@"5"] YArray:@[@102,@203,@302]]];
     [self.echartsView loadEcharts];
 }
 
@@ -160,12 +252,27 @@
     grid.x2 = @(15);
     grid.y2 = @(40);
     option.grid = grid;
+    PYTooltip *tooltip = [[PYTooltip alloc] init];
+    //触发类型，默认数据触发
+    tooltip.trigger = PYTooltipTriggerItem;
+    //背景色
+    tooltip.backgroundColor = [[PYColor alloc] initWithColor:[UIColor colorWithHexString:@"#FEFFFF"]];
+    //竖线宽度
+    tooltip.axisPointer.lineStyle.width = @0;
+    //提示框,文字样式设置
+    tooltip.textStyle = [[PYTextStyle alloc] init];
+    tooltip.textStyle.fontSize = @12;
+    tooltip.textStyle.color = [[PYColor alloc] initWithColor:[UIColor colorWithHexString:@"#686B6D"]];
+//    tooltip.formatter = @"(function(params){ var res = params[0].name; for (var i = 0, l = params.length; i < l; i++) {res += '<br/>' + params[i].seriesName + ' : ' + params[i].value;}; return res})";
+    tooltip.formatter = @"(function(params){ var res = params.value; return '<br/>' + 'Distance:' + res + 'km'})";
+    //添加到图标选择中
+    option.tooltip = tooltip;
     PYAxis * xAxis = [[PYAxis alloc] init];
     xAxis.type = PYAxisTypeCategory;
     xAxis.boundaryGap = @(NO);
     xAxis.splitLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
     xAxis.axisLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
-    xAxis.data = [[NSMutableArray alloc] initWithArray:dataArray.count == 0 ? @[@1,@2,@3,@4,@5,@6,@7,@8,@9] : dataArray];
+    xAxis.data = [[NSMutableArray alloc] initWithArray:dataArray.count == 0 ? @[@1,@2,@3,@4,@5,@6,@7] : dataArray];
     option.xAxis = [[NSMutableArray alloc] initWithObjects:xAxis, nil ];
     PYAxis * yaxis = [[PYAxis alloc] init];
     yaxis.type = PYAxisTypeValue;
@@ -190,7 +297,7 @@
     prop.borderColor = [PYColor colorWithHexString:COLOR_MAIN_COLOR];
     style.normal = prop;
     series.itemStyle = style;
-    series.data = valueArray.count == 0 ? @[@"-",@"-",@"-",@"-",@"-",@"-"] : valueArray;
+    series.data = valueArray.count == 0 ? @[@"-",@"-",@"-",@"-",@"-",@"-",@"-"] : valueArray;
     [seriesArray addObject:series];
     option.series = seriesArray;
     

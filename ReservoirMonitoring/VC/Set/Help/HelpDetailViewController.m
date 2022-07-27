@@ -29,7 +29,7 @@
         NSString * content = result[@"data"][@"contentEn"];
         NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[content dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
         NSMutableAttributedString * att = [[NSMutableAttributedString alloc] initWithAttributedString:attrStr];
-        [att addAttributes:@{NSForegroundColorAttributeName:UIColor.whiteColor} range:NSMakeRange(0, att.length)];
+        [att addAttributes:@{NSForegroundColorAttributeName:UIColor.whiteColor,NSFontAttributeName:[UIFont systemFontOfSize:15]} range:NSMakeRange(0, att.length)];
         self.textView.attributedText = att;
     } failure:^(NSString * _Nonnull errorMsg) {
         

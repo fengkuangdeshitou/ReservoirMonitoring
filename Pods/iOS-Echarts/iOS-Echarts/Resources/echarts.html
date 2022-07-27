@@ -47,7 +47,7 @@
         // alert(JSON.stringify(param));
         // alert(window.webkit);
         if(window.webkit == undefined) {
-            window.parent.frames['action_frame'].location.href = 'pyEchartAction://' + param.type + '#' + JSON.stringify(param) + '';
+            window.parent.frames['action_frame'].location.href = 'pyEchartAction://' + param.type + '#' + JSON.stringify(param) + ''; // Support for UIWebView
             
         } else {
             eval("window.webkit.messageHandlers." + param.type + ".postMessage(" + JSON.stringify(param) + ")"); // Support for WKWebView
@@ -114,7 +114,7 @@
         //alert('result:'+result);
         //document.location.href = 'pyEchartAction://obtainImg#' + result + '';
         if(window.webkit == undefined) {
-            window.parent.frames['action_frame'].location.href = 'pyEchartAction://obtainImg#' + result + '';
+            window.parent.frames['action_frame'].location.href = 'pyEchartAction://obtainImg#' + result + ''; // Support for UIWebView
         } else {
             window.webkit.messageHandlers.obtainImg.postMessage(result); // Support for WKWebView
         }

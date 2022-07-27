@@ -120,14 +120,14 @@
 }
 
 - (void)commitAotuUpdateVersiom{
-    [Request.shareInstance postUrl:CommitAotuUpdateVersion params:@{@"aotuUpdateFirmware":self.update.selected?@"1":@"0",@"devId":self.devId} progress:^(float progress) {
+    [Request.shareInstance getUrl:CommitAotuUpdateVersion params:@{@"aotuUpdateFirmware":self.update.selected?@"0":@"1",@"devId":self.devId} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         BOOL value = [result[@"data"] boolValue];
         if (value) {
             self.update.selected = !self.update.selected;
         }else{
-            [RMHelper showToast:result[@"message"] toView:self.view];
+            [GlobelDescAlertView showAlertViewWithTitle:@"Check for updates" desc:result[@"message"] btnTitle:@"Acknowledge" completion:nil];
         }
     } failure:^(NSString * _Nonnull errorMsg) {
         
@@ -149,12 +149,12 @@
             
     } success:^(NSDictionary * _Nonnull result) {
         int hasNewVersion = [result[@"data"][@"hasNewVersion"] intValue];
-        self.result = result[@"data"];
-        [GlobelDescAlertView showAlertViewWithTitle:@"Check for updates" desc:result[@"data"][@"tips"] btnTitle:hasNewVersion==1?nil:@"Update" completion:^{
-            if (hasNewVersion!=1) {
-                [self updateDevice];
-            }
-        }];
+        if (hasNewVersion == 1) {
+            [GlobelDescAlertView showAlertViewWithTitle:@"Check for updates" desc:result[@"data"][@"tips"] btnTitle:nil completion:nil];
+        }else{
+            self.result = result[@"data"];
+            [self updateDevice];
+        }
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];
@@ -170,7 +170,7 @@
                          progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
-        [RMHelper showToast:result[@"data"][@"tips"] toView:self.view];
+        [GlobelDescAlertView showAlertViewWithTitle:@"Check for updates" desc:result[@"data"][@"tips"] btnTitle:@"Acknowledge" completion:nil];
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];

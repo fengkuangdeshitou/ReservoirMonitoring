@@ -168,7 +168,7 @@ define('echarts/echarts', [
     self.init = function (dom, theme) {
         var zrender = require('zrender');
         if (zrender.version.replace('.', '') - 0 < self.dependencies.zrender.replace('.', '') - 0) {
-            console.error('ZRender ' + zrender.version + ' is too old for ECharts ' + self.version + '. Firmware version need ZRender ' + self.dependencies.zrender + '+');
+            console.error('ZRender ' + zrender.version + ' is too old for ECharts ' + self.version + '. Current version need ZRender ' + self.dependencies.zrender + '+');
         }
         dom = dom instanceof Array ? dom[0] : dom;
         var key = dom.getAttribute(DOM_ATTRIBUTE_KEY);

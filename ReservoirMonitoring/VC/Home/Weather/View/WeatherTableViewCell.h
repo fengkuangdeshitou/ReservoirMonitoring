@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WeatherTableViewCell : UITableViewCell
 
 @property(nonatomic,strong) NSArray * model;
+@property(nonatomic,weak)IBOutlet UIImageView * icon;
 
 @end
 

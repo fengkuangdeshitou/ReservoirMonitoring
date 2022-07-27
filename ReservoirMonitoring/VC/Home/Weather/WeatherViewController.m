@@ -31,7 +31,7 @@
 }
 
 - (void)getWeatherData{
-    [Request.shareInstance getUrl:Weather params:@{@"deviceId":@"38"} progress:^(float progress) {
+    [Request.shareInstance getUrl:Weather params:@{@"deviceId":@"38",@"type":@"1"} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         NSDictionary * item = result[@"data"][@"list"];
@@ -61,6 +61,7 @@
     }else{
         WeatherTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WeatherTableViewCell class]) forIndexPath:indexPath];
         cell.model = self.list[indexPath.row==0?0:indexPath.row-1];
+        cell.icon.hidden = indexPath.row == 0;
         return cell;
     }
 }

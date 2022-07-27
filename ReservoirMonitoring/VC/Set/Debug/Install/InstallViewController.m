@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.dataArray = @[@"Add Device".localized,@"BLE connection".localized,@"Grid config".localized,@"PV config".localized,@"Smart Gateway config".localized,@"Card config".localized,@"Network".localized];
+    self.dataArray = @[@"Add Device".localized,@"BLE connection".localized,@"Grid config".localized,@"Smart Gateway config".localized,@"PV config".localized,@"Card config".localized,@"Network".localized];
     [self.config showBorderWithRadius:25];
     [self.next showBorderWithRadius:25];
     [self.back showBorderWithRadius:25];
@@ -59,9 +59,9 @@
         grid.title = self.dataArray[self.current];
         [self.navigationController pushViewController:grid animated:true];
     }else if (self.current == 3){
-        InverterViewController * inverter = [[InverterViewController alloc] init];
-        inverter.title = self.dataArray[self.current];
-        [self.navigationController pushViewController:inverter animated:true];
+        HybridViewController * hybrid = [[HybridViewController alloc] init];
+        hybrid.title = self.dataArray[self.current];
+        [self.navigationController pushViewController:hybrid animated:true];
     }
 //    else if (self.current == 4){
 //        GeneratorViewController * generator = [[GeneratorViewController alloc] init];
@@ -69,9 +69,9 @@
 //        [self.navigationController pushViewController:generator animated:true];
 //    }
     else if (self.current == 4){
-        HybridViewController * hybrid = [[HybridViewController alloc] init];
-        hybrid.title = self.dataArray[self.current];
-        [self.navigationController pushViewController:hybrid animated:true];
+        InverterViewController * inverter = [[InverterViewController alloc] init];
+        inverter.title = self.dataArray[self.current];
+        [self.navigationController pushViewController:inverter animated:true];
     }else if (self.current == 5){
         CardViewController * card = [[CardViewController alloc] init];
         card.title = @"Card config".localized;

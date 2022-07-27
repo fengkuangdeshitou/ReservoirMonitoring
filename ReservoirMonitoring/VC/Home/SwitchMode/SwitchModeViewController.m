@@ -476,8 +476,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    self.flag = indexPath.section;
-    [self.tableView reloadData];
+    if (indexPath.row == 0) {
+        self.flag = indexPath.section;
+        [self.tableView reloadData];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

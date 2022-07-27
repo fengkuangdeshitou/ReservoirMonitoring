@@ -95,7 +95,7 @@
 #endif
     
     // Disable magnification in WKWebView.
-    // The userScript is used for the property which named `scalesPageToFit` in
+    // The userScript is used for the property which named `scalesPageToFit` in `UIWebView`
     NSString *fitJS = @"var meta = document.createElement('meta'); "
     "meta.setAttribute('name', 'viewport'); "
     "meta.setAttribute('content', 'width=device-width'); "
@@ -279,6 +279,7 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     __weak __typeof(self) weakSelf = self;
     [webView evaluateJavaScript:@"document.readyState" completionHandler:^(id result, NSError *error) {
+        // UIWebView object has fully loaded.
         __typeof(self) strongSelf = weakSelf;
         if ([result isEqualToString:@"complete"]) {
             strongSelf.finishRender = YES;
