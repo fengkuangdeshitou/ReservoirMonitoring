@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NetworkTableViewCell : UITableViewCell
 
 @property(nonatomic,weak)IBOutlet UIImageView * bleIcon;
+@property(nonatomic,weak)IBOutlet UILabel * titleLabel;
+@property(nonatomic,weak)IBOutlet UILabel * address;
 @property(nonatomic,strong) DevideModel * model;
 
 @end

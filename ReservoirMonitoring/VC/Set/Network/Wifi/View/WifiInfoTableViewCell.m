@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.address.text = @"SN Address：".localized;
+    self.address.text = @"SN：".localized;
     self.status.text = @"BLE status：".localized;
     self.statusButton.layer.cornerRadius = 15;
     self.statusButton.layer.borderWidth = 0.5;
@@ -21,6 +21,7 @@
 
 - (void)setModel:(DevideModel *)model{
     _model = model;
+    self.deviceName.text = model.name;
     self.addressLabel.text = model.sgSn;
     if (model.isConnected) {
         [self.statusButton setTitle:@"Disconnect".localized forState:UIControlStateNormal];

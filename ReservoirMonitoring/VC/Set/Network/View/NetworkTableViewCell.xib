@@ -23,8 +23,8 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_machine" translatesAutoresizingMaskIntoConstraints="NO" id="Cd4-kF-Mav">
                                 <rect key="frame" x="15" y="20" width="40" height="40"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小胡的家" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YsM-pQ-3ja">
-                                <rect key="frame" x="70" y="15" width="61.5" height="22"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="------" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YsM-pQ-3ja">
+                                <rect key="frame" x="70" y="15" width="41.5" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="yHG-r8-Q7R"/>
                                 </constraints>

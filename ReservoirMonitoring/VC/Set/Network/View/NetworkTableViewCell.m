@@ -9,9 +9,6 @@
 
 @interface NetworkTableViewCell ()
 
-@property(nonatomic,weak)IBOutlet UILabel * titleLabel;
-@property(nonatomic,weak)IBOutlet UILabel * address;
-
 @end
 
 @implementation NetworkTableViewCell

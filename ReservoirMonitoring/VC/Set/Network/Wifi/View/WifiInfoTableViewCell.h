@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,weak)IBOutlet UILabel * addressLabel;
 @property(nonatomic,weak)IBOutlet UILabel * status;
 @property(nonatomic,weak)IBOutlet UIButton * statusButton;
-@property(nonatomic,weak)IBOutlet UIButton * wifiBtn;
+@property(nonatomic,weak)IBOutlet UILabel * deviceName;
 
 @property(nonatomic,strong) DevideModel * model;
 

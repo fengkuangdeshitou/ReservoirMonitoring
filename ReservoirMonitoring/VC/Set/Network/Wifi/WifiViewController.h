@@ -12,9 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WifiViewController : BaseViewController
 
-@property(nonatomic,strong) DevideModel * model;
-
-
 @end
 
 NS_ASSUME_NONNULL_END

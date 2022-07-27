@@ -13,6 +13,7 @@
 #import "AddDeviceViewController.h"
 #import "DevideModel.h"
 #import "GlobelDescAlertView.h"
+#import "WifiInfoTableViewCell.h"
 
 @interface NetworkViewController ()<UITableViewDelegate,UITableViewDataSource,BleManagerDelegate>
 
@@ -30,8 +31,8 @@
     
     UIBarButtonItem * add = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(addDevice)];
     self.navigationItem.rightBarButtonItem = add;
-    self.tableView.rowHeight = 80;
     [self.tableView registerNib:[UINib  nibWithNibName:NSStringFromClass([NetworkTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([NetworkTableViewCell class])];
+    [self.tableView registerNib:[UINib  nibWithNibName:NSStringFromClass([WifiInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([WifiInfoTableViewCell class])];
     [self getDeviceList];
 }
 
@@ -62,7 +63,6 @@
 //    [self.navigationController pushViewController:add animated:true];
     WifiViewController * wifi = [[WifiViewController alloc] init];
     wifi.title = @"Wi-Fi config".localized;
-    wifi.model = self.model;
     [self.navigationController pushViewController:wifi animated:true];
 }
 
@@ -127,25 +127,17 @@
     });
 }
 
-//- (void)bluetoothdidDiscoverPeripheral:(CBPeripheral *)peripheral RSSI:(NSNumber *)RSSI{
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        PeripheralModel * model = [[PeripheralModel alloc] init];
-//        model.peripheral = peripheral;
-//        model.rssi = RSSI;
-//        [self.dataArray addObject:model];
-//        [self.tableView reloadData];
-//    });
-//}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NetworkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NetworkTableViewCell class]) forIndexPath:indexPath];
     if (indexPath.section == 0) {
-        cell.bleIcon.image = [UIImage imageNamed:self.model.isConnected ? @"bluetooth_active" : @"bluetooth_gray"];
+        WifiInfoTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WifiInfoTableViewCell class]) forIndexPath:indexPath];
+        cell.model = self.model;
+        return cell;
     }else{
+        NetworkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NetworkTableViewCell class]) forIndexPath:indexPath];
         cell.bleIcon.image = [UIImage imageNamed:@"bluetooth_gray"];
+        cell.model = self.dataArray[indexPath.row];
+        return cell;
     }
-    cell.model = indexPath.section == 0 ? self.model : self.dataArray[indexPath.row];
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -195,6 +187,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.001;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return indexPath.section == 0 ? 135 : 80;
 }
 
 /*

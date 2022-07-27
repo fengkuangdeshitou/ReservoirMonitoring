@@ -7,7 +7,7 @@
 
 #import "WifiViewController.h"
 #import "WifiTableViewCell.h"
-#import "WifiInfoTableViewCell.h"
+#import "NetworkTableViewCell.h"
 #import "WifiAlertView.h"
 #import "BleManager.h"
 #import <NetworkExtension/NetworkExtension.h>
@@ -16,9 +16,11 @@
 #import <SystemConfiguration/CaptiveNetwork.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface WifiViewController ()<UITableViewDelegate>
+@interface WifiViewController ()<UITableViewDelegate,CLLocationManagerDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
+@property(nonatomic,strong)IBOutlet UIView * headerView;
+
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end
@@ -28,78 +30,82 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([WifiInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([WifiInfoTableViewCell class])];
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([NetworkTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([NetworkTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([WifiTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([WifiTableViewCell class])];
-    [self.model addObserver:self forKeyPath:@"isConnected" options:NSKeyValueObservingOptionNew context:nil];
 //    [self getWifiList];
-//    NSLog(@"currentWifi=%@",[self wifiName]);
-//    NSString* phoneVersion = [[UIDevice currentDevice] systemVersion];
-//    CGFloat version = [phoneVersion floatValue];
 //    // 如果是iOS13 未开启地理位置权限 需要提示一下
-//    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined && version >= 13) {
-//        self.locationManager = [[CLLocationManager alloc] init];
-//        [self.locationManager requestWhenInUseAuthorization];
-//    }
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        [self.locationManager requestWhenInUseAuthorization];
+    }
 //    id info = nil;
 //    NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
 //    for (NSString *ifnam in ifs) {
 //        info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
 //        NSString *str = info[@"SSID"];//name
+//        NSLog(@"info=%@",info);
 //        NSLog(@"str=%@",str);
 //    }
 }
 
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    [self.tableView reloadData];
+}
+
 - (NSString *)wifiName{
     NSString *wifiName = @"";
-    CFArrayRef myArray = CNCopySupportedInterfaces();
-    NSLog(@"myArray=%@",myArray);
-    if (myArray != nil) {
-        CFDictionaryRef myDict =CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(myArray, 0));
-        if (myDict != nil) {
-            NSDictionary *dict = (NSDictionary*)CFBridgingRelease(myDict);
-            wifiName = [dict valueForKey:@"SSID"];
+    CFArrayRef array = CNCopySupportedInterfaces();
+    if (array != nil) {
+        CFDictionaryRef dict =CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(array, 0));
+        if (dict != nil) {
+            NSDictionary * info = (NSDictionary*)CFBridgingRelease(dict);
+            wifiName = [info valueForKey:@"SSID"];
         }
     }
     return wifiName;
 }
 
-- (void)getWifiList{
+- (IBAction)scanWifiList:(UIButton *)btn{
+    btn.selected = !btn.selected;
+    if (btn.selected) {
+        NSMutableDictionary* options = [[NSMutableDictionary alloc] init];
+        [options setObject:@"🔑Wifi子标题🔑" forKey:kNEHotspotHelperOptionDisplayName];
 
-    NSMutableDictionary* options = [[NSMutableDictionary alloc] init];
-    [options setObject:@"🔑Wifi子标题🔑" forKey:kNEHotspotHelperOptionDisplayName];
+        dispatch_queue_t queue = dispatch_queue_create("com.pronetwayXY", NULL);
+        BOOL returnType = [NEHotspotHelper registerWithOptions:options queue:queue handler: ^(NEHotspotHelperCommand * cmd) {
+            NEHotspotNetwork* network;
+            NSLog(@"COMMAND TYPE:   %ld", (long)cmd.commandType);
+            [cmd createResponse:kNEHotspotHelperResultAuthenticationRequired];
+            if (cmd.commandType == kNEHotspotHelperCommandTypeEvaluate || cmd.commandType ==kNEHotspotHelperCommandTypeFilterScanList) {
+                NSLog(@"WIFILIST:   %@", cmd.networkList);
+                for (network  in cmd.networkList) {
+                    // NSLog(@"COMMAND TYPE After:   %ld", (long)cmd.commandType);
+                    if ([network.SSID isEqualToString:@"ssid"]|| [network.SSID isEqualToString:@"proict_test"]) {
 
-    dispatch_queue_t queue = dispatch_queue_create("com.pronetwayXY", NULL);
-    BOOL returnType = [NEHotspotHelper registerWithOptions:options queue:queue handler: ^(NEHotspotHelperCommand * cmd) {
-        NEHotspotNetwork* network;
-        NSLog(@"COMMAND TYPE:   %ld", (long)cmd.commandType);
-        [cmd createResponse:kNEHotspotHelperResultAuthenticationRequired];
-        if (cmd.commandType == kNEHotspotHelperCommandTypeEvaluate || cmd.commandType ==kNEHotspotHelperCommandTypeFilterScanList) {
-            NSLog(@"WIFILIST:   %@", cmd.networkList);
-            for (network  in cmd.networkList) {
-                // NSLog(@"COMMAND TYPE After:   %ld", (long)cmd.commandType);
-                if ([network.SSID isEqualToString:@"ssid"]|| [network.SSID isEqualToString:@"proict_test"]) {
+                        double signalStrength = network.signalStrength;
+                        NSLog(@"Signal Strength: %f", signalStrength);
+                        [network setConfidence:kNEHotspotHelperConfidenceHigh];
+                        [network setPassword:@"password"];
 
-                    double signalStrength = network.signalStrength;
-                    NSLog(@"Signal Strength: %f", signalStrength);
-                    [network setConfidence:kNEHotspotHelperConfidenceHigh];
-                    [network setPassword:@"password"];
+                        NEHotspotHelperResponse *response = [cmd createResponse:kNEHotspotHelperResultSuccess];
+                        NSLog(@"Response CMD %@", response);
 
-                    NEHotspotHelperResponse *response = [cmd createResponse:kNEHotspotHelperResultSuccess];
-                    NSLog(@"Response CMD %@", response);
-
-                    [response setNetworkList:@[network]];
-                    [response setNetwork:network];
-                    [response deliver];
+                        [response setNetworkList:@[network]];
+                        [response setNetwork:network];
+                        [response deliver];
+                    }
                 }
             }
-        }
-    }];
-    NSLog(@"result :%d", returnType);
-    NSArray *array = [NEHotspotHelper supportedNetworkInterfaces];
-    NSLog(@"wifiArray:%@", array);
-    NEHotspotNetwork *connectedNetwork = [array lastObject];
-    NSLog(@"supported Network Interface: %@", connectedNetwork);
-
+        }];
+        NSLog(@"result :%d", returnType);
+        NSArray *array = [NEHotspotHelper supportedNetworkInterfaces];
+        NSLog(@"wifiArray:%@", array);
+        NEHotspotNetwork *connectedNetwork = [array lastObject];
+        NSLog(@"supported Network Interface: %@", connectedNetwork);
+    }else{
+        
+    }
 }
 
 - (void)connectWifi{
@@ -120,17 +126,12 @@
     }];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        WifiInfoTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WifiInfoTableViewCell class]) forIndexPath:indexPath];
-        cell.model = self.model;
-        [cell.wifiBtn addTarget:self action:@selector(wifiChangeClick:) forControlEvents:UIControlEventTouchUpInside];
+        NetworkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NetworkTableViewCell class]) forIndexPath:indexPath];
+        cell.bleIcon.hidden = true;
+        cell.titleLabel.text = [self wifiName];
+        cell.address.text = cell.titleLabel.text.length > 0 ? @"WIFI status:Connected" : @"WIFI status:Disconnect";
         return cell;
     }else{
         WifiTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WifiTableViewCell class]) forIndexPath:indexPath];
@@ -170,27 +171,23 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return indexPath.section == 0 ? 185 : 78;
+    return indexPath.section == 0 ? 80 : 78;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 0.001;
+    return section == 1 ? 54 : 20;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    return [UIView new];
+    return section == 1 ? self.headerView : [UIView new];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0.001;
+    return 0.01;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     return [UIView new];
-}
-
-- (void)dealloc{
-    [self.model removeObserver:self forKeyPath:@"isConnected"];
 }
 
 /*
