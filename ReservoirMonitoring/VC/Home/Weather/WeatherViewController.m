@@ -31,7 +31,7 @@
 }
 
 - (void)getWeatherData{
-    [Request.shareInstance getUrl:Weather params:@{@"deviceId":@"38",@"type":@"1"} progress:^(float progress) {
+    [Request.shareInstance getUrl:Weather params:@{@"deviceId":self.deviceId,@"type":@"1"} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         NSDictionary * item = result[@"data"][@"list"];

@@ -26,6 +26,7 @@
 @property(nonatomic,weak)IBOutlet UILabel * communication;
 @property(nonatomic,weak)IBOutlet UILabel * communicationValue;
 @property(nonatomic,weak)IBOutlet UILabel * selfHelpRate;
+@property(nonatomic,weak)IBOutlet UIButton * weather;
 
 @end
 
@@ -86,7 +87,12 @@
 - (void)setModel:(DevideModel *)model{
     _model = model;
     self.titleLabel.text = model.off_ON_Grid_Hint;
-    
+    if (model.weather) {
+        [self.weather setImage:model.weather[@"icon"] forState:UIControlStateNormal];
+//        self.weather.hidden = false;
+    }else{
+//        self.weather.hidden = YES;
+    }
     if (model.workStatus.intValue == 1) {
         self.currentModeValue.text = @"Self-consumption";
     }else if (model.workStatus.intValue == 2){

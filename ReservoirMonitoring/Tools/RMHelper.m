@@ -81,6 +81,10 @@ static NSString * K_USERTYPE = @"USERTYPE";
     NSInteger endMinute = [[endTime componentsSeparatedByString:@":"].lastObject integerValue];
     NSInteger endTimeValue = endHour*24*60+endMinute*60;
     
+    if (endTimeValue <= startTimeValue) {
+        return nil;
+    }
+    
     NSMutableSet * timeSet = [[NSMutableSet alloc] init];
     for (NSInteger i=startTimeValue; i<endTimeValue; i++) {
         [timeSet addObject:@(i)];
@@ -94,14 +98,26 @@ static NSString * K_USERTYPE = @"USERTYPE";
                    endTime2:(NSString *)endTime2{
     NSMutableSet * startSet = [self setForStartTime:startTime1 endTime:startTime2];
     NSMutableSet * endSet = [self setForStartTime:endTime1 endTime:endTime2];
-    [startSet intersectSet:endSet];
-    NSLog(@"交集=%@",startSet);
-    return startSet.count > 0;
+    if (startSet && endSet) {
+        [startSet intersectSet:endSet];
+        return startSet.count > 0;
+    }else{
+        return YES;
+    }
 }
 
 + (BOOL)hasRepeatedTimeForArray:(NSArray *)timeArray{
     BOOL result = false;
-    if (timeArray.count <= 1) {
+    if (timeArray.count == 1) {
+        NSString * startTime = timeArray[0];
+        NSString * start = [startTime componentsSeparatedByString:@"_"][0];
+        NSString * end = [startTime componentsSeparatedByString:@"_"][1];
+        if (start.length > 0 && end.length > 0) {
+            NSMutableSet * set = [self setForStartTime:start endTime:end];
+            if (!set) {
+                result = YES;
+            }
+        }
         return result;
     }else{
         for (int i = 0; i<timeArray.count; i++) {

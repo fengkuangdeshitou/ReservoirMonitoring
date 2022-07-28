@@ -70,7 +70,7 @@
     }
     [self buttonClick:[self viewWithTag:10]];
     
-    self.echarts.contentSize = CGSizeMake(SCREEN_WIDTH*2, 0);
+    self.echarts.contentSize = CGSizeMake(SCREEN_WIDTH, 0);
     self.echartsView = [[WKEchartsView alloc] initWithFrame:CGRectMake(0, 0, self.echarts.contentSize.width, 222)];
     self.echartsView.scrollView.zoomScale = false;
     [self.echarts addSubview:self.echartsView];
@@ -145,6 +145,10 @@
     }
     self.xArray = xArray;
     self.yArray = yArray;
+    if (xArray.count > 10) {
+        self.echarts.contentSize = CGSizeMake(SCREEN_WIDTH*2, 0);
+        self.echartsView.width = self.echarts.contentSize.width;
+    }
     PYOption * option = [self getRideDetailLineOptionWithTimeArray:self.xArray valueArray:self.yArray scopeType:scopeType];
     [self.echartsView setOption:option];
     [self.echartsView loadEcharts];

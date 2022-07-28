@@ -51,9 +51,6 @@
             [BleManager.shareInstance readWithCMDString:@"628" count:1 finish:^(NSArray * _Nonnull array) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     weakSelf.update.selected = [array.firstObject boolValue];
-                    if (weakSelf.update.selected) {
-                        [weakSelf updateAction];
-                    }
                 });
             }];
         });
@@ -86,9 +83,6 @@
             
     } success:^(NSDictionary * _Nonnull result) {
         self.update.selected = [result[@"data"][@"aotuUpdateFirmware"] boolValue];
-        if (self.update.selected) {
-            [self updateAction];
-        }
         NSString * version = [NSString stringWithFormat:@"%@",result[@"data"][@"firmwareVersion"]];
         self.version.text = [@"Firmware version:".localized stringByAppendingString:version];
     } failure:^(NSString * _Nonnull errorMsg) {

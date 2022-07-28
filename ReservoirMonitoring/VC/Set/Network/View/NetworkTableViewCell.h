@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,weak)IBOutlet UIImageView * bleIcon;
 @property(nonatomic,weak)IBOutlet UILabel * titleLabel;
 @property(nonatomic,weak)IBOutlet UILabel * address;
+@property(nonatomic,weak)IBOutlet UILabel * status;
 @property(nonatomic,strong) DevideModel * model;
 
 @end

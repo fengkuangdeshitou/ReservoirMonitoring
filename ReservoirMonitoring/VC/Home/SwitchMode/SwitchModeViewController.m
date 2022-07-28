@@ -252,6 +252,14 @@
             NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
             NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
+            if (timeCell.startTime.text.length == 0) {
+                [RMHelper showToast:@"Please select start time" toView:self.view];
+                return;
+            }
+            if (timeCell.endTime.text.length == 0) {
+                [RMHelper showToast:@"Please select end time" toView:self.view];
+                return;
+            }
             NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];
             [offPeakArray addObject:string];
         }
@@ -265,12 +273,20 @@
             NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:1];
             TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
             NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
+            if (timeCell.startTime.text.length == 0) {
+                [RMHelper showToast:@"Please select start time" toView:self.view];
+                return;
+            }
+            if (timeCell.endTime.text.length == 0) {
+                [RMHelper showToast:@"Please select end time" toView:self.view];
+                return;
+            }
             NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];
             [peakTimeArray addObject:string];
         }
         [params setValue:peakTimeArray forKey:@"peakTimeList"];
         if ([RMHelper hasRepeatedTimeForArray:peakTimeArray]) {
-            [RMHelper showToast:@"Ppeak time overlap" toView:self.view];
+            [RMHelper showToast:@"Peak time overlap" toView:self.view];
             return;
         }
         NSMutableArray * superPeakTimeArray = [[NSMutableArray alloc] init];
@@ -278,6 +294,14 @@
             NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:2];
             TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
             NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
+            if (timeCell.startTime.text.length == 0) {
+                [RMHelper showToast:@"Please select start time" toView:self.view];
+                return;
+            }
+            if (timeCell.endTime.text.length == 0) {
+                [RMHelper showToast:@"Please select end time" toView:self.view];
+                return;
+            }
             NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];
             [superPeakTimeArray addObject:string];
         }

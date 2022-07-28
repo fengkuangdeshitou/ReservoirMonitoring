@@ -32,8 +32,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SN：1231243254324" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="maf-b9-CRg">
-                                <rect key="frame" x="70" y="41" width="131" height="22"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SN：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="maf-b9-CRg">
+                                <rect key="frame" x="70" y="41" width="31.5" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="tqa-Qa-xmh"/>
                                 </constraints>
@@ -44,12 +44,23 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bluetooth_active" translatesAutoresizingMaskIntoConstraints="NO" id="Dt4-IV-AP2">
                                 <rect key="frame" x="245" y="25" width="30" height="30"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SN：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLR-aP-Ymt">
+                                <rect key="frame" x="101.5" y="41" width="31.5" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="n7U-xe-ctt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.10588235294117647" green="0.10588235294117647" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Cd4-kF-Mav" firstAttribute="centerY" secondItem="GaG-6k-6fh" secondAttribute="centerY" id="9u4-2D-lvV"/>
+                            <constraint firstItem="gLR-aP-Ymt" firstAttribute="leading" secondItem="maf-b9-CRg" secondAttribute="trailing" id="BLC-jx-chT"/>
                             <constraint firstItem="Dt4-IV-AP2" firstAttribute="centerY" secondItem="GaG-6k-6fh" secondAttribute="centerY" id="Ek4-aP-25G"/>
                             <constraint firstItem="YsM-pQ-3ja" firstAttribute="top" secondItem="GaG-6k-6fh" secondAttribute="top" constant="15" id="Yf3-Yr-e6k"/>
+                            <constraint firstItem="gLR-aP-Ymt" firstAttribute="centerY" secondItem="maf-b9-CRg" secondAttribute="centerY" id="Yfe-Wa-FAH"/>
                             <constraint firstItem="YsM-pQ-3ja" firstAttribute="leading" secondItem="Cd4-kF-Mav" secondAttribute="trailing" constant="15" id="Ysk-hm-2hn"/>
                             <constraint firstAttribute="trailing" secondItem="Dt4-IV-AP2" secondAttribute="trailing" constant="15" id="bsL-tN-cfD"/>
                             <constraint firstItem="maf-b9-CRg" firstAttribute="leading" secondItem="YsM-pQ-3ja" secondAttribute="leading" id="cWB-sT-s6s"/>
@@ -70,6 +81,7 @@
             <connections>
                 <outlet property="address" destination="maf-b9-CRg" id="fk2-dq-9YH"/>
                 <outlet property="bleIcon" destination="Dt4-IV-AP2" id="Mz5-vd-hAm"/>
+                <outlet property="status" destination="gLR-aP-Ymt" id="yXb-O3-JAW"/>
                 <outlet property="titleLabel" destination="YsM-pQ-3ja" id="VJR-pT-tjb"/>
             </connections>
             <point key="canvasLocation" x="139" y="90"/>

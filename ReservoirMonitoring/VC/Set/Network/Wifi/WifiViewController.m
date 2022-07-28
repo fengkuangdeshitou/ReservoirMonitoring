@@ -131,7 +131,9 @@
         NetworkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NetworkTableViewCell class]) forIndexPath:indexPath];
         cell.bleIcon.hidden = true;
         cell.titleLabel.text = [self wifiName];
-        cell.address.text = cell.titleLabel.text.length > 0 ? @"WIFI status:Connected" : @"WIFI status:Disconnect";
+        cell.address.text = @"WIFI status：";
+        cell.status.text = cell.titleLabel.text.length > 0 ? @"Connected" : @"Disconnect";
+        cell.status.textColor = [UIColor colorWithHexString:cell.titleLabel.text.length > 0 ? COLOR_MAIN_COLOR : @"#999999"];
         return cell;
     }else{
         WifiTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WifiTableViewCell class]) forIndexPath:indexPath];
