@@ -73,6 +73,8 @@ extern NSString * const SaveDebugConfig;
 
 extern NSString * const Weather;
 
+extern NSString * const AlertFaultList;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,10 +8,13 @@
 #import "WarningListView.h"
 #import "WarningTableViewCell.h"
 #import "GlobelDescAlertView.h"
+#import "DevideModel.h"
 
 @interface WarningListView ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong) UITableView * tableView;
+@property(nonatomic,assign) NSInteger page;
+@property(nonatomic,strong) NSMutableArray * dataArray;
 
 @end
 
@@ -21,7 +24,9 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.page = 1;
         [self getListData];
+//        self.tableView setpull
         self.tableView = [[UITableView alloc] initWithFrame:self.bounds style:UITableViewStyleGrouped];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
@@ -34,12 +39,41 @@
 }
 
 - (void)getListData{
-    [BleManager.shareInstance readWithCMDString:@"550" count:3 finish:^(NSArray * _Nonnull array) {
-        NSLog(@"array=%@",array);
+    if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
+        [BleManager.shareInstance readWithCMDString:self.tag == 10 ? @"550" : @"553" count:3 finish:^(NSArray * _Nonnull array) {
+            NSLog(@"array=%@",array);
+        }];
+    }else{
+        [Request.shareInstance getUrl:DeviceList params:@{} progress:^(float progress) {
+                
+        } success:^(NSDictionary * _Nonnull result) {
+            NSArray * modelArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+            NSArray<DevideModel*> * array = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
+            if (array.count > 0) {
+                NSString * devId = array.firstObject.deviceId;
+                [self getListWithDevId:devId];
+            }
+        } failure:^(NSString * _Nonnull errorMsg) {
+
+        }];
+        
+    }
+}
+
+- (void)getListWithDevId:(NSString *)devId{
+    [Request.shareInstance getUrl:[NSString stringWithFormat:@"%@/%@/%@",AlertFaultList,devId,self.tag==10?@"1":@"2"] params:@{@"pageNo":[NSString stringWithFormat:@"%ld",self.page],@"pageSize":@"10"} progress:^(float progress) {
+                
+    } success:^(NSDictionary * _Nonnull result) {
+        NSArray * array = result[@"data"];
+        if (self.page == 1) {
+            self.dataArray = [[NSMutableArray alloc] initWithArray:array];
+        }else{
+            [self.dataArray addObject:array];
+        }
+        [self.tableView reloadData];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
     }];
-//    [BleManager.shareInstance readWithCMDString:self.tag == 10 ? @"550" : @"553" count:3 finish:^(NSArray * _Nonnull array) {
-//        NSLog(@"array=%@",array);
-//    }];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -48,6 +82,10 @@
     cell.typeLabel.text = self.tag == 10 ? @"Warning".localized : @"Fault".localized;
     cell.time.text = self.tag == 10 ? @"Warning time：".localized : @"Fault Time".localized;
     cell.line.hidden = indexPath.row == 4;
+    NSDictionary * item = self.dataArray[indexPath.row];
+    cell.titleLabel.text = item[@"enContent"];
+    cell.sn.text = item[@"sgSn"];
+    cell.timeLabel.text = item[@"createTime"];
     return cell;
 }
 
@@ -56,7 +94,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return self.dataArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

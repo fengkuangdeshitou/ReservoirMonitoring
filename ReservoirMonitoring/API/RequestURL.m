@@ -75,4 +75,8 @@ NSString * const SaveDebugConfig = @"/device/saveDebugConfig";
 
 NSString * const Weather = @"/weatherApi/weather/getWeather";
 
+NSString * const AlertFaultList = @"/device/getAlertFaultList";
+
+
+
 @end

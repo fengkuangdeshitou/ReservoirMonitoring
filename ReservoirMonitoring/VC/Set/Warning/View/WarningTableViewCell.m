@@ -7,12 +7,6 @@
 
 #import "WarningTableViewCell.h"
 
-@interface WarningTableViewCell ()
-
-@property(nonatomic,weak)IBOutlet UILabel * timeLabel;
-
-@end
-
 @implementation WarningTableViewCell
 
 - (void)awakeFromNib {
