@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TimeZoneViewController : BaseViewController
 
+@property(nonatomic,strong) NSArray * listArray;
 @property(nonatomic,strong) NSString * countryId;
 @property(nonatomic,copy) void(^selectTimeZone)(NSDictionary * item);
 

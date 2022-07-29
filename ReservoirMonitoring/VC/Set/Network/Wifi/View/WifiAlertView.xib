@@ -15,7 +15,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8s-V3-UrP">
-                    <rect key="frame" x="18" y="316.5" width="378" height="263.5"/>
+                    <rect key="frame" x="18" y="303.5" width="378" height="289.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KLX TEST TWS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cnp-96-WbY">
                             <rect key="frame" x="133" y="10" width="112" height="22"/>
@@ -138,7 +138,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MaT-tL-age">
-                            <rect key="frame" x="77.5" y="203.5" width="223" height="40"/>
+                            <rect key="frame" x="77.5" y="229.5" width="223" height="40"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tD4-NE-iIC">
                                     <rect key="frame" x="0.0" y="0.0" width="95" height="40"/>
@@ -183,13 +183,21 @@
                                 <constraint firstAttribute="bottom" secondItem="ljp-hn-ep7" secondAttribute="bottom" id="s1X-ej-L3g"/>
                             </constraints>
                         </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5GHz WiFi currently not supported, please select 2.4GHz Wi-Fi to continue." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b5r-7c-fTM">
+                            <rect key="frame" x="18" y="185.5" width="342" height="29"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.15294117647058825" green="0.15294117647058825" blue="0.15294117647058825" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="Cnp-96-WbY" firstAttribute="centerX" secondItem="g8s-V3-UrP" secondAttribute="centerX" id="6ei-W1-qqZ"/>
+                        <constraint firstItem="MaT-tL-age" firstAttribute="top" secondItem="b5r-7c-fTM" secondAttribute="bottom" constant="15" id="8mQ-62-E6h"/>
                         <constraint firstAttribute="trailing" secondItem="jfQ-c9-ZAC" secondAttribute="trailing" id="A4P-ui-1oU"/>
                         <constraint firstItem="Hia-BS-lAX" firstAttribute="top" secondItem="iqZ-cX-5Ia" secondAttribute="bottom" id="Be6-aH-q07"/>
-                        <constraint firstItem="MaT-tL-age" firstAttribute="top" secondItem="Hia-BS-lAX" secondAttribute="bottom" constant="33" id="Ca3-KL-Pkm"/>
+                        <constraint firstItem="b5r-7c-fTM" firstAttribute="leading" secondItem="g8s-V3-UrP" secondAttribute="leading" constant="18" id="IR2-3j-MhX"/>
+                        <constraint firstItem="b5r-7c-fTM" firstAttribute="top" secondItem="Hia-BS-lAX" secondAttribute="bottom" constant="15" id="MJb-vR-i9q"/>
                         <constraint firstItem="iqZ-cX-5Ia" firstAttribute="leading" secondItem="g8s-V3-UrP" secondAttribute="leading" constant="15" id="Rpz-0Q-n5O"/>
                         <constraint firstAttribute="trailing" secondItem="txX-ff-QXv" secondAttribute="trailing" id="VHW-wh-ZDw"/>
                         <constraint firstItem="jfQ-c9-ZAC" firstAttribute="leading" secondItem="g8s-V3-UrP" secondAttribute="leading" id="Zut-T6-nnK"/>
@@ -199,6 +207,7 @@
                         <constraint firstItem="jfQ-c9-ZAC" firstAttribute="top" secondItem="txX-ff-QXv" secondAttribute="bottom" id="iKc-jM-5Ns"/>
                         <constraint firstAttribute="trailing" secondItem="iqZ-cX-5Ia" secondAttribute="trailing" constant="15" id="mSQ-2N-2NL"/>
                         <constraint firstItem="Hia-BS-lAX" firstAttribute="trailing" secondItem="iqZ-cX-5Ia" secondAttribute="trailing" id="sSN-RO-Rka"/>
+                        <constraint firstAttribute="trailing" secondItem="b5r-7c-fTM" secondAttribute="trailing" constant="18" id="sxa-ep-CeN"/>
                         <constraint firstItem="iqZ-cX-5Ia" firstAttribute="top" secondItem="jfQ-c9-ZAC" secondAttribute="bottom" constant="8" id="vQG-IE-mcy"/>
                         <constraint firstItem="MaT-tL-age" firstAttribute="centerX" secondItem="g8s-V3-UrP" secondAttribute="centerX" id="wkM-7i-rIY"/>
                         <constraint firstItem="Cnp-96-WbY" firstAttribute="top" secondItem="g8s-V3-UrP" secondAttribute="top" constant="10" id="xL3-aV-Qsh"/>

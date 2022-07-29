@@ -20,8 +20,12 @@
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,strong)IBOutlet UIView * headerView;
-
+@property(nonatomic,strong)IBOutlet UIView * footerView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) NSString * wifi;
+@property (strong, nonatomic) NSString * deviceSSID;
+@property (strong, nonatomic) NSTimer * timer;
+@property (assign, nonatomic) NSInteger number;
 
 @end
 
@@ -39,14 +43,30 @@
         self.locationManager.delegate = self;
         [self.locationManager requestWhenInUseAuthorization];
     }
-//    id info = nil;
-//    NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
-//    for (NSString *ifnam in ifs) {
-//        info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
-//        NSString *str = info[@"SSID"];//name
-//        NSLog(@"info=%@",info);
-//        NSLog(@"str=%@",str);
-//    }
+    __weak typeof(self) weakSelf = self;
+    if (BleManager.shareInstance.isConnented) {
+        [BleManager.shareInstance readWithDictionary:@{@"type":@"NetInfo"} finish:^(NSDictionary * _Nonnull dict) {
+            if (dict[@"SSID"]) {
+                weakSelf.wifi = dict[@"wifi"];
+                weakSelf.deviceSSID = dict[@"SSID"];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                });
+            }
+        }];
+    }
+    
+    id info = nil;
+    NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
+    for (NSString *ifnam in ifs) {
+        info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
+        NSString *str = info[@"SSID"];//name
+        NSLog(@"info=%@",info);
+        NSLog(@"str=%@",str);
+        NSData * SSIDDATA = info[@"SSIDDATA"];
+        id value = [[NSString alloc] initWithData:SSIDDATA encoding:NSUTF8StringEncoding];
+        NSLog(@"value=%@",value);
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
@@ -66,97 +86,42 @@
     return wifiName;
 }
 
-- (IBAction)scanWifiList:(UIButton *)btn{
-    btn.selected = !btn.selected;
-    if (btn.selected) {
-        NSMutableDictionary* options = [[NSMutableDictionary alloc] init];
-        [options setObject:@"🔑Wifi子标题🔑" forKey:kNEHotspotHelperOptionDisplayName];
-
-        dispatch_queue_t queue = dispatch_queue_create("com.pronetwayXY", NULL);
-        BOOL returnType = [NEHotspotHelper registerWithOptions:options queue:queue handler: ^(NEHotspotHelperCommand * cmd) {
-            NEHotspotNetwork* network;
-            NSLog(@"COMMAND TYPE:   %ld", (long)cmd.commandType);
-            [cmd createResponse:kNEHotspotHelperResultAuthenticationRequired];
-            if (cmd.commandType == kNEHotspotHelperCommandTypeEvaluate || cmd.commandType ==kNEHotspotHelperCommandTypeFilterScanList) {
-                NSLog(@"WIFILIST:   %@", cmd.networkList);
-                for (network  in cmd.networkList) {
-                    // NSLog(@"COMMAND TYPE After:   %ld", (long)cmd.commandType);
-                    if ([network.SSID isEqualToString:@"ssid"]|| [network.SSID isEqualToString:@"proict_test"]) {
-
-                        double signalStrength = network.signalStrength;
-                        NSLog(@"Signal Strength: %f", signalStrength);
-                        [network setConfidence:kNEHotspotHelperConfidenceHigh];
-                        [network setPassword:@"password"];
-
-                        NEHotspotHelperResponse *response = [cmd createResponse:kNEHotspotHelperResultSuccess];
-                        NSLog(@"Response CMD %@", response);
-
-                        [response setNetworkList:@[network]];
-                        [response setNetwork:network];
-                        [response deliver];
-                    }
-                }
-            }
-        }];
-        NSLog(@"result :%d", returnType);
-        NSArray *array = [NEHotspotHelper supportedNetworkInterfaces];
-        NSLog(@"wifiArray:%@", array);
-        NEHotspotNetwork *connectedNetwork = [array lastObject];
-        NSLog(@"supported Network Interface: %@", connectedNetwork);
-    }else{
-        
-    }
-}
-
-- (void)connectWifi{
-    NEHotspotConfiguration * hotmode = [[NEHotspotConfiguration alloc] initWithSSID:@"wifiSSID" passphrase:@"password" isWEP:NO];
-    __weak typeof(self) weakSelf = self;
-    [[NEHotspotConfigurationManager sharedManager] applyConfiguration:hotmode completionHandler:^(NSError * _Nullable error) {
-        if (error) {
-            if (error.code == NEHotspotConfigurationErrorAlreadyAssociated) {
-                //已连接
-            }
-            else if (error.code == NEHotspotConfigurationErrorUserDenied) {
-                //用户点击取消
-            }
-            else{
-                //注：这个方法存在一个问题，如果你加入一个不存在的WiFi，会弹出无法加入WiFi的弹框，但是本方法的回调error没有值。在这里，我是通过判断当前wifi是否是我要加入的wifi来解决这个问题的
-            }
-        }
-    }];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         NetworkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NetworkTableViewCell class]) forIndexPath:indexPath];
         cell.bleIcon.hidden = true;
-        cell.titleLabel.text = [self wifiName];
         cell.address.text = @"WIFI status：";
-        cell.status.text = cell.titleLabel.text.length > 0 ? @"Connected" : @"Disconnect";
-        cell.status.textColor = [UIColor colorWithHexString:cell.titleLabel.text.length > 0 ? COLOR_MAIN_COLOR : @"#999999"];
+        if (self.deviceSSID) {
+            if ([self.wifi isEqualToString:@"connected"]) {
+                cell.status.text = @"Connected";
+                cell.status.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+            }else{
+                cell.status.text = @"Disconnect";
+                cell.status.textColor = [UIColor colorWithHexString:@"#999999"];
+            }
+            cell.titleLabel.text = self.deviceSSID;
+        }else{
+            cell.titleLabel.text = @"---";
+            cell.status.text = @"Disconnect";
+            cell.status.textColor = [UIColor colorWithHexString:@"#999999"];
+        }
         return cell;
     }else{
         WifiTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WifiTableViewCell class]) forIndexPath:indexPath];
+        cell.titleLabel.text = [self wifiName];
         return cell;
     }
 }
 
-- (void)wifiChangeClick:(UIButton *)btn{
-    btn.selected = !btn.selected;
-    [[NEHotspotConfigurationManager sharedManager] getConfiguredSSIDsWithCompletionHandler:^(NSArray<NSString *> * _Nonnull wifiArray) {
-        NSLog(@"wifiArray=%@",wifiArray);
-    }];
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 1) {
-        [WifiAlertView showWifiAlertViewWithTitle:@"Config Wi-Fi"
-                                     showWifiName:YES
+        [WifiAlertView showWifiAlertViewWithTitle:[self wifiName]
+                                     showWifiName:false
                                        completion:^(NSString * wifiName, NSString * password) {
-            [BleManager.shareInstance readWithDictionary:@{@"setwifi":@{wifiName:password}} finish:^(NSDictionary * _Nonnull item) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [RMHelper showToast:@"Config wi-fi success" toView:self.view];
-                });
+            [BleManager.shareInstance readWithDictionary:@{@"setwifi":@{[self wifiName]:password}} finish:^(NSDictionary * _Nonnull item) {
+                if ([item[@"code"] intValue] == 0) {
+                    [self loadTime];
+                }
             }];
         }];
 //        [BleManager.shareInstance readWithCMDString:@"620" count:1];
@@ -164,12 +129,84 @@
     
 }
 
+- (void)loadTime{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.view showHUDToast:@"Loading"];
+        self.number = 10;
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeChange) userInfo:nil repeats:true];
+    });
+}
+
+- (void)timeChange{
+    __weak typeof(self) weakSelf = self;
+    self.number--;
+    if (self.number == 0) {
+        [self removeTimeAction];
+        return;
+    };
+    [BleManager.shareInstance readWithDictionary:@{@"type":@"NetInfo"} finish:^(NSDictionary * _Nonnull dict) {
+        if (dict[@"wifi"]) {
+            NSString * wifi = dict[@"wifi"];
+            if ([wifi isEqualToString:@"connected"]) {
+                weakSelf.wifi = dict[@"wifi"];
+                weakSelf.deviceSSID = dict[@"SSID"];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [RMHelper showToast:@"config wifi success" toView:self.view];
+                    [weakSelf.tableView reloadData];
+                    [weakSelf.timer invalidate];
+                    weakSelf.timer = nil;
+                    [weakSelf.view hiddenHUD];
+                });
+            }else if ([wifi isEqualToString:@"connecting"]){
+        
+            }else if ([wifi isEqualToString:@"auth_failed"]){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf removeTimeAction];
+                    [RMHelper showToast:wifi toView:weakSelf.view];
+                    [weakSelf.view hiddenHUD];
+                });
+            }else if ([wifi isEqualToString:@"ap_not_found"]){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf removeTimeAction];
+                    [RMHelper showToast:wifi toView:weakSelf.view];
+                    [weakSelf.view hiddenHUD];
+                });
+            }
+        }
+    }];
+}
+
+- (void)removeTimeAction{
+    [self.timer invalidate];
+    self.timer = nil;
+    [self.view hiddenHUD];
+}
+
+- (IBAction)addWiriAction{
+    [WifiAlertView showWifiAlertViewWithTitle:@"Config Wi-Fi"
+                                 showWifiName:true
+                                   completion:^(NSString * wifiName, NSString * password) {
+        [BleManager.shareInstance readWithDictionary:@{@"setwifi":@{wifiName:password}} finish:^(NSDictionary * _Nonnull item) {
+            if ([item[@"code"] intValue] == 0) {
+                [self loadTime];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [RMHelper showToast:@"Config wi-fi success" toView:self.view];
+            });
+        }];
+    }];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return section == 0 ? 1 : 5;
+    return 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    if ([self wifiName].length > 0 && ![[self wifiName] hasSuffix:@"5G"]) {
+        tableView.tableFooterView = [UIView new];
+        return 2;
+    }
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -177,19 +214,19 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return section == 1 ? 54 : 20;
+    return section == 0 ? 20 : 0.01;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    return section == 1 ? self.headerView : [UIView new];
+    return [UIView new];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0.01;
+    return 54;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    return [UIView new];
+    return section == 0 ? self.headerView : self.footerView;
 }
 
 /*

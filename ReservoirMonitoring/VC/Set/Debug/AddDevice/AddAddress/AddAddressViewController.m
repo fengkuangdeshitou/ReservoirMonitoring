@@ -10,7 +10,7 @@
 @import CoreLocation;
 @import MapKit;
 
-@interface AddAddressViewController ()<CLLocationManagerDelegate>
+@interface AddAddressViewController ()<CLLocationManagerDelegate,UITextFieldDelegate>
 
 @property(nonatomic,weak)IBOutlet UILabel * address;
 @property(nonatomic,weak)IBOutlet UITextField * countries;
@@ -21,7 +21,11 @@
 @property(nonatomic,weak)IBOutlet UITextField * email;
 @property(nonatomic,weak)IBOutlet UIButton * confirm;
 @property(nonatomic,weak)IBOutlet UILabel * timeZone;
+@property(nonatomic,weak)IBOutlet UIView * emailView;
 @property(nonatomic,strong) CLLocationManager * manager;
+@property(nonatomic,strong) NSArray * dataArray;
+@property(nonatomic,strong) NSString * countrieID;
+@property(nonatomic,strong) NSString * provinceID;
 
 @end
 
@@ -42,12 +46,48 @@
     CLGeocoder * coder = [[CLGeocoder alloc] init];
     [coder  reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
         for (CLPlacemark * place in placemarks) {
-            NSLog(@"%@",place.country);
-            self.countries.text = place.country;
-            self.province.text = place.locality;
-            [self getAddressInfo];
+            NSLog(@"%@",place.postalCode);
+            for (NSDictionary * item in self.dataArray) {
+                NSString * label = item[@"label"];
+                if ([label isEqualToString:place.country]) {
+                    self.countries.text = item[@"label"];
+                    self.provinceID = item[@"value"];
+                    NSArray * children = item[@"children"];
+                    for (NSDictionary * dic in children) {
+                        NSString * subValue = dic[@"label"];
+                        if ([subValue isEqualToString:place.administrativeArea]) {
+                            self.province.text = dic[@"label"];
+                            self.provinceID = item[@"value"];
+                        }
+                    }
+                }
+            }
         }
     }];
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    TimeZoneViewController * time = [[TimeZoneViewController alloc] init];
+    time.listArray = self.dataArray;
+    if (textField == self.province) {
+        if (!self.countrieID) {
+            time.countryId = self.addressIds;
+        }else{
+            time.countryId = [NSString stringWithFormat:@"%@,%@",self.countrieID,self.provinceID];        }
+    }
+    time.selectTimeZone = ^(NSDictionary * _Nonnull item) {
+        if (textField == self.province) {
+            self.province.text = item[@"label"];
+            self.provinceID = item[@"value"];
+        }else{
+            self.countries.text = item[@"label"];
+            self.countrieID = item[@"value"];
+            self.province.text = @"";
+            self.provinceID = @"";
+        }
+    };
+    [self.navigationController pushViewController:time animated:true];
+    return false;
 }
 
 - (void)viewDidLoad {
@@ -68,35 +108,66 @@
     self.code.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
     self.email.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
     
-    [self.manager startUpdatingLocation];
     [self getAddressInfo];
+    self.emailView.hidden = !RMHelper.getUserType;
 }
 
 - (void)getAddressInfo{
-    [Request.shareInstance postUrl:DeviceBindAddressInfo params:@{@"devId":self.devId,@"countryNameEn":self.countries?:@"",@"countryCode":[self.addressIds componentsSeparatedByString:@","].firstObject} progress:^(float progress) {
+    if (self.addressIds.length > 0) {
+        [Request.shareInstance postUrl:DeviceBindAddressInfo params:@{@"devId":self.devId,@"countryNameEn":self.countries.text?:@"",@"countryCode":[self.addressIds componentsSeparatedByString:@","].firstObject,} progress:^(float progress) {
+                
+        } success:^(NSDictionary * _Nonnull result) {
+            self.dataArray = result[@"data"][@"list"];
+            for (NSDictionary * item in self.dataArray) {
+                int value = [item[@"value"] intValue];
+                if (value == [[self.addressIds componentsSeparatedByString:@","].firstObject intValue]) {
+                    self.countries.text = item[@"label"];
+                    self.provinceID = item[@"value"];
+                    NSArray * children = item[@"children"];
+                    for (NSDictionary * dic in children) {
+                        int subValue = [dic[@"value"] intValue];
+                        if (subValue == [[self.addressIds componentsSeparatedByString:@","].lastObject intValue]) {
+                            self.province.text = dic[@"label"];
+                            self.provinceID = item[@"value"];
+                        }
+                    }
+                }
+            }
+        } failure:^(NSString * _Nonnull errorMsg) {
             
-    } success:^(NSDictionary * _Nonnull result) {
-        
-    } failure:^(NSString * _Nonnull errorMsg) {
-        
-    }];
+        }];
+    }else{
+        [self.manager startUpdatingLocation];
+        [Request.shareInstance postUrl:DeviceBindAddressInfo params:@{@"devId":self.devId,@"countryNameEn":self.countries.text?:@"",@"countryCode":[self.addressIds componentsSeparatedByString:@","].firstObject,} progress:^(float progress) {
+                
+        } success:^(NSDictionary * _Nonnull result) {
+            self.dataArray = result[@"data"][@"list"];
+        } failure:^(NSString * _Nonnull errorMsg) {
+            
+        }];
+    }
 }
 
 - (IBAction)timeAction:(id)sender{
     TimeZoneViewController * time = [[TimeZoneViewController alloc] init];
     time.selectTimeZone = ^(NSDictionary * _Nonnull item) {
-        self.timeZone.text = item[@"zoneId"][1];
+        self.timeZone.text = [item[@"zoneId"] lastObject];
     };
-    time.countryId = [self.addressIds componentsSeparatedByString:@","].firstObject;
+    time.countryId = self.countrieID;
     [self.navigationController pushViewController:time animated:true];
 }
 
 - (IBAction)submitAction:(id)sender{
     if (self.timeZone.text.length == 0) {
-        [RMHelper showToast:@"Please select time zone" toView:self.view];
+        [RMHelper showToast:@"timezone is null" toView:self.view];
         return;
     }
-    [Request.shareInstance postUrl:BindDevice params:@{@"sgSn":self.sgSn,@"snItems":self.snItems,@"name":self.name,@"addressIds":self.addressIds,@"timeZone":self.timeZone.text,@"userEmail":self.email.text?:@"",@"mailCode":self.code.text?:@""} progress:^(float progress) {
+    if ([RMHelper getUserType] && self.code.text.length == 0) {
+        [RMHelper showToast:@"zip code is null" toView:self.view];
+        return;
+    }
+    
+    [Request.shareInstance postUrl:BindDevice params:@{@"sgSn":self.sgSn,@"snItems":self.snItems,@"name":self.name,@"addressIds":[NSString stringWithFormat:@"%@,%@",self.countrieID,self.provinceID],@"timeZone":self.timeZone.text,@"userEmail":self.email.text?:@"",@"mailCode":self.code.text?:@""} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         [RMHelper showToast:@"Add Device Success" toView:self.view];

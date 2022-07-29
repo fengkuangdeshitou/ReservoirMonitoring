@@ -10,7 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WifiViewController">
             <connections>
-                <outlet property="headerView" destination="aPj-86-sUk" id="IJR-8O-OXb"/>
+                <outlet property="footerView" destination="402-Ns-o9R" id="8M5-NQ-urT"/>
+                <outlet property="headerView" destination="Mzi-lh-5gF" id="nsC-Ac-YGC"/>
                 <outlet property="tableView" destination="0hi-o4-UvI" id="X88-b9-oif"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -23,6 +24,44 @@
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="0hi-o4-UvI">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" red="0.047058823529411764" green="0.047058823529411764" blue="0.047058823529411764" alpha="1" colorSpace="calibratedRGB"/>
+                    <view key="tableFooterView" contentMode="scaleToFill" id="0pV-0v-OFW">
+                        <rect key="frame" x="0.0" y="861" width="414" height="500"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noData" translatesAutoresizingMaskIntoConstraints="NO" id="IOv-4E-MAg">
+                                <rect key="frame" x="77" y="20" width="260" height="260"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="IOv-4E-MAg" secondAttribute="height" multiplier="1:1" id="9j2-8B-pQK"/>
+                                    <constraint firstAttribute="width" constant="260" id="yEq-hx-ihz"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wi-Fi disconnected, please connect Wi-Fi to continue. (2.4GHz Wi-Fi only)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSd-xU-UIW">
+                                <rect key="frame" x="18" y="295" width="378" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="onQ-aa-YQb">
+                                <rect key="frame" x="18" y="344" width="64" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Add Wi-Fi"/>
+                                <connections>
+                                    <action selector="addWiriAction" destination="-1" eventType="touchUpInside" id="8ru-Xd-zdH"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="onQ-aa-YQb" firstAttribute="leading" secondItem="0pV-0v-OFW" secondAttribute="leading" constant="18" id="48f-ku-svd"/>
+                            <constraint firstItem="jSd-xU-UIW" firstAttribute="top" secondItem="IOv-4E-MAg" secondAttribute="bottom" constant="15" id="8Kj-Ju-ETB"/>
+                            <constraint firstItem="onQ-aa-YQb" firstAttribute="top" secondItem="jSd-xU-UIW" secondAttribute="bottom" constant="20" id="KCU-G5-kvD"/>
+                            <constraint firstAttribute="trailing" secondItem="jSd-xU-UIW" secondAttribute="trailing" constant="18" id="Lpg-dp-FL1"/>
+                            <constraint firstItem="IOv-4E-MAg" firstAttribute="centerX" secondItem="0pV-0v-OFW" secondAttribute="centerX" id="cUS-3C-HfY"/>
+                            <constraint firstItem="jSd-xU-UIW" firstAttribute="leading" secondItem="0pV-0v-OFW" secondAttribute="leading" constant="18" id="f0m-RM-v01"/>
+                            <constraint firstItem="IOv-4E-MAg" firstAttribute="top" secondItem="0pV-0v-OFW" secondAttribute="top" constant="20" id="t4D-5n-MTY"/>
+                        </constraints>
+                    </view>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="yQq-e3-MV4"/>
                         <outlet property="delegate" destination="-1" id="mtL-m8-9zJ"/>
@@ -38,43 +77,50 @@
             </constraints>
             <point key="canvasLocation" x="132" y="74"/>
         </view>
-        <view contentMode="scaleToFill" id="aPj-86-sUk">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+        <view contentMode="scaleToFill" id="Mzi-lh-5gF">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="54"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wi-Fi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPD-Il-0zS">
-                    <rect key="frame" x="18" y="11" width="39" height="22"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="22" id="XvR-DC-7oL"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <color key="textColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wi-Fi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oir-pF-yF5">
+                    <rect key="frame" x="18" y="18.5" width="34.5" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rnh-t1-pSf">
-                    <rect key="frame" x="369" y="11" width="27" height="22"/>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="oir-pF-yF5" firstAttribute="centerY" secondItem="Mzi-lh-5gF" secondAttribute="centerY" id="Hes-ym-Ciy"/>
+                <constraint firstItem="oir-pF-yF5" firstAttribute="leading" secondItem="Mzi-lh-5gF" secondAttribute="leading" constant="18" id="kZZ-Qy-kwh"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-685" y="63"/>
+        </view>
+        <view contentMode="scaleToFill" id="402-Ns-o9R">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="54"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HhV-fq-9GO">
+                    <rect key="frame" x="18" y="12.5" width="64" height="29"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" image="turn_off"/>
-                    <state key="selected" image="turn_on"/>
+                    <state key="normal" title="Add Wi-Fi"/>
                     <connections>
-                        <action selector="scanWifiList:" destination="-1" eventType="touchUpInside" id="cJb-QV-GAQ"/>
+                        <action selector="addWiriAction" destination="-1" eventType="touchUpInside" id="BhW-cg-2Q7"/>
                     </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="FPD-Il-0zS" firstAttribute="centerY" secondItem="aPj-86-sUk" secondAttribute="centerY" id="HHW-fQ-jWO"/>
-                <constraint firstAttribute="trailing" secondItem="rnh-t1-pSf" secondAttribute="trailing" constant="18" id="Lrl-9f-vyh"/>
-                <constraint firstItem="rnh-t1-pSf" firstAttribute="centerY" secondItem="FPD-Il-0zS" secondAttribute="centerY" id="Ueb-Lu-iKa"/>
-                <constraint firstItem="FPD-Il-0zS" firstAttribute="leading" secondItem="aPj-86-sUk" secondAttribute="leading" constant="18" id="fVy-Qt-rw8"/>
+                <constraint firstItem="HhV-fq-9GO" firstAttribute="leading" secondItem="402-Ns-o9R" secondAttribute="leading" constant="18" id="Rh9-LQ-0KH"/>
+                <constraint firstItem="HhV-fq-9GO" firstAttribute="centerY" secondItem="402-Ns-o9R" secondAttribute="centerY" id="uSA-sz-qdD"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-745" y="139"/>
+            <point key="canvasLocation" x="-686" y="153"/>
         </view>
     </objects>
     <resources>
-        <image name="turn_off" width="27" height="14"/>
-        <image name="turn_on" width="27" height="14"/>
+        <image name="noData" width="400" height="400"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

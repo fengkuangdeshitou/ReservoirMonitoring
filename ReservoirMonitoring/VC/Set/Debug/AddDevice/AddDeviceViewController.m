@@ -21,6 +21,9 @@
 @property(nonatomic,strong) NSString * name;
 @property(nonatomic,strong) NSString * addressIds;
 @property(nonatomic,strong) NSString * devId;
+@property(nonatomic,strong) NSString * inverteSN;
+@property(nonatomic,strong) NSString * batterySN;
+
 @end
 
 @implementation AddDeviceViewController
@@ -45,12 +48,39 @@
         [RMHelper showToast:@"Please input device SN".localized toView:self.view];
         return;
     }
+    if (!self.name) {
+        [RMHelper showToast:@"Please input name for this device" toView:self.view];
+        return;
+    }
+    if (!self.inverteSN) {
+        [RMHelper showToast:@"please input inverter SN" toView:self.view];
+        return;
+    }
+    if (!self.batterySN) {
+        [RMHelper showToast:@"please input battery SN" toView:self.view];
+        return;
+    }
+    [Request.shareInstance getUrl:ScanSgsn params:@{@"sgSn":self.sgSn} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        self.sgSn = result[@"data"][@"sgSn"];
+        self.addressIds = result[@"data"][@"addressIds"];
+        self.devId = result[@"data"][@"id"];
+        [self pushViewControler];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
+}
+
+- (void)pushViewControler{
     AddAddressViewController * address = [[AddAddressViewController alloc] init];
     address.title = @"Device location".localized;
     address.sgSn = self.sgSn;
     address.addressIds = self.addressIds;
     address.devId = self.devId;
     address.name = self.name;
+    address.inverteSN = self.inverteSN;
+    address.batterySN = self.batterySN;
     NSMutableArray * array = [[NSMutableArray alloc] init];
     for (int i=0; i<self.dataArray.count; i++) {
         AddDeviceSNTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1]];
@@ -61,24 +91,25 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    [Request.shareInstance getUrl:ScanSgsn params:@{@"sgSn":textField.text} progress:^(float progress) {
-            
-    } success:^(NSDictionary * _Nonnull result) {
-        self.sgSn = result[@"data"][@"sgSn"];
-        self.name = result[@"data"][@"name"];
-        self.addressIds = result[@"data"][@"addressIds"];
-        self.devId = result[@"data"][@"id"];
-        [self.tableView reloadData];
-    } failure:^(NSString * _Nonnull errorMsg) {
-        
-    }];
+    if (textField.tag == 1) {
+        self.sgSn = textField.text;
+    }else if (textField.tag == 2){
+        self.name = textField.text;
+    }else if (textField.tag == 10) {
+        self.inverteSN = textField.text;
+    }else if (textField.tag == 11){
+        self.batterySN = textField.text;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         AddDeviceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([AddDeviceTableViewCell class]) forIndexPath:indexPath];
         cell.idtextfield.delegate = self;
-        cell.nametextfield.text = self.name;
+        cell.idtextfield.tag = 1;
+        cell.nametextfield.delegate = self;
+        cell.nametextfield.tag = 2;
+        cell.nametextfield.text = @"";
         return cell;
     }else{
         if (indexPath.row == self.dataArray.count) {
@@ -92,6 +123,8 @@
                 [cell.deleteBtm setImage:[UIImage imageNamed:@"ic_set_scan"] forState:UIControlStateNormal];
                 cell.textfield.placeholder = @"Please input inverte SN".localized;
                 [cell.deleteBtm addTarget:self action:@selector(scanAction:) forControlEvents:UIControlEventTouchUpInside];
+                cell.textfield.tag = indexPath.row + 10;
+                cell.textfield.delegate = self;
             }else{
                 cell.scanBtn.hidden = false;
                 cell.textfield.placeholder = @"Please inpute battery SN".localized;
@@ -100,6 +133,8 @@
                 cell.deleteBtm.tag = indexPath.row+10;
                 [cell.deleteBtm addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
                 [cell.scanBtn addTarget:self action:@selector(scanAction:) forControlEvents:UIControlEventTouchUpInside];
+                cell.textfield.tag = indexPath.row + 10;
+                cell.textfield.delegate = self;
             }
             return cell;
         }

@@ -10,7 +10,7 @@
 @interface TimeZoneViewController ()<UITableViewDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
-@property(nonatomic,strong) NSArray * dataArray;
+@property(nonatomic,strong) NSMutableArray * dataArray;
 
 @end
 
@@ -19,7 +19,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self getTimeZoneData];
+    if (!self.listArray) {
+        [self getTimeZoneData];
+    }else{
+        if (self.countryId) {
+            NSArray * listArray = @[];
+            for (NSDictionary * item in self.listArray) {
+                int value = [item[@"value"] intValue];
+                if (value == [[self.countryId componentsSeparatedByString:@","].firstObject intValue]) {
+                    listArray = item[@"children"];
+                }
+            }
+            self.listArray = listArray;
+            [self.tableView reloadData];
+        }
+    }
 }
 
 - (void)getTimeZoneData{
@@ -38,7 +52,11 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
-    cell.textLabel.text = self.dataArray[indexPath.row][@"zoneId"][1];
+    if (self.listArray) {
+        cell.textLabel.text = self.listArray[indexPath.row][@"label"];
+    }else{
+        cell.textLabel.text = self.dataArray[indexPath.row][@"zoneId"][1];
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.textColor = UIColor.whiteColor;
     cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -47,14 +65,20 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.selectTimeZone) {
-        self.selectTimeZone(self.dataArray[indexPath.row]);
+    if (self.listArray) {
+        if (self.selectTimeZone) {
+            self.selectTimeZone(self.listArray[indexPath.row]);
+        }
+    }else{
+        if (self.selectTimeZone) {
+            self.selectTimeZone(self.dataArray[indexPath.row]);
+        }
     }
     [self.navigationController popViewControllerAnimated:true];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.dataArray.count;
+    return self.listArray.count > 0 ? self.listArray.count : self.dataArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

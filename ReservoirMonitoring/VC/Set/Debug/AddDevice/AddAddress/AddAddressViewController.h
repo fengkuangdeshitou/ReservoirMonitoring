@@ -16,7 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong) NSString * addressIds;
 @property(nonatomic,strong) NSString * devId;
 @property(nonatomic,strong) NSString * snItems;
-
+@property(nonatomic,strong) NSString * inverteSN;
+@property(nonatomic,strong) NSString * batterySN;
 
 @end
 
