@@ -88,7 +88,7 @@
     _model = model;
     self.titleLabel.text = model.off_ON_Grid_Hint;
     if (model.weather) {
-        [self.weather setImage:model.weather[@"icon"] forState:UIControlStateNormal];
+        [self.weather setImage:[UIImage imageNamed:model.weather[@"icon"]] forState:UIControlStateNormal];
 //        self.weather.hidden = false;
     }else{
 //        self.weather.hidden = YES;
