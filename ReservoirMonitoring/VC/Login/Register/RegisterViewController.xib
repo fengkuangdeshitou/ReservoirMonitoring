@@ -72,7 +72,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wwe-cg-wq7">
-                                <rect key="frame" x="20" y="15" width="60" height="13"/>
+                                <rect key="frame" x="0.0" y="15" width="60" height="13"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="13" id="IW1-q6-rFV"/>
                                     <constraint firstAttribute="width" constant="60" id="uTG-Fy-dxS"/>
@@ -86,7 +86,7 @@
                         <viewLayoutGuide key="safeArea" id="rKD-RH-Sbr"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Wwe-cg-wq7" firstAttribute="leading" secondItem="IIx-N7-tID" secondAttribute="leading" id="B1F-cT-Mb1"/>
+                            <constraint firstItem="Wwe-cg-wq7" firstAttribute="leading" secondItem="IIx-N7-tID" secondAttribute="leading" constant="-20" id="B1F-cT-Mb1"/>
                             <constraint firstItem="rKD-RH-Sbr" firstAttribute="trailing" secondItem="8EG-vO-nzf" secondAttribute="trailing" constant="18" id="EsC-Tn-yyJ"/>
                             <constraint firstItem="8EG-vO-nzf" firstAttribute="top" secondItem="rKD-RH-Sbr" secondAttribute="top" constant="15" id="LcE-fR-Zaz"/>
                             <constraint firstItem="IIx-N7-tID" firstAttribute="top" secondItem="rKD-RH-Sbr" secondAttribute="top" constant="18" id="OPr-P9-Ucm"/>

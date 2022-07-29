@@ -252,12 +252,12 @@
             NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
             NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
-            if (timeCell.startTime.text.length == 0) {
-                [RMHelper showToast:@"Please select start time" toView:self.view];
+            if (timeCell.startTime.text.length == 0 && timeCell.endTime.text.length > 0) {
+                [RMHelper showToast:@"Please select off-peak start time" toView:self.view];
                 return;
             }
-            if (timeCell.endTime.text.length == 0) {
-                [RMHelper showToast:@"Please select end time" toView:self.view];
+            if (timeCell.endTime.text.length == 0 && timeCell.startTime.text.length > 0) {
+                [RMHelper showToast:@"Please select off-peak end time" toView:self.view];
                 return;
             }
             NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];
@@ -273,12 +273,12 @@
             NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:1];
             TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
             NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
-            if (timeCell.startTime.text.length == 0) {
-                [RMHelper showToast:@"Please select start time" toView:self.view];
+            if (timeCell.startTime.text.length == 0 && timeCell.endTime.text.length > 0) {
+                [RMHelper showToast:@"Please select peak start time" toView:self.view];
                 return;
             }
-            if (timeCell.endTime.text.length == 0) {
-                [RMHelper showToast:@"Please select end time" toView:self.view];
+            if (timeCell.endTime.text.length == 0 && timeCell.startTime.text.length > 0) {
+                [RMHelper showToast:@"Please select peak end time" toView:self.view];
                 return;
             }
             NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];
@@ -294,12 +294,12 @@
             NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:2];
             TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
             NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
-            if (timeCell.startTime.text.length == 0) {
-                [RMHelper showToast:@"Please select start time" toView:self.view];
+            if (timeCell.startTime.text.length == 0 && timeCell.endTime.text.length > 0) {
+                [RMHelper showToast:@"Please select super peak start time" toView:self.view];
                 return;
             }
-            if (timeCell.endTime.text.length == 0) {
-                [RMHelper showToast:@"Please select end time" toView:self.view];
+            if (timeCell.endTime.text.length == 0 && timeCell.startTime.text.length > 0) {
+                [RMHelper showToast:@"Please select super peak end time" toView:self.view];
                 return;
             }
             NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];

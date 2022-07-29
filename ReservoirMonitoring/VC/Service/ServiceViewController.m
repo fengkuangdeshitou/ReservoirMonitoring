@@ -144,11 +144,10 @@
     }else{
         InputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
+        cell.textfield.text = self.dataArray[indexPath.row][@"placeholder"];
         if (indexPath.row <= 3) {
-            cell.textfield.text = self.dataArray[indexPath.row][@"placeholder"];
             cell.textfield.userInteractionEnabled = false;
         }else{
-            cell.textfield.placeholder = self.dataArray[indexPath.row][@"placeholder"];
             cell.textfield.userInteractionEnabled = true;
         }
         return cell;

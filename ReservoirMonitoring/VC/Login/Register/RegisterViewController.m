@@ -188,10 +188,19 @@
     cell.textfield.placeholder = self.dataArray[indexPath.row][@"placeholder"];
     if (indexPath.row == 3 || indexPath.row == 4) {
         cell.textfield.secureTextEntry = true;
+        cell.showBtn.hidden = false;
     }else{
         cell.textfield.secureTextEntry = false;
+        cell.showBtn.hidden = true;
     }
+    [cell.showBtn addTarget:self action:@selector(textfieldSecureChange:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
+}
+
+- (void)textfieldSecureChange:(UIButton *)btn{
+    btn.selected = !btn.selected;
+    RegisterTableViewCell * cell = (RegisterTableViewCell *)[[btn superview] superview];
+    cell.textfield.secureTextEntry = !cell.textfield.secureTextEntry;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
