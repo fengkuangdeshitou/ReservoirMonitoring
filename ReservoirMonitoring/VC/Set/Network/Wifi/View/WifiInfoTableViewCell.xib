@@ -124,6 +124,7 @@
                 <outlet property="deviceName" destination="yXB-Pg-C1X" id="oOX-U0-5Hx"/>
                 <outlet property="status" destination="9KZ-eC-keh" id="gmc-ym-5ud"/>
                 <outlet property="statusButton" destination="gAd-gF-94X" id="qWn-UV-5eQ"/>
+                <outlet property="statusImageView" destination="l43-lD-2Ru" id="y5O-fs-PMM"/>
             </connections>
             <point key="canvasLocation" x="169.56521739130437" y="109.15178571428571"/>
         </tableViewCell>

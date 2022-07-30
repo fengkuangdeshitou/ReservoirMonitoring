@@ -32,6 +32,16 @@
     self.confirm.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
 }
 
+- (IBAction)passwordSecureAction:(UIButton *)sender{
+    sender.selected = !sender.selected;
+    self.password.secureTextEntry = !self.password.secureTextEntry;
+}
+
+- (IBAction)confirmSecureAction:(UIButton *)sender{
+    sender.selected = !sender.selected;
+    self.confirm.secureTextEntry = !self.confirm.secureTextEntry;
+}
+
 - (IBAction)submitAction:(id)sender{
     if (self.password.text.length == 0) {
         [RMHelper showToast:self.password.placeholder toView:self.view];
@@ -46,7 +56,11 @@
         return;
     }
     [Request.shareInstance postUrl:ResetPwd params:@{@"userName":self.userName,@"password":self.password.text,@"code":self.code,@"uuid":self.uuid} progress:^(float progress) {
-        [self.navigationController popToRootViewControllerAnimated:true];
+        [[NSNotificationCenter defaultCenter] postNotificationName:CHANGE_PASSWORD_NOTIFICATION object:self.userName];
+        [RMHelper showToast:@"Success" toView:self.view];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.navigationController popToRootViewControllerAnimated:true];
+        });
     } success:^(NSDictionary * _Nonnull result) {
         
     } failure:^(NSString * _Nonnull errorMsg) {

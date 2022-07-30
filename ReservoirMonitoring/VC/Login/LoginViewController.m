@@ -38,7 +38,11 @@
     [self.forgot setTitle:@"Forget password".localized forState:UIControlStateNormal];
     self.emailtf.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
     self.passwordtf.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changePassword:) name:CHANGE_PASSWORD_NOTIFICATION object:nil];
+}
 
+- (void)changePassword:(NSNotification *)notification{
+    self.emailtf.text = notification.object;
 }
 
 - (IBAction)previewChangeAction:(UIButton *)sender{

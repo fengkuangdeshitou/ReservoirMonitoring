@@ -90,7 +90,6 @@
         startDateTime = [NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year,date.br_month,date.br_day];
     }
     NSString * currentDateTime = [NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year,date.br_month,date.br_day];
-    [self getEcharsDataWithScopeType:scopeType currentDateTime:currentDateTime startDateTime:startDateTime];
     [Request.shareInstance getUrl:QueryDataElectricity params:@{@"devId":self.devId,@"scopeType":[NSString stringWithFormat:@"%ld",scopeType],@"currentDateTime":currentDateTime,@"startDateTime":startDateTime,@"test":currentDateTime} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
@@ -99,6 +98,7 @@
         self.valueArray = @[[NSString stringWithFormat:@"To grid:%@",@(self.model.gridElectricityFd)],@(self.model.solarElectricity),@(self.model.generatorElectricity),@(self.model.evElectricity),@(self.model.nonBackUpElectricity),@(self.model.backUpElectricity)];
         [self.refreshController endRefreshing];
         [self.collectionView reloadData];
+        [self getEcharsDataWithScopeType:scopeType currentDateTime:currentDateTime startDateTime:startDateTime];
     } failure:^(NSString * _Nonnull errorMsg) {
         [self.refreshController endRefreshing];
     }];

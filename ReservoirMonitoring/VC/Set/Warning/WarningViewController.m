@@ -35,6 +35,9 @@
     for (int i=0; i<2; i++) {
         WarningListView * list = [[WarningListView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT-NavagationHeight-self.titleView.height)];
         list.tag = i+10;
+        if (i==0) {
+            list.isLoad = true;
+        }
         [self.scrollView addSubview:list];
     }
 }
@@ -42,11 +45,20 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     if (scrollView == self.scrollView) {
         [self.titleView setResetSelectedIndex:scrollView.contentOffset.x/SCREEN_WIDTH];
+        [self setListLoadForIndex:scrollView.contentOffset.x/SCREEN_WIDTH];
     }
 }
 
 - (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex{
     [self.scrollView setContentOffset:CGPointMake(SCREEN_WIDTH*selectedIndex, 0) animated:true];
+    [self setListLoadForIndex:selectedIndex];
+}
+
+- (void)setListLoadForIndex:(NSInteger)index{
+    WarningListView * list = [self.scrollView viewWithTag:index+10];
+    if (!list.isLoad) {
+        list.isLoad = true;
+    }
 }
 
 /*

@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WarningListView : UIView
 
+@property(nonatomic,assign) BOOL isLoad;
+
 @end
 
 NS_ASSUME_NONNULL_END

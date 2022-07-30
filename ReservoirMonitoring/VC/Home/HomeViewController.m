@@ -142,7 +142,7 @@
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         [BleManager.shareInstance readWithCMDString:@"510" count:2 finish:^(NSArray * array){
             [self showCmd:@"511" message:array];
-            self.model.deviceStatus = array.firstObject;
+            self.model.systemStatus = array.firstObject;
             self.model.workStatus = array.lastObject;
             dispatch_semaphore_signal(semaphore);
         }];

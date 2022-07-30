@@ -50,6 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,strong) CBPeripheral * peripheral;
 
+@property(nonatomic,copy,readonly) NSString * deviceSN;
+
 - (void)startScanning;
 
 - (void)stopScan;

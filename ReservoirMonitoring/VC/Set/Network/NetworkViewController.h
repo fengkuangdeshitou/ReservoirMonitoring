@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NetworkViewController : BaseViewController
 
+@property(nonatomic,assign) BOOL showNext;
+
 @end
 
 NS_ASSUME_NONNULL_END

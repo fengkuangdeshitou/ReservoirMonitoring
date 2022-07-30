@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong) NSString * workStatus;
 /// 0:自检 1:故障 2:空闲 3:待机 4:运行
 @property(nonatomic,strong) NSString * deviceStatus;
+/// 空值 offline 1:故障 其余正常
+@property(nonatomic,strong) NSString * systemStatus;
 /// 电网功率方向 精度:0.01 单位:kW
 @property(nonatomic,assign) CGFloat gridPower;
 /// 电网电量 精度:0.01 单位:kWh

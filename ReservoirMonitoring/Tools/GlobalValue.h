@@ -41,7 +41,8 @@ extern NSString * const DATA_TYPE_CHANGE_NOTIFICATION;
 extern NSString * const LOGIN_SUCCESS;
 /**退出登录*/
 extern NSString * const LOG_OUT;
-
+/**修改密码*/
+extern NSString * const CHANGE_PASSWORD_NOTIFICATION;
 @end
 
 NS_ASSUME_NONNULL_END

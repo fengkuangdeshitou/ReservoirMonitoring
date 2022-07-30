@@ -107,7 +107,7 @@
         if (BleManager.shareInstance.isConnented) {
             self.communicationValue.text = @"Online".localized;
             self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
-            if (model.deviceStatus.intValue == 1) {
+            if (model.systemStatus.intValue == 1) {
                 self.statusValue.text = @"Fault";
                 self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
             }else{
@@ -124,12 +124,17 @@
         if (model.isOnline.intValue == 1){
             self.communicationValue.text = @"Online".localized;
             self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
-            if (model.status.intValue == 1) {
-                self.statusValue.text = @"Fault";
-                self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
+            if (model.systemStatus) {
+                if (model.systemStatus.intValue == 1) {
+                    self.statusValue.text = @"Fault";
+                    self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
+                }else{
+                    self.statusValue.text = @"Normal";
+                    self.statusValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+                }
             }else{
-                self.statusValue.text = @"Normal";
-                self.statusValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+                self.statusValue.text = @"Offline".localized;
+                self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
             }
         }else{
             self.statusValue.text = @"Offline".localized;

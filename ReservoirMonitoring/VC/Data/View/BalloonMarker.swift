@@ -185,7 +185,7 @@ open class BalloonMarker: MarkerImage
     
     open override func refreshContent(entry: ChartDataEntry, highlight: Highlight)
     {
-        setLabel(String(entry.y))
+        setLabel(String("X:" + String(entry.x) + "\n" + "Y:" + String(entry.y)))
     }
     
     @objc open func setLabel(_ newLabel: String)

@@ -12,7 +12,9 @@
 
 @interface DataEchartsCollectionViewCell ()
 
-@property(nonatomic,strong) LineChartView * echartsView;
+@property(nonatomic,strong) LineChartView * lineEchartsView;
+@property(nonatomic,strong) BarChartView * barEchartsView;
+
 @property(nonatomic,weak)IBOutlet UIView * titleView;
 @property(nonatomic,weak)IBOutlet UIView * echarts;
 @property(nonatomic,weak)IBOutlet UILabel * energyTitle;
@@ -47,6 +49,152 @@
     
 }
 
+- (LineChartView *)lineEchartsView{
+    if (!_lineEchartsView) {
+        _lineEchartsView = [[LineChartView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 222)];
+    //    self.echartsView.dragDecelerationEnabled = true;
+    //    self.echartsView.dragDecelerationFrictionCoef = 0.9;
+        _lineEchartsView.chartDescription.enabled = false;
+    //    self.echartsView.dragEnabled = false;
+        _lineEchartsView.doubleTapToZoomEnabled = NO;
+    //    [self.echartsView setScaleEnabled:true];
+        _lineEchartsView.pinchZoomEnabled = true;
+        _lineEchartsView.scaleYEnabled = false;
+    //    self.echartsView.drawGridBackgroundEnabled = false;
+        _lineEchartsView.highlightPerDragEnabled = true;
+        _lineEchartsView.gridBackgroundColor = UIColor.clearColor;
+        _lineEchartsView.borderColor = UIColor.clearColor;
+    //    self.echartsView.drawGridBackgroundEnabled = NO;
+        _lineEchartsView.legend.enabled = YES;
+        [_lineEchartsView animateWithXAxisDuration:1];
+                
+        ChartXAxis * xAxis = _lineEchartsView.xAxis;
+        xAxis.labelPosition = XAxisLabelPositionBottom;
+        xAxis.labelFont = [UIFont systemFontOfSize:10];
+        xAxis.labelTextColor = UIColor.whiteColor;
+        xAxis.labelTextColor = [UIColor whiteColor];
+        xAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];
+        xAxis.gridColor = [UIColor clearColor];
+        xAxis.drawAxisLineEnabled = false;
+        xAxis.drawGridLinesEnabled = true;
+        xAxis.centerAxisLabelsEnabled = true;
+        
+        ChartYAxis *leftAxis = _lineEchartsView.leftAxis;// 获取左边 Y 轴
+        leftAxis.inverted = NO; // 是否将 Y 轴进行上下翻转
+        leftAxis.axisLineWidth = 0;// 设置 Y 轴线宽
+        leftAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];// 设置 Y 轴颜色
+        leftAxis.labelPosition = YAxisLabelPositionOutsideChart;// label 文字位置 YAxisLabelPositionInsideChart:在里面，YAxisLabelPositionOutsideChart:在外面
+        leftAxis.labelTextColor = [UIColor whiteColor]; // label 文字颜色
+        leftAxis.labelFont = [UIFont systemFontOfSize:10.0f]; // 不强制绘制指定数量的 label
+        leftAxis.forceLabelsEnabled = NO; // 不强制绘制指定数量的 label
+    //    leftAxis.gridLineDashLengths = @[@3.0f,@3.0f];// 设置虚线样式的网格线 网格线的大小
+    //    leftAxis.gridColor = [UIColor redColor]; // 网格线颜色
+        leftAxis.gridAntialiasEnabled = YES;// 网格线开启抗锯齿
+        _lineEchartsView.chartDescription.enabled = NO;// 设置折线图描述
+        _lineEchartsView.legend.enabled = NO; // 设置折线图图例
+    //    ChartLimitLine *line = [[ChartLimitLine alloc] initWithLimit:150.0 label:@"Upper Limit"];
+    //    line.lineWidth = 4.0;
+    //    line.lineDashLengths = @[@5.f, @5.f];
+    //    line.labelPosition = ChartLimitLabelPositionTopRight;
+    //    line.valueFont = [UIFont systemFontOfSize:10.0];
+        
+    //    ChartYAxis *leftAxis = self.echartsView.leftAxis;
+    //    [leftAxis removeAllLimitLines];
+    //    [leftAxis addLimitLine:line];
+    //    leftAxis.axisMaximum = 200.0;
+    //    leftAxis.axisMinimum = -50.0;
+    //    leftAxis.gridLineDashLengths = @[@5.f, @5.f];
+    //    leftAxis.drawZeroLineEnabled = false;
+    //    leftAxis.drawLabelsEnabled = false;
+    //    leftAxis.drawLimitLinesBehindDataEnabled = false;
+        
+        _lineEchartsView.rightAxis.enabled = false;
+        
+        BalloonMarker *marker = [[BalloonMarker alloc]
+                                 initWithColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR]
+                                 font:[UIFont systemFontOfSize:12.0]
+                                 textColor:UIColor.whiteColor
+                                 insets:UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0)];
+        marker.chartView = _lineEchartsView;
+        marker.minimumSize = CGSizeMake(60.f, 60.f);
+        marker.arrowSize = CGSizeMake(10, 10);
+        _lineEchartsView.marker = marker;
+        _lineEchartsView.legend.form = ChartLegendFormLine;
+    }
+    return _lineEchartsView;
+}
+
+- (BarChartView *)barEchartsView{
+    if (!_barEchartsView) {
+        _barEchartsView = [[BarChartView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 222)];
+        [_barEchartsView setExtraOffsetsWithLeft:10 top:10 right:10 bottom:10];
+            //开启border
+        _barEchartsView.drawBordersEnabled = YES;
+        _barEchartsView.borderLineWidth = .5f;
+        _barEchartsView.borderColor = UIColor.blackColor;
+            //设置背景
+        _barEchartsView.drawGridBackgroundEnabled = NO;
+        _barEchartsView.gridBackgroundColor = [UIColor grayColor];
+            //无内容显示
+        _barEchartsView.noDataText = @"";
+            //关闭描述
+        _barEchartsView.chartDescription.enabled = NO;
+//        _barEchartsView.chartDescription.text = @"tiny`s barChart demo";
+            //关闭图例
+        _barEchartsView.legend.enabled = NO;
+            //缩放
+        _barEchartsView.doubleTapToZoomEnabled = false;
+        _barEchartsView.scaleXEnabled = NO;
+        _barEchartsView.scaleYEnabled = NO;
+        _barEchartsView.autoScaleMinMaxEnabled = NO;
+        _barEchartsView.highlightPerTapEnabled = NO;
+        _barEchartsView.highlightPerDragEnabled = NO;
+        _barEchartsView.pinchZoomEnabled = NO;  //手势捏合
+        _barEchartsView.dragEnabled = YES;
+        _barEchartsView.dragDecelerationFrictionCoef = 0.5;  //0 1 惯性
+        
+        
+//    //    self.echartsView.dragDecelerationEnabled = true;
+//    //    self.echartsView.dragDecelerationFrictionCoef = 0.9;
+//        _barEchartsView.chartDescription.enabled = false;
+//    //    self.echartsView.dragEnabled = false;
+//    //    [self.echartsView setScaleEnabled:true];
+//        _barEchartsView.pinchZoomEnabled = true;
+//        _barEchartsView.scaleYEnabled = false;
+//    //    self.echartsView.drawGridBackgroundEnabled = false;
+//        _barEchartsView.highlightPerDragEnabled = true;
+//        _barEchartsView.gridBackgroundColor = UIColor.clearColor;
+//        _barEchartsView.borderColor = UIColor.clearColor;
+//    //    self.echartsView.drawGridBackgroundEnabled = NO;
+//        _barEchartsView.legend.enabled = YES;
+//        [_barEchartsView animateWithXAxisDuration:1];
+        
+        ChartXAxis * xAxis = _barEchartsView.xAxis;
+        xAxis.labelPosition = XAxisLabelPositionBottom;
+        xAxis.labelFont = [UIFont systemFontOfSize:10];
+        xAxis.labelTextColor = UIColor.whiteColor;
+        xAxis.labelTextColor = [UIColor whiteColor];
+        xAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];
+        xAxis.gridColor = [UIColor clearColor];
+        xAxis.drawAxisLineEnabled = false;
+        xAxis.drawGridLinesEnabled = true;
+        xAxis.centerAxisLabelsEnabled = true;
+        xAxis.labelCount = 6;
+        
+        ChartYAxis *leftAxis = _barEchartsView.leftAxis;// 获取左边 Y 轴
+        leftAxis.inverted = NO; // 是否将 Y 轴进行上下翻转
+        leftAxis.axisLineWidth = 0;// 设置 Y 轴线宽
+        leftAxis.labelCount = 6;
+        leftAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];// 设置 Y 轴颜色
+        leftAxis.labelPosition = YAxisLabelPositionOutsideChart;// label 文字位置 YAxisLabelPositionInsideChart:在里面，YAxisLabelPositionOutsideChart:在外面
+        leftAxis.labelTextColor = [UIColor whiteColor]; // label 文字颜色
+        leftAxis.labelFont = [UIFont systemFontOfSize:10.0f]; // 不强制绘制指定数量的 label
+        _barEchartsView.chartDescription.enabled = NO;// 设置折线图描述
+        _barEchartsView.legend.enabled = NO; // 设置折线图图例
+    }
+    return _barEchartsView;
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
@@ -71,77 +219,8 @@
     }
     [self buttonClick:[self viewWithTag:10]];
     
-    self.echartsView = [[LineChartView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 222)];
-    [self.echarts addSubview:self.echartsView];
-//    self.echartsView.dragDecelerationEnabled = true;
-//    self.echartsView.dragDecelerationFrictionCoef = 0.9;
-    self.echartsView.chartDescription.enabled = false;
-//    self.echartsView.dragEnabled = false;
-    self.echartsView.doubleTapToZoomEnabled = NO;
-//    [self.echartsView setScaleEnabled:true];
-    self.echartsView.pinchZoomEnabled = true;
-    self.echartsView.scaleYEnabled = false;
-//    self.echartsView.drawGridBackgroundEnabled = false;
-    self.echartsView.highlightPerDragEnabled = true;
-    self.echartsView.gridBackgroundColor = UIColor.clearColor;
-    self.echartsView.borderColor = UIColor.clearColor;
-//    self.echartsView.drawGridBackgroundEnabled = NO;
-    self.echartsView.legend.enabled = YES;
-    [self.echartsView animateWithXAxisDuration:1];
-    
-    ChartXAxis * xAxis = self.echartsView.xAxis;
-    xAxis.labelPosition = XAxisLabelPositionBottom;
-    xAxis.labelFont = [UIFont systemFontOfSize:10];
-    xAxis.labelTextColor = UIColor.whiteColor;
-    xAxis.labelTextColor = [UIColor whiteColor];
-    xAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];
-    xAxis.gridColor = [UIColor clearColor];
-    xAxis.drawAxisLineEnabled = false;
-    xAxis.drawGridLinesEnabled = true;
-    xAxis.centerAxisLabelsEnabled = true;
-    
-    ChartYAxis *leftAxis = self.echartsView.leftAxis;// 获取左边 Y 轴
-    leftAxis.inverted = NO; // 是否将 Y 轴进行上下翻转
-    leftAxis.axisLineWidth = 1.0;// 设置 Y 轴线宽
-    leftAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];// 设置 Y 轴颜色
-    leftAxis.labelPosition = YAxisLabelPositionOutsideChart;// label 文字位置 YAxisLabelPositionInsideChart:在里面，YAxisLabelPositionOutsideChart:在外面
-    leftAxis.labelTextColor = [UIColor whiteColor]; // label 文字颜色
-    leftAxis.labelFont = [UIFont systemFontOfSize:10.0f]; // 不强制绘制指定数量的 label
-    leftAxis.forceLabelsEnabled = NO; // 不强制绘制指定数量的 label
-//    leftAxis.gridLineDashLengths = @[@3.0f,@3.0f];// 设置虚线样式的网格线 网格线的大小
-//    leftAxis.gridColor = [UIColor redColor]; // 网格线颜色
-    leftAxis.gridAntialiasEnabled = YES;// 网格线开启抗锯齿
-    self.echartsView.chartDescription.enabled = NO;// 设置折线图描述
-    self.echartsView.legend.enabled = NO; // 设置折线图图例
-//    ChartLimitLine *line = [[ChartLimitLine alloc] initWithLimit:150.0 label:@"Upper Limit"];
-//    line.lineWidth = 4.0;
-//    line.lineDashLengths = @[@5.f, @5.f];
-//    line.labelPosition = ChartLimitLabelPositionTopRight;
-//    line.valueFont = [UIFont systemFontOfSize:10.0];
-    
-//    ChartYAxis *leftAxis = self.echartsView.leftAxis;
-//    [leftAxis removeAllLimitLines];
-//    [leftAxis addLimitLine:line];
-//    leftAxis.axisMaximum = 200.0;
-//    leftAxis.axisMinimum = -50.0;
-//    leftAxis.gridLineDashLengths = @[@5.f, @5.f];
-//    leftAxis.drawZeroLineEnabled = false;
-//    leftAxis.drawLabelsEnabled = false;
-//    leftAxis.drawLimitLinesBehindDataEnabled = false;
-    
-    self.echartsView.rightAxis.enabled = false;
-    
-    BalloonMarker *marker = [[BalloonMarker alloc]
-                             initWithColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR]
-                             font:[UIFont systemFontOfSize:12.0]
-                             textColor:UIColor.whiteColor
-                             insets:UIEdgeInsetsMake(8.0, 8.0, 10.0, 8.0)];
-    marker.chartView = self.echartsView;
-    marker.minimumSize = CGSizeMake(60.f, 40.f);
-    marker.arrowSize = CGSizeMake(10, 10);
-    self.echartsView.marker = marker;
-    
-    self.echartsView.legend.form = ChartLegendFormLine;
+    [self.echarts addSubview:self.lineEchartsView];
+    [self.echarts addSubview:self.barEchartsView];
 }
 
 - (void)setDataArray:(NSArray *)dataArray{
@@ -156,52 +235,70 @@
     for (int i=0; i<self.dataArray.count; i++) {
         NSDictionary * dict = self.dataArray[i];
         NSDictionary * item = dict[@"nodeVo"];
-        NSLog(@"gridElectricity=%@",[NSString stringWithFormat:@"%@",item[@"gridElectricity"]]);
         scopeType = [dict[@"scopeType"] integerValue];
         [xArray addObject:[NSString stringWithFormat:@"%@",dict[@"nodeName"]]];
         if (index == 0) {
-            [yArray addObject:[NSString stringWithFormat:@"%@",item[@"gridPower"]]];
+            [yArray addObject:[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"gridPower"] : item[@"gridElectricity"]]]];
         }else if (index == 1) {
-            [yArray addObject:[NSString stringWithFormat:@"%@",item[@"solarElectricity"]]];
+            [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"solarPower"] : item[@"solarElectricity"]]];
         }else if (index == 2) {
-            [yArray addObject:[NSString stringWithFormat:@"%@",item[@"generatorElectricity"]]];
+            [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"generatorPower"] : item[@"generatorElectricity"]]];
         }else if (index == 3) {
-            [yArray addObject:[NSString stringWithFormat:@"%@",item[@"evElectricity"]]];
+            [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"evPower"] : item[@"evElectricity"]]];
         }else if (index == 4) {
-            [yArray addObject:[NSString stringWithFormat:@"%@",item[@"nonBackUpElectricity"]]];
+            [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"nonBackUpPower"] : item[@"nonBackUpElectricity"]]];
         }else if (index == 5) {
-            [yArray addObject:[NSString stringWithFormat:@"%@",item[@"backUpElectricity"]]];
+            [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"backUpPower"] : item[@"backUpElectricity"]]];
         }
     }
     self.xArray = xArray;
     self.yArray = yArray;
-    self.echartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
-    NSMutableArray<ChartDataEntry*> * array = [[NSMutableArray alloc] init];
-    for (int i=0; i<yArray.count; i++) {
-        double value = [yArray[i] doubleValue];
-        ChartDataEntry * entry = [[ChartDataEntry alloc] initWithX:(double)i y:value];
-        [array addObject:entry];
-    }
-    LineChartDataSet * set = [[LineChartDataSet alloc] initWithEntries:array label:@""];
-    set.axisDependency = AxisDependencyLeft;
-    set.valueTextColor = UIColor.clearColor;
-    set.lineWidth = 1;
-    set.circleRadius = 0;
-    set.circleHoleRadius = 0;
-    set.cubicIntensity = 0.2;
-    [set setColor:[UIColor colorWithHexString:@"#F7B500"]];
-    set.mode = LineChartModeCubicBezier;
-    set.drawValuesEnabled = true;
-    LineChartData *data = [[LineChartData alloc] initWithDataSets:@[set]];
-    self.echartsView.data = data;
     
-//    if (xArray.count > 10) {
-//        self.echarts.contentSize = CGSizeMake(SCREEN_WIDTH*2, 0);
-//        self.echartsView.width = self.echarts.contentSize.width;
-//    }
-//    PYOption * option = [self getRideDetailLineOptionWithTimeArray:self.xArray valueArray:self.yArray scopeType:scopeType];
-//    [self.echartsView setOption:option];
-//    [self.echartsView loadEcharts];
+    if (scopeType == 0) {
+        self.lineEchartsView.hidden = true;
+        self.barEchartsView.hidden = false;
+        [self.barEchartsView setVisibleXRangeMinimum:6];
+
+        NSMutableArray *array = [NSMutableArray array];
+        for (int i = 0; i < self.xArray.count; i++) {
+            BarChartDataEntry *entry = [[BarChartDataEntry alloc] initWithX:[self.xArray[i] integerValue] y:[self.yArray[i] integerValue]];
+            [array addObject:entry];
+        }
+        //set
+        BarChartDataSet *set = [[BarChartDataSet alloc] initWithEntries:array label:@"Bar DataSet"];
+        [set setColors:@[[UIColor colorWithHexString:@"#F7B500"]]];
+        //显示柱图值并格式化
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+//        numberFormatter.positiveSuffix = @"分";
+        ChartDefaultValueFormatter *formatter = [[ChartDefaultValueFormatter alloc] initWithFormatter:numberFormatter];
+        [set setValueFormatter:formatter];
+        set.highlightEnabled = NO;
+        BarChartData *data = [[BarChartData alloc] initWithDataSet:set];
+        self.barEchartsView.data = data;
+    }else{
+        self.lineEchartsView.hidden = false;
+        self.barEchartsView.hidden = true;
+        [self.lineEchartsView setScaleMinima:xArray.count/20 scaleY:1];
+        self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
+        NSMutableArray<ChartDataEntry*> * array = [[NSMutableArray alloc] init];
+        for (int i=0; i<yArray.count; i++) {
+            double value = [yArray[i] doubleValue];
+            ChartDataEntry * entry = [[ChartDataEntry alloc] initWithX:(double)i y:value];
+            [array addObject:entry];
+        }
+        LineChartDataSet * set = [[LineChartDataSet alloc] initWithEntries:array label:@""];
+        set.axisDependency = AxisDependencyLeft;
+        set.valueTextColor = UIColor.clearColor;
+        set.lineWidth = 1;
+        set.circleRadius = 0;
+        set.circleHoleRadius = 0;
+        set.cubicIntensity = 0.2;
+        [set setColor:[UIColor colorWithHexString:@"#F7B500"]];
+        set.mode = LineChartModeCubicBezier;
+        set.drawValuesEnabled = true;
+        LineChartData *data = [[LineChartData alloc] initWithDataSets:@[set]];
+        self.lineEchartsView.data = data;
+    }
     
     
     

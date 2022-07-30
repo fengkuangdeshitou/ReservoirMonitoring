@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,weak)IBOutlet UILabel * time;
 @property(nonatomic,weak)IBOutlet UILabel * timeLabel;
 @property(nonatomic,weak)IBOutlet UIView * line;
+@property(nonatomic,weak)IBOutlet UIImageView * icon;
 
 @end
 

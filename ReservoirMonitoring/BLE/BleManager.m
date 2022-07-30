@@ -471,12 +471,14 @@ static unsigned char auchCRCLo[] = {
             if ([locationName containsString:@"-"]) {
                 NSString * sn = [locationName componentsSeparatedByString:@"-"].lastObject;
                 if ([self.rtusn containsString:sn]) {
+                    _deviceSN = sn;
                     self.peripheral = peripheral;
                     self.peripheral.delegate = self;
                     [self.centralManager connectPeripheral:self.peripheral options:nil];
                 }
             }else{
                 if ([self.rtusn containsString:locationName]) {
+                    _deviceSN = locationName;
                     self.peripheral = peripheral;
                     self.peripheral.delegate = self;
                     [self.centralManager connectPeripheral:self.peripheral options:nil];

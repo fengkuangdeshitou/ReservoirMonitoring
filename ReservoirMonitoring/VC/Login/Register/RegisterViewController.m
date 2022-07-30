@@ -98,6 +98,10 @@
 }
 
 - (IBAction)registration:(id)sender{
+    if (!self.statusBtn.selected) {
+        [RMHelper showToast:@"Please agree to the User Agreement first".localized toView:self.view];
+        return;
+    }
     NSArray<RegisterTableViewCell *> * cells = self.tableView.visibleCells;
     for (int i=0; i<cells.count; i++) {
         RegisterTableViewCell * cell = cells[i];
@@ -113,10 +117,6 @@
     }
     if (![cells[3].textfield.text isEqualToString:cells[4].textfield.text]) {
         [RMHelper showToast:@"The passwords are inconsistent".localized toView:self.view];
-        return;
-    }
-    if (!self.statusBtn.selected) {
-        [RMHelper showToast:@"Please agree User Agreement and Privacy policy".localized toView:self.view];
         return;
     }
     for (int i=0; i<cells.count; i++) {

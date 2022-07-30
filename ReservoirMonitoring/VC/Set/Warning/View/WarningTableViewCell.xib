@@ -97,6 +97,7 @@
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="icon" destination="rb9-qJ-C6F" id="tr9-in-PJ2"/>
                 <outlet property="line" destination="7Qd-x3-6qj" id="Oec-yH-RZO"/>
                 <outlet property="sn" destination="x9I-o9-sbJ" id="uyc-bF-Ma3"/>
                 <outlet property="time" destination="A5R-CK-cAK" id="ETy-ld-tI0"/>
