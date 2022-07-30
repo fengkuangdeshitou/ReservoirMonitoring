@@ -27,7 +27,9 @@ PODS:
   - BRPickerView/StringPickerView (2.7.6):
     - BRPickerView/Base
   - Bugly (2.5.91)
-  - iOS-Echarts (1.4.4)
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
   - IQKeyboardManager (6.5.9)
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
@@ -44,7 +46,7 @@ DEPENDENCIES:
   - AFNetworking
   - BRPickerView
   - Bugly
-  - iOS-Echarts
+  - Charts
   - IQKeyboardManager
   - Masonry
   - MBProgressHUD
@@ -60,7 +62,7 @@ SPEC REPOS:
     - AFNetworking
     - BRPickerView
     - Bugly
-    - iOS-Echarts
+    - Charts
     - IQKeyboardManager
     - Masonry
     - MBProgressHUD
@@ -75,7 +77,7 @@ SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   BRPickerView: 2a1620caf218e37a3aca9626732719a419928b15
   Bugly: afe841bba2ea6de6d432a3c125240a5e75949c55
-  iOS-Echarts: dbc7423d861e5eedee78906a39d205b5c4da9a13
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   IQKeyboardManager: 241cc94ccabc9deb8f8bd7d12f00d73288d13ecc
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
@@ -86,6 +88,6 @@ SPEC CHECKSUMS:
   SGPagingView: 0b91bd360370e56a6496b06df9b3e28bc3f075cc
   WMZCode: af49031a787947dad474f6dba23270a2600d8124
 
-PODFILE CHECKSUM: 7489e7837be800d7548e5ca1b71a62465b21eb6c
+PODFILE CHECKSUM: 495ffcf94402c0262b42db6673a2ef548ef98da7
 
 COCOAPODS: 1.11.3

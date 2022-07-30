@@ -87,11 +87,11 @@
     }else if (scopeType == 3){
         startDateTime = [NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year-1,date.br_month,date.br_day];
     }else{
-        startDateTime = [NSNull null];
+        startDateTime = [NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year,date.br_month,date.br_day];
     }
     NSString * currentDateTime = [NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year,date.br_month,date.br_day];
     [self getEcharsDataWithScopeType:scopeType currentDateTime:currentDateTime startDateTime:startDateTime];
-    [Request.shareInstance getUrl:QueryDataElectricity params:@{@"devId":self.devId,@"scopeType":[NSString stringWithFormat:@"%ld",scopeType],@"currentDateTime":currentDateTime,@"startDateTime":startDateTime} progress:^(float progress) {
+    [Request.shareInstance getUrl:QueryDataElectricity params:@{@"devId":self.devId,@"scopeType":[NSString stringWithFormat:@"%ld",scopeType],@"currentDateTime":currentDateTime,@"startDateTime":startDateTime,@"test":currentDateTime} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         self.model = [DevideModel mj_objectWithKeyValues:result[@"data"]];
@@ -105,7 +105,7 @@
 }
 
 - (void)getEcharsDataWithScopeType:(NSInteger)scopeType currentDateTime:(NSString *)currentDateTime startDateTime:(NSString *)startDateTime{
-    [Request.shareInstance getUrl:QueryDataGraph params:@{@"devId":self.devId,@"scopeType":[NSString stringWithFormat:@"%ld",scopeType],@"currentDateTime":currentDateTime,@"startDateTime":startDateTime} progress:^(float progress) {
+    [Request.shareInstance getUrl:QueryDataGraph params:@{@"devId":self.devId,@"scopeType":[NSString stringWithFormat:@"%ld",scopeType],@"currentDateTime":currentDateTime,@"startDateTime":startDateTime,@"test":currentDateTime} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         self.data = result[@"data"];

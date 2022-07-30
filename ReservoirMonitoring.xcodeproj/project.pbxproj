@@ -11,6 +11,7 @@
 		0F0511B3283E4AF8007E7680 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0511B2283E4AF8007E7680 /* UserModel.m */; };
 		0F0511BC283F87D4007E7680 /* HelpDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0511BA283F87D4007E7680 /* HelpDetailViewController.m */; };
 		0F0511BD283F87D4007E7680 /* HelpDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F0511BB283F87D4007E7680 /* HelpDetailViewController.xib */; };
+		0F08008E2894E5A200C4AD6D /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F08008D2894E5A200C4AD6D /* BalloonMarker.swift */; };
 		0F0A9CC02881790700B1D643 /* BlueListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0A9CBF2881790700B1D643 /* BlueListView.m */; };
 		0F0E90C7285047270014B329 /* TimeZoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0E90C5285047270014B329 /* TimeZoneViewController.m */; };
 		0F0E90C8285047270014B329 /* TimeZoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F0E90C6285047270014B329 /* TimeZoneViewController.xib */; };
@@ -197,6 +198,8 @@
 		0F0511B9283F87D4007E7680 /* HelpDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpDetailViewController.h; sourceTree = "<group>"; };
 		0F0511BA283F87D4007E7680 /* HelpDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpDetailViewController.m; sourceTree = "<group>"; };
 		0F0511BB283F87D4007E7680 /* HelpDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HelpDetailViewController.xib; sourceTree = "<group>"; };
+		0F08008A2894E32F00C4AD6D /* ReservoirMonitoring-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReservoirMonitoring-Bridging-Header.h"; sourceTree = "<group>"; };
+		0F08008D2894E5A200C4AD6D /* BalloonMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
 		0F0A9CBE2881790700B1D643 /* BlueListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlueListView.h; sourceTree = "<group>"; };
 		0F0A9CBF2881790700B1D643 /* BlueListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlueListView.m; sourceTree = "<group>"; };
 		0F0E90C4285047270014B329 /* TimeZoneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeZoneViewController.h; sourceTree = "<group>"; };
@@ -742,6 +745,7 @@
 				BDFA3A9028256154004A7E8C /* Localizable.strings */,
 				BDE889FE28044EE700081114 /* PrefixHeader.pch */,
 				BD2DEF3028044A74004E8D7D /* main.m */,
+				0F08008A2894E32F00C4AD6D /* ReservoirMonitoring-Bridging-Header.h */,
 			);
 			path = ReservoirMonitoring;
 			sourceTree = "<group>";
@@ -1169,6 +1173,7 @@
 				BDE88A75280B12A900081114 /* DataEchartsCollectionViewCell.h */,
 				BDE88A76280B12A900081114 /* DataEchartsCollectionViewCell.m */,
 				BDE88A77280B12A900081114 /* DataEchartsCollectionViewCell.xib */,
+				0F08008D2894E5A200C4AD6D /* BalloonMarker.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1288,6 +1293,7 @@
 				TargetAttributes = {
 					BD2DEF1A28044A6E004E8D7D = {
 						CreatedOnToolsVersion = 13.3;
+						LastSwiftMigration = 1330;
 					};
 					BD2DEF3528044A75004E8D7D = {
 						CreatedOnToolsVersion = 13.3;
@@ -1552,6 +1558,7 @@
 				0F0511BC283F87D4007E7680 /* HelpDetailViewController.m in Sources */,
 				BDE88A3C2805DA0700081114 /* UITextField+PlaceholderColor.m in Sources */,
 				0FE713F4283C830400B0733A /* Request.m in Sources */,
+				0F08008E2894E5A200C4AD6D /* BalloonMarker.swift in Sources */,
 				0F69682E2833B28A00F22E47 /* WeatherInfoTableViewCell.m in Sources */,
 				BDE889FD28044E7C00081114 /* UIColor+HexString.m in Sources */,
 				0F69684828349FBF00F22E47 /* WifiAlertView.m in Sources */,
@@ -1792,10 +1799,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ReservoirMonitoring/ReservoirMonitoring.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = LMDZYJF4B6;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ReservoirMonitoring/PrefixHeader.pch";
@@ -1818,6 +1827,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "ReservoirMonitoring/ReservoirMonitoring-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1828,9 +1840,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ReservoirMonitoring/ReservoirMonitoring.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = LMDZYJF4B6;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ReservoirMonitoring/PrefixHeader.pch";
@@ -1853,6 +1867,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "ReservoirMonitoring/ReservoirMonitoring-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -1861,6 +1877,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2DB1F4E5989AEB4DD5663FDE /* Pods-ReservoirMonitoringTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1879,6 +1896,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B530742221FC4B073C919F99 /* Pods-ReservoirMonitoringTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1897,6 +1915,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 30AA6C0667C2DF0057316A30 /* Pods-ReservoirMonitoring-ReservoirMonitoringUITests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1913,6 +1932,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B6629ED6365D00AF76D1228 /* Pods-ReservoirMonitoring-ReservoirMonitoringUITests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;

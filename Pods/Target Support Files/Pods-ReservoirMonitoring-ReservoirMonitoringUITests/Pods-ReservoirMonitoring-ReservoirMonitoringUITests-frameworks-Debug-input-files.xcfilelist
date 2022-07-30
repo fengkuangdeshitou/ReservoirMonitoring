@@ -1,6 +1,7 @@
 ${PODS_ROOT}/Target Support Files/Pods-ReservoirMonitoring-ReservoirMonitoringUITests/Pods-ReservoirMonitoring-ReservoirMonitoringUITests-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework
 ${BUILT_PRODUCTS_DIR}/BRPickerView/BRPickerView.framework
+${BUILT_PRODUCTS_DIR}/Charts/Charts.framework
 ${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework
 ${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework
 ${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework
@@ -10,4 +11,3 @@ ${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
 ${BUILT_PRODUCTS_DIR}/SGPagingView/SGPagingView.framework
 ${BUILT_PRODUCTS_DIR}/WMZCode/WMZCode.framework
-${BUILT_PRODUCTS_DIR}/iOS-Echarts/iOS_Echarts.framework

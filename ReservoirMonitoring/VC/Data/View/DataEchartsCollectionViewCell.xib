@@ -32,18 +32,9 @@
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vsk-rU-Yrz">
                         <rect key="frame" x="0.0" y="94.5" width="350" height="222"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X0a-9l-Bld">
-                                <rect key="frame" x="0.0" y="0.0" width="350" height="222"/>
-                            </scrollView>
-                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="X0a-9l-Bld" firstAttribute="leading" secondItem="Vsk-rU-Yrz" secondAttribute="leading" id="Db6-Lk-RdP"/>
-                            <constraint firstItem="X0a-9l-Bld" firstAttribute="top" secondItem="Vsk-rU-Yrz" secondAttribute="top" id="EDe-tm-N3m"/>
-                            <constraint firstAttribute="trailing" secondItem="X0a-9l-Bld" secondAttribute="trailing" id="Hxi-5J-add"/>
                             <constraint firstAttribute="height" constant="222" id="jqT-By-f0J"/>
-                            <constraint firstAttribute="bottom" secondItem="X0a-9l-Bld" secondAttribute="bottom" id="wPH-N3-vHt"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ifg-Dh-Qd8">
@@ -210,7 +201,7 @@
                 <outlet property="coal" destination="ASf-Ea-yp5" id="Oqz-Q7-YH4"/>
                 <outlet property="coalValue" destination="YvS-Yl-jS8" id="zK9-YB-QSe"/>
                 <outlet property="current" destination="yov-7A-7T0" id="XfK-5u-uUg"/>
-                <outlet property="echarts" destination="X0a-9l-Bld" id="MVd-hH-BS8"/>
+                <outlet property="echarts" destination="Vsk-rU-Yrz" id="4eY-nI-859"/>
                 <outlet property="energyTitle" destination="AsX-v9-bm8" id="irc-Ud-zgk"/>
                 <outlet property="independence" destination="aNW-Nr-LtD" id="Syf-7F-lcB"/>
                 <outlet property="reducing" destination="amG-3V-J2E" id="5xf-3T-Ocr"/>

@@ -7,13 +7,14 @@
 
 #import "DataEchartsCollectionViewCell.h"
 #import "GlobelDescAlertView.h"
-@import iOS_Echarts;
+@import Charts;
+#import "ReservoirMonitoring-Swift.h"
 
 @interface DataEchartsCollectionViewCell ()
 
-@property(nonatomic,strong) WKEchartsView * echartsView;
+@property(nonatomic,strong) LineChartView * echartsView;
 @property(nonatomic,weak)IBOutlet UIView * titleView;
-@property(nonatomic,weak)IBOutlet UIScrollView * echarts;
+@property(nonatomic,weak)IBOutlet UIView * echarts;
 @property(nonatomic,weak)IBOutlet UILabel * energyTitle;
 
 @property(nonatomic,weak)IBOutlet UILabel * independence;
@@ -70,49 +71,77 @@
     }
     [self buttonClick:[self viewWithTag:10]];
     
-    self.echarts.contentSize = CGSizeMake(SCREEN_WIDTH, 0);
-    self.echartsView = [[WKEchartsView alloc] initWithFrame:CGRectMake(0, 0, self.echarts.contentSize.width, 222)];
-    self.echartsView.scrollView.zoomScale = false;
+    self.echartsView = [[LineChartView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 222)];
     [self.echarts addSubview:self.echartsView];
-//    PYOption * option = [[PYOption alloc] init];
-//    option.calculable = NO;
-//    option.color = @[@"#F7B500"];
-//    PYGrid * grid = [[PYGrid alloc] init];
-//    grid.x = @(34);
-//    grid.y = @(23);
-//    grid.x2 = @(15);
-//    grid.y2 = @(40);
-//    option.grid = grid;
-//    PYAxis * xAxis = [[PYAxis alloc] init];
-//    xAxis.type = PYAxisTypeCategory;
-//    xAxis.boundaryGap = @(NO);
-//    xAxis.splitLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
-//    xAxis.axisLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
-//    xAxis.data = [[NSMutableArray alloc] initWithArray:@[]];
-//    option.xAxis = [[NSMutableArray alloc] initWithObjects:xAxis, nil ];
-//    PYAxis * yaxis = [[PYAxis alloc] init];
-//    yaxis.type = PYAxisTypeValue;
-//    yaxis.splitNumber = @6;
-//    yaxis.splitArea.areaStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
-//    yaxis.axisLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
-//    yaxis.splitLine.lineStyle.color = [[PYColor alloc] initWithColor:[UIColor colorWithHexString:@"#333333"]];
-//    option.yAxis = [[NSMutableArray alloc] initWithObjects:yaxis, nil];
-//    NSMutableArray * seriesArray = [[NSMutableArray alloc] init];
-//    PYCartesianSeries * series = [[PYCartesianSeries alloc] init];
-//    series.type = PYSeriesTypeLine;
-//    series.smooth = true;
-//    series.symbolSize = @2;
-//    PYItemStyle * style = [[PYItemStyle alloc] init];
-//    PYItemStyleProp * prop = [[PYItemStyleProp alloc] init];
-//    prop.borderColor = [PYColor colorWithHexString:COLOR_MAIN_COLOR];
-//    style.normal = prop;
-//    series.itemStyle = style;
-//    series.data = @[];
-//    [seriesArray addObject:series];
-//    option.series = seriesArray;
-//    [self.echartsView setOption:option];
-    [self.echartsView setOption:[self getRideDetailLineOptionWithTimeArray:@[] valueArray:@[] scopeType:1]];
-    [self.echartsView loadEcharts];
+//    self.echartsView.dragDecelerationEnabled = true;
+//    self.echartsView.dragDecelerationFrictionCoef = 0.9;
+    self.echartsView.chartDescription.enabled = false;
+//    self.echartsView.dragEnabled = false;
+    self.echartsView.doubleTapToZoomEnabled = NO;
+//    [self.echartsView setScaleEnabled:true];
+    self.echartsView.pinchZoomEnabled = true;
+    self.echartsView.scaleYEnabled = false;
+//    self.echartsView.drawGridBackgroundEnabled = false;
+    self.echartsView.highlightPerDragEnabled = true;
+    self.echartsView.gridBackgroundColor = UIColor.clearColor;
+    self.echartsView.borderColor = UIColor.clearColor;
+//    self.echartsView.drawGridBackgroundEnabled = NO;
+    self.echartsView.legend.enabled = YES;
+    [self.echartsView animateWithXAxisDuration:1];
+    
+    ChartXAxis * xAxis = self.echartsView.xAxis;
+    xAxis.labelPosition = XAxisLabelPositionBottom;
+    xAxis.labelFont = [UIFont systemFontOfSize:10];
+    xAxis.labelTextColor = UIColor.whiteColor;
+    xAxis.labelTextColor = [UIColor whiteColor];
+    xAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];
+    xAxis.gridColor = [UIColor clearColor];
+    xAxis.drawAxisLineEnabled = false;
+    xAxis.drawGridLinesEnabled = true;
+    xAxis.centerAxisLabelsEnabled = true;
+    
+    ChartYAxis *leftAxis = self.echartsView.leftAxis;// 获取左边 Y 轴
+    leftAxis.inverted = NO; // 是否将 Y 轴进行上下翻转
+    leftAxis.axisLineWidth = 1.0;// 设置 Y 轴线宽
+    leftAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];// 设置 Y 轴颜色
+    leftAxis.labelPosition = YAxisLabelPositionOutsideChart;// label 文字位置 YAxisLabelPositionInsideChart:在里面，YAxisLabelPositionOutsideChart:在外面
+    leftAxis.labelTextColor = [UIColor whiteColor]; // label 文字颜色
+    leftAxis.labelFont = [UIFont systemFontOfSize:10.0f]; // 不强制绘制指定数量的 label
+    leftAxis.forceLabelsEnabled = NO; // 不强制绘制指定数量的 label
+//    leftAxis.gridLineDashLengths = @[@3.0f,@3.0f];// 设置虚线样式的网格线 网格线的大小
+//    leftAxis.gridColor = [UIColor redColor]; // 网格线颜色
+    leftAxis.gridAntialiasEnabled = YES;// 网格线开启抗锯齿
+    self.echartsView.chartDescription.enabled = NO;// 设置折线图描述
+    self.echartsView.legend.enabled = NO; // 设置折线图图例
+//    ChartLimitLine *line = [[ChartLimitLine alloc] initWithLimit:150.0 label:@"Upper Limit"];
+//    line.lineWidth = 4.0;
+//    line.lineDashLengths = @[@5.f, @5.f];
+//    line.labelPosition = ChartLimitLabelPositionTopRight;
+//    line.valueFont = [UIFont systemFontOfSize:10.0];
+    
+//    ChartYAxis *leftAxis = self.echartsView.leftAxis;
+//    [leftAxis removeAllLimitLines];
+//    [leftAxis addLimitLine:line];
+//    leftAxis.axisMaximum = 200.0;
+//    leftAxis.axisMinimum = -50.0;
+//    leftAxis.gridLineDashLengths = @[@5.f, @5.f];
+//    leftAxis.drawZeroLineEnabled = false;
+//    leftAxis.drawLabelsEnabled = false;
+//    leftAxis.drawLimitLinesBehindDataEnabled = false;
+    
+    self.echartsView.rightAxis.enabled = false;
+    
+    BalloonMarker *marker = [[BalloonMarker alloc]
+                             initWithColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR]
+                             font:[UIFont systemFontOfSize:12.0]
+                             textColor:UIColor.whiteColor
+                             insets:UIEdgeInsetsMake(8.0, 8.0, 10.0, 8.0)];
+    marker.chartView = self.echartsView;
+    marker.minimumSize = CGSizeMake(60.f, 40.f);
+    marker.arrowSize = CGSizeMake(10, 10);
+    self.echartsView.marker = marker;
+    
+    self.echartsView.legend.form = ChartLegendFormLine;
 }
 
 - (void)setDataArray:(NSArray *)dataArray{
@@ -127,10 +156,11 @@
     for (int i=0; i<self.dataArray.count; i++) {
         NSDictionary * dict = self.dataArray[i];
         NSDictionary * item = dict[@"nodeVo"];
+        NSLog(@"gridElectricity=%@",[NSString stringWithFormat:@"%@",item[@"gridElectricity"]]);
         scopeType = [dict[@"scopeType"] integerValue];
         [xArray addObject:[NSString stringWithFormat:@"%@",dict[@"nodeName"]]];
         if (index == 0) {
-            [yArray addObject:[NSString stringWithFormat:@"%@",item[@"gridElectricity"]]];
+            [yArray addObject:[NSString stringWithFormat:@"%@",item[@"gridPower"]]];
         }else if (index == 1) {
             [yArray addObject:[NSString stringWithFormat:@"%@",item[@"solarElectricity"]]];
         }else if (index == 2) {
@@ -145,75 +175,98 @@
     }
     self.xArray = xArray;
     self.yArray = yArray;
-    if (xArray.count > 10) {
-        self.echarts.contentSize = CGSizeMake(SCREEN_WIDTH*2, 0);
-        self.echartsView.width = self.echarts.contentSize.width;
+    self.echartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
+    NSMutableArray<ChartDataEntry*> * array = [[NSMutableArray alloc] init];
+    for (int i=0; i<yArray.count; i++) {
+        double value = [yArray[i] doubleValue];
+        ChartDataEntry * entry = [[ChartDataEntry alloc] initWithX:(double)i y:value];
+        [array addObject:entry];
     }
-    PYOption * option = [self getRideDetailLineOptionWithTimeArray:self.xArray valueArray:self.yArray scopeType:scopeType];
-    [self.echartsView setOption:option];
-    [self.echartsView loadEcharts];
+    LineChartDataSet * set = [[LineChartDataSet alloc] initWithEntries:array label:@""];
+    set.axisDependency = AxisDependencyLeft;
+    set.valueTextColor = UIColor.clearColor;
+    set.lineWidth = 1;
+    set.circleRadius = 0;
+    set.circleHoleRadius = 0;
+    set.cubicIntensity = 0.2;
+    [set setColor:[UIColor colorWithHexString:@"#F7B500"]];
+    set.mode = LineChartModeCubicBezier;
+    set.drawValuesEnabled = true;
+    LineChartData *data = [[LineChartData alloc] initWithDataSets:@[set]];
+    self.echartsView.data = data;
+    
+//    if (xArray.count > 10) {
+//        self.echarts.contentSize = CGSizeMake(SCREEN_WIDTH*2, 0);
+//        self.echartsView.width = self.echarts.contentSize.width;
+//    }
+//    PYOption * option = [self getRideDetailLineOptionWithTimeArray:self.xArray valueArray:self.yArray scopeType:scopeType];
+//    [self.echartsView setOption:option];
+//    [self.echartsView loadEcharts];
+    
+    
+    
 }
 
-- (PYOption *)getRideDetailLineOptionWithTimeArray:(NSArray *)dataArray
-                                        valueArray:(NSArray *)valueArray
-                                         scopeType:(NSInteger)scopeType{
-    PYOption * option = [[PYOption alloc] init];
-    option.calculable = NO;
-    option.color = @[@"#F7B500"];
-    PYGrid * grid = [[PYGrid alloc] init];
-    grid.x = @(34);
-    grid.y = @(23);
-    grid.x2 = @(15);
-    grid.y2 = @(40);
-    option.grid = grid;
-    PYTooltip *tooltip = [[PYTooltip alloc] init];
-    //触发类型，默认数据触发
-    tooltip.trigger = PYTooltipTriggerItem;
-    //背景色
-    tooltip.backgroundColor = [[PYColor alloc] initWithColor:[UIColor colorWithHexString:@"#FEFFFF"]];
-    //竖线宽度
-    tooltip.axisPointer.lineStyle.width = @0;
-    //提示框,文字样式设置
-    tooltip.textStyle = [[PYTextStyle alloc] init];
-    tooltip.textStyle.fontSize = @12;
-    tooltip.textStyle.color = [[PYColor alloc] initWithColor:[UIColor colorWithHexString:@"#686B6D"]];
-//    tooltip.formatter = @"(function(params){ var res = params[0].name; for (var i = 0, l = params.length; i < l; i++) {res += '<br/>' + params[i].seriesName + ' : ' + params[i].value;}; return res})";
-    tooltip.formatter = @"(function(params){ var res = params.value; return '<br/>' + 'Distance:' + res + 'km'})";
-    //添加到图标选择中
-    option.tooltip = tooltip;
-    PYAxis * xAxis = [[PYAxis alloc] init];
-    xAxis.type = PYAxisTypeCategory;
-    xAxis.boundaryGap = @(NO);
-    xAxis.splitLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
-    xAxis.axisLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
-    xAxis.data = [[NSMutableArray alloc] initWithArray:dataArray.count == 0 ? @[@1,@2,@3,@4,@5,@6,@7] : dataArray];
-    option.xAxis = [[NSMutableArray alloc] initWithObjects:xAxis, nil ];
-    PYAxis * yaxis = [[PYAxis alloc] init];
-    yaxis.type = PYAxisTypeValue;
-    yaxis.splitNumber = @6;
-    yaxis.splitArea.areaStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
-    yaxis.axisLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
-    yaxis.splitLine.lineStyle.color = [[PYColor alloc] initWithColor:[UIColor colorWithHexString:@"#333333"]];
-    option.yAxis = [[NSMutableArray alloc] initWithObjects:yaxis, nil];
-    NSMutableArray * seriesArray = [[NSMutableArray alloc] init];
-    PYCartesianSeries * series = [[PYCartesianSeries alloc] init];
-    if (scopeType == 0) {
-        series.type = PYSeriesTypeBar;
-        series.barWidth = @10;
-//        series.barCategoryGap = @"10";
-    }else{
-        series.type = PYSeriesTypeLine;
-        series.smooth = true;
-        series.symbolSize = @2;
-    }
-    PYItemStyle * style = [[PYItemStyle alloc] init];
-    PYItemStyleProp * prop = [[PYItemStyleProp alloc] init];
-    prop.borderColor = [PYColor colorWithHexString:COLOR_MAIN_COLOR];
-    style.normal = prop;
-    series.itemStyle = style;
-    series.data = valueArray.count == 0 ? @[@"-",@"-",@"-",@"-",@"-",@"-",@"-"] : valueArray;
-    [seriesArray addObject:series];
-    option.series = seriesArray;
+//- (PYOption *)getRideDetailLineOptionWithTimeArray:(NSArray *)dataArray
+//                                        valueArray:(NSArray *)valueArray
+//                                         scopeType:(NSInteger)scopeType{
+//    PYOption * option = [[PYOption alloc] init];
+//    option.calculable = NO;
+//    option.color = @[@"#F7B500"];
+//    PYGrid * grid = [[PYGrid alloc] init];
+//    grid.x = @(34);
+//    grid.y = @(23);
+//    grid.x2 = @(15);
+//    grid.y2 = @(40);
+//    option.grid = grid;
+//    PYTooltip *tooltip = [[PYTooltip alloc] init];
+//    //触发类型，默认数据触发
+//    tooltip.trigger = PYTooltipTriggerItem;
+//    //背景色
+//    tooltip.backgroundColor = [[PYColor alloc] initWithColor:[UIColor colorWithHexString:@"#FEFFFF"]];
+//    //竖线宽度
+//    tooltip.axisPointer.lineStyle.width = @0;
+//    //提示框,文字样式设置
+//    tooltip.textStyle = [[PYTextStyle alloc] init];
+//    tooltip.textStyle.fontSize = @12;
+//    tooltip.textStyle.color = [[PYColor alloc] initWithColor:[UIColor colorWithHexString:@"#686B6D"]];
+////    tooltip.formatter = @"(function(params){ var res = params[0].name; for (var i = 0, l = params.length; i < l; i++) {res += '<br/>' + params[i].seriesName + ' : ' + params[i].value;}; return res})";
+//    tooltip.formatter = @"(function(params){ var res = params.value; return '<br/>' + 'Distance:' + res + 'km'})";
+//    //添加到图标选择中
+//    option.tooltip = tooltip;
+//    PYAxis * xAxis = [[PYAxis alloc] init];
+//    xAxis.type = PYAxisTypeCategory;
+//    xAxis.boundaryGap = @(NO);
+//    xAxis.splitLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
+//    xAxis.axisLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
+//    xAxis.data = [[NSMutableArray alloc] initWithArray:dataArray.count == 0 ? @[@1,@2,@3,@4,@5,@6,@7] : dataArray];
+//    option.xAxis = [[NSMutableArray alloc] initWithObjects:xAxis, nil ];
+//    PYAxis * yaxis = [[PYAxis alloc] init];
+//    yaxis.type = PYAxisTypeValue;
+//    yaxis.splitNumber = @6;
+//    yaxis.splitArea.areaStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
+//    yaxis.axisLine.lineStyle.color = [[PYColor alloc] initWithColor:UIColor.clearColor];
+//    yaxis.splitLine.lineStyle.color = [[PYColor alloc] initWithColor:[UIColor colorWithHexString:@"#333333"]];
+//    option.yAxis = [[NSMutableArray alloc] initWithObjects:yaxis, nil];
+//    NSMutableArray * seriesArray = [[NSMutableArray alloc] init];
+//    PYCartesianSeries * series = [[PYCartesianSeries alloc] init];
+//    if (scopeType == 0) {
+//        series.type = PYSeriesTypeBar;
+//        series.barWidth = @10;
+////        series.barCategoryGap = @"10";
+//    }else{
+//        series.type = PYSeriesTypeLine;
+//        series.smooth = true;
+//        series.symbolSize = @2;
+//    }
+//    PYItemStyle * style = [[PYItemStyle alloc] init];
+//    PYItemStyleProp * prop = [[PYItemStyleProp alloc] init];
+//    prop.borderColor = [PYColor colorWithHexString:COLOR_MAIN_COLOR];
+//    style.normal = prop;
+//    series.itemStyle = style;
+//    series.data = valueArray.count == 0 ? @[@"-",@"-",@"-",@"-",@"-",@"-",@"-"] : valueArray;
+//    [seriesArray addObject:series];
+//    option.series = seriesArray;
     
     
     
@@ -322,13 +375,8 @@
 //    series.data = valueArray;
 //    [seriesArr addObject:series];
 //    [option setSeries:seriesArr];
-    return option;
-}
-
-- (PYOption *)option{
-    
-    return nil;
-}
+//    return option;
+//}
 
 - (void)buttonClick:(UIButton *)btn{
     for (int i=0;i<self.normal.count;i++) {
