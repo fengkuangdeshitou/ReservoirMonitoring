@@ -88,10 +88,11 @@
     _model = model;
     self.titleLabel.text = model.off_ON_Grid_Hint;
     if (model.weather) {
+        [self.weather setTitle:@"" forState:UIControlStateNormal];
         [self.weather setImage:[UIImage imageNamed:model.weather[@"icon"]] forState:UIControlStateNormal];
-//        self.weather.hidden = false;
     }else{
-//        self.weather.hidden = YES;
+        [self.weather setImage:[UIImage new] forState:UIControlStateNormal];
+        [self.weather setTitle:@"--" forState:UIControlStateNormal];
     }
     if (model.workStatus.intValue == 1) {
         self.currentModeValue.text = @"Self-consumption";

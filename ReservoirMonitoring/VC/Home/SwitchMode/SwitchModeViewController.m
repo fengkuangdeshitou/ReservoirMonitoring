@@ -310,6 +310,25 @@
             [RMHelper showToast:@"Super peak time overlap" toView:self.view];
             return;
         }
+        NSMutableArray * selectedTime = [[NSMutableArray alloc] init];
+        NSArray * offPeakTimeList = params[@"offPeakTimeList"];
+        NSArray * peakTimeList = params[@"peakTimeList"];
+        NSArray * superPeakTimeList = params[@"superPeakTimeList"];
+        [selectedTime addObjectsFromArray:offPeakTimeList];
+        [peakTimeList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (![obj isEqualToString:@"__"]) {
+                [selectedTime addObject:obj];
+            }
+        }];
+        [superPeakTimeList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (![obj isEqualToString:@"__"]) {
+                [selectedTime addObject:obj];
+            }
+        }];
+        if ([RMHelper hasRepeatedTimeForArray:selectedTime]) {
+            [RMHelper showToast:@"Selected time overlap" toView:self.view];
+            return;
+        }
     }
     if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
         [params setValue:@"0" forKey:@"onlySave"];

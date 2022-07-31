@@ -75,11 +75,11 @@ static NSString * K_USERTYPE = @"USERTYPE";
 + (NSMutableSet *)setForStartTime:(NSString *)startTime endTime:(NSString *)endTime{
     NSInteger startHour = [[startTime componentsSeparatedByString:@":"].firstObject integerValue];
     NSInteger startMinute = [[startTime componentsSeparatedByString:@":"].lastObject integerValue];
-    NSInteger startTimeValue = startHour*24*60+startMinute*60;
+    NSInteger startTimeValue = startHour*60*60+startMinute*60;
     
     NSInteger endHour = [[endTime componentsSeparatedByString:@":"].firstObject integerValue];
     NSInteger endMinute = [[endTime componentsSeparatedByString:@":"].lastObject integerValue];
-    NSInteger endTimeValue = endHour*24*60+endMinute*60;
+    NSInteger endTimeValue = endHour*60*60+endMinute*60;
     
     if (endTimeValue <= startTimeValue) {
         return nil;
@@ -120,7 +120,7 @@ static NSString * K_USERTYPE = @"USERTYPE";
         }
         return result;
     }else{
-        for (int i = 0; i<timeArray.count; i++) {
+        for (int i = 0; i<timeArray.count-1; i++) {
             NSString * startTime = timeArray[i];
             NSString * hour = [startTime componentsSeparatedByString:@"_"][0];
             NSString * minute = [startTime componentsSeparatedByString:@"_"][1];
