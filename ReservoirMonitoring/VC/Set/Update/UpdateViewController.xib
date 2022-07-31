@@ -10,9 +10,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UpdateViewController">
             <connections>
+                <outlet property="commitAotuUpdate" destination="mE2-TZ-rBi" id="chD-Yg-mle"/>
                 <outlet property="content" destination="0br-XR-FrM" id="mSm-rC-9pG"/>
                 <outlet property="ota" destination="DD3-IQ-gDG" id="iHQ-9f-Xux"/>
-                <outlet property="update" destination="ydH-Fh-ymw" id="bRD-wt-xvp"/>
+                <outlet property="update" destination="ydH-Fh-ymw" id="UHK-Y7-HDU"/>
                 <outlet property="version" destination="jdR-ZN-N42" id="UGK-xN-7Hp"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

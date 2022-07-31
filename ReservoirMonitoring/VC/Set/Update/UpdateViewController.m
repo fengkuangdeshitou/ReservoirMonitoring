@@ -12,6 +12,7 @@
 @interface UpdateViewController ()
 
 @property(nonatomic,weak)IBOutlet UIButton * update;
+@property(nonatomic,weak)IBOutlet UIButton * commitAotuUpdate;
 @property(nonatomic,weak)IBOutlet UILabel * content;
 @property(nonatomic,weak)IBOutlet UILabel * version;
 @property(nonatomic,weak)IBOutlet UILabel * ota;
@@ -50,7 +51,7 @@
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
             [BleManager.shareInstance readWithCMDString:@"628" count:1 finish:^(NSArray * _Nonnull array) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    weakSelf.update.selected = [array.firstObject boolValue];
+                    weakSelf.commitAotuUpdate.selected = [array.firstObject boolValue];
                 });
             }];
         });
@@ -82,7 +83,7 @@
     [Request.shareInstance getUrl:QueryFirmwareInfo params:@{@"devId":devId} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
-        self.update.selected = [result[@"data"][@"aotuUpdateFirmware"] boolValue];
+        self.commitAotuUpdate.selected = [result[@"data"][@"aotuUpdateFirmware"] boolValue];
         NSString * version = [NSString stringWithFormat:@"%@",result[@"data"][@"firmwareVersion"]];
         self.version.text = [@"Firmware version:".localized stringByAppendingString:version];
     } failure:^(NSString * _Nonnull errorMsg) {
@@ -96,7 +97,7 @@
             [RMHelper showToast:@"Please connect device" toView:self.view];
             return;
         }
-        NSString * value = self.update.selected ? @"0" : @"1";
+        NSString * value = self.commitAotuUpdate.selected ? @"0" : @"1";
         [BleManager.shareInstance writeWithCMDString:@"628" string:value finish:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 sender.selected = !sender.selected;
@@ -114,12 +115,12 @@
 }
 
 - (void)commitAotuUpdateVersiom{
-    [Request.shareInstance getUrl:CommitAotuUpdateVersion params:@{@"aotuUpdateFirmware":self.update.selected?@"0":@"1",@"devId":self.devId} progress:^(float progress) {
+    [Request.shareInstance getUrl:CommitAotuUpdateVersion params:@{@"aotuUpdateFirmware":self.commitAotuUpdate.selected?@"0":@"1",@"devId":self.devId} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         BOOL value = [result[@"data"] boolValue];
         if (value) {
-            self.update.selected = !self.update.selected;
+            self.commitAotuUpdate.selected = !self.commitAotuUpdate.selected;
         }else{
             [GlobelDescAlertView showAlertViewWithTitle:@"Check for updates" desc:result[@"message"] btnTitle:@"Acknowledge" completion:nil];
         }
