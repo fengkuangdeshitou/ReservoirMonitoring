@@ -8,6 +8,7 @@
 #import "Request.h"
 #import "AFNetworking.h"
 @import MBProgressHUD;
+#import "GlobelDescAlertView.h"
 
 @interface Request ()
 
@@ -85,8 +86,13 @@ static Request * _request = nil;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"err=%@",error);
-        [RMHelper showToast:error.description toView:RMHelper.getCurrentVC.view];
+//        [RMHelper showToast:error.description toView:RMHelper.getCurrentVC.view];
         [self.hud hideAnimated:true];
+        [GlobelDescAlertView showAlertViewWithTitle:@"Network connection failure" desc:@"Checking Network Connections" btnTitle:@"Open" completion:^{
+            [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:^(BOOL success) {
+                            
+            }];
+        }];
     }];
 }
 

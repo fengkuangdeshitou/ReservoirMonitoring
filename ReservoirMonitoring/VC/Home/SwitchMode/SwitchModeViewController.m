@@ -440,15 +440,14 @@
                     [UIApplication.sharedApplication.keyWindow hiddenHUD];
                     NSInteger idx = [array.firstObject intValue];
                     if (idx == 1) {
-//                        [RMHelper showToast:@"Configuration is successful" toView:self.view];
-                        [self switchWithParams:params];
+                        [RMHelper showToast:@"Configuration failed" toView:self.view];
                     }
                     if (idx == 2) {
 //                        [RMHelper showToast:@"In the configuration" toView:self.view];
                         [self switchWithParams:params];
                     }
                     if (idx == 3) {
-                        [RMHelper showToast:@"Configuration failed" toView:self.view];
+                        [self switchWithParams:params];
                     }
                 }];
             }

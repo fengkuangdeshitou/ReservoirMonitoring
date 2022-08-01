@@ -61,20 +61,23 @@
         return;
     }
     [Request.shareInstance getUrl:ScanSgsn params:@{@"sgSn":self.sgSn} progress:^(float progress) {
-            
+
     } success:^(NSDictionary * _Nonnull result) {
         self.sgSn = result[@"data"][@"sgSn"];
         self.addressIds = result[@"data"][@"addressIds"];
         self.devId = result[@"data"][@"id"];
         [self pushViewControler];
     } failure:^(NSString * _Nonnull errorMsg) {
-        
+
     }];
 }
 
 - (void)pushViewControler{
     AddAddressViewController * address = [[AddAddressViewController alloc] init];
     address.title = @"Device location".localized;
+//    address.addressIds = @"140,356";
+//    address.devId = @"39";
+
     address.sgSn = self.sgSn;
     address.addressIds = self.addressIds;
     address.devId = self.devId;

@@ -105,8 +105,20 @@
         self.model.isOnline = isOnline;
         [self.tableView reloadData];
         [self.refreshController endRefreshing];
+        [self getWeatherData:sgSn];
     } failure:^(NSString * _Nonnull errorMsg) {
         [self.refreshController endRefreshing];
+    }];
+}
+
+- (void)getWeatherData:(NSString *)sgSn{
+    [Request.shareInstance getUrl:DeviceInfoWeather params:@{@"sgSn":sgSn} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        self.model.weather = result[@"data"];
+        [self.tableView reloadData];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
     }];
 }
 

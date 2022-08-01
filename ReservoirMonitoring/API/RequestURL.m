@@ -77,6 +77,6 @@ NSString * const Weather = @"/weatherApi/weather/getWeather";
 
 NSString * const AlertFaultList = @"/device/getAlertFaultList";
 
-
+NSString * const DeviceInfoWeather = @"/device/homeDeviceInfoWeather";
 
 @end

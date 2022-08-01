@@ -137,11 +137,11 @@
             
         }];
     }else{
-        [self.manager startUpdatingLocation];
-        [Request.shareInstance postUrl:DeviceBindAddressInfo params:@{@"devId":self.devId,@"countryNameEn":self.countries.text?:@"",@"countryCode":[self.addressIds componentsSeparatedByString:@","].firstObject,} progress:^(float progress) {
+        [Request.shareInstance postUrl:DeviceBindAddressInfo params:@{@"devId":self.devId,@"countryNameEn":@"",@"countryCode":@""} progress:^(float progress) {
                 
         } success:^(NSDictionary * _Nonnull result) {
             self.dataArray = result[@"data"][@"list"];
+            [self.manager startUpdatingLocation];
         } failure:^(NSString * _Nonnull errorMsg) {
             
         }];

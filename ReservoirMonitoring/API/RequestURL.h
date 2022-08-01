@@ -75,6 +75,9 @@ extern NSString * const Weather;
 
 extern NSString * const AlertFaultList;
 
+extern NSString * const DeviceInfoWeather;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

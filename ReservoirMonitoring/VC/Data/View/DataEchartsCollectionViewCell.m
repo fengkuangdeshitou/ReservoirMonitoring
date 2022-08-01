@@ -60,11 +60,10 @@
     //    [self.echartsView setScaleEnabled:true];
         _lineEchartsView.pinchZoomEnabled = true;
         _lineEchartsView.scaleYEnabled = false;
-    //    self.echartsView.drawGridBackgroundEnabled = false;
+        _lineEchartsView.drawGridBackgroundEnabled = true;
         _lineEchartsView.highlightPerDragEnabled = true;
         _lineEchartsView.gridBackgroundColor = UIColor.clearColor;
         _lineEchartsView.borderColor = UIColor.clearColor;
-    //    self.echartsView.drawGridBackgroundEnabled = NO;
         _lineEchartsView.legend.enabled = YES;
         [_lineEchartsView animateWithXAxisDuration:1];
                 
@@ -127,14 +126,14 @@
 - (BarChartView *)barEchartsView{
     if (!_barEchartsView) {
         _barEchartsView = [[BarChartView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 222)];
-        [_barEchartsView setExtraOffsetsWithLeft:10 top:10 right:10 bottom:10];
+//        [_barEchartsView setExtraOffsetsWithLeft:10 top:10 right:10 bottom:10];
             //开启border
-        _barEchartsView.drawBordersEnabled = YES;
+        _barEchartsView.drawBordersEnabled = true;
         _barEchartsView.borderLineWidth = .5f;
-        _barEchartsView.borderColor = UIColor.blackColor;
+        _barEchartsView.borderColor = [UIColor colorWithHexString:@"#999999"];
             //设置背景
         _barEchartsView.drawGridBackgroundEnabled = NO;
-        _barEchartsView.gridBackgroundColor = [UIColor grayColor];
+        _barEchartsView.gridBackgroundColor = [UIColor clearColor];
             //无内容显示
         _barEchartsView.noDataText = @"";
             //关闭描述
@@ -152,7 +151,7 @@
         _barEchartsView.pinchZoomEnabled = NO;  //手势捏合
         _barEchartsView.dragEnabled = YES;
         _barEchartsView.dragDecelerationFrictionCoef = 0.5;  //0 1 惯性
-        
+        _barEchartsView.fitBars = true;
         
 //    //    self.echartsView.dragDecelerationEnabled = true;
 //    //    self.echartsView.dragDecelerationFrictionCoef = 0.9;
@@ -174,11 +173,11 @@
         xAxis.labelFont = [UIFont systemFontOfSize:10];
         xAxis.labelTextColor = UIColor.whiteColor;
         xAxis.labelTextColor = [UIColor whiteColor];
-        xAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];
+//        xAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];
         xAxis.gridColor = [UIColor clearColor];
         xAxis.drawAxisLineEnabled = false;
-        xAxis.drawGridLinesEnabled = true;
-        xAxis.centerAxisLabelsEnabled = true;
+//        xAxis.drawGridLinesEnabled = true;
+//        xAxis.centerAxisLabelsEnabled = true;
         xAxis.labelCount = 6;
         
         ChartYAxis *leftAxis = _barEchartsView.leftAxis;// 获取左边 Y 轴
@@ -191,6 +190,7 @@
         leftAxis.labelFont = [UIFont systemFontOfSize:10.0f]; // 不强制绘制指定数量的 label
         _barEchartsView.chartDescription.enabled = NO;// 设置折线图描述
         _barEchartsView.legend.enabled = NO; // 设置折线图图例
+        _barEchartsView.hidden = true;
     }
     return _barEchartsView;
 }
@@ -231,7 +231,7 @@
 - (void)formatEcharsArrayForIndex:(NSInteger)index{
     NSMutableArray * xArray = [[NSMutableArray alloc] init];
     NSMutableArray * yArray = [[NSMutableArray alloc] init];
-    NSInteger scopeType = 0;
+    NSInteger scopeType = 1;
     for (int i=0; i<self.dataArray.count; i++) {
         NSDictionary * dict = self.dataArray[i];
         NSDictionary * item = dict[@"nodeVo"];
@@ -253,7 +253,8 @@
     }
     self.xArray = xArray;
     self.yArray = yArray;
-    
+//    self.xArray = @[@"1",@"2",@"3",@"4"];
+//    self.yArray = @[@"33",@"29",@"58",@"30",];
     if (scopeType == 0) {
         self.lineEchartsView.hidden = true;
         self.barEchartsView.hidden = false;
@@ -279,10 +280,10 @@
         self.lineEchartsView.hidden = false;
         self.barEchartsView.hidden = true;
         [self.lineEchartsView setScaleMinima:xArray.count/20 scaleY:1];
-        self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
+        self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:self.xArray];
         NSMutableArray<ChartDataEntry*> * array = [[NSMutableArray alloc] init];
-        for (int i=0; i<yArray.count; i++) {
-            double value = [yArray[i] doubleValue];
+        for (int i=0; i<self.yArray.count; i++) {
+            double value = [self.yArray[i] doubleValue];
             ChartDataEntry * entry = [[ChartDataEntry alloc] initWithX:(double)i y:value];
             [array addObject:entry];
         }
@@ -293,15 +294,15 @@
         set.circleRadius = 0;
         set.circleHoleRadius = 0;
         set.cubicIntensity = 0.2;
+        set.drawFilledEnabled = true;
+        set.fillColor = [UIColor colorWithHexString:@"#F7B500"];
+        set.fillAlpha = 0.3;
         [set setColor:[UIColor colorWithHexString:@"#F7B500"]];
         set.mode = LineChartModeCubicBezier;
         set.drawValuesEnabled = true;
         LineChartData *data = [[LineChartData alloc] initWithDataSets:@[set]];
         self.lineEchartsView.data = data;
     }
-    
-    
-    
 }
 
 //- (PYOption *)getRideDetailLineOptionWithTimeArray:(NSArray *)dataArray
