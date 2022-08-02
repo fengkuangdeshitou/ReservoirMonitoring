@@ -31,6 +31,8 @@
 @property(nonatomic,strong) NSArray * highlight;
 @property(nonatomic,strong) NSArray * xArray;
 @property(nonatomic,strong) NSArray * yArray;
+@property(nonatomic,strong) BalloonMarker *marker;
+@property(nonatomic,assign) NSInteger selectFlag;
 
 @end
 
@@ -57,7 +59,7 @@
         _lineEchartsView.chartDescription.enabled = false;
     //    self.echartsView.dragEnabled = false;
         _lineEchartsView.doubleTapToZoomEnabled = NO;
-    //    [self.echartsView setScaleEnabled:true];
+        _lineEchartsView.noDataText = @"No chart data";
         _lineEchartsView.pinchZoomEnabled = true;
         _lineEchartsView.scaleYEnabled = false;
         _lineEchartsView.drawGridBackgroundEnabled = true;
@@ -109,65 +111,48 @@
         
         _lineEchartsView.rightAxis.enabled = false;
         
-        BalloonMarker *marker = [[BalloonMarker alloc]
+        self.marker = [[BalloonMarker alloc]
                                  initWithColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR]
                                  font:[UIFont systemFontOfSize:12.0]
                                  textColor:UIColor.whiteColor
-                                 insets:UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0)];
-        marker.chartView = _lineEchartsView;
-        marker.minimumSize = CGSizeMake(60.f, 60.f);
-        marker.arrowSize = CGSizeMake(10, 10);
-        _lineEchartsView.marker = marker;
+                                 insets:UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0)
+                                 scopeType:self.scopeType];
+        self.marker.chartView = _lineEchartsView;
+        self.marker.minimumSize = CGSizeMake(60.f, 60.f);
+        self.marker.arrowSize = CGSizeMake(10, 10);
+        _lineEchartsView.marker = self.marker;
         _lineEchartsView.legend.form = ChartLegendFormLine;
         [_lineEchartsView setScaleMinima:1 scaleY:1];
     }
     return _lineEchartsView;
 }
 
+- (void)setScopeType:(NSInteger)scopeType{
+    _scopeType = scopeType;
+    self.marker.scopeType = scopeType;
+}
+
 - (BarChartView *)barEchartsView{
     if (!_barEchartsView) {
         _barEchartsView = [[BarChartView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 222)];
-//        [_barEchartsView setExtraOffsetsWithLeft:10 top:10 right:10 bottom:10];
-            //开启border
         _barEchartsView.drawBordersEnabled = true;
         _barEchartsView.borderLineWidth = .5f;
         _barEchartsView.borderColor = [UIColor colorWithHexString:@"#999999"];
-            //设置背景
         _barEchartsView.drawGridBackgroundEnabled = NO;
         _barEchartsView.gridBackgroundColor = [UIColor clearColor];
-            //无内容显示
-        _barEchartsView.noDataText = @"";
-            //关闭描述
+        _barEchartsView.noDataText = @"No chart data";
         _barEchartsView.chartDescription.enabled = NO;
-//        _barEchartsView.chartDescription.text = @"tiny`s barChart demo";
-            //关闭图例
-        _barEchartsView.legend.enabled = NO;
-            //缩放
+        _barEchartsView.legend.enabled = false;
         _barEchartsView.doubleTapToZoomEnabled = false;
         _barEchartsView.scaleXEnabled = NO;
         _barEchartsView.scaleYEnabled = NO;
         _barEchartsView.autoScaleMinMaxEnabled = NO;
-        _barEchartsView.highlightPerTapEnabled = NO;
-        _barEchartsView.highlightPerDragEnabled = NO;
+        _barEchartsView.highlightPerTapEnabled = true;
+        _barEchartsView.highlightPerDragEnabled = true;
         _barEchartsView.pinchZoomEnabled = NO;  //手势捏合
         _barEchartsView.dragEnabled = YES;
         _barEchartsView.dragDecelerationFrictionCoef = 0.5;  //0 1 惯性
         _barEchartsView.fitBars = true;
-        
-//    //    self.echartsView.dragDecelerationEnabled = true;
-//    //    self.echartsView.dragDecelerationFrictionCoef = 0.9;
-//        _barEchartsView.chartDescription.enabled = false;
-//    //    self.echartsView.dragEnabled = false;
-//    //    [self.echartsView setScaleEnabled:true];
-//        _barEchartsView.pinchZoomEnabled = true;
-//        _barEchartsView.scaleYEnabled = false;
-//    //    self.echartsView.drawGridBackgroundEnabled = false;
-//        _barEchartsView.highlightPerDragEnabled = true;
-//        _barEchartsView.gridBackgroundColor = UIColor.clearColor;
-//        _barEchartsView.borderColor = UIColor.clearColor;
-//    //    self.echartsView.drawGridBackgroundEnabled = NO;
-//        _barEchartsView.legend.enabled = YES;
-//        [_barEchartsView animateWithXAxisDuration:1];
         
         ChartXAxis * xAxis = _barEchartsView.xAxis;
         xAxis.labelPosition = XAxisLabelPositionBottom;
@@ -190,15 +175,27 @@
         leftAxis.labelTextColor = [UIColor whiteColor]; // label 文字颜色
         leftAxis.labelFont = [UIFont systemFontOfSize:10.0f]; // 不强制绘制指定数量的 label
         _barEchartsView.chartDescription.enabled = NO;// 设置折线图描述
-        _barEchartsView.legend.enabled = NO; // 设置折线图图例
+//        _barEchartsView.legend.enabled = NO; // 设置折线图图例
+        _barEchartsView.drawValueAboveBarEnabled = true;
         _barEchartsView.hidden = true;
+        XYMarkerView *marker = [[XYMarkerView alloc]
+                                      initWithColor: [UIColor colorWithHexString:COLOR_MAIN_COLOR]
+                                      font: [UIFont systemFontOfSize:12.0]
+                                      textColor: UIColor.whiteColor
+                                      insets: UIEdgeInsetsMake(8.0, 8.0, 20.0, 8.0)
+                                      ];
+        marker.chartView = _barEchartsView;
+        marker.minimumSize = CGSizeMake(80.f, 40.f);
+        _barEchartsView.marker = marker;
     }
+    
     return _barEchartsView;
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.selectFlag = 0;
     self.energyTitle.text = @"Energy curve".localized;
     self.titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV",@"Non-backup".localized,@"Backup loads".localized];
     self.independence.text = @"Self reliable:".localized;
@@ -226,7 +223,7 @@
 
 - (void)setDataArray:(NSArray *)dataArray{
     _dataArray = dataArray;
-    [self formatEcharsArrayForIndex:0];
+    [self formatEcharsArrayForIndex:self.selectFlag];
 }
 
 - (void)formatEcharsArrayForIndex:(NSInteger)index{
@@ -271,10 +268,9 @@
         [set setColors:@[[UIColor colorWithHexString:@"#F7B500"]]];
         //显示柱图值并格式化
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-//        numberFormatter.positiveSuffix = @"分";
         ChartDefaultValueFormatter *formatter = [[ChartDefaultValueFormatter alloc] initWithFormatter:numberFormatter];
         [set setValueFormatter:formatter];
-        set.highlightEnabled = NO;
+        set.highlightColor = UIColor.clearColor;
         BarChartData *data = [[BarChartData alloc] initWithDataSet:set];
         self.barEchartsView.data = data;
     }else{
@@ -297,7 +293,7 @@
         set.cubicIntensity = 0.2;
         set.drawFilledEnabled = true;
         set.fillColor = [UIColor colorWithHexString:@"#F7B500"];
-        set.fillAlpha = 0.3;
+        set.fillAlpha = 0.75;
         [set setColor:[UIColor colorWithHexString:@"#F7B500"]];
         set.mode = LineChartModeCubicBezier;
         set.drawValuesEnabled = true;
@@ -478,14 +474,15 @@
 //}
 
 - (void)buttonClick:(UIButton *)btn{
+    self.selectFlag = btn.tag-10;
     for (int i=0;i<self.normal.count;i++) {
         UIButton * button = [self.titleView viewWithTag:i+10];
         button.backgroundColor = UIColor.clearColor;
         [button setImage:[UIImage imageNamed:self.normal[i]] forState:UIControlStateNormal];
     }
-    [btn setImage:[UIImage imageNamed:self.highlight[btn.tag-10]] forState:UIControlStateNormal];
-    self.current.text = self.titleArray[btn.tag-10];
-    [self formatEcharsArrayForIndex:btn.tag-10];
+    [btn setImage:[UIImage imageNamed:self.highlight[self.selectFlag]] forState:UIControlStateNormal];
+    self.current.text = self.titleArray[self.selectFlag];
+    [self formatEcharsArrayForIndex:self.selectFlag];
 }
 
 @end

@@ -23,18 +23,20 @@ open class BalloonMarker: MarkerImage
     @objc open var textColor: UIColor
     @objc open var insets: UIEdgeInsets
     @objc open var minimumSize = CGSize()
+    @objc open var scopeType:NSInteger = 1
     
     fileprivate var label: String?
     fileprivate var _labelSize: CGSize = CGSize()
     fileprivate var _paragraphStyle: NSMutableParagraphStyle?
     fileprivate var _drawAttributes = [NSAttributedString.Key : Any]()
     
-    @objc public init(color: UIColor, font: UIFont, textColor: UIColor, insets: UIEdgeInsets)
+    @objc public init(color: UIColor, font: UIFont, textColor: UIColor, insets: UIEdgeInsets , scopeType:Int)
     {
         self.color = color
         self.font = font
         self.textColor = textColor
         self.insets = insets
+        self.scopeType = scopeType
         
         _paragraphStyle = NSParagraphStyle.default.mutableCopy() as? NSMutableParagraphStyle
         _paragraphStyle?.alignment = .center
@@ -185,7 +187,11 @@ open class BalloonMarker: MarkerImage
     
     open override func refreshContent(entry: ChartDataEntry, highlight: Highlight)
     {
-        setLabel(String("X:" + String(entry.x) + "\n" + "Y:" + String(entry.y)))
+        if self.scopeType == 1 {
+            setLabel(String("Time:" + String(entry.x) + "\n" + "Data:" + String(entry.y) + "kW"))
+        }else{
+            setLabel(String("Time:" + String(entry.x) + "\n" + "Data:" + String(entry.y) + "KwH"))
+        }
     }
     
     @objc open func setLabel(_ newLabel: String)

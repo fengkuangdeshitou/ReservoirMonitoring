@@ -22,6 +22,7 @@
 @property(nonatomic,strong) NSString * devId;
 @property(nonatomic,strong) DevideModel * model;
 @property(nonatomic,strong) NSArray * data;
+@property(nonatomic,assign) NSInteger scopeType;
 
 @end
 
@@ -79,6 +80,7 @@
 }
 
 - (void)getDataWithScopeType:(NSInteger)scopeType{
+    self.scopeType = scopeType;
     /// 0-全部 1-天 2-月 3-年
     NSDate * date = [NSDate date];
     NSString * startDateTime = @"";
@@ -90,7 +92,7 @@
         startDateTime = [NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year,date.br_month,date.br_day];
     }
     NSString * currentDateTime = [NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year,date.br_month,date.br_day];
-    [Request.shareInstance getUrl:QueryDataElectricity params:@{@"devId":self.devId,@"scopeType":[NSString stringWithFormat:@"%ld",scopeType],@"currentDateTime":currentDateTime,@"startDateTime":startDateTime,@"test":currentDateTime} progress:^(float progress) {
+    [Request.shareInstance getUrl:QueryDataElectricity params:@{@"devId":self.devId,@"scopeType":[NSString stringWithFormat:@"%ld",scopeType],@"currentDateTime":currentDateTime,@"startDateTime":startDateTime} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         self.model = [DevideModel mj_objectWithKeyValues:result[@"data"]];
@@ -105,7 +107,7 @@
 }
 
 - (void)getEcharsDataWithScopeType:(NSInteger)scopeType currentDateTime:(NSString *)currentDateTime startDateTime:(NSString *)startDateTime{
-    [Request.shareInstance getUrl:QueryDataGraph params:@{@"devId":self.devId,@"scopeType":[NSString stringWithFormat:@"%ld",scopeType],@"currentDateTime":currentDateTime,@"startDateTime":startDateTime,@"test":currentDateTime} progress:^(float progress) {
+    [Request.shareInstance getUrl:QueryDataGraph params:@{@"devId":self.devId,@"scopeType":[NSString stringWithFormat:@"%ld",scopeType],@"currentDateTime":currentDateTime,@"startDateTime":startDateTime} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         self.data = result[@"data"];
@@ -132,6 +134,7 @@
         cell.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",self.model.selfHelpRate] stringByAppendingString:@"%"];
         cell.treeNum.text = [NSString stringWithFormat:@"%.1f",self.model.treeNum];
         cell.coalValue.text = [NSString stringWithFormat:@"%.0f",self.model.coal];
+        cell.scopeType = self.scopeType;
         return cell;
     }
 }
