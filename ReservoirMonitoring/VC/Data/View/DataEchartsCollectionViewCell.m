@@ -119,6 +119,7 @@
         marker.arrowSize = CGSizeMake(10, 10);
         _lineEchartsView.marker = marker;
         _lineEchartsView.legend.form = ChartLegendFormLine;
+        [_lineEchartsView setScaleMinima:1 scaleY:1];
     }
     return _lineEchartsView;
 }
@@ -178,12 +179,12 @@
         xAxis.drawAxisLineEnabled = false;
 //        xAxis.drawGridLinesEnabled = true;
 //        xAxis.centerAxisLabelsEnabled = true;
-        xAxis.labelCount = 6;
+//        xAxis.labelCount = 6;
         
         ChartYAxis *leftAxis = _barEchartsView.leftAxis;// 获取左边 Y 轴
         leftAxis.inverted = NO; // 是否将 Y 轴进行上下翻转
         leftAxis.axisLineWidth = 0;// 设置 Y 轴线宽
-        leftAxis.labelCount = 6;
+//        leftAxis.labelCount = 6;
         leftAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];// 设置 Y 轴颜色
         leftAxis.labelPosition = YAxisLabelPositionOutsideChart;// label 文字位置 YAxisLabelPositionInsideChart:在里面，YAxisLabelPositionOutsideChart:在外面
         leftAxis.labelTextColor = [UIColor whiteColor]; // label 文字颜色
@@ -266,7 +267,7 @@
             [array addObject:entry];
         }
         //set
-        BarChartDataSet *set = [[BarChartDataSet alloc] initWithEntries:array label:@"Bar DataSet"];
+        BarChartDataSet *set = [[BarChartDataSet alloc] initWithEntries:array label:@""];
         [set setColors:@[[UIColor colorWithHexString:@"#F7B500"]]];
         //显示柱图值并格式化
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
@@ -279,12 +280,12 @@
     }else{
         self.lineEchartsView.hidden = false;
         self.barEchartsView.hidden = true;
-        [self.lineEchartsView setScaleMinima:xArray.count/20 scaleY:1];
         self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:self.xArray];
         NSMutableArray<ChartDataEntry*> * array = [[NSMutableArray alloc] init];
         for (int i=0; i<self.yArray.count; i++) {
+            double index = i;
             double value = [self.yArray[i] doubleValue];
-            ChartDataEntry * entry = [[ChartDataEntry alloc] initWithX:(double)i y:value];
+            ChartDataEntry * entry = [[ChartDataEntry alloc] initWithX:index y:value];
             [array addObject:entry];
         }
         LineChartDataSet * set = [[LineChartDataSet alloc] initWithEntries:array label:@""];

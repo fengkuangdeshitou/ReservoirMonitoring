@@ -94,7 +94,7 @@
             
     } success:^(NSDictionary * _Nonnull result) {
         self.model = [DevideModel mj_objectWithKeyValues:result[@"data"]];
-        [self.titleArray replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"From grid:%.0f kWh",self.model.gridElectricityFrom]];
+        [self.titleArray replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"From grid:%@ kWh",@(self.model.gridElectricityFrom)]];
         self.valueArray = @[[NSString stringWithFormat:@"To grid:%@",@(self.model.gridElectricityTo)],@(self.model.solarElectricity),@(self.model.generatorElectricity),@(self.model.evElectricity),@(self.model.nonBackUpElectricity),@(self.model.backUpElectricity)];
         [self.refreshController endRefreshing];
         [self.collectionView reloadData];

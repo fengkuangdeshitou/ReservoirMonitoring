@@ -9,13 +9,14 @@
 #import "AFNetworking.h"
 @import MBProgressHUD;
 #import "GlobelDescAlertView.h"
+@import CoreTelephony;
 
 @interface Request ()
 
 @property(nonatomic,strong) AFHTTPSessionManager *manager;
 @property(nonatomic,strong) NSMutableDictionary *headers;
 @property(nonatomic,strong) MBProgressHUD *hud;
-
+@property(nonatomic,strong) CTCellularData * cellularData;
 @end
 
 @implementation Request
@@ -41,6 +42,13 @@ static Request * _request = nil;
     _hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
     [UIApplication.sharedApplication.keyWindow addSubview:_hud];
     return _hud;
+}
+
+- (CTCellularData *)cellularData{
+    if (!_cellularData) {
+        _cellularData = [[CTCellularData alloc] init];
+    }
+    return _cellularData;
 }
 
 - (NSMutableDictionary *)headers{
@@ -88,11 +96,33 @@ static Request * _request = nil;
         NSLog(@"err=%@",error);
 //        [RMHelper showToast:error.description toView:RMHelper.getCurrentVC.view];
         [self.hud hideAnimated:true];
-        [GlobelDescAlertView showAlertViewWithTitle:@"Network connection failure" desc:@"Checking Network Connections" btnTitle:@"Open" completion:^{
-            [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:^(BOOL success) {
-                            
-            }];
-        }];
+        self.cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState restrictedState){
+            switch (restrictedState) {
+                case kCTCellularDataRestrictedStateUnknown:
+//                    NSLog(@"蜂窝移动网络状态：未知");
+                    [GlobelDescAlertView showAlertViewWithTitle:@"Network connection failure" desc:@"Checking Network Connections" btnTitle:@"Open" completion:^{
+                        [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:^(BOOL success) {
+                                        
+                        }];
+                    }];
+                    break;
+                case kCTCellularDataRestricted:
+//                        NSLog(@"蜂窝移动网络状态：关闭");
+                [GlobelDescAlertView showAlertViewWithTitle:@"Network connection failure" desc:@"Checking Network Connections" btnTitle:@"Open" completion:^{
+                    [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:^(BOOL success) {
+                                    
+                    }];
+                }];
+                    break;
+                case kCTCellularDataNotRestricted:
+//                    NSLog(@"蜂窝移动网络状态：开启");
+                    [RMHelper showToast:error.description toView:RMHelper.getCurrentVC.view];
+                    break;
+
+                default:
+                    break;
+            }
+        };
     }];
 }
 
