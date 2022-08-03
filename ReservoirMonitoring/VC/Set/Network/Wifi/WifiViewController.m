@@ -165,7 +165,7 @@
                     [RMHelper showToast:wifi toView:weakSelf.view];
                     [weakSelf.view hiddenHUD];
                 });
-            }else if ([wifi isEqualToString:@"ap_not_found"]){
+            }else if ([wifi isEqualToString:@"ap_no_found"]){
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf removeTimeAction];
                     [RMHelper showToast:wifi toView:weakSelf.view];

@@ -85,9 +85,29 @@
     NSDate * date = [NSDate date];
     NSString * startDateTime = @"";
     if (scopeType == 2){
-        startDateTime = [NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year,date.br_month-1,date.br_day];
+        NSDate *currentDate = [NSDate date];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd"];
+        
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDateComponents *lastMonthComps = [[NSDateComponents alloc] init];
+        [lastMonthComps setMonth:-1];
+        [lastMonthComps setDay:1];
+        NSDate *newdate = [calendar dateByAddingComponents:lastMonthComps toDate:currentDate options:0];
+        NSString *dateStr = [formatter stringFromDate:newdate];
+        startDateTime = dateStr;
     }else if (scopeType == 3){
-        startDateTime = [NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year-1,date.br_month,date.br_day];
+        NSDate *currentDate = [NSDate date];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd"];
+        
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDateComponents *lastMonthComps = [[NSDateComponents alloc] init];
+        [lastMonthComps setYear:-1];
+        [lastMonthComps setMonth:1];
+        NSDate *newdate = [calendar dateByAddingComponents:lastMonthComps toDate:currentDate options:0];
+        NSString *dateStr = [formatter stringFromDate:newdate];
+        startDateTime = dateStr;
     }else{
         startDateTime = [NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year,date.br_month,date.br_day];
     }
@@ -132,8 +152,8 @@
         cell.time = self.titleView.selectedIndex;
         cell.dataArray = self.data;
         cell.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",self.model.selfHelpRate] stringByAppendingString:@"%"];
-        cell.treeNum.text = [NSString stringWithFormat:@"%.1f",self.model.treeNum];
-        cell.coalValue.text = [NSString stringWithFormat:@"%.0f",self.model.coal];
+        cell.treeNum.text = [NSString stringWithFormat:@"%.0f",self.model.treeNum];
+        cell.coalValue.text = [NSString stringWithFormat:@"%.1f",self.model.coal];
         cell.scopeType = self.scopeType;
         return cell;
     }

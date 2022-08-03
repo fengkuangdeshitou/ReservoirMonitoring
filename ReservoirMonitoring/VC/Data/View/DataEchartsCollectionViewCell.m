@@ -29,8 +29,6 @@
 @property(nonatomic,strong) NSArray * titleArray;
 @property(nonatomic,strong) NSArray * normal;
 @property(nonatomic,strong) NSArray * highlight;
-@property(nonatomic,strong) NSArray * xArray;
-@property(nonatomic,strong) NSArray * yArray;
 @property(nonatomic,strong) BalloonMarker *marker;
 @property(nonatomic,assign) NSInteger selectFlag;
 
@@ -53,22 +51,26 @@
 
 - (LineChartView *)lineEchartsView{
     if (!_lineEchartsView) {
-        _lineEchartsView = [[LineChartView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 222)];
+        _lineEchartsView = [[LineChartView alloc] initWithFrame:CGRectMake(0, 5, SCREEN_WIDTH, 210)];
     //    self.echartsView.dragDecelerationEnabled = true;
     //    self.echartsView.dragDecelerationFrictionCoef = 0.9;
         _lineEchartsView.chartDescription.enabled = false;
     //    self.echartsView.dragEnabled = false;
         _lineEchartsView.doubleTapToZoomEnabled = NO;
         _lineEchartsView.noDataText = @"No chart data";
+        _lineEchartsView.noDataTextColor = [UIColor colorWithHexString:@"#F7B500"];
         _lineEchartsView.pinchZoomEnabled = true;
         _lineEchartsView.scaleYEnabled = false;
         _lineEchartsView.drawGridBackgroundEnabled = true;
         _lineEchartsView.highlightPerDragEnabled = true;
         _lineEchartsView.gridBackgroundColor = UIColor.clearColor;
-        _lineEchartsView.borderColor = UIColor.clearColor;
-        _lineEchartsView.legend.enabled = YES;
+        _lineEchartsView.drawBordersEnabled = true;
+        _lineEchartsView.borderLineWidth = 0;
+        _lineEchartsView.borderColor = [UIColor colorWithHexString:@"#999999"];
+        _lineEchartsView.legend.enabled = false;
         [_lineEchartsView animateWithXAxisDuration:1];
-                
+        _lineEchartsView.extraBottomOffset = 5;
+    
         ChartXAxis * xAxis = _lineEchartsView.xAxis;
         xAxis.labelPosition = XAxisLabelPositionBottom;
         xAxis.labelFont = [UIFont systemFontOfSize:10];
@@ -79,6 +81,7 @@
         xAxis.drawAxisLineEnabled = false;
         xAxis.drawGridLinesEnabled = true;
         xAxis.centerAxisLabelsEnabled = true;
+        xAxis.yOffset = 10;
         
         ChartYAxis *leftAxis = _lineEchartsView.leftAxis;// 获取左边 Y 轴
         leftAxis.inverted = NO; // 是否将 Y 轴进行上下翻转
@@ -134,34 +137,37 @@
 
 - (BarChartView *)barEchartsView{
     if (!_barEchartsView) {
-        _barEchartsView = [[BarChartView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 222)];
+        _barEchartsView = [[BarChartView alloc] initWithFrame:CGRectMake(0, 5, SCREEN_WIDTH, 210)];
         _barEchartsView.drawBordersEnabled = true;
-        _barEchartsView.borderLineWidth = .5f;
-        _barEchartsView.borderColor = [UIColor colorWithHexString:@"#999999"];
+        _barEchartsView.borderLineWidth = 0;
         _barEchartsView.drawGridBackgroundEnabled = NO;
         _barEchartsView.gridBackgroundColor = [UIColor clearColor];
         _barEchartsView.noDataText = @"No chart data";
+        _barEchartsView.noDataTextColor = [UIColor colorWithHexString:@"#F7B500"];
         _barEchartsView.chartDescription.enabled = NO;
         _barEchartsView.legend.enabled = false;
         _barEchartsView.doubleTapToZoomEnabled = false;
-        _barEchartsView.scaleXEnabled = NO;
-        _barEchartsView.scaleYEnabled = NO;
-        _barEchartsView.autoScaleMinMaxEnabled = NO;
+        _barEchartsView.scaleXEnabled = false;
+        _barEchartsView.scaleYEnabled = false;
+        _barEchartsView.autoScaleMinMaxEnabled = false;
         _barEchartsView.highlightPerTapEnabled = true;
         _barEchartsView.highlightPerDragEnabled = true;
         _barEchartsView.pinchZoomEnabled = NO;  //手势捏合
         _barEchartsView.dragEnabled = YES;
         _barEchartsView.dragDecelerationFrictionCoef = 0.5;  //0 1 惯性
         _barEchartsView.fitBars = true;
+        _barEchartsView.chartDescription.enabled = NO;// 设置折线图描述
+        _barEchartsView.drawValueAboveBarEnabled = YES;
+        _barEchartsView.extraBottomOffset = 5;
         
         ChartXAxis * xAxis = _barEchartsView.xAxis;
         xAxis.labelPosition = XAxisLabelPositionBottom;
         xAxis.labelFont = [UIFont systemFontOfSize:10];
         xAxis.labelTextColor = UIColor.whiteColor;
-        xAxis.labelTextColor = [UIColor whiteColor];
-//        xAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];
+////        xAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];
         xAxis.gridColor = [UIColor clearColor];
         xAxis.drawAxisLineEnabled = false;
+        xAxis.yOffset = 10;
 //        xAxis.drawGridLinesEnabled = true;
 //        xAxis.centerAxisLabelsEnabled = true;
 //        xAxis.labelCount = 6;
@@ -169,23 +175,22 @@
         ChartYAxis *leftAxis = _barEchartsView.leftAxis;// 获取左边 Y 轴
         leftAxis.inverted = NO; // 是否将 Y 轴进行上下翻转
         leftAxis.axisLineWidth = 0;// 设置 Y 轴线宽
-//        leftAxis.labelCount = 6;
+        leftAxis.spaceTop = 0.9;
         leftAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];// 设置 Y 轴颜色
-        leftAxis.labelPosition = YAxisLabelPositionOutsideChart;// label 文字位置 YAxisLabelPositionInsideChart:在里面，YAxisLabelPositionOutsideChart:在外面
+        leftAxis.labelPosition = YAxisLabelPositionOutsideChart;// label 文字位置
         leftAxis.labelTextColor = [UIColor whiteColor]; // label 文字颜色
         leftAxis.labelFont = [UIFont systemFontOfSize:10.0f]; // 不强制绘制指定数量的 label
-        _barEchartsView.chartDescription.enabled = NO;// 设置折线图描述
-//        _barEchartsView.legend.enabled = NO; // 设置折线图图例
-        _barEchartsView.drawValueAboveBarEnabled = true;
+        
+        _barEchartsView.rightAxis.enabled = false;
         _barEchartsView.hidden = true;
         XYMarkerView *marker = [[XYMarkerView alloc]
-                                      initWithColor: [UIColor colorWithHexString:COLOR_MAIN_COLOR]
+                                      initWithColor: [UIColor clearColor]
                                       font: [UIFont systemFontOfSize:12.0]
                                       textColor: UIColor.whiteColor
-                                      insets: UIEdgeInsetsMake(8.0, 8.0, 20.0, 8.0)
+                                      insets: UIEdgeInsetsMake(0, 0, 0, 0)
                                       ];
         marker.chartView = _barEchartsView;
-        marker.minimumSize = CGSizeMake(80.f, 40.f);
+        marker.minimumSize = CGSizeMake(40.f, 20.f);
         _barEchartsView.marker = marker;
     }
     
@@ -249,18 +254,15 @@
             [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"backUpPower"] : item[@"backUpElectricity"]]];
         }
     }
-    self.xArray = xArray;
-    self.yArray = yArray;
 //    self.xArray = @[@"1",@"2",@"3",@"4"];
 //    self.yArray = @[@"33",@"29",@"58",@"30",];
     if (scopeType == 0) {
         self.lineEchartsView.hidden = true;
         self.barEchartsView.hidden = false;
-        [self.barEchartsView setVisibleXRangeMinimum:6];
 
         NSMutableArray *array = [NSMutableArray array];
-        for (int i = 0; i < self.xArray.count; i++) {
-            BarChartDataEntry *entry = [[BarChartDataEntry alloc] initWithX:[self.xArray[i] integerValue] y:[self.yArray[i] integerValue]];
+        for (int i = 0; i < xArray.count; i++) {
+            BarChartDataEntry *entry = [[BarChartDataEntry alloc] initWithX:[xArray[i] integerValue] y:[yArray[i] integerValue]];
             [array addObject:entry];
         }
         //set
@@ -273,14 +275,18 @@
         set.highlightColor = UIColor.clearColor;
         BarChartData *data = [[BarChartData alloc] initWithDataSet:set];
         self.barEchartsView.data = data;
+        [self.barEchartsView setScaleMinima:1 scaleY:0];
+        [self.barEchartsView setVisibleXRangeMinimum:6];
+        [self.barEchartsView notifyDataSetChanged];
+        [self.barEchartsView.data notifyDataChanged];
     }else{
         self.lineEchartsView.hidden = false;
         self.barEchartsView.hidden = true;
-        self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:self.xArray];
+        self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
         NSMutableArray<ChartDataEntry*> * array = [[NSMutableArray alloc] init];
-        for (int i=0; i<self.yArray.count; i++) {
+        for (int i=0; i<yArray.count; i++) {
             double index = i;
-            double value = [self.yArray[i] doubleValue];
+            double value = [yArray[i] doubleValue];
             ChartDataEntry * entry = [[ChartDataEntry alloc] initWithX:index y:value];
             [array addObject:entry];
         }
@@ -299,6 +305,8 @@
         set.drawValuesEnabled = true;
         LineChartData *data = [[LineChartData alloc] initWithDataSets:@[set]];
         self.lineEchartsView.data = data;
+        [self.lineEchartsView notifyDataSetChanged];
+        [self.lineEchartsView.data notifyDataChanged];
     }
 }
 
