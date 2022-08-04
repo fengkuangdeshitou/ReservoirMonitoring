@@ -262,7 +262,7 @@
 
         NSMutableArray *array = [NSMutableArray array];
         for (int i = 0; i < xArray.count; i++) {
-            BarChartDataEntry *entry = [[BarChartDataEntry alloc] initWithX:[xArray[i] integerValue] y:[yArray[i] integerValue]];
+            BarChartDataEntry *entry = [[BarChartDataEntry alloc] initWithX:[xArray[i] doubleValue] y:[yArray[i] doubleValue]];
             [array addObject:entry];
         }
         //set

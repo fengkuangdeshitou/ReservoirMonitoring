@@ -170,6 +170,34 @@
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"514" count:1 finish:^(NSArray * array){
+            [self showCmd:@"514" message:array];
+            self.model.gridLight = [array.firstObject integerValue];
+            dispatch_semaphore_signal(semaphore);
+        }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"630" count:1 finish:^(NSArray * array){
+            [self showCmd:@"630" message:array];
+            self.model.generatorLight = [array.firstObject integerValue];
+            dispatch_semaphore_signal(semaphore);
+        }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"62D" count:1 finish:^(NSArray * array){
+            [self showCmd:@"62D" message:array];
+            self.model.evLight = [array.firstObject integerValue];
+            dispatch_semaphore_signal(semaphore);
+        }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"625" count:1 finish:^(NSArray * array){
+            [self showCmd:@"625" message:array];
+            self.model.backUpType = array.firstObject;
+            dispatch_semaphore_signal(semaphore);
+        }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"515" count:2 finish:^(NSArray * array){
             [self showCmd:@"515" message:array];
             self.model.batterySoc = array.firstObject;

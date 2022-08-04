@@ -23,7 +23,7 @@ open class XYMarkerView: BalloonMarker
     
     open override func refreshContent(entry: ChartDataEntry, highlight: Highlight)
     {
-        setLabel(String(entry.y)+"kWh")
+        setLabel(String(format:"%.2f",entry.y)+"kWh")
     }
     
 }

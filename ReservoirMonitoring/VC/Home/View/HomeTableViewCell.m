@@ -149,29 +149,35 @@
         if ([view isKindOfClass:[HomeItemView class]]) {
             HomeItemView * itemView = (HomeItemView *)view;
             if (itemView.tag == 10) {
+                BOOL value = BleManager.shareInstance.isConnented ? model.gridLight == 1 : [model.isOnline boolValue] && model.gridLight == 1;
                 itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.gridElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:[self formatPower:model.gridPower]?COLOR_MAIN_COLOR:@"#747474"];
-                itemView.statusButton.selected = [self formatPower:model.gridPower];
+                itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
+                itemView.statusButton.selected = value;
             }else if (itemView.tag == 11) {
+                BOOL value = [model.isOnline boolValue];
                 itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.solarElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:[self formatPower:model.solarPower]?COLOR_MAIN_COLOR:@"#747474"];
-                itemView.statusButton.selected = [self formatPower:model.solarPower];
+                itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
+                itemView.statusButton.selected = value;
             }else if (itemView.tag == 12) {
+                BOOL value = BleManager.shareInstance.isConnented ? model.generatorLight == 1 : [model.isOnline boolValue] && model.generatorLight == 1;
                 itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.generatorElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:[self formatPower:model.generatorPower]?COLOR_MAIN_COLOR:@"#747474"];
-                itemView.statusButton.selected = [self formatPower:model.generatorPower];
+                itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
+                itemView.statusButton.selected = value;
             }else if (itemView.tag == 13) {
+                BOOL value = BleManager.shareInstance.isConnented ? model.evLight == 2 : [model.isOnline boolValue] && model.evLight == 2;
                 itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.evElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:[self formatPower:model.evPower]?COLOR_MAIN_COLOR:@"#747474"];
-                itemView.statusButton.selected = [self formatPower:model.evPower];
+                itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
+                itemView.statusButton.selected = value;
             }else if (itemView.tag == 14) {
+                BOOL value = BleManager.shareInstance.isConnented ? model.backUpType.intValue == 0 : [model.isOnline boolValue] && model.backUpType.intValue == 0;
                 itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.nonBackUpElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:[self formatPower:model.nonBackUpPower]?COLOR_MAIN_COLOR:@"#747474"];
-                itemView.statusButton.selected = [self formatPower:model.nonBackUpPower];
+                itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
+                itemView.statusButton.selected = value;
             }else{
+                BOOL value = [model.isOnline boolValue];
                 itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.backUpElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:[self formatPower:model.backUpPower]?COLOR_MAIN_COLOR:@"#747474"];
-                itemView.statusButton.selected = [self formatPower:model.backUpPower];
+                itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
+                itemView.statusButton.selected = value;
             }
         }
     }
