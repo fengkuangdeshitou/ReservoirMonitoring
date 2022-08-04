@@ -88,6 +88,9 @@ static Request * _request = nil;
         [self.hud hideAnimated:true];
         if (code.intValue == 200) {
             success(json);
+        }else if (code.intValue == 403) {
+            [NSUserDefaults.standardUserDefaults removeObjectForKey:@"token"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:LOG_OUT object:nil];
         }else{
             failure(json[@"message"]);
             [RMHelper showToast:json[@"message"] toView:UIApplication.sharedApplication.keyWindow];

@@ -511,7 +511,7 @@
         }];
     }else{
         [GlobelDescAlertView showAlertViewWithTitle:@"Clear" desc:@"Are you sure you want to clear the configuration" btnTitle:nil completion:^{
-            [Request.shareInstance postUrl:ClearTouMode params:@{@"devId":self.deviceId} progress:^(float progress) {
+            [Request.shareInstance getUrl:ClearTouMode params:@{@"devId":self.deviceId} progress:^(float progress) {
                                 
             } success:^(NSDictionary * _Nonnull result) {
                 [self.touArray removeAllObjects];
