@@ -52,7 +52,9 @@
                 [self getBluetoothData];
             }else{
                 [self getCurrentDevice:^(DevideModel *model) {
-                    [self getBluetoothData];
+                    if (model) {
+                        [self getBluetoothData];
+                    }
                 }];
             }
         }else{
