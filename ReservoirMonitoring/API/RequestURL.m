@@ -79,4 +79,7 @@ NSString * const AlertFaultList = @"/device/getAlertFaultList";
 
 NSString * const DeviceInfoWeather = @"/device/homeDeviceInfoWeather";
 
+NSString * const ClearTouMode = @"/device/clearTouMode";
+
+
 @end

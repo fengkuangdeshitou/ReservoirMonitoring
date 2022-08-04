@@ -494,20 +494,34 @@
 }
 
 - (void)clearBtnClick{
-    if (!BleManager.shareInstance.isConnented) {
-        [RMHelper showToast:@"Please connect device" toView:self.view];
-        return;
-    }
-    __weak typeof(self) weakSelf = self;
-    [GlobelDescAlertView showAlertViewWithTitle:@"Clear" desc:@"Are you sure you want to clear the configuration" btnTitle:nil completion:^{
-        [BleManager.shareInstance writeWithCMDString:@"751" string:@"1" finish:^{
-            [weakSelf.touArray removeAllObjects];
-            [weakSelf.touArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.tableView reloadData];
-            });
+    if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
+        if (!BleManager.shareInstance.isConnented) {
+            [RMHelper showToast:@"Please connect device" toView:self.view];
+            return;
+        }
+        __weak typeof(self) weakSelf = self;
+        [GlobelDescAlertView showAlertViewWithTitle:@"Clear" desc:@"Are you sure you want to clear the configuration" btnTitle:nil completion:^{
+            [BleManager.shareInstance writeWithCMDString:@"751" string:@"1" finish:^{
+                [weakSelf.touArray removeAllObjects];
+                [weakSelf.touArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.tableView reloadData];
+                });
+            }];
         }];
-    }];
+    }else{
+        [GlobelDescAlertView showAlertViewWithTitle:@"Clear" desc:@"Are you sure you want to clear the configuration" btnTitle:nil completion:^{
+            [Request.shareInstance postUrl:ClearTouMode params:@{@"devId":self.deviceId} progress:^(float progress) {
+                                
+            } success:^(NSDictionary * _Nonnull result) {
+                [self.touArray removeAllObjects];
+                [self.touArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
+                [self.tableView reloadData];
+            } failure:^(NSString * _Nonnull errorMsg) {
+                
+            }];
+        }];
+    }
 }
 
 - (void)progressValueChange:(UISlider *)slider{

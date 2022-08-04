@@ -77,6 +77,7 @@ extern NSString * const AlertFaultList;
 
 extern NSString * const DeviceInfoWeather;
 
+extern NSString * const ClearTouMode;
 
 @end
 
