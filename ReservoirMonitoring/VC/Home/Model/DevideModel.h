@@ -21,6 +21,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong) NSString * workStatus;
 /// 0:自检 1:故障 2:空闲 3:待机 4:运行
 @property(nonatomic,strong) NSString * deviceStatus;
+/// 电网图标 0 表示不可用，1 表示可以用
+@property(nonatomic,assign) NSInteger gridLight;
+/// 1:柴油机使能 2:复用 EV Charger 使能 0:全部禁用
+@property(nonatomic,assign) NSInteger generatorLight;
+/// 电动车图标 1:光伏逆变器使能 2:复用 EV Charge 使能 0:全部禁用
+@property(nonatomic,assign) NSInteger evLight;
 /// 空值 offline 1:故障 其余正常
 @property(nonatomic,strong) NSString * systemStatus;
 /// 释放电量值
