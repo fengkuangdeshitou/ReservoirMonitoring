@@ -51,7 +51,7 @@
 
 - (LineChartView *)lineEchartsView{
     if (!_lineEchartsView) {
-        _lineEchartsView = [[LineChartView alloc] initWithFrame:CGRectMake(0, 5, SCREEN_WIDTH, 210)];
+        _lineEchartsView = [[LineChartView alloc] initWithFrame:CGRectMake(0, 15, SCREEN_WIDTH, 200)];
     //    self.echartsView.dragDecelerationEnabled = true;
     //    self.echartsView.dragDecelerationFrictionCoef = 0.9;
         _lineEchartsView.chartDescription.enabled = false;
@@ -69,8 +69,9 @@
         _lineEchartsView.borderColor = [UIColor colorWithHexString:@"#999999"];
         _lineEchartsView.legend.enabled = false;
         [_lineEchartsView animateWithXAxisDuration:1];
-        _lineEchartsView.extraBottomOffset = 5;
-    
+        _lineEchartsView.extraBottomOffset = 0;
+//        _lineEchartsView.minOffset = 0;
+        
         ChartXAxis * xAxis = _lineEchartsView.xAxis;
         xAxis.labelPosition = XAxisLabelPositionBottom;
         xAxis.labelFont = [UIFont systemFontOfSize:10];
@@ -82,6 +83,8 @@
         xAxis.drawGridLinesEnabled = true;
         xAxis.centerAxisLabelsEnabled = true;
         xAxis.yOffset = 10;
+        xAxis.decimals = 1;
+        xAxis.avoidFirstLastClippingEnabled = true;
         
         ChartYAxis *leftAxis = _lineEchartsView.leftAxis;// 获取左边 Y 轴
         leftAxis.inverted = NO; // 是否将 Y 轴进行上下翻转
@@ -285,7 +288,7 @@
         self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
         NSMutableArray<ChartDataEntry*> * array = [[NSMutableArray alloc] init];
         for (int i=0; i<yArray.count; i++) {
-            double index = i;
+            double index = [xArray[i] doubleValue];
             double value = [yArray[i] doubleValue];
             ChartDataEntry * entry = [[ChartDataEntry alloc] initWithX:index y:value];
             [array addObject:entry];
