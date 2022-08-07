@@ -94,8 +94,6 @@
         leftAxis.labelTextColor = [UIColor whiteColor]; // label 文字颜色
         leftAxis.labelFont = [UIFont systemFontOfSize:10.0f]; // 不强制绘制指定数量的 label
         leftAxis.forceLabelsEnabled = NO; // 不强制绘制指定数量的 label
-    //    leftAxis.gridLineDashLengths = @[@3.0f,@3.0f];// 设置虚线样式的网格线 网格线的大小
-    //    leftAxis.gridColor = [UIColor redColor]; // 网格线颜色
         leftAxis.gridAntialiasEnabled = YES;// 网格线开启抗锯齿
         _lineEchartsView.chartDescription.enabled = NO;// 设置折线图描述
         _lineEchartsView.legend.enabled = NO; // 设置折线图图例
@@ -121,11 +119,10 @@
                                  initWithColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR]
                                  font:[UIFont systemFontOfSize:12.0]
                                  textColor:UIColor.whiteColor
-                                 insets:UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0)
+                                 insets:UIEdgeInsetsMake(8.0, 8.0, 8.0, 0.0)
                                  scopeType:self.scopeType];
         self.marker.chartView = _lineEchartsView;
-        self.marker.minimumSize = CGSizeMake(60.f, 60.f);
-        self.marker.arrowSize = CGSizeMake(10, 10);
+        self.marker.arrowSize = CGSizeMake(0, 0);
         _lineEchartsView.marker = self.marker;
         _lineEchartsView.legend.form = ChartLegendFormLine;
         [_lineEchartsView setScaleMinima:1 scaleY:1];
@@ -147,32 +144,36 @@
         _barEchartsView.gridBackgroundColor = [UIColor clearColor];
         _barEchartsView.noDataText = @"No chart data";
         _barEchartsView.noDataTextColor = [UIColor colorWithHexString:@"#F7B500"];
+        _barEchartsView.noDataTextAlignment = NSTextAlignmentCenter;
         _barEchartsView.chartDescription.enabled = NO;
         _barEchartsView.legend.enabled = false;
         _barEchartsView.doubleTapToZoomEnabled = false;
         _barEchartsView.scaleXEnabled = false;
         _barEchartsView.scaleYEnabled = false;
-        _barEchartsView.autoScaleMinMaxEnabled = false;
+        _barEchartsView.autoScaleMinMaxEnabled = true;
         _barEchartsView.highlightPerTapEnabled = true;
         _barEchartsView.highlightPerDragEnabled = true;
         _barEchartsView.pinchZoomEnabled = NO;  //手势捏合
         _barEchartsView.dragEnabled = YES;
         _barEchartsView.dragDecelerationFrictionCoef = 0.5;  //0 1 惯性
-        _barEchartsView.fitBars = true;
+//        _barEchartsView.fitBars = true;
         _barEchartsView.chartDescription.enabled = NO;// 设置折线图描述
         _barEchartsView.drawValueAboveBarEnabled = YES;
-        _barEchartsView.extraBottomOffset = 5;
+//        _barEchartsView.extraBottomOffset = 5;
+        [_barEchartsView setExtraOffsetsWithLeft:10 top:10 right:10 bottom:5];
         
         ChartXAxis * xAxis = _barEchartsView.xAxis;
         xAxis.labelPosition = XAxisLabelPositionBottom;
         xAxis.labelFont = [UIFont systemFontOfSize:10];
         xAxis.labelTextColor = UIColor.whiteColor;
-////        xAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];
+        xAxis.drawLabelsEnabled = true;
+        xAxis.centerAxisLabelsEnabled = true;
+//////        xAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];
         xAxis.gridColor = [UIColor clearColor];
         xAxis.drawAxisLineEnabled = false;
+        xAxis.granularityEnabled = true;
         xAxis.yOffset = 10;
 //        xAxis.drawGridLinesEnabled = true;
-//        xAxis.centerAxisLabelsEnabled = true;
 //        xAxis.labelCount = 6;
         
         ChartYAxis *leftAxis = _barEchartsView.leftAxis;// 获取左边 Y 轴
@@ -237,6 +238,9 @@
 - (void)formatEcharsArrayForIndex:(NSInteger)index{
     NSMutableArray * xArray = [[NSMutableArray alloc] init];
     NSMutableArray * yArray = [[NSMutableArray alloc] init];
+    NSMutableArray * fromArray = [[NSMutableArray alloc] init];
+    NSMutableArray * toArray= [[NSMutableArray alloc] init];
+
     NSInteger scopeType = 1;
     for (int i=0; i<self.dataArray.count; i++) {
         NSDictionary * dict = self.dataArray[i];
@@ -244,7 +248,9 @@
         scopeType = [dict[@"scopeType"] integerValue];
         [xArray addObject:[NSString stringWithFormat:@"%@",dict[@"nodeName"]]];
         if (index == 0) {
-            [yArray addObject:[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"gridPower"] : item[@"gridElectricity"]]]];
+//            [yArray addObject:[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"gridPower"] : item[@"gridElectricity"]]]];
+            [fromArray addObject:[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@",item[@"gridElectricityFrom"]]]];
+            [toArray addObject:[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@",item[@"gridElectricityTo"]]]];
         }else if (index == 1) {
             [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"solarPower"] : item[@"solarElectricity"]]];
         }else if (index == 2) {
@@ -262,54 +268,144 @@
     if (scopeType == 0) {
         self.lineEchartsView.hidden = true;
         self.barEchartsView.hidden = false;
+        if (self.selectFlag == 0) {
+            double dataSetMax = 0;
+            double dataSetMin = 0;
+            NSArray * datas = @[fromArray,toArray];
+            NSMutableArray<BarChartDataSet*> *dataSets = [[NSMutableArray alloc] init];
+            for (int i = 0; i < datas.count; i++) {
+                NSMutableArray<BarChartDataEntry*> *yValues = [[NSMutableArray alloc] init];
+                NSArray * data = datas[i];
+                for (int j=0; j<data.count; j++) {
+                    dataSetMax = MAX([data[j] doubleValue], dataSetMax);
+                    dataSetMin = MIN([data[j] doubleValue], dataSetMin);
+                    BarChartDataEntry * entry = [[BarChartDataEntry alloc] initWithX:j y:[data[j] doubleValue]];
+                    [yValues addObject:entry];
+                }
 
-        NSMutableArray *array = [NSMutableArray array];
-        for (int i = 0; i < xArray.count; i++) {
-            BarChartDataEntry *entry = [[BarChartDataEntry alloc] initWithX:[xArray[i] doubleValue] y:[yArray[i] doubleValue]];
-            [array addObject:entry];
+                BarChartDataSet * set = [[BarChartDataSet alloc] initWithEntries:yValues label:[NSString stringWithFormat:@"第%d个图例",i]];
+                [set setColors:@[[UIColor colorWithHexString:i == 0 ? @"#F7B500" : COLOR_MAIN_COLOR]]];
+                set.valueColors = @[UIColor.clearColor];
+                set.highlightColor = UIColor.clearColor;
+                NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+                ChartDefaultValueFormatter *formatter = [[ChartDefaultValueFormatter alloc] initWithFormatter:numberFormatter];
+                [set setValueFormatter:formatter];
+                [dataSets addObject:set];
+            }
+            dataSetMax = dataSetMax + dataSetMax * 0.2;
+            dataSetMin = dataSetMin >=0 ? 0 : dataSetMin;
+            self.barEchartsView.leftAxis.axisMaximum = dataSetMax;
+            self.barEchartsView.leftAxis.axisMinimum = dataSetMin;
+            BarChartData * data = [[BarChartData alloc] initWithDataSets:dataSets];
+            data.barWidth = 0.4;
+            [data groupBarsFromX:-0.5 groupSpace:0.23 barSpace:0.04];
+            self.barEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
+            self.barEchartsView.data = data;
+            [self.barEchartsView setScaleMinima:1 scaleY:0];
+            [self.barEchartsView setVisibleXRangeMinimum:6];
+            [self.barEchartsView notifyDataSetChanged];
+            [self.barEchartsView.data notifyDataChanged];
+        }else{
+            NSMutableArray *array = [NSMutableArray array];
+            for (int i = 0; i < xArray.count; i++) {
+                BarChartDataEntry *entry = [[BarChartDataEntry alloc] initWithX:i y:[yArray[i] doubleValue]];
+                [array addObject:entry];
+            }
+            //set
+            BarChartDataSet *set = [[BarChartDataSet alloc] initWithEntries:array label:@""];
+            [set setColors:@[[UIColor colorWithHexString:@"#F7B500"]]];
+            //显示柱图值并格式化
+            NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+            ChartDefaultValueFormatter *formatter = [[ChartDefaultValueFormatter alloc] initWithFormatter:numberFormatter];
+            [set setValueFormatter:formatter];
+            set.highlightColor = UIColor.clearColor;
+            self.barEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
+            BarChartData *data = [[BarChartData alloc] initWithDataSet:set];
+            self.barEchartsView.data = data;
+            [self.barEchartsView setScaleMinima:1 scaleY:0];
+            [self.barEchartsView setVisibleXRangeMinimum:6];
+            [self.barEchartsView notifyDataSetChanged];
+            [self.barEchartsView.data notifyDataChanged];
         }
-        //set
-        BarChartDataSet *set = [[BarChartDataSet alloc] initWithEntries:array label:@""];
-        [set setColors:@[[UIColor colorWithHexString:@"#F7B500"]]];
-        //显示柱图值并格式化
-        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-        ChartDefaultValueFormatter *formatter = [[ChartDefaultValueFormatter alloc] initWithFormatter:numberFormatter];
-        [set setValueFormatter:formatter];
-        set.highlightColor = UIColor.clearColor;
-        BarChartData *data = [[BarChartData alloc] initWithDataSet:set];
-        self.barEchartsView.data = data;
-        [self.barEchartsView setScaleMinima:1 scaleY:0];
-        [self.barEchartsView setVisibleXRangeMinimum:6];
-        [self.barEchartsView notifyDataSetChanged];
-        [self.barEchartsView.data notifyDataChanged];
     }else{
         self.lineEchartsView.hidden = false;
         self.barEchartsView.hidden = true;
-        self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
-        NSMutableArray<ChartDataEntry*> * array = [[NSMutableArray alloc] init];
-        for (int i=0; i<yArray.count; i++) {
-            double index = [xArray[i] doubleValue];
-            double value = [yArray[i] doubleValue];
-            ChartDataEntry * entry = [[ChartDataEntry alloc] initWithX:index y:value];
-            [array addObject:entry];
+        if (self.selectFlag == 0) {
+            double dataSetMax = 0;
+            double dataSetMin = 0;
+            self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
+            NSArray * datas = @[fromArray,toArray];
+            NSMutableArray * sets = [[NSMutableArray alloc] init];
+            for (int i=0; i<datas.count; i++) {
+                NSArray * data = datas[i];
+                NSMutableArray<ChartDataEntry*> * array = [[NSMutableArray alloc] init];
+                for (int j=0; j<data.count; j++) {
+                    double index = (double)j;
+                    double value = [data[j] doubleValue];
+                    dataSetMax = MAX(value, dataSetMax);
+                    dataSetMin = MIN(value, dataSetMin);
+                    ChartDataEntry * entry = [[ChartDataEntry alloc] initWithX:index y:value];
+                    [array addObject:entry];
+                }
+                LineChartDataSet * set = [[LineChartDataSet alloc] initWithEntries:array label:@""];
+                set.axisDependency = AxisDependencyLeft;
+                set.valueTextColor = UIColor.clearColor;
+                set.lineWidth = 2;
+                set.circleRadius = 0;
+                set.circleHoleRadius = 0;
+                set.cubicIntensity = 0;
+                set.drawFilledEnabled = true;
+                set.fillColor = [UIColor colorWithHexString:i==0?@"#F7B500":COLOR_MAIN_COLOR];
+                set.fillAlpha = 0.5;
+                [set setColor:[UIColor colorWithHexString:i==0?@"#F7B500":COLOR_MAIN_COLOR]];
+                set.mode = LineChartModeCubicBezier;
+                set.drawValuesEnabled = true;
+                [sets addObject:set];
+            }
+            dataSetMax = dataSetMax + (dataSetMax + dataSetMin) * 0.4;
+            self.lineEchartsView.leftAxis.axisMaximum = dataSetMax;
+            self.lineEchartsView.leftAxis.axisMinimum = dataSetMin;
+            LineChartData *data = [[LineChartData alloc] initWithDataSets:sets];
+            self.lineEchartsView.data = data;
+            [self.lineEchartsView notifyDataSetChanged];
+            [self.lineEchartsView.data notifyDataChanged];
+        }else{
+            self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
+            double dataSetMax = 0;
+            double dataSetMin = 0;
+            NSMutableArray<ChartDataEntry*> * array = [[NSMutableArray alloc] init];
+            for (int i=0; i<yArray.count; i++) {
+                double index = (double)i;
+                double value = [yArray[i] doubleValue];
+                dataSetMax = MAX(value, dataSetMax);
+                dataSetMin = MIN(value, dataSetMin);
+                ChartDataEntry * entry = [[ChartDataEntry alloc] initWithX:index y:value];
+                [array addObject:entry];
+            }
+            LineChartDataSet * set = [[LineChartDataSet alloc] initWithEntries:array label:@""];
+            set.axisDependency = AxisDependencyLeft;
+            set.valueTextColor = UIColor.clearColor;
+            set.lineWidth = 1;
+            set.circleRadius = 0;
+            set.circleHoleRadius = 0;
+            set.cubicIntensity = 0;
+            set.drawFilledEnabled = true;
+            set.fillColor = [UIColor colorWithHexString:@"#F7B500"];
+            set.fillAlpha = 0.75;
+            [set setColor:[UIColor colorWithHexString:@"#F7B500"]];
+            set.mode = LineChartModeCubicBezier;
+            set.drawValuesEnabled = true;
+            dataSetMax = dataSetMax + (dataSetMax + dataSetMin) * 0.4;
+            dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin;
+
+            self.lineEchartsView.leftAxis.axisMaximum = dataSetMax;
+            self.lineEchartsView.leftAxis.axisMinimum = dataSetMin;
+            LineChartData *data = [[LineChartData alloc] initWithDataSets:@[set]];
+            self.lineEchartsView.data = data;
+            [self.lineEchartsView notifyDataSetChanged];
+            [self.lineEchartsView.data notifyDataChanged];
         }
-        LineChartDataSet * set = [[LineChartDataSet alloc] initWithEntries:array label:@""];
-        set.axisDependency = AxisDependencyLeft;
-        set.valueTextColor = UIColor.clearColor;
-        set.lineWidth = 1;
-        set.circleRadius = 0;
-        set.circleHoleRadius = 0;
-        set.cubicIntensity = 0.2;
-        set.drawFilledEnabled = true;
-        set.fillColor = [UIColor colorWithHexString:@"#F7B500"];
-        set.fillAlpha = 0.75;
-        [set setColor:[UIColor colorWithHexString:@"#F7B500"]];
-        set.mode = LineChartModeCubicBezier;
-        set.drawValuesEnabled = true;
-        LineChartData *data = [[LineChartData alloc] initWithDataSets:@[set]];
-        self.lineEchartsView.data = data;
-        [self.lineEchartsView notifyDataSetChanged];
-        [self.lineEchartsView.data notifyDataChanged];
+        
     }
 }
 

@@ -24,7 +24,7 @@ open class BalloonMarker: MarkerImage
     @objc open var insets: UIEdgeInsets
     @objc open var minimumSize = CGSize()
     @objc open var scopeType:NSInteger = 1
-    
+
     fileprivate var label: String?
     fileprivate var _labelSize: CGSize = CGSize()
     fileprivate var _paragraphStyle: NSMutableParagraphStyle?
@@ -39,7 +39,7 @@ open class BalloonMarker: MarkerImage
         self.scopeType = scopeType
         
         _paragraphStyle = NSParagraphStyle.default.mutableCopy() as? NSMutableParagraphStyle
-        _paragraphStyle?.alignment = .center
+        _paragraphStyle?.alignment = .left
         super.init()
     }
     
@@ -187,10 +187,12 @@ open class BalloonMarker: MarkerImage
     
     open override func refreshContent(entry: ChartDataEntry, highlight: Highlight)
     {
+        let formatter = self.chartView?.xAxis.valueFormatter as! IndexAxisValueFormatter
+        let time = formatter.stringForValue(entry.x, axis: self.chartView?.xAxis)
         if self.scopeType == 1 {
-            setLabel(String("Time:" + String(entry.x) + "\n" + "Data:" + String(entry.y) + "kW"))
+            setLabel(String("    Time:" + time + "\n" + "    Data:" + String(entry.y) + "kW"))
         }else{
-            setLabel(String("Time:" + String(entry.x) + "\n" + "Data:" + String(entry.y) + "KwH"))
+            setLabel(String("    Time:" + String(entry.x) + "\n" + "    Data:" + String(entry.y) + "KwH"))
         }
     }
     
