@@ -166,7 +166,16 @@
         NSDictionary * item = self.dataArray[indexPath.row];
         cell.titleLabel.text = item[@"enContent"];
         cell.sn.text = item[@"sgSn"];
-        cell.timeLabel.text = item[@"createTime"];
+        if (![item[@"fromCreateTime"] isEqual:[NSNull null]]) {
+            NSString * fromCreateTime = item[@"fromCreateTime"];
+            if (fromCreateTime.length > 0) {
+                cell.timeLabel.text = item[@"fromCreateTime"];
+            }else{
+                cell.timeLabel.text = item[@"defCreateTime"];
+            }
+        }else{
+            cell.timeLabel.text = item[@"defCreateTime"];
+        }
     }
     cell.time.text = self.tag == 10 ? @"Warning time：".localized : @"Fault Time".localized;
     cell.line.hidden = indexPath.row == 4;

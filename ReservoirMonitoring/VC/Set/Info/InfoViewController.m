@@ -111,10 +111,7 @@
         [params setValue:self.avatar forKey:@"avatar"];
     }
     [Request.shareInstance putUrl:EditUserInfo params:params success:^(NSDictionary * _Nonnull result) {
-        [RMHelper showToast:@"Update info success" toView:self.view];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.navigationController popViewControllerAnimated:true];
-        });
+        [RMHelper showToast:@"Success" toView:self.view];
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];

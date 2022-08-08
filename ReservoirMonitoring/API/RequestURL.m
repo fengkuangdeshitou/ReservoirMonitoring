@@ -10,9 +10,9 @@
 @implementation RequestURL
 
 #ifdef DEBUG
-NSString * const Host = @"http://52.8.81.210:8502";
+NSString * const Host = @"https://epcube-monitoring.com/app-api";
 #else
-NSString * const Host = @"http://52.8.81.210:8502";
+NSString * const Host = @"https://epcube-monitoring.com/app-api";
 #endif
 
 NSString * const EmailCode = @"/open/common/getEmailCode";

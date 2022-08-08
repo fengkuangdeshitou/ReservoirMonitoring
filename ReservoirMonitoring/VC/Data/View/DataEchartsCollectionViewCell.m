@@ -59,6 +59,7 @@
         _lineEchartsView.doubleTapToZoomEnabled = NO;
         _lineEchartsView.noDataText = @"No chart data";
         _lineEchartsView.noDataTextColor = [UIColor colorWithHexString:@"#F7B500"];
+        _lineEchartsView.noDataTextAlignment = NSTextAlignmentCenter;
         _lineEchartsView.pinchZoomEnabled = true;
         _lineEchartsView.scaleYEnabled = false;
         _lineEchartsView.drawGridBackgroundEnabled = true;
@@ -69,7 +70,7 @@
         _lineEchartsView.borderColor = [UIColor colorWithHexString:@"#999999"];
         _lineEchartsView.legend.enabled = false;
         [_lineEchartsView animateWithXAxisDuration:1];
-        _lineEchartsView.extraBottomOffset = 0;
+        [_lineEchartsView setExtraOffsetsWithLeft:10 top:10 right:10 bottom:0];
 //        _lineEchartsView.minOffset = 0;
         
         ChartXAxis * xAxis = _lineEchartsView.xAxis;
