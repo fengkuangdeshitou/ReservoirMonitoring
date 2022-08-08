@@ -70,7 +70,7 @@
         _lineEchartsView.borderColor = [UIColor colorWithHexString:@"#999999"];
         _lineEchartsView.legend.enabled = false;
         [_lineEchartsView animateWithXAxisDuration:1];
-        [_lineEchartsView setExtraOffsetsWithLeft:10 top:10 right:10 bottom:0];
+        [_lineEchartsView setExtraOffsetsWithLeft:10 top:10 right:30 bottom:0];
 //        _lineEchartsView.minOffset = 0;
         
         ChartXAxis * xAxis = _lineEchartsView.xAxis;
@@ -82,7 +82,7 @@
         xAxis.gridColor = [UIColor clearColor];
         xAxis.drawAxisLineEnabled = false;
         xAxis.drawGridLinesEnabled = true;
-        xAxis.centerAxisLabelsEnabled = true;
+//        xAxis.centerAxisLabelsEnabled = true;
         xAxis.yOffset = 10;
         xAxis.decimals = 1;
         xAxis.avoidFirstLastClippingEnabled = true;
@@ -168,7 +168,7 @@
         xAxis.labelFont = [UIFont systemFontOfSize:10];
         xAxis.labelTextColor = UIColor.whiteColor;
         xAxis.drawLabelsEnabled = true;
-        xAxis.centerAxisLabelsEnabled = true;
+//        xAxis.centerAxisLabelsEnabled = true;
 //////        xAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];
         xAxis.gridColor = [UIColor clearColor];
         xAxis.drawAxisLineEnabled = false;
@@ -249,9 +249,12 @@
         scopeType = [dict[@"scopeType"] integerValue];
         [xArray addObject:[NSString stringWithFormat:@"%@",dict[@"nodeName"]]];
         if (index == 0) {
-//            [yArray addObject:[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"gridPower"] : item[@"gridElectricity"]]]];
-            [fromArray addObject:[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@",item[@"gridElectricityFrom"]]]];
-            [toArray addObject:[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@",item[@"gridElectricityTo"]]]];
+            if (scopeType == 1) {
+                [yArray addObject:[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@",item[@"gridPower"]]]];
+            }else{
+                [fromArray addObject:[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@",item[@"gridElectricityFrom"]]]];
+                [toArray addObject:[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@",item[@"gridElectricityTo"]]]];
+            }
         }else if (index == 1) {
             [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"solarPower"] : item[@"solarElectricity"]]];
         }else if (index == 2) {
@@ -293,8 +296,8 @@
                 [set setValueFormatter:formatter];
                 [dataSets addObject:set];
             }
-            dataSetMax = dataSetMax + dataSetMax * 0.2;
-            dataSetMin = dataSetMin >=0 ? 0 : dataSetMin;
+            dataSetMax = dataSetMax + (dataSetMax + dataSetMin) * 0.4;
+            dataSetMin = dataSetMin >=0 ? 0 : dataSetMin+dataSetMin*0.2;
             self.barEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.barEchartsView.leftAxis.axisMinimum = dataSetMin;
             BarChartData * data = [[BarChartData alloc] initWithDataSets:dataSets];
@@ -331,9 +334,41 @@
     }else{
         self.lineEchartsView.hidden = false;
         self.barEchartsView.hidden = true;
-        if (self.selectFlag == 0) {
-            double dataSetMax = 0;
-            double dataSetMin = 0;
+        double dataSetMax = 0;
+        double dataSetMin = 0;
+        if (scopeType == 1 || (scopeType != 1 && self.selectFlag != 0)) {
+            self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
+            NSMutableArray<ChartDataEntry*> * array = [[NSMutableArray alloc] init];
+            for (int i=0; i<yArray.count; i++) {
+                double index = (double)i;
+                double value = [yArray[i] doubleValue];
+                dataSetMax = MAX(value, dataSetMax);
+                dataSetMin = MIN(value, dataSetMin);
+                ChartDataEntry * entry = [[ChartDataEntry alloc] initWithX:index y:value];
+                [array addObject:entry];
+            }
+            LineChartDataSet * set = [[LineChartDataSet alloc] initWithEntries:array label:@""];
+            set.axisDependency = AxisDependencyLeft;
+            set.valueTextColor = UIColor.clearColor;
+            set.lineWidth = 1;
+            set.circleRadius = 0;
+            set.circleHoleRadius = 0;
+            set.cubicIntensity = 0.2;
+            set.drawFilledEnabled = true;
+            set.fillColor = [UIColor colorWithHexString:@"#F7B500"];
+            set.fillAlpha = 0.75;
+            [set setColor:[UIColor colorWithHexString:@"#F7B500"]];
+            set.mode = LineChartModeCubicBezier;
+            set.drawValuesEnabled = true;
+            dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin+dataSetMin*0.3;
+            dataSetMax = dataSetMax + (dataSetMax) * 0.4;
+            self.lineEchartsView.leftAxis.axisMaximum = dataSetMax;
+            self.lineEchartsView.leftAxis.axisMinimum = dataSetMin;
+            LineChartData *data = [[LineChartData alloc] initWithDataSets:@[set]];
+            self.lineEchartsView.data = data;
+            [self.lineEchartsView notifyDataSetChanged];
+            [self.lineEchartsView.data notifyDataChanged];
+        }else{
             self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
             NSArray * datas = @[fromArray,toArray];
             NSMutableArray * sets = [[NSMutableArray alloc] init];
@@ -354,7 +389,7 @@
                 set.lineWidth = 2;
                 set.circleRadius = 0;
                 set.circleHoleRadius = 0;
-                set.cubicIntensity = 0;
+                set.cubicIntensity = 0.2;
                 set.drawFilledEnabled = true;
                 set.fillColor = [UIColor colorWithHexString:i==0?@"#F7B500":COLOR_MAIN_COLOR];
                 set.fillAlpha = 0.5;
@@ -364,49 +399,14 @@
                 [sets addObject:set];
             }
             dataSetMax = dataSetMax + (dataSetMax + dataSetMin) * 0.4;
+            dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin+dataSetMin*3;
             self.lineEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.lineEchartsView.leftAxis.axisMinimum = dataSetMin;
             LineChartData *data = [[LineChartData alloc] initWithDataSets:sets];
             self.lineEchartsView.data = data;
             [self.lineEchartsView notifyDataSetChanged];
             [self.lineEchartsView.data notifyDataChanged];
-        }else{
-            self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
-            double dataSetMax = 0;
-            double dataSetMin = 0;
-            NSMutableArray<ChartDataEntry*> * array = [[NSMutableArray alloc] init];
-            for (int i=0; i<yArray.count; i++) {
-                double index = (double)i;
-                double value = [yArray[i] doubleValue];
-                dataSetMax = MAX(value, dataSetMax);
-                dataSetMin = MIN(value, dataSetMin);
-                ChartDataEntry * entry = [[ChartDataEntry alloc] initWithX:index y:value];
-                [array addObject:entry];
-            }
-            LineChartDataSet * set = [[LineChartDataSet alloc] initWithEntries:array label:@""];
-            set.axisDependency = AxisDependencyLeft;
-            set.valueTextColor = UIColor.clearColor;
-            set.lineWidth = 1;
-            set.circleRadius = 0;
-            set.circleHoleRadius = 0;
-            set.cubicIntensity = 0;
-            set.drawFilledEnabled = true;
-            set.fillColor = [UIColor colorWithHexString:@"#F7B500"];
-            set.fillAlpha = 0.75;
-            [set setColor:[UIColor colorWithHexString:@"#F7B500"]];
-            set.mode = LineChartModeCubicBezier;
-            set.drawValuesEnabled = true;
-            dataSetMax = dataSetMax + (dataSetMax + dataSetMin) * 0.4;
-            dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin;
-
-            self.lineEchartsView.leftAxis.axisMaximum = dataSetMax;
-            self.lineEchartsView.leftAxis.axisMinimum = dataSetMin;
-            LineChartData *data = [[LineChartData alloc] initWithDataSets:@[set]];
-            self.lineEchartsView.data = data;
-            [self.lineEchartsView notifyDataSetChanged];
-            [self.lineEchartsView.data notifyDataChanged];
         }
-        
     }
 }
 

@@ -36,6 +36,8 @@
     
     [self.update showBorderWithRadius:25];
     [self.update setTitle:@"Check for updates".localized forState:UIControlStateNormal];
+    self.update.hidden = RMHelper.getUserType;
+    self.content.hidden = RMHelper.getUserType;
     __weak typeof(self) weakSelf = self;
     if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -92,7 +94,7 @@
 }
 
 - (IBAction)autoUpdateAction:(UIButton *)sender{
-    if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
+    if (RMHelper.getUserType) {
         if (!BleManager.shareInstance.isConnented) {
             [RMHelper showToast:@"Please connect device" toView:self.view];
             return;
