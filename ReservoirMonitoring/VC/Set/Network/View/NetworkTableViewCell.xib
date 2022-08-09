@@ -44,8 +44,8 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bluetooth_active" translatesAutoresizingMaskIntoConstraints="NO" id="Dt4-IV-AP2">
                                 <rect key="frame" x="245" y="25" width="30" height="30"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SN：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLR-aP-Ymt">
-                                <rect key="frame" x="101.5" y="41" width="31.5" height="22"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLR-aP-Ymt">
+                                <rect key="frame" x="101.5" y="41" width="0.0" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="n7U-xe-ctt"/>
                                 </constraints>

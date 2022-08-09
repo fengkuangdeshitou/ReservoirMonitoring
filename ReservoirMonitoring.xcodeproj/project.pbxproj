@@ -71,6 +71,7 @@
 		BD2DEF5D28044B58004E8D7D /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2DEF5C28044B58004E8D7D /* NavigationViewController.m */; };
 		BD2DEF6528044C1F004E8D7D /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2DEF6328044C1F004E8D7D /* HomeViewController.m */; };
 		BD2DEF6628044C1F004E8D7D /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD2DEF6428044C1F004E8D7D /* HomeViewController.xib */; };
+		BD629B7728A2B16700D1A6B7 /* RefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = BD629B7628A2B16700D1A6B7 /* RefreshBackFooter.m */; };
 		BD8FDA40280D5F91000036DD /* UpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8FDA3E280D5F91000036DD /* UpdateViewController.m */; };
 		BD8FDA41280D5F91000036DD /* UpdateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8FDA3F280D5F91000036DD /* UpdateViewController.xib */; };
 		BD8FDA46280EEB4A000036DD /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8FDA44280EEB4A000036DD /* HelpViewController.m */; };
@@ -301,6 +302,8 @@
 		BD2DEF6228044C1F004E8D7D /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		BD2DEF6328044C1F004E8D7D /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		BD2DEF6428044C1F004E8D7D /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		BD629B7528A2B16700D1A6B7 /* RefreshBackFooter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefreshBackFooter.h; sourceTree = "<group>"; };
+		BD629B7628A2B16700D1A6B7 /* RefreshBackFooter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefreshBackFooter.m; sourceTree = "<group>"; };
 		BD8FDA3D280D5F91000036DD /* UpdateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateViewController.h; sourceTree = "<group>"; };
 		BD8FDA3E280D5F91000036DD /* UpdateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdateViewController.m; sourceTree = "<group>"; };
 		BD8FDA3F280D5F91000036DD /* UpdateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateViewController.xib; sourceTree = "<group>"; };
@@ -999,6 +1002,8 @@
 				0F0E90CA28507A3C0014B329 /* UWConfig.m */,
 				BD935B5E28709AF500F1AF1A /* LineAnimatiionView.h */,
 				BD935B5F28709AF500F1AF1A /* LineAnimatiionView.m */,
+				BD629B7528A2B16700D1A6B7 /* RefreshBackFooter.h */,
+				BD629B7628A2B16700D1A6B7 /* RefreshBackFooter.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1553,6 +1558,7 @@
 				BDFA3A9528256FF0004A7E8C /* AddDeviceSNTableViewCell.m in Sources */,
 				BDE88A2E2805CDC100081114 /* UIView+Border.m in Sources */,
 				BDE88A73280B0E5D00081114 /* DataCollectionViewCell.m in Sources */,
+				BD629B7728A2B16700D1A6B7 /* RefreshBackFooter.m in Sources */,
 				BD8FDA67280EF1DE000036DD /* DebugCollectionViewCell.m in Sources */,
 				BD8FDA46280EEB4A000036DD /* HelpViewController.m in Sources */,
 				BDE88A1828047B2600081114 /* LoginViewController.m in Sources */,

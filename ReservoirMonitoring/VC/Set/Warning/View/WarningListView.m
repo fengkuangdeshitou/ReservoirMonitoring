@@ -9,12 +9,14 @@
 #import "WarningTableViewCell.h"
 #import "GlobelDescAlertView.h"
 #import "DevideModel.h"
+#import "RefreshBackFooter.h"
 
 @interface WarningListView ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong) UITableView * tableView;
 @property(nonatomic,assign) NSInteger page;
 @property(nonatomic,strong) NSMutableArray * dataArray;
+@property(nonatomic,copy) NSString * devId;
 @property(nonatomic,strong) NSArray * warning_550;
 @property(nonatomic,strong) NSArray * warning_551;
 @property(nonatomic,strong) NSArray * warning_552;
@@ -48,6 +50,10 @@
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self addSubview:self.tableView];
         [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([WarningTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([WarningTableViewCell class])];
+        self.tableView.mj_footer = [RefreshBackFooter footerWithRefreshingBlock:^{
+            self.page++;
+            [self getListWithDevId:self.devId];
+        }];
     }
     return self;
 }
@@ -89,8 +95,8 @@
             NSArray * modelArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
             NSArray<DevideModel*> * array = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
             if (array.count > 0) {
-                NSString * devId = array.firstObject.deviceId;
-                [self getListWithDevId:devId];
+                self.devId = array.firstObject.deviceId;
+                [self getListWithDevId:self.devId];
             }
         } failure:^(NSString * _Nonnull errorMsg) {
 
@@ -134,18 +140,19 @@
 }
 
 - (void)getListWithDevId:(NSString *)devId{
-    [Request.shareInstance getUrl:[NSString stringWithFormat:@"%@/%@/%@",AlertFaultList,devId,self.tag==10?@"1":@"2"] params:@{@"pageNo":[NSString stringWithFormat:@"%ld",self.page],@"pageSize":@"10000"} progress:^(float progress) {
+    [Request.shareInstance getUrl:[NSString stringWithFormat:@"%@/%@/%@",AlertFaultList,devId,self.tag==10?@"1":@"2"] params:@{@"pageNo":[NSString stringWithFormat:@"%ld",self.page],@"pageSize":@"20"} progress:^(float progress) {
                 
     } success:^(NSDictionary * _Nonnull result) {
         NSArray * array = result[@"data"];
         if (self.page == 1) {
             self.dataArray = [[NSMutableArray alloc] initWithArray:array];
         }else{
-            [self.dataArray addObject:array];
+            [self.dataArray addObjectsFromArray:array];
         }
         [self.tableView reloadData];
+        [self.tableView.mj_footer endRefreshing];
     } failure:^(NSString * _Nonnull errorMsg) {
-        
+        [self.tableView.mj_footer endRefreshing];
     }];
 }
 
