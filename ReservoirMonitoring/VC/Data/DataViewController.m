@@ -143,7 +143,11 @@
         DataCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([DataCollectionViewCell class]) forIndexPath:indexPath];
         cell.icon.image = [UIImage imageNamed:self.imageArray[indexPath.row]];
         cell.titleLabel.text = self.titleArray[indexPath.row];
-        cell.descLabel.text = [NSString stringWithFormat:@"%@ kWh",self.valueArray[indexPath.row]];
+        if (indexPath.row == 0) {
+            cell.descLabel.text = [NSString stringWithFormat:@"%@ kWh",self.valueArray[indexPath.row]];
+        }else{
+            cell.descLabel.text = [NSString stringWithFormat:@"%.02f kWh",[self.valueArray[indexPath.row] floatValue]];
+        }
         cell.titleLabel.font = [UIFont systemFontOfSize:indexPath.row == 0 ? 9 : 12];
         cell.descLabel.font = [UIFont systemFontOfSize:indexPath.row == 0 ? 9 : 12];
         return cell;

@@ -20,6 +20,8 @@
 @property(nonatomic,strong)DevideModel * model;
 @property(nonatomic,strong)BleManager * manager;
 @property(nonatomic)NSInteger index;
+@property(nonatomic,strong)NSTimer * refreshTimer;
+@property(nonatomic,assign)NSInteger time;
 
 @end
 
@@ -34,11 +36,21 @@
     [self.addEquipmentBtn showBorderWithRadius:25];
     [self setLeftBarImageForSel:nil];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomeTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([HomeTableViewCell class])];
+    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeChangeAction) userInfo:nil repeats:true];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self getHomeDeviceData];
+    self.time = 180;
+}
+
+- (void)timeChangeAction{
+    self.time--;
+    if (self.time <= 0) {
+        self.time = 180;
+        [self getHomeDeviceData];
+    }
 }
 
 - (void)onRefresh{

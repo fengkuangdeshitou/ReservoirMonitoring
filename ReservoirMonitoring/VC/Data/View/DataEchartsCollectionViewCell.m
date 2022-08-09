@@ -56,7 +56,6 @@
     //    self.echartsView.dragDecelerationEnabled = true;
     //    self.echartsView.dragDecelerationFrictionCoef = 0.9;
         _lineEchartsView.chartDescription.enabled = false;
-//        self.echartsView.dragEnabled = false;
         _lineEchartsView.doubleTapToZoomEnabled = NO;
         _lineEchartsView.noDataText = @"No chart data";
         _lineEchartsView.noDataTextColor = [UIColor colorWithHexString:@"#F7B500"];
@@ -83,6 +82,7 @@
         xAxis.gridColor = [UIColor clearColor];
         xAxis.drawAxisLineEnabled = false;
         xAxis.drawGridLinesEnabled = true;
+        xAxis.granularityEnabled = true;
 //        xAxis.centerAxisLabelsEnabled = true;
         xAxis.yOffset = 10;
         xAxis.decimals = 1;
@@ -298,8 +298,8 @@
                 [set setValueFormatter:formatter];
                 [dataSets addObject:set];
             }
-            dataSetMax = dataSetMax + (dataSetMax + dataSetMin) * 0.4;
-            dataSetMin = dataSetMin >=0 ? 0 : dataSetMin+dataSetMin*0.2;
+            dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin*2;
+            dataSetMax = dataSetMax == 0 ? 1.4 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
             self.barEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.barEchartsView.leftAxis.axisMinimum = dataSetMin;
             BarChartData * data = [[BarChartData alloc] initWithDataSets:dataSets];
@@ -362,12 +362,15 @@
             set.cubicIntensity = 0.2;
             set.drawFilledEnabled = true;
             set.fillColor = [UIColor colorWithHexString:@"#F7B500"];
-            set.fillAlpha = 0.5;
+            set.fillAlpha = 0.3;
             [set setColor:[UIColor colorWithHexString:@"#F7B500"]];
             set.mode = LineChartModeHorizontalBezier;
             set.drawValuesEnabled = true;
-            dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin+dataSetMin*0.3;
-            dataSetMax = dataSetMax == 0 ? 1.4 : dataSetMax + (dataSetMax + dataSetMin) * 0.4;
+            NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+            ChartDefaultValueFormatter *formatter = [[ChartDefaultValueFormatter alloc] initWithFormatter:numberFormatter];
+            [set setValueFormatter:formatter];
+            dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin*2;
+            dataSetMax = dataSetMax == 0 ? 1.4 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
             self.lineEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.lineEchartsView.leftAxis.axisMinimum = dataSetMin;
             LineChartData *data = [[LineChartData alloc] initWithDataSets:@[set]];
@@ -400,14 +403,14 @@
                 set.cubicIntensity = 0.2;
                 set.drawFilledEnabled = true;
                 set.fillColor = [UIColor colorWithHexString:i==0?@"#F7B500":COLOR_MAIN_COLOR];
-                set.fillAlpha = 0.5;
+                set.fillAlpha = 0.3;
                 [set setColor:[UIColor colorWithHexString:i==0?@"#F7B500":COLOR_MAIN_COLOR]];
                 set.mode = LineChartModeHorizontalBezier;
                 set.drawValuesEnabled = true;
                 [sets addObject:set];
             }
-            dataSetMax = dataSetMax == 0 ? 1.4 : dataSetMax + (dataSetMax + dataSetMin) * 0.4;
-            dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin+dataSetMin*3;
+            dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin*2;
+            dataSetMax = dataSetMax == 0 ? 1.4 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
             self.lineEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.lineEchartsView.leftAxis.axisMinimum = dataSetMin;
             LineChartData *data = [[LineChartData alloc] initWithDataSets:sets];
