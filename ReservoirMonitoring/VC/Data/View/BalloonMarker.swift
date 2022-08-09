@@ -192,7 +192,7 @@ open class BalloonMarker: MarkerImage
         if self.scopeType == 1 {
             setLabel(String("    Time:" + time + "\n" + "    Data:" + String(entry.y) + "kW"))
         }else{
-            setLabel(String("    Time:" + String(entry.x) + "\n" + "    Data:" + String(entry.y) + "KwH"))
+            setLabel(String("    Time:" + time + "\n" + "    Data:" + String(entry.y) + "kWh"))
         }
     }
     

@@ -24,6 +24,7 @@
 @property(nonatomic,weak)IBOutlet UILabel * reducing;
 @property(nonatomic,weak)IBOutlet UILabel * trees;
 @property(nonatomic,weak)IBOutlet UILabel * coal;
+@property(nonatomic,weak)IBOutlet UIView * toGridView;
 
 @property(nonatomic,weak)IBOutlet UILabel * current;
 @property(nonatomic,strong) NSArray * titleArray;
@@ -55,7 +56,7 @@
     //    self.echartsView.dragDecelerationEnabled = true;
     //    self.echartsView.dragDecelerationFrictionCoef = 0.9;
         _lineEchartsView.chartDescription.enabled = false;
-    //    self.echartsView.dragEnabled = false;
+//        self.echartsView.dragEnabled = false;
         _lineEchartsView.doubleTapToZoomEnabled = NO;
         _lineEchartsView.noDataText = @"No chart data";
         _lineEchartsView.noDataTextColor = [UIColor colorWithHexString:@"#F7B500"];
@@ -70,7 +71,7 @@
         _lineEchartsView.borderColor = [UIColor colorWithHexString:@"#999999"];
         _lineEchartsView.legend.enabled = false;
         [_lineEchartsView animateWithXAxisDuration:1];
-        [_lineEchartsView setExtraOffsetsWithLeft:10 top:10 right:30 bottom:0];
+        [_lineEchartsView setExtraOffsetsWithLeft:10 top:0 right:10 bottom:0];
 //        _lineEchartsView.minOffset = 0;
         
         ChartXAxis * xAxis = _lineEchartsView.xAxis;
@@ -161,7 +162,7 @@
         _barEchartsView.chartDescription.enabled = NO;// 设置折线图描述
         _barEchartsView.drawValueAboveBarEnabled = YES;
 //        _barEchartsView.extraBottomOffset = 5;
-        [_barEchartsView setExtraOffsetsWithLeft:10 top:10 right:10 bottom:5];
+        [_barEchartsView setExtraOffsetsWithLeft:10 top:0 right:10 bottom:5];
         
         ChartXAxis * xAxis = _barEchartsView.xAxis;
         xAxis.labelPosition = XAxisLabelPositionBottom;
@@ -241,7 +242,6 @@
     NSMutableArray * yArray = [[NSMutableArray alloc] init];
     NSMutableArray * fromArray = [[NSMutableArray alloc] init];
     NSMutableArray * toArray= [[NSMutableArray alloc] init];
-
     NSInteger scopeType = 1;
     for (int i=0; i<self.dataArray.count; i++) {
         NSDictionary * dict = self.dataArray[i];
@@ -273,6 +273,8 @@
         self.lineEchartsView.hidden = true;
         self.barEchartsView.hidden = false;
         if (self.selectFlag == 0) {
+            self.toGridView.hidden = false;
+            self.current.text = @"From Gird";
             double dataSetMax = 0;
             double dataSetMin = 0;
             NSArray * datas = @[fromArray,toArray];
@@ -302,7 +304,7 @@
             self.barEchartsView.leftAxis.axisMinimum = dataSetMin;
             BarChartData * data = [[BarChartData alloc] initWithDataSets:dataSets];
             data.barWidth = 0.4;
-            [data groupBarsFromX:-0.5 groupSpace:0.23 barSpace:0.04];
+            [data groupBarsFromX:-0.5 groupSpace:0.12 barSpace:0.04];
             self.barEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
             self.barEchartsView.data = data;
             [self.barEchartsView setScaleMinima:1 scaleY:0];
@@ -310,6 +312,8 @@
             [self.barEchartsView notifyDataSetChanged];
             [self.barEchartsView.data notifyDataChanged];
         }else{
+            self.toGridView.hidden = true;
+            self.current.text = @"Gird";
             NSMutableArray *array = [NSMutableArray array];
             for (int i = 0; i < xArray.count; i++) {
                 BarChartDataEntry *entry = [[BarChartDataEntry alloc] initWithX:i y:[yArray[i] doubleValue]];
@@ -337,6 +341,8 @@
         double dataSetMax = 0;
         double dataSetMin = 0;
         if (scopeType == 1 || (scopeType != 1 && self.selectFlag != 0)) {
+            self.current.text = @"Gird";
+            self.toGridView.hidden = true;
             self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
             NSMutableArray<ChartDataEntry*> * array = [[NSMutableArray alloc] init];
             for (int i=0; i<yArray.count; i++) {
@@ -356,12 +362,12 @@
             set.cubicIntensity = 0.2;
             set.drawFilledEnabled = true;
             set.fillColor = [UIColor colorWithHexString:@"#F7B500"];
-            set.fillAlpha = 0.75;
+            set.fillAlpha = 0.5;
             [set setColor:[UIColor colorWithHexString:@"#F7B500"]];
-            set.mode = LineChartModeCubicBezier;
+            set.mode = LineChartModeHorizontalBezier;
             set.drawValuesEnabled = true;
             dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin+dataSetMin*0.3;
-            dataSetMax = dataSetMax + (dataSetMax) * 0.4;
+            dataSetMax = dataSetMax == 0 ? 1.4 : dataSetMax + (dataSetMax + dataSetMin) * 0.4;
             self.lineEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.lineEchartsView.leftAxis.axisMinimum = dataSetMin;
             LineChartData *data = [[LineChartData alloc] initWithDataSets:@[set]];
@@ -369,6 +375,8 @@
             [self.lineEchartsView notifyDataSetChanged];
             [self.lineEchartsView.data notifyDataChanged];
         }else{
+            self.toGridView.hidden = false;
+            self.current.text = @"From Gird";
             self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
             NSArray * datas = @[fromArray,toArray];
             NSMutableArray * sets = [[NSMutableArray alloc] init];
@@ -394,11 +402,11 @@
                 set.fillColor = [UIColor colorWithHexString:i==0?@"#F7B500":COLOR_MAIN_COLOR];
                 set.fillAlpha = 0.5;
                 [set setColor:[UIColor colorWithHexString:i==0?@"#F7B500":COLOR_MAIN_COLOR]];
-                set.mode = LineChartModeCubicBezier;
+                set.mode = LineChartModeHorizontalBezier;
                 set.drawValuesEnabled = true;
                 [sets addObject:set];
             }
-            dataSetMax = dataSetMax + (dataSetMax + dataSetMin) * 0.4;
+            dataSetMax = dataSetMax == 0 ? 1.4 : dataSetMax + (dataSetMax + dataSetMin) * 0.4;
             dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin+dataSetMin*3;
             self.lineEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.lineEchartsView.leftAxis.axisMinimum = dataSetMin;

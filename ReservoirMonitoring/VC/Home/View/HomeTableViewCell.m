@@ -186,7 +186,7 @@
     
     CGFloat divided = model.evElectricity+model.nonBackUpElectricity+model.backUpElectricity;
     CGFloat rate = ((model.evElectricity + model.nonBackUpElectricity + model.backUpElectricity)-model.gridElectricity)/divided*100;
-    self.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",divided==0?0:rate] stringByAppendingString:@"%"];
+    self.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",divided==0?100:rate] stringByAppendingString:@"%"];
     if ([RMHelper getBleDataValue:model.gridPower] > 0) {
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:100];
         animation.direction = AnimationStartDirectionLeftTop;
