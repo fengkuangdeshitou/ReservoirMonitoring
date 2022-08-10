@@ -144,9 +144,9 @@
     DevideModel * model = tableView == self.tableView ? self.currentDevice : (self.searchArray.count==0?self.dataArray[indexPath.section]:self.searchArray[indexPath.section]);
     cell.model = model;
     if (BleManager.shareInstance.isConnented && [BleManager.shareInstance.rtusn isEqualToString:model.rtuSn]) {
-        cell.status.text = BleManager.shareInstance.isConnented ? @"Online".localized : @"Offine".localized;
-        cell.status.textColor = [UIColor colorWithHexString:BleManager.shareInstance.isConnented ? COLOR_MAIN_COLOR : @"#999999"];
-        cell.bgView.backgroundColor = BleManager.shareInstance.isConnented ? [[UIColor colorWithHexString:@"#8CDFA5"] colorWithAlphaComponent:0.2] : [UIColor colorWithHexString:@"#333333"];
+        cell.status.text = @"Online".localized;
+        cell.status.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+        cell.bgView.backgroundColor = [[UIColor colorWithHexString:@"#8CDFA5"] colorWithAlphaComponent:0.2];
     }else{
         cell.status.text = [model.isOnline boolValue] ? @"Online".localized : @"Offine".localized;
         cell.status.textColor = [UIColor colorWithHexString:[model.isOnline boolValue] ? COLOR_MAIN_COLOR : @"#999999"];

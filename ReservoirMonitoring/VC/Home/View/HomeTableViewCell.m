@@ -104,47 +104,6 @@
         self.currentModeValue.text = @"Offline";
     }
     
-    if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
-        if (BleManager.shareInstance.isConnented) {
-            self.communicationValue.text = @"Online".localized;
-            self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
-            if (model.systemStatus.intValue == 1) {
-                self.statusValue.text = @"Fault";
-                self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
-            }else{
-                self.statusValue.text = @"Normal";
-                self.statusValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
-            }
-        }else{
-            self.communicationValue.text = @"Offline".localized;
-            self.communicationValue.textColor = [UIColor colorWithHexString:@"#999999"];
-            self.statusValue.text = @"Offline".localized;
-            self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
-        }
-    }else{
-        if (model.isOnline.intValue == 1){
-            self.communicationValue.text = @"Online".localized;
-            self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
-            if (model.systemStatus) {
-                if (model.systemStatus.intValue == 1) {
-                    self.statusValue.text = @"Fault";
-                    self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
-                }else{
-                    self.statusValue.text = @"Normal";
-                    self.statusValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
-                }
-            }else{
-                self.statusValue.text = @"Offline".localized;
-                self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
-            }
-        }else{
-            self.statusValue.text = @"Offline".localized;
-            self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
-            self.communicationValue.text = @"Offline".localized;
-            self.communicationValue.textColor = [UIColor colorWithHexString:@"#999999"];
-        }
-    }
-    
     for (UIView * view in self.itemContentView.subviews) {
         if ([view isKindOfClass:[HomeItemView class]]) {
             HomeItemView * itemView = (HomeItemView *)view;
@@ -154,7 +113,7 @@
                 itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
                 itemView.statusButton.selected = value;
             }else if (itemView.tag == 11) {
-                BOOL value = [model.isOnline boolValue];
+                BOOL value = [model.isOnline boolValue] || BleManager.shareInstance.isConnented;
                 itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.solarElectricity];
                 itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
                 itemView.statusButton.selected = value;
@@ -174,7 +133,7 @@
                 itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
                 itemView.statusButton.selected = value;
             }else{
-                BOOL value = [model.isOnline boolValue];
+                BOOL value = [model.isOnline boolValue] || BleManager.shareInstance.isConnented;
                 itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.backUpElectricity];
                 itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
                 itemView.statusButton.selected = value;
@@ -270,6 +229,58 @@
         animation.showAnimation = false;
     }
     
+    if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
+        if (BleManager.shareInstance.isConnented) {
+            self.communicationValue.text = @"Online".localized;
+            self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+            if (model.systemStatus.intValue == 1) {
+                self.statusValue.text = @"Fault";
+                self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
+            }else{
+                self.statusValue.text = @"Normal";
+                self.statusValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+            }
+        }else{
+            self.communicationValue.text = @"Offline".localized;
+            self.communicationValue.textColor = [UIColor colorWithHexString:@"#999999"];
+            self.statusValue.text = @"Offline".localized;
+            self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
+            [self hiddenAnimationView];
+        }
+    }else{
+        if (model.isOnline.intValue == 1){
+            self.communicationValue.text = @"Online".localized;
+            self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+            if (model.systemStatus) {
+                if (model.systemStatus.intValue == 1) {
+                    self.statusValue.text = @"Fault";
+                    self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
+                }else{
+                    self.statusValue.text = @"Normal";
+                    self.statusValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+                }
+            }else{
+                self.statusValue.text = @"Offline".localized;
+                self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
+                [self hiddenAnimationView];
+            }
+        }else{
+            self.statusValue.text = @"Offline".localized;
+            self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
+            self.communicationValue.text = @"Offline".localized;
+            self.communicationValue.textColor = [UIColor colorWithHexString:@"#999999"];
+            [self hiddenAnimationView];
+        }
+    }
+    
+}
+
+- (void)hiddenAnimationView{
+    for (UIView * view in self.itemContentView.subviews) {
+        if ([view isKindOfClass:[LineAnimatiionView class]]) {
+            ((LineAnimatiionView *)view).showAnimation = false;
+        }
+    }
 }
 
 - (IBAction)timeAction:(id)sender{

@@ -1812,7 +1812,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ReservoirMonitoring/ReservoirMonitoring.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = LMDZYJF4B6;
@@ -1822,7 +1822,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReservoirMonitoring/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "EP CUBE";
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "EP CUBE uses Bluetooth function to connect hardware";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "The EP CUBE uses Bluetooth to connect to the user's smart device";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "The EP CUBE uses Bluetooth to connect to the user's smart device";
 				INFOPLIST_KEY_NSCameraUsageDescription = "EP CUBE uses the camera function to update user profile picture information";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "EP CUBE uses the positioning function to automatically display the current position when binding devices";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1854,7 +1855,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ReservoirMonitoring/ReservoirMonitoring.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = LMDZYJF4B6;
 				ENABLE_BITCODE = NO;
@@ -1863,7 +1864,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReservoirMonitoring/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "EP CUBE";
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "EP CUBE uses Bluetooth function to connect hardware";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "The EP CUBE uses Bluetooth to connect to the user's smart device";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "The EP CUBE uses Bluetooth to connect to the user's smart device";
 				INFOPLIST_KEY_NSCameraUsageDescription = "EP CUBE uses the camera function to update user profile picture information";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "EP CUBE uses the positioning function to automatically display the current position when binding devices";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

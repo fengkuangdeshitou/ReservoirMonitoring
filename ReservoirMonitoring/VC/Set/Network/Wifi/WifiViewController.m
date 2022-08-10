@@ -101,8 +101,8 @@
             }
             cell.titleLabel.text = self.deviceSSID;
         }else{
-            cell.titleLabel.text = @"---";
-            cell.status.text = @"Disconnect";
+            cell.titleLabel.text = @"--";
+            cell.status.text = @"--";
             cell.status.textColor = [UIColor colorWithHexString:@"#999999"];
         }
         return cell;

@@ -22,6 +22,8 @@
 @property(nonatomic,strong)NSString * touCount;
 @property(nonatomic,assign)BOOL allowChargingXiaGrid;
 @property(nonatomic,strong)NSMutableArray * touArray;
+@property(nonatomic,strong)NSMutableArray * peakTimeArray;
+@property(nonatomic,strong)NSMutableArray * superPeakTimeArray;
 @property(nonatomic,strong)NSArray * titleArray;
 
 @end
@@ -66,6 +68,32 @@
                     [self.touArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
                 }
             }
+            NSArray * peakTimeArray = data[@"peakTimeList"];
+            for (int i=0; i<peakTimeArray.count; i++) {
+                NSString * string = peakTimeArray[i];
+                if ([string containsString:@"_"]) {
+                    NSArray * timeArray = [string componentsSeparatedByString:@"_"];
+                    NSString * startTime = timeArray[0];
+                    NSString * endTime = timeArray[1];
+                    NSDictionary * dict = @{@"startTime":startTime,@"endTime":endTime,@"price":timeArray.count>=2?timeArray[2]:@"0"};
+                    [self.peakTimeArray addObject:dict];
+                }else{
+                    [self.peakTimeArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
+                }
+            }
+            NSArray * superPeakTimeArray = data[@"superPeakTimeList"];
+            for (int i=0; i<superPeakTimeArray.count; i++) {
+                NSString * string = superPeakTimeArray[i];
+                if ([string containsString:@"_"]) {
+                    NSArray * timeArray = [string componentsSeparatedByString:@"_"];
+                    NSString * startTime = timeArray[0];
+                    NSString * endTime = timeArray[1];
+                    NSDictionary * dict = @{@"startTime":startTime,@"endTime":endTime,@"price":timeArray.count>=2?timeArray[2]:@"0"};
+                    [self.superPeakTimeArray addObject:dict];
+                }else{
+                    [self.superPeakTimeArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
+                }
+            }
         }
         [self.tableView reloadData];
     } failure:^(NSString * _Nonnull errorMsg) {
@@ -97,7 +125,9 @@
     
     self.progressArray = [[NSMutableArray alloc] initWithArray:@[@"0",@"0",@""]];
     self.touArray = [[NSMutableArray alloc] init];
-    
+    self.peakTimeArray = [[NSMutableArray alloc] init];
+    self.superPeakTimeArray = [[NSMutableArray alloc] init];
+
     if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
         [self loadBluetoothData];
     }else{
@@ -482,6 +512,8 @@
         if (indexPath.section == 2) {
             PeakTimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PeakTimeTableViewCell class]) forIndexPath:indexPath];
             cell.touArray = self.touArray;
+            cell.peakTimeArray = self.peakTimeArray;
+            cell.superPeakTimeArray = self.superPeakTimeArray;
             cell.switchBtn.selected = self.allowChargingXiaGrid;
             return cell;
         }else{

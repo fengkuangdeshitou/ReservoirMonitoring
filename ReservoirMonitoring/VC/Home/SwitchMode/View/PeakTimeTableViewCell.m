@@ -27,6 +27,30 @@
     }
 }
 
+- (void)setPeakTimeArray:(NSArray *)peakTimeArray{
+    _peakTimeArray = peakTimeArray;
+    if (peakTimeArray.count > 0) {
+        [self.dataArray replaceObjectAtIndex:1 withObject:peakTimeArray];
+        [self.tableView reloadData];
+    }
+    CGFloat height = self.tableView.contentSize.height;
+    if (ceilf(height) != ceilf([[NSUserDefaults.standardUserDefaults objectForKey:TIME_TABLEVIEW_HEIGHT_CHANGE] floatValue])) {
+        [self updateTableViewHeight];
+    }
+}
+
+- (void)setSuperPeakTimeArray:(NSArray *)superPeakTimeArray{
+    _peakTimeArray = superPeakTimeArray;
+    if (superPeakTimeArray.count > 0) {
+        [self.dataArray replaceObjectAtIndex:2 withObject:superPeakTimeArray];
+        [self.tableView reloadData];
+    }
+    CGFloat height = self.tableView.contentSize.height;
+    if (ceilf(height) != ceilf([[NSUserDefaults.standardUserDefaults objectForKey:TIME_TABLEVIEW_HEIGHT_CHANGE] floatValue])) {
+        [self updateTableViewHeight];
+    }
+}
+
 - (IBAction)switchChange:(UIButton *)sender{
     sender.selected = !sender.selected;
 }

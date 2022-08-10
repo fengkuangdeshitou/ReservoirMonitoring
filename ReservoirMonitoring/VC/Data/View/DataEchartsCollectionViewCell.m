@@ -193,7 +193,7 @@
                                       initWithColor: [UIColor clearColor]
                                       font: [UIFont systemFontOfSize:12.0]
                                       textColor: UIColor.whiteColor
-                                      insets: UIEdgeInsetsMake(0, 0, 0, 0)
+                                      insets: UIEdgeInsetsMake(0, 0, 10, 0)
                                       ];
         marker.chartView = _barEchartsView;
         marker.minimumSize = CGSizeMake(40.f, 20.f);

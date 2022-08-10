@@ -36,7 +36,6 @@
         [self getCurrentDevice];
     }];
     [self.refreshController addTarget:self action:@selector(getCurrentDevice) forControlEvents:UIControlEventValueChanged];
-    [self getCurrentDevice];
     [self setLeftBarImageForSel:nil];
     self.titleArray = [[NSMutableArray alloc] initWithArray:@[@"From grid:0 kWh".localized,@"Solar".localized,@"Generator".localized,@"EV".localized,@"Non-backup".localized,@"Backup loads".localized]];
     self.valueArray = @[[NSString stringWithFormat:@"To grid:%@",@(0)],@(0),@(0),@(0),@(0),@(0)];
@@ -53,6 +52,11 @@
     self.titleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40) delegate:self titleNames:@[@"Day".localized,@"Month".localized,@"Year".localized,@"All".localized] configure:config];
     self.titleView.backgroundColor = [UIColor colorWithHexString:@"#1E1E1E"];
     [self.collectionView addSubview:self.titleView];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self getCurrentDevice];
 }
 
 - (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex{

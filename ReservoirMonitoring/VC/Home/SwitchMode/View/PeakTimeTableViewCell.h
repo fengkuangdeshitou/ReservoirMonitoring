@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,weak)IBOutlet UIButton * switchBtn;
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,strong) NSArray * touArray;
+@property(nonatomic,strong) NSArray * peakTimeArray;
+@property(nonatomic,strong) NSArray * superPeakTimeArray;
 
 @end
 
