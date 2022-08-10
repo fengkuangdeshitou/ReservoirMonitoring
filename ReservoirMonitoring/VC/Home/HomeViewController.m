@@ -42,7 +42,13 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self getHomeDeviceData];
+    [self.refreshTimer setFireDate:[NSDate date]];
     self.time = 180;
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.refreshTimer setFireDate:[NSDate distantFuture]];
 }
 
 - (void)timeChangeAction{

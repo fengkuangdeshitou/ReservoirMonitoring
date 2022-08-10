@@ -1822,9 +1822,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReservoirMonitoring/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "EP CUBE";
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "使用蓝牙连接设备";
-				INFOPLIST_KEY_NSCameraUsageDescription = "使用相机拍摄照片";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "使用位置";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "EP CUBE uses Bluetooth function to connect hardware";
+				INFOPLIST_KEY_NSCameraUsageDescription = "EP CUBE uses the camera function to update user profile picture information";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "EP CUBE uses the positioning function to automatically display the current position when binding devices";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1834,7 +1834,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1863,9 +1863,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReservoirMonitoring/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "EP CUBE";
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "使用蓝牙连接设备";
-				INFOPLIST_KEY_NSCameraUsageDescription = "使用相机拍摄照片";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "使用位置";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "EP CUBE uses Bluetooth function to connect hardware";
+				INFOPLIST_KEY_NSCameraUsageDescription = "EP CUBE uses the camera function to update user profile picture information";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "EP CUBE uses the positioning function to automatically display the current position when binding devices";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1875,7 +1875,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
