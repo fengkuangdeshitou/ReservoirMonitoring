@@ -171,7 +171,9 @@
     self.model = [[DevideModel alloc] init];
     self.model.deviceId = deviceId;
     self.model.sgSn = sgSn;
-    [self getWeatherData:self.model.sgSn];
+    if (self.model.sgSn) {
+        [self getWeatherData:self.model.sgSn];
+    }
     [self.tableView reloadData];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);

@@ -9,6 +9,7 @@
 #import "InputTableViewCell.h"
 #import "SelecteTableViewCell.h"
 #import "SelectItemAlertView.h"
+#import "GlobelDescAlertView.h"
 
 @interface InverterViewController ()<UITableViewDataSource,UITextFieldDelegate,UITableViewDelegate>
 
@@ -138,6 +139,10 @@
 
 - (IBAction)submitAction:(id)sender{
     [self.view endEditing:true];
+    if (!BleManager.shareInstance.isConnented) {
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
+        return;
+    }
     NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
     [params setValue:[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID] forKey:@"devId"];
     [params setValue:@"3" forKey:@"formType"];

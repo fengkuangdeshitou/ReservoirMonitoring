@@ -8,6 +8,7 @@
 #import "CardViewController.h"
 @import AFNetworking;
 #import "BleManager.h"
+#import "GlobelDescAlertView.h"
 
 @interface CardViewController ()
 
@@ -66,7 +67,7 @@
 - (IBAction)queryAction:(id)sender{
 //    self.cardDictionary = @{@"ICCID":@"89882390000353142105",@"SN":@"VC51030622208003"};
     if (!BleManager.shareInstance.isConnented) {
-        [RMHelper showToast:@"Please connect device" toView:self.view];
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
         return;
     }
     [self.view showHUDToast:@"Loading"];
@@ -88,7 +89,7 @@
 
 - (IBAction)queryStatus:(id)sender{
     if (!self.cardDictionary) {
-        [RMHelper showToast:@"Please connect device" toView:self.view];
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
         return;
     }
     [self.view showHUDToast:@"Loading"];
@@ -110,7 +111,7 @@
 
 - (IBAction)activationAction:(id)sender{
     if (!self.cardDictionary) {
-        [RMHelper showToast:@"Please connect device" toView:self.view];
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
         return;
     }
     // @[@{@"iccid":@"89882390000353142105",@"sn":@"VC51030622208003"}]

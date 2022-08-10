@@ -10,6 +10,7 @@
 #import "SelecteTableViewCell.h"
 #import "SelectItemAlertView.h"
 @import BRPickerView;
+#import "GlobelDescAlertView.h"
 
 @interface HybridViewController ()<UITableViewDataSource,UITextFieldDelegate>
 
@@ -158,6 +159,10 @@
 }
 
 - (IBAction)submitAction:(id)sender{
+    if (!BleManager.shareInstance.isConnented) {
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
+        return;
+    }
     NSArray * leftArray = @[];
     if (self.leftOpen) {
         leftArray = @[self.leftController,self.leftValueArray[0],self.leftValueArray[1]];

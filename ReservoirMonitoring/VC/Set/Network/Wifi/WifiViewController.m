@@ -109,6 +109,7 @@
     }else{
         WifiTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WifiTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = [self wifiName];
+        cell.line.hidden = true;
         return cell;
     }
 }

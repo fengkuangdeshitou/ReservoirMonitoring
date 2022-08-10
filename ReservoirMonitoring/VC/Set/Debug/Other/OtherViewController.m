@@ -10,7 +10,7 @@
 #import "SelecteTableViewCell.h"
 #import "SelectItemAlertView.h"
 #import "SwitchTableViewCell.h"
-
+#import "GlobelDescAlertView.h"
 
 @interface OtherViewController ()
 
@@ -60,7 +60,10 @@
     }
     InputTableViewCell * registerCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
     InputTableViewCell * valueCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
-    
+    if (!BleManager.shareInstance.isConnented) {
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
+        return;
+    }
     [BleManager.shareInstance writeWithCMDString:@"600" array:@[value] finish:^{
         [RMHelper showToast:@"Write success" toView:self.view];
         [self uploadDebugConfig:@{

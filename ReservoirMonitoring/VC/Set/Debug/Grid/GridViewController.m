@@ -9,6 +9,7 @@
 #import "InputTableViewCell.h"
 #import "SelecteTableViewCell.h"
 #import "SelectItemAlertView.h"
+#import "GlobelDescAlertView.h"
 
 @interface GridViewController ()
 
@@ -110,6 +111,10 @@
     InputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     int input = [cell.textfield.text intValue]*10;
     NSLog(@"value====%@",self.dataArray[0][@"value"]);
+    if (!BleManager.shareInstance.isConnented) {
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
+        return;
+    }
     __weak typeof(self) weakSelf = self;
     if (BleManager.shareInstance.isConnented) {
         [weakSelf.view showHUDToast:@"Loading"];

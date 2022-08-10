@@ -546,6 +546,11 @@ static unsigned char auchCRCLo[] = {
 }
 
 - (void)heartbeat{
+    if (_isConnented == false) {
+        [self.timer invalidate];
+        self.timer = nil;
+        return;
+    }
     NSLog(@"心跳");
     [self readWithDictionary:@{@"type":@"info"} finish:^(NSDictionary * _Nonnull dict) {
             

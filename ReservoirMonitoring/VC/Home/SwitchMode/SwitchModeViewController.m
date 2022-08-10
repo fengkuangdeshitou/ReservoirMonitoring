@@ -128,7 +128,7 @@
     self.peakTimeArray = [[NSMutableArray alloc] init];
     self.superPeakTimeArray = [[NSMutableArray alloc] init];
 
-    if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
+    if (BleManager.shareInstance.isConnented) {
         [self loadBluetoothData];
     }else{
         [self getSwitchModeData];
@@ -360,7 +360,11 @@
             return;
         }
     }
-    if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
+    if (RMHelper.getUserType || (!RMHelper.getUserType && BleManager.shareInstance.isConnented)) {
+        if (!BleManager.shareInstance.isConnented) {
+            [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
+            return;
+        }
         [params setValue:@"0" forKey:@"onlySave"];
         if (self.flag == 2) {
             if ([offPeakArray[0] componentsSeparatedByString:@"_"][0].length == 0) {
@@ -526,9 +530,9 @@
 }
 
 - (void)clearBtnClick{
-    if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
+    if (RMHelper.getUserType || (!RMHelper.getUserType && BleManager.shareInstance.isConnented)) {
         if (!BleManager.shareInstance.isConnented) {
-            [RMHelper showToast:@"Please connect device" toView:self.view];
+            [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
             return;
         }
         __weak typeof(self) weakSelf = self;

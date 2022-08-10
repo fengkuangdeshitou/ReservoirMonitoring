@@ -39,7 +39,7 @@
     self.update.hidden = RMHelper.getUserType;
     self.content.hidden = RMHelper.getUserType;
     __weak typeof(self) weakSelf = self;
-    if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
+    if (BleManager.shareInstance.isConnented) {
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
             [BleManager.shareInstance readWithCMDString:@"503" count:5 finish:^(NSArray * _Nonnull array) {
@@ -94,9 +94,9 @@
 }
 
 - (IBAction)autoUpdateAction:(UIButton *)sender{
-    if (RMHelper.getUserType) {
+    if (RMHelper.getUserType || (!RMHelper.getUserType && BleManager.shareInstance.isConnented)) {
         if (!BleManager.shareInstance.isConnented) {
-            [RMHelper showToast:@"Please connect device" toView:self.view];
+            [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
             return;
         }
         NSString * value = self.commitAotuUpdate.selected ? @"0" : @"1";

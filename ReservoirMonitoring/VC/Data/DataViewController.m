@@ -20,6 +20,7 @@
 @property(nonatomic,strong) NSArray * valueArray;
 @property(nonatomic,strong) NSArray * imageArray;
 @property(nonatomic,strong) NSString * devId;
+@property(nonatomic,strong) NSString * backUpType;
 @property(nonatomic,strong) DevideModel * model;
 @property(nonatomic,strong) NSArray * data;
 @property(nonatomic,assign) NSInteger scopeType;
@@ -76,10 +77,22 @@
         NSArray<DevideModel*> * array = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
         if (array.count > 0) {
             self.devId = array.firstObject.deviceId;
-            [self getDataWithScopeType:self.titleView.selectedIndex==3?0:self.titleView.selectedIndex+1];
+            [self getHomeData:array.firstObject.sgSn];
         }
     } failure:^(NSString * _Nonnull errorMsg) {
         [self.refreshController endRefreshing];
+    }];
+}
+
+- (void)getHomeData:(NSString *)sgSn{
+    NSDate * date = [NSDate date];
+    [Request.shareInstance getUrl:HomeDeviceInfo params:@{@"sgSn":sgSn,@"dayMonthYearFormat":[NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year,date.br_month,date.br_day]} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        DevideModel * model = [DevideModel mj_objectWithKeyValues:result[@"data"]];
+        self.backUpType = model.backUpType;
+        [self getDataWithScopeType:self.titleView.selectedIndex==3?0:self.titleView.selectedIndex+1];
+    } failure:^(NSString * _Nonnull errorMsg) {
     }];
 }
 
@@ -120,8 +133,14 @@
             
     } success:^(NSDictionary * _Nonnull result) {
         self.model = [DevideModel mj_objectWithKeyValues:result[@"data"]];
-        [self.titleArray replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"From grid:%.02f kWh",self.model.gridElectricityFrom]];
-        self.valueArray = @[[NSString stringWithFormat:@"To grid:%.02f",self.model.gridElectricityTo],@(self.model.solarElectricity),@(self.model.generatorElectricity),@(self.model.evElectricity),@(self.model.nonBackUpElectricity),@(self.model.backUpElectricity)];
+        if (self.backUpType.intValue == 1) {
+            self.imageArray = @[@"icon_grid_active",@"icon_solar_active",@"icon_generator_active",@"icon_ev_active",@"icon_backup_active"];
+            self.titleArray = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"From grid:%.02f kWh",self.model.gridElectricityFrom],@"Solar".localized,@"Generator".localized,@"EV".localized,@"Backup loads".localized]];
+            self.valueArray = @[[NSString stringWithFormat:@"To grid:%.02f",self.model.gridElectricityTo],@(self.model.solarElectricity),@(self.model.generatorElectricity),@(self.model.evElectricity),@(self.model.backUpElectricity)];
+        }else{
+            [self.titleArray replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"From grid:%.02f kWh",self.model.gridElectricityFrom]];
+            self.valueArray = @[[NSString stringWithFormat:@"To grid:%.02f",self.model.gridElectricityTo],@(self.model.solarElectricity),@(self.model.generatorElectricity),@(self.model.evElectricity),@(self.model.nonBackUpElectricity),@(self.model.backUpElectricity)];
+        }
         [self.refreshController endRefreshing];
         [self.collectionView reloadData];
         [self getEcharsDataWithScopeType:scopeType currentDateTime:currentDateTime startDateTime:startDateTime];
@@ -172,7 +191,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return section == 0 ? 6 : 1;
+    return section == 0 ? self.titleArray.count : 1;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
