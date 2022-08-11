@@ -104,42 +104,6 @@
         self.currentModeValue.text = @"Offline";
     }
     
-    for (UIView * view in self.itemContentView.subviews) {
-        if ([view isKindOfClass:[HomeItemView class]]) {
-            HomeItemView * itemView = (HomeItemView *)view;
-            if (itemView.tag == 10) {
-                BOOL value = BleManager.shareInstance.isConnented ? model.gridLight == 1 : [model.isOnline boolValue] && model.gridLight == 1;
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.gridElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
-                itemView.statusButton.selected = value;
-            }else if (itemView.tag == 11) {
-                BOOL value = [model.isOnline boolValue] || BleManager.shareInstance.isConnented;
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.solarElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
-                itemView.statusButton.selected = value;
-            }else if (itemView.tag == 12) {
-                BOOL value = BleManager.shareInstance.isConnented ? model.generatorLight == 1 : [model.isOnline boolValue] && model.generatorLight == 1;
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.generatorElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
-                itemView.statusButton.selected = value;
-            }else if (itemView.tag == 13) {
-                BOOL value = BleManager.shareInstance.isConnented ? model.evLight == 2 : [model.isOnline boolValue] && model.evLight == 2;
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.evElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
-                itemView.statusButton.selected = value;
-            }else if (itemView.tag == 14) {
-                BOOL value = BleManager.shareInstance.isConnented ? model.backUpType.intValue == 0 : [model.isOnline boolValue] && model.backUpType.intValue == 0;
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.nonBackUpElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
-                itemView.statusButton.selected = value;
-            }else{
-                BOOL value = [model.isOnline boolValue] || BleManager.shareInstance.isConnented;
-                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",model.backUpElectricity];
-                itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
-                itemView.statusButton.selected = value;
-            }
-        }
-    }
     self.progressView.titleLabel.text = [NSString stringWithFormat:@"%.2f kWh (%.0f%@)",[model.batteryCurrentElectricity floatValue],[model.batterySoc floatValue],@"%"];
     self.progressView.progress = [model.batterySoc floatValue]/100;
     
@@ -233,6 +197,7 @@
         if (BleManager.shareInstance.isConnented) {
             self.communicationValue.text = @"Online".localized;
             self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+            [self loadItemIconWithHighlighted:true];
             if (model.systemStatus.intValue == 1) {
                 self.statusValue.text = @"Fault";
                 self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
@@ -246,11 +211,13 @@
             self.statusValue.text = @"Offline".localized;
             self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
             [self hiddenAnimationView];
+            [self loadItemIconWithHighlighted:false];
         }
     }else{
         if (model.isOnline.intValue == 1){
             self.communicationValue.text = @"Online".localized;
             self.communicationValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+            [self loadItemIconWithHighlighted:true];
             if (model.systemStatus) {
                 if (model.systemStatus.intValue == 1) {
                     self.statusValue.text = @"Fault";
@@ -263,6 +230,7 @@
                 self.statusValue.text = @"Offline".localized;
                 self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
                 [self hiddenAnimationView];
+                [self loadItemIconWithHighlighted:false];
             }
         }else{
             self.statusValue.text = @"Offline".localized;
@@ -270,15 +238,88 @@
             self.communicationValue.text = @"Offline".localized;
             self.communicationValue.textColor = [UIColor colorWithHexString:@"#999999"];
             [self hiddenAnimationView];
+            [self loadItemIconWithHighlighted:false];
         }
     }
     
 }
 
+
+/// 动画隐藏
 - (void)hiddenAnimationView{
     for (UIView * view in self.itemContentView.subviews) {
         if ([view isKindOfClass:[LineAnimatiionView class]]) {
             ((LineAnimatiionView *)view).showAnimation = false;
+        }
+    }
+}
+
+/// 图标是否高亮
+- (void)loadItemIconWithHighlighted:(BOOL)highlighte{
+    for (UIView * view in self.itemContentView.subviews) {
+        if ([view isKindOfClass:[HomeItemView class]]) {
+            HomeItemView * itemView = (HomeItemView *)view;
+            if (itemView.tag == 10) {
+                if (highlighte) {
+                    BOOL value = BleManager.shareInstance.isConnented ? self.model.gridLight == 1 : [self.model.isOnline boolValue] && self.model.gridLight == 1;
+                    itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
+                    itemView.statusButton.selected = value;
+                }else{
+                    itemView.descLabel.textColor = [UIColor colorWithHexString:@"#747474"];
+                    itemView.statusButton.selected = false;
+                }
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",self.model.gridElectricity];
+            }else if (itemView.tag == 11) {
+                if (highlighte) {
+                    BOOL value = [self.model.isOnline boolValue] || BleManager.shareInstance.isConnented;
+                    itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
+                    itemView.statusButton.selected = value;
+                }else{
+                    itemView.descLabel.textColor = [UIColor colorWithHexString:@"#747474"];
+                    itemView.statusButton.selected = false;
+                }
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",self.model.solarElectricity];
+            }else if (itemView.tag == 12) {
+                if (highlighte) {
+                    BOOL value = BleManager.shareInstance.isConnented ? self.model.generatorLight == 1 : [self.model.isOnline boolValue] && self.model.generatorLight == 1;
+                    itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
+                    itemView.statusButton.selected = value;
+                }else{
+                    itemView.descLabel.textColor = [UIColor colorWithHexString:@"#747474"];
+                    itemView.statusButton.selected = false;
+                }
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",self.model.generatorElectricity];
+            }else if (itemView.tag == 13) {
+                if (highlighte) {
+                    BOOL value = BleManager.shareInstance.isConnented ? self.model.evLight == 2 : [self.model.isOnline boolValue] && self.model.evLight == 2;
+                    itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
+                    itemView.statusButton.selected = value;
+                }else{
+                    itemView.descLabel.textColor = [UIColor colorWithHexString:@"#747474"];
+                    itemView.statusButton.selected = false;
+                }
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",self.model.evElectricity];
+            }else if (itemView.tag == 14) {
+                if (highlighte) {
+                    BOOL value = BleManager.shareInstance.isConnented ? self.model.backUpType.intValue == 0 : [self.model.isOnline boolValue] && self.model.backUpType.intValue == 0;
+                    itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
+                    itemView.statusButton.selected = value;
+                }else{
+                    itemView.descLabel.textColor = [UIColor colorWithHexString:@"#747474"];
+                    itemView.statusButton.selected = false;
+                }
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",self.model.nonBackUpElectricity];
+            }else{
+                if (highlighte) {
+                    BOOL value = [self.model.isOnline boolValue] || BleManager.shareInstance.isConnented;
+                    itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
+                    itemView.statusButton.selected = value;
+                }else{
+                    itemView.descLabel.textColor = [UIColor colorWithHexString:@"#747474"];
+                    itemView.statusButton.selected = false;
+                }
+                itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",self.model.backUpElectricity];
+            }
         }
     }
 }

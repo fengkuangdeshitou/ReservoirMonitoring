@@ -143,15 +143,9 @@
     DeviceSwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([DeviceSwitchTableViewCell class]) forIndexPath:indexPath];
     DevideModel * model = tableView == self.tableView ? self.currentDevice : (self.searchArray.count==0?self.dataArray[indexPath.section]:self.searchArray[indexPath.section]);
     cell.model = model;
-    if (tableView == self.tableView || model.deviceId.intValue == self.currentDevice.deviceId.intValue) {
-        cell.status.text = BleManager.shareInstance.isConnented ? @"Online".localized : @"Offine".localized;
-        cell.status.textColor = [UIColor colorWithHexString:BleManager.shareInstance.isConnented ? COLOR_MAIN_COLOR : @"#999999"];
-        cell.bgView.backgroundColor = BleManager.shareInstance.isConnented ? [[UIColor colorWithHexString:@"#8CDFA5"] colorWithAlphaComponent:0.2] : [UIColor colorWithHexString:@"#333333"];
-    }else{
-        cell.status.text = [model.isOnline boolValue] ? @"Online".localized : @"Offine".localized;
-        cell.status.textColor = [UIColor colorWithHexString:[model.isOnline boolValue] ? COLOR_MAIN_COLOR : @"#999999"];
-        cell.bgView.backgroundColor = [model.isOnline boolValue] ? [[UIColor colorWithHexString:@"#8CDFA5"] colorWithAlphaComponent:0.2] : [UIColor colorWithHexString:@"#333333"];
-    }
+    cell.status.text = [model.isOnline boolValue] ? @"Online".localized : @"Offine".localized;
+    cell.status.textColor = [UIColor colorWithHexString:[model.isOnline boolValue] ? COLOR_MAIN_COLOR : @"#999999"];
+    cell.bgView.backgroundColor = [model.isOnline boolValue] ? [[UIColor colorWithHexString:@"#8CDFA5"] colorWithAlphaComponent:0.2] : [UIColor colorWithHexString:@"#333333"];
     [cell.switchDeviceBtn addTarget:self action:@selector(switchDeviceAction:) forControlEvents:UIControlEventTouchUpInside];
     cell.switchDeviceBtn.hidden = tableView == self.tableView;
     return cell;
@@ -181,7 +175,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView == self.tableView) {
-        return section == 0 ? 1 : 0;
+        return section == 0 && self.currentDevice ? 1 : 0;
     }
     return 1;
 }

@@ -14,6 +14,7 @@
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UILabel * temp;
 @property(nonatomic,weak)IBOutlet UILabel * weather;
+@property(nonatomic,weak)IBOutlet UILabel * symbol;
 @property(nonatomic,strong) NSMutableArray * list;
 
 @end
@@ -45,9 +46,10 @@
             [self.list addObject:value];
         }
         [self.tableView reloadData];
-        self.temp.text = [NSString stringWithFormat:@"%@",self.list[0][0][@"main"][@"temp"]];
-        NSString * interval = [NSString stringWithFormat:@"%@-%@",self.list[0][0][@"main"][@"temp_min"],self.list[0][0][@"main"][@"temp_max"]];
+        self.temp.text = [NSString stringWithFormat:@"%.0f",[self.list[0][0][@"main"][@"temp"] floatValue]];
+        NSString * interval = [NSString stringWithFormat:@"%.0f°-%.0f°",[self.list[0][0][@"main"][@"temp_min"] floatValue],[self.list[0][0][@"main"][@"temp_max"] floatValue]];
         self.weather.text = [NSString stringWithFormat:@"%@\n%@",interval,self.list[0][0][@"weather"][0][@"main"]];
+        self.symbol.hidden = false;
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];

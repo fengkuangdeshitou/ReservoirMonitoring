@@ -425,22 +425,23 @@ static unsigned char auchCRCLo[] = {
             NSArray * array = [self.centralManager retrieveConnectedPeripheralsWithServices:@[[CBUUID UUIDWithString:UUID_CONTROL_SERVICE]]];
             NSLog(@"array=%@",array);
             if (array.count > 0) {
-                [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    CBPeripheral * peripheral = obj;
-                    if (peripheral.state == CBPeripheralStateConnected && [peripheral.name hasPrefix:@"EPCUBE"]) {
-                        _isConnented = true;
-                        if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidConnectPeripheral:)]) {
-                            [self.delegate bluetoothDidConnectPeripheral:peripheral];
-                        }
-                        self.peripheral = peripheral;
-                        self.peripheral.delegate = self;
-                        [self.peripheral discoverServices:nil];
-                        self.timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(heartbeat) userInfo:nil repeats:true];
-                    }else{
-                        [self disconnectPeripheral];
-                        [self startScanning];
-                    }
-                }];
+                [self disconnectPeripheral];
+//                [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//                    CBPeripheral * peripheral = obj;
+//                    if (peripheral.state == CBPeripheralStateConnected && [peripheral.name hasPrefix:@"EPCUBE"]) {
+//                        _isConnented = true;
+//                        if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidConnectPeripheral:)]) {
+//                            [self.delegate bluetoothDidConnectPeripheral:peripheral];
+//                        }
+//                        self.peripheral = peripheral;
+//                        self.peripheral.delegate = self;
+//                        [self.peripheral discoverServices:nil];
+//                        self.timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(heartbeat) userInfo:nil repeats:true];
+//                    }else{
+//                        [self disconnectPeripheral];
+//                        [self startScanning];
+//                    }
+//                }];
             }else{
                 [self startScanning];
             }
@@ -531,14 +532,6 @@ static unsigned char auchCRCLo[] = {
 /// @param central 蓝牙管理
 /// @param peripheral 外设
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral{
-    _isConnented = true;
-    NSLog(@"连接成功");
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.hud hideAnimated:true];
-        [self.connectTimer invalidate];
-        self.connectTimer = nil;
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(heartbeat) userInfo:nil repeats:true];
-    });
     [self.centralManager stopScan];
     self.peripheral = peripheral;
     //连接成功之后寻找服务，传nil会寻找所有服务
@@ -852,6 +845,16 @@ static unsigned char auchCRCLo[] = {
 #pragma mark - 中心读取外设实时数据
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
     if (characteristic.isNotifying) {
+        if (_isConnented == false) {
+            _isConnented = true;
+            NSLog(@"连接成功");
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.hud hideAnimated:true];
+                [self.connectTimer invalidate];
+                self.connectTimer = nil;
+                self.timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(heartbeat) userInfo:nil repeats:true];
+            });
+        }
         if([characteristic.UUID.UUIDString isEqualToString:UUID_READ_CHARACTERISTICS]){
             NSLog(@"读取订阅成功");
 //            [self.peripheral readValueForCharacteristic:self.readCharacteristic];

@@ -50,7 +50,7 @@
     }
     //指定设备的识别类型 这里只指定二维码识别这一种类型 AVMetadataObjectTypeQRCode
     //指定识别类型这一步一定要在输出添加到会话之后&#xff0c;否则设备的课识别类型会为空&#xff0c;程序会出现崩溃
-    [self.output setMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
+    [self.output setMetadataObjectTypes:@[AVMetadataObjectTypeQRCode,AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode128Code]];
     //设置扫描信息的识别区域&#xff0c;本文设置正中央的一块正方形区域&#xff0c;该区域宽度是scanRegion_W
     //这里考虑了导航栏的高度&#xff0c;所以计算有点麻烦&#xff0c;识别区域越小识别效率越高&#xff0c;所以不设置整个屏幕
     //预览层 初始化&#xff0c;self.session负责驱动input进行信息的采集&#xff0c;layer负责把图像渲染显示
@@ -74,9 +74,8 @@
         //拿到扫描内容在这里进行个性化处理
         NSString *result = qrObject.stringValue;
         //解析数据进行处理并实现相应的逻辑
-        NSLog(@"result=%@",result);
         if (self.scanCode) {
-            self.scanCode(result);
+            self.scanCode([result stringByReplacingOccurrencesOfString:@"-" withString:@""]);
         }
         [self.navigationController popViewControllerAnimated:true];
     }

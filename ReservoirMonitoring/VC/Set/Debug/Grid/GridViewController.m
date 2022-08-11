@@ -34,6 +34,10 @@
     [self.submit showBorderWithRadius:25];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
+    if (!BleManager.shareInstance.isConnented) {
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
+        return;
+    }
     if (BleManager.shareInstance.isConnented) {
         [self.view showHUDToast:@"Loading"];
     }

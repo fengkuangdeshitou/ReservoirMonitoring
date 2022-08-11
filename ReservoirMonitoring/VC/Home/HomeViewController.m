@@ -42,6 +42,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self getHomeDeviceData];
+    [self.tableView reloadData];
     [self.refreshTimer setFireDate:[NSDate date]];
     self.time = 180;
 }
@@ -66,15 +67,11 @@
 - (void)getHomeDeviceData{
     if (RMHelper.getUserType) {
         if (RMHelper.getLoadDataForBluetooth) {
-            if (self.model.deviceId) {
-                [self getBluetoothData];
-            }else{
-                [self getCurrentDevice:^(DevideModel *model) {
-                    if (model) {
-                        [self getBluetoothData];
-                    }
-                }];
-            }
+            [self getCurrentDevice:^(DevideModel *model) {
+                if (model) {
+                    [self getBluetoothData];
+                }
+            }];
         }else{
             [self getNetworkData];
         }
@@ -123,7 +120,6 @@
         NSString * isOnline = self.model.isOnline;
         self.model = [DevideModel mj_objectWithKeyValues:result[@"data"]];
         self.model.isOnline = isOnline;
-        [self.tableView reloadData];
         [self.refreshController endRefreshing];
         [self getWeatherData:sgSn];
     } failure:^(NSString * _Nonnull errorMsg) {

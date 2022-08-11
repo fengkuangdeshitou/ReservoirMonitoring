@@ -34,7 +34,7 @@
     NSString * string = [model[@"dt_txt"] componentsSeparatedByString:@" "].lastObject;
     self.time.text = [NSString stringWithFormat:@"%@ h",[string substringToIndex:2]];
     self.icon.image = [UIImage imageNamed:model[@"weather"][0][@"icon"]];
-    self.temp.text = [NSString stringWithFormat:@"%.1f",[model[@"main"][@"temp"] floatValue]];
+    self.temp.text = [NSString stringWithFormat:@"%.0f",[model[@"main"][@"temp"] floatValue]];
 }
 
 @end

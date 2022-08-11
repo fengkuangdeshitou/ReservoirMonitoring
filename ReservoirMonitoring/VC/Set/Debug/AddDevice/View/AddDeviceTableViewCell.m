@@ -26,6 +26,9 @@
 
 - (IBAction)scanAction:(id)sender{
     ScanViewController * scan = [[ScanViewController alloc] init];
+    scan.scanCode = ^(NSString * _Nonnull code) {
+        self.idtextfield.text = code;
+    };
     [RMHelper.getCurrentVC.navigationController pushViewController:scan animated:true];
 }
 

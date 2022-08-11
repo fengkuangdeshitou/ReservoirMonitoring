@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WeatherViewController">
             <connections>
+                <outlet property="symbol" destination="vxZ-kE-sSE" id="cLs-cf-e7Z"/>
                 <outlet property="tableView" destination="gHK-l2-iIw" id="Ac4-Ph-Z7l"/>
                 <outlet property="temp" destination="me9-6S-x4B" id="7He-cc-2Wu"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -43,9 +44,17 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="°F" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vxZ-kE-sSE">
+                                <rect key="frame" x="233.5" y="46" width="17" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.047058823530000002" green="0.047058823530000002" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="vxZ-kE-sSE" firstAttribute="leading" secondItem="me9-6S-x4B" secondAttribute="trailing" id="ED1-IT-f0i"/>
+                            <constraint firstItem="vxZ-kE-sSE" firstAttribute="top" secondItem="me9-6S-x4B" secondAttribute="top" constant="16" id="UCA-Ry-FE4"/>
                             <constraint firstItem="uQK-UO-nXz" firstAttribute="top" secondItem="me9-6S-x4B" secondAttribute="bottom" id="V0a-ia-ESH"/>
                             <constraint firstItem="me9-6S-x4B" firstAttribute="centerX" secondItem="QQW-Th-ckq" secondAttribute="centerX" id="oGk-uY-T0d"/>
                             <constraint firstItem="uQK-UO-nXz" firstAttribute="centerX" secondItem="QQW-Th-ckq" secondAttribute="centerX" id="wAB-oW-rWd"/>

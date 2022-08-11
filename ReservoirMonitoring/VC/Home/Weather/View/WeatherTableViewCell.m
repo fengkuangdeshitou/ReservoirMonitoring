@@ -28,8 +28,8 @@
     NSDate * date = [NSDate dateWithTimeIntervalSince1970:[model[0][@"date"] longLongValue]/1000];
     self.weak.text = [self formatWeekString:date.br_weekdayString];
     // - 32)*5/9
-    self.max.text = [NSString stringWithFormat:@"%.2f",[model[0][@"main"][@"temp_max"] floatValue]];
-    self.min.text = [NSString stringWithFormat:@"%.2f",[model[0][@"main"][@"temp_min"] floatValue]];
+    self.max.text = [NSString stringWithFormat:@"%.0f",[model[0][@"main"][@"temp_max"] floatValue]];
+    self.min.text = [NSString stringWithFormat:@"%.0f",[model[0][@"main"][@"temp_min"] floatValue]];
     self.icon.image = [UIImage imageNamed:model[0][@"weather"][0][@"icon"]];
 }
 
