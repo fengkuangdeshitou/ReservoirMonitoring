@@ -55,17 +55,19 @@
         }else if (workStatus == 2){
             self.flag = 2;
             self.allowChargingXiaGrid = [data[@"allowChargingXiaGrid"] boolValue];
-            NSArray * offPeakTimeList = data[@"offPeakTimeList"];
-            for (int i=0; i<offPeakTimeList.count; i++) {
-                NSString * string = offPeakTimeList[i];
-                if ([string containsString:@"_"]) {
-                    NSArray * timeArray = [string componentsSeparatedByString:@"_"];
-                    NSString * startTime = timeArray[0];
-                    NSString * endTime = timeArray[1];
-                    NSDictionary * dict = @{@"startTime":startTime,@"endTime":endTime,@"price":timeArray.count>=2?timeArray[2]:@"0"};
-                    [self.touArray addObject:dict];
-                }else{
-                    [self.touArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
+            if (!BleManager.shareInstance.isConnented) {
+                NSArray * offPeakTimeList = data[@"offPeakTimeList"];
+                for (int i=0; i<offPeakTimeList.count; i++) {
+                    NSString * string = offPeakTimeList[i];
+                    if ([string containsString:@"_"]) {
+                        NSArray * timeArray = [string componentsSeparatedByString:@"_"];
+                        NSString * startTime = timeArray[0];
+                        NSString * endTime = timeArray[1];
+                        NSDictionary * dict = @{@"startTime":startTime,@"endTime":endTime,@"price":timeArray.count>=2?timeArray[2]:@"0"};
+                        [self.touArray addObject:dict];
+                    }else{
+                        [self.touArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
+                    }
                 }
             }
             NSArray * peakTimeArray = data[@"peakTimeList"];
@@ -250,6 +252,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.tableView reloadData];
             [weakSelf.view hiddenHUD];
+            [weakSelf getSwitchModeData];
             dispatch_semaphore_signal(semaphore);
         });
     });
