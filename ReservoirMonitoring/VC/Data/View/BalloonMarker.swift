@@ -189,7 +189,7 @@ open class BalloonMarker: MarkerImage
     {
         let formatter = self.chartView?.xAxis.valueFormatter as! IndexAxisValueFormatter
         let time = formatter.stringForValue(entry.x, axis: self.chartView?.xAxis)
-        let key = self.scopeType == 1 ? "Time:" : self.scopeType == 2 ? "Day:" : "Month";
+        let key = self.scopeType == 1 ? "Time:" : self.scopeType == 2 ? "Day:" : "Month:";
         if self.scopeType == 1 {
             setLabel(String("    \(key)" + time + "\n" + "    Data:" + String(entry.y) + "kW"))
         }else{

@@ -207,7 +207,7 @@
     self.selectFlag = 0;
     self.energyTitle.text = @"Energy curve".localized;
     self.titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV",@"Non-backup".localized,@"Backup loads".localized];
-    self.independence.text = @"Self reliable:".localized;
+    self.independence.text = @"Self reliable rating:".localized;
     self.power.text = @"Power outage:".localized;
     self.reducing.text = @"Reducing deforestation:".localized;
     self.trees.text = @"trees".localized;
@@ -241,6 +241,26 @@
         self.titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV",@"Backup loads".localized];
         self.normal = @[@"data_normal_0",@"data_normal_1",@"data_normal_2",@"data_normal_3",@"data_normal_5"];
         self.highlight = @[@"data_select_0",@"data_select_1",@"data_select_2",@"data_select_3",@"data_select_5"];
+        CGFloat width = (SCREEN_WIDTH-30)/self.normal.count;
+        for (int i=0; i<self.normal.count; i++) {
+            UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+            button.frame = CGRectMake((width-0.5)*i, 3, width, 24);
+            [button setImage:[UIImage imageNamed:self.normal[i]] forState:UIControlStateNormal];
+            button.imageView.contentMode = UIViewContentModeScaleAspectFit;
+            button.tag = i+10;
+            [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+            [self.titleView addSubview:button];
+        }
+        [self buttonClick:[self viewWithTag:10]];
+    }else{
+        for (UIView * view in self.titleView.subviews) {
+            if ([view isKindOfClass:[UIButton class]]) {
+                [view removeFromSuperview];
+            }
+        }
+        self.titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV",@"Non-backup".localized,@"Backup loads".localized];
+        self.normal = @[@"data_normal_0",@"data_normal_1",@"data_normal_2",@"data_normal_3",@"data_normal_4",@"data_normal_5"];
+        self.highlight = @[@"data_select_0",@"data_select_1",@"data_select_2",@"data_select_3",@"data_select_4",@"data_select_5"];
         CGFloat width = (SCREEN_WIDTH-30)/self.normal.count;
         for (int i=0; i<self.normal.count; i++) {
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];

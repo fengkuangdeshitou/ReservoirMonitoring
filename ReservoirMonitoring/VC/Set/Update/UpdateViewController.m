@@ -103,6 +103,7 @@
         [BleManager.shareInstance writeWithCMDString:@"628" string:value finish:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 sender.selected = !sender.selected;
+                [self commitAotuUpdateVersiom];
             });
         }];
     }else{
@@ -117,7 +118,7 @@
 }
 
 - (void)commitAotuUpdateVersiom{
-    [Request.shareInstance getUrl:CommitAotuUpdateVersion params:@{@"aotuUpdateFirmware":self.commitAotuUpdate.selected?@"0":@"1",@"devId":self.devId} progress:^(float progress) {
+    [Request.shareInstance getUrl:CommitAotuUpdateVersion params:@{@"aotuUpdateFirmware":self.commitAotuUpdate.selected?@"0":@"1",@"devId":self.devId,@"onlySave":BleManager.shareInstance.isConnented?@"1":@"0"} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         BOOL value = [result[@"data"] boolValue];

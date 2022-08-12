@@ -83,14 +83,21 @@
 - (void)didClickLink:(MLLink *)link
             linkText:(NSString *)linkText
            linkLabel:(MLLinkLabel *)linkLabel{
-    NSString * url = @"";
+    NSString * type = @"";
     if ([linkText isEqualToString:@"User Agreement".localized]) {
-        url = Agreement;
+        type = @"1";
     }else{
-        url = Privacy;
+        type = @"2";
     }
-    ProtocolViewController * protocal = [[ProtocolViewController alloc] initWithUrl:url];
-    [self.navigationController pushViewController:protocal animated:true];
+    [Request.shareInstance getUrl:[NSString stringWithFormat:@"%@/%@",ProtocolLink,type] params:@{} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        NSString * url = result[@"data"];
+        ProtocolViewController * protocal = [[ProtocolViewController alloc] initWithUrl:url];
+        [self.navigationController pushViewController:protocal animated:true];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (IBAction)statusChange:(UIButton *)sender{

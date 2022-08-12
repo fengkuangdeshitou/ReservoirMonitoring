@@ -241,7 +241,7 @@
         [BleManager.shareInstance writeWithCMDString:@"634" array:array finish:^{
             dispatch_semaphore_signal(semaphore);
             dispatch_async(dispatch_get_main_queue(), ^{
-                [RMHelper showToast:@"Write success" toView:weakSelf.view];
+                [RMHelper showToast:@"Success" toView:weakSelf.view];
                 [weakSelf.view hiddenHUD];
                 NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
                 NSDictionary * item = @{

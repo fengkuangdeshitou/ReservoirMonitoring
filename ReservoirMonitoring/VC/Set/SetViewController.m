@@ -15,6 +15,7 @@
 #import "WarningViewController.h"
 #import "DebugViewController.h"
 #import "UserModel.h"
+#import "GlobelDescAlertView.h"
 
 @interface SetViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -103,6 +104,10 @@
             network.hidesBottomBarWhenPushed = true;
             [self.navigationController pushViewController:network animated:true];
         }else if(indexPath.row == 2){
+            if (DeviceManager.shareInstance.deviceNumber == 0) {
+                [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please add device to continue" btnTitle:nil completion:nil];
+                return;
+            }
             UpdateViewController * update = [[UpdateViewController alloc] init];
             update.title = @"Software Version".localized;
             update.hidesBottomBarWhenPushed = true;

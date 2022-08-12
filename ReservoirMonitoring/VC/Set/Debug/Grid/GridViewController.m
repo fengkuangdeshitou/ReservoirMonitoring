@@ -114,7 +114,6 @@
 - (IBAction)submitAction:(id)sender{
     InputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     int input = [cell.textfield.text intValue]*10;
-    NSLog(@"value====%@",self.dataArray[0][@"value"]);
     if (!BleManager.shareInstance.isConnented) {
         [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
         return;
@@ -130,7 +129,7 @@
         }];
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance writeWithCMDString:@"64E" array:@[weakSelf.dataArray[3][@"value"]] finish:^{
-            [RMHelper showToast:@"Write success" toView:weakSelf.view];
+            [RMHelper showToast:@"Success" toView:weakSelf.view];
             [weakSelf.view hiddenHUD];
             [weakSelf uploadDebugConfig:@{
                 @"devId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID],

@@ -21,7 +21,7 @@
 #import "Request.h"
 #import "MJExtension.h"
 @import Masonry;
-
+#import "DeviceManager.h"
 
 
 // Include any system framework and library headers here that should be included in all compilation units.

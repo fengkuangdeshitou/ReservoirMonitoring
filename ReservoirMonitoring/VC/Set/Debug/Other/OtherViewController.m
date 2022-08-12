@@ -69,7 +69,7 @@
         return;
     }
     [BleManager.shareInstance writeWithCMDString:@"600" array:@[value] finish:^{
-        [RMHelper showToast:@"Write success" toView:self.view];
+        [RMHelper showToast:@"Success" toView:self.view];
         [self uploadDebugConfig:@{
             @"devId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID],
             @"formType":@"5",

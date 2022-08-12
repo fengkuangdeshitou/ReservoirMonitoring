@@ -85,6 +85,7 @@
             
     } success:^(NSDictionary * _Nonnull result) {
         NSArray * modelArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        DeviceManager.shareInstance.deviceNumber = modelArray.count;
         if (modelArray.count > 0){
             NSArray<DevideModel*> * array = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
             if (array.count > 0) {

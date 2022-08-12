@@ -183,7 +183,7 @@
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance writeWithCMDString:@"63A" array:otherArray finish:^{
             dispatch_async(dispatch_get_main_queue(), ^{
-                [RMHelper showToast:@"Write success" toView:weakSelf.view];
+                [RMHelper showToast:@"Success" toView:weakSelf.view];
                 [weakSelf.view hiddenHUD];
                 [self uploadDebugConfig:params];
             });

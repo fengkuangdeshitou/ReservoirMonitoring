@@ -81,5 +81,6 @@ NSString * const DeviceInfoWeather = @"/device/homeDeviceInfoWeather";
 
 NSString * const ClearTouMode = @"/device/clearTouMode";
 
+NSString * const ProtocolLink = @"/open/common/protocolLink";
 
 @end

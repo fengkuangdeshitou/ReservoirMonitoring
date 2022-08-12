@@ -79,6 +79,8 @@ extern NSString * const DeviceInfoWeather;
 
 extern NSString * const ClearTouMode;
 
+extern NSString * const ProtocolLink;
+
 @end
 
 NS_ASSUME_NONNULL_END

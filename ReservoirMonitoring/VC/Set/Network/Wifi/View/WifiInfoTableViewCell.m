@@ -7,6 +7,7 @@
 
 #import "WifiInfoTableViewCell.h"
 #import "BleManager.h"
+#import "GlobelDescAlertView.h"
 
 @implementation WifiInfoTableViewCell
 
@@ -17,6 +18,12 @@
     self.status.text = @"BLE status：".localized;
     self.statusButton.layer.cornerRadius = 15;
     self.statusButton.layer.borderWidth = 0.5;
+    
+    self.statusButton.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
+    [self.statusButton setTitle:@"Connected".localized forState:UIControlStateNormal];
+    self.status.text = @"Disconnected".localized;
+    self.status.textColor = [UIColor colorWithHexString:@"#999999"];
+    self.statusImageView.image = [UIImage imageNamed:@"bluetooth_gray"];
 }
 
 - (void)setModel:(DevideModel *)model{
@@ -39,6 +46,10 @@
 }
 
 - (IBAction)disconnectAction:(UIButton *)sender{
+    if (DeviceManager.shareInstance.deviceNumber == 0) {
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please add device to continue" btnTitle:nil completion:nil];
+        return;
+    }
     if (BleManager.shareInstance.isConnented) {
         [BleManager.shareInstance disconnectPeripheral];
     }else{

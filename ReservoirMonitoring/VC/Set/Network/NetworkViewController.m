@@ -61,6 +61,10 @@
 }
 
 - (void)addDevice{
+    if (DeviceManager.shareInstance.deviceNumber == 0) {
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please add device to continue" btnTitle:nil completion:nil];
+        return;
+    }
 //    AddDeviceViewController * add = [[AddDeviceViewController alloc] init];
 //    add.title = @"Add Device".localized;
 //    [self.navigationController pushViewController:add animated:true];
@@ -133,7 +137,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         WifiInfoTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WifiInfoTableViewCell class]) forIndexPath:indexPath];
-        cell.model = self.model;
+        if (self.model) {
+            cell.model = self.model;
+        }
         return cell;
     }else{
         NetworkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NetworkTableViewCell class]) forIndexPath:indexPath];
@@ -181,11 +187,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return section == 0 ? (self.model == nil ? 0 : 1) : self.dataArray.count;
+    return section == 0 ? 1 : self.dataArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return (self.model == nil && section == 0) ? 0.01 : 52;
+    return 52;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{

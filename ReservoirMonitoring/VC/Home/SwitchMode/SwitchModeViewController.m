@@ -387,7 +387,7 @@
             [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
             return;
         }
-        [params setValue:@"0" forKey:@"onlySave"];
+        [params setValue:@"1" forKey:@"onlySave"];
         if (self.flag == 2) {
             if ([offPeakArray[0] componentsSeparatedByString:@"_"][0].length == 0) {
                 [RMHelper showToast:@"please select start time" toView:self.view];
@@ -496,7 +496,7 @@
                     [UIApplication.sharedApplication.keyWindow hiddenHUD];
                     NSInteger idx = [array.firstObject intValue];
                     if (idx == 1) {
-                        [RMHelper showToast:@"Configuration failed" toView:self.view];
+                        [RMHelper showToast:@"Failure" toView:self.view];
                     }
                     if (idx == 2) {
 //                        [RMHelper showToast:@"In the configuration" toView:self.view];
@@ -509,7 +509,7 @@
             }
         });
     }else{
-        [params setValue:@"1" forKey:@"onlySave"];
+        [params setValue:@"0" forKey:@"onlySave"];
         [self switchWithParams:params];
     }
     

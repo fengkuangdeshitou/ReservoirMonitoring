@@ -11,6 +11,7 @@
 @import SGPagingView;
 @import BRPickerView;
 #import "DevideModel.h"
+#import "GlobelDescAlertView.h"
 
 @interface DataViewController ()<UICollectionViewDataSource,SGPageTitleViewDelegate>
 
@@ -57,6 +58,10 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    if (DeviceManager.shareInstance.deviceNumber == 0) {
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please add device to continue" btnTitle:nil completion:nil];
+        return;
+    }
     [self getCurrentDevice];
 }
 
@@ -139,7 +144,8 @@
             self.titleArray = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"From grid:%.02f kWh",self.model.gridElectricityFrom],@"Solar".localized,@"Generator".localized,@"EV".localized,@"Backup loads".localized]];
             self.valueArray = @[[NSString stringWithFormat:@"To grid:%.02f",self.model.gridElectricityTo],@(self.model.solarElectricity),@(self.model.generatorElectricity),@(self.model.evElectricity),@(self.model.backUpElectricity)];
         }else{
-            [self.titleArray replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"From grid:%.02f kWh",self.model.gridElectricityFrom]];
+            self.imageArray = @[@"data_select_0",@"data_select_1",@"data_select_2",@"data_select_3",@"data_select_4",@"data_select_5"];
+            self.titleArray = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"From grid:%.02f kWh",self.model.gridElectricityFrom],@"Solar".localized,@"Generator".localized,@"EV".localized,@"Non-backup".localized,@"Backup loads".localized]];
             self.valueArray = @[[NSString stringWithFormat:@"To grid:%.02f",self.model.gridElectricityTo],@(self.model.solarElectricity),@(self.model.generatorElectricity),@(self.model.evElectricity),@(self.model.nonBackUpElectricity),@(self.model.backUpElectricity)];
         }
         [self.refreshController endRefreshing];
