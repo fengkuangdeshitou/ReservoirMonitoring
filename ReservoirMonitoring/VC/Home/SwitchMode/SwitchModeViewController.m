@@ -69,6 +69,25 @@
                         [self.touArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
                     }
                 }
+            }else{
+                NSArray * offPeakTimeList = data[@"offPeakTimeList"];
+                NSMutableArray * priceArray = [[NSMutableArray alloc] init];
+                for (int i=0; i<offPeakTimeList.count; i++) {
+                    NSString * string = offPeakTimeList[i];
+                    if ([string containsString:@"_"]) {
+                        NSArray * timeArray = [string componentsSeparatedByString:@"_"];
+                        [priceArray addObject:timeArray.count>=2?timeArray[2]:@""];
+                    }else{
+                        [priceArray addObject:@""];
+                    }
+                }
+                NSMutableArray * array = [[NSMutableArray alloc] init];
+                for (int i=0; i<self.touArray.count; i++) {
+                    NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:self.touArray[i]];
+                    [item setValue:priceArray[i] forKey:@"item"];
+                    [array addObject:item];
+                }
+                self.touArray = [[NSMutableArray alloc] initWithArray:array];
             }
             NSArray * peakTimeArray = data[@"peakTimeList"];
             for (int i=0; i<peakTimeArray.count; i++) {

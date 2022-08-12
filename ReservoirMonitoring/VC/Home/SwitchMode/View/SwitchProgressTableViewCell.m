@@ -34,11 +34,12 @@
 }
 
 - (IBAction)subAction:(id)sender{
-    if (self.progress >= 1) {
-        self.progress--;
-        self.slider.value = self.progress;
-        self.titleLabel.text = [NSString stringWithFormat:@"%.0f",self.progress];
+    self.progress--;
+    if (self.progress <= 0) {
+        self.progress = 0;
     }
+    self.slider.value = self.progress;
+    self.titleLabel.text = [NSString stringWithFormat:@"%.0f",self.progress];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

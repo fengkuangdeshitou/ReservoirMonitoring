@@ -59,9 +59,9 @@ NSString * const QueryDataElectricity = @"/device/queryDataElectricity";
 
 NSString * const QueryDataGraph = @"/device/queryDataGraph";
 
-NSString * const Agreement = @"http://52.8.81.210:8500/profile/Terms%20of%20Use%20&%20Service%20290622.pdf";
+NSString * const Agreement = @"https://epcube-monitoring.com/uploadPath/Terms%20of%20Use%20&%20Service%20290622.pdf";
 
-NSString * const Privacy = @"http://52.8.81.210:8500/profile/EP%20Privacy%20Statement%20290622.pdf";
+NSString * const Privacy = @"https://epcube-monitoring.com/uploadPath/EP%20Privacy%20Statement%20290622.pdf";
 
 NSString * const QueryFirmwareInfo = @"/user/user/queryFirmwareInfo";
 

@@ -40,7 +40,7 @@
     [self setLeftBarImageForSel:nil];
     self.titleArray = [[NSMutableArray alloc] initWithArray:@[@"From grid:0 kWh".localized,@"Solar".localized,@"Generator".localized,@"EV".localized,@"Non-backup".localized,@"Backup loads".localized]];
     self.valueArray = @[[NSString stringWithFormat:@"To grid:%@",@(0)],@(0),@(0),@(0),@(0),@(0)];
-    self.imageArray = @[@"icon_grid_active",@"icon_solar_active",@"icon_generator_active",@"icon_ev_active",@"icon_non_backup_active",@"icon_backup_active"];
+    self.imageArray = @[@"data_select_0",@"data_select_1",@"data_select_2",@"data_select_3",@"data_select_4",@"data_select_5"];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DataCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([DataCollectionViewCell class])];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DataEchartsCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([DataEchartsCollectionViewCell class])];
     SGPageTitleViewConfigure * config = [SGPageTitleViewConfigure pageTitleViewConfigure];
@@ -93,6 +93,7 @@
         self.backUpType = model.backUpType;
         [self getDataWithScopeType:self.titleView.selectedIndex==3?0:self.titleView.selectedIndex+1];
     } failure:^(NSString * _Nonnull errorMsg) {
+    
     }];
 }
 
@@ -134,7 +135,7 @@
     } success:^(NSDictionary * _Nonnull result) {
         self.model = [DevideModel mj_objectWithKeyValues:result[@"data"]];
         if (self.backUpType.intValue == 1) {
-            self.imageArray = @[@"icon_grid_active",@"icon_solar_active",@"icon_generator_active",@"icon_ev_active",@"icon_backup_active"];
+            self.imageArray = @[@"data_select_0",@"data_select_1",@"data_select_2",@"data_select_3",@"data_select_5"];
             self.titleArray = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"From grid:%.02f kWh",self.model.gridElectricityFrom],@"Solar".localized,@"Generator".localized,@"EV".localized,@"Backup loads".localized]];
             self.valueArray = @[[NSString stringWithFormat:@"To grid:%.02f",self.model.gridElectricityTo],@(self.model.solarElectricity),@(self.model.generatorElectricity),@(self.model.evElectricity),@(self.model.backUpElectricity)];
         }else{
@@ -182,6 +183,7 @@
         cell.treeNum.text = [NSString stringWithFormat:@"%.0f",self.model.treeNum];
         cell.coalValue.text = [NSString stringWithFormat:@"%.1f",self.model.coal];
         cell.scopeType = self.scopeType;
+        cell.backUpType = self.backUpType;
         return cell;
     }
 }
@@ -195,7 +197,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return indexPath.section == 0 ? CGSizeMake((SCREEN_WIDTH-50)/3, 100) : CGSizeMake(SCREEN_WIDTH, 430);
+    return indexPath.section == 0 ? CGSizeMake((SCREEN_WIDTH-50)/3, 110) : CGSizeMake(SCREEN_WIDTH, 430);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{

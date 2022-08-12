@@ -53,8 +53,6 @@
 - (LineChartView *)lineEchartsView{
     if (!_lineEchartsView) {
         _lineEchartsView = [[LineChartView alloc] initWithFrame:CGRectMake(0, 15, SCREEN_WIDTH, 200)];
-    //    self.echartsView.dragDecelerationEnabled = true;
-    //    self.echartsView.dragDecelerationFrictionCoef = 0.9;
         _lineEchartsView.chartDescription.enabled = false;
         _lineEchartsView.doubleTapToZoomEnabled = NO;
         _lineEchartsView.noDataText = @"No chart data";
@@ -232,6 +230,31 @@
     [self.echarts addSubview:self.barEchartsView];
 }
 
+- (void)setBackUpType:(NSString *)backUpType{
+    _backUpType = backUpType;
+    if (backUpType.intValue == 1) {
+        for (UIView * view in self.titleView.subviews) {
+            if ([view isKindOfClass:[UIButton class]]) {
+                [view removeFromSuperview];
+            }
+        }
+        self.titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV",@"Backup loads".localized];
+        self.normal = @[@"data_normal_0",@"data_normal_1",@"data_normal_2",@"data_normal_3",@"data_normal_5"];
+        self.highlight = @[@"data_select_0",@"data_select_1",@"data_select_2",@"data_select_3",@"data_select_5"];
+        CGFloat width = (SCREEN_WIDTH-30)/self.normal.count;
+        for (int i=0; i<self.normal.count; i++) {
+            UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+            button.frame = CGRectMake((width-0.5)*i, 3, width, 24);
+            [button setImage:[UIImage imageNamed:self.normal[i]] forState:UIControlStateNormal];
+            button.imageView.contentMode = UIViewContentModeScaleAspectFit;
+            button.tag = i+10;
+            [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+            [self.titleView addSubview:button];
+        }
+        [self buttonClick:[self viewWithTag:10]];
+    }
+}
+
 - (void)setDataArray:(NSArray *)dataArray{
     _dataArray = dataArray;
     [self formatEcharsArrayForIndex:self.selectFlag];
@@ -306,14 +329,16 @@
             data.barWidth = 0.4;
             [data groupBarsFromX:-0.5 groupSpace:0.12 barSpace:0.04];
             self.barEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
-            self.barEchartsView.data = data;
+            self.barEchartsView.data = xArray.count == 0 ? nil : data;
             [self.barEchartsView setScaleMinima:1 scaleY:0];
             [self.barEchartsView setVisibleXRangeMinimum:6];
             [self.barEchartsView notifyDataSetChanged];
             [self.barEchartsView.data notifyDataChanged];
         }else{
+            double dataSetMax = 0;
+            double dataSetMin = 0;
             self.toGridView.hidden = true;
-            self.current.text = @"Gird";
+            self.current.text = self.titleArray[self.selectFlag];
             NSMutableArray *array = [NSMutableArray array];
             for (int i = 0; i < xArray.count; i++) {
                 BarChartDataEntry *entry = [[BarChartDataEntry alloc] initWithX:i y:[yArray[i] doubleValue]];
@@ -328,8 +353,12 @@
             [set setValueFormatter:formatter];
             set.highlightColor = UIColor.clearColor;
             self.barEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
+            dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin*2;
+            dataSetMax = dataSetMax == 0 ? 1.4 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
+            self.barEchartsView.leftAxis.axisMaximum = dataSetMax;
+            self.barEchartsView.leftAxis.axisMinimum = dataSetMin;
             BarChartData *data = [[BarChartData alloc] initWithDataSet:set];
-            self.barEchartsView.data = data;
+            self.barEchartsView.data = xArray.count == 0 ? nil : data;
             [self.barEchartsView setScaleMinima:1 scaleY:0];
             [self.barEchartsView setVisibleXRangeMinimum:6];
             [self.barEchartsView notifyDataSetChanged];
@@ -341,7 +370,7 @@
         double dataSetMax = 0;
         double dataSetMin = 0;
         if (scopeType == 1 || (scopeType != 1 && self.selectFlag != 0)) {
-            self.current.text = @"Gird";
+            self.current.text = self.titleArray[self.selectFlag];
             self.toGridView.hidden = true;
             self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
             NSMutableArray<ChartDataEntry*> * array = [[NSMutableArray alloc] init];
@@ -374,7 +403,7 @@
             self.lineEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.lineEchartsView.leftAxis.axisMinimum = dataSetMin;
             LineChartData *data = [[LineChartData alloc] initWithDataSets:@[set]];
-            self.lineEchartsView.data = data;
+            self.lineEchartsView.data = xArray.count == 0 ? nil : data;
             [self.lineEchartsView notifyDataSetChanged];
             [self.lineEchartsView.data notifyDataChanged];
         }else{
@@ -414,7 +443,7 @@
             self.lineEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.lineEchartsView.leftAxis.axisMinimum = dataSetMin;
             LineChartData *data = [[LineChartData alloc] initWithDataSets:sets];
-            self.lineEchartsView.data = data;
+            self.lineEchartsView.data = xArray.count == 0 ? nil : data;
             [self.lineEchartsView notifyDataSetChanged];
             [self.lineEchartsView.data notifyDataChanged];
         }

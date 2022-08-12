@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,weak)IBOutlet UILabel * coalValue;
 @property(nonatomic,assign) NSArray * dataArray;
 @property(nonatomic,assign) NSInteger scopeType;
+@property(nonatomic,strong) NSString * backUpType;
 
 @end
 
