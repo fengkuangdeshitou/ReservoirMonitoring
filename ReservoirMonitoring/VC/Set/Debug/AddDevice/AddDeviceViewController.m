@@ -130,7 +130,7 @@
                 cell.textfield.delegate = self;
             }else{
                 cell.scanBtn.hidden = false;
-                cell.textfield.placeholder = @"Please inpute battery SN".localized;
+                cell.textfield.placeholder = @"Please input battery/base SN".localized;
                 [cell.scanBtn setImage:[UIImage imageNamed:@"ic_set_scan"] forState:UIControlStateNormal];
                 [cell.deleteBtm setImage:[UIImage imageNamed:@"ic_delete"] forState:UIControlStateNormal];
                 cell.deleteBtm.tag = indexPath.row+10;
@@ -192,7 +192,7 @@
         make.left.mas_equalTo(section == 0 ? 15 : 30);
             make.top.bottom.mas_equalTo(0);
     }];
-    title.text = section == 0 ? @"Smart Gateway info".localized : @"Accessory Hybrid info".localized;
+    title.text = section == 0 ? @"Smart Gateway info".localized : @"Hybrid info".localized;
     title.font = [UIFont systemFontOfSize:18 weight:UIFontWeightMedium];
     title.textColor = UIColor.whiteColor;
     return header;

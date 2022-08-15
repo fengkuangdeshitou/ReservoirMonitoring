@@ -151,24 +151,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-//        WifiViewController * wifi = [[WifiViewController alloc] init];
-//        wifi.title = @"Wi-Fi config".localized;
-//        wifi.model = self.model;
-//        [self.navigationController pushViewController:wifi animated:true];
+
     }else{
-        if (self.model.isConnected) {
-            [RMHelper showToast:@"do not reconnect" toView:self.view];
-        }else{
-            DevideModel * model = self.dataArray[indexPath.row];
-            if ([model.rtuSn isEqualToString:self.model.rtuSn]) {
-                BleManager.shareInstance.rtusn = model.rtuSn;
-                [BleManager.shareInstance startScanning];
-            }else{
-                [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:[NSString stringWithFormat:@"Please switch the %@ to the current device",self.model.rtuSn] btnTitle:nil completion:nil];
-            }
-        }
+        DevideModel * model = self.dataArray[indexPath.row];
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:[NSString stringWithFormat:@"Please confirm switching to new device (SN: %@) for bluetooth connection.",model.sgSn] btnTitle:@"Acknowledge" completion:^{
+            [self switchDeviceAction:model.deviceId];
+        }];
     }
-    
+}
+
+- (void)switchDeviceAction:(NSString *)deviceId{
+    [Request.shareInstance getUrl:SwitchDevice params:@{@"id":deviceId} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        [BleManager.shareInstance disconnectPeripheral];
+        [self getDeviceList];
+        [[NSNotificationCenter defaultCenter] postNotificationName:SWITCH_DEVICE_NOTIFICATION object:nil];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -199,7 +200,12 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return indexPath.section == 0 ? 135 : 80;
+    if (indexPath.section == 0) {
+        return 135;
+    }else{
+        DevideModel * model = self.dataArray[indexPath.row];
+        return [model.rtuSn isEqualToString:self.model.rtuSn] ? 0.01 : 80;
+    }
 }
 
 /*

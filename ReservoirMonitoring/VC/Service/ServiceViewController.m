@@ -93,10 +93,19 @@
         }
     }else{
         [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
+        if (RMHelper.getUserType) {
+            self.submit.userInteractionEnabled = false;
+            [self.submit setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+            self.submit.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
+        }
     }
 }
 
 - (IBAction)submitAction:(id)sender{
+    if (self.model.defDevId.length == 0) {
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Smart Gateway SN cannot be empty" btnTitle:nil completion:nil];
+        return;
+    }
     NSDictionary * params = @{@"encoding":@"UTF-8",
                               @"orgid":@"00D8c000003UHSM",
                               @"retURL":@"www.moonflow.com",

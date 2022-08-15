@@ -32,6 +32,9 @@
     // Do any additional setup after loading the view from its nib.
     self.tableView.refreshControl = self.refreshController;
     [self.refreshController addTarget:self action:@selector(onRefresh) forControlEvents:UIControlEventValueChanged];
+    [[NSNotificationCenter defaultCenter] addObserverForName:SWITCH_DEVICE_NOTIFICATION object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        [self getHomeDeviceData];
+    }];
     self.manager = BleManager.shareInstance;
     [self.addEquipmentBtn showBorderWithRadius:25];
     [self setLeftBarImageForSel:nil];

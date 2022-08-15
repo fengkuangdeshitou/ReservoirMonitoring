@@ -71,6 +71,7 @@
 }
 
 - (IBAction)logoutAtion:(id)sender{
+    [BleManager.shareInstance disconnectPeripheral];
     [NSUserDefaults.standardUserDefaults removeObjectForKey:@"token"];
     [[NSNotificationCenter defaultCenter] postNotificationName:LOG_OUT object:nil];
 }
