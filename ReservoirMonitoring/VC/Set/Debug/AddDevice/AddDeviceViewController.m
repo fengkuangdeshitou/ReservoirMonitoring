@@ -105,6 +105,16 @@
     }
 }
 
+- (void)inverteScanFinish{
+    ScanViewController * scan = [[ScanViewController alloc] init];
+    scan.scanCode = ^(NSString * _Nonnull code) {
+        AddDeviceTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        cell.idtextfield.text = code;
+        self.sgSn = code;
+    };
+    [RMHelper.getCurrentVC.navigationController pushViewController:scan animated:true];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         AddDeviceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([AddDeviceTableViewCell class]) forIndexPath:indexPath];
@@ -113,6 +123,7 @@
         cell.nametextfield.delegate = self;
         cell.nametextfield.tag = 2;
         cell.nametextfield.text = @"";
+        [cell.scanBtn addTarget:self action:@selector(inverteScanFinish) forControlEvents:UIControlEventTouchUpInside];
         return cell;
     }else{
         if (indexPath.row == self.dataArray.count) {
@@ -121,10 +132,10 @@
             return cell;
         }else{
             AddDeviceSNTableViewCell*cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([AddDeviceSNTableViewCell class]) forIndexPath:indexPath];
-            if (indexPath.row == 0) {
+            if (indexPath.row == 0 || indexPath.row == 1) {
                 cell.scanBtn.hidden = true;
                 [cell.deleteBtm setImage:[UIImage imageNamed:@"ic_set_scan"] forState:UIControlStateNormal];
-                cell.textfield.placeholder = @"Please input inverte SN".localized;
+                cell.textfield.placeholder = indexPath.row == 0 ? @"Please input inverte SN".localized : @"Please input battery/base SN".localized;
                 [cell.deleteBtm addTarget:self action:@selector(scanAction:) forControlEvents:UIControlEventTouchUpInside];
                 cell.textfield.tag = indexPath.row + 10;
                 cell.textfield.delegate = self;
@@ -159,6 +170,11 @@
     ScanViewController * scan = [[ScanViewController alloc] init];
     scan.scanCode = ^(NSString * _Nonnull code) {
         cell.textfield.text = code;
+        if (cell.textfield.tag == 10) {
+            self.inverteSN = code;
+        }else if (cell.textfield.tag == 11){
+            self.batterySN = code;
+        }
     };
     [self.navigationController pushViewController:scan animated:true];
 }

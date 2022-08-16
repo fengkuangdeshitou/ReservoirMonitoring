@@ -39,9 +39,6 @@
                                 <rect key="frame" x="319" y="14" width="22" height="22"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="ic_set_scan"/>
-                                <connections>
-                                    <action selector="scanAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="OK1-tF-AZv"/>
-                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter the device ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="juF-e7-d4Y">
                                 <rect key="frame" x="24" y="0.0" width="280" height="50"/>
@@ -107,6 +104,7 @@
             <connections>
                 <outlet property="idtextfield" destination="juF-e7-d4Y" id="Zt3-fd-H3y"/>
                 <outlet property="nametextfield" destination="6EW-mj-f1n" id="Jpf-pf-hJe"/>
+                <outlet property="scanBtn" destination="JgL-8F-Bgh" id="l0h-Co-ZlK"/>
                 <outlet property="titleLabel" destination="coK-4W-pPE" id="Hh8-1Q-ju9"/>
             </connections>
             <point key="canvasLocation" x="188.40579710144928" y="133.92857142857142"/>

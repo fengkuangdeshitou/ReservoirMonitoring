@@ -14,10 +14,12 @@
 #import "DevideModel.h"
 #import "GlobelDescAlertView.h"
 #import "WifiInfoTableViewCell.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface NetworkViewController ()<UITableViewDelegate,UITableViewDataSource,BleManagerDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
+@property(nonatomic,weak)IBOutlet UIView * normalView;
 @property(nonatomic,strong) DevideModel * model;
 @property(nonatomic,strong) NSArray * dataArray;
 
@@ -54,6 +56,7 @@
             self.model = filter.firstObject;
             self.model.isConnected = BleManager.shareInstance.isConnented;
         }
+        self.normalView.hidden = self.dataArray.count > 1;
         [self.tableView reloadData];
     } failure:^(NSString * _Nonnull errorMsg) {
         
@@ -63,6 +66,12 @@
 - (void)addDevice{
     if (DeviceManager.shareInstance.deviceNumber == 0) {
         [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please add device to continue" btnTitle:nil completion:nil];
+        return;
+    }
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tops" desc:@"Location permission required, click \"Yes\" to enable location usage." btnTitle:@"Yes" completion:^{
+            [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
+        }];
         return;
     }
 //    AddDeviceViewController * add = [[AddDeviceViewController alloc] init];
@@ -97,13 +106,13 @@
                     }];
                     UIAlertAction * action = [UIAlertAction actionWithTitle:@"Confirm".localized style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                         [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:^(BOOL success) {
-                                                    
+
                         }];
                     }];
                     [alert addAction:cancel];
                     [alert addAction:action];
                     [self presentViewController:alert animated:YES completion:^{
-                                            
+
                     }];
                 }
                     break;
@@ -176,7 +185,7 @@
     UIView * header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 52)];
     header.clipsToBounds = true;
     UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, SCREEN_WIDTH-15, header.height)];
-    titleLabel.text = section == 0 ? @"Current device".localized : @"Other device".localized;
+    titleLabel.text = section == 0 ? @"Current device".localized : (self.dataArray.count == 0 ? @"No other device" : @"Other device".localized);
     titleLabel.textColor = UIColor.whiteColor;
     titleLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightSemibold];
     [header addSubview:titleLabel];

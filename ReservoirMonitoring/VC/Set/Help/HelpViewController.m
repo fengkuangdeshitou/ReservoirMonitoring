@@ -12,6 +12,8 @@
 @interface HelpViewController ()<UITableViewDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
+@property(nonatomic,weak)IBOutlet UIView * normalView;
+
 @property(nonatomic,strong) NSArray * dataArray;
 
 @end
@@ -31,6 +33,7 @@
     } success:^(NSDictionary * _Nonnull result) {
         self.dataArray = result[@"data"];
         [self.tableView reloadData];
+        self.normalView.hidden = self.dataArray.count != 0;
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];

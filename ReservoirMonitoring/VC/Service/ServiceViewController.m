@@ -102,7 +102,7 @@
 }
 
 - (IBAction)submitAction:(id)sender{
-    if (self.model.defDevId.length == 0) {
+    if (self.model.defDevSgSn.length == 0) {
         [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Smart Gateway SN cannot be empty" btnTitle:nil completion:nil];
         return;
     }
@@ -113,7 +113,7 @@
                               @"email":self.model.email,
                               @"phone":self.model.phonenumber,
                               @"subject":@"",
-                              @"reason":self.dataArray[4][@"placeholder"],
+                              @"reason":[self formatDefDevSgSn],
                               @"description":@"",
                               @"external":@"1"};
     NSLog(@"params=%@",params);
@@ -135,6 +135,16 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 
     }];
+}
+
+- (NSString *)formatDefDevSgSn{
+    NSMutableString * string = [[NSMutableString alloc] initWithString:self.model.defDevSgSn];
+    if (string.length == 21) {
+        [string insertString:@"-" atIndex:4];
+        [string insertString:@"-" atIndex:10];
+        [string insertString:@"-" atIndex:13];
+    }
+    return string;
 }
 
 - (NSString *)getCurrentTimeString{

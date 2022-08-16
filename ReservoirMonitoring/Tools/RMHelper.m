@@ -52,8 +52,12 @@ static NSString * K_USERTYPE = @"USERTYPE";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-+ (int)getBleDataValue:(CGFloat)string{
-    return string > 32768 ? (string - 65536) : string;
++ (int)getBleDataValue:(CGFloat)integer{
+    if (integer >= -10 && integer <= 10) {
+        return 0;
+    }else{
+        return integer > 32768 ? (integer - 65536) : integer;
+    }
 }
 
 + (void)setUserType:(BOOL)isInstall{

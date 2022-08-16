@@ -120,7 +120,7 @@
         </view>
     </objects>
     <resources>
-        <image name="noData" width="400" height="400"/>
+        <image name="noData" width="371.5" height="312"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

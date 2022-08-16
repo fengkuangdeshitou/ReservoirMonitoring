@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NetworkViewController">
             <connections>
+                <outlet property="normalView" destination="nA9-9u-lyd" id="YQp-VW-VYX"/>
                 <outlet property="tableView" destination="YTI-a5-dxJ" id="UnC-Jx-LTi"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -27,18 +28,44 @@
                         <outlet property="delegate" destination="-1" id="Oga-SY-RQ1"/>
                     </connections>
                 </tableView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nA9-9u-lyd">
+                    <rect key="frame" x="156.5" y="300" width="101" height="147.5"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_empty" translatesAutoresizingMaskIntoConstraints="NO" id="1EQ-ed-TTA">
+                            <rect key="frame" x="0.0" y="0.0" width="101" height="84"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No other device" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZH-wb-6Ho">
+                            <rect key="frame" x="-7.5" y="128" width="116" height="19.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="SZH-wb-6Ho" firstAttribute="centerX" secondItem="nA9-9u-lyd" secondAttribute="centerX" id="5u8-nS-Lj3"/>
+                        <constraint firstAttribute="trailing" secondItem="1EQ-ed-TTA" secondAttribute="trailing" id="FfW-FN-LIV"/>
+                        <constraint firstAttribute="bottom" secondItem="SZH-wb-6Ho" secondAttribute="bottom" id="Hu3-rb-wOM"/>
+                        <constraint firstItem="1EQ-ed-TTA" firstAttribute="leading" secondItem="nA9-9u-lyd" secondAttribute="leading" id="XzY-Tz-L1w"/>
+                        <constraint firstItem="1EQ-ed-TTA" firstAttribute="top" secondItem="nA9-9u-lyd" secondAttribute="top" id="ack-9J-gGf"/>
+                        <constraint firstItem="SZH-wb-6Ho" firstAttribute="top" secondItem="1EQ-ed-TTA" secondAttribute="bottom" constant="44" id="k6X-tz-gZD"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="YTI-a5-dxJ" secondAttribute="bottom" id="30I-lm-Qcn"/>
                 <constraint firstAttribute="trailing" secondItem="YTI-a5-dxJ" secondAttribute="trailing" id="3Ky-pO-B83"/>
+                <constraint firstItem="nA9-9u-lyd" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="KDy-de-0wm"/>
                 <constraint firstItem="YTI-a5-dxJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="TFO-yC-3yL"/>
+                <constraint firstItem="nA9-9u-lyd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="300" id="tNR-cI-Ls6"/>
                 <constraint firstItem="YTI-a5-dxJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vQw-Ya-daI"/>
             </constraints>
             <point key="canvasLocation" x="139" y="90"/>
         </view>
     </objects>
     <resources>
+        <image name="icon_empty" width="101" height="84"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

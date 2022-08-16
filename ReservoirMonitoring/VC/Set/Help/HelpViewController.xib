@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HelpViewController">
             <connections>
+                <outlet property="normalView" destination="XSq-zF-dTg" id="1Dw-HP-fpa"/>
                 <outlet property="tableView" destination="MSJ-OM-ske" id="aMS-Gv-t5V"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -27,18 +28,44 @@
                         <outlet property="delegate" destination="-1" id="5di-J1-pHV"/>
                     </connections>
                 </tableView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XSq-zF-dTg">
+                    <rect key="frame" x="156.5" y="64" width="101" height="147.5"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_empty" translatesAutoresizingMaskIntoConstraints="NO" id="E0g-pf-DsC">
+                            <rect key="frame" x="0.0" y="0.0" width="101" height="84"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No result" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1LI-z0-9hT">
+                            <rect key="frame" x="17.5" y="128" width="66" height="19.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="E0g-pf-DsC" firstAttribute="leading" secondItem="XSq-zF-dTg" secondAttribute="leading" id="37q-Rb-5Eu"/>
+                        <constraint firstAttribute="bottom" secondItem="1LI-z0-9hT" secondAttribute="bottom" id="3pd-7b-lVT"/>
+                        <constraint firstItem="E0g-pf-DsC" firstAttribute="top" secondItem="XSq-zF-dTg" secondAttribute="top" id="Hvb-gx-OsU"/>
+                        <constraint firstItem="1LI-z0-9hT" firstAttribute="centerX" secondItem="XSq-zF-dTg" secondAttribute="centerX" id="XJ4-gG-YOK"/>
+                        <constraint firstItem="1LI-z0-9hT" firstAttribute="top" secondItem="E0g-pf-DsC" secondAttribute="bottom" constant="44" id="YjI-7l-QZf"/>
+                        <constraint firstAttribute="trailing" secondItem="E0g-pf-DsC" secondAttribute="trailing" id="at0-Er-hae"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="MSJ-OM-ske" secondAttribute="bottom" id="77S-3A-lGt"/>
+                <constraint firstItem="XSq-zF-dTg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="7fb-DM-frz"/>
                 <constraint firstItem="MSJ-OM-ske" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="FvG-Ah-cj5"/>
+                <constraint firstItem="XSq-zF-dTg" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="bsq-59-0Do"/>
                 <constraint firstItem="MSJ-OM-ske" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="j6H-BX-O4Y"/>
                 <constraint firstAttribute="trailing" secondItem="MSJ-OM-ske" secondAttribute="trailing" id="lys-Ut-vMV"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="88"/>
+            <point key="canvasLocation" x="137.68115942028987" y="87.723214285714278"/>
         </view>
     </objects>
     <resources>
+        <image name="icon_empty" width="101" height="84"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

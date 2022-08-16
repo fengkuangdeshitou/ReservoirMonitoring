@@ -24,14 +24,6 @@
     self.nametextfield.placeholder = @"Please input name for this device".localized;
 }
 
-- (IBAction)scanAction:(id)sender{
-    ScanViewController * scan = [[ScanViewController alloc] init];
-    scan.scanCode = ^(NSString * _Nonnull code) {
-        self.idtextfield.text = code;
-    };
-    [RMHelper.getCurrentVC.navigationController pushViewController:scan animated:true];
-}
-
 - (void)layoutSubviews{
     self.idtextfield.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
     self.nametextfield.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];

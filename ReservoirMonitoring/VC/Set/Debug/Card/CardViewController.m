@@ -108,7 +108,6 @@
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [self.view hiddenHUD];
-        [RMHelper showToast:error.description toView:self.view];
     }];
 }
 
@@ -132,7 +131,6 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error=%@,%@",error,task.currentRequest.allHTTPHeaderFields);
         [self.view hiddenHUD];
-        [RMHelper showToast:error.description toView:self.view];
     }];
 }
 

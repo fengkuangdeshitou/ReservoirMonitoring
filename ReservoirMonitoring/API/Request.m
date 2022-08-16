@@ -17,6 +17,8 @@
 @property(nonatomic,strong) NSMutableDictionary *headers;
 @property(nonatomic,strong) MBProgressHUD *hud;
 @property(nonatomic,strong) CTCellularData * cellularData;
+@property(nonatomic,strong) AFNetworkReachabilityManager *nrm;
+
 @end
 
 @implementation Request
@@ -42,6 +44,14 @@ static Request * _request = nil;
     _hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
     [UIApplication.sharedApplication.keyWindow addSubview:_hud];
     return _hud;
+}
+
+- (AFNetworkReachabilityManager *)nrm{
+    if (!_nrm) {
+        _nrm = [AFNetworkReachabilityManager sharedManager];
+        [_nrm startMonitoring];
+    }
+    return _nrm;
 }
 
 - (CTCellularData *)cellularData{
@@ -91,15 +101,15 @@ static Request * _request = nil;
         }else if (code.intValue == 403) {
             [NSUserDefaults.standardUserDefaults removeObjectForKey:@"token"];
             [[NSNotificationCenter defaultCenter] postNotificationName:LOG_OUT object:nil];
+            [RMHelper showToast:@"User token expired, please log in again." toView:RMHelper.getCurrentVC.view];
         }else{
             failure(json[@"message"]);
             [RMHelper showToast:json[@"message"] toView:UIApplication.sharedApplication.keyWindow];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"err=%@",error);
-//        [RMHelper showToast:error.description toView:RMHelper.getCurrentVC.view];
+        NSLog(@"========%ld,%@",error.code,error.userInfo);
         [self.hud hideAnimated:true];
-        [self loadNetworkAlertData];
+        [self loadNetworkAlertData:error];
     }];
 }
 
@@ -125,7 +135,7 @@ static Request * _request = nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"err=%@",error);
         [self.hud hideAnimated:true];
-        [self loadNetworkAlertData];
+        [self loadNetworkAlertData:error];
     }];
 }
 
@@ -148,7 +158,7 @@ static Request * _request = nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"err=%@",error);
         [self.hud hideAnimated:true];
-        [self loadNetworkAlertData];
+        [self loadNetworkAlertData:error];
     }];
 }
 
@@ -174,45 +184,74 @@ static Request * _request = nil;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"err=%@",error);
+        [self loadNetworkAlertData:error];
     }];
 }
 
-- (void)loadNetworkAlertData{
-    self.cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState restrictedState){
-        switch (restrictedState) {
-            case kCTCellularDataRestrictedStateUnknown:{
-//                    NSLog(@"蜂窝移动网络状态：未知");
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [GlobelDescAlertView showAlertViewWithTitle:@"Network connection failed" desc:@" Please check the network" btnTitle:@"Setting" completion:^{
-                        [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:^(BOOL success) {
-                                        
-                        }];
-                    }];
-                });
+- (void)loadNetworkAlertData:(NSError *)error{
+    __weak typeof(self) weakSelf = self;
+    [self.nrm setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown:
+                NSLog(@"af-Unknown");
+                break;
+            case AFNetworkReachabilityStatusNotReachable:{
+                NSLog(@"af-NotReachable");
+                weakSelf.cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState restrictedState){
+                    switch (restrictedState) {
+                        case kCTCellularDataRestrictedStateUnknown:{
+                                NSLog(@"蜂窝移动网络状态：未知");
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [GlobelDescAlertView showAlertViewWithTitle:@"Network connection failed" desc:@" Please check the network" btnTitle:@"Setting" completion:^{
+                                    [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:^(BOOL success) {
+                                                    
+                                    }];
+                                }];
+                            });
+                        }
+                            break;
+                        case kCTCellularDataRestricted:{
+                                    NSLog(@"蜂窝移动网络状态：关闭");
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [GlobelDescAlertView showAlertViewWithTitle:@"Network connection failed" desc:@"Please check the network" btnTitle:@"Setting" completion:^{
+                                    [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:^(BOOL success) {
+                                                    
+                                    }];
+                                }];
+                            });
+                        }
+                            break;
+                        case kCTCellularDataNotRestricted:{
+                                                NSLog(@"蜂窝移动网络状态：开启");
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                if (error.code == -1001) {
+                                    [RMHelper showToast:@"Connection timeout. Please try again later" toView:RMHelper.getCurrentVC.view];
+                                }else if (error.code == -1009) {
+                                    [RMHelper showToast:@"Network connection failed. Please check the network" toView:RMHelper.getCurrentVC.view];
+                                }else if (error.code == -1011) {
+                                    [RMHelper showToast:@"The right resources were not found." toView:RMHelper.getCurrentVC.view];
+                                }else{
+                                    [RMHelper showToast:@"unknown error" toView:RMHelper.getCurrentVC.view];
+                                }
+                            });
+                        }
+                            break;
+                        default:
+                            break;
+                    }
+                };
             }
                 break;
-            case kCTCellularDataRestricted:{
-//                        NSLog(@"蜂窝移动网络状态：关闭");
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [GlobelDescAlertView showAlertViewWithTitle:@"Network connection failed" desc:@"Please check the network" btnTitle:@"Setting" completion:^{
-                        [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:^(BOOL success) {
-                                        
-                        }];
-                    }];
-                });
-            }
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                NSLog(@"af-WiFi");
                 break;
-            case kCTCellularDataNotRestricted:{
-                //                    NSLog(@"蜂窝移动网络状态：开启");
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [RMHelper showToast:@"The connection has timed out. Please try again later" toView:RMHelper.getCurrentVC.view];
-                });
-            }
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+                NSLog(@"af-WWAN");
                 break;
             default:
                 break;
         }
-    };
+    }];
 }
 
 @end

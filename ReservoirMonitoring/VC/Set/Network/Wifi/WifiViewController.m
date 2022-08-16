@@ -15,6 +15,7 @@
 #import <arpa/inet.h>
 #import <SystemConfiguration/CaptiveNetwork.h>
 #import <CoreLocation/CoreLocation.h>
+#import "GlobelDescAlertView.h"
 
 @interface WifiViewController ()<UITableViewDelegate,CLLocationManagerDelegate>
 
@@ -36,7 +37,6 @@
     // Do any additional setup after loading the view from its nib.
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([NetworkTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([NetworkTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([WifiTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([WifiTableViewCell class])];
-//    [self getWifiList];
 //    // 如果是iOS13 未开启地理位置权限 需要提示一下
     if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
         self.locationManager = [[CLLocationManager alloc] init];
@@ -156,7 +156,7 @@
                 weakSelf.wifi = dict[@"wifi"];
                 weakSelf.deviceSSID = dict[@"SSID"];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [RMHelper showToast:@"config wifi success" toView:self.view];
+                    [RMHelper showToast:@"Success" toView:self.view];
                     [weakSelf.tableView reloadData];
                     [weakSelf.timer invalidate];
                     weakSelf.timer = nil;
@@ -167,13 +167,13 @@
             }else if ([wifi isEqualToString:@"auth_failed"]){
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf removeTimeAction];
-                    [RMHelper showToast:wifi toView:weakSelf.view];
+                    [RMHelper showToast:@"Failure" toView:weakSelf.view];
                     [weakSelf.view hiddenHUD];
                 });
             }else if ([wifi isEqualToString:@"ap_no_found"]){
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf removeTimeAction];
-                    [RMHelper showToast:wifi toView:weakSelf.view];
+                    [RMHelper showToast:@"Failure" toView:weakSelf.view];
                     [weakSelf.view hiddenHUD];
                 });
             }
@@ -196,7 +196,7 @@
                 [self loadTime];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                [RMHelper showToast:@"Config wi-fi success" toView:self.view];
+                [RMHelper showToast:@"Success" toView:self.view];
             });
         }];
     }];

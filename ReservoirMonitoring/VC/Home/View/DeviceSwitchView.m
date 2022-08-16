@@ -20,10 +20,27 @@
 @property(nonatomic,strong)NSArray<DevideModel*> * searchArray;
 @property(nonatomic,weak)id<DeviceSwitchViewDelegate>delegate;
 @property(nonatomic,strong)UITextField * search;
+@property(nonatomic,strong)UIView * normalView;
 
 @end
 
 @implementation DeviceSwitchView
+
+- (UIView *)normalView{
+    if (!_normalView) {
+        _normalView = [[UIView alloc] initWithFrame:CGRectMake(self.otherTableView.width/2-60, 10, 120, 150)];
+        UIImageView * icon = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 100, 84)];
+        icon.image = [UIImage imageNamed:@"icon_empty"];
+        [_normalView addSubview:icon];
+        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 130, _normalView.width, 20)];
+        label.text = @"No other device";
+        label.textAlignment = 1;
+        label.textColor = UIColor.whiteColor;
+        label.font = [UIFont systemFontOfSize:16];
+        [_normalView addSubview:label];
+    }
+    return _normalView;
+}
 
 + (void)showDeviceSwitchViewWithDelegate:(id<DeviceSwitchViewDelegate>)delegate{
     DeviceSwitchView * view = [[DeviceSwitchView alloc] initWithDelegate:delegate];
@@ -130,6 +147,8 @@
         }
         [self.tableView reloadData];
         [self.otherTableView reloadData];
+        [self.otherTableView addSubview:self.normalView];
+        self.normalView.hidden = self.dataArray.count > 1;
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];
@@ -181,6 +200,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == self.otherTableView) {
+        DevideModel * model =  self.dataArray[indexPath.section];
+        if ([model.rtuSn isEqualToString:self.currentDevice.rtuSn]) {
+            return 0.01;
+        }else{
+            return UITableViewAutomaticDimension;
+        }
+    }
     return UITableViewAutomaticDimension;
 }
 

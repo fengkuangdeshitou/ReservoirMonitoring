@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,weak)IBOutlet UITextField * idtextfield;
 @property(nonatomic,weak)IBOutlet UITextField * nametextfield;
+@property(nonatomic,weak)IBOutlet UIButton * scanBtn;
 
 @end
 

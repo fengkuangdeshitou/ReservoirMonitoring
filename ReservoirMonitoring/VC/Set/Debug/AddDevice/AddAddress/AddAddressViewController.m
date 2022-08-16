@@ -178,7 +178,7 @@
     [Request.shareInstance postUrl:BindDevice params:@{@"sgSn":self.sgSn,@"snItems":self.snItems,@"name":self.name,@"addressIds":[NSString stringWithFormat:@"%@,%@",self.countrieID,self.provinceID],@"timeZone":self.timeZone.text,@"userEmail":self.email.text?:@"",@"mailCode":self.code.text?:@""} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
-        [RMHelper showToast:@"Add Device Success" toView:self.view];
+        [RMHelper showToast:@"Success" toView:self.view];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.navigationController popToRootViewControllerAnimated:true];
         });
