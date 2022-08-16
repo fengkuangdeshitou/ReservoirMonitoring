@@ -96,6 +96,7 @@
                 [self setRightBarButtonItemWithTitlt:array.firstObject.name sel:@selector(changeDevice)];
                 completion(array.firstObject);
             }else{
+                self.navigationItem.rightBarButtonItem = nil;
                 completion(nil);
             }
             self.tableView.hidden = false;

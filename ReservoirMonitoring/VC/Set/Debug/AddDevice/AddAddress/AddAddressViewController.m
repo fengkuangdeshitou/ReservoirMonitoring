@@ -99,7 +99,7 @@
     self.code.placeholder = @"Zip code".localized;
     [self.time setTitle:@"Time zone".localized forState:UIControlStateNormal];
     self.link.text = @"Link Email".localized;
-    self.email.placeholder = @"Enter Email".localized;
+    self.email.placeholder = @"Please input customer's email".localized;
     [self.confirm setTitle:@"Confirm".localized forState:UIControlStateNormal];
     [self.confirm showBorderWithRadius:25];
     
