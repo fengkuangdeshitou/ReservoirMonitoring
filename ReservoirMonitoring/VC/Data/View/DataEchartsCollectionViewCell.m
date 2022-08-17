@@ -68,7 +68,7 @@
         _lineEchartsView.borderColor = [UIColor colorWithHexString:@"#999999"];
         _lineEchartsView.legend.enabled = false;
         [_lineEchartsView animateWithXAxisDuration:1];
-        [_lineEchartsView setExtraOffsetsWithLeft:10 top:0 right:10 bottom:0];
+        [_lineEchartsView setExtraOffsetsWithLeft:10 top:0 right:15 bottom:0];
 //        _lineEchartsView.minOffset = 0;
         
         ChartXAxis * xAxis = _lineEchartsView.xAxis;
@@ -84,16 +84,16 @@
 //        xAxis.centerAxisLabelsEnabled = true;
         xAxis.yOffset = 10;
         xAxis.decimals = 1;
-        xAxis.avoidFirstLastClippingEnabled = true;
+//        xAxis.avoidFirstLastClippingEnabled = true;
         
         ChartYAxis *leftAxis = _lineEchartsView.leftAxis;// 获取左边 Y 轴
         leftAxis.inverted = NO; // 是否将 Y 轴进行上下翻转
         leftAxis.axisLineWidth = 0;// 设置 Y 轴线宽
         leftAxis.axisLineColor = [UIColor colorWithHexString:@"#999999"];// 设置 Y 轴颜色
-        leftAxis.labelPosition = YAxisLabelPositionOutsideChart;// label 文字位置 YAxisLabelPositionInsideChart:在里面，YAxisLabelPositionOutsideChart:在外面
-        leftAxis.labelTextColor = [UIColor whiteColor]; // label 文字颜色
-        leftAxis.labelFont = [UIFont systemFontOfSize:10.0f]; // 不强制绘制指定数量的 label
-        leftAxis.forceLabelsEnabled = NO; // 不强制绘制指定数量的 label
+        leftAxis.labelPosition = YAxisLabelPositionOutsideChart;
+        leftAxis.labelTextColor = [UIColor whiteColor];
+        leftAxis.labelFont = [UIFont systemFontOfSize:10.0f];
+        leftAxis.forceLabelsEnabled = YES; // 不强制绘制指定数量的 label
         leftAxis.gridAntialiasEnabled = YES;// 网格线开启抗锯齿
         _lineEchartsView.chartDescription.enabled = NO;// 设置折线图描述
         _lineEchartsView.legend.enabled = NO; // 设置折线图图例

@@ -94,25 +94,31 @@
 }
 
 - (IBAction)autoUpdateAction:(UIButton *)sender{
+    __weak typeof(self) weakSelf = self;
     if (RMHelper.getUserType || (!RMHelper.getUserType && BleManager.shareInstance.isConnented)) {
         if (!BleManager.shareInstance.isConnented) {
             [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
             return;
         }
-        NSString * value = self.commitAotuUpdate.selected ? @"0" : @"1";
+        NSString * value = weakSelf.commitAotuUpdate.selected ? @"0" : @"1";
         [BleManager.shareInstance writeWithCMDString:@"628" string:value finish:^{
             dispatch_async(dispatch_get_main_queue(), ^{
-                sender.selected = !sender.selected;
-                [self commitAotuUpdateVersiom];
+                if (!weakSelf.devId) {
+                    [weakSelf getDeviceListCompletion:^{
+                        [weakSelf commitAotuUpdateVersiom];
+                    }];
+                }else{
+                    [weakSelf commitAotuUpdateVersiom];
+                }
             });
         }];
     }else{
-        if (!self.devId) {
-            [self getDeviceListCompletion:^{
-                [self commitAotuUpdateVersiom];
+        if (!weakSelf.devId) {
+            [weakSelf getDeviceListCompletion:^{
+                [weakSelf commitAotuUpdateVersiom];
             }];
         }else{
-            [self commitAotuUpdateVersiom];
+            [weakSelf commitAotuUpdateVersiom];
         }
     }
 }
@@ -124,6 +130,7 @@
         BOOL value = [result[@"data"] boolValue];
         if (value) {
             self.commitAotuUpdate.selected = !self.commitAotuUpdate.selected;
+            [RMHelper showToast:@"Success" toView:self.view];
         }else{
             [GlobelDescAlertView showAlertViewWithTitle:@"Check for updates" desc:result[@"message"] btnTitle:@"Acknowledge" completion:nil];
         }

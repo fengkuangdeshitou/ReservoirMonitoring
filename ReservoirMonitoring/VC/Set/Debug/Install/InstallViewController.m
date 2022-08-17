@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.dataArray = @[@"Add Device".localized,@"Bluetooth config".localized,@"Grid config".localized,@"Smart Gateway config".localized,@"PV config".localized,@"Card config".localized,@"Network".localized];
+    self.dataArray = @[@"Add Device".localized,@"Bluetooth config".localized,@"Grid config".localized,@"Smart Gateway config".localized,@"PV config".localized,@"Card config".localized,@"Wi-Fi config".localized];
     [self.config showBorderWithRadius:25];
     [self.next showBorderWithRadius:25];
     [self.back showBorderWithRadius:25];

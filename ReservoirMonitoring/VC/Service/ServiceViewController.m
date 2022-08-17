@@ -106,15 +106,16 @@
         [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Smart Gateway SN cannot be empty" btnTitle:nil completion:nil];
         return;
     }
+    InputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
     NSDictionary * params = @{@"encoding":@"UTF-8",
                               @"orgid":@"00D8c000003UHSM",
                               @"retURL":@"www.moonflow.com",
                               @"name":self.model.nickName,
                               @"email":self.model.email,
                               @"phone":self.model.phonenumber,
-                              @"subject":@"",
-                              @"reason":[self formatDefDevSgSn],
-                              @"description":@"",
+                              @"subject":[self formatDefDevSgSn],
+                              @"reason":self.dataArray[4][@"placeholder"],
+                              @"description":cell.textfield.text.length>0?cell.textfield.text:@"",
                               @"external":@"1"};
     NSLog(@"params=%@",params);
     AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
@@ -181,7 +182,7 @@
             NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[indexPath.row]];
             dict[@"placeholder"] = value;
             self.dataArray[indexPath.row] = dict;
-            [tableView reloadData];
+            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         }];
     }
 }
