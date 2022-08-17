@@ -83,4 +83,6 @@ NSString * const ClearTouMode = @"/device/clearTouMode";
 
 NSString * const ProtocolLink = @"/open/common/protocolLink";
 
+NSString * const NetWorkInfo = @"/device/netWorkInfo";
+
 @end

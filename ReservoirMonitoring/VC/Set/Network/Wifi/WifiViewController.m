@@ -54,6 +54,18 @@
                 });
             }
         }];
+    }else{
+        [Request.shareInstance getUrl:NetWorkInfo params:@{@"devId":self.devId} progress:^(float progress) {
+                    
+        } success:^(NSDictionary * _Nonnull result) {
+            self.deviceSSID = result[@"wifiName"];
+            if ([result[@"wifiStatus"] intValue] == 2) {
+                self.wifi = @"connected";
+            }
+            [self.tableView reloadData];
+        } failure:^(NSString * _Nonnull errorMsg) {
+            
+        }];
     }
     
     id info = nil;

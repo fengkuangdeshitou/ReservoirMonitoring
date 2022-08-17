@@ -151,6 +151,7 @@
 		BDE88A74280B0E5D00081114 /* DataCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A72280B0E5D00081114 /* DataCollectionViewCell.xib */; };
 		BDE88A78280B12A900081114 /* DataEchartsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A76280B12A900081114 /* DataEchartsCollectionViewCell.m */; };
 		BDE88A79280B12A900081114 /* DataEchartsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE88A77280B12A900081114 /* DataEchartsCollectionViewCell.xib */; };
+		BDF36C4628AD2DB200A7C835 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF36C4428AD2DB200A7C835 /* Reachability.m */; };
 		BDFA3A8E28256154004A7E8C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BDFA3A9028256154004A7E8C /* Localizable.strings */; };
 		BDFA3A9528256FF0004A7E8C /* AddDeviceSNTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFA3A9328256FF0004A7E8C /* AddDeviceSNTableViewCell.m */; };
 		BDFA3A9628256FF0004A7E8C /* AddDeviceSNTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDFA3A9428256FF0004A7E8C /* AddDeviceSNTableViewCell.xib */; };
@@ -432,6 +433,8 @@
 		BDE88A75280B12A900081114 /* DataEchartsCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataEchartsCollectionViewCell.h; sourceTree = "<group>"; };
 		BDE88A76280B12A900081114 /* DataEchartsCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataEchartsCollectionViewCell.m; sourceTree = "<group>"; };
 		BDE88A77280B12A900081114 /* DataEchartsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DataEchartsCollectionViewCell.xib; sourceTree = "<group>"; };
+		BDF36C4428AD2DB200A7C835 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		BDF36C4528AD2DB200A7C835 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		BDFA3A8A282560D8004A7E8C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		BDFA3A8B282560D9004A7E8C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		BDFA3A8F28256154004A7E8C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -674,6 +677,7 @@
 		0FE713F8283C857600B0733A /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				BDF36C4328AD2DA000A7C835 /* Reachability */,
 				0FE713F9283C859000B0733A /* Toast */,
 			);
 			path = Third;
@@ -1191,6 +1195,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		BDF36C4328AD2DA000A7C835 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				BDF36C4528AD2DB200A7C835 /* Reachability.h */,
+				BDF36C4428AD2DB200A7C835 /* Reachability.m */,
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
 		BDFA3A9C28257674004A7E8C /* AddAddress */ = {
 			isa = PBXGroup;
 			children = (
@@ -1594,6 +1607,7 @@
 				BDE88A58280AB78B00081114 /* SwitchModeViewController.m in Sources */,
 				BD2DEF5628044B05004E8D7D /* BaseViewController.m in Sources */,
 				BD8FDA73280EF5D7000036DD /* AddDeviceTableViewCell.m in Sources */,
+				BDF36C4628AD2DB200A7C835 /* Reachability.m in Sources */,
 				BDFA3AAB28295B63004A7E8C /* NetworkViewController.m in Sources */,
 				0FE713F7283C831A00B0733A /* RequestURL.m in Sources */,
 				BD8FDA79280EF904000036DD /* ScanViewController.m in Sources */,
@@ -1841,7 +1855,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1883,7 +1897,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

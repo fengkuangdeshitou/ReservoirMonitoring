@@ -361,6 +361,8 @@
             self.current.text = self.titleArray[self.selectFlag];
             NSMutableArray *array = [NSMutableArray array];
             for (int i = 0; i < xArray.count; i++) {
+                dataSetMax = MAX([yArray[i] doubleValue], dataSetMax);
+                dataSetMin = MIN([yArray[i] doubleValue], dataSetMin);
                 BarChartDataEntry *entry = [[BarChartDataEntry alloc] initWithX:i y:[yArray[i] doubleValue]];
                 [array addObject:entry];
             }

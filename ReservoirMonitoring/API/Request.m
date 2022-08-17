@@ -10,6 +10,7 @@
 @import MBProgressHUD;
 #import "GlobelDescAlertView.h"
 @import CoreTelephony;
+#import "Reachability.h"
 
 @interface Request ()
 
@@ -17,6 +18,8 @@
 @property(nonatomic,strong) NSMutableDictionary *headers;
 @property(nonatomic,strong) MBProgressHUD *hud;
 @property(nonatomic,strong) CTCellularData * cellularData;
+@property(nonatomic,assign) BOOL isConnect;
+@property(nonatomic,strong) Reachability * reach;
 
 @end
 
@@ -27,6 +30,17 @@ static Request * _request = nil;
 + (instancetype)shareInstance{
     if (_request == nil) {
         _request = [[Request alloc] init];
+        _request.reach.reachableBlock = ^(Reachability *reach){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"网络可用");
+                _request.isConnect = true;
+            });
+        };
+        _request.reach.unreachableBlock = ^(Reachability *reach){
+            NSLog(@"网络不可用");
+            _request.isConnect = false;
+        };
+        [_request.reach startNotifier];
     }
     return _request;
 }
@@ -50,6 +64,13 @@ static Request * _request = nil;
         _cellularData = [[CTCellularData alloc] init];
     }
     return _cellularData;
+}
+
+- (Reachability *)reach{
+    if (!_reach) {
+        _reach = [Reachability reachabilityWithHostname:@"www.baidu.com"];
+    }
+    return _reach;
 }
 
 - (NSMutableDictionary *)headers{
@@ -181,46 +202,26 @@ static Request * _request = nil;
 
 - (void)loadNetworkAlertData:(NSError *)error{
     self.cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState restrictedState){
-        switch (restrictedState) {
-            case kCTCellularDataRestrictedStateUnknown:{
-                    NSLog(@"蜂窝移动网络状态：未知");
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [GlobelDescAlertView showAlertViewWithTitle:@"Network connection failed" desc:@" Please check the network" btnTitle:@"Setting" completion:^{
-                        [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:^(BOOL success) {
-                                        
-                        }];
+        if (restrictedState == kCTCellularDataRestrictedStateUnknown || restrictedState == kCTCellularDataRestricted) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [GlobelDescAlertView showAlertViewWithTitle:@"Network connection failed" desc:@" Please check the network" btnTitle:@"Setting" completion:^{
+                    [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:^(BOOL success) {
+                                    
                     }];
-                });
-            }
-                break;
-            case kCTCellularDataRestricted:{
-                        NSLog(@"蜂窝移动网络状态：关闭");
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [GlobelDescAlertView showAlertViewWithTitle:@"Network connection failed" desc:@"Please check the network" btnTitle:@"Setting" completion:^{
-                        [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:^(BOOL success) {
-                                        
-                        }];
-                    }];
-                });
-            }
-                break;
-            case kCTCellularDataNotRestricted:{
-                                    NSLog(@"蜂窝移动网络状态：开启");
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (error.code == -1001) {
-                        [RMHelper showToast:@"Connection timeout. Please try again later" toView:RMHelper.getCurrentVC.view];
-                    }else if (error.code == -1009) {
-                        [RMHelper showToast:@"Network connection failed. Please check the network" toView:RMHelper.getCurrentVC.view];
-                    }else if (error.code == -1011) {
-                        [RMHelper showToast:@"The right resources were not found." toView:RMHelper.getCurrentVC.view];
-                    }else{
-                        [RMHelper showToast:@"unknown error" toView:RMHelper.getCurrentVC.view];
-                    }
-                });
-            }
-                break;
-            default:
-                break;
+                }];
+            });
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (error.code == -1001) {
+                    [RMHelper showToast:@"Connection timeout. Please try again later" toView:RMHelper.getCurrentVC.view];
+                }else if (error.code == -1009) {
+                    [RMHelper showToast:@"Network connection failed. Please check the network" toView:RMHelper.getCurrentVC.view];
+                }else if (error.code == -1011) {
+                    [RMHelper showToast:@"The right resources were not found." toView:RMHelper.getCurrentVC.view];
+                }else{
+                    [RMHelper showToast:@"unknown error" toView:RMHelper.getCurrentVC.view];
+                }
+            });
         }
     };
 }

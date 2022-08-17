@@ -81,6 +81,8 @@ extern NSString * const ClearTouMode;
 
 extern NSString * const ProtocolLink;
 
+extern NSString * const NetWorkInfo;
+
 @end
 
 NS_ASSUME_NONNULL_END

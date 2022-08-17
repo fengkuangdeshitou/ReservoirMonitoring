@@ -79,6 +79,7 @@
 //    [self.navigationController pushViewController:add animated:true];
     WifiViewController * wifi = [[WifiViewController alloc] init];
     wifi.title = @"Wi-Fi config".localized;
+    wifi.devId = self.model.deviceId;
     [self.navigationController pushViewController:wifi animated:true];
 }
 
