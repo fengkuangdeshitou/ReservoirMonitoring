@@ -18,7 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DeviceSwitchView : UIView
 
-+ (void)showDeviceSwitchViewWithDelegate:(id<DeviceSwitchViewDelegate>)delegate;
++ (void)showDeviceSwitchViewWithDelegate:(id<DeviceSwitchViewDelegate>)delegate
+                               dataArray:(NSArray *)dataArray;
 
 @end
 

@@ -58,7 +58,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if (DeviceManager.shareInstance.deviceNumber == 0) {
+    if (![NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID]) {
         [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please add device to continue" btnTitle:nil completion:nil];
         return;
     }
@@ -66,11 +66,7 @@
 }
 
 - (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex{
-    if (!self.devId) {
-        return;
-    }
-    [self getDataWithScopeType:selectedIndex == 3 ? 0 : (selectedIndex+1)];
-    [self.collectionView reloadData];
+    [self getCurrentDevice];
 }
 
 - (void)getCurrentDevice{

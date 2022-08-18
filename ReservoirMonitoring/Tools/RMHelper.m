@@ -44,7 +44,7 @@ static NSString * K_USERTYPE = @"USERTYPE";
 }
 
 + (void)showToast:(NSString *)toast toView:(UIView *)view{
-    [view makeToast:toast duration:2 position:@"center"];
+    [view makeToast:toast duration:1.5 position:@"center"];
 }
 
 + (void)saveUserInfo:(NSDictionary *)userInfo{

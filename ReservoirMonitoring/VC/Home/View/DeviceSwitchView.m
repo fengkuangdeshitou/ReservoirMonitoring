@@ -42,12 +42,15 @@
     return _normalView;
 }
 
-+ (void)showDeviceSwitchViewWithDelegate:(id<DeviceSwitchViewDelegate>)delegate{
-    DeviceSwitchView * view = [[DeviceSwitchView alloc] initWithDelegate:delegate];
++ (void)showDeviceSwitchViewWithDelegate:(id<DeviceSwitchViewDelegate>)delegate
+                               dataArray:(nonnull NSArray *)dataArray{
+    DeviceSwitchView * view = [[DeviceSwitchView alloc] initWithDelegate:delegate
+                                                               dataArray:dataArray];
     [view show];
 }
 
 - (instancetype)initWithDelegate:(id<DeviceSwitchViewDelegate>)delegate
+                       dataArray:(nonnull NSArray *)dataArray
 {
     self = [super init];
     if (self) {
@@ -58,7 +61,17 @@
         [UIApplication.sharedApplication.keyWindow addSubview:self];
         self.delegate = delegate;
         
-        [self getDeviceList];
+//        [self getDeviceList];
+        self.dataArray = dataArray;
+        
+        NSArray<DevideModel*> * array = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
+        if (array.count>0) {
+            self.currentDevice = array.firstObject;
+        }
+        [self.tableView reloadData];
+        [self.otherTableView reloadData];
+        [self.otherTableView addSubview:self.normalView];
+        self.normalView.hidden = self.dataArray.count > 1;
         
         self.contentView = [[UIView alloc] initWithFrame:CGRectMake(15, 90, SCREEN_WIDTH-30, self.height-90*2)];
         self.contentView.backgroundColor = [UIColor colorWithHexString:@"#1B1B1B"];

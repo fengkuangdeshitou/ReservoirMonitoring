@@ -60,8 +60,17 @@
     [self setLeftBarImageForSel:nil];
     self.time.text = @"Can't submit twice in 30 minutes.".localized;
     [self.submit showBorderWithRadius:25];
-    self.submit.hidden = true;
-    self.time.hidden = true;
+    self.dataArray = [[NSMutableArray alloc] initWithArray:@[
+        @{@"title":@"Contact name".localized,@"placeholder":@"--"},
+        @{@"title":@"Email".localized,@"placeholder":@"--"},
+        @{@"title":@"Phone".localized,@"placeholder":@"--"},
+        @{@"title":@"SN",@"placeholder":@""},
+        @{@"title":@"Case Reason",@"placeholder":@"None".localized},
+        @{@"title":@"Description".localized,@"placeholder":@""}
+        ]];
+    [self loadTimer];
+//    self.submit.hidden = true;
+//    self.time.hidden = true;
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
 
@@ -110,10 +119,10 @@
     NSDictionary * params = @{@"encoding":@"UTF-8",
                               @"orgid":@"00D8c000003UHSM",
                               @"retURL":@"www.moonflow.com",
-                              @"name":self.model.nickName,
-                              @"email":self.model.email,
-                              @"phone":self.model.phonenumber,
-                              @"subject":[self formatDefDevSgSn],
+                              @"name":self.model.nickName?:@"",
+                              @"email":self.model.email?:@"",
+                              @"phone":self.model.phonenumber?:@"",
+                              @"subject":self.model.defDevSgSn?[self formatDefDevSgSn]:@"",
                               @"reason":self.dataArray[4][@"placeholder"],
                               @"description":cell.textfield.text.length>0?cell.textfield.text:@"",
                               @"external":@"1"};

@@ -28,7 +28,7 @@
                         <outlet property="delegate" destination="-1" id="5di-J1-pHV"/>
                     </connections>
                 </tableView>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XSq-zF-dTg">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XSq-zF-dTg">
                     <rect key="frame" x="156.5" y="64" width="101" height="147.5"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_empty" translatesAutoresizingMaskIntoConstraints="NO" id="E0g-pf-DsC">

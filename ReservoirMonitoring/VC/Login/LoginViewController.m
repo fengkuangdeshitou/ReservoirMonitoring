@@ -68,6 +68,7 @@
         NSDictionary * data = result[@"data"];
         NSInteger userType = [data[@"userType"] integerValue];
         [RMHelper setUserType:userType==1];
+        [NSUserDefaults.standardUserDefaults setValue:[NSString stringWithFormat:@"%@",data[@"defDevId"]] forKey:CURRENR_DEVID];
         [[NSNotificationCenter defaultCenter] postNotificationName:LOGIN_SUCCESS object:nil];
     } failure:^(NSString * _Nonnull errorMsg) {
         

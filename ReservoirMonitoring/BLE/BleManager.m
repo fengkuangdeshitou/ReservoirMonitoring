@@ -82,8 +82,9 @@ static BleManager * _manager = nil;
         if (self.connectTimer && !self.isConnented) {
             [self.connectTimer invalidate];
             self.connectTimer = nil;
-            [self.hud hideAnimated:true];
+            [self.hud hideAnimated:false];
             [RMHelper showToast:@"The connection fails" toView:RMHelper.getCurrentVC.view];
+            [self stopScan];
         }
     });
 }
@@ -378,7 +379,7 @@ static unsigned char auchCRCLo[] = {
 /// 断开连接
 - (void)disconnectPeripheral{
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.hud hideAnimated:true];
+        [self.hud hideAnimated:false];
     });
     if (self.timer) {
         [self.timer invalidate];
@@ -512,7 +513,7 @@ static unsigned char auchCRCLo[] = {
                     _isConnented = true;
                     //发现特定服务的特征值
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self.hud hideAnimated:true];
+                        [self.hud hideAnimated:false];
                         if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidConnectPeripheral:)]) {
                             [self.delegate bluetoothDidConnectPeripheral:peripheral];
                         }
@@ -557,7 +558,7 @@ static unsigned char auchCRCLo[] = {
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error{
     NSLog(@"连接失败%s",__func__);
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.hud hideAnimated:true];
+        [self.hud hideAnimated:false];
         [self.connectTimer invalidate];
         self.connectTimer = nil;
     });
@@ -574,6 +575,8 @@ static unsigned char auchCRCLo[] = {
         if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidDisconnectPeripheral:)]) {
             [self.delegate bluetoothDidDisconnectPeripheral:peripheral];
         }
+        [RMHelper showToast:@"Device disconnected" toView:RMHelper.getCurrentVC.view];
+        [RMHelper.getCurrentVC.view hiddenHUD];
     });
     
     if (self.peripheral) {
@@ -849,7 +852,7 @@ static unsigned char auchCRCLo[] = {
             _isConnented = true;
             NSLog(@"连接成功");
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.hud hideAnimated:true];
+                [self.hud hideAnimated:false];
                 [self.connectTimer invalidate];
                 self.connectTimer = nil;
                 self.timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(heartbeat) userInfo:nil repeats:true];

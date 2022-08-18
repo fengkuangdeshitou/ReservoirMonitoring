@@ -14,6 +14,7 @@
 @interface WarningListView ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong) UITableView * tableView;
+@property(nonatomic,strong) UIView * normalView;
 @property(nonatomic,assign) NSInteger page;
 @property(nonatomic,strong) NSMutableArray * dataArray;
 @property(nonatomic,copy) NSString * devId;
@@ -28,6 +29,22 @@
 @end
 
 @implementation WarningListView
+
+- (UIView *)normalView{
+    if (!_normalView) {
+        _normalView = [[UIView alloc] initWithFrame:CGRectMake(self.tableView.width/2-60, 50, 120, 150)];
+        UIImageView * icon = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 100, 84)];
+        icon.image = [UIImage imageNamed:@"icon_empty"];
+        [_normalView addSubview:icon];
+        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 130, _normalView.width, 20)];
+        label.text = @"No result";
+        label.textAlignment = 1;
+        label.textColor = UIColor.whiteColor;
+        label.font = [UIFont systemFontOfSize:16];
+        [_normalView addSubview:label];
+    }
+    return _normalView;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -49,6 +66,7 @@
         self.tableView.backgroundColor = [UIColor colorWithHexString:@"#0C0C0C"];
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self addSubview:self.tableView];
+        [self.tableView addSubview:self.normalView];
         [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([WarningTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([WarningTableViewCell class])];
         self.tableView.mj_footer = [RefreshBackFooter footerWithRefreshingBlock:^{
             self.page++;
@@ -87,6 +105,7 @@
                 }];
             }
             [self.tableView reloadData];
+            self.normalView.hidden = self.dataArray.count > 0;
         }];
     }else{
         [Request.shareInstance getUrl:DeviceList params:@{} progress:^(float progress) {
@@ -151,6 +170,7 @@
         }
         [self.tableView reloadData];
         [self.tableView.mj_footer endRefreshing];
+        self.normalView.hidden = self.dataArray.count > 0;
     } failure:^(NSString * _Nonnull errorMsg) {
         [self.tableView.mj_footer endRefreshing];
     }];

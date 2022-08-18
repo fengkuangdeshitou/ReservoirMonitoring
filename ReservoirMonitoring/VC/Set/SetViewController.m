@@ -46,7 +46,7 @@
     NSString * string = @"";
 #endif
     [self setRightBarButtonItemWithTitlt:[NSString stringWithFormat:@"%@%@",string,version] sel:nil];
-    self.loginout.hidden = true;
+//    self.loginout.hidden = true;
     self.dataArray = @[@"User Info".localized,@"Network".localized,@"Update".localized,@"FAQ".localized,@"Fault&Warning".localized,@"Commissioning".localized];
     self.iconArray = @[@"icon_information",@"icon_list",@"icon_update",@"icon_help",@"icon_warning",@"icon_test"];
     [self.loginout setTitle:@"Log Out".localized forState:UIControlStateNormal];
@@ -79,7 +79,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         SetInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SetInfoTableViewCell class]) forIndexPath:indexPath];
-        cell.model = self.model;
+        if (self.model) {
+            cell.model = self.model;
+        }
         return cell;
     }else{
         SetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SetTableViewCell class]) forIndexPath:indexPath];
@@ -133,11 +135,19 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return self.model == nil ? 0 : 2;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return section == 0 ? 1 : self.model.userType.intValue == 2 ? 4 : self.dataArray.count;
+    if (section == 0) {
+        return 1;
+    }else{
+        if (self.model) {
+            return self.model.userType.intValue == 2 ? 4 : self.dataArray.count;
+        }else{
+            return 4;
+        }
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

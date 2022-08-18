@@ -29,7 +29,9 @@
     self.type.text = model.userType.intValue == 1 ? @"Installer".localized : @"User".localized;
     self.nickname.text = model.nickName;
     self.email.text = model.email;
-    [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",Host,model.avatar]] placeholderImage:[UIImage imageNamed:@"info"]];
+    NSString * string = [NSString stringWithFormat:@"%@/%@",Host,model.avatar];
+    string = [string stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:[UIImage imageNamed:@"info"]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

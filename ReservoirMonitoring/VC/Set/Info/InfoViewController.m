@@ -47,10 +47,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.save showBorderWithRadius:25];
-    self.dataArray = @[self.model.email,self.model.nickName,self.model.phonenumber];
+    self.dataArray = @[self.model.email?:@"--",self.model.nickName?:@"--",self.model.phonenumber?:@"--"];
     self.iconArray = @[@"icon_email",@"icon_info",@"icon_phone"];
     self.photoBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.photoBtn sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",Host,self.model.avatar]] forState:UIControlStateNormal];
+    [self.photoBtn sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",Host,self.model.avatar]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"info"]];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InfoTableViewCell class])];
 }
 

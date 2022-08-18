@@ -20,7 +20,7 @@
     self.statusButton.layer.borderWidth = 0.5;
     
     self.statusButton.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
-    [self.statusButton setTitle:@"Connected".localized forState:UIControlStateNormal];
+    [self.statusButton setTitle:@"Connect".localized forState:UIControlStateNormal];
     self.status.text = @"Disconnected".localized;
     self.status.textColor = [UIColor colorWithHexString:@"#999999"];
     self.statusImageView.image = [UIImage imageNamed:@"bluetooth_gray"];

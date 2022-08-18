@@ -22,6 +22,7 @@
 @property(nonatomic)NSInteger index;
 @property(nonatomic,strong)NSTimer * refreshTimer;
 @property(nonatomic,assign)NSInteger time;
+@property(nonatomic,strong)NSArray<DevideModel*> * deviceArray;
 
 @end
 
@@ -64,6 +65,7 @@
 }
 
 - (void)onRefresh{
+    [self.refreshController endRefreshing];
     [self getHomeDeviceData];
 }
 
@@ -87,13 +89,14 @@
     [Request.shareInstance getUrl:DeviceList params:@{} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
-        NSArray * modelArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-        DeviceManager.shareInstance.deviceNumber = modelArray.count;
-        if (modelArray.count > 0){
-            NSArray<DevideModel*> * array = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
+        self.deviceArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        DeviceManager.shareInstance.deviceNumber = self.deviceArray.count;
+        if (self.deviceArray.count > 0){
+            NSArray<DevideModel*> * array = [self.deviceArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
             if (array.count > 0) {
                 self.model = array.firstObject;
                 [self setRightBarButtonItemWithTitlt:array.firstObject.name sel:@selector(changeDevice)];
+                [NSUserDefaults.standardUserDefaults setValue:self.model.deviceId forKey:CURRENR_DEVID];
                 completion(array.firstObject);
             }else{
                 self.navigationItem.rightBarButtonItem = nil;
@@ -353,7 +356,7 @@
 }
 
 - (void)changeDevice{
-    [DeviceSwitchView showDeviceSwitchViewWithDelegate:self];
+    [DeviceSwitchView showDeviceSwitchViewWithDelegate:self dataArray:self.deviceArray];
 }
 
 - (void)onSwitchDeviceSuccess{

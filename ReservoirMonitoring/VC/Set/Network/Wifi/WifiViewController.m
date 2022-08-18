@@ -58,8 +58,8 @@
         [Request.shareInstance getUrl:NetWorkInfo params:@{@"devId":self.devId} progress:^(float progress) {
                     
         } success:^(NSDictionary * _Nonnull result) {
-            self.deviceSSID = result[@"wifiName"];
-            if ([result[@"wifiStatus"] intValue] == 2) {
+            self.deviceSSID = result[@"data"][@"wifiName"];
+            if ([result[@"data"][@"wifiStatus"] intValue] == 4) {
                 self.wifi = @"connected";
             }
             [self.tableView reloadData];
