@@ -64,15 +64,6 @@
 //        [self getDeviceList];
         self.dataArray = dataArray;
         
-        NSArray<DevideModel*> * array = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
-        if (array.count>0) {
-            self.currentDevice = array.firstObject;
-        }
-        [self.tableView reloadData];
-        [self.otherTableView reloadData];
-        [self.otherTableView addSubview:self.normalView];
-        self.normalView.hidden = self.dataArray.count > 1;
-        
         self.contentView = [[UIView alloc] initWithFrame:CGRectMake(15, 90, SCREEN_WIDTH-30, self.height-90*2)];
         self.contentView.backgroundColor = [UIColor colorWithHexString:@"#1B1B1B"];
         self.contentView.layer.cornerRadius = 4;
@@ -136,6 +127,15 @@
             make.width.mas_equalTo(200);
             make.height.mas_equalTo(32);
         }];
+        
+        NSArray<DevideModel*> * array = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
+        if (array.count>0) {
+            self.currentDevice = array.firstObject;
+        }
+        [self.tableView reloadData];
+        [self.otherTableView reloadData];
+        [self.otherTableView addSubview:self.normalView];
+        self.normalView.hidden = self.dataArray.count > 1;
         
     }
     return self;

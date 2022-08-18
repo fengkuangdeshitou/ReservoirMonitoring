@@ -40,7 +40,7 @@ static NSString * const hudKey = @"hudKey";
 }
 
 - (void)hiddenHUD{
-    [self.hud hideAnimated:false];
+    [self.hud hideAnimated:true];
     self.hud = nil;
 }
 

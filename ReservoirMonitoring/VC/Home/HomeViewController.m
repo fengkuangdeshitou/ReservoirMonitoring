@@ -48,7 +48,7 @@
     [self getHomeDeviceData];
     [self.tableView reloadData];
     [self.refreshTimer setFireDate:[NSDate date]];
-    self.time = 180;
+    self.time = 60;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -59,7 +59,7 @@
 - (void)timeChangeAction{
     self.time--;
     if (self.time <= 0) {
-        self.time = 180;
+        self.time = 60;
         [self getHomeDeviceData];
     }
 }

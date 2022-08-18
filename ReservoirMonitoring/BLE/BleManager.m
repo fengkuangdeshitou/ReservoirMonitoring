@@ -83,8 +83,8 @@ static BleManager * _manager = nil;
             [self.connectTimer invalidate];
             self.connectTimer = nil;
             [self.hud hideAnimated:false];
-            [RMHelper showToast:@"The connection fails" toView:RMHelper.getCurrentVC.view];
             [self stopScan];
+            [RMHelper showToast:@"The connection fails" toView:RMHelper.getCurrentVC.view];
         }
     });
 }
@@ -575,15 +575,17 @@ static unsigned char auchCRCLo[] = {
         if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidDisconnectPeripheral:)]) {
             [self.delegate bluetoothDidDisconnectPeripheral:peripheral];
         }
-        [RMHelper showToast:@"Device disconnected" toView:RMHelper.getCurrentVC.view];
+        if (![RMHelper.getCurrentVC isKindOfClass:[NSClassFromString(@"NetworkViewController") class]]) {
+            [RMHelper showToast:@"Bluetooth disconnected" toView:RMHelper.getCurrentVC.view];
+        }
         [RMHelper.getCurrentVC.view hiddenHUD];
     });
     
-    if (self.peripheral) {
-        [self.centralManager connectPeripheral:peripheral options:@{CBConnectPeripheralOptionNotifyOnConnectionKey:@YES}];
-        peripheral.delegate = self;
-        self.peripheral = peripheral;
-    }
+//    if (self.peripheral) {
+//        [self.centralManager connectPeripheral:peripheral options:@{CBConnectPeripheralOptionNotifyOnConnectionKey:@YES}];
+//        peripheral.delegate = self;
+//        self.peripheral = peripheral;
+//    }
     [self.timer invalidate];
     self.timer = nil;
 }
@@ -856,6 +858,7 @@ static unsigned char auchCRCLo[] = {
                 [self.connectTimer invalidate];
                 self.connectTimer = nil;
                 self.timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(heartbeat) userInfo:nil repeats:true];
+                [RMHelper showToast:@"Success" toView:RMHelper.getCurrentVC.view];
             });
         }
         if([characteristic.UUID.UUIDString isEqualToString:UUID_READ_CHARACTERISTICS]){

@@ -120,7 +120,7 @@
     }
     __weak typeof(self) weakSelf = self;
     if (BleManager.shareInstance.isConnented) {
-        [weakSelf.view showHUDToast:@"Loading"];
+        [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
     }
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
@@ -129,8 +129,6 @@
         }];
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance writeWithCMDString:@"64E" array:@[weakSelf.dataArray[3][@"value"]] finish:^{
-            [RMHelper showToast:@"Success" toView:weakSelf.view];
-            [weakSelf.view hiddenHUD];
             [weakSelf uploadDebugConfig:@{
                 @"devId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID],
                 @"formType":@"1",
@@ -150,9 +148,11 @@
         BOOL value = [result[@"data"] boolValue];
         if (!value) {
             [RMHelper showToast:result[@"message"] toView:self.view];
+        }else{
+            [RMHelper showToast:@"Success" toView:self.view];
         }
     } failure:^(NSString * _Nonnull errorMsg) {
-        
+
     }];
 }
 

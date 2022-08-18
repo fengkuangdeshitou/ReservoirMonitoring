@@ -195,7 +195,7 @@
     }
     __weak typeof(self) weakSelf = self;
     if (BleManager.shareInstance.isConnented) {
-        [weakSelf.view showHUDToast:@"Loading"];
+        [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
     }
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -241,8 +241,6 @@
         [BleManager.shareInstance writeWithCMDString:@"634" array:array finish:^{
             dispatch_semaphore_signal(semaphore);
             dispatch_async(dispatch_get_main_queue(), ^{
-                [RMHelper showToast:@"Success" toView:weakSelf.view];
-                [weakSelf.view hiddenHUD];
                 NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
                 NSDictionary * item = @{
                     @"devId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID],
@@ -279,6 +277,8 @@
         BOOL value = [result[@"data"] boolValue];
         if (!value) {
             [RMHelper showToast:result[@"message"] toView:self.view];
+        }else{
+            [RMHelper showToast:@"Success" toView:self.view];
         }
     } failure:^(NSString * _Nonnull errorMsg) {
         

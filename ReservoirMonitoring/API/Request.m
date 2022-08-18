@@ -7,16 +7,15 @@
 
 #import "Request.h"
 #import "AFNetworking.h"
-@import MBProgressHUD;
 #import "GlobelDescAlertView.h"
 @import CoreTelephony;
 #import "Reachability.h"
+#import "UIView+Hud.h"
 
 @interface Request ()
 
 @property(nonatomic,strong) AFHTTPSessionManager *manager;
 @property(nonatomic,strong) NSMutableDictionary *headers;
-@property(nonatomic,strong) MBProgressHUD *hud;
 @property(nonatomic,strong) CTCellularData * cellularData;
 @property(nonatomic,assign) BOOL isConnect;
 @property(nonatomic,strong) Reachability * reach;
@@ -43,20 +42,6 @@ static Request * _request = nil;
         [_request.reach startNotifier];
     }
     return _request;
-}
-
-- (MBProgressHUD *)hud{
-    if (!_hud) {
-        _hud = [[MBProgressHUD alloc] init];
-    }
-    _hud.mode = MBProgressHUDModeIndeterminate;
-    _hud.removeFromSuperViewOnHide = true;
-    _hud.label.text = @"Loading";
-    _hud.contentColor = UIColor.whiteColor;
-    _hud.bezelView.color = [UIColor colorWithHexString:@"#181818"];
-    _hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
-    [UIApplication.sharedApplication.keyWindow addSubview:_hud];
-    return _hud;
 }
 
 - (CTCellularData *)cellularData{
@@ -90,7 +75,7 @@ static Request * _request = nil;
         _manager.requestSerializer = [AFJSONRequestSerializer serializer];
         _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         _manager.operationQueue.maxConcurrentOperationCount = 1;
-        _manager.requestSerializer.timeoutInterval = 60;
+        _manager.requestSerializer.timeoutInterval = 20;
     }
     return _manager;
 }
@@ -100,14 +85,14 @@ static Request * _request = nil;
       progress:(RequestProgressBlock)progress
        success:(RequestSuccessBlock)success
        failure:(RequestFailureBlock)failure{
-    [self.hud showAnimated:true];
+    [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
     [self.manager GET:[Host stringByAppendingString:url] parameters:params headers:self.headers progress:^(NSProgress * _Nonnull downloadProgress) {
             
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSString * code = json[@"status"];
         NSLog(@"url=%@,params=%@,result=%@",url,params,json);
-        [self.hud hideAnimated:false];
+        [UIApplication.sharedApplication.keyWindow hiddenHUD];
         if (code.intValue == 200) {
             success(json);
         }else if (code.intValue == 403) {
@@ -120,7 +105,7 @@ static Request * _request = nil;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"========%ld,%@",error.code,error.userInfo);
-        [self.hud hideAnimated:false];
+        [UIApplication.sharedApplication.keyWindow hiddenHUD];
         [self loadNetworkAlertData:error];
     }];
 }
@@ -130,14 +115,14 @@ static Request * _request = nil;
        progress:(RequestProgressBlock)progress
         success:(RequestSuccessBlock)success
         failure:(RequestFailureBlock)failure{
-    [self.hud showAnimated:true];
+    [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
     [self.manager POST:[Host stringByAppendingString:url] parameters:params headers:self.headers progress:^(NSProgress * _Nonnull downloadProgress) {
             
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSString * code = json[@"status"];
         NSLog(@"url=%@,params:%@,result=%@",url,params,json);
-        [self.hud hideAnimated:false];
+        [UIApplication.sharedApplication.keyWindow hiddenHUD];
         if (code.intValue == 200) {
             success(json);
         }else{
@@ -146,7 +131,7 @@ static Request * _request = nil;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"err=%@",error);
-        [self.hud hideAnimated:false];
+        [UIApplication.sharedApplication.keyWindow hiddenHUD];
         [self loadNetworkAlertData:error];
     }];
 }
@@ -155,12 +140,12 @@ static Request * _request = nil;
          params:(NSDictionary *)params
         success:(RequestSuccessBlock)success
        failure:(RequestFailureBlock)failure{
-    [self.hud showAnimated:true];
+    [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
     [self.manager PUT:[Host stringByAppendingString:url] parameters:params headers:self.headers success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSString * code = json[@"status"];
         NSLog(@"url=%@,result=%@",url,json);
-        [self.hud hideAnimated:false];
+        [UIApplication.sharedApplication.keyWindow hiddenHUD];
         if (code.intValue == 200) {
             success(json);
         }else{
@@ -169,7 +154,7 @@ static Request * _request = nil;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"err=%@",error);
-        [self.hud hideAnimated:false];
+        [UIApplication.sharedApplication.keyWindow hiddenHUD];
         [self loadNetworkAlertData:error];
     }];
 }

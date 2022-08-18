@@ -69,7 +69,6 @@
         return;
     }
     [BleManager.shareInstance writeWithCMDString:@"600" array:@[value] finish:^{
-        [RMHelper showToast:@"Success" toView:self.view];
         [self uploadDebugConfig:@{
             @"devId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID],
             @"formType":@"5",
@@ -88,6 +87,8 @@
         BOOL value = [result[@"data"] boolValue];
         if (!value) {
             [RMHelper showToast:result[@"message"] toView:self.view];
+        }else{
+            [RMHelper showToast:@"Success" toView:self.view];
         }
     } failure:^(NSString * _Nonnull errorMsg) {
 
