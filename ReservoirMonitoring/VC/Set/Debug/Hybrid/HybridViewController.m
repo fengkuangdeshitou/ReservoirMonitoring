@@ -102,7 +102,12 @@
             if (weakSelf.rightOpen) {
                 weakSelf.rightValueArray = @[array[1],array[2]];
             }
-            weakSelf.rightValue = weakSelf.rightOpen ? @"Generator enabled".localized :  @"None".localized;
+            if ([array.firstObject intValue] == 0) {
+                weakSelf.rightValue = @"None".localized;
+            }else{
+                weakSelf.rightValue = @[@"Generator enabled".localized,@"EV charger enabled",@"PV inverter enabled",@"None".localized][[array.firstObject intValue] -1];
+            }
+//            weakSelf.rightValue = weakSelf.rightOpen ? @"Generator enabled".localized :  @"None".localized;
             dispatch_semaphore_signal(semaphore);
         }];
         
@@ -303,7 +308,7 @@
     }else if (indexPath.section == 1 || indexPath.section == 2) {
         if (indexPath.row == 0) {
             SelecteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SelecteTableViewCell class]) forIndexPath:indexPath];
-            cell.titleLabel.text = indexPath.section == 1 ? @"Inverter".localized : @"Generator".localized;
+            cell.titleLabel.text = indexPath.section == 1 ? @"Expand port 2".localized : @"Expand port 1".localized;
             cell.content.text = indexPath.section == 1 ? self.leftValue : self.rightValue;
             return cell;
         }else{
@@ -359,10 +364,10 @@
     }else if (indexPath.section == 2){
         UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
         CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
-        [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"Generator enabled".localized,@"None".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-200, frame.origin.y+50, 185, 50*2) completion:^(NSString * _Nonnull value, NSInteger idx) {
-            self.rightOpen = idx != 1;
+        [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"Generator enabled".localized,@"EV charger enabled",@"PV inverter enabled",@"None".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-200, frame.origin.y+50, 185, 50*4) completion:^(NSString * _Nonnull value, NSInteger idx) {
+            self.rightOpen = idx != 3;
             self.rightValue = value;
-            self.rightController = [NSString stringWithFormat:@"%ld",idx == 2 ? 0 : idx+1];
+            self.rightController = [NSString stringWithFormat:@"%ld",idx == 3 ? 0 : idx+1];
             [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
         }];
     }else if (indexPath.section == 3) {

@@ -41,6 +41,9 @@ typedef void(^RequestFailureBlock)(NSString *errorMsg);
       progress:(RequestProgressBlock)progress
         success:(RequestSuccessBlock)success
         failure:(RequestFailureBlock)failure;
+
+- (void)cancelCurrentRequest;
+
 @end
 
 NS_ASSUME_NONNULL_END

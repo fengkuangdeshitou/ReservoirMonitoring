@@ -85,4 +85,6 @@ NSString * const ProtocolLink = @"/open/common/protocolLink";
 
 NSString * const NetWorkInfo = @"/device/netWorkInfo";
 
+NSString * const CheckEmailCode = @"/open/common/checkEmailCode";
+
 @end

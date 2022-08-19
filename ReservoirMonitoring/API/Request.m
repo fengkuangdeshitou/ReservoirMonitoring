@@ -16,7 +16,6 @@
 
 @property(nonatomic,strong) AFHTTPSessionManager *manager;
 @property(nonatomic,strong) NSMutableDictionary *headers;
-@property(nonatomic,strong) CTCellularData * cellularData;
 @property(nonatomic,assign) BOOL isConnect;
 @property(nonatomic,strong) Reachability * reach;
 
@@ -42,13 +41,6 @@ static Request * _request = nil;
         [_request.reach startNotifier];
     }
     return _request;
-}
-
-- (CTCellularData *)cellularData{
-    if (!_cellularData) {
-        _cellularData = [[CTCellularData alloc] init];
-    }
-    return _cellularData;
 }
 
 - (Reachability *)reach{
@@ -186,41 +178,34 @@ static Request * _request = nil;
 }
 
 - (void)loadNetworkAlertData:(NSError *)error{
-    if (!_cellularData) {
-        self.cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState restrictedState){
-            if (restrictedState == kCTCellularDataRestrictedStateUnknown || restrictedState == kCTCellularDataRestricted) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [GlobelDescAlertView showAlertViewWithTitle:@"Network connection failed" desc:@" Please check the network" btnTitle:@"Setting" completion:^{
-                        [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:^(BOOL success) {
-                                        
-                        }];
+    CTCellularData * cellularData = [[CTCellularData alloc] init];
+    cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState restrictedState){
+        if (restrictedState == kCTCellularDataRestrictedStateUnknown || restrictedState == kCTCellularDataRestricted) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Network permission required, please go to setting and enable usage" btnTitle:@"Setting" completion:^{
+                    [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:^(BOOL success) {
+                                    
                     }];
-                });
-            }else{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (error.code == -1001) {
-                        [RMHelper showToast:@"Connection timeout. Please try again later" toView:UIApplication.sharedApplication.keyWindow];
-                    }else if (error.code == -1009 || error.code == -1202) {
-                        [RMHelper showToast:@"Network connection failed. Please check the network" toView:UIApplication.sharedApplication.keyWindow];
-                    }else if (error.code == -1011) {
-                        [RMHelper showToast:@"The right resources were not found." toView:UIApplication.sharedApplication.keyWindow];
-                    }else{
-                        [RMHelper showToast:@"unknown error" toView:UIApplication.sharedApplication.keyWindow];
-                    }
-                });
-            }
-        };
-    }else{
-        if (error.code == -1001) {
-            [RMHelper showToast:@"Connection timeout. Please try again later" toView:UIApplication.sharedApplication.keyWindow];
-        }else if (error.code == -1009 || error.code == -1202) {
-            [RMHelper showToast:@"Network connection failed. Please check the network" toView:UIApplication.sharedApplication.keyWindow];
-        }else if (error.code == -1011) {
-            [RMHelper showToast:@"The right resources were not found." toView:UIApplication.sharedApplication.keyWindow];
+                }];
+            });
         }else{
-            [RMHelper showToast:@"unknown error" toView:UIApplication.sharedApplication.keyWindow];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (error.code == -1001) {
+                    [RMHelper showToast:@"Connection timeout. Please try again later" toView:UIApplication.sharedApplication.keyWindow];
+                }else if (error.code == -1009 || error.code == -1202) {
+                    [RMHelper showToast:@"Network connection failed. Please check the network" toView:UIApplication.sharedApplication.keyWindow];
+                }else if (error.code == -1011) {
+                    [RMHelper showToast:@"The right resources were not found." toView:UIApplication.sharedApplication.keyWindow];
+                }else{
+                    [RMHelper showToast:@"unknown error" toView:UIApplication.sharedApplication.keyWindow];
+                }
+            });
         }
-    }
+    };
+}
+
+- (void)cancelCurrentRequest{
+    [self.manager.dataTasks makeObjectsPerformSelector:@selector(cancel)];
 }
 
 @end

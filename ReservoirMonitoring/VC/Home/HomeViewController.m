@@ -12,6 +12,7 @@
 #import "DevideModel.h"
 @import BRPickerView;
 #import "AddDeviceViewController.h"
+#import "GlobelDescAlertView.h"
 
 @interface HomeViewController ()<DeviceSwitchViewDelegate,BleManagerDelegate,UITableViewDelegate,DeviceSwitchViewDelegate>
 
@@ -43,8 +44,21 @@
     self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeChangeAction) userInfo:nil repeats:true];
 }
 
+- (void)bluetoothDidDisconnectPeripheral:(CBPeripheral *)peripheral{
+    [self.refreshController endRefreshing];
+    self.model.gridPower = 0;
+    self.model.solarPower = 0;
+    self.model.generatorPower = 0;
+    self.model.evPower = 0;
+    self.model.nonBackUpPower = 0;
+    self.model.backUpPower = 0;
+    
+    [self.tableView reloadData];
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.manager.delegate = self;
     [self getHomeDeviceData];
     [self.tableView reloadData];
     [self.refreshTimer setFireDate:[NSDate date]];
@@ -164,6 +178,10 @@
 }
 
 - (void)getBluetoothData{
+    if (!BleManager.shareInstance.isConnented) {
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
+        return;
+    }
     if (BleManager.shareInstance.isConnented) {
         [self.view showHUDToast:@"Loading"];
     }else{

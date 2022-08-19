@@ -31,8 +31,8 @@
                 }
             }
             self.listArray = listArray;
-            [self.tableView reloadData];
         }
+        [self.tableView reloadData];
     }
 }
 
@@ -55,7 +55,7 @@
     if (self.listArray) {
         cell.textLabel.text = self.listArray[indexPath.row][@"label"];
     }else{
-        cell.textLabel.text = self.dataArray[indexPath.row][@"zoneId"][1];
+        cell.textLabel.text = self.dataArray[indexPath.row][@"name"];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.textColor = UIColor.whiteColor;

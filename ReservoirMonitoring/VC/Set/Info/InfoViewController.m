@@ -94,12 +94,15 @@
 
 - (IBAction)updateInfo:(id)sender{
     if ([self getModelValueForIndex:0].length == 0) {
+        [RMHelper showToast:@"Please input your email" toView:self.view];
         return;
     }
     if ([self getModelValueForIndex:1].length == 0) {
+        [RMHelper showToast:@"Please input your name" toView:self.view];
         return;
     }
     if ([self getModelValueForIndex:2].length == 0) {
+        [RMHelper showToast:@"Please input your phone" toView:self.view];
         return;
     }
     NSMutableDictionary * params = [[NSMutableDictionary alloc] init];

@@ -184,7 +184,7 @@
     
     if (RMHelper.getUserType && RMHelper.getLoadDataForBluetooth) {
         cell.titleLabel.text = self.dataArray[indexPath.row];
-        cell.sn.text = [NSString stringWithFormat:@"SN:%@",BleManager.shareInstance.deviceSN];
+        cell.sn.text = [NSString stringWithFormat:@"SN：%@",BleManager.shareInstance.deviceSN];
         NSDate * date = [NSDate date];
         NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
@@ -192,7 +192,7 @@
     }else{
         NSDictionary * item = self.dataArray[indexPath.row];
         cell.titleLabel.text = item[@"enContent"];
-        cell.sn.text = item[@"sgSn"];
+        cell.sn.text = [NSString stringWithFormat:@"SN:%@",item[@"sgSn"]];
         if (![item[@"fromCreateTime"] isEqual:[NSNull null]]) {
             NSString * fromCreateTime = item[@"fromCreateTime"];
             if (fromCreateTime.length > 0) {

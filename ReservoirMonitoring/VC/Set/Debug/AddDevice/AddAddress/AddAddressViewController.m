@@ -51,7 +51,7 @@
                 NSString * label = item[@"label"];
                 if ([label isEqualToString:place.country]) {
                     self.countries.text = item[@"label"];
-                    self.provinceID = item[@"value"];
+                    self.countrieID = item[@"value"];
                     NSArray * children = item[@"children"];
                     for (NSDictionary * dic in children) {
                         NSString * subValue = dic[@"label"];
@@ -151,7 +151,7 @@
 - (IBAction)timeAction:(id)sender{
     TimeZoneViewController * time = [[TimeZoneViewController alloc] init];
     time.selectTimeZone = ^(NSDictionary * _Nonnull item) {
-        self.timeZone.text = [item[@"zoneId"] lastObject];
+        self.timeZone.text = item[@"name"];
     };
     time.countryId = self.countrieID;
     [self.navigationController pushViewController:time animated:true];

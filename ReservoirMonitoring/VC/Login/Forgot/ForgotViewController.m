@@ -42,7 +42,7 @@
 
 - (IBAction)sendCode:(id)sender{
     if (self.password.text.length == 0) {
-        [RMHelper showToast:self.password.placeholder toView:self.view];
+        [RMHelper showToast:@"Please send verification code first".localized toView:self.view];
         return;
     }
     [ImageAuthenticationView showImageAuthemticationWithDelegate:self];
@@ -54,15 +54,25 @@
         return;
     }
     if (self.uuid == nil) {
-        [RMHelper showToast:@"Please get verification code".localized toView:self.view];
+        [RMHelper showToast:@"Please send verification code first".localized toView:self.view];
         return;
     }
-    SetPasswordViewController * set = [[SetPasswordViewController alloc] init];
-    set.uuid = self.uuid;
-    set.code = self.code.text;
-    set.userName = self.password.text;
-    set.title = self.title.localized;
-    [self.navigationController pushViewController:set animated:true];
+    if (self.code.text.length == 0) {
+        [RMHelper showToast:@"Please enter verification code".localized toView:self.view];
+        return;
+    }
+    [Request.shareInstance getUrl:CheckEmailCode params:@{@"uuid":self.uuid,@"code":self.code.text} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        SetPasswordViewController * set = [[SetPasswordViewController alloc] init];
+        set.uuid = self.uuid;
+        set.code = self.code.text;
+        set.userName = self.password.text;
+        set.title = self.title.localized;
+        [self.navigationController pushViewController:set animated:true];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (void)onAuthemticationSuccess{

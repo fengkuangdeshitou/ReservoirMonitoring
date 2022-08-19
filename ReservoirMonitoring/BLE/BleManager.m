@@ -6,7 +6,7 @@
 //
 
 #import "BleManager.h"
-@import MBProgressHUD;
+#import "GlobelDescAlertView.h"
 
 @interface BleManager ()<CBCentralManagerDelegate,CBPeripheralDelegate>
 
@@ -19,7 +19,6 @@
 @property(nonatomic,copy)void(^readDictionaryFinish)(NSDictionary * dict);
 @property(nonatomic,strong) NSTimer * timer;
 @property(nonatomic,strong) NSTimer * connectTimer;
-@property(nonatomic,strong) MBProgressHUD *hud;
 
 @end
 
@@ -39,38 +38,33 @@ static BleManager * _manager = nil;
     return _manager;
 }
 
-- (MBProgressHUD *)hud{
-    if (!_hud) {
-        _hud = [[MBProgressHUD alloc] init];
-    }
-    _hud.mode = MBProgressHUDModeIndeterminate;
-    _hud.removeFromSuperViewOnHide = true;
-    _hud.label.text = @"Loading";
-    _hud.contentColor = UIColor.whiteColor;
-    _hud.bezelView.color = [UIColor colorWithHexString:@"#181818"];
-    _hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
-    [UIApplication.sharedApplication.keyWindow addSubview:_hud];
-    return _hud;
-}
-
 - (CBCentralManager *)centralManager{
     if (!_centralManager) {
         dispatch_queue_t centralQueue = dispatch_queue_create("centralQueue",DISPATCH_QUEUE_SERIAL);
-        NSDictionary *options =@{CBCentralManagerOptionShowPowerAlertKey:@YES,CBCentralManagerOptionRestoreIdentifierKey:@"unique identifier"};
-        _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:centralQueue options:options];
+//        NSDictionary *options =@{CBCentralManagerOptionShowPowerAlertKey:@YES,CBCentralManagerOptionRestoreIdentifierKey:@"unique identifier"};
+        _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:centralQueue options:nil];
     }
     return _centralManager;
 }
 
 - (void)startScanning{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (!self.isConnented) {
-            [self.hud showAnimated:true];
+    //    NSDictionary *option = @{CBCentralManagerScanOptionAllowDuplicatesKey:[NSNumber numberWithBool:NO],CBCentralManagerOptionShowPowerAlertKey:@YES};
+    [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSLog(@"statue=%ld",self.centralManager.state);
+        if (self.centralManager.state != CBManagerStatePoweredOn) {
+            [GlobelDescAlertView showAlertViewWithTitle:@"Tops" desc:@"Bluetooth permission required, please go to setting and enable usage." btnTitle:nil completion:^{
+                [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
+            }];
+            return;
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.isConnented == false) {
+                [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
+            }
+        });
+        self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scanningTimeChange) userInfo:nil repeats:false];
     });
-    self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scanningTimeChange) userInfo:nil repeats:false];
-    NSDictionary *option = @{CBCentralManagerScanOptionAllowDuplicatesKey:[NSNumber numberWithBool:NO],CBCentralManagerOptionShowPowerAlertKey:@YES};
-    [self.centralManager scanForPeripheralsWithServices:nil options:option];
 }
 
 - (void)stopScan{
@@ -82,7 +76,7 @@ static BleManager * _manager = nil;
         if (self.connectTimer && !self.isConnented) {
             [self.connectTimer invalidate];
             self.connectTimer = nil;
-            [self.hud hideAnimated:false];
+            [UIApplication.sharedApplication.keyWindow hiddenHUD];
             [self stopScan];
             [RMHelper showToast:@"The connection fails" toView:RMHelper.getCurrentVC.view];
         }
@@ -379,7 +373,7 @@ static unsigned char auchCRCLo[] = {
 /// 断开连接
 - (void)disconnectPeripheral{
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.hud hideAnimated:false];
+        [UIApplication.sharedApplication.keyWindow hiddenHUD];
     });
     if (self.timer) {
         [self.timer invalidate];
@@ -443,9 +437,10 @@ static unsigned char auchCRCLo[] = {
 //                        [self startScanning];
 //                    }
 //                }];
-            }else{
-                [self startScanning];
             }
+//            else{
+//                [self startScanning];
+//            }
         }
             break;
         default:
@@ -513,7 +508,7 @@ static unsigned char auchCRCLo[] = {
                     _isConnented = true;
                     //发现特定服务的特征值
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self.hud hideAnimated:false];
+                        [UIApplication.sharedApplication.keyWindow hiddenHUD];
                         if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidConnectPeripheral:)]) {
                             [self.delegate bluetoothDidConnectPeripheral:peripheral];
                         }
@@ -558,7 +553,7 @@ static unsigned char auchCRCLo[] = {
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error{
     NSLog(@"连接失败%s",__func__);
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.hud hideAnimated:false];
+        [UIApplication.sharedApplication.keyWindow hiddenHUD];
         [self.connectTimer invalidate];
         self.connectTimer = nil;
     });
@@ -575,10 +570,12 @@ static unsigned char auchCRCLo[] = {
         if (self.delegate && [self.delegate respondsToSelector:@selector(bluetoothDidDisconnectPeripheral:)]) {
             [self.delegate bluetoothDidDisconnectPeripheral:peripheral];
         }
+        [RMHelper.getCurrentVC.view hiddenHUD];
+        [UIApplication.sharedApplication.keyWindow hiddenHUD];
+        [Request.shareInstance cancelCurrentRequest];
         if (![RMHelper.getCurrentVC isKindOfClass:[NSClassFromString(@"NetworkViewController") class]]) {
             [RMHelper showToast:@"Bluetooth disconnected" toView:RMHelper.getCurrentVC.view];
         }
-        [RMHelper.getCurrentVC.view hiddenHUD];
     });
     
 //    if (self.peripheral) {
@@ -854,7 +851,7 @@ static unsigned char auchCRCLo[] = {
             _isConnented = true;
             NSLog(@"连接成功");
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.hud hideAnimated:false];
+                [UIApplication.sharedApplication.keyWindow hiddenHUD];
                 [self.connectTimer invalidate];
                 self.connectTimer = nil;
                 self.timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(heartbeat) userInfo:nil repeats:true];

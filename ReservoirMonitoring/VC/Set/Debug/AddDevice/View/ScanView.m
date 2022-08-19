@@ -7,7 +7,21 @@
 
 #import "ScanView.h"
 
+@interface ScanView ()
+
+@property(nonatomic,strong)UIView * line;
+
+@end
+
 @implementation ScanView
+
+- (UIView *)line{
+    if (!_line) {
+        _line = [[UIView alloc] initWithFrame:CGRectMake(33, 0, self.width-66, 1)];
+        _line.backgroundColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+    }
+    return _line;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -19,8 +33,19 @@
             imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"path-%d",i+1]];
             [self addSubview:imageView];
         }
+        [self addSubview:self.line];
+        [self frameChange];
     }
     return self;
+}
+
+- (void)frameChange{
+    self.line.y = 30;
+    [UIView animateWithDuration:3 animations:^{
+        self.line.y = self.line.width+32;
+    } completion:^(BOOL finished) {
+        [self frameChange];
+    }];
 }
 
 

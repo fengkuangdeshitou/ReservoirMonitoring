@@ -69,7 +69,7 @@
         return;
     }
     if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
-        [GlobelDescAlertView showAlertViewWithTitle:@"Tops" desc:@"Location permission required, click \"Yes\" to enable location usage." btnTitle:@"Yes" completion:^{
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tops" desc:@"Location permission required, click \"Yes\" to enable location usage." btnTitle:nil completion:^{
             [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
         }];
         return;
@@ -83,48 +83,37 @@
     [self.navigationController pushViewController:wifi animated:true];
 }
 
-- (void)bluetoothDidUpdateState:(CBCentralManager *)central{
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            switch (central.state) {
-                case CBManagerStateUnknown:
-                    NSLog(@"未知状态");
-                    break;
-                case CBManagerStateResetting:
-                    NSLog(@"重启状态");
-                    break;
-                case CBManagerStateUnsupported:
-                    NSLog(@"不支持");
-                    break;
-                case CBManagerStateUnauthorized:
-                    NSLog(@"未授权");
-                    break;
-                case CBManagerStatePoweredOff:{
-                    NSLog(@"蓝牙未开启");
-                    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"TIPS" message:@"Current device Bluetooth is not enabled, if you want to continue, now turn on Bluetooth." preferredStyle:UIAlertControllerStyleAlert];
-                    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"Cancel".localized style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }];
-                    UIAlertAction * action = [UIAlertAction actionWithTitle:@"Confirm".localized style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:^(BOOL success) {
-
-                        }];
-                    }];
-                    [alert addAction:cancel];
-                    [alert addAction:action];
-                    [self presentViewController:alert animated:YES completion:^{
-
-                    }];
-                }
-                    break;
-                case CBManagerStatePoweredOn:{
-                    NSLog(@"蓝牙已开启");
-                    break;;
-                }
-            }
-        });
-    });
-}
+//- (void)bluetoothDidUpdateState:(CBCentralManager *)central{
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            switch (central.state) {
+//                case CBManagerStateUnknown:
+//                    NSLog(@"未知状态");
+//                    break;
+//                case CBManagerStateResetting:
+//                    NSLog(@"重启状态");
+//                    break;
+//                case CBManagerStateUnsupported:
+//                    NSLog(@"不支持");
+//                    break;
+//                case CBManagerStateUnauthorized:
+//                    NSLog(@"未授权");
+//                    break;
+//                case CBManagerStatePoweredOff:{
+//                    NSLog(@"蓝牙未开启");
+//                    [GlobelDescAlertView showAlertViewWithTitle:@"Tops" desc:@"Bluetooth permission required, please go to setting and enable usage." btnTitle:nil completion:^{
+//                        [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
+//                    }];
+//                }
+//                    break;
+//                case CBManagerStatePoweredOn:{
+//                    NSLog(@"蓝牙已开启");
+//                    break;;
+//                }
+//            }
+//        });
+//    });
+//}
 
 - (void)bluetoothDidConnectPeripheral:(CBPeripheral *)peripheral{
     dispatch_async(dispatch_get_main_queue(), ^{

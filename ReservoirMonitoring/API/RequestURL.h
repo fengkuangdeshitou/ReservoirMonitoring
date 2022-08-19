@@ -83,6 +83,8 @@ extern NSString * const ProtocolLink;
 
 extern NSString * const NetWorkInfo;
 
+extern NSString * const CheckEmailCode;
+
 @end
 
 NS_ASSUME_NONNULL_END
