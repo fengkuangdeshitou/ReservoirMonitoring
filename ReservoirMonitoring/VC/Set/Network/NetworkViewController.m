@@ -54,7 +54,14 @@
         NSArray<DevideModel*> * filter = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect == %@",@"1"]];
         if (filter.count > 0) {
             self.model = filter.firstObject;
-            self.model.isConnected = BleManager.shareInstance.isConnented;
+            NSLog(@"a=%@",BleManager.shareInstance.rtusn);
+            if (BleManager.shareInstance.isConnented) {
+                if ([BleManager.shareInstance.rtusn isEqualToString:self.model.rtuSn]) {
+                    self.model.isConnected = BleManager.shareInstance.isConnented;
+                }else{
+                    [BleManager.shareInstance disconnectPeripheral];
+                }
+            }
         }
         self.normalView.hidden = self.dataArray.count > 1;
         [self.tableView reloadData];
@@ -154,7 +161,10 @@
     }else{
         DevideModel * model = self.dataArray[indexPath.row];
         [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:[NSString stringWithFormat:@"Please confirm switching to new device (SN: %@) for bluetooth connection.",model.sgSn] btnTitle:@"Acknowledge" completion:^{
-            [self switchDeviceAction:model.deviceId];
+            [BleManager.shareInstance disconnectPeripheral];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self switchDeviceAction:model.deviceId];
+            });
         }];
     }
 }
@@ -163,9 +173,8 @@
     [Request.shareInstance getUrl:SwitchDevice params:@{@"id":deviceId} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
-        [BleManager.shareInstance disconnectPeripheral];
+        [NSUserDefaults.standardUserDefaults setValue:deviceId forKey:CURRENR_DEVID];
         [self getDeviceList];
-        [[NSNotificationCenter defaultCenter] postNotificationName:SWITCH_DEVICE_NOTIFICATION object:nil];
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];

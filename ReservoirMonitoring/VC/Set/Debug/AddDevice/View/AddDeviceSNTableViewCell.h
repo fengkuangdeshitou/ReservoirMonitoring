@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,weak)IBOutlet UITextField * textfield;
 @property(nonatomic,weak)IBOutlet UIButton * scanBtn;
 @property(nonatomic,weak)IBOutlet UIButton * deleteBtm;
-
+@property(nonatomic,weak)IBOutlet UILabel * label;
 
 @end
 

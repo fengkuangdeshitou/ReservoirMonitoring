@@ -9,6 +9,7 @@
 #import "DeviceSwitchTableViewCell.h"
 @import MJExtension;
 #import "AddDeviceViewController.h"
+#import "GlobelDescAlertView.h"
 
 @interface DeviceSwitchView ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -61,7 +62,6 @@
         [UIApplication.sharedApplication.keyWindow addSubview:self];
         self.delegate = delegate;
         
-//        [self getDeviceList];
         self.dataArray = dataArray;
         
         self.contentView = [[UIView alloc] initWithFrame:CGRectMake(15, 90, SCREEN_WIDTH-30, self.height-90*2)];
@@ -149,7 +149,7 @@
     [RMHelper.getCurrentVC.navigationController pushViewController:add animated:true];
 }
 
-- (void)getDeviceList{
+- (void)getDeviceList:(void(^)(void))completion{
     [Request.shareInstance getUrl:DeviceList params:@{} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
@@ -162,6 +162,7 @@
         [self.otherTableView reloadData];
         [self.otherTableView addSubview:self.normalView];
         self.normalView.hidden = self.dataArray.count > 1;
+        completion();
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];
@@ -184,21 +185,25 @@
 }
 
 - (void)switchDeviceAction:(UIButton *)btn{
+    [BleManager.shareInstance disconnectPeripheral];
     DeviceSwitchTableViewCell * cell = (DeviceSwitchTableViewCell *)[[[btn superview] superview] superview];
     NSIndexPath * indexPath = [self.otherTableView indexPathForCell:cell];
     DevideModel * model = self.searchArray.count==0?self.dataArray[indexPath.section]:self.searchArray[indexPath.section];
-    [Request.shareInstance getUrl:SwitchDevice params:@{@"id":model.deviceId} progress:^(float progress) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [Request.shareInstance getUrl:SwitchDevice params:@{@"id":model.deviceId} progress:^(float progress) {
+                
+        } success:^(NSDictionary * _Nonnull result) {
+            [NSUserDefaults.standardUserDefaults setValue:model.deviceId forKey:CURRENR_DEVID];
+            [self getDeviceList:^{
+                if (RMHelper.getLoadDataForBluetooth) {
+                    [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
+                }
+            }];
+            [[NSNotificationCenter defaultCenter] postNotificationName:SWITCH_DEVICE_NOTIFICATION object:nil];
+        } failure:^(NSString * _Nonnull errorMsg) {
             
-    } success:^(NSDictionary * _Nonnull result) {
-        [BleManager.shareInstance disconnectPeripheral];
-        [self getDeviceList];
-        if (self.delegate && [self.delegate respondsToSelector:@selector(onSwitchDeviceSuccess)]) {
-            [self.delegate onSwitchDeviceSuccess];
-        }
-        [[NSNotificationCenter defaultCenter] postNotificationName:SWITCH_DEVICE_NOTIFICATION object:nil];
-    } failure:^(NSString * _Nonnull errorMsg) {
-        
-    }];
+        }];
+    });
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

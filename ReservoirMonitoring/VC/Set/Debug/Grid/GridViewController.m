@@ -11,7 +11,7 @@
 #import "SelectItemAlertView.h"
 #import "GlobelDescAlertView.h"
 
-@interface GridViewController ()
+@interface GridViewController ()<UITextFieldDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * submit;
@@ -26,7 +26,7 @@
     // Do any additional setup after loading the view from its nib.
     self.dataArray = [[NSMutableArray alloc] initWithArray:@[
         @{@"title":@"Backup type".localized,@"placeholder":@"Partical home".localized,@"value":@""},
-        @{@"title":@"Grid nominal voltage".localized,@"placeholder":@"Please enter a rating".localized},
+        @{@"title":@"Grid nominal voltage".localized,@"placeholder":@"Enter (number)".localized},
         @{@"title":@"Grid standard".localized,@"placeholder":@"internal standard".localized,@"value":@""},
         @{@"title":@"Grid frequency".localized,@"placeholder":@"50 Hz",@"value":@""},
         ]];
@@ -55,10 +55,9 @@
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"626" count:1 finish:^(NSArray * array){
-            int value = [array.firstObject intValue];
+            float value = [array.firstObject floatValue];
             if (value > 0) {
-                NSString * input = [NSString stringWithFormat:@"%d",value/10];
-                [weakSelf exchangeDictFor:1 value:input];
+                NSString * input = [NSString stringWithFormat:@"%.1f",value/10];
                 InputTableViewCell * cell = [weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
                 cell.textfield.text = input;
             }else{
@@ -113,7 +112,7 @@
 
 - (IBAction)submitAction:(id)sender{
     InputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    int input = [cell.textfield.text intValue]*10;
+    float input = [cell.textfield.text floatValue]*10;
     if (!BleManager.shareInstance.isConnented) {
         [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
         return;
@@ -124,7 +123,7 @@
     }
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
-        [BleManager.shareInstance writeWithCMDString:@"625" array:@[weakSelf.dataArray[0][@"value"],[NSString stringWithFormat:@"%d",input],weakSelf.dataArray[2][@"value"]] finish:^{
+        [BleManager.shareInstance writeWithCMDString:@"625" array:@[weakSelf.dataArray[0][@"value"],[NSString stringWithFormat:@"%.1f",input],weakSelf.dataArray[2][@"value"]] finish:^{
             dispatch_semaphore_signal(sem);
         }];
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
@@ -133,12 +132,28 @@
                 @"devId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID],
                 @"formType":@"1",
                 @"backupType":weakSelf.dataArray[0][@"value"],
-                @"gridNominalVoltage":[NSString stringWithFormat:@"%d",input],
+                @"gridNominalVoltage":[NSString stringWithFormat:@"%.1f",input],
                 @"gridStandard":weakSelf.dataArray[2][@"value"],
                 @"gridFrequency":weakSelf.dataArray[3][@"value"]
             }];
         }];
     });
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if ([textField.text containsString:@"."] && [string isEqualToString:@"."]) {
+        return NO;
+    }
+    NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+
+    NSArray *sep = [newString componentsSeparatedByString:@"."];
+    if([sep count] >= 2)
+    {
+        NSString *sepStr=[NSString stringWithFormat:@"%@",[sep objectAtIndex:1]];
+        return !([sepStr length]>1);
+    }
+    return YES;
 }
 
 - (void)uploadDebugConfig:(NSDictionary *)params{
@@ -161,6 +176,8 @@
         InputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
         cell.textfield.placeholder = self.dataArray[indexPath.row][@"placeholder"];
+        cell.textfield.delegate = self;
+        cell.textfield.keyboardType = UIKeyboardTypeDecimalPad;
         return cell;
     }else{
         SelecteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SelecteTableViewCell class]) forIndexPath:indexPath];

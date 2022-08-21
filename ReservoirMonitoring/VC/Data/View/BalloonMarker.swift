@@ -191,9 +191,9 @@ open class BalloonMarker: MarkerImage
         let time = formatter.stringForValue(entry.x, axis: self.chartView?.xAxis)
         let key = self.scopeType == 1 ? "Time:" : self.scopeType == 2 ? "Day:" : "Month:";
         if self.scopeType == 1 {
-            setLabel(String("    \(key)" + time + "\n" + "    Data:" + String(entry.y) + "kW"))
+            setLabel(String("    \(key)" + time + "\n" + "    Data:" + String(format:"%.2f",entry.y) + "kW"))
         }else{
-            setLabel(String("    \(key)" + time + "\n" + "    Data:" + String(entry.y) + "kWh"))
+            setLabel(String("    \(key)" + time + "\n" + "    Data:" + String(format:"%.2f",entry.y) + "kWh"))
         }
     }
     

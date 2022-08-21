@@ -122,7 +122,8 @@
         cell.idtextfield.tag = 1;
         cell.nametextfield.delegate = self;
         cell.nametextfield.tag = 2;
-        cell.nametextfield.text = @"";
+        cell.idtextfield.text = self.sgSn;
+        cell.nametextfield.text = self.name;
         [cell.scanBtn addTarget:self action:@selector(inverteScanFinish) forControlEvents:UIControlEventTouchUpInside];
         return cell;
     }else{
@@ -139,6 +140,7 @@
                 [cell.deleteBtm addTarget:self action:@selector(scanAction:) forControlEvents:UIControlEventTouchUpInside];
                 cell.textfield.tag = indexPath.row + 10;
                 cell.textfield.delegate = self;
+                cell.label.hidden = false;
             }else{
                 cell.scanBtn.hidden = false;
                 cell.textfield.placeholder = @"Please input battery/base SN".localized;
@@ -149,6 +151,7 @@
                 [cell.scanBtn addTarget:self action:@selector(scanAction:) forControlEvents:UIControlEventTouchUpInside];
                 cell.textfield.tag = indexPath.row + 10;
                 cell.textfield.delegate = self;
+                cell.label.hidden = true;
             }
             return cell;
         }

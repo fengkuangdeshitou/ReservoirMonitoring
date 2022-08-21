@@ -53,16 +53,16 @@
                 [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:fristArray[idx]];
                     if (idx == 0) {
-                        item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];
+                        item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];
                         [fristArray replaceObjectAtIndex:0 withObject:item];
                     }else if (idx == 1) {
-                        item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
+                        item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];;
                         [fristArray replaceObjectAtIndex:1 withObject:item];
                     }else if (idx == 2) {
-                        item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
+                        item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];;
                         [fristArray replaceObjectAtIndex:2 withObject:item];
                     }else if (idx == 3) {
-                        item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
+                        item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];;
                         [fristArray replaceObjectAtIndex:3 withObject:item];
                     }
                     [weakSelf.dataArray replaceObjectAtIndex:0 withObject:fristArray];
@@ -79,19 +79,19 @@
                     NSString *obj = array[idx];
                     if (idx%4 == 0) {
                         NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[0]];
-                        item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
+                        item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];;
                         [sectionArray replaceObjectAtIndex:0 withObject:item];
                     }else if (idx%4 == 1) {
                         NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[1]];
-                        item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
+                        item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];;
                         [sectionArray replaceObjectAtIndex:1 withObject:item];
                     }else if (idx%4 == 2) {
                         NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[2]];
-                        item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
+                        item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];;
                         [sectionArray replaceObjectAtIndex:2 withObject:item];
                     }else if (idx%4 == 3) {
                         NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[3]];
-                        item[@"value"] = [NSString stringWithFormat:@"%d",[obj intValue]/10];;
+                        item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];;
                         [sectionArray replaceObjectAtIndex:3 withObject:item];
                     }
                     [weakSelf.dataArray replaceObjectAtIndex:(idx/4+1) withObject:sectionArray];
@@ -113,10 +113,10 @@
     self.dataArray = [[NSMutableArray alloc] init];
     for (int i=0; i<self.resNum; i++) {
         NSArray * array = @[
-            @{@"title":[NSString stringWithFormat:@"Hybrid%d PV1 voltage",i+1],@"placeholder":@"PV1 voltage".localized,@"value":@"0"},
-            @{@"title":[NSString stringWithFormat:@"Hybrid%d PV2 voltage",i+1],@"placeholder":@"PV2 voltage".localized,@"value":@"0"},
-            @{@"title":[NSString stringWithFormat:@"Hybrid%d PV3 voltage",i+1],@"placeholder":@"PV3 voltage".localized,@"value":@"0"},
-            @{@"title":[NSString stringWithFormat:@"Hybrid%d PV4 voltage",i+1],@"placeholder":@"PV4 voltage".localized,@"value":@"0"}
+            @{@"title":[NSString stringWithFormat:@"Hybrid%d PV1 voltage",i+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
+            @{@"title":[NSString stringWithFormat:@"Hybrid%d PV2 voltage",i+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
+            @{@"title":[NSString stringWithFormat:@"Hybrid%d PV3 voltage",i+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
+            @{@"title":[NSString stringWithFormat:@"Hybrid%d PV4 voltage",i+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"}
         ];
         [self.dataArray addObject:array];
     }
@@ -130,6 +130,22 @@
     item[@"value"] = textField.text;
     [sectionArray replaceObjectAtIndex:indexPath.row withObject:item];
     [self.dataArray replaceObjectAtIndex:indexPath.section withObject:sectionArray];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if ([textField.text containsString:@"."] && [string isEqualToString:@"."]) {
+        return NO;
+    }
+    NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+
+    NSArray *sep = [newString componentsSeparatedByString:@"."];
+    if([sep count] >= 2)
+    {
+        NSString *sepStr=[NSString stringWithFormat:@"%@",[sep objectAtIndex:1]];
+        return !([sepStr length]>1);
+    }
+    return YES;
 }
 
 - (NSString *)getInputTextWithRow:(NSInteger)row{
@@ -156,7 +172,7 @@
         for (int j=0; j<4; j++) {
             [valueArray addObject:sectionArray[j][@"value"]];
             NSString * key = [NSString stringWithFormat:@"hybrid%dPV%dVoltage",i+1,j+1];
-            NSString * value = [NSString stringWithFormat:@"%d",[sectionArray[j][@"value"] intValue]*10];
+            NSString * value = [NSString stringWithFormat:@"%.1f",[sectionArray[j][@"value"] floatValue]*10];
             NSLog(@"value=%@,key=%@",value,key);
             [params setValue:value forKey:key];
         }
@@ -166,9 +182,9 @@
 
     for (int i=0; i<valueArray.count; i++) {
         if (i<4) {
-            [fristArray addObject:[NSString stringWithFormat:@"%d",[valueArray[i] intValue]*10]];
+            [fristArray addObject:[NSString stringWithFormat:@"%.1f",[valueArray[i] floatValue]*10]];
         }else{
-            [otherArray addObject:[NSString stringWithFormat:@"%d",[valueArray[i] intValue]*10]];
+            [otherArray addObject:[NSString stringWithFormat:@"%.1f",[valueArray[i] floatValue]*10]];
         }
     }
     __weak typeof(self) weakSelf = self;
@@ -219,6 +235,7 @@
         cell.textfield.placeholder = self.dataArray[indexPath.section][indexPath.row][@"placeholder"];
         cell.textfield.text = self.dataArray[indexPath.section][indexPath.row][@"value"];
         cell.textfield.delegate = self;
+        cell.textfield.keyboardType = UIKeyboardTypeDecimalPad;
         return cell;
     }
 }

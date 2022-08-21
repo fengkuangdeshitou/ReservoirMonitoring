@@ -110,6 +110,7 @@
         InputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
         cell.textfield.placeholder = self.dataArray[indexPath.row][@"placeholder"];
+        cell.textfield.keyboardType = UIKeyboardTypeNumberPad;
         return cell;
     }
 }

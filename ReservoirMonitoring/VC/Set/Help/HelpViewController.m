@@ -25,6 +25,13 @@
     // Do any additional setup after loading the view from its nib.
     [self getHelpData];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([HelpTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([HelpTableViewCell class])];
+    self.tableView.refreshControl = self.refreshController;
+    [self.refreshController addTarget:self action:@selector(onRefresh) forControlEvents:UIControlEventValueChanged];
+}
+
+- (void)onRefresh{
+    [self.refreshController endRefreshing];
+    [self getHelpData];
 }
 
 - (void)getHelpData{

@@ -19,6 +19,8 @@
 @property(nonatomic,copy)void(^readDictionaryFinish)(NSDictionary * dict);
 @property(nonatomic,strong) NSTimer * timer;
 @property(nonatomic,strong) NSTimer * connectTimer;
+@property(nonatomic,strong) NSTimer * requestTimer;
+@property(nonatomic,assign) BOOL isScan;
 
 @end
 
@@ -41,29 +43,38 @@ static BleManager * _manager = nil;
 - (CBCentralManager *)centralManager{
     if (!_centralManager) {
         dispatch_queue_t centralQueue = dispatch_queue_create("centralQueue",DISPATCH_QUEUE_SERIAL);
-//        NSDictionary *options =@{CBCentralManagerOptionShowPowerAlertKey:@YES,CBCentralManagerOptionRestoreIdentifierKey:@"unique identifier"};
-        _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:centralQueue options:nil];
+        NSDictionary *options =@{CBCentralManagerOptionShowPowerAlertKey:@YES,CBCentralManagerOptionRestoreIdentifierKey:@"unique identifier"};
+        _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:centralQueue options:options];
     }
     return _centralManager;
 }
 
 - (void)startScanning{
-    //    NSDictionary *option = @{CBCentralManagerScanOptionAllowDuplicatesKey:[NSNumber numberWithBool:NO],CBCentralManagerOptionShowPowerAlertKey:@YES};
-    [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+    NSDictionary *option = @{CBCentralManagerScanOptionAllowDuplicatesKey:[NSNumber numberWithBool:NO],CBCentralManagerOptionShowPowerAlertKey:@YES};
+    [self.centralManager scanForPeripheralsWithServices:nil options:option];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         NSLog(@"statue=%ld",self.centralManager.state);
-        if (self.centralManager.state != CBManagerStatePoweredOn) {
-            [GlobelDescAlertView showAlertViewWithTitle:@"Tops" desc:@"Bluetooth permission required, please go to setting and enable usage." btnTitle:nil completion:^{
-                [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
-            }];
-            return;
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.isConnented == false) {
-                [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
+        if (self.centralManager.state == CBManagerStatePoweredOn) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (self.isConnented == false) {
+                    [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
+                }
+            });
+            self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scanningTimeChange) userInfo:nil repeats:false];
+        }else{
+            if (self.isScan == false) {
+                self.isScan = true;
+                return;
             }
-        });
-        self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scanningTimeChange) userInfo:nil repeats:false];
+    //        @"Bluetooth permission required, please go to setting and enable usage."
+            if (self.centralManager.state != CBManagerStatePoweredOn && self.isScan) {
+                [GlobelDescAlertView showAlertViewWithTitle:@"Tops" desc:@"To use this function, you need to turn on Bluetooth" btnTitle:nil completion:^{
+                     NSURL *url = [NSURL URLWithString:@"App-Prefs:root=Bluetooth"];
+                    // [NSURL URLWithString:UIApplicationOpenSettingsURLString]
+                    [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
+                }];
+            }
+        }
     });
 }
 
@@ -79,6 +90,27 @@ static BleManager * _manager = nil;
             [UIApplication.sharedApplication.keyWindow hiddenHUD];
             [self stopScan];
             [RMHelper showToast:@"The connection fails" toView:RMHelper.getCurrentVC.view];
+        }
+    });
+}
+
+- (void)loadRequestTimer{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.requestTimer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(bluetoothRequestTimeOut) userInfo:nil repeats:false];
+    });
+}
+
+- (void)bluetoothRequestTimeOut{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.requestTimer) {
+            [self.requestTimer invalidate];
+            self.requestTimer = nil;
+            [UIApplication.sharedApplication.keyWindow hiddenHUD];
+            if (self.readFinish) {
+                [RMHelper showToast:@"Timeout fetching data, please try again later" toView:UIApplication.sharedApplication.keyWindow];
+            }else{
+                [RMHelper showToast:@"Configuration parameter timed out, please try again later" toView:UIApplication.sharedApplication.keyWindow];
+            }
         }
     });
 }
@@ -119,6 +151,7 @@ static BleManager * _manager = nil;
     if (!self.writecCharacteristic) {
         return;
     }
+    [self loadRequestTimer];
     [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithoutResponse];
 }
 
@@ -241,6 +274,7 @@ static BleManager * _manager = nil;
     if (!self.writecCharacteristic) {
         return;
     }
+    [self loadRequestTimer];
     [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
@@ -267,6 +301,7 @@ static BleManager * _manager = nil;
     if (!self.writecCharacteristic) {
         return;
     }
+    [self loadRequestTimer];
     [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithoutResponse];
     
 }
@@ -417,10 +452,11 @@ static unsigned char auchCRCLo[] = {
             break;
         case CBManagerStatePoweredOn:{
             NSLog(@"蓝牙已开启");
+            self.isScan = true;
             NSArray * array = [self.centralManager retrieveConnectedPeripheralsWithServices:@[[CBUUID UUIDWithString:UUID_CONTROL_SERVICE]]];
             NSLog(@"array=%@",array);
             if (array.count > 0) {
-                [self disconnectPeripheral];
+//                [self disconnectPeripheral];
 //                [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 //                    CBPeripheral * peripheral = obj;
 //                    if (peripheral.state == CBPeripheralStateConnected && [peripheral.name hasPrefix:@"EPCUBE"]) {
@@ -585,6 +621,8 @@ static unsigned char auchCRCLo[] = {
 //    }
     [self.timer invalidate];
     self.timer = nil;
+    [self.requestTimer invalidate];
+    self.requestTimer = nil;
 }
 
 // 发现服务的回调
@@ -685,9 +723,18 @@ static unsigned char auchCRCLo[] = {
 //        NSString *response = [self valueStringWithResponse:data];
         __weak typeof(self) weakSelf = self;
         NSLog(@"读取蓝牙回复：%@",dict);
+        
         if ([dict objectForKey:@"RawModbus"]) {
             NSString * string = dict[@"RawModbus"];
+            
+            [self.requestTimer invalidate];
+            self.requestTimer = nil;
+            
             if (string.length < 4) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [UIApplication.sharedApplication.keyWindow hiddenHUD];
+                    [RMHelper showToast:@"Data parsing error, please contact the administrator." toView:UIApplication.sharedApplication.keyWindow];
+                });
                 return;
             }
             
@@ -732,6 +779,11 @@ static unsigned char auchCRCLo[] = {
             if (weakSelf.readFinish) {
                 weakSelf.readFinish(@[]);
             }
+//            if (![dict objectForKey:@"type"]) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [RMHelper showToast:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] toView:UIApplication.sharedApplication.keyWindow];
+//                });
+//            }
         }
         
         /// 失败

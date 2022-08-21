@@ -72,12 +72,22 @@
             self.page++;
             [self getListWithDevId:self.devId];
         }];
+        UIRefreshControl * refreshController = [[UIRefreshControl alloc] init];
+        refreshController.tintColor = UIColor.whiteColor;
+        self.tableView.refreshControl = refreshController;
+        [refreshController addTarget:self action:@selector(onRefresh) forControlEvents:UIControlEventValueChanged];
     }
     return self;
 }
 
 - (void)setIsLoad:(BOOL)isLoad{
     _isLoad = isLoad;
+    [self getListData];
+}
+
+- (void)onRefresh{
+    [self.tableView.refreshControl endRefreshing];
+    self.page = 1;
     [self getListData];
 }
 
@@ -192,7 +202,7 @@
     }else{
         NSDictionary * item = self.dataArray[indexPath.row];
         cell.titleLabel.text = item[@"enContent"];
-        cell.sn.text = [NSString stringWithFormat:@"SN:%@",item[@"sgSn"]];
+        cell.sn.text = [NSString stringWithFormat:@"SN：%@",item[@"sgSn"]];
         if (![item[@"fromCreateTime"] isEqual:[NSNull null]]) {
             NSString * fromCreateTime = item[@"fromCreateTime"];
             if (fromCreateTime.length > 0) {
@@ -204,7 +214,7 @@
             cell.timeLabel.text = item[@"defCreateTime"];
         }
     }
-    cell.time.text = self.tag == 10 ? @"Warning time：".localized : @"Fault Time".localized;
+    cell.time.text = self.tag == 10 ? @"Warning time：".localized : @"Fault Time：".localized;
     cell.line.hidden = indexPath.row == 4;
     cell.icon.image = [UIImage imageNamed:self.tag == 10 ? @"icon_warn_red" : @"icon_warn_yellow"];
     return cell;

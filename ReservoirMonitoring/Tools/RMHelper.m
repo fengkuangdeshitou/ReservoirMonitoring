@@ -11,7 +11,6 @@
 @implementation RMHelper
 
 static NSString * K_USERINFO = @"PFUserInfo";
-static NSString * K_DATASOURCE = @"DATASOURCE";
 static NSString * K_USERTYPE = @"USERTYPE";
 
 
@@ -69,11 +68,13 @@ static NSString * K_USERTYPE = @"USERTYPE";
 }
 
 + (void)setLoadDataForBluetooth:(BOOL)isBluetooth{
-    [NSUserDefaults.standardUserDefaults setBool:isBluetooth forKey:K_DATASOURCE];
+    NSString * key = [NSString stringWithFormat:@"%@-%@",[NSUserDefaults.standardUserDefaults objectForKey:@"token"],[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID]];
+    [NSUserDefaults.standardUserDefaults setBool:isBluetooth forKey:key];
 }
 
 + (BOOL)getLoadDataForBluetooth{
-    return [NSUserDefaults.standardUserDefaults boolForKey:K_DATASOURCE];
+    NSString * key = [NSString stringWithFormat:@"%@-%@",[NSUserDefaults.standardUserDefaults objectForKey:@"token"],[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID]];
+    return [NSUserDefaults.standardUserDefaults boolForKey:key];
 }
 
 + (NSMutableSet *)setForStartTime:(NSString *)startTime endTime:(NSString *)endTime{

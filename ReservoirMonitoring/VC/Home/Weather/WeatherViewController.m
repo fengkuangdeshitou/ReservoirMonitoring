@@ -48,7 +48,7 @@
         [self.tableView reloadData];
         self.temp.text = [NSString stringWithFormat:@"%.0f",[self.list[0][0][@"main"][@"temp"] floatValue]];
         NSString * interval = [NSString stringWithFormat:@"%.0f°-%.0f°",[self.list[0][0][@"main"][@"temp_min"] floatValue],[self.list[0][0][@"main"][@"temp_max"] floatValue]];
-        self.weather.text = [NSString stringWithFormat:@"%@\n%@",interval,self.list[0][0][@"weather"][0][@"main"]];
+        self.weather.text = [NSString stringWithFormat:@"%@\n%@",interval,self.list[0][0][@"weather"][0][@"description"]];
         self.symbol.hidden = false;
     } failure:^(NSString * _Nonnull errorMsg) {
         

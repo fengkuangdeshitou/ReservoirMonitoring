@@ -52,7 +52,7 @@
         return;
     }
     if (![self.password.text isEqualToString:self.confirm.text]) {
-        [RMHelper showToast:@"Inconsistent passwords" toView:self.view];
+        [RMHelper showToast:@"The two passwords you entered are different" toView:self.view];
         return;
     }
     [Request.shareInstance postUrl:ResetPwd params:@{@"userName":self.userName,@"password":self.password.text,@"code":self.code,@"uuid":self.uuid} progress:^(float progress) {

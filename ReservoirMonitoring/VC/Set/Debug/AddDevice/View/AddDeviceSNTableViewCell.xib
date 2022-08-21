@@ -80,6 +80,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="deleteBtm" destination="Eop-nv-zgT" id="SOn-M9-0J5"/>
+                <outlet property="label" destination="ci0-Wx-DD4" id="rR5-Wk-kbn"/>
                 <outlet property="scanBtn" destination="G8n-1h-hOA" id="hGv-nb-iZ1"/>
                 <outlet property="textfield" destination="cPY-dv-ABW" id="VbN-Ig-yNA"/>
             </connections>

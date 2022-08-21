@@ -34,9 +34,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.collectionView.refreshControl = self.refreshController;
-    [[NSNotificationCenter defaultCenter] addObserverForName:SWITCH_DEVICE_NOTIFICATION object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
-        [self getCurrentDevice];
-    }];
     [self.refreshController addTarget:self action:@selector(getCurrentDevice) forControlEvents:UIControlEventValueChanged];
     [self setLeftBarImageForSel:nil];
     self.titleArray = [[NSMutableArray alloc] initWithArray:@[@"From grid:0 kWh".localized,@"Solar".localized,@"Generator".localized,@"EV".localized,@"Non-backup".localized,@"Backup loads".localized]];

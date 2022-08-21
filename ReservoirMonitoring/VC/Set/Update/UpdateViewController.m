@@ -48,7 +48,11 @@
                 for (int i=0; i<array.count; i++) {
                     string = [string stringByAppendingString:[NSString stringWithFormat:@"%04x",[array[i] intValue]]];
                 }
-                weakSelf.version.text = [@"Firmware version:".localized stringByAppendingString:string];
+                if (string.length == 0) {
+                    weakSelf.version.text = @"Firmware version：";
+                }else{
+                    weakSelf.version.text = [@"Firmware version：".localized stringByAppendingString:string];
+                }
             }];
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
             [BleManager.shareInstance readWithCMDString:@"628" count:1 finish:^(NSArray * _Nonnull array) {
@@ -87,7 +91,11 @@
     } success:^(NSDictionary * _Nonnull result) {
         self.commitAotuUpdate.selected = [result[@"data"][@"aotuUpdateFirmware"] boolValue];
         NSString * version = [NSString stringWithFormat:@"%@",result[@"data"][@"firmwareVersion"]];
-        self.version.text = [@"Firmware version:".localized stringByAppendingString:version];
+        if (version.length == 0) {
+            self.version.text = @"Firmware version：";
+        }else{
+            self.version.text = [@"Firmware version：".localized stringByAppendingString:version];
+        }
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];

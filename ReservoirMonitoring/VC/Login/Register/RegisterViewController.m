@@ -123,7 +123,7 @@
         }
     }
     if (![cells[3].textfield.text isEqualToString:cells[4].textfield.text]) {
-        [RMHelper showToast:@"The passwords are inconsistent".localized toView:self.view];
+        [RMHelper showToast:@"The two passwords you entered are different".localized toView:self.view];
         return;
     }
     for (int i=0; i<cells.count; i++) {
@@ -140,7 +140,10 @@
         if (self.registerSuccess) {
             self.registerSuccess(cells[1].textfield.text, cells[3].textfield.text);
         }
-        [self.navigationController popViewControllerAnimated:true];
+        [RMHelper showToast:@"Success" toView:self.view];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:true];
+        });
     } failure:^(NSString * _Nonnull errorMsg) {
 
     }];

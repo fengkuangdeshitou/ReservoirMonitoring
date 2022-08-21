@@ -122,7 +122,7 @@
                 int value = [item[@"value"] intValue];
                 if (value == [[self.addressIds componentsSeparatedByString:@","].firstObject intValue]) {
                     self.countries.text = item[@"label"];
-                    self.provinceID = item[@"value"];
+                    self.countrieID = item[@"value"];
                     NSArray * children = item[@"children"];
                     for (NSDictionary * dic in children) {
                         int subValue = [dic[@"value"] intValue];
@@ -149,11 +149,25 @@
 }
 
 - (IBAction)timeAction:(id)sender{
+    if (self.addressIds.length == 0 && !self.countrieID) {
+        if (self.countries.text.length == 0) {
+            [RMHelper showToast:@"please select state" toView:self.view];
+            return;
+        }
+        if (self.province.text.length == 0) {
+            [RMHelper showToast:@"please select country" toView:self.view];
+            return;
+        }
+    }
     TimeZoneViewController * time = [[TimeZoneViewController alloc] init];
     time.selectTimeZone = ^(NSDictionary * _Nonnull item) {
         self.timeZone.text = item[@"name"];
     };
-    time.countryId = self.countrieID;
+    if (self.countrieID) {
+        time.countryId = self.countrieID;
+    }else{
+        time.countryId = [self.addressIds componentsSeparatedByString:@","].firstObject;
+    }
     [self.navigationController pushViewController:time animated:true];
 }
 

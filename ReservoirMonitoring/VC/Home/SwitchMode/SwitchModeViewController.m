@@ -42,34 +42,40 @@
         if (data.count == 0) {
             return;
         }
-        self.weatherBtn.selected = [data[@"weatherWatch"] boolValue];
-        NSInteger workStatus = [data[@"workStatus"] intValue];
-        if (workStatus == 1) {
-            self.flag = 0;
-            NSString * selfConsumptioinReserveSoc = data[@"selfConsumptioinReserveSoc"];
-            [self.progressArray replaceObjectAtIndex:self.flag withObject:selfConsumptioinReserveSoc];
-        }else if (workStatus == 3){
-            self.flag = 1;
-            NSString * backupPowerReserveSoc = data[@"backupPowerReserveSoc"];
-            [self.progressArray replaceObjectAtIndex:self.flag withObject:backupPowerReserveSoc];
-        }else if (workStatus == 2){
-            self.flag = 2;
+        if (!BleManager.shareInstance.isConnented) {
+            self.weatherBtn.selected = [data[@"weatherWatch"] boolValue];
+            NSInteger workStatus = [data[@"workStatus"] intValue];
+            if (workStatus == 1) {
+                self.flag = 0;
+            }else if (workStatus == 3){
+                self.flag = 1;
+            }else if (workStatus == 2){
+                self.flag = 2;
+            }
+            if (data[@"selfConsumptioinReserveSoc"]) {
+                NSString * selfConsumptioinReserveSoc = data[@"selfConsumptioinReserveSoc"];
+                [self.progressArray replaceObjectAtIndex:0 withObject:selfConsumptioinReserveSoc];
+            }
+            if (data[@"backupPowerReserveSoc"]) {
+                NSString * backupPowerReserveSoc = data[@"backupPowerReserveSoc"];
+                [self.progressArray replaceObjectAtIndex:1 withObject:backupPowerReserveSoc];
+            }
             self.allowChargingXiaGrid = [data[@"allowChargingXiaGrid"] boolValue];
-            if (!BleManager.shareInstance.isConnented) {
-                NSArray * offPeakTimeList = data[@"offPeakTimeList"];
-                for (int i=0; i<offPeakTimeList.count; i++) {
-                    NSString * string = offPeakTimeList[i];
-                    if ([string containsString:@"_"]) {
-                        NSArray * timeArray = [string componentsSeparatedByString:@"_"];
-                        NSString * startTime = timeArray[0];
-                        NSString * endTime = timeArray[1];
-                        NSDictionary * dict = @{@"startTime":startTime,@"endTime":endTime,@"price":timeArray.count>=2?timeArray[2]:@"0"};
-                        [self.touArray addObject:dict];
-                    }else{
-                        [self.touArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
-                    }
+            NSArray * offPeakTimeList = data[@"offPeakTimeList"];
+            for (int i=0; i<offPeakTimeList.count; i++) {
+                NSString * string = offPeakTimeList[i];
+                if ([string containsString:@"_"]) {
+                    NSArray * timeArray = [string componentsSeparatedByString:@"_"];
+                    NSString * startTime = timeArray[0];
+                    NSString * endTime = timeArray[1];
+                    NSDictionary * dict = @{@"startTime":startTime,@"endTime":endTime,@"price":timeArray.count>=2?timeArray[2]:@"0"};
+                    [self.touArray addObject:dict];
+                }else{
+                    [self.touArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
                 }
-            }else{
+            }
+        }else{
+            if (data[@"offPeakTimeList"]) {
                 NSArray * offPeakTimeList = data[@"offPeakTimeList"];
                 NSMutableArray * priceArray = [[NSMutableArray alloc] init];
                 for (int i=0; i<offPeakTimeList.count; i++) {
@@ -89,6 +95,8 @@
                 }
                 self.touArray = [[NSMutableArray alloc] initWithArray:array];
             }
+        }
+        if (data[@"peakTimeList"]) {
             NSArray * peakTimeArray = data[@"peakTimeList"];
             for (int i=0; i<peakTimeArray.count; i++) {
                 NSString * string = peakTimeArray[i];
@@ -102,6 +110,8 @@
                     [self.peakTimeArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
                 }
             }
+        }
+        if (data[@"superPeakTimeList"]) {
             NSArray * superPeakTimeArray = data[@"superPeakTimeList"];
             for (int i=0; i<superPeakTimeArray.count; i++) {
                 NSString * string = superPeakTimeArray[i];
@@ -158,7 +168,7 @@
 
 - (void)loadBluetoothData{
     if (BleManager.shareInstance.isConnented) {
-        [self.view showHUDToast:@"Loading"];
+        [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
     }
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -185,92 +195,121 @@
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        if (weakSelf.flag == 0) {
-            [BleManager.shareInstance readWithCMDString:@"624" count:1 finish:^(NSArray * _Nonnull array) {
-                [weakSelf.progressArray replaceObjectAtIndex:0 withObject:array.firstObject];
+        [BleManager.shareInstance readWithCMDString:@"624" count:1 finish:^(NSArray * _Nonnull array) {
+            [weakSelf.progressArray replaceObjectAtIndex:0 withObject:array.firstObject];
+            dispatch_semaphore_signal(semaphore);
+        }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"623" count:1 finish:^(NSArray * _Nonnull array) {
+            [self.progressArray replaceObjectAtIndex:1 withObject:array.firstObject];
+            dispatch_semaphore_signal(semaphore);
+        }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:@"6FE" count:2 finish:^(NSArray * _Nonnull array) {
+            weakSelf.allowChargingXiaGrid = [array.firstObject boolValue];
+            weakSelf.touCount = array.lastObject;
+            dispatch_semaphore_signal(semaphore);
+        }];
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        if (weakSelf.touCount.intValue == 0) {
+            NSDictionary * item = @{@"startTime":@"",@"endTime":@"",@"price":@""};
+            [weakSelf.touArray addObject:item];
+            dispatch_semaphore_signal(semaphore);
+        }else if (weakSelf.touCount.intValue == 1) {
+            [BleManager.shareInstance readWithCMDString:@"702" count:4 finish:^(NSArray * _Nonnull array) {
+                if (array.count == 4) {
+                    NSDictionary * item = @{
+                        @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
+                        @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
+                    };
+                    [weakSelf.touArray addObject:item];
+                }else{
+                    NSDictionary * item = @{@"startTime":@"",@"endTime":@"",@"price":@""};
+                    [weakSelf.touArray addObject:item];
+                }
                 dispatch_semaphore_signal(semaphore);
             }];
-        }else if (weakSelf.flag == 1){
-            [BleManager.shareInstance readWithCMDString:@"623" count:1 finish:^(NSArray * _Nonnull array) {
-                [self.progressArray replaceObjectAtIndex:1 withObject:array.firstObject];
+        }else if (weakSelf.touCount.intValue == 2) {
+            [BleManager.shareInstance readWithCMDString:@"702" count:4 finish:^(NSArray * _Nonnull array) {
+                if (array.count == 4) {
+                    NSDictionary * item = @{
+                        @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
+                        @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
+                    };
+                    [weakSelf.touArray addObject:item];
+                }else{
+                    NSDictionary * item = @{@"startTime":@"",@"endTime":@"",@"price":@""};
+                    [weakSelf.touArray addObject:item];
+                }
                 dispatch_semaphore_signal(semaphore);
             }];
-        }else if (weakSelf.flag == 2){
-            [BleManager.shareInstance readWithCMDString:@"6FE" count:2 finish:^(NSArray * _Nonnull array) {
-                weakSelf.allowChargingXiaGrid = [array.firstObject boolValue];
-                weakSelf.touCount = array.lastObject;
-                dispatch_semaphore_signal(semaphore);
-            }];
-            
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-            if (weakSelf.touCount.intValue == 0) {
-                NSDictionary * item = @{@"startTime":@"",@"endTime":@"",@"price":@""};
-                [weakSelf.touArray addObject:item];
+            [BleManager.shareInstance readWithCMDString:@"708" count:4 finish:^(NSArray * _Nonnull array) {
+                if (array.count == 4) {
+                    NSDictionary * item = @{
+                        @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
+                        @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
+                    };
+                    [weakSelf.touArray addObject:item];
+                }else{
+                    NSDictionary * item = @{@"startTime":@"",@"endTime":@"",@"price":@""};
+                    [weakSelf.touArray addObject:item];
+                }
                 dispatch_semaphore_signal(semaphore);
-            }else if (weakSelf.touCount.intValue == 1) {
-                [BleManager.shareInstance readWithCMDString:@"702" count:4 finish:^(NSArray * _Nonnull array) {
+            }];
+        }else if (weakSelf.touCount.intValue == 3) {
+            [BleManager.shareInstance readWithCMDString:@"702" count:4 finish:^(NSArray * _Nonnull array) {
+                if (array.count == 4) {
                     NSDictionary * item = @{
                         @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
                         @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
                     };
                     [weakSelf.touArray addObject:item];
-                    dispatch_semaphore_signal(semaphore);
-                }];
-            }else if (weakSelf.touCount.intValue == 2) {
-                [BleManager.shareInstance readWithCMDString:@"702" count:4 finish:^(NSArray * _Nonnull array) {
-                    NSDictionary * item = @{
-                        @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
-                        @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
-                    };
+                }else{
+                    NSDictionary * item = @{@"startTime":@"",@"endTime":@"",@"price":@""};
                     [weakSelf.touArray addObject:item];
-                    dispatch_semaphore_signal(semaphore);
-                }];
-                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                [BleManager.shareInstance readWithCMDString:@"708" count:4 finish:^(NSArray * _Nonnull array) {
-                    NSDictionary * item = @{
-                        @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
-                        @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
-                    };
-                    [weakSelf.touArray addObject:item];
-                    dispatch_semaphore_signal(semaphore);
-                }];
-            }else if (weakSelf.touCount.intValue == 3) {
-                [BleManager.shareInstance readWithCMDString:@"702" count:4 finish:^(NSArray * _Nonnull array) {
-                    NSDictionary * item = @{
-                        @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
-                        @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
-                    };
-                    [weakSelf.touArray addObject:item];
-                    dispatch_semaphore_signal(semaphore);
-                }];
-                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                [BleManager.shareInstance readWithCMDString:@"708" count:4 finish:^(NSArray * _Nonnull array) {
-                    NSDictionary * item = @{
-                        @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
-                        @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
-                    };
-                    [weakSelf.touArray addObject:item];
-                    dispatch_semaphore_signal(semaphore);
-                }];
-                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                [BleManager.shareInstance readWithCMDString:@"70E" count:4 finish:^(NSArray * _Nonnull array) {
-                    NSDictionary * item = @{
-                        @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
-                        @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
-                    };
-                    [weakSelf.touArray addObject:item];
-                    dispatch_semaphore_signal(semaphore);
-                }];
-            }else{
-                NSDictionary * item = @{@"startTime":@"",@"endTime":@"",@"price":@""};
-                [weakSelf.touArray addObject:item];
+                }
                 dispatch_semaphore_signal(semaphore);
-            }
+            }];
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            [BleManager.shareInstance readWithCMDString:@"708" count:4 finish:^(NSArray * _Nonnull array) {
+                if (array.count == 4) {
+                    NSDictionary * item = @{
+                        @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
+                        @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
+                    };
+                    [weakSelf.touArray addObject:item];
+                }else{
+                    NSDictionary * item = @{@"startTime":@"",@"endTime":@"",@"price":@""};
+                    [weakSelf.touArray addObject:item];
+                }
+                dispatch_semaphore_signal(semaphore);
+            }];
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            [BleManager.shareInstance readWithCMDString:@"70E" count:4 finish:^(NSArray * _Nonnull array) {
+                if (array.count == 4) {
+                    NSDictionary * item = @{
+                        @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
+                        @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
+                    };
+                    [weakSelf.touArray addObject:item];
+                }else{
+                    NSDictionary * item = @{@"startTime":@"",@"endTime":@"",@"price":@""};
+                    [weakSelf.touArray addObject:item];
+                }
+                dispatch_semaphore_signal(semaphore);
+            }];
+        }else{
+            NSDictionary * item = @{@"startTime":@"",@"endTime":@"",@"price":@""};
+            [weakSelf.touArray addObject:item];
+            dispatch_semaphore_signal(semaphore);
         }
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.tableView reloadData];
-            [weakSelf.view hiddenHUD];
+            [UIApplication.sharedApplication.keyWindow hiddenHUD];
             [weakSelf getSwitchModeData];
             dispatch_semaphore_signal(semaphore);
         });
@@ -291,15 +330,20 @@
     [params setValue:weather forKey:@"weatherWatch"];
     [params setValue:self.flag == 0 ? @"1" : self.flag == 1 ? @"3" : @"2" forKey:@"workStatus"];
     NSMutableArray * offPeakArray = [[NSMutableArray alloc] init];
-    if (self.flag == 0) {
-        NSString * selfConsumptioinReserveSoc = [NSString stringWithFormat:@"%.0f",cell1.progress];
-        [params setValue:selfConsumptioinReserveSoc forKey:@"selfConsumptioinReserveSoc"];
-    }else if (self.flag == 1){
-        NSString * backupPowerReserveSoc = [NSString stringWithFormat:@"%.0f",cell2.progress];
-        [params setValue:backupPowerReserveSoc forKey:@"backupPowerReserveSoc"];
-    }else if (self.flag == 2) {
-        self.allowChargingXiaGrid = cell.switchBtn.selected;
-        [params setValue:[NSString stringWithFormat:@"%@",self.allowChargingXiaGrid ? @"1" : @"0"] forKey:@"allowChargingXiaGrid"];
+
+    NSString * selfConsumptioinReserveSoc = [NSString stringWithFormat:@"%.0f",cell1.progress];
+    [params setValue:selfConsumptioinReserveSoc forKey:@"selfConsumptioinReserveSoc"];
+
+    NSString * backupPowerReserveSoc = [NSString stringWithFormat:@"%.0f",cell2.progress];
+    [params setValue:backupPowerReserveSoc forKey:@"backupPowerReserveSoc"];
+
+    self.allowChargingXiaGrid = cell.switchBtn.selected;
+    [params setValue:[NSString stringWithFormat:@"%@",self.allowChargingXiaGrid ? @"1" : @"0"] forKey:@"allowChargingXiaGrid"];
+    if (self.flag != 2) {
+        [params setValue:@[@"__"] forKey:@"offPeakTimeList"];
+        [params setValue:@[@"__"] forKey:@"peakTimeList"];
+        [params setValue:@[@"__"] forKey:@"superPeakTimeList"];
+    }else{
         for (int i=0; i<[cell.dataArray[0] count]; i++) {
             NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
@@ -382,6 +426,7 @@
             return;
         }
     }
+    NSLog(@"params=%@",params);
     if (RMHelper.getUserType || (!RMHelper.getUserType && BleManager.shareInstance.isConnented)) {
         if (!BleManager.shareInstance.isConnented) {
             [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
@@ -499,7 +544,6 @@
                         [RMHelper showToast:@"Failure" toView:self.view];
                     }
                     if (idx == 2) {
-//                        [RMHelper showToast:@"In the configuration" toView:self.view];
                         [self switchWithParams:params];
                     }
                     if (idx == 3) {
@@ -601,10 +645,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if(self.flag == section){
-        return 2;
+    if (section == 2) {
+        if (self.flag == section) {
+            return 2;
+        }else{
+            return 1;
+        }
     }else{
-        return 1;
+        return 2;
     }
 }
 
@@ -613,7 +661,11 @@
         return 44;
     }else{
         if (indexPath.section == 2) {
-            return [NSUserDefaults.standardUserDefaults objectForKey:TIME_TABLEVIEW_HEIGHT_CHANGE] ? [[NSUserDefaults.standardUserDefaults objectForKey:TIME_TABLEVIEW_HEIGHT_CHANGE] floatValue]+15 : 500;
+            if (self.flag != indexPath.section) {
+                return 0.001;
+            }else{
+                return [NSUserDefaults.standardUserDefaults objectForKey:TIME_TABLEVIEW_HEIGHT_CHANGE] ? [[NSUserDefaults.standardUserDefaults objectForKey:TIME_TABLEVIEW_HEIGHT_CHANGE] floatValue]+15 : 500;
+            }
         }else{
             if (self.flag == indexPath.section) {
                 return 77;

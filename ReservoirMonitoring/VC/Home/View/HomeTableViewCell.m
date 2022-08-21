@@ -107,9 +107,13 @@
     self.progressView.titleLabel.text = [NSString stringWithFormat:@"%.2f kWh (%.0f%@)",[model.batteryCurrentElectricity floatValue],[model.batterySoc floatValue],@"%"];
     self.progressView.progress = [model.batterySoc floatValue]/100;
     
-    CGFloat divided = model.evElectricity+model.nonBackUpElectricity+model.backUpElectricity;
-    CGFloat rate = ((model.evElectricity + model.nonBackUpElectricity + model.backUpElectricity)-model.gridElectricity)/divided*100;
-    self.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",divided==0?0:rate] stringByAppendingString:@"%"];
+    if (BleManager.shareInstance.isConnented) {
+        CGFloat divided = model.evElectricity+model.nonBackUpElectricity+model.backUpElectricity;
+        CGFloat rate = ((model.evElectricity + model.nonBackUpElectricity + model.backUpElectricity)-model.gridElectricity)/divided*100;
+        self.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",divided==0?0:rate] stringByAppendingString:@"%"];
+    }else{
+        self.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",model.selfHelpRate] stringByAppendingString:@"%"];
+    }
     if ([RMHelper getBleDataValue:model.gridPower] > 0) {
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:100];
         animation.direction = AnimationStartDirectionLeftTop;
@@ -200,7 +204,7 @@
             [self loadItemIconWithHighlighted:true];
             if (model.systemStatus.intValue == 1) {
                 self.statusValue.text = @"Fault";
-                self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
+                self.statusValue.textColor = [UIColor redColor];
             }else{
                 self.statusValue.text = @"Normal";
                 self.statusValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
@@ -221,7 +225,7 @@
             if (model.systemStatus) {
                 if (model.systemStatus.intValue == 1) {
                     self.statusValue.text = @"Fault";
-                    self.statusValue.textColor = [UIColor colorWithHexString:@"#999999"];
+                    self.statusValue.textColor = [UIColor redColor];
                 }else{
                     self.statusValue.text = @"Normal";
                     self.statusValue.textColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];

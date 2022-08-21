@@ -24,6 +24,7 @@
 @property(nonatomic,strong)NSTimer * refreshTimer;
 @property(nonatomic,assign)NSInteger time;
 @property(nonatomic,strong)NSArray<DevideModel*> * deviceArray;
+@property(nonatomic,assign)BOOL isShowAlert;
 
 @end
 
@@ -32,9 +33,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.isShowAlert = true;
     self.tableView.refreshControl = self.refreshController;
     [self.refreshController addTarget:self action:@selector(onRefresh) forControlEvents:UIControlEventValueChanged];
     [[NSNotificationCenter defaultCenter] addObserverForName:SWITCH_DEVICE_NOTIFICATION object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        self.isShowAlert = false;
         [self getHomeDeviceData];
     }];
     self.manager = BleManager.shareInstance;
@@ -59,6 +62,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.manager.delegate = self;
+    self.isShowAlert = true;
     [self getHomeDeviceData];
     [self.tableView reloadData];
     [self.refreshTimer setFireDate:[NSDate date]];
@@ -74,11 +78,13 @@
     self.time--;
     if (self.time <= 0) {
         self.time = 60;
+        self.isShowAlert = true;
         [self getHomeDeviceData];
     }
 }
 
 - (void)onRefresh{
+    self.isShowAlert = true;
     [self.refreshController endRefreshing];
     [self getHomeDeviceData];
 }
@@ -111,7 +117,12 @@
                 self.model = array.firstObject;
                 [self setRightBarButtonItemWithTitlt:array.firstObject.name sel:@selector(changeDevice)];
                 [NSUserDefaults.standardUserDefaults setValue:self.model.deviceId forKey:CURRENR_DEVID];
-                completion(array.firstObject);
+                if (BleManager.shareInstance.isConnented) {
+                    if (![BleManager.shareInstance.rtusn isEqualToString:self.model.rtuSn]) {
+                        [BleManager.shareInstance disconnectPeripheral];
+                    }
+                }
+                completion(self.model);
             }else{
                 self.navigationItem.rightBarButtonItem = nil;
                 completion(nil);
@@ -144,8 +155,10 @@
         self.model.isOnline = isOnline;
         [self.refreshController endRefreshing];
         [self getWeatherData:sgSn];
+        [self.tableView reloadData];
     } failure:^(NSString * _Nonnull errorMsg) {
         [self.refreshController endRefreshing];
+        [self getWeatherData:sgSn];
     }];
 }
 
@@ -167,40 +180,32 @@
     [self.navigationController pushViewController:add animated:true];
 }
 
-- (void)showCmd:(NSString *)cmd message:(NSArray*)array{
-    dispatch_async(dispatch_get_main_queue(), ^{
-//        [RMHelper showToast:cmd toView:self.view];
-//        NSData * data = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingSortedKeys error:nil];
-//        NSString * string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//        [RMHelper showToast:string toView:self.view];
-//        [self.tableView reloadData];
-    });
-}
-
 - (void)getBluetoothData{
-    if (!BleManager.shareInstance.isConnented) {
+    if (!BleManager.shareInstance.isConnented && self.isShowAlert && RMHelper.getLoadDataForBluetooth) {
         [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
         return;
     }
     if (BleManager.shareInstance.isConnented) {
-        [self.view showHUDToast:@"Loading"];
+        [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
     }else{
         [self.refreshController endRefreshing];
     }
     self.manager.delegate = self;
-    NSString * deviceId = self.model.deviceId;
-    NSString * sgSn = self.model.sgSn;
-    self.model = [[DevideModel alloc] init];
-    self.model.deviceId = deviceId;
-    self.model.sgSn = sgSn;
-    if (self.model.sgSn) {
-        [self getWeatherData:self.model.sgSn];
+    if (!BleManager.shareInstance.isConnented) {
+        NSString * deviceId = self.model.deviceId;
+        NSString * sgSn = self.model.sgSn;
+        self.model = [[DevideModel alloc] init];
+        self.model.deviceId = deviceId;
+        self.model.sgSn = sgSn;
+        if (self.model.sgSn) {
+            [self getWeatherData:self.model.sgSn];
+        }
+        [self.tableView reloadData];
+        return;
     }
-    [self.tableView reloadData];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         [BleManager.shareInstance readWithCMDString:@"510" count:2 finish:^(NSArray * array){
-            [self showCmd:@"511" message:array];
             self.model.systemStatus = array.firstObject;
             self.model.workStatus = array.lastObject;
             dispatch_semaphore_signal(semaphore);
@@ -215,35 +220,30 @@
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"514" count:1 finish:^(NSArray * array){
-            [self showCmd:@"514" message:array];
             self.model.gridLight = [array.firstObject integerValue];
             dispatch_semaphore_signal(semaphore);
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"630" count:1 finish:^(NSArray * array){
-            [self showCmd:@"630" message:array];
             self.model.generatorLight = [array.firstObject integerValue];
             dispatch_semaphore_signal(semaphore);
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"62D" count:1 finish:^(NSArray * array){
-            [self showCmd:@"62D" message:array];
             self.model.evLight = [array.firstObject integerValue];
             dispatch_semaphore_signal(semaphore);
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"625" count:1 finish:^(NSArray * array){
-            [self showCmd:@"625" message:array];
             self.model.backUpType = array.firstObject;
             dispatch_semaphore_signal(semaphore);
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"515" count:2 finish:^(NSArray * array){
-            [self showCmd:@"515" message:array];
             self.model.batterySoc = array.firstObject;
             self.model.batteryCurrentElectricity = [NSString stringWithFormat:@"%.0f kWh",[self cumulativeWithArray:@[array.lastObject]]/100];
             dispatch_semaphore_signal(semaphore);
@@ -251,7 +251,6 @@
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"51F" count:1 finish:^(NSArray * array){
-            [self showCmd:@"51F" message:array];
             self.model.gridPower = [array.firstObject floatValue];
             dispatch_semaphore_signal(semaphore);
         }];
@@ -302,21 +301,18 @@
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"521" count:1 finish:^(NSArray * array){
-            [self showCmd:@"521" message:array];
             self.model.generatorPower = [array.firstObject floatValue];
             dispatch_semaphore_signal(semaphore);
         }];
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"524" count:1 finish:^(NSArray * array){
-            [self showCmd:@"524" message:array];
             self.model.evPower = [array.firstObject floatValue];
             dispatch_semaphore_signal(semaphore);
         }];
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"541" count:3 finish:^(NSArray * array){
-            [self showCmd:@"541" message:array];
             self.model.nonBackUpPower = [array[0] floatValue];
             self.model.backUpPower = [array[1] floatValue];
             self.model.solarPower = [array[2] floatValue];
@@ -325,7 +321,6 @@
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"544" count:8 finish:^(NSArray * array){
-            [self showCmd:@"544" message:array];
             if ([self formatPower:self.model.gridPower]) {
                 self.model.gridElectricity = [array[0] floatValue]/100;
             }else{
@@ -344,7 +339,10 @@
             dispatch_semaphore_signal(semaphore);
             [self.tableView reloadData];
             [self.refreshController endRefreshing];
-            [self.view hiddenHUD];
+            [UIApplication.sharedApplication.keyWindow hiddenHUD];
+            if (self.model.sgSn) {
+                [self getWeatherData:self.model.sgSn];
+            }
         });
     
     });
