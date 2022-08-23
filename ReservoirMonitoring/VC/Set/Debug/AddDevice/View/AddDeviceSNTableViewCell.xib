@@ -26,8 +26,11 @@
                                 <color key="textColor" red="0.68235294120000001" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eop-nv-zgT">
+                            <button contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eop-nv-zgT">
                                 <rect key="frame" x="238" y="14" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="22" id="ay3-J2-jGS"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="ic_delete"/>
                             </button>
@@ -80,7 +83,10 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="deleteBtm" destination="Eop-nv-zgT" id="SOn-M9-0J5"/>
+                <outlet property="deleteBtnLeft" destination="fHa-Wm-Kks" id="QaB-lg-gfr"/>
+                <outlet property="deleteBtnWidth" destination="ay3-J2-jGS" id="ToM-DH-OyZ"/>
                 <outlet property="label" destination="ci0-Wx-DD4" id="rR5-Wk-kbn"/>
+                <outlet property="line" destination="Qlh-zx-EPj" id="DdE-DI-M8f"/>
                 <outlet property="scanBtn" destination="G8n-1h-hOA" id="hGv-nb-iZ1"/>
                 <outlet property="textfield" destination="cPY-dv-ABW" id="VbN-Ig-yNA"/>
             </connections>

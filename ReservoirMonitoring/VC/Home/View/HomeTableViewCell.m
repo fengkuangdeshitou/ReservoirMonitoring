@@ -37,7 +37,7 @@
     // Initialization code
 //    self.titleLabel.text = @"Power outage, backup energy in effect.".localized;
     self.currentMode.text = @"Current mode：".localized;
-    self.family.text = @"Self reliable rating:".localized;
+    self.family.text = @"Battery contribution ratio:".localized;
     self.status.text = @"Operation status:".localized;
     self.statusValue.text = @"online".localized;
     self.communication.text = @"Communication status：".localized;
@@ -329,7 +329,7 @@
 }
 
 - (IBAction)timeAction:(id)sender{
-    [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Self reliable rating = (battery energy consumption/ total energy consumption ) %, daily rating stands for the performance of last 24h" btnTitle:nil completion:nil];
+    [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"Battery contribution ratio = (battery energy consumption/ total energy consumption ) %, daily rating stands for the performance of last 24h" btnTitle:nil completion:nil];
 }
 
 - (IBAction)weatherAction:(id)sender{

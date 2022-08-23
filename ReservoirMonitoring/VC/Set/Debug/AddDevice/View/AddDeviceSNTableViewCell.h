@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,weak)IBOutlet UIButton * scanBtn;
 @property(nonatomic,weak)IBOutlet UIButton * deleteBtm;
 @property(nonatomic,weak)IBOutlet UILabel * label;
+@property(nonatomic,weak)IBOutlet UIView * line;
+@property(nonatomic,weak)IBOutlet NSLayoutConstraint * deleteBtnWidth;
+@property(nonatomic,weak)IBOutlet NSLayoutConstraint * deleteBtnLeft;
 
 @end
 

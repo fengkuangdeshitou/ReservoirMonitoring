@@ -10,6 +10,9 @@
 @interface PeakTimeTableViewCell ()<UITableViewDataSource,UITableViewDelegate>
 
 @property(nonatomic,weak)IBOutlet UILabel * titleLabel;
+@property(nonatomic,assign) BOOL offPeakTimeChange;
+@property(nonatomic,assign) BOOL peakTimeChange;
+@property(nonatomic,assign) BOOL superPeakTimeChange;
 
 @end
 
@@ -17,7 +20,8 @@
 
 - (void)setTouArray:(NSArray *)touArray{
     _touArray = touArray;
-    if (touArray.count > 0) {
+    if (touArray.count > 0 &&
+        !self.offPeakTimeChange) {
         [self.dataArray replaceObjectAtIndex:0 withObject:touArray];
         [self.tableView reloadData];
     }
@@ -29,7 +33,8 @@
 
 - (void)setPeakTimeArray:(NSArray *)peakTimeArray{
     _peakTimeArray = peakTimeArray;
-    if (peakTimeArray.count > 0) {
+    if (peakTimeArray.count > 0 &&
+        !self.peakTimeChange) {
         [self.dataArray replaceObjectAtIndex:1 withObject:peakTimeArray];
         [self.tableView reloadData];
     }
@@ -41,7 +46,8 @@
 
 - (void)setSuperPeakTimeArray:(NSArray *)superPeakTimeArray{
     _peakTimeArray = superPeakTimeArray;
-    if (superPeakTimeArray.count > 0) {
+    if (superPeakTimeArray.count > 0 &&
+        !self.superPeakTimeChange) {
         [self.dataArray replaceObjectAtIndex:2 withObject:superPeakTimeArray];
         [self.tableView reloadData];
     }
@@ -58,6 +64,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearBtnClick) name:CLEAR_NOTIFICATION object:nil];
     self.titleLabel.text = @"Allow charging via grid".localized;
     self.dataArray = [[NSMutableArray alloc] init];
     for (int i=0; i<3; i++) {
@@ -68,68 +75,15 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([TimeTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([TimeTableViewCell class])];
     [self updateTableViewHeight];
     
-//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-//        [BleManager.shareInstance readWithCMDString:@"6FE" count:2 finish:^(NSArray * _Nonnull array) {
-//            dispatch_semaphore_signal(semaphore);
-//            self.switchBtn.selected = [array.firstObject boolValue];
-//            NSInteger count = [array.lastObject integerValue] == 0 ? 1 : [array.lastObject integerValue];
-//            NSMutableArray * countArray = [[NSMutableArray alloc] init];
-//            for (int i=0; i<count; i++) {
-//                NSDictionary * dict = @{@"startTime":@"",@"endTime":@"",@"price":@""};
-//                [countArray addObject:dict];
-//            }
-//            [self.dataArray replaceObjectAtIndex:0 withObject:countArray];
-//            [self.tableView reloadData];
-//        }];
-//
-//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-//        [BleManager.shareInstance readWithCMDString:@"702" count:4 finish:^(NSArray * _Nonnull array) {
-//            NSLog(@"array=%@",array);
-//            if (array.count < 4) {
-//                return;
-//            }
-//            NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
-//            [dict setValue:[NSString stringWithFormat:@"%@:%@",array[0],array[1]] forKey:@"startTime"];
-//            [dict setValue:[NSString stringWithFormat:@"%@:%@",array[2],array[3]] forKey:@"endTime"];
-//            NSMutableArray * indexArray = [[NSMutableArray alloc] initWithArray:self.dataArray[0]];
-//            NSLog(@"%@",indexArray);
-//
-//            NSMutableArray * valueArray = [[NSMutableArray alloc] initWithArray:@[indexArray[0]]];
-//            [valueArray replaceObjectAtIndex:0 withObject:dict];
-//            [indexArray replaceObjectAtIndex:0 withObject:valueArray];
-//            [self.dataArray replaceObjectAtIndex:0 withObject:indexArray];
-//            dispatch_semaphore_signal(semaphore);
-//        }];
-//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-//        [BleManager.shareInstance readWithCMDString:@"708" count:4 finish:^(NSArray * _Nonnull array) {
-//            if ([self.dataArray[0] count] >=2) {
-//                NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
-//                [dict setValue:[NSString stringWithFormat:@"%@:%@",array[0],array[1]] forKey:@"startTime"];
-//                [dict setValue:[NSString stringWithFormat:@"%@:%@",array[2],array[3]] forKey:@"endTime"];
-//                NSMutableArray * indexArray = [[NSMutableArray alloc] initWithArray:self.dataArray[0]];
-//                NSMutableArray * valueArray = [[NSMutableArray alloc] initWithArray:indexArray[1]];
-//                [valueArray replaceObjectAtIndex:0 withObject:dict];
-//                [indexArray replaceObjectAtIndex:1 withObject:valueArray];
-//                [self.dataArray replaceObjectAtIndex:0 withObject:indexArray];
-//            }
-//            dispatch_semaphore_signal(semaphore);
-//        }];
-//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-//        [BleManager.shareInstance readWithCMDString:@"70E" count:4 finish:^(NSArray * _Nonnull array) {
-//            if ([self.dataArray[0] count] >=3) {
-//                NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
-//                [dict setValue:[NSString stringWithFormat:@"%@:%@",array[0],array[1]] forKey:@"startTime"];
-//                [dict setValue:[NSString stringWithFormat:@"%@:%@",array[2],array[3]] forKey:@"endTime"];
-//                NSMutableArray * indexArray = [[NSMutableArray alloc] initWithArray:self.dataArray[0]];
-//                NSMutableArray * valueArray = [[NSMutableArray alloc] initWithArray:indexArray[2]];
-//                [valueArray replaceObjectAtIndex:0 withObject:dict];
-//                [indexArray replaceObjectAtIndex:2 withObject:valueArray];
-//                [self.dataArray replaceObjectAtIndex:0 withObject:indexArray];
-//            }
-//            dispatch_semaphore_signal(semaphore);
-//        }];
-//    });
+}
+
+- (void)clearBtnClick{
+    self.dataArray = [[NSMutableArray alloc] init];
+    for (int i=0; i<3; i++) {
+        NSArray * array = @[@{@"startTime":@"",@"endTime":@"",@"price":@""}];
+        [self.dataArray addObject:array];
+    }
+    [self updateTableViewHeight];
 }
 
 - (void)updateTableViewHeight{
@@ -225,6 +179,13 @@
 
 - (void)addButtonClck:(UIButton *)btn{
     NSInteger index = btn.tag-10;
+    if (index == 0) {
+        self.offPeakTimeChange = true;
+    }else if (index == 1){
+        self.peakTimeChange = true;
+    }else{
+        self.superPeakTimeChange = true;
+    }
     NSMutableArray * array = [[NSMutableArray alloc] initWithArray:self.dataArray[index]];
     [array addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
     [self.dataArray replaceObjectAtIndex:index withObject:array];
@@ -239,6 +200,13 @@
     [array removeObjectAtIndex:indexPath.row];
     [self.dataArray replaceObjectAtIndex:indexPath.section withObject:array];
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationNone];
+    if (indexPath.section == 0) {
+        self.offPeakTimeChange = true;
+    }else if (indexPath.section == 1){
+        self.peakTimeChange = true;
+    }else{
+        self.superPeakTimeChange = true;
+    }
     [self updateTableViewHeight];
 }
 

@@ -8,6 +8,7 @@
 #import "ScanViewController.h"
 #import "ScanView.h"
 @import AVFoundation;
+#import "GlobelDescAlertView.h"
 
 @interface ScanViewController ()<AVCaptureMetadataOutputObjectsDelegate>
 
@@ -24,10 +25,51 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    //配置二维码扫描
-    [self configBasicDevice];
-    //开始启动
-    [self.session startRunning];
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];//读取设备授权状态
+    if (authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied) {
+        ScanView *scanview = [[ScanView alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT-NavagationHeight)/2-SCREEN_WIDTH/2-66, SCREEN_WIDTH, SCREEN_WIDTH)];
+        [self.view addSubview:scanview];
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Camera permission required, please go to setting and enable usage." btnTitle:@"Setting" completion:^{
+            [self.navigationController popViewControllerAnimated:true];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
+        }];
+    }else{
+        //配置二维码扫描
+        [self configBasicDevice];
+        //开始启动
+        [self.session startRunning];
+    }
+        
+    if (![self.device hasTorch]) {
+        NSLog(@"手电筒坏了");
+    }else{
+        UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(SCREEN_WIDTH/2-33, (SCREEN_HEIGHT-NavagationHeight)/2+SCREEN_WIDTH/2-66, 66, 66);
+        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitle:@"Touch" forState:UIControlStateNormal];
+        [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"手电筒_开"] forState:UIControlStateNormal];
+        [btn setImageEdgeInsets:UIEdgeInsetsMake(-30, 22, 0, 0)];
+        [btn setTitleEdgeInsets:UIEdgeInsetsMake(20, -24, 0, 0)];
+        [self.view addSubview:btn];
+    }
+}
+
+- (void)btnClick:(UIButton *)btn{
+    btn.selected = !btn.selected;
+    if (btn.selected) {
+        //开启手电筒
+        [self.device lockForConfiguration:nil];
+        [self.device setTorchMode:AVCaptureTorchModeOn];
+        [self.device unlockForConfiguration];
+        [btn setImage:[UIImage imageNamed:@"手电筒_关"] forState:UIControlStateNormal];
+    }else{
+        //关闭手电筒
+        [self.device lockForConfiguration:nil];
+        [self.device setTorchMode:AVCaptureTorchModeOff];
+        [self.device unlockForConfiguration];
+        [btn setImage:[UIImage imageNamed:@"手电筒_开"] forState:UIControlStateNormal];
+    }
 }
 
 - (void)configBasicDevice{
@@ -60,7 +102,7 @@
     self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     [self.view.layer addSublayer:self.previewLayer];
     //扫描框 和扫描线的布局和设置&#xff0c;模拟正在扫描的过程&#xff0c;这一块加不加不影响我们的效果&#xff0c;只是起一个直观的作用
-    ScanView *scanview = [[ScanView alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT-NavagationHeight)/2-SCREEN_WIDTH/2, SCREEN_WIDTH, SCREEN_WIDTH)];
+    ScanView *scanview = [[ScanView alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT-NavagationHeight)/2-SCREEN_WIDTH/2-66, SCREEN_WIDTH, SCREEN_WIDTH)];
     [self.view addSubview:scanview];
 }
 

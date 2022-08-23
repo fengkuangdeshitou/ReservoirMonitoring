@@ -43,6 +43,10 @@ extern NSString * const LOGIN_SUCCESS;
 extern NSString * const LOG_OUT;
 /**修改密码*/
 extern NSString * const CHANGE_PASSWORD_NOTIFICATION;
+/**切换模式清除*/
+extern NSString * const CLEAR_NOTIFICATION;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

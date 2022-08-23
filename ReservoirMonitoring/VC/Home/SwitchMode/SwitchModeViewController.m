@@ -87,6 +87,11 @@
                         [priceArray addObject:@""];
                     }
                 }
+                if (priceArray.count < self.touArray.count) {
+                    for (int i=0; i<self.touArray.count-priceArray.count; i++) {
+                        [priceArray addObject:@""];
+                    }
+                }
                 NSMutableArray * array = [[NSMutableArray alloc] init];
                 for (int i=0; i<self.touArray.count; i++) {
                     NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:self.touArray[i]];
@@ -604,26 +609,24 @@
         __weak typeof(self) weakSelf = self;
         [GlobelDescAlertView showAlertViewWithTitle:@"Clear" desc:@"Are you sure you want to clear the configuration" btnTitle:nil completion:^{
             [BleManager.shareInstance writeWithCMDString:@"751" string:@"1" finish:^{
-                [weakSelf.touArray removeAllObjects];
-                [weakSelf.touArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf.tableView reloadData];
-                });
+                [weakSelf clearDataAction];
             }];
         }];
     }else{
         [GlobelDescAlertView showAlertViewWithTitle:@"Clear" desc:@"Are you sure you want to clear the configuration" btnTitle:nil completion:^{
-            [Request.shareInstance getUrl:ClearTouMode params:@{@"devId":self.deviceId} progress:^(float progress) {
-                                
-            } success:^(NSDictionary * _Nonnull result) {
-                [self.touArray removeAllObjects];
-                [self.touArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
-                [self.tableView reloadData];
-            } failure:^(NSString * _Nonnull errorMsg) {
-                
-            }];
+            [self clearDataAction];
         }];
     }
+}
+
+- (void)clearDataAction{
+    [Request.shareInstance getUrl:ClearTouMode params:@{@"devId":self.deviceId} progress:^(float progress) {
+                        
+    } success:^(NSDictionary * _Nonnull result) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:CLEAR_NOTIFICATION object:nil];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (void)progressValueChange:(UISlider *)slider{

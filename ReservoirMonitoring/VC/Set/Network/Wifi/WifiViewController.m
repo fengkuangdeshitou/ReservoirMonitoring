@@ -58,9 +58,11 @@
         [Request.shareInstance getUrl:NetWorkInfo params:@{@"devId":self.devId} progress:^(float progress) {
                     
         } success:^(NSDictionary * _Nonnull result) {
-            self.deviceSSID = result[@"data"][@"wifiName"];
-            if ([result[@"data"][@"wifiStatus"] intValue] == 4) {
-                self.wifi = @"connected";
+            if (result[@"data"][@"wifiName"]) {
+                self.deviceSSID = result[@"data"][@"wifiName"];
+                if ([result[@"data"][@"wifiStatus"] intValue] == 4) {
+                    self.wifi = @"connected";
+                }
             }
             [self.tableView reloadData];
         } failure:^(NSString * _Nonnull errorMsg) {
@@ -132,6 +134,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 1) {
+        if (!BleManager.shareInstance.isConnented) {
+            [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
+            return;
+        }
         [WifiAlertView showWifiAlertViewWithTitle:[self wifiName]
                                      showWifiName:false
                                        completion:^(NSString * wifiName, NSString * password) {

@@ -87,4 +87,6 @@ NSString * const NetWorkInfo = @"/device/netWorkInfo";
 
 NSString * const CheckEmailCode = @"/open/common/checkEmailCode";
 
+NSString * const CheckSn = @"/device/checkSn";
+
 @end

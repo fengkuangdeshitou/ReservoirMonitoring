@@ -45,6 +45,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gz8-AP-TEI">
+                                <rect key="frame" x="24" y="49.5" width="317" height="0.5"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="Zn2-BA-Saj"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.10588235294117647" green="0.10588235294117647" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -53,9 +60,12 @@
                             <constraint firstAttribute="height" constant="50" id="H0N-k9-QRI"/>
                             <constraint firstAttribute="trailing" secondItem="JgL-8F-Bgh" secondAttribute="trailing" constant="15" id="MYh-Ny-X8i"/>
                             <constraint firstItem="edW-xf-iuW" firstAttribute="centerY" secondItem="ewr-b7-Kpb" secondAttribute="centerY" id="Tiu-aF-Xgp"/>
+                            <constraint firstItem="Gz8-AP-TEI" firstAttribute="bottom" secondItem="juF-e7-d4Y" secondAttribute="bottom" id="aMG-VP-mfr"/>
+                            <constraint firstItem="Gz8-AP-TEI" firstAttribute="leading" secondItem="juF-e7-d4Y" secondAttribute="leading" id="bE0-LQ-MSk"/>
                             <constraint firstItem="JgL-8F-Bgh" firstAttribute="leading" secondItem="juF-e7-d4Y" secondAttribute="trailing" constant="15" id="fpl-1X-K93"/>
                             <constraint firstItem="edW-xf-iuW" firstAttribute="leading" secondItem="ewr-b7-Kpb" secondAttribute="leading" constant="15" id="qgF-rN-lNY"/>
                             <constraint firstItem="juF-e7-d4Y" firstAttribute="leading" secondItem="edW-xf-iuW" secondAttribute="trailing" constant="2" id="qid-N2-TyH"/>
+                            <constraint firstItem="JgL-8F-Bgh" firstAttribute="trailing" secondItem="Gz8-AP-TEI" secondAttribute="trailing" id="s8R-4b-6T5"/>
                             <constraint firstItem="juF-e7-d4Y" firstAttribute="top" secondItem="ewr-b7-Kpb" secondAttribute="top" id="zRG-mE-6M9"/>
                         </constraints>
                     </view>
@@ -103,6 +113,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="idtextfield" destination="juF-e7-d4Y" id="Zt3-fd-H3y"/>
+                <outlet property="line" destination="Gz8-AP-TEI" id="CMl-eS-Cj8"/>
                 <outlet property="nametextfield" destination="6EW-mj-f1n" id="Jpf-pf-hJe"/>
                 <outlet property="scanBtn" destination="JgL-8F-Bgh" id="l0h-Co-ZlK"/>
                 <outlet property="titleLabel" destination="coK-4W-pPE" id="Hh8-1Q-ju9"/>

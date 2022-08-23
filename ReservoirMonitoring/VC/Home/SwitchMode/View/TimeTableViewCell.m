@@ -25,6 +25,7 @@
     self.startTime.placeholder = @"Start time".localized;
     self.endTime.placeholder = @"End time".localized;
     self.electricity.placeholder = @"Input electricity price".localized;
+    self.electricity.delegate = self;
 }
 
 - (BRPickerStyle *)style{
@@ -79,6 +80,22 @@
         self.endTime.text = selectValue;
     };
     [picker show];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if ([textField.text containsString:@"."] && [string isEqualToString:@"."]) {
+        return NO;
+    }
+    NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+
+    NSArray *sep = [newString componentsSeparatedByString:@"."];
+    if([sep count] >= 2)
+    {
+        NSString *sepStr=[NSString stringWithFormat:@"%@",[sep objectAtIndex:1]];
+        return !([sepStr length]>2);
+    }
+    return YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

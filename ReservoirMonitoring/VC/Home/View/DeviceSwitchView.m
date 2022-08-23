@@ -11,7 +11,7 @@
 #import "AddDeviceViewController.h"
 #import "GlobelDescAlertView.h"
 
-@interface DeviceSwitchView ()<UITableViewDelegate,UITableViewDataSource>
+@interface DeviceSwitchView ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 
 @property(nonatomic,strong)UIView * contentView;
 @property(nonatomic,strong)UITableView * tableView;
@@ -50,6 +50,16 @@
     [view show];
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(nonnull UITouch *)touch{
+    CGPoint point = [touch locationInView:self];
+    point = [self.contentView.layer convertPoint:point fromLayer:self.layer];
+    if( [self.contentView.layer containsPoint:point]){
+        return false;
+    }else{
+        return true;
+    }
+}
+
 - (instancetype)initWithDelegate:(id<DeviceSwitchViewDelegate>)delegate
                        dataArray:(nonnull NSArray *)dataArray
 {
@@ -60,8 +70,11 @@
         self.alpha = 0;
         self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
         [UIApplication.sharedApplication.keyWindow addSubview:self];
-        self.delegate = delegate;
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
+        tap.delegate = self;
+        [self addGestureRecognizer:tap];
         
+        self.delegate = delegate;
         self.dataArray = dataArray;
         
         self.contentView = [[UIView alloc] initWithFrame:CGRectMake(15, 90, SCREEN_WIDTH-30, self.height-90*2)];
@@ -106,9 +119,12 @@
         [headerView addSubview:closeButton];
         [closeButton setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
         [closeButton addTarget:self action:@selector(closeAction) forControlEvents:UIControlEventTouchUpInside];
+        closeButton.backgroundColor = [UIColor colorWithHexString:@"#333333"];
+        closeButton.layer.cornerRadius = 12;
         [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.top.bottom.mas_equalTo(0);
-            make.width.mas_equalTo(50);
+            make.right.mas_equalTo(-12);
+            make.width.height.mas_equalTo(24);
+            make.centerY.mas_equalTo(headerView.mas_centerY);
         }];
         self.tableView.tableHeaderView = headerView;
         

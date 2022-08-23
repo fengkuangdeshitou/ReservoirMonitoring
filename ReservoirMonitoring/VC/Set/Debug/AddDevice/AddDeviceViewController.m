@@ -23,6 +23,7 @@
 @property(nonatomic,strong) NSString * devId;
 @property(nonatomic,strong) NSString * inverteSN;
 @property(nonatomic,strong) NSString * batterySN;
+@property(nonatomic,strong) NSMutableArray * indexArray;
 
 @end
 
@@ -44,6 +45,7 @@
 }
 
 - (IBAction)nextAction:(id)sender{
+    [self.view endEditing:true];
     if (!self.sgSn) {
         [RMHelper showToast:@"Please input device SN".localized toView:self.view];
         return;
@@ -60,6 +62,75 @@
         [RMHelper showToast:@"please input battery SN" toView:self.view];
         return;
     }
+    self.indexArray = [[NSMutableArray alloc] init];
+    NSMutableArray * array = [[NSMutableArray alloc] init];
+    [array addObject:self.sgSn];
+    [array addObjectsFromArray:self.dataArray];
+    NSLog(@"arr=%@",array);
+    for (int i=0; i<array.count-1; i++) {
+        NSString * current = array[i];
+        for (int j=i+1; j<array.count; j++) {
+            NSString * next = array[j];
+            NSLog(@"current=%@,next=%@",current,next);
+            if ([current isEqualToString:next]) {
+                if (![self.indexArray containsObject:@(i)]) {
+                    [self.indexArray addObject:@(i)];
+                }
+                if (![self.indexArray containsObject:@(j)]) {
+                    [self.indexArray addObject:@(j)];
+                }
+            }
+        }
+    }
+    if (self.indexArray.count > 0) {
+        self.indexArray = [[NSMutableArray alloc] initWithArray:[self.indexArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            if ([obj1 integerValue] > [obj2 integerValue]) {
+                return NSOrderedDescending;
+            }else if ([obj1 integerValue] < [obj2 integerValue]){
+                return NSOrderedAscending;
+            }else{
+                return NSOrderedSame;
+            }
+        }]];
+        [self.tableView reloadData];
+        [RMHelper showToast:@"Accessory Hybrid SN repeats, please check again." toView:self.view];
+        return;
+    }else{
+        [self.tableView reloadData];
+    }
+    [Request.shareInstance postUrl:CheckSn params:@{@"sgSn":self.sgSn,@"snItems":self.dataArray} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        NSDictionary * data = result[@"data"];
+        if ([data[@"status"] intValue] == 200) {
+            [self nextAction];
+        }else{
+            if (data[@"snItem"]) {
+                id snItem = data[@"snItem"];
+                NSArray * items = @[];
+                if ([snItem isKindOfClass:[NSString class]]) {
+                    items = @[snItem];
+                }else if ([snItem isKindOfClass:[NSArray class]]){
+                    items = snItem;
+                }
+                for (int i=0; i<array.count; i++) {
+                    NSString * sn = array[i];
+                    if ([items containsObject:sn]) {
+                        [self.indexArray addObject:@(i)];
+                    }
+                }
+            }else{
+                [self.indexArray addObject:@(0)];
+            }
+            [self.tableView reloadData];
+            [RMHelper showToast:data[@"msg"] toView:self.view];
+        }
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
+}
+
+- (void)nextAction{
     [Request.shareInstance getUrl:ScanSgsn params:@{@"sgSn":self.sgSn} progress:^(float progress) {
 
     } success:^(NSDictionary * _Nonnull result) {
@@ -82,14 +153,7 @@
     address.addressIds = self.addressIds;
     address.devId = self.devId;
     address.name = self.name;
-    address.inverteSN = self.inverteSN;
-    address.batterySN = self.batterySN;
-    NSMutableArray * array = [[NSMutableArray alloc] init];
-    for (int i=0; i<self.dataArray.count; i++) {
-        AddDeviceSNTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1]];
-        [array addObject:cell.textfield.text];
-    }
-    address.snItems = [array componentsJoinedByString:@","];
+    address.snItems = [self.dataArray componentsJoinedByString:@","];
     [self.navigationController pushViewController:address animated:true];
 }
 
@@ -100,8 +164,12 @@
         self.name = textField.text;
     }else if (textField.tag == 10) {
         self.inverteSN = textField.text;
+        [self.dataArray replaceObjectAtIndex:0 withObject:textField.text];
     }else if (textField.tag == 11){
         self.batterySN = textField.text;
+        [self.dataArray replaceObjectAtIndex:1 withObject:textField.text];
+    }else{
+        [self.dataArray replaceObjectAtIndex:textField.tag-10 withObject:textField.text];
     }
 }
 
@@ -125,6 +193,11 @@
         cell.idtextfield.text = self.sgSn;
         cell.nametextfield.text = self.name;
         [cell.scanBtn addTarget:self action:@selector(inverteScanFinish) forControlEvents:UIControlEventTouchUpInside];
+        if ([self.indexArray containsObject:@(0)]) {
+            cell.line.hidden = false;
+        }else{
+            cell.line.hidden = true;
+        }
         return cell;
     }else{
         if (indexPath.row == self.dataArray.count) {
@@ -134,24 +207,29 @@
         }else{
             AddDeviceSNTableViewCell*cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([AddDeviceSNTableViewCell class]) forIndexPath:indexPath];
             if (indexPath.row == 0 || indexPath.row == 1) {
-                cell.scanBtn.hidden = true;
-                [cell.deleteBtm setImage:[UIImage imageNamed:@"ic_set_scan"] forState:UIControlStateNormal];
                 cell.textfield.placeholder = indexPath.row == 0 ? @"Please input inverte SN".localized : @"Please input battery/base SN".localized;
-                [cell.deleteBtm addTarget:self action:@selector(scanAction:) forControlEvents:UIControlEventTouchUpInside];
                 cell.textfield.tag = indexPath.row + 10;
                 cell.textfield.delegate = self;
                 cell.label.hidden = false;
+                cell.deleteBtnWidth.constant = 0;
+                cell.deleteBtnLeft.constant = 0;
             }else{
-                cell.scanBtn.hidden = false;
                 cell.textfield.placeholder = @"Please input battery/base SN".localized;
-                [cell.scanBtn setImage:[UIImage imageNamed:@"ic_set_scan"] forState:UIControlStateNormal];
-                [cell.deleteBtm setImage:[UIImage imageNamed:@"ic_delete"] forState:UIControlStateNormal];
                 cell.deleteBtm.tag = indexPath.row+10;
-                [cell.deleteBtm addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
-                [cell.scanBtn addTarget:self action:@selector(scanAction:) forControlEvents:UIControlEventTouchUpInside];
                 cell.textfield.tag = indexPath.row + 10;
                 cell.textfield.delegate = self;
                 cell.label.hidden = true;
+                cell.deleteBtnWidth.constant = 22;
+                cell.deleteBtnLeft.constant = 30;
+            }
+            [cell.deleteBtm addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.scanBtn addTarget:self action:@selector(scanAction:) forControlEvents:UIControlEventTouchUpInside];
+            cell.textfield.text = self.dataArray[indexPath.row];
+            if ([self.indexArray containsObject:@(indexPath.row+1)]) {
+                cell.line.hidden = false;
+                cell.line.backgroundColor = UIColor.redColor;
+            }else{
+                cell.line.backgroundColor = [UIColor colorWithHexString:@"#333333"];
             }
             return cell;
         }
@@ -175,8 +253,12 @@
         cell.textfield.text = code;
         if (cell.textfield.tag == 10) {
             self.inverteSN = code;
+            [self.dataArray replaceObjectAtIndex:0 withObject:code];
         }else if (cell.textfield.tag == 11){
             self.batterySN = code;
+            [self.dataArray replaceObjectAtIndex:1 withObject:code];
+        }else{
+            [self.dataArray replaceObjectAtIndex:cell.textfield.tag-10 withObject:code];
         }
     };
     [self.navigationController pushViewController:scan animated:true];

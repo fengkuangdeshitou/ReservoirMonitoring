@@ -37,5 +37,6 @@ NSString * const LOG_OUT = @"log_out";
 
 NSString * const CHANGE_PASSWORD_NOTIFICATION = @"change_password_notification";
 
+NSString * const CLEAR_NOTIFICATION = @"clear_norigication";
 
 @end

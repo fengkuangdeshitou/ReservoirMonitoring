@@ -34,8 +34,7 @@
     }else{
         [self loadLoginController];
     }
-//    NSString * string = @"640306000010000000B2E7";
-    
+//    NSString * string = @"6403080000000000000000B2E7";
 //    BOOL result = [RMHelper hasRepeatedTimeForArray:@[@"00:01_00:02",@"00:02_00:03",@"00:01_00:03"]];
 //    NSLog(@"时间交集=%@",result?@"有交集":@"无交集");
     return YES;

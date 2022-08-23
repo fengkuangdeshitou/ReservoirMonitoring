@@ -8,6 +8,7 @@
 #import "HelpViewController.h"
 #import "HelpTableViewCell.h"
 #import "HelpDetailViewController.h"
+#import "ProtocolViewController.h"
 
 @interface HelpViewController ()<UITableViewDelegate>
 
@@ -57,10 +58,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary * item = self.dataArray[indexPath.row];
-    HelpDetailViewController * detail = [[HelpDetailViewController alloc] init];
-    detail.helpId = [NSString stringWithFormat:@"%@",item[@"id"]];
+    ProtocolViewController * detail = [[ProtocolViewController alloc] initWithUrl:item[@"contentEn"]];
     detail.title = item[@"titleEn"];
     [self.navigationController pushViewController:detail animated:true];
+//    HelpDetailViewController * detail = [[HelpDetailViewController alloc] init];
+//    detail.helpId = [NSString stringWithFormat:@"%@",item[@"id"]];
+//    detail.title = item[@"titleEn"];
+//    [self.navigationController pushViewController:detail animated:true];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
