@@ -83,6 +83,7 @@
         NSArray * array = @[@{@"startTime":@"",@"endTime":@"",@"price":@""}];
         [self.dataArray addObject:array];
     }
+    [self.tableView reloadData];
     [self updateTableViewHeight];
 }
 

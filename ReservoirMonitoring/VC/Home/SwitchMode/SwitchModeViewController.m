@@ -88,7 +88,8 @@
                     }
                 }
                 if (priceArray.count < self.touArray.count) {
-                    for (int i=0; i<self.touArray.count-priceArray.count; i++) {
+                    NSInteger number = self.touArray.count-priceArray.count;
+                    for (int i=0; i<number; i++) {
                         [priceArray addObject:@""];
                     }
                 }
@@ -219,11 +220,7 @@
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        if (weakSelf.touCount.intValue == 0) {
-            NSDictionary * item = @{@"startTime":@"",@"endTime":@"",@"price":@""};
-            [weakSelf.touArray addObject:item];
-            dispatch_semaphore_signal(semaphore);
-        }else if (weakSelf.touCount.intValue == 1) {
+        if (weakSelf.touCount.intValue == 1) {
             [BleManager.shareInstance readWithCMDString:@"702" count:4 finish:^(NSArray * _Nonnull array) {
                 if (array.count == 4) {
                     NSDictionary * item = @{

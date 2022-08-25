@@ -9,6 +9,9 @@
 #import "InfoTableViewCell.h"
 @import BRPickerView;
 @import SDWebImage;
+@import Photos;
+@import AVFoundation;
+#import "GlobelDescAlertView.h"
 
 @interface InfoViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -65,6 +68,24 @@
 }
 
 - (void)selectSourceType:(NSInteger)index{
+    if (index == 1) {
+        PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+        if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied)
+        {
+            [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Photo album permission required, please go to setting and enable usage." btnTitle:@"Setting" completion:^{
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
+            }];
+            return;
+        }
+    }else{
+        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];//读取设备授权状态
+        if (authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied) {
+            [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Camera permission required, please go to setting and enable usage." btnTitle:@"Setting" completion:^{
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
+            }];
+            return;
+        }
+    }
     UIImagePickerController * picker = [[UIImagePickerController alloc] init];
     picker.sourceType = index == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
     picker.delegate = self;
@@ -131,6 +152,7 @@
     cell.textfield.placeholderColor = [UIColor colorWithHexString:@"#A3A3A3"];
     cell.icon.image = [UIImage imageNamed:self.iconArray[indexPath.row]];
     cell.line.hidden = indexPath.row == self.iconArray.count - 1;
+    cell.textfield.userInteractionEnabled = indexPath.row!=0;
     return cell;
 }
 

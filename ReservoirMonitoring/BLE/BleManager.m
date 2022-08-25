@@ -129,8 +129,6 @@ static BleManager * _manager = nil;
 }
 
 - (void)readWithCMDString:(NSString *)string count:(int)count finish:(void (^)(NSArray * array))finish{
-    self.readFinish = finish;
-    [NSUserDefaults.standardUserDefaults setValue:string forKey:BLE_CMD];
     long value = [self convertHexToDecimal:string];
     Byte * byte = [self longToByte:value];
     Byte stringByte[2] = {byte[3],byte[2]};
@@ -151,16 +149,18 @@ static BleManager * _manager = nil;
     if (!self.writecCharacteristic) {
         return;
     }
+    [NSUserDefaults.standardUserDefaults setValue:string forKey:BLE_CMD];
+    self.readFinish = finish;
     [self loadRequestTimer];
     [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithoutResponse];
 }
 
 - (void)readWithDictionary:(NSDictionary *)dic finish:(void (^)(NSDictionary * _Nonnull))finish{
-    self.readDictionaryFinish = finish;
     NSData * dictData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingFragmentsAllowed error:nil];
     if (!self.writecCharacteristic) {
         return;
     }
+    self.readDictionaryFinish = finish;
     [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithoutResponse];
 }
 
@@ -225,8 +225,6 @@ static BleManager * _manager = nil;
         [self writeWithCMDString:string string:array.firstObject finish:finish];
         return;
     }
-    self.writeFinish = finish;
-    [NSUserDefaults.standardUserDefaults setValue:string forKey:BLE_CMD];
     long value = [self convertHexToDecimal:string];
     Byte * byte = [self longToByte:value];
     Byte stringByte[2] = {byte[3],byte[2]};
@@ -274,13 +272,13 @@ static BleManager * _manager = nil;
     if (!self.writecCharacteristic) {
         return;
     }
+    [NSUserDefaults.standardUserDefaults setValue:string forKey:BLE_CMD];
+    self.writeFinish = finish;
     [self loadRequestTimer];
     [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 - (void)writeWithCMDString:(NSString *)string string:(NSString *)value finish:(nonnull void (^)(void))finish{
-    self.writeFinish = finish;
-    [NSUserDefaults.standardUserDefaults setValue:string forKey:BLE_CMD];
     long hexValue = [self convertHexToDecimal:string];
     Byte * byte = [self longToByte:hexValue];
     Byte stringByte[2] = {byte[3],byte[2]};
@@ -301,6 +299,8 @@ static BleManager * _manager = nil;
     if (!self.writecCharacteristic) {
         return;
     }
+    [NSUserDefaults.standardUserDefaults setValue:string forKey:BLE_CMD];
+    self.writeFinish = finish;
     [self loadRequestTimer];
     [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithoutResponse];
     
@@ -738,6 +738,8 @@ static unsigned char auchCRCLo[] = {
                 return;
             }
             
+            [NSUserDefaults.standardUserDefaults removeObjectForKey:BLE_CMD];
+
             NSString * cmd = [NSUserDefaults.standardUserDefaults objectForKey:BLE_CMD];
             NSString * style = [string substringWithRange:NSMakeRange(2, 2)];
             
@@ -770,7 +772,6 @@ static unsigned char auchCRCLo[] = {
                     }
                 });
             }
-            [NSUserDefaults.standardUserDefaults removeObjectForKey:BLE_CMD];
         }else{
             [NSUserDefaults.standardUserDefaults removeObjectForKey:BLE_CMD];
             if (weakSelf.readDictionaryFinish) {
