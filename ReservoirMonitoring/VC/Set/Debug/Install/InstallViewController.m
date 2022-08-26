@@ -37,11 +37,17 @@
     [self.next showBorderWithRadius:25];
     [self.back showBorderWithRadius:25];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDeviceSuccess) name:ADD_DEVICE_NOTIFICATION object:nil];
+    
     [self.config setTitle:@"Config".localized forState:UIControlStateNormal];
     [self.next setTitle:@"Next".localized forState:UIControlStateNormal];
     [self.back setTitle:@"Back".localized forState:UIControlStateNormal];
 
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([InstallCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([InstallCollectionViewCell class])];
+}
+
+- (void)addDeviceSuccess{
+    [self.navigationController popToViewController:self animated:true];
 }
 
 - (IBAction)configAction:(id)sender{

@@ -15,6 +15,7 @@
 @property(nonatomic,weak)IBOutlet NSLayoutConstraint * wifiNameHeight;
 @property(nonatomic,weak)IBOutlet UIButton * cancel;
 @property(nonatomic,weak)IBOutlet UIButton * confirm;
+@property(nonatomic,assign) BOOL showWifiName;
 
 @property(nonatomic,copy)void(^completion)(NSString * wifiName,NSString * password);
 
@@ -30,6 +31,7 @@
     alert.alpha = 0;
     [UIApplication.sharedApplication.keyWindow addSubview:alert];
     alert.titleLabel.text = title;
+    alert.showWifiName = showWifiName;
     if (!showWifiName) {
         alert.wifiNameHeight.constant = 0;
     }
@@ -55,6 +57,10 @@
 }
 
 - (IBAction)submitAction{
+    if (self.wifiName.text.length == 0 && self.showWifiName) {
+        [RMHelper showToast:@"Please input Wi-Fi name" toView:self];
+        return;
+    }
     if (self.password.text.length == 0) {
         [RMHelper showToast:@"Please input Wi-Fi password" toView:self];
         return;

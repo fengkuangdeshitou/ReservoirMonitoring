@@ -196,7 +196,7 @@
     } success:^(NSDictionary * _Nonnull result) {
         [RMHelper showToast:@"Success" toView:self.view];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.navigationController popToRootViewControllerAnimated:true];
+            [[NSNotificationCenter defaultCenter] postNotificationName:ADD_DEVICE_NOTIFICATION object:nil];
         });
     } failure:^(NSString * _Nonnull errorMsg) {
         

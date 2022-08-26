@@ -42,7 +42,7 @@
 
 - (IBAction)sendCode:(id)sender{
     if (self.password.text.length == 0) {
-        [RMHelper showToast:@"Please send verification code first".localized toView:self.view];
+        [RMHelper showToast:@"Please input registration Email".localized toView:self.view];
         return;
     }
     [ImageAuthenticationView showImageAuthemticationWithDelegate:self];

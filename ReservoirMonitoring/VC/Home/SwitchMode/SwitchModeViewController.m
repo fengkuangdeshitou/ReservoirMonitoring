@@ -40,6 +40,7 @@
     } success:^(NSDictionary * _Nonnull result) {
         NSDictionary * data = result[@"data"];
         if (data.count == 0) {
+            [self.tableView reloadData];
             return;
         }
         if (!BleManager.shareInstance.isConnented) {

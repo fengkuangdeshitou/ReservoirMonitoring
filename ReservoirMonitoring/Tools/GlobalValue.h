@@ -45,6 +45,8 @@ extern NSString * const LOG_OUT;
 extern NSString * const CHANGE_PASSWORD_NOTIFICATION;
 /**切换模式清除*/
 extern NSString * const CLEAR_NOTIFICATION;
+/**添加设备成功*/
+extern NSString * const ADD_DEVICE_NOTIFICATION;
 
 
 @end

@@ -39,4 +39,5 @@ NSString * const CHANGE_PASSWORD_NOTIFICATION = @"change_password_notification";
 
 NSString * const CLEAR_NOTIFICATION = @"clear_norigication";
 
+NSString * const ADD_DEVICE_NOTIFICATION = @"add_device_notification";
 @end

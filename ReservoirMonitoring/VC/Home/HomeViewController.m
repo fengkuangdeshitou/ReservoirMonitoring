@@ -40,11 +40,17 @@
         self.isShowAlert = false;
         [self getHomeDeviceData];
     }];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDeviceSuccess) name:ADD_DEVICE_NOTIFICATION object:nil];
+
     self.manager = BleManager.shareInstance;
     [self.addEquipmentBtn showBorderWithRadius:25];
     [self setLeftBarImageForSel:nil];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomeTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([HomeTableViewCell class])];
     self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeChangeAction) userInfo:nil repeats:true];
+}
+
+- (void)addDeviceSuccess{
+    [self.navigationController popToViewController:self animated:true];
 }
 
 - (void)bluetoothDidDisconnectPeripheral:(CBPeripheral *)peripheral{
