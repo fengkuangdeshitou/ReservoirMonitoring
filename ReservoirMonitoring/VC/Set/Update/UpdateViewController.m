@@ -90,11 +90,15 @@
             
     } success:^(NSDictionary * _Nonnull result) {
         self.commitAotuUpdate.selected = [result[@"data"][@"aotuUpdateFirmware"] boolValue];
-        NSString * version = [NSString stringWithFormat:@"%@",result[@"data"][@"firmwareVersion"]];
-        if (version.length == 0) {
-            self.version.text = @"Firmware version：";
+        if (result[@"data"][@"firmwareVersion"]) {
+            if ([result[@"data"][@"firmwareVersion"] isKindOfClass:[NSString class]]) {
+                NSString * version = [NSString stringWithFormat:@"%@",result[@"data"][@"firmwareVersion"]];
+                self.version.text = [@"Firmware version：".localized stringByAppendingString:version];
+            }else{
+                self.version.text = @"Firmware version：";
+            }
         }else{
-            self.version.text = [@"Firmware version：".localized stringByAppendingString:version];
+            self.version.text = @"Firmware version：";
         }
     } failure:^(NSString * _Nonnull errorMsg) {
         

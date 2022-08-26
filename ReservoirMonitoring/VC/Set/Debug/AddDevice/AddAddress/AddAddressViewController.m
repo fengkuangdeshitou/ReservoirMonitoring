@@ -26,6 +26,7 @@
 @property(nonatomic,strong) NSArray * dataArray;
 @property(nonatomic,strong) NSString * countrieID;
 @property(nonatomic,strong) NSString * provinceID;
+@property(nonatomic,strong) NSString * zoneId;
 
 @end
 
@@ -162,6 +163,7 @@
     TimeZoneViewController * time = [[TimeZoneViewController alloc] init];
     time.selectTimeZone = ^(NSDictionary * _Nonnull item) {
         self.timeZone.text = item[@"name"];
+        self.zoneId = [item[@"zoneId"] lastObject];
     };
     if (self.countrieID) {
         time.countryId = self.countrieID;
@@ -189,7 +191,7 @@
         return;
     }
     
-    [Request.shareInstance postUrl:BindDevice params:@{@"sgSn":self.sgSn,@"snItems":self.snItems,@"name":self.name,@"addressIds":[NSString stringWithFormat:@"%@,%@",self.countrieID,self.provinceID],@"timeZone":self.timeZone.text,@"userEmail":self.email.text?:@"",@"mailCode":self.code.text?:@""} progress:^(float progress) {
+    [Request.shareInstance postUrl:BindDevice params:@{@"sgSn":self.sgSn,@"snItems":self.snItems,@"name":self.name,@"addressIds":[NSString stringWithFormat:@"%@,%@",self.countrieID,self.provinceID],@"timeZone":self.zoneId,@"userEmail":self.email.text?:@"",@"mailCode":self.code.text?:@""} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         [RMHelper showToast:@"Success" toView:self.view];

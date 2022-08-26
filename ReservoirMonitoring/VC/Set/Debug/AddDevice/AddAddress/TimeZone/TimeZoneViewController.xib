@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TimeZoneViewController">
             <connections>
                 <outlet property="tableView" destination="TYz-DD-ZnM" id="Izz-GF-oeP"/>
+                <outlet property="textfield" destination="4sr-Fv-vRe" id="nrw-xW-zaQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,6 +23,43 @@
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="TYz-DD-ZnM">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" red="0.047058823529411764" green="0.047058823529411764" blue="0.047058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <view key="tableHeaderView" contentMode="scaleToFill" id="gqX-bZ-jBg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5FX-j7-Oe8">
+                                <rect key="frame" x="15" y="12" width="384" height="32"/>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="6"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4sr-Fv-vRe">
+                                <rect key="frame" x="25" y="12" width="364" height="32"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="6"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="-1" id="lIJ-Qo-U1K"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5FX-j7-Oe8" firstAttribute="top" secondItem="gqX-bZ-jBg" secondAttribute="top" constant="12" id="9zp-7v-gmW"/>
+                            <constraint firstAttribute="trailing" secondItem="5FX-j7-Oe8" secondAttribute="trailing" constant="15" id="Pfw-OO-fGi"/>
+                            <constraint firstAttribute="trailing" secondItem="4sr-Fv-vRe" secondAttribute="trailing" constant="25" id="Psy-dX-lM1"/>
+                            <constraint firstItem="4sr-Fv-vRe" firstAttribute="leading" secondItem="gqX-bZ-jBg" secondAttribute="leading" constant="25" id="T05-SJ-0oI"/>
+                            <constraint firstItem="4sr-Fv-vRe" firstAttribute="top" secondItem="gqX-bZ-jBg" secondAttribute="top" constant="12" id="aLE-ka-Aoz"/>
+                            <constraint firstItem="5FX-j7-Oe8" firstAttribute="leading" secondItem="gqX-bZ-jBg" secondAttribute="leading" constant="15" id="aOO-g0-hPL"/>
+                            <constraint firstAttribute="bottom" secondItem="5FX-j7-Oe8" secondAttribute="bottom" constant="6" id="aiA-Ed-izJ"/>
+                            <constraint firstAttribute="bottom" secondItem="4sr-Fv-vRe" secondAttribute="bottom" constant="6" id="qSW-nV-ycx"/>
+                        </constraints>
+                    </view>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="4Uo-Bn-Rwh"/>
                         <outlet property="delegate" destination="-1" id="Hby-Xc-9mf"/>
@@ -35,7 +73,7 @@
                 <constraint firstAttribute="bottom" secondItem="TYz-DD-ZnM" secondAttribute="bottom" id="OmY-hj-cRm"/>
                 <constraint firstItem="TYz-DD-ZnM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="yYM-VH-EeQ"/>
             </constraints>
-            <point key="canvasLocation" x="132" y="76"/>
+            <point key="canvasLocation" x="-68" y="92"/>
         </view>
     </objects>
     <resources>

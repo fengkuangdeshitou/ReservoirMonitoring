@@ -55,6 +55,10 @@
 }
 
 - (IBAction)submitAction{
+    if (self.password.text.length == 0) {
+        [RMHelper showToast:@"Please input Wi-Fi password" toView:self];
+        return;
+    }
     if (self.completion) {
         self.completion(self.wifiName.text,self.password.text);
     }

@@ -7,10 +7,13 @@
 
 #import "TimeZoneViewController.h"
 
-@interface TimeZoneViewController ()<UITableViewDelegate>
+@interface TimeZoneViewController ()<UITableViewDelegate,UITextFieldDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
+@property(nonatomic,weak)IBOutlet UITextField * textfield;
 @property(nonatomic,strong) NSMutableArray * dataArray;
+@property(nonatomic,strong) NSArray * searchArray;
+@property(nonatomic,assign) BOOL isSearch;
 
 @end
 
@@ -19,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textfieldTextChange) name:UITextFieldTextDidChangeNotification object:nil];
     if (!self.listArray) {
         [self getTimeZoneData];
     }else{
@@ -34,6 +38,17 @@
         }
         [self.tableView reloadData];
     }
+}
+
+- (void)textfieldTextChange{
+    self.isSearch = self.textfield.text.length > 0;
+    if (self.listArray) {
+        self.searchArray = [self.listArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"label contains [cd] %@",self.textfield.text]];
+    }else{
+        self.searchArray = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains [cd] %@",self.textfield.text]];
+    }
+    NSLog(@"filter=%@",self.searchArray);
+    [self.tableView reloadData];
 }
 
 - (void)getTimeZoneData{
@@ -52,10 +67,18 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
-    if (self.listArray) {
-        cell.textLabel.text = self.listArray[indexPath.row][@"label"];
+    if (self.isSearch) {
+        if (self.listArray) {
+            cell.textLabel.text = self.searchArray[indexPath.row][@"label"];
+        }else{
+            cell.textLabel.text = self.searchArray[indexPath.row][@"name"];
+        }
     }else{
-        cell.textLabel.text = self.dataArray[indexPath.row][@"name"];
+        if (self.listArray) {
+            cell.textLabel.text = self.listArray[indexPath.row][@"label"];
+        }else{
+            cell.textLabel.text = self.dataArray[indexPath.row][@"name"];
+        }
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.textColor = UIColor.whiteColor;
@@ -65,20 +88,31 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.listArray) {
+    [self.view endEditing:false];
+    if (self.isSearch) {
         if (self.selectTimeZone) {
-            self.selectTimeZone(self.listArray[indexPath.row]);
+            self.selectTimeZone(self.searchArray[indexPath.row]);
         }
     }else{
-        if (self.selectTimeZone) {
-            self.selectTimeZone(self.dataArray[indexPath.row]);
+        if (self.listArray) {
+            if (self.selectTimeZone) {
+                self.selectTimeZone(self.listArray[indexPath.row]);
+            }
+        }else{
+            if (self.selectTimeZone) {
+                self.selectTimeZone(self.dataArray[indexPath.row]);
+            }
         }
     }
     [self.navigationController popViewControllerAnimated:true];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.listArray.count > 0 ? self.listArray.count : self.dataArray.count;
+    if (self.isSearch) {
+        return self.searchArray.count;
+    }else{
+        return self.listArray.count > 0 ? self.listArray.count : self.dataArray.count;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -80,6 +80,7 @@
     }else if (self.current == 6){
         WifiViewController * wifi = [[WifiViewController alloc] init];
         wifi.title = @"Wi-Fi".localized;
+        wifi.devId = [NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID];
         wifi.hidesBottomBarWhenPushed = true;
         [self.navigationController pushViewController:wifi animated:true];
     }

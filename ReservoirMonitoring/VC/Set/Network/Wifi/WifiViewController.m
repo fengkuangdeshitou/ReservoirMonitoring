@@ -181,17 +181,27 @@
                     [weakSelf.view hiddenHUD];
                 });
             }else if ([wifi isEqualToString:@"connecting"]){
-        
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf removeTimeAction];
+                    [RMHelper showToast:wifi toView:weakSelf.view];
+                    [weakSelf.view hiddenHUD];
+                });
             }else if ([wifi isEqualToString:@"auth_failed"]){
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf removeTimeAction];
-                    [RMHelper showToast:@"Failure" toView:weakSelf.view];
+                    [RMHelper showToast:wifi toView:weakSelf.view];
                     [weakSelf.view hiddenHUD];
                 });
             }else if ([wifi isEqualToString:@"ap_no_found"]){
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf removeTimeAction];
-                    [RMHelper showToast:@"Failure" toView:weakSelf.view];
+                    [RMHelper showToast:wifi toView:weakSelf.view];
+                    [weakSelf.view hiddenHUD];
+                });
+            }else{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf removeTimeAction];
+                    [RMHelper showToast:wifi toView:weakSelf.view];
                     [weakSelf.view hiddenHUD];
                 });
             }
@@ -206,6 +216,10 @@
 }
 
 - (IBAction)addWiriAction{
+    if (!BleManager.shareInstance.isConnented) {
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
+        return;
+    }
     [WifiAlertView showWifiAlertViewWithTitle:@"Config Wi-Fi"
                                  showWifiName:true
                                    completion:^(NSString * wifiName, NSString * password) {
@@ -213,9 +227,6 @@
             if ([item[@"code"] intValue] == 0) {
                 [self loadTime];
             }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [RMHelper showToast:@"Success" toView:self.view];
-            });
         }];
     }];
 }
