@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WriteOffViewController">
+            <connections>
+                <outlet property="cancelImmediately" destination="ulk-iP-TOC" id="z5l-vc-ACy"/>
+                <outlet property="statusBtn" destination="o4q-pl-NIC" id="Etp-Sx-L1P"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="opU-k5-llv">
+                    <rect key="frame" x="25" y="68" width="364" height="50.5"/>
+                    <string key="text">        After cancellation, you cannot use the current account, and the data under this account will also be deleted and cannot be retrieved.</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="di1-Wm-bwE">
+                    <rect key="frame" x="61" y="168.5" width="292" height="54"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please read carefully before cancellation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XlL-LK-L4L">
+                            <rect key="frame" x="30" y="0.0" width="262" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o4q-pl-NIC">
+                            <rect key="frame" x="0.0" y="0.0" width="30" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="30" id="mIa-oB-wLD"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="icon_unchoose"/>
+                            <state key="selected" image="icon_choose"/>
+                            <connections>
+                                <action selector="statusAction:" destination="-1" eventType="touchUpInside" id="keu-Lt-8S5"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fnb-wg-1jt">
+                            <rect key="frame" x="60.5" y="17" width="201" height="29"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Notice for account cancellation">
+                                <color key="titleColor" red="0.5490196078431373" green="0.87450980392156863" blue="0.6470588235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="protocolAction:" destination="-1" eventType="touchUpInside" id="s5S-bs-LxU"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="o4q-pl-NIC" firstAttribute="leading" secondItem="di1-Wm-bwE" secondAttribute="leading" id="63n-Nk-aBd"/>
+                        <constraint firstItem="XlL-LK-L4L" firstAttribute="top" secondItem="di1-Wm-bwE" secondAttribute="top" id="QLt-Qm-bft"/>
+                        <constraint firstAttribute="trailing" secondItem="XlL-LK-L4L" secondAttribute="trailing" id="a3e-gq-r1U"/>
+                        <constraint firstItem="o4q-pl-NIC" firstAttribute="top" secondItem="di1-Wm-bwE" secondAttribute="top" id="glA-E5-GuI"/>
+                        <constraint firstAttribute="bottom" secondItem="fnb-wg-1jt" secondAttribute="bottom" constant="8" id="mDR-8T-FdO"/>
+                        <constraint firstItem="XlL-LK-L4L" firstAttribute="leading" secondItem="o4q-pl-NIC" secondAttribute="trailing" id="vVU-f9-Jud"/>
+                        <constraint firstItem="fnb-wg-1jt" firstAttribute="centerX" secondItem="XlL-LK-L4L" secondAttribute="centerX" id="waa-XU-Sff"/>
+                        <constraint firstItem="fnb-wg-1jt" firstAttribute="top" secondItem="XlL-LK-L4L" secondAttribute="bottom" id="wb3-vN-Ujr"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ulk-iP-TOC">
+                    <rect key="frame" x="35" y="232.5" width="344" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="TX8-F4-myA"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Cancel immediately">
+                        <color key="titleColor" red="0.54901960780000003" green="0.87450980389999999" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="submitAction:" destination="-1" eventType="touchUpInside" id="OWW-K1-z4s"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <color key="backgroundColor" red="0.047058823529411764" green="0.047058823529411764" blue="0.047058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="ulk-iP-TOC" firstAttribute="top" secondItem="di1-Wm-bwE" secondAttribute="bottom" constant="10" id="3K7-5y-fIN"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="opU-k5-llv" secondAttribute="trailing" constant="25" id="BVT-4F-BJb"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="ulk-iP-TOC" secondAttribute="trailing" constant="35" id="U88-2R-dbB"/>
+                <constraint firstItem="di1-Wm-bwE" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Wln-vU-Tqx"/>
+                <constraint firstItem="opU-k5-llv" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="25" id="aPi-Ro-DAb"/>
+                <constraint firstItem="ulk-iP-TOC" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="35" id="dsW-e8-yfn"/>
+                <constraint firstItem="opU-k5-llv" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="24" id="kEO-sE-9xJ"/>
+                <constraint firstItem="di1-Wm-bwE" firstAttribute="top" secondItem="opU-k5-llv" secondAttribute="bottom" constant="50" id="zQ8-Gj-TCe"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="90"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_choose" width="13" height="13"/>
+        <image name="icon_unchoose" width="13" height="13"/>
+    </resources>
+</document>

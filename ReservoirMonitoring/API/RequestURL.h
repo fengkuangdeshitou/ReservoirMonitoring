@@ -87,6 +87,8 @@ extern NSString * const CheckEmailCode;
 
 extern NSString * const CheckSn;
 
+extern NSString * const LogOff;
+
 @end
 
 NS_ASSUME_NONNULL_END

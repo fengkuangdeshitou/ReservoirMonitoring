@@ -106,6 +106,10 @@
 		BD935B3628685B1A00F1AF1A /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD935B3428685B1A00F1AF1A /* CardViewController.m */; };
 		BD935B3728685B1A00F1AF1A /* CardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD935B3528685B1A00F1AF1A /* CardViewController.xib */; };
 		BD935B6028709AF600F1AF1A /* LineAnimatiionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD935B5F28709AF500F1AF1A /* LineAnimatiionView.m */; };
+		BDB8170128BCF68F00841A4A /* WriteOffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB816FF28BCF68F00841A4A /* WriteOffViewController.m */; };
+		BDB8170228BCF68F00841A4A /* WriteOffViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDB8170028BCF68F00841A4A /* WriteOffViewController.xib */; };
+		BDB8170628BCFC0E00841A4A /* WriteOffDescViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB8170428BCFC0E00841A4A /* WriteOffDescViewController.m */; };
+		BDB8170728BCFC0E00841A4A /* WriteOffDescViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDB8170528BCFC0E00841A4A /* WriteOffDescViewController.xib */; };
 		BDE889F928044DA700081114 /* RMHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE889F828044DA700081114 /* RMHelper.m */; };
 		BDE889FD28044E7C00081114 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE889FC28044E7C00081114 /* UIColor+HexString.m */; };
 		BDE88A012804540C00081114 /* GlobalValue.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A002804540C00081114 /* GlobalValue.m */; };
@@ -359,6 +363,12 @@
 		BD935B3528685B1A00F1AF1A /* CardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardViewController.xib; sourceTree = "<group>"; };
 		BD935B5E28709AF500F1AF1A /* LineAnimatiionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineAnimatiionView.h; sourceTree = "<group>"; };
 		BD935B5F28709AF500F1AF1A /* LineAnimatiionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LineAnimatiionView.m; sourceTree = "<group>"; };
+		BDB816FE28BCF68F00841A4A /* WriteOffViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WriteOffViewController.h; sourceTree = "<group>"; };
+		BDB816FF28BCF68F00841A4A /* WriteOffViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WriteOffViewController.m; sourceTree = "<group>"; };
+		BDB8170028BCF68F00841A4A /* WriteOffViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WriteOffViewController.xib; sourceTree = "<group>"; };
+		BDB8170328BCFC0E00841A4A /* WriteOffDescViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WriteOffDescViewController.h; sourceTree = "<group>"; };
+		BDB8170428BCFC0E00841A4A /* WriteOffDescViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WriteOffDescViewController.m; sourceTree = "<group>"; };
+		BDB8170528BCFC0E00841A4A /* WriteOffDescViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WriteOffDescViewController.xib; sourceTree = "<group>"; };
 		BDE889F728044DA700081114 /* RMHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMHelper.h; sourceTree = "<group>"; };
 		BDE889F828044DA700081114 /* RMHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMHelper.m; sourceTree = "<group>"; };
 		BDE889FB28044E7C00081114 /* UIColor+HexString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexString.h"; sourceTree = "<group>"; };
@@ -998,6 +1008,19 @@
 			path = Card;
 			sourceTree = "<group>";
 		};
+		BDB816FD28BCF67B00841A4A /* WriteOff */ = {
+			isa = PBXGroup;
+			children = (
+				BDB816FE28BCF68F00841A4A /* WriteOffViewController.h */,
+				BDB816FF28BCF68F00841A4A /* WriteOffViewController.m */,
+				BDB8170028BCF68F00841A4A /* WriteOffViewController.xib */,
+				BDB8170328BCFC0E00841A4A /* WriteOffDescViewController.h */,
+				BDB8170428BCFC0E00841A4A /* WriteOffDescViewController.m */,
+				BDB8170528BCFC0E00841A4A /* WriteOffDescViewController.xib */,
+			);
+			path = WriteOff;
+			sourceTree = "<group>";
+		};
 		BDE889F628044D8B00081114 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -1057,6 +1080,7 @@
 				BDE88A0E28046FE100081114 /* SetViewController.xib */,
 				0F0511B1283E4AF8007E7680 /* UserModel.h */,
 				0F0511B2283E4AF8007E7680 /* UserModel.m */,
+				BDB816FD28BCF67B00841A4A /* WriteOff */,
 				BDFA3AA728295B4E004A7E8C /* Network */,
 				BD8FDA5D280EF16E000036DD /* Debug */,
 				BD8FDA4E280EED4B000036DD /* Warning */,
@@ -1396,6 +1420,7 @@
 				BD8FDA41280D5F91000036DD /* UpdateViewController.xib in Resources */,
 				BDFA3ABD282F85F5004A7E8C /* InputTableViewCell.xib in Resources */,
 				0F3EBC1B282E8B51009CDBED /* GeneratorViewController.xib in Resources */,
+				BDB8170728BCFC0E00841A4A /* WriteOffDescViewController.xib in Resources */,
 				BDFA3AC2282F878F004A7E8C /* SelecteTableViewCell.xib in Resources */,
 				0F3EBC0F282E8A5E009CDBED /* GridViewController.xib in Resources */,
 				BDFA3A9B28257325004A7E8C /* AddDeviceActionTableViewCell.xib in Resources */,
@@ -1407,6 +1432,7 @@
 				0F0E90C8285047270014B329 /* TimeZoneViewController.xib in Resources */,
 				0F69684A28349FCB00F22E47 /* WifiAlertView.xib in Resources */,
 				BDE88A4228070EA000081114 /* HomeTableViewCell.xib in Resources */,
+				BDB8170228BCF68F00841A4A /* WriteOffViewController.xib in Resources */,
 				BDFA3ACD2830EFA2004A7E8C /* SwitchTableViewCell.xib in Resources */,
 				BD907366280D4B4900044013 /* SetInfoTableViewCell.xib in Resources */,
 				0F69685928364D0500F22E47 /* InstallViewController.xib in Resources */,
@@ -1598,6 +1624,7 @@
 				0F3EBC0E282E8A5E009CDBED /* GridViewController.m in Sources */,
 				0F3EBC1A282E8B51009CDBED /* GeneratorViewController.m in Sources */,
 				BDE88A4128070EA000081114 /* HomeTableViewCell.m in Sources */,
+				BDB8170128BCF68F00841A4A /* WriteOffViewController.m in Sources */,
 				BDE88A0F28046FE100081114 /* SetViewController.m in Sources */,
 				0F6968392834964500F22E47 /* WifiViewController.m in Sources */,
 				BDFA3ABC282F85F5004A7E8C /* InputTableViewCell.m in Sources */,
@@ -1625,6 +1652,7 @@
 				BDE88A52280A7C0300081114 /* DeviceSwitchTableViewCell.m in Sources */,
 				0FEEECB92875272800604699 /* ProtocolViewController.m in Sources */,
 				BDE88A78280B12A900081114 /* DataEchartsCollectionViewCell.m in Sources */,
+				BDB8170628BCFC0E00841A4A /* WriteOffDescViewController.m in Sources */,
 				0F6968232833AF2600F22E47 /* WeatherViewController.m in Sources */,
 				BD8FDA57280EEED3000036DD /* WarningListView.m in Sources */,
 				BDFA3AA42827A6BD004A7E8C /* GlobelDescAlertView.m in Sources */,
@@ -1832,7 +1860,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ReservoirMonitoring/ReservoirMonitoring.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = LMDZYJF4B6;
@@ -1875,7 +1903,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ReservoirMonitoring/ReservoirMonitoring.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = LMDZYJF4B6;
 				ENABLE_BITCODE = NO;

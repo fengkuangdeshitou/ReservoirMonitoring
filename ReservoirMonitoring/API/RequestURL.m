@@ -89,4 +89,6 @@ NSString * const CheckEmailCode = @"/open/common/checkEmailCode";
 
 NSString * const CheckSn = @"/device/checkSn";
 
+NSString * const LogOff = @"/user/user/logOff";
+
 @end

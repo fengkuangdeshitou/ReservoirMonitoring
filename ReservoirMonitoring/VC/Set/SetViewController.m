@@ -16,6 +16,7 @@
 #import "DebugViewController.h"
 #import "UserModel.h"
 #import "GlobelDescAlertView.h"
+#import "WriteOffViewController.h"
 
 @interface SetViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -85,9 +86,15 @@
         return cell;
     }else{
         SetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SetTableViewCell class]) forIndexPath:indexPath];
-        cell.icon.image = [UIImage imageNamed:self.iconArray[indexPath.row]];
-        cell.titleLabel.text = self.dataArray[indexPath.row];
-        cell.line.hidden = self.model.userType.intValue == 1 ? indexPath.row == self.dataArray.count-1 : indexPath.row == 3;
+        if ((self.model.userType.intValue == 2 && indexPath.row == 4) || indexPath.row == self.dataArray.count) {
+            cell.titleLabel.text = @"Cancel account";
+            cell.icon.image = [UIImage imageNamed:@"icon_delete"];
+            cell.line.hidden = true;
+        }else{
+            cell.icon.image = [UIImage imageNamed:self.iconArray[indexPath.row]];
+            cell.titleLabel.text = self.dataArray[indexPath.row];
+            cell.line.hidden = false;
+        }
         return cell;
     }
 }
@@ -120,16 +127,25 @@
             help.title = self.dataArray[indexPath.row];
             help.hidesBottomBarWhenPushed = true;
             [self.navigationController pushViewController:help animated:true];
-        }else if (indexPath.row == 4){
-            WarningViewController * warning = [[WarningViewController alloc] init];
-            warning.title = self.dataArray[indexPath.row];
-            warning.hidesBottomBarWhenPushed = true;
-            [self.navigationController pushViewController:warning animated:true];
-        }else if (indexPath.row == 5){
-            DebugViewController * debug = [[DebugViewController alloc] init];
-            debug.title = self.dataArray[indexPath.row];
-            debug.hidesBottomBarWhenPushed = true;
-            [self.navigationController pushViewController:debug animated:true];
+        }else{
+            if (self.model.userType.intValue == 2 || indexPath.row == self.dataArray.count) {
+                WriteOffViewController * writeoff = [[WriteOffViewController alloc] init];
+                writeoff.title = @"Cancel account";
+                writeoff.hidesBottomBarWhenPushed = true;
+                [self.navigationController pushViewController:writeoff animated:true];
+            }else{
+                if (indexPath.row == 4){
+                    WarningViewController * warning = [[WarningViewController alloc] init];
+                    warning.title = self.dataArray[indexPath.row];
+                    warning.hidesBottomBarWhenPushed = true;
+                    [self.navigationController pushViewController:warning animated:true];
+                }else if (indexPath.row == 5){
+                    DebugViewController * debug = [[DebugViewController alloc] init];
+                    debug.title = self.dataArray[indexPath.row];
+                    debug.hidesBottomBarWhenPushed = true;
+                    [self.navigationController pushViewController:debug animated:true];
+                }
+            }
         }
     }
 }
@@ -143,9 +159,9 @@
         return 1;
     }else{
         if (self.model) {
-            return self.model.userType.intValue == 2 ? 4 : self.dataArray.count;
+            return self.model.userType.intValue == 2 ? 5 : self.dataArray.count+1;
         }else{
-            return 4;
+            return 5;
         }
     }
 }

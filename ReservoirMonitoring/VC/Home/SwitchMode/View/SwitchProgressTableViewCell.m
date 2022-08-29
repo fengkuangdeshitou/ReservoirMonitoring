@@ -28,6 +28,9 @@
 - (IBAction)addAction:(id)sender{
     if (self.progress < 100) {
         self.progress++;
+        if (self.progress>100) {
+            self.progress = 100;
+        }
         self.slider.value = self.progress;
         self.titleLabel.text = [NSString stringWithFormat:@"%.0f",self.progress];
     }

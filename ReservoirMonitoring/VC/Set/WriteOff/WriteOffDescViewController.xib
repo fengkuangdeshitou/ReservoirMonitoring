@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WriteOffDescViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P0E-Ug-AOv">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Account Cancellation Notice" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cL-LJ-Huc">
+                            <rect key="frame" x="15" y="15" width="384" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tpv-c0-QbJ">
+                            <rect key="frame" x="15" y="47" width="384" height="986"/>
+                            <mutableString key="text">	Logging out of an account is an irrevocable and irreversible operation. Please fully read, understand, and agree to the following content before canceling your EP Cube account: 
+        1. You need to follow the account cancellation process and refer to the prompts on the page to cancel the account after handling the relevant matters related to the account. After the account is canceled, you will not be able to use the services of the EP Cube system, and will also terminate the rights of online system use and remote operation and maintenance provided by Eternalplanet Energy Ltd., which will affect some after-sales services and may also cause the following results to the account
+
+	        (1) Identity and account information will be cleared and cannot be recovered;
+
+	        (2) The previously added device information and historical data will be automatically cleared and deleted from your account and cannot be recovered;
+
+	        (3) Affecting your query of work order service records;
+
+	        (4) After the account is canceled, the installer will not be able to view the operation data;
+
+	2. The account you apply for cancellation shall be the account you registered and used in accordance with the User Privacy Agreement. The account should be in a normal state, that is, the account information of your account is up-to-date, complete, and correct, and the account is not subject to restrictions such as freezing. Therefore, you are obliged to cooperate with us in relevant verification and confirmation work and assume the results and responsibilities of canceling your account. Before canceling the account, please confirm that the system information and data have been properly handled, and the association between the accounts has been released.
+
+	3. In order to protect the legitimate rights and interests of you and other users, when you apply for account cancellation, there should be no unfinished transactions or other unfulfilled rights and obligations in your account, nor should there be other possible situations. caused by the cancellation. If you are an end-user account, you should fully consider the impact of operation and maintenance after the account is canceled.
+
+	4. Please understand that after you cancel your account, we will no longer provide services such as account recovery and account-related data for the account. Please understand the impact before canceling.
+
+	5. The cancellation of this account does not mean that the actions or related responsibilities before the cancellation of this account are exempted or mitigated. </mutableString>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="8cL-LJ-Huc" firstAttribute="leading" secondItem="Tpv-c0-QbJ" secondAttribute="leading" id="DMR-GW-ZEe"/>
+                        <constraint firstItem="Tpv-c0-QbJ" firstAttribute="leading" secondItem="P0E-Ug-AOv" secondAttribute="leading" constant="15" id="GjL-7c-QEK"/>
+                        <constraint firstAttribute="trailing" secondItem="Tpv-c0-QbJ" secondAttribute="trailing" constant="15" id="JiY-oQ-5zm"/>
+                        <constraint firstAttribute="bottom" secondItem="Tpv-c0-QbJ" secondAttribute="bottom" id="Y2L-71-ECr"/>
+                        <constraint firstItem="8cL-LJ-Huc" firstAttribute="top" secondItem="P0E-Ug-AOv" secondAttribute="top" constant="15" id="bZH-F4-4wm"/>
+                        <constraint firstItem="Tpv-c0-QbJ" firstAttribute="width" secondItem="P0E-Ug-AOv" secondAttribute="width" constant="-30" id="lD6-GX-Kwh"/>
+                        <constraint firstItem="Tpv-c0-QbJ" firstAttribute="top" secondItem="8cL-LJ-Huc" secondAttribute="bottom" constant="15" id="pOM-uc-WCD"/>
+                        <constraint firstItem="8cL-LJ-Huc" firstAttribute="trailing" secondItem="Tpv-c0-QbJ" secondAttribute="trailing" id="xyF-ox-Ew6"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <color key="backgroundColor" red="0.047058823529411764" green="0.047058823529411764" blue="0.047058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="P0E-Ug-AOv" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="9a3-2u-sWZ"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="P0E-Ug-AOv" secondAttribute="trailing" id="DhG-pV-9u9"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="P0E-Ug-AOv" secondAttribute="bottom" id="dJf-Zy-rrb"/>
+                <constraint firstItem="P0E-Ug-AOv" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="wya-vX-Vrc"/>
+            </constraints>
+            <point key="canvasLocation" x="137.68115942028987" y="89.732142857142847"/>
+        </view>
+    </objects>
+</document>
