@@ -305,7 +305,11 @@
         }else if (index == 3) {
             [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"evPower"] : item[@"evElectricity"]]];
         }else if (index == 4) {
-            [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"nonBackUpPower"] : item[@"nonBackUpElectricity"]]];
+            if (self.backUpType.intValue == 1) {
+                [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"backUpPower"] : item[@"backUpElectricity"]]];
+            }else{
+                [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"nonBackUpPower"] : item[@"nonBackUpElectricity"]]];
+            }
         }else if (index == 5) {
             [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"backUpPower"] : item[@"backUpElectricity"]]];
         }
