@@ -34,6 +34,9 @@
         self.slider.value = self.progress;
         self.titleLabel.text = [NSString stringWithFormat:@"%.0f",self.progress];
     }
+    if (self.progressChangeBlock) {
+        self.progressChangeBlock(self.index, self.progress);
+    }
 }
 
 - (IBAction)subAction:(id)sender{
@@ -43,6 +46,9 @@
     }
     self.slider.value = self.progress;
     self.titleLabel.text = [NSString stringWithFormat:@"%.0f",self.progress];
+    if (self.progressChangeBlock) {
+        self.progressChangeBlock(self.index, self.progress);
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

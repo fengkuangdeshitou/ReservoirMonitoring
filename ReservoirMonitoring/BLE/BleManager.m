@@ -275,7 +275,7 @@ static BleManager * _manager = nil;
     [NSUserDefaults.standardUserDefaults setValue:string forKey:BLE_CMD];
     self.writeFinish = finish;
     [self loadRequestTimer];
-    [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithResponse];
+    [self.peripheral writeValue:dictData forCharacteristic:self.writecCharacteristic type:CBCharacteristicWriteWithoutResponse];
 }
 
 - (void)writeWithCMDString:(NSString *)string string:(NSString *)value finish:(nonnull void (^)(void))finish{
@@ -321,7 +321,7 @@ static BleManager * _manager = nil;
     CRCByte[3] = (Byte) (value & 0xFF);
     Byte readByte[] = {0x57,0x03,cmd,0x01,valueByte,CRCByte[3],CRCByte[2],0x45};
     NSData * data = [[NSData alloc] initWithBytes:readByte length:sizeof(readByte)];
-    [self.peripheral writeValue:data forCharacteristic:self.readCharacteristic type:CBCharacteristicWriteWithResponse];
+    [self.peripheral writeValue:data forCharacteristic:self.readCharacteristic type:CBCharacteristicWriteWithoutResponse];
 }
 
 //第一种高低位的crc16校验

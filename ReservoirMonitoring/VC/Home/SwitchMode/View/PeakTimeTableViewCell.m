@@ -78,6 +78,9 @@
 }
 
 - (void)clearBtnClick{
+    self.offPeakTimeChange = true;
+    self.peakTimeChange = true;
+    self.superPeakTimeChange = true;
     self.dataArray = [[NSMutableArray alloc] init];
     for (int i=0; i<3; i++) {
         NSArray * array = @[@{@"startTime":@"",@"endTime":@"",@"price":@""}];

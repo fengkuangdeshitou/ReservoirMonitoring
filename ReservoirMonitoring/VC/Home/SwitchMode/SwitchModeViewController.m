@@ -593,6 +593,10 @@
             SwitchProgressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchProgressTableViewCell class]) forIndexPath:indexPath];
             cell.progress = [self.progressArray[indexPath.section] floatValue];
             [cell.slider addTarget:self action:@selector(progressValueChange:) forControlEvents:UIControlEventValueChanged];
+            cell.index = indexPath.section;
+            cell.progressChangeBlock = ^(NSInteger index, CGFloat progress) {
+                [self.progressArray replaceObjectAtIndex:index withObject:[NSString stringWithFormat:@"%.0f",progress]];
+            };
             return cell;
         }
     }
