@@ -77,14 +77,18 @@ static Request * _request = nil;
       progress:(RequestProgressBlock)progress
        success:(RequestSuccessBlock)success
        failure:(RequestFailureBlock)failure{
-    [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
+    if (!self.hiddenHUD) {
+        [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
+    }
     [self.manager GET:[Host stringByAppendingString:url] parameters:params headers:self.headers progress:^(NSProgress * _Nonnull downloadProgress) {
             
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSString * code = json[@"status"];
         NSLog(@"url=%@,params=%@,result=%@",url,params,json);
-        [UIApplication.sharedApplication.keyWindow hiddenHUD];
+        if (!self.hiddenHUD) {
+            [UIApplication.sharedApplication.keyWindow hiddenHUD];
+        }
         if (code.intValue == 200) {
             success(json);
         }else if (code.intValue == 403) {
@@ -97,7 +101,9 @@ static Request * _request = nil;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"========%ld,%@",error.code,error.userInfo);
-        [UIApplication.sharedApplication.keyWindow hiddenHUD];
+        if (!self.hiddenHUD) {
+            [UIApplication.sharedApplication.keyWindow hiddenHUD];
+        }
         [self loadNetworkAlertData:error];
     }];
 }
@@ -107,14 +113,18 @@ static Request * _request = nil;
        progress:(RequestProgressBlock)progress
         success:(RequestSuccessBlock)success
         failure:(RequestFailureBlock)failure{
-    [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
+    if (!self.hiddenHUD) {
+        [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
+    }
     [self.manager POST:[Host stringByAppendingString:url] parameters:params headers:self.headers progress:^(NSProgress * _Nonnull downloadProgress) {
             
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSString * code = json[@"status"];
         NSLog(@"url=%@,params:%@,result=%@",url,params,json);
-        [UIApplication.sharedApplication.keyWindow hiddenHUD];
+        if (!self.hiddenHUD) {
+            [UIApplication.sharedApplication.keyWindow hiddenHUD];
+        }
         if (code.intValue == 200) {
             success(json);
         }else{
@@ -123,7 +133,9 @@ static Request * _request = nil;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"err=%@",error);
-        [UIApplication.sharedApplication.keyWindow hiddenHUD];
+        if (!self.hiddenHUD) {
+            [UIApplication.sharedApplication.keyWindow hiddenHUD];
+        }
         [self loadNetworkAlertData:error];
     }];
 }
@@ -132,12 +144,16 @@ static Request * _request = nil;
          params:(NSDictionary *)params
         success:(RequestSuccessBlock)success
        failure:(RequestFailureBlock)failure{
-    [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
+    if (!self.hiddenHUD) {
+        [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
+    }
     [self.manager PUT:[Host stringByAppendingString:url] parameters:params headers:self.headers success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSString * code = json[@"status"];
         NSLog(@"url=%@,result=%@",url,json);
-        [UIApplication.sharedApplication.keyWindow hiddenHUD];
+        if (!self.hiddenHUD) {
+            [UIApplication.sharedApplication.keyWindow hiddenHUD];
+        }
         if (code.intValue == 200) {
             success(json);
         }else{
@@ -146,7 +162,9 @@ static Request * _request = nil;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"err=%@",error);
-        [UIApplication.sharedApplication.keyWindow hiddenHUD];
+        if (!self.hiddenHUD) {
+            [UIApplication.sharedApplication.keyWindow hiddenHUD];
+        }
         [self loadNetworkAlertData:error];
     }];
 }

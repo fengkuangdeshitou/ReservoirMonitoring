@@ -154,6 +154,7 @@
 
 - (void)loadTime{
     dispatch_async(dispatch_get_main_queue(), ^{
+        
         [self.view showHUDToast:@"Loading"];
         self.number = 10;
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeChange) userInfo:nil repeats:true];
@@ -170,9 +171,9 @@
     [BleManager.shareInstance readWithDictionary:@{@"type":@"NetInfo"} finish:^(NSDictionary * _Nonnull dict) {
         if (dict[@"wifi"]) {
             NSString * wifi = dict[@"wifi"];
+            weakSelf.wifi = wifi;
+            weakSelf.deviceSSID = dict[@"SSID"];
             if ([wifi isEqualToString:@"connected"]) {
-                weakSelf.wifi = dict[@"wifi"];
-                weakSelf.deviceSSID = dict[@"SSID"];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [RMHelper showToast:@"Success" toView:self.view];
                     [weakSelf.tableView reloadData];
@@ -181,28 +182,27 @@
                     [weakSelf.view hiddenHUD];
                 });
             }else if ([wifi isEqualToString:@"connecting"]){
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf removeTimeAction];
-                    [RMHelper showToast:wifi toView:weakSelf.view];
-                    [weakSelf.view hiddenHUD];
-                });
+                
             }else if ([wifi isEqualToString:@"auth_failed"]){
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf removeTimeAction];
                     [RMHelper showToast:wifi toView:weakSelf.view];
                     [weakSelf.view hiddenHUD];
+                    [weakSelf.tableView reloadData];
                 });
             }else if ([wifi isEqualToString:@"ap_no_found"]){
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf removeTimeAction];
                     [RMHelper showToast:wifi toView:weakSelf.view];
                     [weakSelf.view hiddenHUD];
+                    [weakSelf.tableView reloadData];
                 });
             }else{
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf removeTimeAction];
                     [RMHelper showToast:wifi toView:weakSelf.view];
                     [weakSelf.view hiddenHUD];
+                    [weakSelf.tableView reloadData];
                 });
             }
         }
@@ -213,6 +213,11 @@
     [self.timer invalidate];
     self.timer = nil;
     [self.view hiddenHUD];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self removeTimeAction];
 }
 
 - (IBAction)addWiriAction{

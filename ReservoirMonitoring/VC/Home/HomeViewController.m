@@ -77,6 +77,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    Request.shareInstance.hiddenHUD = false;
     [self.refreshTimer setFireDate:[NSDate distantFuture]];
 }
 
@@ -85,13 +86,16 @@
     if (self.time <= 0) {
         self.time = 60;
         self.isShowAlert = true;
+        Request.shareInstance.hiddenHUD = true;
         [self getHomeDeviceData];
     }
 }
 
 - (void)onRefresh{
     self.isShowAlert = true;
+    Request.shareInstance.hiddenHUD = false;
     [self.refreshController endRefreshing];
+    [self.refreshTimer setFireDate:[NSDate date]];
     [self getHomeDeviceData];
 }
 
@@ -174,6 +178,7 @@
     } success:^(NSDictionary * _Nonnull result) {
         self.model.weather = result[@"data"];
         [self.tableView reloadData];
+        Request.shareInstance.hiddenHUD = false;
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];

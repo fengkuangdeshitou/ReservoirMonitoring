@@ -18,6 +18,8 @@ typedef void(^RequestFailureBlock)(NSString *errorMsg);
 
 + (instancetype)shareInstance;
 
+@property(nonatomic,assign) BOOL hiddenHUD;;
+
 - (void)getUrl:(NSString *)url
         params:(NSDictionary *)params
       progress:(RequestProgressBlock)progress
