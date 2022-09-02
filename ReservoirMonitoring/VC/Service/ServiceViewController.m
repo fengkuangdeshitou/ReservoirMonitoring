@@ -38,12 +38,16 @@
     } success:^(NSDictionary * _Nonnull result) {
         self.model = [UserModel mj_objectWithKeyValues:result[@"data"]];
         [self loadTimer];
+        NSString * reason = @"None".localized;
+        if ([NSUserDefaults.standardUserDefaults objectForKey:[self reasonCacheKey]]) {
+            reason = [NSUserDefaults.standardUserDefaults objectForKey:[self reasonCacheKey]];
+        }
         self.dataArray = [[NSMutableArray alloc] initWithArray:@[
             @{@"title":@"Contact name".localized,@"placeholder":self.model.nickName},
             @{@"title":@"Email".localized,@"placeholder":self.model.email},
             @{@"title":@"Phone".localized,@"placeholder":self.model.phonenumber?:@""},
             @{@"title":@"SN",@"placeholder":self.model.defDevSgSn?:@""},
-            @{@"title":@"Case Reason",@"placeholder":@"None".localized},
+            @{@"title":@"Case Reason",@"placeholder":reason},
             @{@"title":@"Description".localized,@"placeholder":@""}
             ]];
         [self.tableView reloadData];
@@ -57,6 +61,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    NSLog(@"====%@",[self getCurrentTimeString]);
     [self setLeftBarImageForSel:nil];
     self.time.text = @"Can't submit twice in 30 minutes.".localized;
     [self.submit showBorderWithRadius:25];
@@ -69,8 +74,6 @@
         @{@"title":@"Description".localized,@"placeholder":@""}
         ]];
     [self loadTimer];
-//    self.submit.hidden = true;
-//    self.time.hidden = true;
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
 
@@ -79,6 +82,17 @@
 - (void)loadTimer{
     if ([NSUserDefaults.standardUserDefaults objectForKey:self.model.email]) {
         NSString * string = [NSUserDefaults.standardUserDefaults objectForKey:self.model.email];
+        if ([[self getCurrentTimeString] integerValue] - [string integerValue] > 30*60) {
+            self.submit.userInteractionEnabled = true;
+            [NSUserDefaults.standardUserDefaults removeObjectForKey:self.model.email];
+            [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
+            [self.submit setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
+            self.submit.layer.borderColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR].CGColor;
+            [NSUserDefaults.standardUserDefaults removeObjectForKey:[self reasonCacheKey]];
+            [self.dataArray replaceObjectAtIndex:4 withObject:@{@"title":@"Case Reason",@"placeholder":@"None".localized}];
+            [self.tableView reloadData];
+            return;
+        }
         self.timeCount = 30*60-([[self getCurrentTimeString] integerValue] - [string integerValue]);
         NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"mm:ss"];
@@ -92,6 +106,9 @@
                     [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
                     [self.submit setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
                     self.submit.layer.borderColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR].CGColor;
+                    [NSUserDefaults.standardUserDefaults removeObjectForKey:[self reasonCacheKey]];
+                    [self.dataArray replaceObjectAtIndex:4 withObject:@{@"title":@"Case Reason",@"placeholder":@"None".localized}];
+                    [self.tableView reloadData];
                 }else{
                     self.submit.userInteractionEnabled = false;
                     [self.submit setTitle:[formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.timeCount]] forState:UIControlStateNormal];
@@ -102,6 +119,7 @@
         }
     }else{
         [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
+        [NSUserDefaults.standardUserDefaults removeObjectForKey:[self reasonCacheKey]];
         if (RMHelper.getUserType) {
             self.submit.userInteractionEnabled = false;
             [self.submit setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
@@ -136,7 +154,7 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSString * data = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSLog(@"obj=%@",data);
-        
+        [NSUserDefaults.standardUserDefaults setValue:self.dataArray[4][@"placeholder"] forKey:[self reasonCacheKey]];
         NSString * string = [self getCurrentTimeString];
         NSLog(@"strint=%@",string);
         [NSUserDefaults.standardUserDefaults setValue:string forKey:self.model.email];
@@ -145,6 +163,10 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 
     }];
+}
+
+- (NSString *)reasonCacheKey{
+    return [NSString stringWithFormat:@"%@_reasonCacheKey",self.model.email];
 }
 
 - (NSString *)formatDefDevSgSn{

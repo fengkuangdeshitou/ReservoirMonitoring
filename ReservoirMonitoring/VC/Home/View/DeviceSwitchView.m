@@ -235,7 +235,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.otherTableView) {
-        DevideModel * model =  self.dataArray[indexPath.section];
+        DevideModel * model = self.search.text.length > 0 ? self.searchArray[indexPath.section] : self.dataArray[indexPath.section];
         if ([model.rtuSn isEqualToString:self.currentDevice.rtuSn]) {
             return 0.01;
         }else{
@@ -307,7 +307,7 @@
 }
 
 - (void)queryClick{
-    self.searchArray = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name CONTAINS %@",self.search.text]];
+    self.searchArray = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name CONTAINS %@ || rtuSn CONTAINS %@",self.search.text,self.search.text]];
     [self.otherTableView reloadData];
 }
 
