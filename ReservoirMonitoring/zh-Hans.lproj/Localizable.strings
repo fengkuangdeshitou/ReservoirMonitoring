@@ -123,7 +123,7 @@
 "Can't submit twice in 30 minutes." = "Can't submit twice in 30 minutes.";
 "Backup type" = "Backup type";
 "Whole home" = "Whole home";
-"Partical home" = "Partical home";
+"Partial home" = "Partial home";
 "Grid nominal voltage" = "Grid nominal voltage";
 "Grid standard" = "Grid standard";
 "PV1 voltage" = "PV1 voltage";
@@ -302,7 +302,7 @@
 //"Can't submit twice in 30 minutes." = "完成提交后，30分钟内不可再次进行提交哦。";
 //"Backup type" = "负载模式";
 //"Whole home" = "全屋带载";
-//"Partical home" = "半屋带载";
+//"Partial home" = "半屋带载";
 //"Grid nominal voltage" = "电网电压额定值";
 //"Grid standard" = "电网标准选择";
 //"PV1 voltage" = "直流侧PV1开路电压";

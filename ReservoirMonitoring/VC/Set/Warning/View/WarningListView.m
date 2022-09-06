@@ -215,7 +215,7 @@
         }
     }
     cell.time.text = self.tag == 10 ? @"Warning time：".localized : @"Fault Time：".localized;
-    cell.line.hidden = indexPath.row == 4;
+    cell.line.hidden = indexPath.row == self.dataArray.count-1;
     cell.icon.image = [UIImage imageNamed:self.tag == 10 ? @"icon_warn_red" : @"icon_warn_yellow"];
     return cell;
 }

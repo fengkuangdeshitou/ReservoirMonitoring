@@ -122,7 +122,7 @@
 "Can't submit twice in 30 minutes." = "Can't submit twice in 30 minutes.";
 "Backup type" = "Backup type";
 "Whole home" = "Whole home";
-"Partical home" = "Partical home";
+"Partial home" = "Partial home";
 "Grid nominal voltage" = "Grid nominal voltage";
 "Grid standard" = "Grid standard";
 "PV1 voltage" = "PV1 voltage";

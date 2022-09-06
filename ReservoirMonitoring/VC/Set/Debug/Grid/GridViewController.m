@@ -25,7 +25,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.dataArray = [[NSMutableArray alloc] initWithArray:@[
-        @{@"title":@"Backup type".localized,@"placeholder":@"Partical home".localized,@"value":@""},
+        @{@"title":@"Backup type".localized,@"placeholder":@"Partial home".localized,@"value":@""},
         @{@"title":@"Grid nominal voltage".localized,@"placeholder":@"Enter (number)".localized},
         @{@"title":@"Grid standard".localized,@"placeholder":@"internal standard".localized,@"value":@""},
         @{@"title":@"Grid frequency".localized,@"placeholder":@"50 Hz",@"value":@""},
@@ -46,7 +46,7 @@
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         [BleManager.shareInstance readWithCMDString:@"625" count:1 finish:^(NSArray * array){
             int value = [array.firstObject intValue];
-            [weakSelf exchangeDictFor:0 value:@[@"Whole home".localized,@"Partical home".localized][1-value]];
+            [weakSelf exchangeDictFor:0 value:@[@"Whole home".localized,@"Partial home".localized][1-value]];
             NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[0]];
             dict[@"value"] = [NSString stringWithFormat:@"%d",1-value];
             self.dataArray[0] = dict;
@@ -191,7 +191,7 @@
     if (indexPath.row == 0) {
         UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section]];
         CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
-        [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"Whole home".localized,@"Partical home".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-130, frame.origin.y, 130, 50*2) completion:^(NSString * _Nonnull value, NSInteger idx) {
+        [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"Whole home".localized,@"Partial home".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH-130, frame.origin.y, 130, 50*2) completion:^(NSString * _Nonnull value, NSInteger idx) {
             NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[indexPath.row]];
             dict[@"placeholder"] = value;
             dict[@"value"] = [NSString stringWithFormat:@"%ld",1-idx];
