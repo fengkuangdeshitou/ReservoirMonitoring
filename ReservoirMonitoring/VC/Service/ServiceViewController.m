@@ -13,7 +13,7 @@
 #import "UserModel.h"
 @import AFNetworking;
 
-@interface ServiceViewController ()<UITableViewDelegate>
+@interface ServiceViewController ()<UITableViewDelegate,UITextFieldDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,strong)NSMutableArray * dataArray;
@@ -32,15 +32,24 @@
     [self requestUserInfo];
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.timer invalidate];
+    self.timer = nil;
+}
+
 - (void)requestUserInfo{
     [Request.shareInstance getUrl:UserInfo params:@{} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         self.model = [UserModel mj_objectWithKeyValues:result[@"data"]];
-        [self loadTimer];
         NSString * reason = @"None".localized;
         if ([NSUserDefaults.standardUserDefaults objectForKey:[self reasonCacheKey]]) {
             reason = [NSUserDefaults.standardUserDefaults objectForKey:[self reasonCacheKey]];
+        }
+        NSString * desc = @"";
+        if ([NSUserDefaults.standardUserDefaults objectForKey:[self descCacheKey]]) {
+            desc = [NSUserDefaults.standardUserDefaults objectForKey:[self descCacheKey]];
         }
         self.dataArray = [[NSMutableArray alloc] initWithArray:@[
             @{@"title":@"Contact name".localized,@"placeholder":self.model.nickName},
@@ -48,11 +57,12 @@
             @{@"title":@"Phone".localized,@"placeholder":self.model.phonenumber?:@""},
             @{@"title":@"SN",@"placeholder":self.model.defDevSgSn?:@""},
             @{@"title":@"Case Reason",@"placeholder":reason},
-            @{@"title":@"Description".localized,@"placeholder":@""}
+            @{@"title":@"Description".localized,@"placeholder":desc}
             ]];
         [self.tableView reloadData];
         self.submit.hidden = false;
         self.time.hidden = false;
+        [self loadTimer];
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];
@@ -61,7 +71,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    NSLog(@"====%@",[self getCurrentTimeString]);
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(requestUserInfo) name:UIApplicationWillEnterForegroundNotification object:nil];
     [self setLeftBarImageForSel:nil];
     self.time.text = @"Can't submit twice in 30 minutes.".localized;
     [self.submit showBorderWithRadius:25];
@@ -90,6 +100,8 @@
             self.submit.layer.borderColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR].CGColor;
             [NSUserDefaults.standardUserDefaults removeObjectForKey:[self reasonCacheKey]];
             [self.dataArray replaceObjectAtIndex:4 withObject:@{@"title":@"Case Reason",@"placeholder":@"None".localized}];
+            [NSUserDefaults.standardUserDefaults removeObjectForKey:[self descCacheKey]];
+            [self.dataArray replaceObjectAtIndex:5 withObject:@{@"title":@"Description",@"placeholder":@""}];
             [self.tableView reloadData];
             return;
         }
@@ -108,6 +120,8 @@
                     self.submit.layer.borderColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR].CGColor;
                     [NSUserDefaults.standardUserDefaults removeObjectForKey:[self reasonCacheKey]];
                     [self.dataArray replaceObjectAtIndex:4 withObject:@{@"title":@"Case Reason",@"placeholder":@"None".localized}];
+                    [NSUserDefaults.standardUserDefaults removeObjectForKey:[self descCacheKey]];
+                    [self.dataArray replaceObjectAtIndex:5 withObject:@{@"title":@"Description",@"placeholder":@""}];
                     [self.tableView reloadData];
                 }else{
                     self.submit.userInteractionEnabled = false;
@@ -155,6 +169,7 @@
         NSString * data = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSLog(@"obj=%@",data);
         [NSUserDefaults.standardUserDefaults setValue:self.dataArray[4][@"placeholder"] forKey:[self reasonCacheKey]];
+        [NSUserDefaults.standardUserDefaults setValue:params[@"description"] forKey:[self descCacheKey]];
         NSString * string = [self getCurrentTimeString];
         NSLog(@"strint=%@",string);
         [NSUserDefaults.standardUserDefaults setValue:string forKey:self.model.email];
@@ -167,6 +182,10 @@
 
 - (NSString *)reasonCacheKey{
     return [NSString stringWithFormat:@"%@_reasonCacheKey",self.model.email];
+}
+
+- (NSString *)descCacheKey{
+    return [NSString stringWithFormat:@"%@_descCacheKey",self.model.email];
 }
 
 - (NSString *)formatDefDevSgSn{
@@ -199,14 +218,37 @@
         if (indexPath.row <= 3) {
             cell.textfield.userInteractionEnabled = false;
         }else{
-            cell.textfield.userInteractionEnabled = true;
+            if (indexPath.row == 5) {
+                if ([NSUserDefaults.standardUserDefaults objectForKey:[self reasonCacheKey]] || RMHelper.getUserType) {
+                    cell.textfield.userInteractionEnabled = false;
+                }else{
+                    cell.textfield.userInteractionEnabled = true;
+                    cell.textfield.delegate = self;
+                }
+            }else{
+                cell.textfield.userInteractionEnabled = true;
+            }
         }
         return cell;
     }
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    // only when adding on the end of textfield && it's a space
+    if (range.location == textField.text.length && [string isEqualToString:@" "]) {
+        // ignore replacement string and add your own
+        textField.text = [textField.text stringByAppendingString:@"\u00a0"];
+        return NO;
+    }
+    // for all other cases, proceed with replacement
+    return YES;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == self.dataArray.count-2) {
+        if ([NSUserDefaults.standardUserDefaults objectForKey:[self reasonCacheKey]] || RMHelper.getUserType) {
+            return;
+        }
         UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section]];
         CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
         [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"None".localized,@"Product Installation".localized,@"Product Inquiry".localized,@"Product Issue / Repair".localized,@"Customer Complaint".localized] tableviewFrame:CGRectMake(SCREEN_WIDTH/2, frame.origin.y, SCREEN_WIDTH/2, 50*5) completion:^(NSString * _Nonnull value, NSInteger idx) {

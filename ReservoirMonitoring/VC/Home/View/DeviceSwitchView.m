@@ -292,6 +292,7 @@
             search.placeholder = @"Search by device name or SN".localized;
             search.placeholderColor = [UIColor colorWithHexString:@"#999999"];
             search.font = [UIFont systemFontOfSize:13];
+            search.keyboardType = UIKeyboardTypeDefault;
             [search mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(15);
                 make.top.bottom.mas_equalTo(0);
