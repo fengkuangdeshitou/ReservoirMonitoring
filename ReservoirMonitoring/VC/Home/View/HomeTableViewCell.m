@@ -114,11 +114,11 @@
     }else{
         self.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",model.selfHelpRate] stringByAppendingString:@"%"];
     }
-    if ([RMHelper getBleDataValue:model.gridPower] > 0) {
+    if ([RMHelper getBleDataValue:model.gridPower min:-50 max:50] > 0) {
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:100];
         animation.direction = AnimationStartDirectionLeftTop;
         animation.showAnimation = true;
-    }else if ([RMHelper getBleDataValue:model.gridPower] < 0){
+    }else if ([RMHelper getBleDataValue:model.gridPower min:-50 max:50] < 0){
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:100];
         animation.direction = AnimationStartDirectionRightBottom;
         animation.showAnimation = true;
@@ -127,11 +127,11 @@
         animation.showAnimation = false;
     }
     
-    if ([RMHelper getBleDataValue:model.solarPower] > 0) {
+    if ([RMHelper getBleDataValue:model.solarPower min:-5 max:5] > 0) {
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:101];
         animation.direction = AnimationStartDirectionTop;
         animation.showAnimation = true;
-    }else if ([RMHelper getBleDataValue:model.solarPower] < 0){
+    }else if ([RMHelper getBleDataValue:model.solarPower min:-5 max:5] < 0){
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:101];
         animation.direction = AnimationStartDirectionBottom;
         animation.showAnimation = true;
@@ -140,11 +140,11 @@
         animation.showAnimation = false;
     }
     
-    if ([RMHelper getBleDataValue:model.generatorPower] > 0) {
+    if ([RMHelper getBleDataValue:model.generatorPower min:-50 max:50] > 0) {
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:102];
         animation.direction = AnimationStartDirectionRightTop;
         animation.showAnimation = true;
-    }else if ([RMHelper getBleDataValue:model.generatorPower] < 0){
+    }else if ([RMHelper getBleDataValue:model.generatorPower min:-50 max:50] < 0){
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:102];
         animation.direction = AnimationStartDirectionLeftBottom;
         animation.showAnimation = true;
@@ -153,11 +153,11 @@
         animation.showAnimation = false;
     }
     
-    if ([RMHelper getBleDataValue:model.evPower] > 0) {
+    if ([RMHelper getBleDataValue:model.evPower min:-50 max:50] > 0) {
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:103];
         animation.direction = AnimationStartDirectionRightTop;
         animation.showAnimation = true;
-    }else if ([RMHelper getBleDataValue:model.evPower] < 0){
+    }else if ([RMHelper getBleDataValue:model.evPower min:-50 max:50] < 0){
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:103];
         animation.direction = AnimationStartDirectionLeftBottom;
         animation.showAnimation = true;
@@ -166,11 +166,11 @@
         animation.showAnimation = false;
     }
     
-    if ([RMHelper getBleDataValue:model.nonBackUpPower] > 0) {
+    if ([RMHelper getBleDataValue:model.nonBackUpPower min:-50 max:50] > 0) {
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:104];
         animation.direction = AnimationStartDirectionTop;
         animation.showAnimation = true;
-    }else if ([RMHelper getBleDataValue:model.nonBackUpPower] < 0){
+    }else if ([RMHelper getBleDataValue:model.nonBackUpPower min:-50 max:50] < 0){
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:104];
         animation.direction = AnimationStartDirectionBottom;
         animation.showAnimation = true;
@@ -179,11 +179,11 @@
         animation.showAnimation = false;
     }
     
-    if ([RMHelper getBleDataValue:model.backUpPower] > 0) {
+    if ([RMHelper getBleDataValue:model.backUpPower min:-50 max:50] > 0) {
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:105];
         animation.direction = AnimationStartDirectionLeftTop;
         animation.showAnimation = true;
-    }else if ([RMHelper getBleDataValue:model.backUpPower] < 0){
+    }else if ([RMHelper getBleDataValue:model.backUpPower min:-50 max:50] < 0){
         LineAnimatiionView * animation = [self.itemContentView viewWithTag:105];
         animation.direction = AnimationStartDirectionRightBottom;
         animation.showAnimation = true;

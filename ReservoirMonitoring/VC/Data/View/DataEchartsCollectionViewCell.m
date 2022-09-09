@@ -93,7 +93,7 @@
         leftAxis.labelPosition = YAxisLabelPositionOutsideChart;
         leftAxis.labelTextColor = [UIColor whiteColor];
         leftAxis.labelFont = [UIFont systemFontOfSize:10.0f];
-        leftAxis.forceLabelsEnabled = YES; // 不强制绘制指定数量的 label
+//        leftAxis.forceLabelsEnabled = YES; // 不强制绘制指定数量的 label
         leftAxis.gridAntialiasEnabled = YES;// 网格线开启抗锯齿
         _lineEchartsView.chartDescription.enabled = NO;// 设置折线图描述
         _lineEchartsView.legend.enabled = NO; // 设置折线图图例
@@ -298,8 +298,8 @@
             [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"backUpPower"] : item[@"backUpElectricity"]]];
         }
     }
-//    self.xArray = @[@"1",@"2",@"3",@"4"];
-//    self.yArray = @[@"33",@"29",@"58",@"30",];
+//    xArray = @[@"1",@"2",@"3",@"4",@"5",@"6"];
+//    yArray = @[@"-19.6",@"-15.6",@"-11.6",@"0",@"0",@"-1.6"];
     if (scopeType == 0) {
         self.lineEchartsView.hidden = true;
         self.barEchartsView.hidden = false;
@@ -329,8 +329,13 @@
                 [set setValueFormatter:formatter];
                 [dataSets addObject:set];
             }
-            dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin*2;
-            dataSetMax = dataSetMax <= 0 ? 0 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
+            if (dataSetMin == dataSetMax) {
+                dataSetMin = 0;
+                dataSetMax = 1.4;
+            }else{
+                dataSetMin = dataSetMin >= 0 ? 0 : ((int)floorf(dataSetMin) % 7 == 0 ? floorf(dataSetMin) : dataSetMin+(int)floorf(dataSetMin) % 7);
+                dataSetMax = dataSetMax <= 0 ? 0 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
+            }
             self.barEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.barEchartsView.leftAxis.axisMinimum = dataSetMin;
             BarChartData * data = [[BarChartData alloc] initWithDataSets:dataSets];
@@ -363,8 +368,13 @@
             [set setValueFormatter:formatter];
             set.highlightColor = UIColor.clearColor;
             self.barEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
-            dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin*2;
-            dataSetMax = dataSetMax <= 0 ? 0 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
+            if (dataSetMin == dataSetMax) {
+                dataSetMin = 0;
+                dataSetMax = 1.4;
+            }else{
+                dataSetMin = dataSetMin >= 0 ? 0 : ((int)floorf(dataSetMin) % 7 == 0 ? floorf(dataSetMin) : dataSetMin+(int)floorf(dataSetMin) % 7);;
+                dataSetMax = dataSetMax <= 0 ? 0 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
+            }
             self.barEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.barEchartsView.leftAxis.axisMinimum = dataSetMin;
             BarChartData *data = [[BarChartData alloc] initWithDataSet:set];
@@ -408,8 +418,13 @@
             NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
             ChartDefaultValueFormatter *formatter = [[ChartDefaultValueFormatter alloc] initWithFormatter:numberFormatter];
             [set setValueFormatter:formatter];
-            dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin*2;
-            dataSetMax = dataSetMax <= 0 ? 0 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
+            if (dataSetMin == dataSetMax) {
+                dataSetMin = 0;
+                dataSetMax = 1.4;
+            }else{
+                dataSetMin = dataSetMin >= 0 ? 0 : ((int)floorf(dataSetMin) % 7 == 0 ? floorf(dataSetMin) : dataSetMin+(int)floorf(dataSetMin) % 7);
+                dataSetMax = dataSetMax <= 0 ? 0 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
+            }
             self.lineEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.lineEchartsView.leftAxis.axisMinimum = dataSetMin;
             LineChartData *data = [[LineChartData alloc] initWithDataSets:@[set]];
@@ -451,8 +466,13 @@
                 ChartDefaultValueFormatter *formatter = [[ChartDefaultValueFormatter alloc] initWithFormatter:numberFormatter];
                 [set setValueFormatter:formatter];
             }
-            dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin*2;
-            dataSetMax = dataSetMax <= 0 ? 0 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
+            if (dataSetMin == dataSetMax) {
+                dataSetMin = 0;
+                dataSetMax = 1.4;
+            }else{
+                dataSetMin = dataSetMin >= 0 ? 0 : ((int)floorf(dataSetMin) % 7 == 0 ? floorf(dataSetMin) : dataSetMin+(int)floorf(dataSetMin) % 7);;
+                dataSetMax = dataSetMax <= 0 ? 0 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
+            }
             self.lineEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.lineEchartsView.leftAxis.axisMinimum = dataSetMin;
             LineChartData *data = [[LineChartData alloc] initWithDataSets:sets];

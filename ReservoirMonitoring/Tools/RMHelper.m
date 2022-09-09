@@ -51,8 +51,8 @@ static NSString * K_USERTYPE = @"USERTYPE";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-+ (int)getBleDataValue:(CGFloat)integer{
-    if (integer >= -10 && integer <= 10) {
++ (int)getBleDataValue:(CGFloat)integer min:(NSInteger)min max:(NSInteger)max{
+    if (integer >= min && integer <= max) {
         return 0;
     }else{
         return integer > 32768 ? (integer - 65536) : integer;
