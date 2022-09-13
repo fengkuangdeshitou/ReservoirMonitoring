@@ -93,6 +93,7 @@
         leftAxis.labelPosition = YAxisLabelPositionOutsideChart;
         leftAxis.labelTextColor = [UIColor whiteColor];
         leftAxis.labelFont = [UIFont systemFontOfSize:10.0f];
+        [leftAxis setLabelCount:6 force:true];
 //        leftAxis.forceLabelsEnabled = YES; // 不强制绘制指定数量的 label
         leftAxis.gridAntialiasEnabled = YES;// 网格线开启抗锯齿
         _lineEchartsView.chartDescription.enabled = NO;// 设置折线图描述
@@ -299,7 +300,7 @@
         }
     }
 //    xArray = @[@"1",@"2",@"3",@"4",@"5",@"6"];
-//    yArray = @[@"-19.6",@"-15.6",@"-11.6",@"0",@"0",@"-1.6"];
+//    yArray = @[@"20.6",@"-1.6",@"11.6",@"5",@"0",@"-1.6"];
     if (scopeType == 0) {
         self.lineEchartsView.hidden = true;
         self.barEchartsView.hidden = false;
@@ -333,8 +334,8 @@
                 dataSetMin = 0;
                 dataSetMax = 1.4;
             }else{
-                dataSetMin = dataSetMin >= 0 ? 0 : ((int)floorf(dataSetMin) % 7 == 0 ? floorf(dataSetMin) : dataSetMin+(int)floorf(dataSetMin) % 7);
                 dataSetMax = dataSetMax <= 0 ? 0 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
+                dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin - (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
             }
             self.barEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.barEchartsView.leftAxis.axisMinimum = dataSetMin;
@@ -372,9 +373,10 @@
                 dataSetMin = 0;
                 dataSetMax = 1.4;
             }else{
-                dataSetMin = dataSetMin >= 0 ? 0 : ((int)floorf(dataSetMin) % 7 == 0 ? floorf(dataSetMin) : dataSetMin+(int)floorf(dataSetMin) % 7);;
                 dataSetMax = dataSetMax <= 0 ? 0 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
+                dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin - (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
             }
+            NSLog(@"dataSetMax=%f,%f",dataSetMax,dataSetMin);
             self.barEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.barEchartsView.leftAxis.axisMinimum = dataSetMin;
             BarChartData *data = [[BarChartData alloc] initWithDataSet:set];
@@ -422,8 +424,8 @@
                 dataSetMin = 0;
                 dataSetMax = 1.4;
             }else{
-                dataSetMin = dataSetMin >= 0 ? 0 : ((int)floorf(dataSetMin) % 7 == 0 ? floorf(dataSetMin) : dataSetMin+(int)floorf(dataSetMin) % 7);
                 dataSetMax = dataSetMax <= 0 ? 0 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
+                dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin - (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
             }
             self.lineEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.lineEchartsView.leftAxis.axisMinimum = dataSetMin;
@@ -470,8 +472,8 @@
                 dataSetMin = 0;
                 dataSetMax = 1.4;
             }else{
-                dataSetMin = dataSetMin >= 0 ? 0 : ((int)floorf(dataSetMin) % 7 == 0 ? floorf(dataSetMin) : dataSetMin+(int)floorf(dataSetMin) % 7);;
                 dataSetMax = dataSetMax <= 0 ? 0 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
+                dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin - (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
             }
             self.lineEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.lineEchartsView.leftAxis.axisMinimum = dataSetMin;
