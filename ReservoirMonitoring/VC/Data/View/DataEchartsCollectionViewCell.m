@@ -93,7 +93,8 @@
         leftAxis.labelPosition = YAxisLabelPositionOutsideChart;
         leftAxis.labelTextColor = [UIColor whiteColor];
         leftAxis.labelFont = [UIFont systemFontOfSize:10.0f];
-        [leftAxis setLabelCount:6 force:true];
+        leftAxis.labelCount = 6;
+//        [leftAxis setLabelCount:6 force:true];
 //        leftAxis.forceLabelsEnabled = YES; // 不强制绘制指定数量的 label
         leftAxis.gridAntialiasEnabled = YES;// 网格线开启抗锯齿
         _lineEchartsView.chartDescription.enabled = NO;// 设置折线图描述

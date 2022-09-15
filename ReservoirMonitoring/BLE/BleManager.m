@@ -60,7 +60,9 @@ static BleManager * _manager = nil;
                     [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
                 }
             });
-            self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scanningTimeChange) userInfo:nil repeats:false];
+            if (!self.connectTimer) {
+                self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scanningTimeChange) userInfo:nil repeats:false];
+            }
         }else{
             if (self.isScan == false) {
                 self.isScan = true;
@@ -455,6 +457,7 @@ static unsigned char auchCRCLo[] = {
             self.isScan = true;
             NSArray * array = [self.centralManager retrieveConnectedPeripheralsWithServices:@[[CBUUID UUIDWithString:UUID_CONTROL_SERVICE]]];
             NSLog(@"array=%@",array);
+            [self startScanning];
             if (array.count > 0) {
 //                [self disconnectPeripheral];
 //                [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
