@@ -45,11 +45,13 @@
     }
     __weak typeof(self) weakSelf = self;
     [BleManager.shareInstance readWithCMDString:@"512" count:1 finish:^(NSArray * _Nonnull array) {
-        NSInteger idx = [array.firstObject integerValue];
-        NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:weakSelf.dataArray[0]];
-        dict[@"placeholder"] = @[@"Local".localized,@"Remote".localized][idx];
-        dict[@"value"] = [NSString stringWithFormat:@"%ld",idx];
-        weakSelf.dataArray[0] = dict;
+        if (array.count > 0) {
+            NSInteger idx = [array.firstObject integerValue];
+            NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:weakSelf.dataArray[0]];
+            dict[@"placeholder"] = @[@"Local".localized,@"Remote".localized][idx];
+            dict[@"value"] = [NSString stringWithFormat:@"%ld",idx];
+            weakSelf.dataArray[0] = dict;
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.tableView reloadData];
             [weakSelf.view hiddenHUD];

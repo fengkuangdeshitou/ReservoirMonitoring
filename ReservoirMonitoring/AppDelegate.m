@@ -34,44 +34,7 @@
     }else{
         [self loadLoginController];
     }
-    NSArray * array = @[@"0",@"0",@"0",@"0"];
-    NSDictionary * item = @{
-        @"startTime":[NSString stringWithFormat:@"%02d:%02d",[array[0] intValue],[array[1] intValue]],
-        @"endTime":[NSString stringWithFormat:@"%02d:%02d",[array[2] intValue],[array[3] intValue]],
-    };
-    NSArray * touArray = @[item,item,item];
-    NSDictionary * data = @{@"offPeakTimeList":@[]};
-    if (data[@"offPeakTimeList"]) {
-        NSArray * offPeakTimeList = data[@"offPeakTimeList"];
-        NSMutableArray * priceArray = [[NSMutableArray alloc] init];
-        for (int i=0; i<offPeakTimeList.count; i++) {
-            NSString * string = offPeakTimeList[i];
-            if ([string containsString:@"_"]) {
-                NSArray * timeArray = [string componentsSeparatedByString:@"_"];
-                [priceArray addObject:timeArray.count>2?timeArray[2]:@""];
-            }else{
-                [priceArray addObject:@""];
-            }
-        }
-        if (priceArray.count < touArray.count) {
-            NSInteger number = touArray.count-priceArray.count;
-            for (NSInteger i=0; i<number; i++) {
-                [priceArray addObject:@""];
-            }
-        }
-        NSMutableArray * array = [[NSMutableArray alloc] init];
-        for (int i=0; i<touArray.count; i++) {
-            NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:touArray[i]];
-            [item setValue:priceArray[i] forKey:@"price"];
-            [array addObject:item];
-        }
-        touArray = [[NSMutableArray alloc] initWithArray:array];
-    }
-    NSLog(@"tou=%@",touArray);
     
-//    NSString * string = @"6403080000000000000000B2E7";
-//    BOOL result = [RMHelper hasRepeatedTimeForArray:@[@"00:01_00:02",@"00:02_00:03",@"00:01_00:03"]];
-//    NSLog(@"时间交集=%@",result?@"有交集":@"无交集");
     return YES;
 }
 

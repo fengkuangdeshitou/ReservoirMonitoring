@@ -70,17 +70,17 @@
         }];
     }
     
-    id info = nil;
-    NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
-    for (NSString *ifnam in ifs) {
-        info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
-        NSString *str = info[@"SSID"];//name
-        NSLog(@"info=%@",info);
-        NSLog(@"str=%@",str);
-        NSData * SSIDDATA = info[@"SSIDDATA"];
-        id value = [[NSString alloc] initWithData:SSIDDATA encoding:NSUTF8StringEncoding];
-        NSLog(@"value=%@",value);
-    }
+//    id info = nil;
+//    NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
+//    for (NSString *ifnam in ifs) {
+//        info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
+//        NSString *str = info[@"SSID"];//name
+//        NSLog(@"info=%@",info);
+//        NSLog(@"str=%@",str);
+//        NSData * SSIDDATA = info[@"SSIDDATA"];
+//        id value = [[NSString alloc] initWithData:SSIDDATA encoding:NSUTF8StringEncoding];
+//        NSLog(@"value=%@",value);
+//    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status{
