@@ -10,6 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InverterViewController">
             <connections>
+                <outlet property="next" destination="oES-Zv-Oxi" id="DRB-s6-8g7"/>
+                <outlet property="previous" destination="atx-4U-4Qa" id="c2N-3X-vkl"/>
                 <outlet property="submit" destination="Hd8-kq-ZFH" id="O8f-rq-P7o"/>
                 <outlet property="tableView" destination="fJA-Tg-hPt" id="7Ru-kp-NCH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -25,7 +27,7 @@
                     <color key="backgroundColor" red="0.047058823529411764" green="0.047058823529411764" blue="0.047058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <view key="tableFooterView" contentMode="scaleToFill" id="xG0-q2-LzA">
-                        <rect key="frame" x="0.0" y="768" width="414" height="100"/>
+                        <rect key="frame" x="0.0" y="768" width="414" height="200"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hd8-kq-ZFH">
@@ -41,12 +43,45 @@
                                     <action selector="submitAction:" destination="-1" eventType="touchUpInside" id="nw0-rE-O2K"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="atx-4U-4Qa">
+                                <rect key="frame" x="35" y="125" width="164.5" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Q5q-Ix-Vzy"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.54901960780000003" green="0.87450980389999999" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="previousAction:" destination="-1" eventType="touchUpInside" id="xLI-Ik-HVn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oES-Zv-Oxi">
+                                <rect key="frame" x="214.5" y="125" width="164.5" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="wMN-E1-BXa"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.54901960780000003" green="0.87450980389999999" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextAction:" destination="-1" eventType="touchUpInside" id="RdX-4F-v6i"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Hd8-kq-ZFH" firstAttribute="leading" secondItem="xG0-q2-LzA" secondAttribute="leading" constant="35" id="502-oB-ml7"/>
+                            <constraint firstItem="oES-Zv-Oxi" firstAttribute="width" secondItem="atx-4U-4Qa" secondAttribute="width" id="OOq-hR-NbN"/>
+                            <constraint firstItem="atx-4U-4Qa" firstAttribute="top" secondItem="Hd8-kq-ZFH" secondAttribute="bottom" constant="25" id="aju-vd-8XU"/>
+                            <constraint firstItem="oES-Zv-Oxi" firstAttribute="trailing" secondItem="Hd8-kq-ZFH" secondAttribute="trailing" id="az1-jw-7cA"/>
+                            <constraint firstItem="oES-Zv-Oxi" firstAttribute="bottom" secondItem="atx-4U-4Qa" secondAttribute="bottom" id="dkx-Ip-P8M"/>
+                            <constraint firstItem="oES-Zv-Oxi" firstAttribute="top" secondItem="atx-4U-4Qa" secondAttribute="top" id="hXN-6v-l0n"/>
+                            <constraint firstItem="atx-4U-4Qa" firstAttribute="leading" secondItem="Hd8-kq-ZFH" secondAttribute="leading" id="jkp-j4-BOR"/>
                             <constraint firstItem="Hd8-kq-ZFH" firstAttribute="top" secondItem="xG0-q2-LzA" secondAttribute="top" constant="50" id="t0x-Wz-E3E"/>
                             <constraint firstAttribute="trailing" secondItem="Hd8-kq-ZFH" secondAttribute="trailing" constant="35" id="y2L-5F-EdK"/>
+                            <constraint firstItem="oES-Zv-Oxi" firstAttribute="leading" secondItem="atx-4U-4Qa" secondAttribute="trailing" constant="15" id="yVK-eG-3qv"/>
                         </constraints>
                     </view>
                     <connections>
@@ -62,7 +97,7 @@
                 <constraint firstAttribute="trailing" secondItem="fJA-Tg-hPt" secondAttribute="trailing" id="XV0-Gp-D3y"/>
                 <constraint firstItem="fJA-Tg-hPt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="roU-od-7aS"/>
             </constraints>
-            <point key="canvasLocation" x="132" y="90"/>
+            <point key="canvasLocation" x="131.8840579710145" y="89.732142857142847"/>
         </view>
     </objects>
     <resources>

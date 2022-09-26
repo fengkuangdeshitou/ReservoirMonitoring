@@ -27,8 +27,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.dataArray = @[@"Installation".localized,@"Grid config".localized,@"SG config".localized,@"PV config".localized,@"Card config".localized,@"Other config".localized];
+    self.dataArray = @[@"Installation".localized,@"Grid config".localized,@"SG config".localized,@"Hybrd Config".localized,@"Card config".localized,@"Other config".localized];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DebugCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([DebugCollectionViewCell class])];
+    [[NSNotificationCenter defaultCenter] addObserverForName:UPDATE_RESS_NOTIFICATION object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        [self.navigationController popToViewController:self animated:true];
+    }];
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{

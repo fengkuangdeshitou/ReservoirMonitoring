@@ -15,6 +15,8 @@
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * submit;
+@property(nonatomic,weak)IBOutlet UIButton * previous;
+@property(nonatomic,weak)IBOutlet UIButton * next;
 @property(nonatomic,strong)NSMutableArray * dataArray;
 @property(nonatomic,assign)int resNum;
 
@@ -25,10 +27,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.resNum = 1;
+    UIBarButtonItem * left = self.navigationItem.leftBarButtonItem;
+    UIBarButtonItem * back = [[UIBarButtonItem alloc] initWithImage:left.image style:UIBarButtonItemStylePlain target:self action:@selector(backView)];
+    self.navigationItem.leftBarButtonItem = back;
     [self loadRessNumber];
     [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
+    [self.previous setTitle:@"Previous".localized forState:UIControlStateNormal];
+    [self.next setTitle:@"Next".localized forState:UIControlStateNormal];
     [self.submit showBorderWithRadius:25];
+    [self.previous showBorderWithRadius:25];
+    [self.next showBorderWithRadius:25];
+
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
     if (!BleManager.shareInstance.isConnented) {
@@ -43,93 +52,84 @@
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
         [BleManager.shareInstance readWithCMDString:@"620" count:1 finish:^(NSArray * _Nonnull array) {
             weakSelf.resNum = [array.firstObject intValue] == 0 ? 1 : [array.firstObject intValue];
-            [weakSelf loadRessNumber];
             dispatch_semaphore_signal(sem);
         }];
+        
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance readWithCMDString:@"629" count:4 finish:^(NSArray * _Nonnull array) {
-            NSMutableArray * fristArray = [[NSMutableArray alloc] initWithArray:weakSelf.dataArray.firstObject];
-            if (array) {
-                [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:fristArray[idx]];
-                    if (idx == 0) {
-                        item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];
-                        [fristArray replaceObjectAtIndex:0 withObject:item];
-                    }else if (idx == 1) {
-                        item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];;
-                        [fristArray replaceObjectAtIndex:1 withObject:item];
-                    }else if (idx == 2) {
-                        item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];;
-                        [fristArray replaceObjectAtIndex:2 withObject:item];
-                    }else if (idx == 3) {
-                        item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];;
-                        [fristArray replaceObjectAtIndex:3 withObject:item];
-                    }
-                    [weakSelf.dataArray replaceObjectAtIndex:0 withObject:fristArray];
-                }];
-            }
+        [BleManager.shareInstance readWithCMDString:[self getCurrentCMDString] count:4 finish:^(NSArray * _Nonnull array) {
+            [self formatArray:array];
             dispatch_semaphore_signal(sem);
         }];
-
-        if (weakSelf.resNum>1) {
-            dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-            [BleManager.shareInstance readWithCMDString:@"63A" count:4*(weakSelf.resNum-1) finish:^(NSArray * _Nonnull array) {
-                for (int idx=0; idx<array.count; idx++) {
-                    NSMutableArray * sectionArray = [[NSMutableArray alloc] initWithArray:weakSelf.dataArray[idx/4+1]];
-                    NSString *obj = array[idx];
-                    if (idx%4 == 0) {
-                        NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[0]];
-                        item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];;
-                        [sectionArray replaceObjectAtIndex:0 withObject:item];
-                    }else if (idx%4 == 1) {
-                        NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[1]];
-                        item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];;
-                        [sectionArray replaceObjectAtIndex:1 withObject:item];
-                    }else if (idx%4 == 2) {
-                        NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[2]];
-                        item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];;
-                        [sectionArray replaceObjectAtIndex:2 withObject:item];
-                    }else if (idx%4 == 3) {
-                        NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[3]];
-                        item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];;
-                        [sectionArray replaceObjectAtIndex:3 withObject:item];
-                    }
-                    [weakSelf.dataArray replaceObjectAtIndex:(idx/4+1) withObject:sectionArray];
-                }
-                dispatch_semaphore_signal(sem);
-            }];
-        }
 
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         dispatch_async(dispatch_get_main_queue(), ^{
             weakSelf.submit.hidden = false;
+            [weakSelf.next setTitle:self.currentIndex==self.resNum-1?@"Finishi".localized:@"Next".localized forState:UIControlStateNormal];
             [weakSelf.view hiddenHUD];
             [weakSelf.tableView reloadData];
         });
     });
 }
 
-- (void)loadRessNumber{
-    self.dataArray = [[NSMutableArray alloc] init];
-    for (int i=0; i<self.resNum; i++) {
-        NSArray * array = @[
-            @{@"title":[NSString stringWithFormat:@"Hybrid%d PV1 voltage",i+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
-            @{@"title":[NSString stringWithFormat:@"Hybrid%d PV2 voltage",i+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
-            @{@"title":[NSString stringWithFormat:@"Hybrid%d PV3 voltage",i+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
-            @{@"title":[NSString stringWithFormat:@"Hybrid%d PV4 voltage",i+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"}
-        ];
-        [self.dataArray addObject:array];
+- (void)backView{
+    [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_RESS_NOTIFICATION object:nil];
+}
+
+- (NSString *)getCurrentCMDString{
+    NSString * string = @"";
+    if (self.currentIndex == 0) {
+        string = @"629";
+    }else if (self.currentIndex == 1){
+        string = @"63A";
+    }else if (self.currentIndex == 2){
+        string = @"63B";
+    }else if (self.currentIndex == 3){
+        string = @"63C";
+    }else if (self.currentIndex == 4){
+        string = @"63D";
+    }else if (self.currentIndex == 5){
+        string = @"63E";
     }
+    return string;
+}
+
+- (void)formatArray:(NSArray *)array{
+    if (array) {
+        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[idx]];
+            if (idx == 0) {
+                item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];
+                [self.dataArray replaceObjectAtIndex:0 withObject:item];
+            }else if (idx == 1) {
+                item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];;
+                [self.dataArray replaceObjectAtIndex:1 withObject:item];
+            }else if (idx == 2) {
+                item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];;
+                [self.dataArray replaceObjectAtIndex:2 withObject:item];
+            }else if (idx == 3) {
+                item[@"value"] = [NSString stringWithFormat:@"%.1f",[obj floatValue]/10];;
+                [self.dataArray replaceObjectAtIndex:3 withObject:item];
+            }
+        }];
+    }
+}
+
+- (void)loadRessNumber{
+    NSArray * array = @[
+        @{@"title":[NSString stringWithFormat:@"Hybrid%ld PV1 voltage",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
+        @{@"title":[NSString stringWithFormat:@"Hybrid%ld PV2 voltage",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
+        @{@"title":[NSString stringWithFormat:@"Hybrid%ld PV3 voltage",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
+        @{@"title":[NSString stringWithFormat:@"Hybrid%ld PV4 voltage",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"}
+    ];
+    self.dataArray = [[NSMutableArray alloc] initWithArray:array];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     InputTableViewCell * cell = (InputTableViewCell *)[[[textField superview] superview] superview];
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    NSMutableArray * sectionArray = [[NSMutableArray alloc] initWithArray:self.dataArray[indexPath.section]];
-    NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:sectionArray[indexPath.row]];
+    NSMutableDictionary * item = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[indexPath.row]];
     item[@"value"] = textField.text;
-    [sectionArray replaceObjectAtIndex:indexPath.row withObject:item];
-    [self.dataArray replaceObjectAtIndex:indexPath.section withObject:sectionArray];
+    [self.dataArray replaceObjectAtIndex:indexPath.row withObject:item];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -157,6 +157,21 @@
     return [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section]];
 }
 
+- (IBAction)previousAction:(id)sender{
+    [self.navigationController popViewControllerAnimated:true];
+}
+
+- (IBAction)nextAction:(id)sender{
+    if (self.currentIndex == self.resNum-1) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_RESS_NOTIFICATION object:nil];
+    }else{
+        InverterViewController * inverter = [[InverterViewController alloc] init];
+        inverter.currentIndex = self.currentIndex+1;
+        inverter.title = self.title;
+        [self.navigationController pushViewController:inverter animated:true];
+    }
+}
+
 - (IBAction)submitAction:(id)sender{
     [self.view endEditing:true];
     if (!BleManager.shareInstance.isConnented) {
@@ -168,38 +183,44 @@
     [params setValue:@"3" forKey:@"formType"];
     NSMutableArray * valueArray = [[NSMutableArray alloc] init];
     for (int i=0; i<self.dataArray.count; i++) {
-        NSArray * sectionArray = self.dataArray[i];
-        for (int j=0; j<4; j++) {
-            [valueArray addObject:sectionArray[j][@"value"]];
-            NSString * key = [NSString stringWithFormat:@"hybrid%dPV%dVoltage",i+1,j+1];
-            NSString * value = [NSString stringWithFormat:@"%.1f",[sectionArray[j][@"value"] floatValue]*10];
-            NSLog(@"value=%@,key=%@",value,key);
-            [params setValue:value forKey:key];
-        }
+        NSString * key = [NSString stringWithFormat:@"hybrid%ldPV%dVoltage",self.currentIndex+1,i+1];
+        NSString * value = [NSString stringWithFormat:@"%.1f",[self.dataArray[i][@"value"] floatValue]*10];
+        NSLog(@"value=%@,key=%@",value,key);
+        [params setValue:value forKey:key];
+        [valueArray addObject:value];
     }
-    NSMutableArray * fristArray = [[NSMutableArray alloc] init];
-    NSMutableArray * otherArray = [[NSMutableArray alloc] init];
-
-    for (int i=0; i<valueArray.count; i++) {
-        if (i<4) {
-            [fristArray addObject:[NSString stringWithFormat:@"%.1f",[valueArray[i] floatValue]*10]];
-        }else{
-            [otherArray addObject:[NSString stringWithFormat:@"%.1f",[valueArray[i] floatValue]*10]];
-        }
-    }
+    NSLog(@"valueArray=%@",valueArray);
     __weak typeof(self) weakSelf = self;
     if (BleManager.shareInstance.isConnented) {
         [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
     }
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
-        [BleManager.shareInstance writeWithCMDString:@"629" array:fristArray finish:^{
+        [BleManager.shareInstance writeWithCMDString:@"651" array:@[[NSString stringWithFormat:@"%ld",weakSelf.currentIndex]] finish:^{
             dispatch_semaphore_signal(sem);
         }];
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance writeWithCMDString:@"63A" array:otherArray finish:^{
+        [BleManager.shareInstance readWithCMDString:@"652" count:1 finish:^(NSArray * _Nonnull array) {
+            NSInteger index = [array.firstObject integerValue];
+            NSString * string = @"";
+            if (index == 0) {
+                string = @"未开始";
+            }else if (index == 1){
+                string = @"正在设置";
+            }else if (index == 2){
+                string = @"设置成功";
+                dispatch_semaphore_signal(sem);
+            }else if (index == 3){
+                string = @"设置失败";
+                [RMHelper showToast:@"Failure" toView:weakSelf.view];
+            }
+        }];
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+        
+        [BleManager.shareInstance writeWithCMDString:[weakSelf getCurrentCMDString] array:valueArray finish:^{
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf uploadDebugConfig:params];
+//                [weakSelf uploadDebugConfig:params];
+                [RMHelper showToast:@"Success" toView:weakSelf.view];
             });
             dispatch_semaphore_signal(sem);
         }];
@@ -231,9 +252,9 @@
         InputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
         UIView * view = [cell.contentView viewWithTag:10];
         view.backgroundColor = [UIColor colorWithHexString:@"#1B1B1B"];
-        cell.titleLabel.text = self.dataArray[indexPath.section][indexPath.row][@"title"];
-        cell.textfield.placeholder = self.dataArray[indexPath.section][indexPath.row][@"placeholder"];
-        cell.textfield.text = self.dataArray[indexPath.section][indexPath.row][@"value"];
+        cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
+        cell.textfield.placeholder = self.dataArray[indexPath.row][@"placeholder"];
+        cell.textfield.text = self.dataArray[indexPath.row][@"value"];
         cell.textfield.delegate = self;
         cell.textfield.keyboardType = UIKeyboardTypeDecimalPad;
         return cell;
@@ -258,16 +279,34 @@
     return 4;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return self.resNum;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 0.001;
+    return 50;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView * header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
+    header.backgroundColor = UIColor.clearColor;
+    UILabel * titlelabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 0, SCREEN_WIDTH-100, header.height)];
+    titlelabel.text = @"Qty of Hybrid battery";
+    titlelabel.font = [UIFont systemFontOfSize:14];
+    titlelabel.textColor = UIColor.whiteColor;
+    [header addSubview:titlelabel];
+    
+    UILabel * index = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-20-10-15, 0, 20, header.height)];
+    index.text = [NSString stringWithFormat:@"%ld",self.currentIndex+1];
+    index.font = [UIFont systemFontOfSize:14];
+    index.textColor = [UIColor colorWithHexString:@"#999999"];
+    [header addSubview:index];
+    
+    UIImageView * icon = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-10-15, (50-7)/2, 10, 7)];
+    icon.image = [UIImage imageNamed:@"ic_down"];
+    [header addSubview:icon];
+    
+    return header;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{

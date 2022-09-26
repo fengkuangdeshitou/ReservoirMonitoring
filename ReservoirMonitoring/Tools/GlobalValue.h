@@ -47,7 +47,8 @@ extern NSString * const CHANGE_PASSWORD_NOTIFICATION;
 extern NSString * const CLEAR_NOTIFICATION;
 /**添加设备成功*/
 extern NSString * const ADD_DEVICE_NOTIFICATION;
-
+/**RESS设置成功*/
+extern NSString * const UPDATE_RESS_NOTIFICATION;
 
 @end
 

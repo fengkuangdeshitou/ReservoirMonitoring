@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface InverterViewController : BaseViewController
 
+@property(nonatomic,assign) NSInteger currentIndex;
+
 @end
 
 NS_ASSUME_NONNULL_END
