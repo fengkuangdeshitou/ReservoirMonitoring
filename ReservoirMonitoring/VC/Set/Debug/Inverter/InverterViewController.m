@@ -11,13 +11,14 @@
 #import "SelectItemAlertView.h"
 #import "GlobelDescAlertView.h"
 
-@interface InverterViewController ()<UITableViewDataSource,UITextFieldDelegate,UITableViewDelegate>
+@interface InverterViewController ()<UITableViewDataSource,UITextFieldDelegate,UITableViewDelegate,UINavigationBarDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * submit;
 @property(nonatomic,weak)IBOutlet UIButton * previous;
 @property(nonatomic,weak)IBOutlet UIButton * next;
 @property(nonatomic,strong)NSMutableArray * dataArray;
+@property(nonatomic,assign)NSInteger count;
 @property(nonatomic,assign)int resNum;
 
 @end
@@ -27,9 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    UIBarButtonItem * left = self.navigationItem.leftBarButtonItem;
-    UIBarButtonItem * back = [[UIBarButtonItem alloc] initWithImage:left.image style:UIBarButtonItemStylePlain target:self action:@selector(backView)];
-    self.navigationItem.leftBarButtonItem = back;
+    self.count = 1;
+    self.title = [NSString stringWithFormat:@"Hybrd%ld Config",self.currentIndex+1];
     [self loadRessNumber];
     [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
     [self.previous setTitle:@"Previous".localized forState:UIControlStateNormal];
@@ -56,15 +56,21 @@
         }];
         
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance readWithCMDString:[self getCurrentCMDString] count:4 finish:^(NSArray * _Nonnull array) {
-            [self formatArray:array];
+        [BleManager.shareInstance readWithCMDString:[weakSelf getCurrentCMDString] count:4 finish:^(NSArray * _Nonnull array) {
+            [weakSelf formatArray:array];
+            dispatch_semaphore_signal(sem);
+        }];
+        
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance readWithCMDString:[NSString stringWithFormat:@"%ld",634+weakSelf.currentIndex] count:1 finish:^(NSArray * _Nonnull array) {
+            weakSelf.count = [array.firstObject integerValue] == 0 ? 1 : [array.firstObject integerValue];
             dispatch_semaphore_signal(sem);
         }];
 
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         dispatch_async(dispatch_get_main_queue(), ^{
             weakSelf.submit.hidden = false;
-            [weakSelf.next setTitle:self.currentIndex==self.resNum-1?@"Finishi".localized:@"Next".localized forState:UIControlStateNormal];
+            [weakSelf.next setTitle:weakSelf.currentIndex==weakSelf.resNum-1?@"Finishi".localized:@"Next".localized forState:UIControlStateNormal];
             [weakSelf.view hiddenHUD];
             [weakSelf.tableView reloadData];
         });
@@ -196,6 +202,10 @@
     }
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
+        [BleManager.shareInstance writeWithCMDString:[NSString stringWithFormat:@"%ld",634+weakSelf.currentIndex] array:@[[NSString stringWithFormat:@"%ld",weakSelf.count]] finish:^{
+            dispatch_semaphore_signal(sem);
+        }];
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance writeWithCMDString:@"651" array:@[[NSString stringWithFormat:@"%ld",weakSelf.currentIndex]] finish:^{
             dispatch_semaphore_signal(sem);
         }];
@@ -297,7 +307,7 @@
     [header addSubview:titlelabel];
     
     UILabel * index = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-20-10-15, 0, 20, header.height)];
-    index.text = [NSString stringWithFormat:@"%ld",self.currentIndex+1];
+    index.text = [NSString stringWithFormat:@"%ld",self.count];
     index.font = [UIFont systemFontOfSize:14];
     index.textColor = [UIColor colorWithHexString:@"#999999"];
     [header addSubview:index];
@@ -306,7 +316,21 @@
     icon.image = [UIImage imageNamed:@"ic_down"];
     [header addSubview:icon];
     
+    UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = header.bounds;
+    [btn addTarget:self action:@selector(selectCount) forControlEvents:UIControlEventTouchUpInside];
+    [header addSubview:btn];
+    
     return header;
+}
+
+- (void)selectCount{
+    UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
+    [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"1",@"2",@"3",@"4",@"5",@"6"] tableviewFrame:CGRectMake(SCREEN_WIDTH-200, frame.origin.y, 200, 50*3) completion:^(NSString * _Nonnull value, NSInteger idx) {
+        self.count = [value integerValue];
+        [self.tableView reloadData];
+    }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{

@@ -7,7 +7,7 @@
 
 #import "NavigationViewController.h"
 
-@interface NavigationViewController ()
+@interface NavigationViewController ()<UINavigationBarDelegate>
 
 @end
 
@@ -36,6 +36,15 @@
 
     }
     
+}
+
+- (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item{
+    if ([self.topViewController isKindOfClass:NSClassFromString(@"InverterViewController")]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_RESS_NOTIFICATION object:nil];
+        return false;
+    }else{
+        return true;
+    }
 }
 
 /*

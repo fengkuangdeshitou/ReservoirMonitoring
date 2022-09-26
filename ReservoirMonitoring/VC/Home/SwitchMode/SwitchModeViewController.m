@@ -54,11 +54,11 @@
                 self.flag = 2;
             }
             if (data[@"selfConsumptioinReserveSoc"]) {
-                NSString * selfConsumptioinReserveSoc = data[@"selfConsumptioinReserveSoc"];
+                NSString * selfConsumptioinReserveSoc = [NSString stringWithFormat:@"%@",data[@"selfConsumptioinReserveSoc"]];
                 [self.progressArray replaceObjectAtIndex:0 withObject:selfConsumptioinReserveSoc];
             }
             if (data[@"backupPowerReserveSoc"]) {
-                NSString * backupPowerReserveSoc = data[@"backupPowerReserveSoc"];
+                NSString * backupPowerReserveSoc = [NSString stringWithFormat:@"%@",data[@"backupPowerReserveSoc"]];
                 [self.progressArray replaceObjectAtIndex:1 withObject:backupPowerReserveSoc];
             }
             self.allowChargingXiaGrid = [data[@"allowChargingXiaGrid"] boolValue];
@@ -203,13 +203,13 @@
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"624" count:1 finish:^(NSArray * _Nonnull array) {
-            [weakSelf.progressArray replaceObjectAtIndex:0 withObject:array.firstObject];
+            [weakSelf.progressArray replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"%@",array.firstObject]];
             dispatch_semaphore_signal(semaphore);
         }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"623" count:1 finish:^(NSArray * _Nonnull array) {
-            [self.progressArray replaceObjectAtIndex:1 withObject:array.firstObject];
+            [weakSelf.progressArray replaceObjectAtIndex:1 withObject:[NSString stringWithFormat:@"%@",array.firstObject]];
             dispatch_semaphore_signal(semaphore);
         }];
         
