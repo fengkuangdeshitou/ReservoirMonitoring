@@ -187,6 +187,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SGPagingView/SGPagingView.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftAlgorithms/Algorithms.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WMZCode/WMZCode.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -201,6 +202,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SGPagingView/SGPagingView.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftAlgorithms/Algorithms.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WMZCode/WMZCode.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

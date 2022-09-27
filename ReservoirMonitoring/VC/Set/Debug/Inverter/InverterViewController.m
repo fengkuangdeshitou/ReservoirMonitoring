@@ -168,6 +168,10 @@
 }
 
 - (IBAction)nextAction:(id)sender{
+    if (self.resNum == 0){
+        [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_RESS_NOTIFICATION object:nil];
+        return;
+    }
     if (self.currentIndex == self.resNum-1) {
         [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_RESS_NOTIFICATION object:nil];
     }else{
@@ -202,10 +206,6 @@
     }
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
-        [BleManager.shareInstance writeWithCMDString:[NSString stringWithFormat:@"%ld",634+weakSelf.currentIndex] array:@[[NSString stringWithFormat:@"%ld",weakSelf.count]] finish:^{
-            dispatch_semaphore_signal(sem);
-        }];
-        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance writeWithCMDString:@"651" array:@[[NSString stringWithFormat:@"%ld",weakSelf.currentIndex]] finish:^{
             dispatch_semaphore_signal(sem);
         }];
@@ -225,8 +225,13 @@
                 [RMHelper showToast:@"Failure" toView:weakSelf.view];
             }
         }];
-        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+        [BleManager.shareInstance writeWithCMDString:[NSString stringWithFormat:@"%ld",634+weakSelf.currentIndex] array:@[[NSString stringWithFormat:@"%ld",weakSelf.count]] finish:^{
+            dispatch_semaphore_signal(sem);
+        }];
+        
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance writeWithCMDString:[weakSelf getCurrentCMDString] array:valueArray finish:^{
             dispatch_async(dispatch_get_main_queue(), ^{
 //                [weakSelf uploadDebugConfig:params];
@@ -301,7 +306,7 @@
     UIView * header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
     header.backgroundColor = UIColor.clearColor;
     UILabel * titlelabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 0, SCREEN_WIDTH-100, header.height)];
-    titlelabel.text = @"Qty of Hybrid battery";
+    titlelabel.text = [NSString stringWithFormat:@"Qty of Hybrid%ld battery",self.currentIndex+1];
     titlelabel.font = [UIFont systemFontOfSize:14];
     titlelabel.textColor = UIColor.whiteColor;
     [header addSubview:titlelabel];
@@ -327,7 +332,7 @@
 - (void)selectCount{
     UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     CGRect frame = [cell.superview convertRect:cell.frame toView:UIApplication.sharedApplication.keyWindow];
-    [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"1",@"2",@"3",@"4",@"5",@"6"] tableviewFrame:CGRectMake(SCREEN_WIDTH-200, frame.origin.y, 200, 50*3) completion:^(NSString * _Nonnull value, NSInteger idx) {
+    [SelectItemAlertView showSelectItemAlertViewWithDataArray:@[@"1",@"2",@"3",@"4",@"5",@"6"] tableviewFrame:CGRectMake(SCREEN_WIDTH-50, frame.origin.y, 50, 50*6) completion:^(NSString * _Nonnull value, NSInteger idx) {
         self.count = [value integerValue];
         [self.tableView reloadData];
     }];

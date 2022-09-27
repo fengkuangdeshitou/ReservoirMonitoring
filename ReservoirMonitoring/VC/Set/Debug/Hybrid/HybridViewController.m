@@ -193,11 +193,11 @@
     }
     
     NSArray * countArray = @[hybrid.content.text];
-    NSMutableArray * array = [[NSMutableArray alloc] init];
-    for (int i=0; i<hybrid.content.text.intValue; i++) {
-        SelecteTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:5]];
-        [array addObject:cell.content.text];
-    }
+//    NSMutableArray * array = [[NSMutableArray alloc] init];
+//    for (int i=0; i<hybrid.content.text.intValue; i++) {
+//        SelecteTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:5]];
+//        [array addObject:cell.content.text];
+//    }
     __weak typeof(self) weakSelf = self;
     if (BleManager.shareInstance.isConnented) {
         [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
@@ -239,11 +239,11 @@
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance writeWithCMDString:@"620" array:countArray finish:^{
-            dispatch_semaphore_signal(semaphore);
+//            dispatch_semaphore_signal(semaphore);
         }];
 
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance writeWithCMDString:@"634" array:array finish:^{
+//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+//        [BleManager.shareInstance writeWithCMDString:@"634" array:array finish:^{
             dispatch_semaphore_signal(semaphore);
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
@@ -264,14 +264,14 @@
                 for (NSString * key in item) {
                     [params setValue:item[key] forKey:key];
                 }
-                for (int i=0; i<array.count; i++) {
-                    NSString * key = [NSString stringWithFormat:@"qtyOfHybrid%dBattery",i+1];
-                    NSString * value = array[i];
-                    [params setValue:value forKey:key];
-                }
+//                for (int i=0; i<array.count; i++) {
+//                    NSString * key = [NSString stringWithFormat:@"qtyOfHybrid%dBattery",i+1];
+//                    NSString * value = array[i];
+//                    [params setValue:value forKey:key];
+//                }
                 [self uploadDebugConfig:params];
             });
-        }];
+//        }];
     });
 }
 
@@ -395,7 +395,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 6;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

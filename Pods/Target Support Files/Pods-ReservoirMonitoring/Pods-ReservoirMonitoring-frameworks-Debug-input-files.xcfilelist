@@ -10,4 +10,5 @@ ${BUILT_PRODUCTS_DIR}/MLLabel/MLLabel.framework
 ${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
 ${BUILT_PRODUCTS_DIR}/SGPagingView/SGPagingView.framework
+${BUILT_PRODUCTS_DIR}/SwiftAlgorithms/Algorithms.framework
 ${BUILT_PRODUCTS_DIR}/WMZCode/WMZCode.framework

@@ -14,32 +14,34 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
-  - BRPickerView (2.7.6):
-    - BRPickerView/AddressPickerView (= 2.7.6)
-    - BRPickerView/Base (= 2.7.6)
-    - BRPickerView/DatePickerView (= 2.7.6)
-    - BRPickerView/StringPickerView (= 2.7.6)
-  - BRPickerView/AddressPickerView (2.7.6):
+  - BRPickerView (2.8.0):
+    - BRPickerView/AddressPickerView (= 2.8.0)
+    - BRPickerView/Base (= 2.8.0)
+    - BRPickerView/DatePickerView (= 2.8.0)
+    - BRPickerView/StringPickerView (= 2.8.0)
+  - BRPickerView/AddressPickerView (2.8.0):
     - BRPickerView/Base
-  - BRPickerView/Base (2.7.6)
-  - BRPickerView/DatePickerView (2.7.6):
+  - BRPickerView/Base (2.8.0)
+  - BRPickerView/DatePickerView (2.8.0):
     - BRPickerView/Base
-  - BRPickerView/StringPickerView (2.7.6):
+  - BRPickerView/StringPickerView (2.8.0):
     - BRPickerView/Base
-  - Bugly (2.5.91)
-  - Charts (3.6.0):
-    - Charts/Core (= 3.6.0)
-  - Charts/Core (3.6.0)
-  - IQKeyboardManager (6.5.9)
+  - Bugly (2.5.93)
+  - Charts (4.1.0):
+    - Charts/Core (= 4.1.0)
+  - Charts/Core (4.1.0):
+    - SwiftAlgorithms (~> 1.0)
+  - IQKeyboardManager (6.5.10)
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
   - MJExtension (3.4.1)
   - MJRefresh (3.7.5)
   - MLLabel (1.10.5)
-  - SDWebImage (5.12.1):
-    - SDWebImage/Core (= 5.12.1)
-  - SDWebImage/Core (5.12.1)
+  - SDWebImage (5.13.4):
+    - SDWebImage/Core (= 5.13.4)
+  - SDWebImage/Core (5.13.4)
   - SGPagingView (1.7.2)
+  - SwiftAlgorithms (1.0.0)
   - WMZCode (1.0.1)
 
 DEPENDENCIES:
@@ -71,23 +73,25 @@ SPEC REPOS:
     - MLLabel
     - SDWebImage
     - SGPagingView
+    - SwiftAlgorithms
     - WMZCode
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
-  BRPickerView: 2a1620caf218e37a3aca9626732719a419928b15
-  Bugly: afe841bba2ea6de6d432a3c125240a5e75949c55
-  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
-  IQKeyboardManager: 241cc94ccabc9deb8f8bd7d12f00d73288d13ecc
+  BRPickerView: a0ff460bf092bc069db5a54153395b1f7e8f5300
+  Bugly: b8715e6ec4004b7f7fbffab0643ba80545aee3da
+  Charts: 354f86803d11d9c35de280587fef50d1af063978
+  IQKeyboardManager: 45a1fa55c1a5b02c61ac0fd7fd5b62bb4ad20d97
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   MLLabel: d76124055a2205e7f76878e62cd06ba925ba0c97
-  SDWebImage: 4dc3e42d9ec0c1028b960a33ac6b637bb432207b
+  SDWebImage: e5cc87bf736e60f49592f307bdf9e157189298a3
   SGPagingView: 0b91bd360370e56a6496b06df9b3e28bc3f075cc
+  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
   WMZCode: af49031a787947dad474f6dba23270a2600d8124
 
-PODFILE CHECKSUM: 495ffcf94402c0262b42db6673a2ef548ef98da7
+PODFILE CHECKSUM: a606990fd294ce397ee5454e25b3fc09e65210fe
 
 COCOAPODS: 1.11.3
