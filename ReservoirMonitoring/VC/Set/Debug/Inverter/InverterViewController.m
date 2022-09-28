@@ -32,8 +32,8 @@
     self.title = [NSString stringWithFormat:@"Hybrd%ld Config",self.currentIndex+1];
     [self loadRessNumber];
     [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
-    [self.previous setTitle:@"Previous".localized forState:UIControlStateNormal];
-    [self.next setTitle:@"Next".localized forState:UIControlStateNormal];
+    [self.previous setTitle:@"Back".localized forState:UIControlStateNormal];
+    [self.next setTitle:@"Finish".localized forState:UIControlStateNormal];
     [self.submit showBorderWithRadius:25];
     [self.previous showBorderWithRadius:25];
     [self.next showBorderWithRadius:25];
@@ -45,7 +45,7 @@
         return;
     }
     if (BleManager.shareInstance.isConnented) {
-        [self.view showHUDToast:@"Loading"];
+        [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
     }
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -70,8 +70,8 @@
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         dispatch_async(dispatch_get_main_queue(), ^{
             weakSelf.submit.hidden = false;
-            [weakSelf.next setTitle:weakSelf.currentIndex==weakSelf.resNum-1?@"Finishi".localized:@"Next".localized forState:UIControlStateNormal];
-            [weakSelf.view hiddenHUD];
+            [weakSelf.next setTitle:weakSelf.currentIndex==weakSelf.resNum-1?@"Finish".localized:@"Next".localized forState:UIControlStateNormal];
+            [UIApplication.sharedApplication.keyWindow hiddenHUD];
             [weakSelf.tableView reloadData];
         });
     });
@@ -122,10 +122,10 @@
 
 - (void)loadRessNumber{
     NSArray * array = @[
-        @{@"title":[NSString stringWithFormat:@"Hybrid%ld PV1 voltage",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
-        @{@"title":[NSString stringWithFormat:@"Hybrid%ld PV2 voltage",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
-        @{@"title":[NSString stringWithFormat:@"Hybrid%ld PV3 voltage",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
-        @{@"title":[NSString stringWithFormat:@"Hybrid%ld PV4 voltage",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"}
+        @{@"title":[NSString stringWithFormat:@"Hybrid %ld PV1 Voc",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
+        @{@"title":[NSString stringWithFormat:@"Hybrid %ld PV2 Voc",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
+        @{@"title":[NSString stringWithFormat:@"Hybrid %ld PV3 Voc",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
+        @{@"title":[NSString stringWithFormat:@"Hybrid %ld PV4 Voc",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"}
     ];
     self.dataArray = [[NSMutableArray alloc] initWithArray:array];
 }
@@ -222,7 +222,7 @@
                 dispatch_semaphore_signal(sem);
             }else if (index == 3){
                 string = @"设置失败";
-                [RMHelper showToast:@"Failure" toView:weakSelf.view];
+                [RMHelper showToast:@"Failure" toView:UIApplication.sharedApplication.keyWindow];
             }
         }];
         
@@ -235,7 +235,7 @@
         [BleManager.shareInstance writeWithCMDString:[weakSelf getCurrentCMDString] array:valueArray finish:^{
             dispatch_async(dispatch_get_main_queue(), ^{
 //                [weakSelf uploadDebugConfig:params];
-                [RMHelper showToast:@"Success" toView:weakSelf.view];
+                [RMHelper showToast:@"Success" toView:UIApplication.sharedApplication.keyWindow];
             });
             dispatch_semaphore_signal(sem);
         }];
@@ -248,9 +248,9 @@
     } success:^(NSDictionary * _Nonnull result) {
         BOOL value = [result[@"data"] boolValue];
         if (!value) {
-            [RMHelper showToast:result[@"message"] toView:self.view];
+            [RMHelper showToast:result[@"message"] toView:UIApplication.sharedApplication.keyWindow];
         }else{
-            [RMHelper showToast:@"Success" toView:self.view];
+            [RMHelper showToast:@"Success" toView:UIApplication.sharedApplication.keyWindow];
         }
     } failure:^(NSString * _Nonnull errorMsg) {
 
@@ -265,8 +265,8 @@
         return cell;
     }else{
         InputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
-        UIView * view = [cell.contentView viewWithTag:10];
-        view.backgroundColor = [UIColor colorWithHexString:@"#1B1B1B"];
+//        UIView * view = [cell.contentView viewWithTag:10];
+//        view.backgroundColor = [UIColor colorWithHexString:@"#1B1B1B"];
         cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
         cell.textfield.placeholder = self.dataArray[indexPath.row][@"placeholder"];
         cell.textfield.text = self.dataArray[indexPath.row][@"value"];
@@ -304,17 +304,17 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView * header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
-    header.backgroundColor = UIColor.clearColor;
-    UILabel * titlelabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 0, SCREEN_WIDTH-100, header.height)];
-    titlelabel.text = [NSString stringWithFormat:@"Qty of Hybrid%ld battery",self.currentIndex+1];
-    titlelabel.font = [UIFont systemFontOfSize:14];
+    header.backgroundColor = [UIColor colorWithHexString:COLOR_BACK_COLOR];
+    UILabel * titlelabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, SCREEN_WIDTH-100, header.height)];
+    titlelabel.text = [NSString stringWithFormat:@"Qty of Hybrid %ld battery",self.currentIndex+1];
+    titlelabel.font = [UIFont systemFontOfSize:15];
     titlelabel.textColor = UIColor.whiteColor;
     [header addSubview:titlelabel];
     
     UILabel * index = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-20-10-15, 0, 20, header.height)];
     index.text = [NSString stringWithFormat:@"%ld",self.count];
-    index.font = [UIFont systemFontOfSize:14];
-    index.textColor = [UIColor colorWithHexString:@"#999999"];
+    index.font = [UIFont systemFontOfSize:15];
+    index.textColor = [UIColor whiteColor];
     [header addSubview:index];
     
     UIImageView * icon = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-10-15, (50-7)/2, 10, 7)];
@@ -325,6 +325,10 @@
     btn.frame = header.bounds;
     [btn addTarget:self action:@selector(selectCount) forControlEvents:UIControlEventTouchUpInside];
     [header addSubview:btn];
+    
+    UIView * line = [[UIView alloc] initWithFrame:CGRectMake(15, header.height-0.5, SCREEN_WIDTH-30, 0.5)];
+    line.backgroundColor = [UIColor colorWithHexString:@"#333333"];
+    [header addSubview:line];
     
     return header;
 }

@@ -61,7 +61,7 @@ static BleManager * _manager = nil;
                 }
             });
             if (!self.connectTimer) {
-                self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scanningTimeChange) userInfo:nil repeats:false];
+                self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:6 target:self selector:@selector(scanningTimeChange) userInfo:nil repeats:false];
             }
         }else{
             if (self.isScan == false) {
@@ -98,7 +98,7 @@ static BleManager * _manager = nil;
 
 - (void)loadRequestTimer{
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.requestTimer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(bluetoothRequestTimeOut) userInfo:nil repeats:false];
+        self.requestTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(bluetoothRequestTimeOut) userInfo:nil repeats:false];
     });
 }
 
@@ -595,6 +595,7 @@ static unsigned char auchCRCLo[] = {
         [UIApplication.sharedApplication.keyWindow hiddenHUD];
         [self.connectTimer invalidate];
         self.connectTimer = nil;
+        [self.centralManager stopScan];
     });
 }
 
