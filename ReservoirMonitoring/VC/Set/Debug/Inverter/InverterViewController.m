@@ -20,6 +20,7 @@
 @property(nonatomic,strong)NSMutableArray * dataArray;
 @property(nonatomic,assign)NSInteger count;
 @property(nonatomic,assign)int resNum;
+@property(nonatomic,assign)int repeat;
 
 @end
 
@@ -208,25 +209,15 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
         [BleManager.shareInstance writeWithCMDString:@"651" array:@[[NSString stringWithFormat:@"%ld",weakSelf.currentIndex+1]] finish:^{
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 dispatch_semaphore_signal(sem);
             });
         }];
+        
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"652" count:1 finish:^(NSArray * _Nonnull array) {
             index = [array.firstObject integerValue];
-//            NSString * string = @"";
-//            if (index == 0) {
-//                string = @"未开始";
-//            }else if (index == 1){
-//                string = @"正在设置";
-//            }else if (index == 2){
-//                string = @"设置成功";
-//                dispatch_semaphore_signal(sem);
-//            }else if (index == 3){
-//                string = @"设置失败";
-//            }
-                dispatch_semaphore_signal(sem);
+            dispatch_semaphore_signal(sem);
         }];
         
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
@@ -242,15 +233,55 @@
     //                [weakSelf uploadDebugConfig:params];
                     [UIApplication.sharedApplication.keyWindow hiddenHUD];
                     [RMHelper showToast:@"Success" toView:weakSelf.view];
+                    weakSelf.repeat = 0;
                 });
             }];
         }else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [UIApplication.sharedApplication.keyWindow hiddenHUD];
-                [RMHelper showToast:@"Failure" toView:weakSelf.view];
-            });
+            [self getStateAction];
         }
     });
+}
+
+- (void)getStateAction{
+    __weak typeof(self) weakSelf = self;
+    NSMutableArray * valueArray = [[NSMutableArray alloc] init];
+    for (int i=0; i<weakSelf.dataArray.count; i++) {
+        NSString * value = [NSString stringWithFormat:@"%.1f",[weakSelf.dataArray[i][@"value"] floatValue]*10];
+        [valueArray addObject:value];
+    }
+    [BleManager.shareInstance readWithCMDString:@"652" count:1 finish:^(NSArray * _Nonnull array) {
+        weakSelf.repeat++;
+        NSInteger index = [array.firstObject integerValue];
+        if (index == 2){
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                dispatch_semaphore_t sem = dispatch_semaphore_create(0);
+                [BleManager.shareInstance writeWithCMDString:[NSString stringWithFormat:@"%ld",634+weakSelf.currentIndex] array:@[[NSString stringWithFormat:@"%ld",weakSelf.count]] finish:^{
+                    dispatch_semaphore_signal(sem);
+                }];
+            
+                dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+                [BleManager.shareInstance writeWithCMDString:[weakSelf getCurrentCMDString] array:valueArray finish:^{
+                    dispatch_semaphore_signal(sem);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+        //                [weakSelf uploadDebugConfig:params];
+                        [UIApplication.sharedApplication.keyWindow hiddenHUD];
+                        [RMHelper showToast:@"Success" toView:weakSelf.view];
+                        weakSelf.repeat = 0;
+                    });
+                }];
+            });
+        }else{
+            if (weakSelf.repeat == 8){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [UIApplication.sharedApplication.keyWindow hiddenHUD];
+                    [RMHelper showToast:@"Failure" toView:weakSelf.view];
+                    weakSelf.repeat = 0;
+                });
+            }else{
+                [weakSelf performSelector:@selector(getStateAction) withObject:nil afterDelay:0.5];
+            }
+        }
+    }];
 }
 
 - (void)uploadDebugConfig:(NSDictionary *)params{
