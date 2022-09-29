@@ -88,13 +88,13 @@
     }else if (self.currentIndex == 1){
         string = @"63A";
     }else if (self.currentIndex == 2){
-        string = @"63B";
-    }else if (self.currentIndex == 3){
-        string = @"63C";
-    }else if (self.currentIndex == 4){
-        string = @"63D";
-    }else if (self.currentIndex == 5){
         string = @"63E";
+    }else if (self.currentIndex == 3){
+        string = @"642";
+    }else if (self.currentIndex == 4){
+        string = @"646";
+    }else if (self.currentIndex == 5){
+        string = @"64A";
     }
     return string;
 }
@@ -201,44 +201,55 @@
     }
     NSLog(@"valueArray=%@",valueArray);
     __weak typeof(self) weakSelf = self;
+   __block NSInteger index = 0;
     if (BleManager.shareInstance.isConnented) {
         [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
     }
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
-        [BleManager.shareInstance writeWithCMDString:@"651" array:@[[NSString stringWithFormat:@"%ld",weakSelf.currentIndex]] finish:^{
-            dispatch_semaphore_signal(sem);
+        [BleManager.shareInstance writeWithCMDString:@"651" array:@[[NSString stringWithFormat:@"%ld",weakSelf.currentIndex+1]] finish:^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                dispatch_semaphore_signal(sem);
+            });
         }];
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"652" count:1 finish:^(NSArray * _Nonnull array) {
-            NSInteger index = [array.firstObject integerValue];
-            NSString * string = @"";
-            if (index == 0) {
-                string = @"未开始";
-            }else if (index == 1){
-                string = @"正在设置";
-            }else if (index == 2){
-                string = @"设置成功";
+            index = [array.firstObject integerValue];
+//            NSString * string = @"";
+//            if (index == 0) {
+//                string = @"未开始";
+//            }else if (index == 1){
+//                string = @"正在设置";
+//            }else if (index == 2){
+//                string = @"设置成功";
+//                dispatch_semaphore_signal(sem);
+//            }else if (index == 3){
+//                string = @"设置失败";
+//            }
                 dispatch_semaphore_signal(sem);
-            }else if (index == 3){
-                string = @"设置失败";
-                [RMHelper showToast:@"Failure" toView:UIApplication.sharedApplication.keyWindow];
-            }
         }];
         
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance writeWithCMDString:[NSString stringWithFormat:@"%ld",634+weakSelf.currentIndex] array:@[[NSString stringWithFormat:@"%ld",weakSelf.count]] finish:^{
-            dispatch_semaphore_signal(sem);
-        }];
-        
-        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance writeWithCMDString:[weakSelf getCurrentCMDString] array:valueArray finish:^{
+        if (index == 2){
+            [BleManager.shareInstance writeWithCMDString:[NSString stringWithFormat:@"%ld",634+weakSelf.currentIndex] array:@[[NSString stringWithFormat:@"%ld",weakSelf.count]] finish:^{
+                dispatch_semaphore_signal(sem);
+            }];
+            
+            dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+            [BleManager.shareInstance writeWithCMDString:[weakSelf getCurrentCMDString] array:valueArray finish:^{
+                dispatch_semaphore_signal(sem);
+                dispatch_async(dispatch_get_main_queue(), ^{
+    //                [weakSelf uploadDebugConfig:params];
+                    [UIApplication.sharedApplication.keyWindow hiddenHUD];
+                    [RMHelper showToast:@"Success" toView:weakSelf.view];
+                });
+            }];
+        }else{
             dispatch_async(dispatch_get_main_queue(), ^{
-//                [weakSelf uploadDebugConfig:params];
-                [RMHelper showToast:@"Success" toView:UIApplication.sharedApplication.keyWindow];
+                [UIApplication.sharedApplication.keyWindow hiddenHUD];
+                [RMHelper showToast:@"Failure" toView:weakSelf.view];
             });
-            dispatch_semaphore_signal(sem);
-        }];
+        }
     });
 }
 

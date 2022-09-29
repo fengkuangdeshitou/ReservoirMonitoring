@@ -239,8 +239,6 @@
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance writeWithCMDString:@"620" array:countArray finish:^{
-//            dispatch_semaphore_signal(semaphore);
-        }];
 
 //        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 //        [BleManager.shareInstance writeWithCMDString:@"634" array:array finish:^{
@@ -271,7 +269,7 @@
 //                }
                 [self uploadDebugConfig:params];
             });
-//        }];
+        }];
     });
 }
 
@@ -279,6 +277,7 @@
     [Request.shareInstance postUrl:SaveDebugConfig params:params progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
+        [UIApplication.sharedApplication.keyWindow hiddenHUD];
         BOOL value = [result[@"data"] boolValue];
         if (!value) {
             [RMHelper showToast:result[@"message"] toView:self.view];
@@ -286,7 +285,7 @@
             [RMHelper showToast:@"Success" toView:self.view];
         }
     } failure:^(NSString * _Nonnull errorMsg) {
-        
+        [UIApplication.sharedApplication.keyWindow hiddenHUD];
     }];
 }
 
