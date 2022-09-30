@@ -98,6 +98,10 @@ static BleManager * _manager = nil;
 
 - (void)loadRequestTimer{
     dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.requestTimer){
+            [self.requestTimer invalidate];
+            self.requestTimer = nil;
+        }
         self.requestTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(bluetoothRequestTimeOut) userInfo:nil repeats:false];
     });
 }
@@ -776,6 +780,14 @@ static unsigned char auchCRCLo[] = {
                     }
                 });
             }
+        }else if ([dict objectForKey:@"code"]){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [UIApplication.sharedApplication.keyWindow hiddenHUD];
+                [NSUserDefaults.standardUserDefaults removeObjectForKey:BLE_CMD];
+                [RMHelper showToast:@"Failure" toView:RMHelper.getCurrentVC.view];
+                [self.requestTimer invalidate];
+                self.requestTimer = nil;
+            });
         }else{
             [NSUserDefaults.standardUserDefaults removeObjectForKey:BLE_CMD];
             if (weakSelf.readDictionaryFinish) {

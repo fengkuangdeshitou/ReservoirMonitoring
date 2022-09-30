@@ -41,7 +41,7 @@
         return;
     }
     if (BleManager.shareInstance.isConnented) {
-        [self.view showHUDToast:@"Loading"];
+        [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
     }
     __weak typeof(self) weakSelf = self;
     [BleManager.shareInstance readWithCMDString:@"512" count:1 finish:^(NSArray * _Nonnull array) {
@@ -54,7 +54,7 @@
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.tableView reloadData];
-            [weakSelf.view hiddenHUD];
+            [UIApplication.sharedApplication.keyWindow hiddenHUD];
         });
     }];
 }

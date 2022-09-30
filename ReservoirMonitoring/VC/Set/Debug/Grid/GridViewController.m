@@ -39,7 +39,7 @@
         return;
     }
     if (BleManager.shareInstance.isConnented) {
-        [self.view showHUDToast:@"Loading"];
+        [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
     }
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -58,8 +58,10 @@
             float value = [array.firstObject floatValue];
             if (value > 0) {
                 NSString * input = [NSString stringWithFormat:@"%.1f",value/10];
-                InputTableViewCell * cell = [weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-                cell.textfield.text = input;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    InputTableViewCell * cell = [weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+                    cell.textfield.text = input;
+                });
             }else{
                 [weakSelf exchangeDictFor:1 value:@"0"];
             }
@@ -96,7 +98,7 @@
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.view hiddenHUD];
+            [UIApplication.sharedApplication.keyWindow hiddenHUD];
             dispatch_semaphore_signal(semaphore);
         });
     });
@@ -107,7 +109,9 @@
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[idx]];
     dict[@"placeholder"] = value;
     self.dataArray[idx] = dict;
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (IBAction)submitAction:(id)sender{
@@ -160,6 +164,7 @@
     [Request.shareInstance postUrl:SaveDebugConfig params:params progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
+        [UIApplication.sharedApplication.keyWindow hiddenHUD];
         BOOL value = [result[@"data"] boolValue];
         if (!value) {
             [RMHelper showToast:result[@"message"] toView:self.view];
@@ -167,7 +172,7 @@
             [RMHelper showToast:@"Success" toView:self.view];
         }
     } failure:^(NSString * _Nonnull errorMsg) {
-
+        [UIApplication.sharedApplication.keyWindow hiddenHUD];
     }];
 }
 
