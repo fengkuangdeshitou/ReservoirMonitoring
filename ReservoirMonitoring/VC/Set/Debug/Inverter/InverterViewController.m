@@ -192,6 +192,7 @@
     NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
     [params setValue:[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID] forKey:@"devId"];
     [params setValue:@"3" forKey:@"formType"];
+    [params setValue:[NSString stringWithFormat:@"%ld",self.count] forKey:[NSString stringWithFormat:@"qtyOfHybrid%ldBattery",self.currentIndex+1]];
     NSMutableArray * valueArray = [[NSMutableArray alloc] init];
     for (int i=0; i<self.dataArray.count; i++) {
         NSString * key = [NSString stringWithFormat:@"hybrid%ldPV%dVoltage",self.currentIndex+1,i+1];
@@ -230,19 +231,17 @@
             [BleManager.shareInstance writeWithCMDString:[weakSelf getCurrentCMDString] array:valueArray finish:^{
                 dispatch_semaphore_signal(sem);
                 dispatch_async(dispatch_get_main_queue(), ^{
-    //                [weakSelf uploadDebugConfig:params];
-                    [UIApplication.sharedApplication.keyWindow hiddenHUD];
-                    [RMHelper showToast:@"Success" toView:weakSelf.view];
+                    [weakSelf uploadDebugConfig:params];
                     weakSelf.repeat = 0;
                 });
             }];
         }else{
-            [self getStateAction];
+            [self getStateActionWithParams:params];
         }
     });
 }
 
-- (void)getStateAction{
+- (void)getStateActionWithParams:(NSDictionary *)params{
     __weak typeof(self) weakSelf = self;
     NSMutableArray * valueArray = [[NSMutableArray alloc] init];
     for (int i=0; i<weakSelf.dataArray.count; i++) {
@@ -263,9 +262,7 @@
                 [BleManager.shareInstance writeWithCMDString:[weakSelf getCurrentCMDString] array:valueArray finish:^{
                     dispatch_semaphore_signal(sem);
                     dispatch_async(dispatch_get_main_queue(), ^{
-        //                [weakSelf uploadDebugConfig:params];
-                        [UIApplication.sharedApplication.keyWindow hiddenHUD];
-                        [RMHelper showToast:@"Success" toView:weakSelf.view];
+                        [weakSelf uploadDebugConfig:params];
                         weakSelf.repeat = 0;
                     });
                 }];
@@ -278,7 +275,7 @@
                     weakSelf.repeat = 0;
                 });
             }else{
-                [weakSelf performSelector:@selector(getStateAction) withObject:nil afterDelay:0.5];
+                [weakSelf performSelector:@selector(getStateActionWithParams:) withObject:params afterDelay:0.5];
             }
         }
     }];
@@ -288,6 +285,7 @@
     [Request.shareInstance postUrl:SaveDebugConfig params:params progress:^(float progress) {
 
     } success:^(NSDictionary * _Nonnull result) {
+        [UIApplication.sharedApplication.keyWindow hiddenHUD];
         BOOL value = [result[@"data"] boolValue];
         if (!value) {
             [RMHelper showToast:result[@"message"] toView:UIApplication.sharedApplication.keyWindow];
@@ -295,7 +293,7 @@
             [RMHelper showToast:@"Success" toView:UIApplication.sharedApplication.keyWindow];
         }
     } failure:^(NSString * _Nonnull errorMsg) {
-
+        [UIApplication.sharedApplication.keyWindow hiddenHUD];
     }];
 }
 

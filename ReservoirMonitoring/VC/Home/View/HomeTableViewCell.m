@@ -37,7 +37,7 @@
     // Initialization code
 //    self.titleLabel.text = @"Power outage, backup energy in effect.".localized;
     self.currentMode.text = @"Current mode：".localized;
-    self.family.text = @"Battery contribution ratio:".localized;
+    self.family.text = @"EP CUBE contribution ratio:".localized;
     self.status.text = @"Operation status:".localized;
     self.statusValue.text = @"online".localized;
     self.communication.text = @"Communication status：".localized;

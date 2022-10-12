@@ -53,20 +53,20 @@
             dispatch_semaphore_signal(semaphore);
         }];
         
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance readWithCMDString:@"626" count:1 finish:^(NSArray * array){
-            float value = [array.firstObject floatValue];
-            if (value > 0) {
-                NSString * input = [NSString stringWithFormat:@"%.1f",value/10];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    InputTableViewCell * cell = [weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-                    cell.textfield.text = input;
-                });
-            }else{
-                [weakSelf exchangeDictFor:1 value:@"0"];
-            }
-            dispatch_semaphore_signal(semaphore);
-        }];
+//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+//        [BleManager.shareInstance readWithCMDString:@"626" count:1 finish:^(NSArray * array){
+//            float value = [array.firstObject floatValue];
+//            if (value > 0) {
+//                NSString * input = [NSString stringWithFormat:@"%.1f",value/10];
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    InputTableViewCell * cell = [weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+//                    cell.textfield.text = input;
+//                });
+//            }else{
+//                [weakSelf exchangeDictFor:1 value:@"0"];
+//            }
+//            dispatch_semaphore_signal(semaphore);
+//        }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         // 513
@@ -87,14 +87,14 @@
             dispatch_semaphore_signal(semaphore);
         }];
         
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance readWithCMDString:@"64E" count:1 finish:^(NSArray * array){
-            [weakSelf exchangeDictFor:3 value:[array.firstObject intValue] == 0 ? @"50 Hz" : [NSString stringWithFormat:@"%@ Hz",array.firstObject]];
-            NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[3]];
-            dict[@"value"] = [array.firstObject intValue] == 0 ? @"50" : [NSString stringWithFormat:@"%@",array.firstObject];
-            self.dataArray[3] = dict;
-            dispatch_semaphore_signal(semaphore);
-        }];
+//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+//        [BleManager.shareInstance readWithCMDString:@"64E" count:1 finish:^(NSArray * array){
+//            [weakSelf exchangeDictFor:3 value:[array.firstObject intValue] == 0 ? @"50 Hz" : [NSString stringWithFormat:@"%@ Hz",array.firstObject]];
+//            NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[3]];
+//            dict[@"value"] = [array.firstObject intValue] == 0 ? @"50" : [NSString stringWithFormat:@"%@",array.firstObject];
+//            self.dataArray[3] = dict;
+//            dispatch_semaphore_signal(semaphore);
+//        }];
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -115,8 +115,9 @@
 }
 
 - (IBAction)submitAction:(id)sender{
-    InputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    float input = [cell.textfield.text floatValue]*10;
+//    InputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+//    float input = [cell.textfield.text floatValue]*10;
+//    [NSString stringWithFormat:@"%.1f",input],
     if (!BleManager.shareInstance.isConnented) {
         [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
         return;
@@ -127,20 +128,25 @@
     }
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
-        [BleManager.shareInstance writeWithCMDString:@"625" array:@[weakSelf.dataArray[0][@"value"],[NSString stringWithFormat:@"%.1f",input],weakSelf.dataArray[2][@"value"]] finish:^{
+        [BleManager.shareInstance writeWithCMDString:@"625" array:@[weakSelf.dataArray[0][@"value"]] finish:^{
             dispatch_semaphore_signal(sem);
         }];
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-        [BleManager.shareInstance writeWithCMDString:@"64E" array:@[weakSelf.dataArray[3][@"value"]] finish:^{
+        [BleManager.shareInstance writeWithCMDString:@"627" array:@[weakSelf.dataArray[2][@"value"]] finish:^{
+            dispatch_semaphore_signal(sem);
             [weakSelf uploadDebugConfig:@{
                 @"devId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID],
                 @"formType":@"1",
                 @"backupType":weakSelf.dataArray[0][@"value"],
-                @"gridNominalVoltage":[NSString stringWithFormat:@"%.1f",input],
+//                @"gridNominalVoltage":[NSString stringWithFormat:@"%.1f",input],
                 @"gridStandard":weakSelf.dataArray[2][@"value"],
-                @"gridFrequency":weakSelf.dataArray[3][@"value"]
+//                @"gridFrequency":weakSelf.dataArray[3][@"value"]
             }];
         }];
+//        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+//        [BleManager.shareInstance writeWithCMDString:@"64E" array:@[weakSelf.dataArray[3][@"value"]] finish:^{
+//
+//        }];
     });
 }
 
@@ -242,7 +248,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50;
+    return indexPath.row == 1 || indexPath.row == 3 ? 0.01 : 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

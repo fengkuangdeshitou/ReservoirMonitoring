@@ -7,6 +7,13 @@
 
 #import "NavigationViewController.h"
 
+@interface UINavigationController (UINavigationControllerNeedShouldPopItem)
+- (BOOL) navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item;
+@end
+
+@implementation UINavigationController (UINavigationControllerNeedShouldPopItem)
+@end
+
 @interface NavigationViewController ()<UINavigationBarDelegate>
 
 @end
@@ -43,7 +50,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_RESS_NOTIFICATION object:nil];
         return false;
     }else{
-        return true;
+        return [super navigationBar:navigationBar shouldPopItem:item];
     }
 }
 

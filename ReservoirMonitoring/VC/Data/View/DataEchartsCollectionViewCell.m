@@ -193,7 +193,7 @@
     self.selectFlag = 0;
     self.energyTitle.text = @"Energy curve".localized;
     self.titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV",@"Non-backup".localized,@"Backup loads".localized];
-    self.independence.text = @"Battery contribution ratio:".localized;
+    self.independence.text = @"EP CUBE contribution ratio:".localized;
     self.power.text = @"Power outage:".localized;
     self.reducing.text = @"Reducing deforestation:".localized;
     self.trees.text = @"trees".localized;
@@ -301,7 +301,7 @@
         }
     }
 //    xArray = @[@"1",@"2",@"3",@"4",@"5",@"6"];
-//    yArray = @[@"20.6",@"-1.6",@"11.6",@"5",@"0",@"-1.6"];
+//    yArray = @[@"-0.0",@"-0.0",@"-0.0",@"-0.0",@"-0.0",@"-10.6"];
     if (scopeType == 0) {
         self.lineEchartsView.hidden = true;
         self.barEchartsView.hidden = false;
