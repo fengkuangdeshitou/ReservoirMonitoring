@@ -207,7 +207,7 @@
         }else{
             AddDeviceSNTableViewCell*cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([AddDeviceSNTableViewCell class]) forIndexPath:indexPath];
             if (indexPath.row == 0 || indexPath.row == 1) {
-                cell.textfield.placeholder = indexPath.row == 0 ? @"Please input inverte SN".localized : @"Please input battery/base SN".localized;
+                cell.textfield.placeholder = indexPath.row == 0 ? @"Please input inverter SN".localized : @"Please input battery/base SN".localized;
                 cell.textfield.tag = indexPath.row + 10;
                 cell.textfield.delegate = self;
                 cell.label.hidden = false;

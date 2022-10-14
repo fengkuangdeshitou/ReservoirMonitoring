@@ -175,19 +175,19 @@
 
 - (IBAction)submitAction:(id)sender{
     if (self.provinceID.length == 0) {
-        [RMHelper showToast:@"address is null" toView:self.view];
+        [RMHelper showToast:@"Please input address" toView:self.view];
         return;
     }
     if (self.code.text.length == 0) {
-        [RMHelper showToast:@"zip code is null" toView:self.view];
+        [RMHelper showToast:@"Please input zip code" toView:self.view];
         return;
     }
     if (self.timeZone.text.length == 0) {
-        [RMHelper showToast:@"timezone is null" toView:self.view];
+        [RMHelper showToast:@"Please select Timezone" toView:self.view];
         return;
     }
     if ([RMHelper getUserType] && self.email.text.length == 0) {
-        [RMHelper showToast:@"userEmail is null" toView:self.view];
+        [RMHelper showToast:@"Please input User Email" toView:self.view];
         return;
     }
     

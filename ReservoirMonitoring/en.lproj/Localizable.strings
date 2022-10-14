@@ -20,7 +20,7 @@
 "Please enter 6-20 digit password" = "Please enter 6-20 digit password";
 "Password confirmation" = "Password confirmation";
 "Please enter password again" = "Please enter password again";
-"I have read and agree" = "I have read and agree";
+"I have read and agreed" = "I have read and agreed";
 "User Agreement" = "《User Agreement》";
 "Privacy policy" = "《Privacy policy》";
 "Register" = "Register";
@@ -44,7 +44,7 @@
 "Please input name for this device" = "Please input name for this device";
 "Accessory Hybrid info" = "Accessory Hybrid info";
 "Please inpute battery module SN" = "Please inpute battery module SN";
-"Please input inverte SN" = "Please input inverte SN";
+"Please input inverter SN" = "Please input inverter SN";
 "Device location" = "Device location";
 "Country" = "Country";
 "State" = "State";
@@ -76,7 +76,7 @@
 "Input electricity price" = "Input electricity price";
 "Off-peak time" = "Off-peak time";
 "Peak time" = "Peak time";
-"Super peak time" = "Super peak time";
+"Super-peak time" = "Super-peak time";
 
 "Day" = "Day";
 "Month" = "Month";

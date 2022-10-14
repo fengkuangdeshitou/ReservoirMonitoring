@@ -11,9 +11,10 @@
 #import "SelectItemAlertView.h"
 #import "GlobelDescAlertView.h"
 #import "UserModel.h"
+#import "ServiceInputTableViewCell.h"
 @import AFNetworking;
 
-@interface ServiceViewController ()<UITableViewDelegate,UITextFieldDelegate>
+@interface ServiceViewController ()<UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,strong)NSMutableArray * dataArray;
@@ -21,7 +22,8 @@
 @property(nonatomic,weak)IBOutlet UILabel * time;
 @property(nonatomic,strong) NSTimer * timer;
 @property(nonatomic,assign) NSInteger timeCount;
-@property(nonatomic,strong)UserModel * model;
+@property(nonatomic,strong) UserModel * model;
+@property(nonatomic,assign) CGFloat descHeight;
 
 @end
 
@@ -86,7 +88,7 @@
     [self loadTimer];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
-
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ServiceInputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([ServiceInputTableViewCell class])];
 }
 
 - (void)loadTimer{
@@ -205,11 +207,28 @@
     return string;
 }
 
+- (void)textViewDidChange:(UITextView *)textView{
+    CGRect bounds = textView.bounds;
+    CGSize maxSize = CGSizeMake(bounds.size.width, CGFLOAT_MAX);
+    CGSize newSize = [textView sizeThatFits:maxSize];
+    bounds.size = newSize;
+    textView.bounds = bounds;
+    self.descHeight = textView.bounds.size.height;
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == self.dataArray.count-2) {
         SelecteTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SelecteTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
         cell.content.text = self.dataArray[indexPath.row][@"placeholder"];
+        return cell;
+    }else if (indexPath.row == self.dataArray.count-1) {
+        ServiceInputTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ServiceInputTableViewCell class]) forIndexPath:indexPath];
+        cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
+        cell.content.text = self.dataArray[indexPath.row][@"placeholder"];
+        cell.content.delegate = self;
         return cell;
     }else{
         InputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
@@ -304,7 +323,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 53;
+    return indexPath.row == self.dataArray.count-1 ? (self.descHeight+20 < 53 ? 53 : self.descHeight+20) : 53;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

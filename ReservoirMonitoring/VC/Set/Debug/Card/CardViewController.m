@@ -56,7 +56,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self.queryBtn setTitle:@"Query sn and iccid" forState:UIControlStateNormal];
+    [self.queryBtn setTitle:@"Query SN and ICCID" forState:UIControlStateNormal];
     [self.statusBtn setTitle:@"Query device for network state" forState:UIControlStateNormal];
     [self.activaBtn setTitle:@"Activation" forState:UIControlStateNormal];
     [self.queryBtn showBorderWithRadius:25];

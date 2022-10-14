@@ -789,7 +789,7 @@ static unsigned char auchCRCLo[] = {
                 }else{
                     [UIApplication.sharedApplication.keyWindow hiddenHUD];
                     [NSUserDefaults.standardUserDefaults removeObjectForKey:BLE_CMD];
-                    [RMHelper showToast:@"Failure" toView:RMHelper.getCurrentVC.view];
+                    [RMHelper showToast:@"Failed" toView:RMHelper.getCurrentVC.view];
                     [self.requestTimer invalidate];
                     self.requestTimer = nil;
                 }

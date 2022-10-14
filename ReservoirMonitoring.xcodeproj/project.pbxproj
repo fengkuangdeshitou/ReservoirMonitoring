@@ -16,6 +16,8 @@
 		0F0E90C7285047270014B329 /* TimeZoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0E90C5285047270014B329 /* TimeZoneViewController.m */; };
 		0F0E90C8285047270014B329 /* TimeZoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F0E90C6285047270014B329 /* TimeZoneViewController.xib */; };
 		0F0E90CB28507A3C0014B329 /* UWConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0E90CA28507A3C0014B329 /* UWConfig.m */; };
+		0F2FEA1028F7FC9400361721 /* ServiceInputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2FEA0E28F7FC9400361721 /* ServiceInputTableViewCell.m */; };
+		0F2FEA1128F7FC9400361721 /* ServiceInputTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F2FEA0F28F7FC9400361721 /* ServiceInputTableViewCell.xib */; };
 		0F3EBC0E282E8A5E009CDBED /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3EBC0C282E8A5E009CDBED /* GridViewController.m */; };
 		0F3EBC0F282E8A5E009CDBED /* GridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3EBC0D282E8A5E009CDBED /* GridViewController.xib */; };
 		0F3EBC14282E8B05009CDBED /* InverterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3EBC12282E8B05009CDBED /* InverterViewController.m */; };
@@ -215,6 +217,9 @@
 		0F0E90C6285047270014B329 /* TimeZoneViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeZoneViewController.xib; sourceTree = "<group>"; };
 		0F0E90C928507A3C0014B329 /* UWConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UWConfig.h; sourceTree = "<group>"; };
 		0F0E90CA28507A3C0014B329 /* UWConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UWConfig.m; sourceTree = "<group>"; };
+		0F2FEA0D28F7FC9400361721 /* ServiceInputTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceInputTableViewCell.h; sourceTree = "<group>"; };
+		0F2FEA0E28F7FC9400361721 /* ServiceInputTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServiceInputTableViewCell.m; sourceTree = "<group>"; };
+		0F2FEA0F28F7FC9400361721 /* ServiceInputTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServiceInputTableViewCell.xib; sourceTree = "<group>"; };
 		0F3EBC0B282E8A5E009CDBED /* GridViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridViewController.h; sourceTree = "<group>"; };
 		0F3EBC0C282E8A5E009CDBED /* GridViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GridViewController.m; sourceTree = "<group>"; };
 		0F3EBC0D282E8A5E009CDBED /* GridViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GridViewController.xib; sourceTree = "<group>"; };
@@ -1267,6 +1272,9 @@
 				BDFA3AB4282F7D1B004A7E8C /* ServiceViewController.h */,
 				BDFA3AB5282F7D1B004A7E8C /* ServiceViewController.m */,
 				BDFA3AB6282F7D1B004A7E8C /* ServiceViewController.xib */,
+				0F2FEA0D28F7FC9400361721 /* ServiceInputTableViewCell.h */,
+				0F2FEA0E28F7FC9400361721 /* ServiceInputTableViewCell.m */,
+				0F2FEA0F28F7FC9400361721 /* ServiceInputTableViewCell.xib */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1395,6 +1403,7 @@
 				BD907361280D4B1A00044013 /* SetTableViewCell.xib in Resources */,
 				BDE88A64280AC2B200081114 /* SwitchProgressTableViewCell.xib in Resources */,
 				BD8FDA6E280EF582000036DD /* AddDeviceViewController.xib in Resources */,
+				0F2FEA1128F7FC9400361721 /* ServiceInputTableViewCell.xib in Resources */,
 				BDE88A6E280ACA8C00081114 /* TimeTableViewCell.xib in Resources */,
 				0F69684528349A3800F22E47 /* WifiInfoTableViewCell.xib in Resources */,
 				BDFA3A9628256FF0004A7E8C /* AddDeviceSNTableViewCell.xib in Resources */,
@@ -1591,6 +1600,7 @@
 				BD2DEF2028044A6E004E8D7D /* AppDelegate.m in Sources */,
 				BDE88A132804714E00081114 /* BaseViewController+BarButtonItem.m in Sources */,
 				0F3EBC20282E8B94009CDBED /* HybridViewController.m in Sources */,
+				0F2FEA1028F7FC9400361721 /* ServiceInputTableViewCell.m in Sources */,
 				BD8FDA4C280EEBF5000036DD /* HelpTableViewCell.m in Sources */,
 				0F3EBC26282E8BC9009CDBED /* OtherViewController.m in Sources */,
 				BDE88A452807187600081114 /* HomeItemView.m in Sources */,
@@ -1883,7 +1893,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.13;
+				MARKETING_VERSION = 1.0.16;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1928,7 +1938,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.13;
+				MARKETING_VERSION = 1.0.16;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

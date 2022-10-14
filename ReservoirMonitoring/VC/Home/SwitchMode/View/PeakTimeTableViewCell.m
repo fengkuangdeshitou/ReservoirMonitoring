@@ -147,7 +147,7 @@
             make.top.mas_equalTo(10);
         make.height.mas_equalTo(20);
     }];
-    label.text = section == 0 ? @"Off-peak time".localized : (section == 1 ? @"Peak time".localized : @"Super peak time".localized);
+    label.text = section == 0 ? @"Off-peak time".localized : (section == 1 ? @"Peak time".localized : @"Super-peak time".localized);
     label.textColor = UIColor.whiteColor;
     return headerView;
 }

@@ -35,7 +35,7 @@
 
 - (IBAction)submitAction:(id)sender{
     if (!self.statusBtn.selected) {
-        [RMHelper showToast:@"Please tick the Notice for account cancellation." toView:self.view];
+        [RMHelper showToast:@"Please read the Notice for account cancellation" toView:self.view];
         return;
     }
     [Request.shareInstance getUrl:LogOff params:@{} progress:^(float progress) {

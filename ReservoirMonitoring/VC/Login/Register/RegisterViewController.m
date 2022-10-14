@@ -53,7 +53,7 @@
     
     NSString * userAgreement = @"《User Agreement》".localized;
     NSString * policy = @"《Privacy policy》".localized;
-    NSString * string = @"I have read and agree".localized;
+    NSString * string = @"I have read and agreed".localized;
     self.agree.text = [NSString stringWithFormat:@"%@%@%@",string,userAgreement,policy];
     self.agree.lineBreakMode = NSLineBreakByWordWrapping;
     self.agree.textColor = [UIColor colorWithHexString:@"#747474"];
@@ -106,23 +106,30 @@
 
 - (IBAction)registration:(id)sender{
     if (!self.statusBtn.selected) {
-        [RMHelper showToast:@"Please agree to the User Agreement first".localized toView:self.view];
+        [RMHelper showToast:@"Please read the User Agreement first".localized toView:self.view];
         return;
     }
     NSArray<RegisterTableViewCell *> * cells = self.tableView.visibleCells;
     for (int i=0; i<cells.count; i++) {
         RegisterTableViewCell * cell = cells[i];
-        NSLog(@"%@",cell.textfield.text);
         if (i == 2 && self.uuid == nil) {
             [RMHelper showToast:@"Please get verification code".localized toView:self.view];
             return;
         }
-        if (cell.textfield.text.length == 0) {
+        if (cell.textfield.text.length == 0 && i < 3) {
             [RMHelper showToast:cell.textfield.placeholder toView:self.view];
             return;
         }
     }
-    if (![cells[3].textfield.text isEqualToString:cells[4].textfield.text]) {
+    
+    RegisterTableViewCell * password = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+    RegisterTableViewCell * confir = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
+    
+    if (password.textfield.text.length < 6 || password.textfield.text.length > 20 || confir.textfield.text.length < 6 || confir.textfield.text.length > 20){
+        [RMHelper showToast:@"Please enter 6-20 digit password".localized toView:self.view];
+        return;
+    }
+    if (![password.textfield.text isEqualToString:confir.textfield.text]) {
         [RMHelper showToast:@"The two passwords you entered are different".localized toView:self.view];
         return;
     }
@@ -150,12 +157,14 @@
 }
 
 - (void)onAuthemticationSuccess{
+    self.sendCodeButton.userInteractionEnabled = false;
     RegisterTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     [Request.shareInstance postUrl:EmailCode params:@{@"type":@"1",@"email":cell.textfield.text} progress:^(float progress) {
 
     } success:^(NSDictionary * _Nonnull result) {
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:true block:^(NSTimer * _Nonnull timer) {
-        self.uuid = [NSString stringWithFormat:@"%@",result[@"data"]];
+        [self.sendCodeButton setTitle:[NSString stringWithFormat:@"%ld",self.time] forState:UIControlStateNormal];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:true block:^(NSTimer * _Nonnull timer) {
+            self.uuid = [NSString stringWithFormat:@"%@",result[@"data"]];
             self.time--;
             if (self.time == 0) {
                 self.time = 60;
@@ -167,8 +176,9 @@
                 [self.sendCodeButton setTitle:[NSString stringWithFormat:@"%ld",self.time] forState:UIControlStateNormal];
             }
         }];
+        [NSRunLoop.currentRunLoop addTimer:self.timer forMode:NSRunLoopCommonModes];
     } failure:^(NSString * _Nonnull errorMsg) {
-
+        self.sendCodeButton.userInteractionEnabled = true;
     }];
 }
 

@@ -97,7 +97,7 @@
     if (model.workStatus.intValue == 1) {
         self.currentModeValue.text = @"Self-consumption";
     }else if (model.workStatus.intValue == 2){
-        self.currentModeValue.text = @"Time Of Use";
+        self.currentModeValue.text = @"Time of Use";
     }else if(model.workStatus.intValue == 3){
         self.currentModeValue.text = @"Back up";
     }else{

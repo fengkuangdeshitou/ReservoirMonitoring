@@ -271,7 +271,7 @@
             if (weakSelf.repeat == 8){
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [UIApplication.sharedApplication.keyWindow hiddenHUD];
-                    [RMHelper showToast:@"Failure" toView:weakSelf.view];
+                    [RMHelper showToast:@"Failed" toView:weakSelf.view];
                     weakSelf.repeat = 0;
                 });
             }else{

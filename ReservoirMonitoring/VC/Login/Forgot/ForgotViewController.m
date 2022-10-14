@@ -40,7 +40,7 @@
     self.code.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
 }
 
-- (IBAction)sendCode:(id)sender{
+- (IBAction)sendCode:(UIButton *)sender{
     if (self.password.text.length == 0) {
         [RMHelper showToast:@"Please input registration Email".localized toView:self.view];
         return;
@@ -64,6 +64,7 @@
     [Request.shareInstance getUrl:CheckEmailCode params:@{@"uuid":self.uuid,@"code":self.code.text} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
+        self.codeButton.userInteractionEnabled = true;
         SetPasswordViewController * set = [[SetPasswordViewController alloc] init];
         set.uuid = self.uuid;
         set.code = self.code.text;
@@ -71,14 +72,16 @@
         set.title = self.title.localized;
         [self.navigationController pushViewController:set animated:true];
     } failure:^(NSString * _Nonnull errorMsg) {
-        
+        self.codeButton.userInteractionEnabled = true;
     }];
 }
 
 - (void)onAuthemticationSuccess{
+    self.codeButton.userInteractionEnabled = false;
     [Request.shareInstance postUrl:EmailCode params:@{@"type":@"2",@"email":self.password.text} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
+        [self.codeButton setTitle:[NSString stringWithFormat:@"%ld",self.time] forState:UIControlStateNormal];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:true block:^(NSTimer * _Nonnull timer) {
             self.uuid = [NSString stringWithFormat:@"%@",result[@"data"]];
                 self.time--;

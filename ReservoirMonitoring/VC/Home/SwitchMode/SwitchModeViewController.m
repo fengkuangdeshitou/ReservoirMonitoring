@@ -146,7 +146,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.titleArray = @[@"Self-consumption",@"Back up",@"Time Of Use"];
+    self.titleArray = @[@"Self-consumption",@"Back up",@"Time of Use"];
     self.progressArray = [[NSMutableArray alloc] initWithObjects:@"0",@"0",@"", nil];
     self.weather.text = @"Weather watch".localized;
     [self.submitButton setTitle:@"Submit".localized forState:UIControlStateNormal];
@@ -320,7 +320,7 @@
 }
 
 - (IBAction)helpAction:(id)sender{
-    [GlobelDescAlertView showAlertViewWithTitle:@"Weather watch".localized desc:@"This will enable the EP CUBE to monitor local weather and charge the batteries for backup in case of extreme future weather event." btnTitle:nil completion:nil];
+    [GlobelDescAlertView showAlertViewWithTitle:@"Weather watch".localized desc:@"This will enable the EP CUBE to monitor the local weather forecasts and charge the batteries for backup in case of extreme future weather events." btnTitle:nil completion:nil];
 }
 
 - (IBAction)submitAction:(id)sender{
@@ -406,7 +406,7 @@
         }
         [params setValue:superPeakTimeArray forKey:@"superPeakTimeList"];
         if ([RMHelper hasRepeatedTimeForArray:superPeakTimeArray]) {
-            [RMHelper showToast:@"Super peak time overlap" toView:self.view];
+            [RMHelper showToast:@"Super-peak time overlap" toView:self.view];
             return;
         }
         NSMutableArray * selectedTime = [[NSMutableArray alloc] init];
@@ -544,7 +544,7 @@
                     [UIApplication.sharedApplication.keyWindow hiddenHUD];
                     NSInteger idx = [array.firstObject intValue];
                     if (idx == 1) {
-                        [RMHelper showToast:@"Failure" toView:self.view];
+                        [RMHelper showToast:@"Failed" toView:self.view];
                     }
                     if (idx == 2) {
                         [self switchWithParams:params];

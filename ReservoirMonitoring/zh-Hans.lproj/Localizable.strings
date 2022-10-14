@@ -21,7 +21,7 @@
 "Please enter 6-20 digit password" = "Please enter 6-20 digit password";
 "Password confirmation" = "Password confirmation";
 "Please enter password again" = "Please enter password again";
-"I have read and agree" = "I have read and agree";
+"I have read and agreed" = "I have read and agreed";
 "User Agreement" = "《User Agreement》";
 "Privacy policy" = "《Privacy policy》";
 "Register" = "Register";
@@ -45,7 +45,7 @@
 "Please input name for this device" = "Please input name for this device";
 "Accessory Hybrid info" = "Accessory Hybrid info";
 "Please inpute battery module SN" = "Please inpute battery module SN";
-"Please input inverte SN" = "Please input inverte SN";
+"Please input inverter SN" = "Please input inverter SN";
 "Device location" = "Device location";
 "Country" = "Country";
 "State" = "State";
@@ -77,7 +77,7 @@
 "Input electricity price" = "Input electricity price";
 "Off-peak time" = "Off-peak time";
 "Peak time" = "Peak time";
-"Super peak time" = "Super peak time";
+"Super-peak time" = "Super-peak time";
 
 "Day" = "Day";
 "Month" = "Month";
@@ -200,7 +200,7 @@
 //"Please enter 6-20 digit password" = "请输入6-20位登录密码";
 //"Password confirmation" = "确认密码";
 //"Please enter password again" = "请再次确认登录密码";
-//"I have read and agree" = "同意";
+//"I have read and agreed" = "同意";
 //"User Agreement" = "《用户协议》";
 //"Privacy policy" = "《隐私协议》";
 //"Register" = "注册";
@@ -224,7 +224,7 @@
 //"Please input name for this device" = "请输入设备名称";
 //"Accessory Hybrid info" = "链接设备Sn";
 //"Please inpute battery module SN" = "请输入设备SN";
-//"Please input inverte SN" = "请输入设备SN";
+//"Please input inverter SN" = "请输入设备SN";
 //"Device location" = "添加设备-地址输入";
 //"Country" = "选择国家";
 //"State" = "选择州、省";
