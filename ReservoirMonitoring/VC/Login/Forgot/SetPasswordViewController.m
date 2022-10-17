@@ -7,7 +7,7 @@
 
 #import "SetPasswordViewController.h"
 
-@interface SetPasswordViewController ()
+@interface SetPasswordViewController ()<UITextFieldDelegate>
 
 @property(nonatomic,weak)IBOutlet UIButton * submit;
 @property(nonatomic,weak)IBOutlet UITextField * password;
@@ -30,6 +30,8 @@
     self.confirm.placeholder = @"Please confirm password".localized;
     self.password.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
     self.confirm.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
+    self.password.delegate = self;
+    self.confirm.delegate = self;
 }
 
 - (IBAction)passwordSecureAction:(UIButton *)sender{
@@ -42,16 +44,31 @@
     self.confirm.secureTextEntry = !self.confirm.secureTextEntry;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    NSInteger existedLength = textField.text.length;
+    NSInteger selectedLength = range.length;
+    NSInteger replaceLength = string.length;
+    NSInteger pointLength = existedLength - selectedLength + replaceLength;
+    if (pointLength > 20) {
+        return NO;
+    }
+    return YES;
+}
+
 - (IBAction)submitAction:(id)sender{
     if (self.password.text.length == 0) {
         [RMHelper showToast:self.password.placeholder toView:self.view];
+        return;
+    }
+    if (self.password.text.length < 6 || self.password.text.length > 20){
+        [RMHelper showToast:@"Please enter 6-20 digit password".localized toView:self.view];
         return;
     }
     if (self.confirm.text.length == 0) {
         [RMHelper showToast:self.confirm.placeholder toView:self.view];
         return;
     }
-    if (self.password.text.length < 6 || self.password.text.length > 20 || self.confirm.text.length < 6 || self.confirm.text.length > 20){
+    if (self.confirm.text.length < 6 || self.confirm.text.length > 20){
         [RMHelper showToast:@"Please enter 6-20 digit password".localized toView:self.view];
         return;
     }

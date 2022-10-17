@@ -11,7 +11,7 @@
 #import "ProtocolViewController.h"
 @import MLLabel;
 
-@interface RegisterViewController ()<ImageAuthenticationViewDelegate,UITableViewDelegate,MLLinkLabelDelegate>
+@interface RegisterViewController ()<ImageAuthenticationViewDelegate,UITableViewDelegate,MLLinkLabelDelegate,UITextFieldDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * registerBtn;
@@ -104,6 +104,17 @@
     self.statusBtn.selected = !self.statusBtn.selected;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    NSInteger existedLength = textField.text.length;
+    NSInteger selectedLength = range.length;
+    NSInteger replaceLength = string.length;
+    NSInteger pointLength = existedLength - selectedLength + replaceLength;
+    if (pointLength > 20) {
+        return NO;
+    }
+    return YES;
+}
+
 - (IBAction)registration:(id)sender{
     if (!self.statusBtn.selected) {
         [RMHelper showToast:@"Please read the User Agreement first".localized toView:self.view];
@@ -124,8 +135,19 @@
     
     RegisterTableViewCell * password = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
     RegisterTableViewCell * confir = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
-    
-    if (password.textfield.text.length < 6 || password.textfield.text.length > 20 || confir.textfield.text.length < 6 || confir.textfield.text.length > 20){
+    if (password.textfield.text.length == 0){
+        [RMHelper showToast:password.textfield.placeholder toView:self.view];
+        return;
+    }
+    if (password.textfield.text.length < 6 || password.textfield.text.length > 20){
+        [RMHelper showToast:@"Please enter 6-20 digit password".localized toView:self.view];
+        return;
+    }
+    if (confir.textfield.text.length == 0){
+        [RMHelper showToast:confir.textfield.placeholder toView:self.view];
+        return;
+    }
+    if (confir.textfield.text.length < 6 || confir.textfield.text.length > 20){
         [RMHelper showToast:@"Please enter 6-20 digit password".localized toView:self.view];
         return;
     }
@@ -209,6 +231,7 @@
     if (indexPath.row == 3 || indexPath.row == 4) {
         cell.textfield.secureTextEntry = true;
         cell.showBtn.hidden = false;
+        cell.textfield.delegate = self;
     }else{
         cell.textfield.secureTextEntry = false;
         cell.showBtn.hidden = true;
