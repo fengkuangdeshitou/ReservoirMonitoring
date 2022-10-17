@@ -88,7 +88,11 @@
             NSLog(@"62d=%@",array);
             weakSelf.leftOpen = [array.firstObject intValue] != 0;
             weakSelf.leftController = [NSString stringWithFormat:@"%@",array.firstObject];
-            weakSelf.leftValue = !weakSelf.leftOpen ? @"None".localized : @[@"PV inverter enabled".localized,@"EV charger enabled".localized][([array.firstObject intValue]-1)];
+            int index = 0;
+            if ([array.firstObject intValue]<3){
+                index = [array.firstObject intValue]-1;
+            }
+            weakSelf.leftValue = !weakSelf.leftOpen ? @"None".localized : @[@"PV inverter enabled".localized,@"EV charger enabled".localized][index];
             if (weakSelf.leftOpen) {
                 weakSelf.leftValueArray = @[array[1],array[2]];
             }
@@ -105,7 +109,11 @@
             if ([array.firstObject intValue] == 0) {
                 weakSelf.rightValue = @"None".localized;
             }else{
-                weakSelf.rightValue = @[@"Generator enabled".localized,@"EV charger enabled",@"PV inverter enabled",@"None".localized][[array.firstObject intValue] -1];
+                int index = 0;
+                if ([array.firstObject intValue]<3){
+                    index = [array.firstObject intValue] -1;
+                }
+                weakSelf.rightValue = @[@"Generator enabled".localized,@"EV charger enabled",@"PV inverter enabled",@"None".localized][index];
             }
 //            weakSelf.rightValue = weakSelf.rightOpen ? @"Generator enabled".localized :  @"None".localized;
             dispatch_semaphore_signal(semaphore);
@@ -113,7 +121,7 @@
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance readWithCMDString:@"633" count:1 finish:^(NSArray * _Nonnull array) {
-            NSInteger inx = [array.firstObject intValue];
+            NSInteger inx = [array.firstObject intValue] < 3 ? [array.firstObject intValue] : 1;
             if (inx == 0) {
                 weakSelf.modelValue = @"Efficient mode".localized;
             }else{

@@ -46,7 +46,7 @@
     __weak typeof(self) weakSelf = self;
     [BleManager.shareInstance readWithCMDString:@"512" count:1 finish:^(NSArray * _Nonnull array) {
         if (array.count > 0) {
-            NSInteger idx = [array.firstObject integerValue];
+            NSInteger idx = [array.firstObject integerValue] < 2 ? [array.firstObject integerValue] : 0;
             NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:weakSelf.dataArray[0]];
             dict[@"placeholder"] = @[@"Local".localized,@"Remote".localized][idx];
             dict[@"value"] = [NSString stringWithFormat:@"%ld",idx];

@@ -45,7 +45,10 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         [BleManager.shareInstance readWithCMDString:@"625" count:1 finish:^(NSArray * array){
-            int value = [array.firstObject intValue];
+            int value = 0;
+            if([array.firstObject intValue] < 2){
+                value = [array.firstObject intValue];
+            };
             [weakSelf exchangeDictFor:0 value:@[@"Whole home".localized,@"Partial home".localized][1-value]];
             NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[0]];
             dict[@"value"] = [NSString stringWithFormat:@"%d",1-value];
@@ -72,6 +75,9 @@
         // 513
         [BleManager.shareInstance readWithCMDString:@"627" count:1 finish:^(NSArray * array){
             NSInteger index = [array.firstObject intValue] == 255 ? 6 : [array.firstObject intValue];
+            if (index > 6){
+                index = 6;
+            }
             [weakSelf exchangeDictFor:2 value:@[
                 @"SCE Rule 21",
                 @"SDG&E Rule 21",
@@ -99,6 +105,7 @@
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_async(dispatch_get_main_queue(), ^{
             [UIApplication.sharedApplication.keyWindow hiddenHUD];
+            [weakSelf.tableView reloadData];
             dispatch_semaphore_signal(semaphore);
         });
     });
@@ -109,9 +116,6 @@
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[idx]];
     dict[@"placeholder"] = value;
     self.dataArray[idx] = dict;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
 }
 
 - (IBAction)submitAction:(id)sender{
