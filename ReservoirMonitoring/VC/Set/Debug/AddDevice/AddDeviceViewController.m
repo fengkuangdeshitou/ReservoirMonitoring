@@ -46,19 +46,19 @@
 
 - (IBAction)nextAction:(id)sender{
     [self.view endEditing:true];
-    if (!self.sgSn) {
+    if (self.sgSn.length == 0) {
         [RMHelper showToast:@"Please input device SN".localized toView:self.view];
         return;
     }
-    if (!self.name) {
+    if (self.name.length == 0) {
         [RMHelper showToast:@"Please input name for this device" toView:self.view];
         return;
     }
-    if (!self.inverteSN) {
+    if (self.inverteSN.length == 0) {
         [RMHelper showToast:@"please input inverter SN" toView:self.view];
         return;
     }
-    if (!self.batterySN) {
+    if (self.batterySN.length == 0) {
         [RMHelper showToast:@"please input battery SN" toView:self.view];
         return;
     }
@@ -171,6 +171,21 @@
     }else{
         [self.dataArray replaceObjectAtIndex:textField.tag-10 withObject:textField.text];
     }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    NSInteger existedLength = textField.text.length;
+    NSInteger selectedLength = range.length;
+    NSInteger replaceLength = string.length;
+    NSInteger pointLength = existedLength - selectedLength + replaceLength;
+    if(textField.tag == 2){
+        if (pointLength > 15) {
+            return false;
+        }else{
+            return true;
+        }
+    }
+    return true;
 }
 
 - (void)inverteScanFinish{

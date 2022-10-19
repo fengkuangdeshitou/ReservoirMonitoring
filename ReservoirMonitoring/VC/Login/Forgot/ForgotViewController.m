@@ -41,6 +41,7 @@
 }
 
 - (IBAction)sendCode:(UIButton *)sender{
+    [self.view endEditing:true];
     if (self.password.text.length == 0) {
         [RMHelper showToast:@"Please input registration Email".localized toView:self.view];
         return;
@@ -61,7 +62,7 @@
         [RMHelper showToast:@"Please enter verification code".localized toView:self.view];
         return;
     }
-    [Request.shareInstance getUrl:CheckEmailCode params:@{@"uuid":self.uuid,@"code":self.code.text} progress:^(float progress) {
+    [Request.shareInstance getUrl:CheckEmailCode params:@{@"uuid":self.uuid,@"code":self.code.text,@"email":self.password.text} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         self.codeButton.userInteractionEnabled = true;

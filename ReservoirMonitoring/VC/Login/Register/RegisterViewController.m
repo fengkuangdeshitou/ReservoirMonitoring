@@ -46,7 +46,7 @@
     self.dataArray = @[
     @{@"title":@"Name".localized,@"placeholder":@"Please input your name".localized},
     @{@"title":@"Email".localized,@"placeholder":@"Please input your Email".localized},
-    @{@"title":@"Email verification".localized,@"placeholder":@"Enter verification code".localized},
+    @{@"title":@"Email verification".localized,@"placeholder":@"Please enter verification code".localized},
     @{@"title":@"Password".localized,@"placeholder":@"Please enter 6-20 digit password".localized},
     @{@"title":@"Password confirmation".localized,@"placeholder":@"Please enter password again".localized}
     ];
@@ -109,10 +109,19 @@
     NSInteger selectedLength = range.length;
     NSInteger replaceLength = string.length;
     NSInteger pointLength = existedLength - selectedLength + replaceLength;
-    if (pointLength > 20) {
-        return NO;
+    if (textField.tag == 10){
+        if (pointLength > 30) {
+            return NO;
+        }else{
+            return true;
+        }
+    }else{
+        if (pointLength > 20) {
+            return NO;
+        }else{
+            return YES;
+        }
     }
-    return YES;
 }
 
 - (IBAction)registration:(id)sender{
@@ -124,7 +133,7 @@
     for (int i=0; i<cells.count; i++) {
         RegisterTableViewCell * cell = cells[i];
         if (i == 2 && self.uuid == nil) {
-            [RMHelper showToast:@"Please get verification code".localized toView:self.view];
+            [RMHelper showToast:@"Please send verification code first".localized toView:self.view];
             return;
         }
         if (cell.textfield.text.length == 0 && i < 3) {
@@ -205,6 +214,7 @@
 }
 
 - (void)sendCodeAction{
+    [self.view endEditing:true];
     RegisterTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     if (cell.textfield.text.length == 0) {
         [RMHelper showToast:cell.textfield.placeholder.localized toView:self.view];
@@ -235,6 +245,10 @@
     }else{
         cell.textfield.secureTextEntry = false;
         cell.showBtn.hidden = true;
+        if(indexPath.row == 0){
+            cell.textfield.delegate = self;
+            cell.textfield.tag = 10;
+        }
     }
     [cell.showBtn addTarget:self action:@selector(textfieldSecureChange:) forControlEvents:UIControlEventTouchUpInside];
     return cell;

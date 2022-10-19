@@ -27,8 +27,8 @@
 @property(nonatomic,strong)NSString * leftController;
 @property(nonatomic,strong)NSString * rightController;
 @property(nonatomic,strong)NSString * modelValue;
-@property(nonatomic,strong)NSArray * leftValueArray;
-@property(nonatomic,strong)NSArray * rightValueArray;
+@property(nonatomic,strong)NSArray<NSString*> * leftValueArray;
+@property(nonatomic,strong)NSArray<NSString*> * rightValueArray;
 @property(nonatomic,strong)BRPickerStyle * style;
 
 @end
@@ -58,6 +58,8 @@
     // Do any additional setup after loading the view from its nib.
         
     [self resetNumberData];
+    self.leftValueArray = @[@"",@""];
+    self.rightValueArray = @[@"",@""];
     [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
     [self.submit showBorderWithRadius:25];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
@@ -110,8 +112,8 @@
                 weakSelf.rightValue = @"None".localized;
             }else{
                 int index = 0;
-                if ([array.firstObject intValue]<3){
-                    index = [array.firstObject intValue] -1;
+                if ([array.firstObject intValue]<4){
+                    index = [array.firstObject intValue]-1;
                 }
                 weakSelf.rightValue = @[@"Generator enabled".localized,@"EV charger enabled",@"PV inverter enabled",@"None".localized][index];
             }
@@ -182,11 +184,19 @@
     }
     NSArray * leftArray = @[];
     if (self.leftOpen) {
+        if (self.leftValueArray[0].length == 0 || self.leftValueArray[1].length == 0) {
+            [RMHelper showToast:@"Enter(number)" toView:self.view];
+            return;
+        }
         leftArray = @[self.leftController,self.leftValueArray[0],self.leftValueArray[1]];
     }
 
     NSArray * rightArray = @[];
     if (self.rightOpen) {
+        if (self.rightValueArray[0].length == 0 || self.rightValueArray[1].length == 0) {
+            [RMHelper showToast:@"Enter(number)" toView:self.view];
+            return;
+        }
         rightArray = @[self.rightController,self.rightValueArray[0],self.rightValueArray[1]];
     }
     if (!self.systemTime) {
