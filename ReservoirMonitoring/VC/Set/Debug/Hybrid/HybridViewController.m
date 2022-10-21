@@ -267,7 +267,7 @@
                     @"devId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID],
                     @"formType":@"2",
                     @"systemTime":weakSelf.systemTime,
-                    @"eStop":weakSelf.stop?:@"0",
+                    @"estop":weakSelf.stop?:@"0",
                     @"controlCircuitLeft":weakSelf.leftOpen?@"1":@"0",
                     @"lbrand":weakSelf.leftOpen?weakSelf.leftValueArray[0]:@"0",
                     @"lmodel":weakSelf.leftOpen?weakSelf.leftValueArray[1]:@"0",
