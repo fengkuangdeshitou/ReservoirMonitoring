@@ -55,14 +55,21 @@
 - (IBAction)startTimeAction:(id)sender{
     BRDatePickerView * picker = [[BRDatePickerView alloc] initWithPickerMode:BRDatePickerModeHM];
     picker.showUnitType = BRShowUnitTypeNone;
-    picker.selectDate = [NSDate date];
-    picker.selectValue = self.startTime.text;
+    if(self.startTime.text.length > 0){
+        picker.selectValue = self.startTime.text;
+    }else{
+        picker.selectDate = [NSDate date];
+    }
     picker.pickerStyle = self.style;
     picker.resultBlock = ^(NSDate * _Nullable selectDate, NSString * _Nullable selectValue) {
-        if (self.valueChangeCompletion) {
-            self.valueChangeCompletion(self.indexPath,@"startTime",selectValue);
+        if(self.endTime.text.length > 0 && [self compareOneDay:selectDate withAnotherDay:[NSDate br_dateFromString:self.endTime.text dateFormat:@"HH:mm"]] != -1){
+            [RMHelper showToast:@"Start time cannot be later than end time" toView:RMHelper.getCurrentVC.view];
+        }else{
+            if (self.valueChangeCompletion) {
+                self.valueChangeCompletion(self.indexPath,@"startTime",selectValue);
+            }
+            self.startTime.text = selectValue;
         }
-        self.startTime.text = selectValue;
     };
     [picker show];
 }
@@ -70,16 +77,50 @@
 - (IBAction)endTimeAction:(id)sender{
     BRDatePickerView * picker = [[BRDatePickerView alloc] initWithPickerMode:BRDatePickerModeHM];
     picker.showUnitType = BRShowUnitTypeNone;
-    picker.selectDate = [NSDate date];
-    picker.selectValue = self.endTime.text;
+    if(self.endTime.text.length > 0){
+        picker.selectValue = self.endTime.text;
+    }else{
+        picker.selectDate = [NSDate date];
+    }
     picker.pickerStyle = self.style;
     picker.resultBlock = ^(NSDate * _Nullable selectDate, NSString * _Nullable selectValue) {
-        if (self.valueChangeCompletion) {
-            self.valueChangeCompletion(self.indexPath,@"endTime",selectValue);
+        if(self.startTime.text.length > 0 && [self compareOneDay:selectDate withAnotherDay:[NSDate br_dateFromString:self.startTime.text dateFormat:@"HH:mm"]] != 1){
+            [RMHelper showToast:@"End time cannot be earlier than start time" toView:RMHelper.getCurrentVC.view];
+        }else{
+            if (self.valueChangeCompletion) {
+                self.valueChangeCompletion(self.indexPath,@"endTime",selectValue);
+            }
+            self.endTime.text = selectValue;
         }
-        self.endTime.text = selectValue;
     };
     [picker show];
+}
+
+- (int)compareOneDay:(NSDate *)oneDay withAnotherDay:(NSDate *)anotherDay{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat:@"HH:mm"];
+    
+    NSString *oneDayStr = [dateFormatter stringFromDate:oneDay];
+    
+    NSString *anotherDayStr = [dateFormatter stringFromDate:anotherDay];
+    
+    NSDate *dateA = [dateFormatter dateFromString:oneDayStr];
+    
+    NSDate *dateB = [dateFormatter dateFromString:anotherDayStr];
+    
+    NSComparisonResult result = [dateA compare:dateB];
+    
+    if (result == NSOrderedDescending) {
+        //NSLog(@"oneDay比 anotherDay时间晚");
+        return 1;
+    }
+    else if (result == NSOrderedAscending){
+        //NSLog(@"oneDay比 anotherDay时间早");
+        return -1;
+    }
+    //NSLog(@"两者时间是同一个时间");
+    return 0;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
