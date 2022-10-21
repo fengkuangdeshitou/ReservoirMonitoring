@@ -13,7 +13,7 @@
 @import AVFoundation;
 #import "GlobelDescAlertView.h"
 
-@interface InfoViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface InfoViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * save;
@@ -55,6 +55,18 @@
     self.photoBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.photoBtn sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",Host,self.model.avatar]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"info"]];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InfoTableViewCell class])];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    NSInteger existedLength = textField.text.length;
+    NSInteger selectedLength = range.length;
+    NSInteger replaceLength = string.length;
+    NSInteger pointLength = existedLength - selectedLength + replaceLength;
+    if (pointLength > 30) {
+        return NO;
+    }else{
+        return YES;
+    }
 }
 
 - (IBAction)selectPhoto:(id)sender{
@@ -153,6 +165,9 @@
     cell.icon.image = [UIImage imageNamed:self.iconArray[indexPath.row]];
     cell.line.hidden = indexPath.row == self.iconArray.count - 1;
     cell.textfield.userInteractionEnabled = indexPath.row!=0;
+    if(indexPath.row == 1){
+        cell.textfield.delegate = self;
+    }
     return cell;
 }
 
