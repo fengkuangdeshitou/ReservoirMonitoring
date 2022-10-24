@@ -47,7 +47,14 @@
 
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item{
     if ([self.topViewController isKindOfClass:NSClassFromString(@"InverterViewController")]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_RESS_NOTIFICATION object:nil];
+        BOOL install = false;
+        for (UIViewController * vc in self.viewControllers) {
+            if ([vc isKindOfClass:NSClassFromString(@"InstallViewController")]){
+                install = true;
+                break;
+            }
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_RESS_NOTIFICATION object:[NSNumber numberWithBool:install]];
         return false;
     }else{
         return [super navigationBar:navigationBar shouldPopItem:item];

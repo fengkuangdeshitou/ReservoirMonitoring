@@ -29,9 +29,14 @@
     // Do any additional setup after loading the view from its nib.
     self.dataArray = @[@"Installation".localized,@"Grid config".localized,@"SG config".localized,@"Hybrid Config".localized,@"Card config".localized,@"Other config".localized];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DebugCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([DebugCollectionViewCell class])];
-    [[NSNotificationCenter defaultCenter] addObserverForName:UPDATE_RESS_NOTIFICATION object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(ressNotification:) name:UPDATE_RESS_NOTIFICATION object:nil];
+}
+
+- (void)ressNotification:(NSNotification *)notification{
+    NSNumber * obj = notification.object;
+    if(!obj.boolValue){
         [self.navigationController popToViewController:self animated:true];
-    }];
+    }
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{

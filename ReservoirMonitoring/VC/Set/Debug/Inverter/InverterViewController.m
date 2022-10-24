@@ -79,7 +79,14 @@
 }
 
 - (void)backView{
-    [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_RESS_NOTIFICATION object:nil];
+    BOOL install = false;
+    for (UIViewController * vc in self.navigationController.viewControllers) {
+        if ([vc isKindOfClass:NSClassFromString(@"InstallViewController")]){
+            install = true;
+            break;
+        }
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_RESS_NOTIFICATION object:[NSNumber numberWithBool:install]];
 }
 
 - (NSString *)getCurrentCMDString{
@@ -169,12 +176,19 @@
 }
 
 - (IBAction)nextAction:(id)sender{
+    BOOL install = false;
+    for (UIViewController * vc in self.navigationController.viewControllers) {
+        if ([vc isKindOfClass:NSClassFromString(@"InstallViewController")]){
+            install = true;
+            break;
+        }
+    }
     if (self.resNum == 0){
-        [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_RESS_NOTIFICATION object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_RESS_NOTIFICATION object:[NSNumber numberWithBool:install]];
         return;
     }
     if (self.currentIndex == self.resNum-1) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_RESS_NOTIFICATION object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_RESS_NOTIFICATION object:[NSNumber numberWithBool:install]];
     }else{
         InverterViewController * inverter = [[InverterViewController alloc] init];
         inverter.currentIndex = self.currentIndex+1;

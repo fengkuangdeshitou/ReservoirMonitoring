@@ -32,13 +32,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.dataArray = @[@"Add Device".localized,@"Bluetooth config".localized,@"Grid config".localized,@"Smart Gateway config".localized,@"PV config".localized,@"Card config".localized,@"Wi-Fi config".localized];
+    self.dataArray = @[@"Add Device".localized,@"Bluetooth config".localized,@"Grid config".localized,@"Smart Gateway config".localized,@"Hybrid config".localized,@"Card config".localized,@"Wi-Fi config".localized];
     [self.config showBorderWithRadius:25];
     [self.next showBorderWithRadius:25];
     [self.back showBorderWithRadius:25];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDeviceSuccess) name:ADD_DEVICE_NOTIFICATION object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UPDATE_RESS_NOTIFICATION object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        [self.navigationController popToViewController:self animated:true];
+    }];
     [self.config setTitle:@"Config".localized forState:UIControlStateNormal];
     [self.next setTitle:@"Next".localized forState:UIControlStateNormal];
     [self.back setTitle:@"Back".localized forState:UIControlStateNormal];
