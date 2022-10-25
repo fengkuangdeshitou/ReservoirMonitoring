@@ -70,7 +70,7 @@ static BleManager * _manager = nil;
             }
     //        @"Bluetooth permission required, please go to setting and enable usage."
             if (self.centralManager.state != CBManagerStatePoweredOn && self.isScan) {
-                [GlobelDescAlertView showAlertViewWithTitle:@"Tops" desc:@"To use this function, you need to turn on Bluetooth" btnTitle:nil completion:^{
+                [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"To use this function, you need to turn on Bluetooth" btnTitle:nil completion:^{
                      NSURL *url = [NSURL URLWithString:@"App-Prefs:root=Bluetooth"];
                     // [NSURL URLWithString:UIApplicationOpenSettingsURLString]
                     [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];

@@ -23,6 +23,7 @@
 @property(nonatomic,strong) NSString * devId;
 @property(nonatomic,strong) NSString * inverteSN;
 @property(nonatomic,strong) NSString * batterySN;
+@property(nonatomic,strong) NSString * userEmail;
 @property(nonatomic,strong) NSMutableArray * indexArray;
 
 @end
@@ -137,6 +138,9 @@
         self.sgSn = result[@"data"][@"sgSn"];
         self.addressIds = result[@"data"][@"addressIds"];
         self.devId = result[@"data"][@"id"];
+        if (result[@"data"][@"userEmail"]){
+            self.userEmail = result[@"data"][@"userEmail"];
+        }
         [self pushViewControler];
     } failure:^(NSString * _Nonnull errorMsg) {
 
@@ -154,6 +158,9 @@
     address.devId = self.devId;
     address.name = self.name;
     address.snItems = [self.dataArray componentsJoinedByString:@","];
+    if(self.userEmail){
+        address.userEmail = self.userEmail;
+    };
     [self.navigationController pushViewController:address animated:true];
 }
 

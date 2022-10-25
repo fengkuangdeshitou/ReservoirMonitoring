@@ -103,7 +103,9 @@
     self.email.placeholder = @"Please input customer's email".localized;
     [self.confirm setTitle:@"Confirm".localized forState:UIControlStateNormal];
     [self.confirm showBorderWithRadius:25];
-    
+    if (self.userEmail){
+        self.email.text = self.userEmail;
+    }
     self.countries.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
     self.province.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
     self.code.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
@@ -174,8 +176,12 @@
 }
 
 - (IBAction)submitAction:(id)sender{
+    if (self.countrieID.length == 0) {
+        [RMHelper showToast:@"Please select country" toView:self.view];
+        return;
+    }
     if (self.provinceID.length == 0) {
-        [RMHelper showToast:@"Please input address" toView:self.view];
+        [RMHelper showToast:@"Please select state" toView:self.view];
         return;
     }
     if (self.code.text.length == 0) {

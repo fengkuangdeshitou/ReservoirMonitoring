@@ -30,7 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.count = 1;
-    self.title = [NSString stringWithFormat:@"Hybrd%ld Config",self.currentIndex+1];
+    self.title = [NSString stringWithFormat:@"Hybrid%ld Config",self.currentIndex+1];
     [self loadRessNumber];
     [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
     [self.previous setTitle:@"Back".localized forState:UIControlStateNormal];
@@ -130,10 +130,10 @@
 
 - (void)loadRessNumber{
     NSArray * array = @[
-        @{@"title":[NSString stringWithFormat:@"Hybrid %ld PV1 Voc",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
-        @{@"title":[NSString stringWithFormat:@"Hybrid %ld PV2 Voc",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
-        @{@"title":[NSString stringWithFormat:@"Hybrid %ld PV3 Voc",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
-        @{@"title":[NSString stringWithFormat:@"Hybrid %ld PV4 Voc",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"}
+        @{@"title":[NSString stringWithFormat:@"Hybrid%ld PV1 Voc",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
+        @{@"title":[NSString stringWithFormat:@"Hybrid%ld PV2 Voc",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
+        @{@"title":[NSString stringWithFormat:@"Hybrid%ld PV3 Voc",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"},
+        @{@"title":[NSString stringWithFormat:@"Hybrid%ld PV4 Voc",self.currentIndex+1],@"placeholder":@"Enter (number)".localized,@"value":@"0"}
     ];
     self.dataArray = [[NSMutableArray alloc] initWithArray:array];
 }
@@ -360,7 +360,7 @@
     UIView * header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
     header.backgroundColor = [UIColor colorWithHexString:COLOR_BACK_COLOR];
     UILabel * titlelabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, SCREEN_WIDTH-100, header.height)];
-    titlelabel.text = [NSString stringWithFormat:@"Qty of Hybrid %ld battery",self.currentIndex+1];
+    titlelabel.text = [NSString stringWithFormat:@"Qty of Hybrid%ld battery",self.currentIndex+1];
     titlelabel.font = [UIFont systemFontOfSize:15];
     titlelabel.textColor = UIColor.whiteColor;
     [header addSubview:titlelabel];

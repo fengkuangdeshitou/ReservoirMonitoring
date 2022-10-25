@@ -76,7 +76,7 @@
         return;
     }
     if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
-        [GlobelDescAlertView showAlertViewWithTitle:@"Tops" desc:@"Location permission required, click \"Yes\" to enable location usage." btnTitle:nil completion:^{
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Location permission required, click \"Yes\" to enable location usage." btnTitle:@"YES" completion:^{
             [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
         }];
         return;
@@ -108,7 +108,7 @@
 //                    break;
 //                case CBManagerStatePoweredOff:{
 //                    NSLog(@"蓝牙未开启");
-//                    [GlobelDescAlertView showAlertViewWithTitle:@"Tops" desc:@"Bluetooth permission required, please go to setting and enable usage." btnTitle:nil completion:^{
+//                    [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Bluetooth permission required, please go to setting and enable usage." btnTitle:nil completion:^{
 //                        [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
 //                    }];
 //                }

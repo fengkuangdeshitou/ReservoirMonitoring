@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong) NSString * snItems;
 @property(nonatomic,strong) NSString * inverteSN;
 @property(nonatomic,strong) NSString * batterySN;
+@property(nonatomic,strong) NSString * userEmail;
 
 @end
 
