@@ -149,7 +149,7 @@
         [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Smart Gateway SN cannot be empty" btnTitle:nil completion:nil];
         return;
     }
-    InputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
+    ServiceInputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
     NSDictionary * params = @{@"encoding":@"UTF-8",
                               @"orgid":@"00D8c000003UHSM",
                               @"retURL":@"www.moonflow.com",
@@ -158,7 +158,7 @@
                               @"phone":self.model.phonenumber?:@"",
                               @"subject":self.model.defDevSgSn?[self formatDefDevSgSn]:@"",
                               @"reason":self.dataArray[4][@"placeholder"],
-                              @"description":cell.textfield.text.length>0?cell.textfield.text:@"",
+                              @"description":cell.content.text.length>0?cell.content.text:@"",
                               @"external":@"1"};
     NSLog(@"params=%@",params);
     AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
@@ -229,6 +229,7 @@
         cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
         cell.content.text = self.dataArray[indexPath.row][@"placeholder"];
         cell.content.delegate = self;
+        cell.content.userInteractionEnabled = !RMHelper.getUserType;
         return cell;
     }else{
         InputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
