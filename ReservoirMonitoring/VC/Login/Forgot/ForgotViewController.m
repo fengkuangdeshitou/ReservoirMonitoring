@@ -78,10 +78,10 @@
 }
 
 - (void)onAuthemticationSuccess{
-    self.codeButton.userInteractionEnabled = false;
     [Request.shareInstance postUrl:EmailCode params:@{@"type":@"2",@"email":self.password.text} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
+        self.codeButton.userInteractionEnabled = false;
         [self.codeButton setTitle:[NSString stringWithFormat:@"%ld",self.time] forState:UIControlStateNormal];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:true block:^(NSTimer * _Nonnull timer) {
             self.uuid = [NSString stringWithFormat:@"%@",result[@"data"]];
@@ -97,7 +97,7 @@
                 }
             }];
     } failure:^(NSString * _Nonnull errorMsg) {
-        
+        self.codeButton.userInteractionEnabled = true;
     }];
 }
 

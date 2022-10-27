@@ -188,11 +188,11 @@
 }
 
 - (void)onAuthemticationSuccess{
-    self.sendCodeButton.userInteractionEnabled = false;
     RegisterTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     [Request.shareInstance postUrl:EmailCode params:@{@"type":@"1",@"email":cell.textfield.text} progress:^(float progress) {
 
     } success:^(NSDictionary * _Nonnull result) {
+        self.sendCodeButton.userInteractionEnabled = false;
         [self.sendCodeButton setTitle:[NSString stringWithFormat:@"%ld",self.time] forState:UIControlStateNormal];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:true block:^(NSTimer * _Nonnull timer) {
             self.uuid = [NSString stringWithFormat:@"%@",result[@"data"]];
@@ -232,8 +232,9 @@
     if (indexPath.row == 2) {
         [cell.contentView addSubview:self.sendCodeButton];
         [self.sendCodeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.right.mas_equalTo(-20);
-                    make.centerY.mas_equalTo(cell.textfield.mas_centerY);
+            make.right.mas_equalTo(-20);
+            make.centerY.mas_equalTo(cell.textfield.mas_centerY);
+            make.height.mas_equalTo(44);
         }];
     }
     cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];

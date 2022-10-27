@@ -84,6 +84,7 @@
         [RMHelper showToast:self.passwordtf.placeholder toView:self.view];
         return;
     }
+    [self.view endEditing:true];
     [ImageAuthenticationView showImageAuthemticationWithDelegate:self];
 }
 
