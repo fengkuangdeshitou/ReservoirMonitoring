@@ -111,6 +111,9 @@
         NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"mm:ss"];
         [self.submit setTitle:[formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.timeCount]] forState:UIControlStateNormal];
+        self.submit.userInteractionEnabled = false;
+        [self.submit setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+        self.submit.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
         if (!_timer) {
             self.timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:true block:^(NSTimer * _Nonnull timer) {
                 self.timeCount --;
@@ -130,8 +133,11 @@
                     [self.submit setTitle:[formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.timeCount]] forState:UIControlStateNormal];
                     [self.submit setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
                     self.submit.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
+                    ServiceInputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
+                    cell.content.userInteractionEnabled = false;
                 }
             }];
+            [NSRunLoop.currentRunLoop addTimer:self.timer forMode:NSRunLoopCommonModes];
         }
     }else{
         [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
@@ -229,7 +235,7 @@
         cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
         cell.content.text = self.dataArray[indexPath.row][@"placeholder"];
         cell.content.delegate = self;
-        cell.content.userInteractionEnabled = !RMHelper.getUserType;
+        cell.content.userInteractionEnabled = !RMHelper.getUserType && ![NSUserDefaults.standardUserDefaults objectForKey:[self descCacheKey]];
         return cell;
     }else{
         InputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
