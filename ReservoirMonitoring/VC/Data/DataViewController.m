@@ -25,10 +25,30 @@
 @property(nonatomic,strong) DevideModel * model;
 @property(nonatomic,strong) NSArray * data;
 @property(nonatomic,assign) NSInteger scopeType;
+@property(nonatomic,strong) BRPickerStyle * style;
+@property(nonatomic,strong) NSString * queryDateStr;
 
 @end
 
 @implementation DataViewController
+
+- (BRPickerStyle *)style{
+    if (!_style) {
+        _style = [[BRPickerStyle alloc] init];
+        _style.alertViewColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
+        _style.maskColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
+        _style.pickerColor = [UIColor colorWithHexString:COLOR_BACK_COLOR];
+        _style.doneTextColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+        _style.cancelTextColor = [UIColor colorWithHexString:@"#999999"];
+        _style.titleBarColor = [UIColor colorWithHexString:COLOR_BACK_COLOR];
+        _style.selectRowColor = UIColor.clearColor;
+        _style.pickerTextColor = [UIColor colorWithHexString:@"#F6F6F6"];
+        _style.titleLineColor = [UIColor colorWithHexString:@"#333333"];
+        _style.doneBtnTitle = @"OK".localized;
+        _style.cancelBtnTitle = @"Cancel".localized;
+    }
+    return _style;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -63,7 +83,18 @@
 }
 
 - (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex{
-    [self getCurrentDevice];
+    if (selectedIndex == 3){
+        [self getCurrentDevice];
+    }else{
+        BRDatePickerView * picker = [[BRDatePickerView alloc] initWithPickerMode:selectedIndex == 0 ? BRDatePickerModeYMD : (selectedIndex == 1 ? BRDatePickerModeYM : BRDatePickerModeY)];
+        picker.showUnitType = BRShowUnitTypeNone;
+        picker.pickerStyle = self.style;
+        picker.resultBlock = ^(NSDate * _Nullable selectDate, NSString * _Nullable selectValue) {
+            self.queryDateStr = selectValue;
+            [self getCurrentDevice];
+        };
+        [picker show];
+    }
 }
 
 - (void)getCurrentDevice{

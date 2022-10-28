@@ -15,6 +15,7 @@
 #import "HybridViewController.h"
 #import "WifiViewController.h"
 #import "CardViewController.h"
+#import "InstallationCompleteViewController.h"
 
 @interface InstallViewController ()
 
@@ -32,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.dataArray = @[@"Add Device".localized,@"Bluetooth config".localized,@"Grid config".localized,@"Smart Gateway config".localized,@"Hybrid config".localized,@"Card config".localized,@"Wi-Fi config".localized];
+    self.dataArray = @[@"Add Device".localized,@"Bluetooth config".localized,@"Grid config".localized,@"Smart Gateway config".localized,@"Hybrid config".localized,@"Card config".localized,@"Wi-Fi config".localized,@"complete"];
     [self.config showBorderWithRadius:25];
     [self.next showBorderWithRadius:25];
     [self.back showBorderWithRadius:25];
@@ -91,6 +92,11 @@
         wifi.devId = [NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID];
         wifi.hidesBottomBarWhenPushed = true;
         [self.navigationController pushViewController:wifi animated:true];
+    }else if (self.current == 7){
+        InstallationCompleteViewController * complete = [[InstallationCompleteViewController alloc] init];
+        complete.title = @"complete".localized;
+        complete.hidesBottomBarWhenPushed = true;
+        [self.navigationController pushViewController:complete animated:true];
     }
 }
 

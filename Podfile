@@ -18,6 +18,7 @@ pod 'WMZCode'
 pod 'MBProgressHUD'
 pod 'SGPagingView', '~> 1.7.2'
 pod 'Bugly'
+pod 'HXPhotoPicker'
 
   # Pods for ReservoirMonitoring
 

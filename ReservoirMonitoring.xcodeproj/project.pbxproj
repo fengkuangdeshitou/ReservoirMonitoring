@@ -52,6 +52,10 @@
 		0F69685928364D0500F22E47 /* InstallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F69685728364D0400F22E47 /* InstallViewController.xib */; };
 		0F69685E28364E7B00F22E47 /* InstallCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F69685C28364E7B00F22E47 /* InstallCollectionViewCell.m */; };
 		0F69685F28364E7B00F22E47 /* InstallCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F69685D28364E7B00F22E47 /* InstallCollectionViewCell.xib */; };
+		0FE00823290B774C00F705CC /* InstallationCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE00821290B774C00F705CC /* InstallationCompleteViewController.m */; };
+		0FE00824290B774C00F705CC /* InstallationCompleteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FE00822290B774C00F705CC /* InstallationCompleteViewController.xib */; };
+		0FE00829290B791E00F705CC /* CompleteImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE00827290B791E00F705CC /* CompleteImageTableViewCell.m */; };
+		0FE0082A290B791E00F705CC /* CompleteImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FE00828290B791E00F705CC /* CompleteImageTableViewCell.xib */; };
 		0FE713F4283C830400B0733A /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE713F3283C830400B0733A /* Request.m */; };
 		0FE713F7283C831A00B0733A /* RequestURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE713F6283C831A00B0733A /* RequestURL.m */; };
 		0FE713FC283C859000B0733A /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE713FA283C859000B0733A /* Toast+UIView.m */; };
@@ -274,6 +278,12 @@
 		0F69685B28364E7B00F22E47 /* InstallCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InstallCollectionViewCell.h; sourceTree = "<group>"; };
 		0F69685C28364E7B00F22E47 /* InstallCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstallCollectionViewCell.m; sourceTree = "<group>"; };
 		0F69685D28364E7B00F22E47 /* InstallCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallCollectionViewCell.xib; sourceTree = "<group>"; };
+		0FE00820290B774C00F705CC /* InstallationCompleteViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InstallationCompleteViewController.h; sourceTree = "<group>"; };
+		0FE00821290B774C00F705CC /* InstallationCompleteViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstallationCompleteViewController.m; sourceTree = "<group>"; };
+		0FE00822290B774C00F705CC /* InstallationCompleteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallationCompleteViewController.xib; sourceTree = "<group>"; };
+		0FE00826290B791E00F705CC /* CompleteImageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompleteImageTableViewCell.h; sourceTree = "<group>"; };
+		0FE00827290B791E00F705CC /* CompleteImageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompleteImageTableViewCell.m; sourceTree = "<group>"; };
+		0FE00828290B791E00F705CC /* CompleteImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompleteImageTableViewCell.xib; sourceTree = "<group>"; };
 		0FE713F2283C830400B0733A /* Request.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Request.h; sourceTree = "<group>"; };
 		0FE713F3283C830400B0733A /* Request.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Request.m; sourceTree = "<group>"; };
 		0FE713F5283C831A00B0733A /* RequestURL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestURL.h; sourceTree = "<group>"; };
@@ -663,6 +673,7 @@
 				0F69685528364D0400F22E47 /* InstallViewController.h */,
 				0F69685628364D0400F22E47 /* InstallViewController.m */,
 				0F69685728364D0400F22E47 /* InstallViewController.xib */,
+				0FE0081F290B772A00F705CC /* InstallationComplete */,
 				0F69685A28364E6700F22E47 /* View */,
 			);
 			path = Install;
@@ -676,6 +687,27 @@
 				0F69685D28364E7B00F22E47 /* InstallCollectionViewCell.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0FE0081F290B772A00F705CC /* InstallationComplete */ = {
+			isa = PBXGroup;
+			children = (
+				0FE00820290B774C00F705CC /* InstallationCompleteViewController.h */,
+				0FE00821290B774C00F705CC /* InstallationCompleteViewController.m */,
+				0FE00822290B774C00F705CC /* InstallationCompleteViewController.xib */,
+				0FE00825290B78F700F705CC /* VIew */,
+			);
+			path = InstallationComplete;
+			sourceTree = "<group>";
+		};
+		0FE00825290B78F700F705CC /* VIew */ = {
+			isa = PBXGroup;
+			children = (
+				0FE00826290B791E00F705CC /* CompleteImageTableViewCell.h */,
+				0FE00827290B791E00F705CC /* CompleteImageTableViewCell.m */,
+				0FE00828290B791E00F705CC /* CompleteImageTableViewCell.xib */,
+			);
+			path = VIew;
 			sourceTree = "<group>";
 		};
 		0FE713F1283C803D00B0733A /* API */ = {
@@ -1413,12 +1445,14 @@
 				BD90736C280D535700044013 /* InfoViewController.xib in Resources */,
 				0F0511BD283F87D4007E7680 /* HelpDetailViewController.xib in Resources */,
 				BDFA3A8E28256154004A7E8C /* Localizable.strings in Resources */,
+				0FE0082A290B791E00F705CC /* CompleteImageTableViewCell.xib in Resources */,
 				BDE88A242805C3F800081114 /* RegisterViewController.xib in Resources */,
 				BDE88A53280A7C0300081114 /* DeviceSwitchTableViewCell.xib in Resources */,
 				BDE88A79280B12A900081114 /* DataEchartsCollectionViewCell.xib in Resources */,
 				BD2DEF6628044C1F004E8D7D /* HomeViewController.xib in Resources */,
 				BD907372280D5B0600044013 /* InfoTableViewCell.xib in Resources */,
 				BD8FDA62280EF17E000036DD /* DebugViewController.xib in Resources */,
+				0FE00824290B774C00F705CC /* InstallationCompleteViewController.xib in Resources */,
 				BDE88A74280B0E5D00081114 /* DataCollectionViewCell.xib in Resources */,
 				BDFA3AA62827A6C8004A7E8C /* GlobelDescAlertView.xib in Resources */,
 				0FEEECBA2875272800604699 /* ProtocolViewController.xib in Resources */,
@@ -1657,8 +1691,10 @@
 				BDE889F928044DA700081114 /* RMHelper.m in Sources */,
 				BD8FDA40280D5F91000036DD /* UpdateViewController.m in Sources */,
 				BDE88A4E280A776500081114 /* DeviceSwitchView.m in Sources */,
+				0FE00823290B774C00F705CC /* InstallationCompleteViewController.m in Sources */,
 				0F6968512834CED800F22E47 /* PeripheralModel.m in Sources */,
 				0F0E90CB28507A3C0014B329 /* UWConfig.m in Sources */,
+				0FE00829290B791E00F705CC /* CompleteImageTableViewCell.m in Sources */,
 				BDE88A52280A7C0300081114 /* DeviceSwitchTableViewCell.m in Sources */,
 				0FEEECB92875272800604699 /* ProtocolViewController.m in Sources */,
 				BDE88A78280B12A900081114 /* DataEchartsCollectionViewCell.m in Sources */,
@@ -1884,9 +1920,11 @@
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "The EP CUBE uses Bluetooth to connect to the user's smart device";
 				INFOPLIST_KEY_NSCameraUsageDescription = "EP CUBE uses the camera function to update user profile picture information";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "EP CUBE uses the positioning function to automatically display the current position when binding devices";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "EP CUBE The device has been installed for accessing the album";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1929,9 +1967,11 @@
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "The EP CUBE uses Bluetooth to connect to the user's smart device";
 				INFOPLIST_KEY_NSCameraUsageDescription = "EP CUBE uses the camera function to update user profile picture information";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "EP CUBE uses the positioning function to automatically display the current position when binding devices";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "EP CUBE The device has been installed for accessing the album";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -12,6 +12,7 @@
 
 static NSString * K_USERINFO = @"PFUserInfo";
 static NSString * K_USERTYPE = @"USERTYPE";
+static NSString * K_TOURISTSMODEL = @"TOURISTSMODEL";
 
 
 + (UIViewController *)jsd_getRootViewController{
@@ -61,6 +62,7 @@ static NSString * K_USERTYPE = @"USERTYPE";
 
 + (void)setUserType:(BOOL)isInstall{
     [NSUserDefaults.standardUserDefaults setBool:isInstall forKey:K_USERTYPE];
+    [NSUserDefaults.standardUserDefaults synchronize];
 }
 
 + (BOOL)getUserType{
@@ -70,6 +72,7 @@ static NSString * K_USERTYPE = @"USERTYPE";
 + (void)setLoadDataForBluetooth:(BOOL)isBluetooth{
     NSString * key = [NSString stringWithFormat:@"%@-%@",[NSUserDefaults.standardUserDefaults objectForKey:@"token"],[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID]];
     [NSUserDefaults.standardUserDefaults setBool:isBluetooth forKey:key];
+    [NSUserDefaults.standardUserDefaults synchronize];
 }
 
 + (BOOL)getLoadDataForBluetooth{
@@ -141,6 +144,15 @@ static NSString * K_USERTYPE = @"USERTYPE";
         }
         return result;
     }
+}
+
++ (void)saveTouristsModel:(BOOL)model{
+    [NSUserDefaults.standardUserDefaults setBool:model forKey:K_TOURISTSMODEL];
+    [NSUserDefaults.standardUserDefaults synchronize];
+}
+/// 是否游客模式
++ (BOOL)isTouristsModel{
+    return [NSUserDefaults.standardUserDefaults boolForKey:K_TOURISTSMODEL];
 }
 
 @end

@@ -47,6 +47,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)hasRepeatedTimeForArray:(NSArray *)timeArray;
 
++ (void)saveTouristsModel:(BOOL)model;
+/// 是否游客模式
++ (BOOL)isTouristsModel;
+
 @end
 
 NS_ASSUME_NONNULL_END
