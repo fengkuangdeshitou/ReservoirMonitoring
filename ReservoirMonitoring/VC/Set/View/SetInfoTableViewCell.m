@@ -10,6 +10,7 @@
 
 @interface SetInfoTableViewCell ()
 
+@property(nonatomic,weak)IBOutlet UIView * container;
 @property(nonatomic,weak)IBOutlet UILabel * nickname;
 @property(nonatomic,weak)IBOutlet UILabel * email;
 @property(nonatomic,weak)IBOutlet UILabel * type;
@@ -22,6 +23,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    if (RMHelper.isTouristsModel){
+        self.container.backgroundColor = [UIColor colorWithHexString:COLOR_TOURISTS_COLOR];
+    }
 }
 
 - (void)setModel:(UserModel *)model{

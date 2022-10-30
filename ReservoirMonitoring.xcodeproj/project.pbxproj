@@ -63,6 +63,8 @@
 		0FEEECBA2875272800604699 /* ProtocolViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FEEECB82875272800604699 /* ProtocolViewController.xib */; };
 		6529B29C2E0432E1F4C480DD /* Pods_ReservoirMonitoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BA0DE0AA9A215EC56692FA /* Pods_ReservoirMonitoring.framework */; };
 		B387385CB1D93CCC02D43717 /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F582A4DCB34D84D2C390CBD /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework */; };
+		BD1D5CBF290C09530041300D /* ServiceDescTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1D5CBD290C09530041300D /* ServiceDescTableViewCell.m */; };
+		BD1D5CC0290C09530041300D /* ServiceDescTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD1D5CBE290C09530041300D /* ServiceDescTableViewCell.xib */; };
 		BD2188B228996B3C00F486D4 /* XYMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2188B128996B3C00F486D4 /* XYMarkerView.swift */; };
 		BD2DEF2028044A6E004E8D7D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2DEF1F28044A6E004E8D7D /* AppDelegate.m */; };
 		BD2DEF2928044A6E004E8D7D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD2DEF2728044A6E004E8D7D /* Main.storyboard */; };
@@ -300,6 +302,9 @@
 		5B6629ED6365D00AF76D1228 /* Pods-ReservoirMonitoring-ReservoirMonitoringUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReservoirMonitoring-ReservoirMonitoringUITests.release.xcconfig"; path = "Target Support Files/Pods-ReservoirMonitoring-ReservoirMonitoringUITests/Pods-ReservoirMonitoring-ReservoirMonitoringUITests.release.xcconfig"; sourceTree = "<group>"; };
 		5E85E8D4BA7B5EA46FFF6352 /* Pods-ReservoirMonitoring.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReservoirMonitoring.debug.xcconfig"; path = "Target Support Files/Pods-ReservoirMonitoring/Pods-ReservoirMonitoring.debug.xcconfig"; sourceTree = "<group>"; };
 		B530742221FC4B073C919F99 /* Pods-ReservoirMonitoringTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReservoirMonitoringTests.release.xcconfig"; path = "Target Support Files/Pods-ReservoirMonitoringTests/Pods-ReservoirMonitoringTests.release.xcconfig"; sourceTree = "<group>"; };
+		BD1D5CBC290C09530041300D /* ServiceDescTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceDescTableViewCell.h; sourceTree = "<group>"; };
+		BD1D5CBD290C09530041300D /* ServiceDescTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServiceDescTableViewCell.m; sourceTree = "<group>"; };
+		BD1D5CBE290C09530041300D /* ServiceDescTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServiceDescTableViewCell.xib; sourceTree = "<group>"; };
 		BD2188B128996B3C00F486D4 /* XYMarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYMarkerView.swift; sourceTree = "<group>"; };
 		BD2DEF1B28044A6E004E8D7D /* ReservoirMonitoring.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReservoirMonitoring.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD2DEF1E28044A6E004E8D7D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -761,6 +766,19 @@
 				B530742221FC4B073C919F99 /* Pods-ReservoirMonitoringTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		BD1D5CBB290C091C0041300D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0F2FEA0D28F7FC9400361721 /* ServiceInputTableViewCell.h */,
+				0F2FEA0E28F7FC9400361721 /* ServiceInputTableViewCell.m */,
+				0F2FEA0F28F7FC9400361721 /* ServiceInputTableViewCell.xib */,
+				BD1D5CBC290C09530041300D /* ServiceDescTableViewCell.h */,
+				BD1D5CBD290C09530041300D /* ServiceDescTableViewCell.m */,
+				BD1D5CBE290C09530041300D /* ServiceDescTableViewCell.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		BD2DEF1228044A6E004E8D7D = {
@@ -1304,9 +1322,7 @@
 				BDFA3AB4282F7D1B004A7E8C /* ServiceViewController.h */,
 				BDFA3AB5282F7D1B004A7E8C /* ServiceViewController.m */,
 				BDFA3AB6282F7D1B004A7E8C /* ServiceViewController.xib */,
-				0F2FEA0D28F7FC9400361721 /* ServiceInputTableViewCell.h */,
-				0F2FEA0E28F7FC9400361721 /* ServiceInputTableViewCell.m */,
-				0F2FEA0F28F7FC9400361721 /* ServiceInputTableViewCell.xib */,
+				BD1D5CBB290C091C0041300D /* View */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1456,6 +1472,7 @@
 				BDE88A74280B0E5D00081114 /* DataCollectionViewCell.xib in Resources */,
 				BDFA3AA62827A6C8004A7E8C /* GlobelDescAlertView.xib in Resources */,
 				0FEEECBA2875272800604699 /* ProtocolViewController.xib in Resources */,
+				BD1D5CC0290C09530041300D /* ServiceDescTableViewCell.xib in Resources */,
 				0F6968242833AF2600F22E47 /* WeatherViewController.xib in Resources */,
 				BD8FDA5C280EEF88000036DD /* WarningTableViewCell.xib in Resources */,
 				BDFA3AB8282F7D1B004A7E8C /* ServiceViewController.xib in Resources */,
@@ -1626,6 +1643,7 @@
 				BD90736B280D535700044013 /* InfoViewController.m in Sources */,
 				BD2DEF5928044B27004E8D7D /* TabbarViewController.m in Sources */,
 				0F69685E28364E7B00F22E47 /* InstallCollectionViewCell.m in Sources */,
+				BD1D5CBF290C09530041300D /* ServiceDescTableViewCell.m in Sources */,
 				0F0A9CC02881790700B1D643 /* BlueListView.m in Sources */,
 				BDE88A2A2805C47C00081114 /* RegisterTableViewCell.m in Sources */,
 				BD8FDA52280EED5A000036DD /* WarningViewController.m in Sources */,

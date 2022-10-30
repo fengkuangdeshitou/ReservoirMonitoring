@@ -67,7 +67,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearBtnClick) name:CLEAR_NOTIFICATION object:nil];
     self.titleLabel.text = @"Allow charging via grid".localized;
     self.dataArray = [[NSMutableArray alloc] init];
-    for (int i=0; i<3; i++) {
+    for (int i=0; i<2; i++) {
         NSArray * array = @[@{@"startTime":@"",@"endTime":@"",@"price":@""}];
         [self.dataArray addObject:array];
     }
@@ -82,7 +82,7 @@
     self.peakTimeChange = true;
     self.superPeakTimeChange = true;
     self.dataArray = [[NSMutableArray alloc] init];
-    for (int i=0; i<3; i++) {
+    for (int i=0; i<2; i++) {
         NSArray * array = @[@{@"startTime":@"",@"endTime":@"",@"price":@""}];
         [self.dataArray addObject:array];
     }

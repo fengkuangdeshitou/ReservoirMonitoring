@@ -86,9 +86,19 @@
     if (selectedIndex == 3){
         [self getCurrentDevice];
     }else{
+        if (!self.queryDateStr){
+            self.queryDateStr = [NSString stringWithFormat:@"%ld-%ld-%ld",[NSDate.date br_year],[NSDate.date br_month],[NSDate.date br_day]];
+            return;
+        }
         BRDatePickerView * picker = [[BRDatePickerView alloc] initWithPickerMode:selectedIndex == 0 ? BRDatePickerModeYMD : (selectedIndex == 1 ? BRDatePickerModeYM : BRDatePickerModeY)];
         picker.showUnitType = BRShowUnitTypeNone;
         picker.pickerStyle = self.style;
+        picker.maxDate = NSDate.date;
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDateComponents *comps = [calendar components:NSCalendarUnitYear fromDate:NSDate.date];
+        [comps setYear:-5];
+        NSDate *minDate = [calendar dateByAddingComponents:comps toDate:NSDate.date options:0];
+        picker.minDate = minDate;
         picker.resultBlock = ^(NSDate * _Nullable selectDate, NSString * _Nullable selectValue) {
             self.queryDateStr = selectValue;
             [self getCurrentDevice];
@@ -129,37 +139,7 @@
 - (void)getDataWithScopeType:(NSInteger)scopeType{
     self.scopeType = scopeType;
     /// 0-全部 1-天 2-月 3-年
-    NSDate * date = [NSDate date];
-    NSString * startDateTime = @"";
-    if (scopeType == 2){
-        NSDate *currentDate = [NSDate date];
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy-MM-dd"];
-        
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-        NSDateComponents *lastMonthComps = [[NSDateComponents alloc] init];
-        [lastMonthComps setMonth:-1];
-        [lastMonthComps setDay:1];
-        NSDate *newdate = [calendar dateByAddingComponents:lastMonthComps toDate:currentDate options:0];
-        NSString *dateStr = [formatter stringFromDate:newdate];
-        startDateTime = dateStr;
-    }else if (scopeType == 3){
-        NSDate *currentDate = [NSDate date];
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy-MM-dd"];
-        
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-        NSDateComponents *lastMonthComps = [[NSDateComponents alloc] init];
-        [lastMonthComps setYear:-1];
-        [lastMonthComps setMonth:1];
-        NSDate *newdate = [calendar dateByAddingComponents:lastMonthComps toDate:currentDate options:0];
-        NSString *dateStr = [formatter stringFromDate:newdate];
-        startDateTime = dateStr;
-    }else{
-        startDateTime = [NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year,date.br_month,date.br_day];
-    }
-    NSString * currentDateTime = [NSString stringWithFormat:@"%ld-%02ld-%02ld",date.br_year,date.br_month,date.br_day];
-    [Request.shareInstance getUrl:QueryDataElectricity params:@{@"devId":self.devId,@"scopeType":[NSString stringWithFormat:@"%ld",scopeType],@"currentDateTime":currentDateTime,@"startDateTime":startDateTime} progress:^(float progress) {
+    [Request.shareInstance getUrl:QueryDataElectricity params:@{@"devId":self.devId,@"scopeType":[NSString stringWithFormat:@"%ld",scopeType],@"queryDateStr":self.queryDateStr} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         self.model = [DevideModel mj_objectWithKeyValues:result[@"data"]];
@@ -174,14 +154,14 @@
         }
         [self.refreshController endRefreshing];
         [self.collectionView reloadData];
-        [self getEcharsDataWithScopeType:scopeType currentDateTime:currentDateTime startDateTime:startDateTime];
+        [self getEcharsDataWithScopeType:scopeType queryDateStr:self.queryDateStr];
     } failure:^(NSString * _Nonnull errorMsg) {
         [self.refreshController endRefreshing];
     }];
 }
 
-- (void)getEcharsDataWithScopeType:(NSInteger)scopeType currentDateTime:(NSString *)currentDateTime startDateTime:(NSString *)startDateTime{
-    [Request.shareInstance getUrl:QueryDataGraph params:@{@"devId":self.devId,@"scopeType":[NSString stringWithFormat:@"%ld",scopeType],@"currentDateTime":currentDateTime,@"startDateTime":startDateTime} progress:^(float progress) {
+- (void)getEcharsDataWithScopeType:(NSInteger)scopeType queryDateStr:(NSString *)queryDateStr{
+    [Request.shareInstance getUrl:QueryDataGraph params:@{@"devId":self.devId,@"scopeType":[NSString stringWithFormat:@"%ld",scopeType],@"queryDateStr":queryDateStr} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         self.data = result[@"data"];

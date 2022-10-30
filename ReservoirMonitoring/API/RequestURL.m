@@ -91,4 +91,6 @@ NSString * const CheckSn = @"/device/checkSn";
 
 NSString * const LogOff = @"/user/user/logOff";
 
+NSString * const VisitorsLogin = @"/open/common/visitorsLogin";
+
 @end

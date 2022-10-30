@@ -41,9 +41,6 @@
     self.status.text = @"Operation status:".localized;
     self.statusValue.text = @"online".localized;
     self.communication.text = @"Communication status：".localized;
-    [self.currentModelView showBorderWithRadius:16];
-    self.currentModelView.layer.borderColor = [UIColor colorWithHexString:@"#2E2E2E"].CGColor;
-    self.currentModelView.layer.borderWidth = 0.5;
     
     NSArray * normal = @[@"icon_grid_inactive",@"icon_solar_inactive",@"icon_generator_inactive",@"icon_ev_inactive",@"icon_non_backup_inactive",@"icon_backup_inactive"];
     NSArray * highlight = @[@"icon_grid_active",@"icon_solar_active",@"icon_generator_active",@"icon_ev_active",@"icon_non_backup_active",@"icon_backup_active"];

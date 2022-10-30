@@ -7,11 +7,22 @@
 
 #import "SetTableViewCell.h"
 
+@interface SetTableViewCell ()
+
+@property(nonatomic,weak)IBOutlet UIView * container;
+
+@end
+
 @implementation SetTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    if (RMHelper.isTouristsModel){
+        self.container.backgroundColor = [UIColor colorWithHexString:COLOR_TOURISTS_COLOR];
+    }
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

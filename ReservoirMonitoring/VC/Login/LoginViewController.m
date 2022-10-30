@@ -104,6 +104,18 @@
     [self.navigationController pushViewController:forgot animated:true];
 }
 
+- (IBAction)touristsLoginAction:(id)sender{
+    [Request.shareInstance postUrl:VisitorsLogin params:@{} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        [RMHelper saveTouristsModel:true];
+        [NSUserDefaults.standardUserDefaults setValue:result[@"data"][@"token"] forKey:@"token"];
+        [self getUserInfo];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
+}
+
 /*
 #pragma mark - Navigation
 

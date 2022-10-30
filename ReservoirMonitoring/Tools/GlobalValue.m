@@ -19,6 +19,8 @@ NSString * const COLOR_BACK_COLOR = @"#0C0C0C";
 
 NSString * const COLOR_PLACEHOLDER_COLOR = @"#747474";
 
+NSString * const COLOR_TOURISTS_COLOR = @"#161616";
+
 NSString * const BLE_CMD = @"cmd";
 
 NSString * const CURRENR_DEVID = @"current_devid";

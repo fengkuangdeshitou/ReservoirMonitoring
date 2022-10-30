@@ -6,15 +6,15 @@
 //
 
 #import "ServiceViewController.h"
-#import "InputTableViewCell.h"
 #import "SelecteTableViewCell.h"
 #import "SelectItemAlertView.h"
 #import "GlobelDescAlertView.h"
 #import "UserModel.h"
 #import "ServiceInputTableViewCell.h"
+#import "ServiceDescTableViewCell.h"
 @import AFNetworking;
 
-@interface ServiceViewController ()<UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate>
+@interface ServiceViewController ()<UITableViewDelegate,UITextViewDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,strong)NSMutableArray * dataArray;
@@ -54,10 +54,7 @@
             desc = [NSUserDefaults.standardUserDefaults objectForKey:[self descCacheKey]];
         }
         self.dataArray = [[NSMutableArray alloc] initWithArray:@[
-            @{@"title":@"Contact name".localized,@"placeholder":self.model.nickName},
-            @{@"title":@"Email".localized,@"placeholder":self.model.email},
-            @{@"title":@"Phone".localized,@"placeholder":self.model.phonenumber?:@""},
-            @{@"title":@"SN",@"placeholder":self.model.defDevSgSn?:@""},
+            @{@"title":@"",@"placeholder":@""},
             @{@"title":@"Case Reason",@"placeholder":reason},
             @{@"title":@"Description".localized,@"placeholder":desc}
             ]];
@@ -74,19 +71,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(requestUserInfo) name:UIApplicationWillEnterForegroundNotification object:nil];
+    self.tableView.userInteractionEnabled = !RMHelper.isTouristsModel;
     [self setLeftBarImageForSel:nil];
     self.time.text = @"Can't submit twice in 30 minutes.".localized;
     [self.submit showBorderWithRadius:25];
     self.dataArray = [[NSMutableArray alloc] initWithArray:@[
-        @{@"title":@"Contact name".localized,@"placeholder":@"--"},
-        @{@"title":@"Email".localized,@"placeholder":@"--"},
-        @{@"title":@"Phone".localized,@"placeholder":@"--"},
-        @{@"title":@"SN",@"placeholder":@""},
+        @{@"title":@"",@"placeholder":@""},
         @{@"title":@"Case Reason",@"placeholder":@"None".localized},
         @{@"title":@"Description".localized,@"placeholder":@""}
         ]];
     [self loadTimer];
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ServiceDescTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([ServiceDescTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ServiceInputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([ServiceInputTableViewCell class])];
 }
@@ -101,9 +96,9 @@
             [self.submit setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
             self.submit.layer.borderColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR].CGColor;
             [NSUserDefaults.standardUserDefaults removeObjectForKey:[self reasonCacheKey]];
-            [self.dataArray replaceObjectAtIndex:4 withObject:@{@"title":@"Case Reason",@"placeholder":@"None".localized}];
+            [self.dataArray replaceObjectAtIndex:1 withObject:@{@"title":@"Case Reason",@"placeholder":@"None".localized}];
             [NSUserDefaults.standardUserDefaults removeObjectForKey:[self descCacheKey]];
-            [self.dataArray replaceObjectAtIndex:5 withObject:@{@"title":@"Description",@"placeholder":@""}];
+            [self.dataArray replaceObjectAtIndex:2 withObject:@{@"title":@"Description",@"placeholder":@""}];
             [self.tableView reloadData];
             return;
         }
@@ -124,16 +119,16 @@
                     [self.submit setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
                     self.submit.layer.borderColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR].CGColor;
                     [NSUserDefaults.standardUserDefaults removeObjectForKey:[self reasonCacheKey]];
-                    [self.dataArray replaceObjectAtIndex:4 withObject:@{@"title":@"Case Reason",@"placeholder":@"None".localized}];
+                    [self.dataArray replaceObjectAtIndex:1 withObject:@{@"title":@"Case Reason",@"placeholder":@"None".localized}];
                     [NSUserDefaults.standardUserDefaults removeObjectForKey:[self descCacheKey]];
-                    [self.dataArray replaceObjectAtIndex:5 withObject:@{@"title":@"Description",@"placeholder":@""}];
+                    [self.dataArray replaceObjectAtIndex:2 withObject:@{@"title":@"Description",@"placeholder":@""}];
                     [self.tableView reloadData];
                 }else{
                     self.submit.userInteractionEnabled = false;
                     [self.submit setTitle:[formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.timeCount]] forState:UIControlStateNormal];
                     [self.submit setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
                     self.submit.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
-                    ServiceInputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
+                    ServiceInputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
                     cell.content.userInteractionEnabled = false;
                 }
             }];
@@ -155,7 +150,7 @@
         [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Smart Gateway SN cannot be empty" btnTitle:nil completion:nil];
         return;
     }
-    ServiceInputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
+    ServiceInputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
     NSDictionary * params = @{@"encoding":@"UTF-8",
                               @"orgid":@"00D8c000003UHSM",
                               @"retURL":@"www.moonflow.com",
@@ -163,7 +158,7 @@
                               @"email":self.model.email?:@"",
                               @"phone":self.model.phonenumber?:@"",
                               @"subject":self.model.defDevSgSn?[self formatDefDevSgSn]:@"",
-                              @"reason":self.dataArray[4][@"placeholder"],
+                              @"reason":self.dataArray[1][@"placeholder"],
                               @"description":cell.content.text.length>0?cell.content.text:@"",
                               @"external":@"1"};
     NSLog(@"params=%@",params);
@@ -225,12 +220,12 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == self.dataArray.count-2) {
+    if (indexPath.row == 1) {
         SelecteTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SelecteTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
         cell.content.text = self.dataArray[indexPath.row][@"placeholder"];
         return cell;
-    }else if (indexPath.row == self.dataArray.count-1) {
+    }else if (indexPath.row == 2) {
         ServiceInputTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ServiceInputTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
         cell.content.text = self.dataArray[indexPath.row][@"placeholder"];
@@ -238,76 +233,10 @@
         cell.content.userInteractionEnabled = !RMHelper.getUserType && ![NSUserDefaults.standardUserDefaults objectForKey:[self descCacheKey]];
         return cell;
     }else{
-        InputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
-        cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
-        cell.textfield.text = self.dataArray[indexPath.row][@"placeholder"];
-        if (indexPath.row <= 3) {
-            cell.textfield.userInteractionEnabled = false;
-        }else{
-            if (indexPath.row == 5) {
-                if ([NSUserDefaults.standardUserDefaults objectForKey:[self reasonCacheKey]] || RMHelper.getUserType) {
-                    cell.textfield.userInteractionEnabled = false;
-                }else{
-                    cell.textfield.userInteractionEnabled = true;
-                }
-                cell.textfield.delegate = self;
-            }else{
-                cell.textfield.userInteractionEnabled = true;
-            }
-        }
+        ServiceDescTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ServiceDescTableViewCell class]) forIndexPath:indexPath];
         return cell;
     }
 }
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    if (textField.textAlignment == NSTextAlignmentRight) {
-        NSString *text = [textField.text stringByReplacingCharactersInRange:range withString:string];
-        textField.text = [text stringByReplacingOccurrencesOfString:@" " withString:@"\u00a0"];
-
-        UITextPosition *startPos = [textField positionFromPosition:textField.beginningOfDocument offset:range.location + string.length];
-        UITextRange *textRange = [textField textRangeFromPosition:startPos toPosition:startPos];
-        textField.selectedTextRange = textRange;
-        return NO;
-    }
-    return YES;
-}
-
-//- (BOOL)textField:(UITextField *)textField
-//        shouldChangeCharactersInRange:(NSRange)range
-//        replacementString:(NSString *)string
-//{
-//    /* 如果不是右对齐，直接返回YES，不做处理 */
-//    if (textField.textAlignment != NSTextAlignmentRight) {
-//        return YES;
-//    }
-//
-//    /* 在右对齐的情况下*/
-//    // 如果string是@""，说明是删除字符（剪切删除操作），则直接返回YES，不做处理
-//    // 如果把这段删除，在删除字符时光标位置会出现错误
-//    if ([string isEqualToString:@""]) {
-//        return YES;
-//    }
-//
-//    /* 在输入单个字符或者粘贴内容时做如下处理，已确定光标应该停留的正确位置，
-//    没有下段从字符中间插入或者粘贴光标位置会出错 */
-//    // 首先使用 non-breaking space 代替默认输入的@“ ”空格
-//    string = [string stringByReplacingOccurrencesOfString:@" "
-//                     withString:@"\u00a0"];
-//    textField.text = [textField.text stringByReplacingCharactersInRange:range
-//                                     withString:string];
-//    //确定输入或者粘贴字符后光标位置
-//    UITextPosition *beginning = textField.beginningOfDocument;
-//    UITextPosition *cursorLoc = [textField positionFromPosition:beginning
-//                                 offset:range.location+string.length];
-//    // 选中文本起使位置和结束为止设置同一位置
-//    UITextRange *textRange = [textField textRangeFromPosition:cursorLoc
-//                                        toPosition:cursorLoc];
-//    // 选中字符范围（由于textRange范围的起始结束位置一样所以并没有选中字符）
-//    [textField setSelectedTextRange:textRange];
-//
-//    return NO;
-//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == self.dataArray.count-2) {
@@ -330,7 +259,13 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return indexPath.row == self.dataArray.count-1 ? (self.descHeight+20 < 53 ? 53 : self.descHeight+20) : 53;
+    if (indexPath.row == 0){
+        return UITableViewAutomaticDimension;
+    }else if (indexPath.row == 1){
+        return 53;
+    }else{
+        return indexPath.row == 2 ? (self.descHeight+20 < 53 ? 53 : self.descHeight+20) : 53;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

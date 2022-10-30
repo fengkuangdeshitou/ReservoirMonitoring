@@ -118,21 +118,21 @@
                 }
             }
         }
-        if (data[@"superPeakTimeList"]) {
-            NSArray * superPeakTimeArray = data[@"superPeakTimeList"];
-            for (int i=0; i<superPeakTimeArray.count; i++) {
-                NSString * string = superPeakTimeArray[i];
-                if ([string containsString:@"_"]) {
-                    NSArray * timeArray = [string componentsSeparatedByString:@"_"];
-                    NSString * startTime = timeArray[0];
-                    NSString * endTime = timeArray[1];
-                    NSDictionary * dict = @{@"startTime":startTime,@"endTime":endTime,@"price":timeArray.count>=2?timeArray[2]:@"0"};
-                    [self.superPeakTimeArray addObject:dict];
-                }else{
-                    [self.superPeakTimeArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
-                }
-            }
-        }
+//        if (data[@"superPeakTimeList"]) {
+//            NSArray * superPeakTimeArray = data[@"superPeakTimeList"];
+//            for (int i=0; i<superPeakTimeArray.count; i++) {
+//                NSString * string = superPeakTimeArray[i];
+//                if ([string containsString:@"_"]) {
+//                    NSArray * timeArray = [string componentsSeparatedByString:@"_"];
+//                    NSString * startTime = timeArray[0];
+//                    NSString * endTime = timeArray[1];
+//                    NSDictionary * dict = @{@"startTime":startTime,@"endTime":endTime,@"price":timeArray.count>=2?timeArray[2]:@"0"};
+//                    [self.superPeakTimeArray addObject:dict];
+//                }else{
+//                    [self.superPeakTimeArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
+//                }
+//            }
+//        }
         [self.tableView reloadData];
     } failure:^(NSString * _Nonnull errorMsg) {
         
@@ -345,7 +345,7 @@
     if (self.flag != 2) {
         [params setValue:@[@"__"] forKey:@"offPeakTimeList"];
         [params setValue:@[@"__"] forKey:@"peakTimeList"];
-        [params setValue:@[@"__"] forKey:@"superPeakTimeList"];
+//        [params setValue:@[@"__"] forKey:@"superPeakTimeList"];
     }else{
         for (int i=0; i<[cell.dataArray[0] count]; i++) {
             NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:0];
@@ -388,42 +388,42 @@
             [RMHelper showToast:@"Peak time overlap" toView:self.view];
             return;
         }
-        NSMutableArray * superPeakTimeArray = [[NSMutableArray alloc] init];
-        for (int i=0; i<[cell.dataArray[2] count]; i++) {
-            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:2];
-            TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
-            NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
-            if (timeCell.startTime.text.length == 0 && timeCell.endTime.text.length > 0) {
-                [RMHelper showToast:@"Please select super peak start time" toView:self.view];
-                return;
-            }
-            if (timeCell.endTime.text.length == 0 && timeCell.startTime.text.length > 0) {
-                [RMHelper showToast:@"Please select super peak end time" toView:self.view];
-                return;
-            }
-            NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];
-            [superPeakTimeArray addObject:string];
-        }
-        [params setValue:superPeakTimeArray forKey:@"superPeakTimeList"];
-        if ([RMHelper hasRepeatedTimeForArray:superPeakTimeArray]) {
-            [RMHelper showToast:@"Super-peak time overlap" toView:self.view];
-            return;
-        }
+//        NSMutableArray * superPeakTimeArray = [[NSMutableArray alloc] init];
+//        for (int i=0; i<[cell.dataArray[2] count]; i++) {
+//            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:2];
+//            TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
+//            NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
+//            if (timeCell.startTime.text.length == 0 && timeCell.endTime.text.length > 0) {
+//                [RMHelper showToast:@"Please select super peak start time" toView:self.view];
+//                return;
+//            }
+//            if (timeCell.endTime.text.length == 0 && timeCell.startTime.text.length > 0) {
+//                [RMHelper showToast:@"Please select super peak end time" toView:self.view];
+//                return;
+//            }
+//            NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];
+//            [superPeakTimeArray addObject:string];
+//        }
+//        [params setValue:superPeakTimeArray forKey:@"superPeakTimeList"];
+//        if ([RMHelper hasRepeatedTimeForArray:superPeakTimeArray]) {
+//            [RMHelper showToast:@"Super-peak time overlap" toView:self.view];
+//            return;
+//        }
         NSMutableArray * selectedTime = [[NSMutableArray alloc] init];
         NSArray * offPeakTimeList = params[@"offPeakTimeList"];
         NSArray * peakTimeList = params[@"peakTimeList"];
-        NSArray * superPeakTimeList = params[@"superPeakTimeList"];
+//        NSArray * superPeakTimeList = params[@"superPeakTimeList"];
         [selectedTime addObjectsFromArray:offPeakTimeList];
         [peakTimeList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if (![obj isEqualToString:@"__"]) {
                 [selectedTime addObject:obj];
             }
         }];
-        [superPeakTimeList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (![obj isEqualToString:@"__"]) {
-                [selectedTime addObject:obj];
-            }
-        }];
+//        [superPeakTimeList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            if (![obj isEqualToString:@"__"]) {
+//                [selectedTime addObject:obj];
+//            }
+//        }];
         if ([RMHelper hasRepeatedTimeForArray:selectedTime]) {
             [RMHelper showToast:@"Selected time overlap" toView:self.view];
             return;

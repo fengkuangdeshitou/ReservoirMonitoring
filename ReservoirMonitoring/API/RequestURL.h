@@ -89,6 +89,8 @@ extern NSString * const CheckSn;
 
 extern NSString * const LogOff;
 
+extern NSString * const VisitorsLogin;
+
 @end
 
 NS_ASSUME_NONNULL_END

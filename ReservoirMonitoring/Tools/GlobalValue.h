@@ -26,6 +26,8 @@ extern NSString * const COLOR_MAIN_COLOR;
 extern NSString * const COLOR_BACK_COLOR;
 /**输入框placehodel颜色*/
 extern NSString * const COLOR_PLACEHOLDER_COLOR;
+/**游客模式背景颜色*/
+extern NSString * const COLOR_TOURISTS_COLOR;
 /**蓝牙CMD*/
 extern NSString * const BLE_CMD;
 /**当前设备id*/
