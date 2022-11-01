@@ -18,45 +18,45 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="swn-02-2qT">
-                        <rect key="frame" x="61" y="34" width="207" height="43"/>
+                        <rect key="frame" x="68.666666666666671" y="34" width="191.66666666666663" height="38.333333333333343"/>
                         <string key="text">Schedule Service for Your
- EP CUBE System</string>
-                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+ EP Cube System</string>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q82-I0-hoL">
-                        <rect key="frame" x="20" y="101" width="289" height="20.333333333333329"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q82-I0-hoL">
+                        <rect key="frame" x="15" y="92.333333333333314" width="299" height="77.666666666666686"/>
+                        <string key="text">Thank you for choosing EP Cube. To schedule technical service, please renew your personal contact information, and click submit in this page. Please select a category and try to describe the problem.</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.45490196078431372" green="0.45490196078431372" blue="0.45490196078431372" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7A-pS-6im" customClass="MLLinkLabel">
-                        <rect key="frame" x="20" y="185.66666666666663" width="289" height="147.33333333333337"/>
+                        <rect key="frame" x="15" y="219.33333333333334" width="299" height="113.66666666666666"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Questions?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XOy-X9-0vN">
-                        <rect key="frame" x="20" y="145.33333333333334" width="85.333333333333329" height="20.333333333333343"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="15" y="190" width="83.666666666666671" height="19.333333333333343"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <color key="backgroundColor" red="0.047058823529411764" green="0.047058823529411764" blue="0.047058823529411764" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="XOy-X9-0vN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="5m9-5B-gGc"/>
-                    <constraint firstItem="Q82-I0-hoL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="8i9-Vz-3R1"/>
-                    <constraint firstAttribute="trailing" secondItem="M7A-pS-6im" secondAttribute="trailing" constant="20" id="ACa-ZL-B73"/>
-                    <constraint firstItem="Q82-I0-hoL" firstAttribute="top" secondItem="swn-02-2qT" secondAttribute="bottom" constant="24" id="D5W-Fj-OvX"/>
-                    <constraint firstItem="XOy-X9-0vN" firstAttribute="top" secondItem="Q82-I0-hoL" secondAttribute="bottom" constant="24" id="GXb-nq-ITw"/>
+                    <constraint firstItem="XOy-X9-0vN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="5m9-5B-gGc"/>
+                    <constraint firstItem="Q82-I0-hoL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="8i9-Vz-3R1"/>
+                    <constraint firstAttribute="trailing" secondItem="M7A-pS-6im" secondAttribute="trailing" constant="15" id="ACa-ZL-B73"/>
+                    <constraint firstItem="Q82-I0-hoL" firstAttribute="top" secondItem="swn-02-2qT" secondAttribute="bottom" constant="20" id="D5W-Fj-OvX"/>
+                    <constraint firstItem="XOy-X9-0vN" firstAttribute="top" secondItem="Q82-I0-hoL" secondAttribute="bottom" constant="20" id="GXb-nq-ITw"/>
                     <constraint firstItem="swn-02-2qT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="34" id="KAF-5f-35A"/>
                     <constraint firstItem="swn-02-2qT" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="UjW-sN-kfv"/>
-                    <constraint firstAttribute="trailing" secondItem="Q82-I0-hoL" secondAttribute="trailing" constant="20" id="a7Q-Gf-LOs"/>
-                    <constraint firstItem="M7A-pS-6im" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="bLW-mT-8Mt"/>
-                    <constraint firstItem="M7A-pS-6im" firstAttribute="top" secondItem="XOy-X9-0vN" secondAttribute="bottom" constant="20" id="jrZ-Pp-oad"/>
-                    <constraint firstItem="XOy-X9-0vN" firstAttribute="top" secondItem="Q82-I0-hoL" secondAttribute="bottom" constant="24" id="lqX-xJ-lyq"/>
+                    <constraint firstAttribute="trailing" secondItem="Q82-I0-hoL" secondAttribute="trailing" constant="15" id="a7Q-Gf-LOs"/>
+                    <constraint firstItem="M7A-pS-6im" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="bLW-mT-8Mt"/>
+                    <constraint firstItem="M7A-pS-6im" firstAttribute="top" secondItem="XOy-X9-0vN" secondAttribute="bottom" constant="10" id="jrZ-Pp-oad"/>
                     <constraint firstAttribute="bottom" secondItem="M7A-pS-6im" secondAttribute="bottom" constant="20" id="slo-mE-eF9"/>
                 </constraints>
             </tableViewCellContentView>

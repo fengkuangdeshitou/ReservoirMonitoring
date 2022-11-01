@@ -132,6 +132,16 @@
     }
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
+        [BleManager.shareInstance readWithCMDString:@"510" count:1 finish:^(NSArray * _Nonnull array) {
+            NSInteger status = [array.firstObject integerValue];
+            if (status == 4){
+                [RMHelper showToast:@"Please shutdown the EP Cube system before changing electric grid standards." toView:self.view];
+                return;
+            }else{
+                dispatch_semaphore_signal(sem);
+            }
+        }];
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         [BleManager.shareInstance writeWithCMDString:@"625" array:@[weakSelf.dataArray[0][@"value"]] finish:^{
             dispatch_semaphore_signal(sem);
         }];

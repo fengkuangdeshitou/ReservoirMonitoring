@@ -22,8 +22,8 @@
     // Initialization code
     
     NSString * faq = @"FAQ";
-    NSString * contact = @"contact";
-    self.question.text = [NSString stringWithFormat:@"%@%@",faq,contact];
+    NSString * hotline = @"hotline";
+    self.question.text = [NSString stringWithFormat:@"For more information about troubleshooting, please refer to our %@.\nOur %@ will be available 24hrs Monday through Friday.",faq,hotline];
     self.question.lineBreakMode = NSLineBreakByWordWrapping;
     self.question.textColor = [UIColor colorWithHexString:@"#747474"];
     self.question.font = [UIFont systemFontOfSize:13];
@@ -39,8 +39,8 @@
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:likeString];
     [attributedText setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSLinkAttributeName:faq}
                             range:[likeString rangeOfString:faq]];
-    [attributedText setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSLinkAttributeName:contact}
-                            range:[likeString rangeOfString:contact]];
+    [attributedText setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSLinkAttributeName:hotline}
+                            range:[likeString rangeOfString:hotline]];
     self.question.attributedText = attributedText;
     
 }
@@ -49,8 +49,9 @@
     if ([linkText isEqualToString:@"FAQ"]){
         HelpViewController * help = [[HelpViewController alloc] init];
         help.hidesBottomBarWhenPushed = true;
+        help.title = linkText;
         [RMHelper.getCurrentVC.navigationController pushViewController:help animated:true];
-    }else if ([linkText isEqualToString:@"contact"]){
+    }else if ([linkText isEqualToString:@"hotline"]){
         NSString *telephoneNumber = @"18007612990";
         NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",telephoneNumber];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str] options:@{} completionHandler:nil];

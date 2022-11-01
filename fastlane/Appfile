@@ -1,0 +1,6 @@
+# app_identifier("[[com.zhuxu.energy]]") # The bundle identifier of your app
+# apple_id("[[409744573@qq.com]]") # Your Apple Developer Portal username
+
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

@@ -15,7 +15,6 @@
 			dependencies = (
 			);
 			name = Bugly;
-			productName = Bugly;
 		};
 /* End PBXAggregateTarget section */
 
@@ -1057,7 +1056,7 @@
 		0BBC79A5EC81ADAF97D64DBB4DF990CB /* HXAssetManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HXAssetManager.h; path = HXPhotoPicker/HXAssetManager.h; sourceTree = "<group>"; };
 		0BC333C371957EB175CD10AAFBB7C16B /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+MASDebugAdditions.h"; path = "Masonry/NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
 		0BDA11E034890A95CCF1E48A75997DFE /* AxisValueFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AxisValueFormatter.swift; path = Source/Charts/Formatters/AxisValueFormatter.swift; sourceTree = "<group>"; };
-		0D08F33EA36158D9D0AC4ABDEA6EF3D7 /* SGPagingView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SGPagingView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D08F33EA36158D9D0AC4ABDEA6EF3D7 /* SGPagingView */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SGPagingView; path = SGPagingView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D11DA65DC15F846577B46C17EC54B90 /* Pods-ReservoirMonitoringTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ReservoirMonitoringTests.modulemap"; sourceTree = "<group>"; };
 		0D19254E335514FB2F5ED9FB224B4661 /* PieChartDataSetProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieChartDataSetProtocol.swift; path = Source/Charts/Data/Interfaces/PieChartDataSetProtocol.swift; sourceTree = "<group>"; };
 		0D2A9BA0E9CF5070209A6077FBACAACC /* UIButton+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIButton+AFNetworking.h"; path = "UIKit+AFNetworking/UIButton+AFNetworking.h"; sourceTree = "<group>"; };
@@ -1087,7 +1086,7 @@
 		145BFA69C5CF7147E4C6E33522A83928 /* HXPhotoEditConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HXPhotoEditConfiguration.h; path = HXPhotoPicker/HXPhotoEdit/HXPhotoEditConfiguration.h; sourceTree = "<group>"; };
 		14D1F5A55C7F03AF2AC46DB6DEAEAEB7 /* SDImageIOCoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDImageIOCoder.h; path = SDWebImage/Core/SDImageIOCoder.h; sourceTree = "<group>"; };
 		15273100CFD0D4A96BE669EB5C081067 /* HXPhotoPicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HXPhotoPicker.debug.xcconfig; sourceTree = "<group>"; };
-		153C4EAE58866F62E22F617430E2FBD2 /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		153C4EAE58866F62E22F617430E2FBD2 /* Pods-ReservoirMonitoring-ReservoirMonitoringUITests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-ReservoirMonitoring-ReservoirMonitoringUITests"; path = Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		15738CA202F10C87C2A53B29ECAA99C1 /* MBProgressHUD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MBProgressHUD.release.xcconfig; sourceTree = "<group>"; };
 		16094F41110D5948C338CAA745807761 /* HXCustomCameraViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HXCustomCameraViewController.h; path = HXPhotoPicker/Controller/HXCustomCameraViewController.h; sourceTree = "<group>"; };
 		161F6E1F1FF2110E6C0648D018EA849F /* ScatterChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScatterChartView.swift; path = Source/Charts/Charts/ScatterChartView.swift; sourceTree = "<group>"; };
@@ -1125,7 +1124,7 @@
 		1FC20A3CC4343DA44CBAA944C169ED53 /* HX_PhotoEditBottomView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HX_PhotoEditBottomView.h; path = HXPhotoPicker/HXPhotoEdit/View/HX_PhotoEditBottomView.h; sourceTree = "<group>"; };
 		1FDB5F7D4BAAC5BCCE3B807D4B1DF909 /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFHTTPSessionManager.m; path = AFNetworking/AFHTTPSessionManager.m; sourceTree = "<group>"; };
 		1FDFA11ED49D7E4F8341A1AE5522D285 /* Charts.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Charts.modulemap; sourceTree = "<group>"; };
-		1FFED36A657123030ABB700256D73F15 /* Masonry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Masonry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FFED36A657123030ABB700256D73F15 /* Masonry */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Masonry; path = Masonry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		20105E18DECB7281667EC6AD9B28646F /* SDWebImageTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageTransition.m; path = SDWebImage/Core/SDWebImageTransition.m; sourceTree = "<group>"; };
 		203B55ADCB693D094C0B5CE8F619E99F /* NSString+HXExtension.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSString+HXExtension.h"; path = "HXPhotoPicker/Category/NSString+HXExtension.h"; sourceTree = "<group>"; };
 		206CA6B8E3C9FF349ACD55CA3A48B5FC /* BarLineScatterCandleBubbleChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarLineScatterCandleBubbleChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/BarLineScatterCandleBubbleChartDataSet.swift; sourceTree = "<group>"; };
@@ -1141,7 +1140,7 @@
 		247F5B8D7C09151C243E956207B91392 /* RadarChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RadarChartData.swift; path = Source/Charts/Data/Implementations/Standard/RadarChartData.swift; sourceTree = "<group>"; };
 		248A71B1E15B253D68184185FD95AF9B /* SDGraphicsImageRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDGraphicsImageRenderer.h; path = SDWebImage/Core/SDGraphicsImageRenderer.h; sourceTree = "<group>"; };
 		24BEBCCF71238FE506BC0B0C9F5E3155 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIActivityIndicatorView+AFNetworking.h"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
-		24DDD4A0849B06C0942057220E1E81B2 /* HXPhotoPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HXPhotoPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		24DDD4A0849B06C0942057220E1E81B2 /* HXPhotoPicker */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HXPhotoPicker; path = HXPhotoPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		24F1DB128371BE730830405891DF5A15 /* SDWebImageError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageError.m; path = SDWebImage/Core/SDWebImageError.m; sourceTree = "<group>"; };
 		2504ADFAFF8887DC3E48D5013D7DD8F3 /* NSArray+HXExtension.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+HXExtension.m"; path = "HXPhotoPicker/Category/NSArray+HXExtension.m"; sourceTree = "<group>"; };
 		2530557D66536681976169DC1CB2089B /* NSMutableAttributedString+MLLabel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSMutableAttributedString+MLLabel.m"; path = "Classes/Category/NSMutableAttributedString+MLLabel.m"; sourceTree = "<group>"; };
@@ -1161,7 +1160,7 @@
 		29B7594EA21BF82185093FD33F610477 /* HXPhotoPicker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HXPhotoPicker.h; path = HXPhotoPicker/HXPhotoPicker.h; sourceTree = "<group>"; };
 		2A87CB4DA0A63215FF265A1F4456CBD1 /* HXPhotoEditStickerTrashView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HXPhotoEditStickerTrashView.h; path = HXPhotoPicker/HXPhotoEdit/View/HXPhotoEditStickerTrashView.h; sourceTree = "<group>"; };
 		2AA21E6A1EFF29F901D7799A8EEBF591 /* MJRefreshGifHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshGifHeader.m; path = MJRefresh/Custom/Header/MJRefreshGifHeader.m; sourceTree = "<group>"; };
-		2B276B0A79173A1D6E83C9B4FB9A4A57 /* MJExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MJExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B276B0A79173A1D6E83C9B4FB9A4A57 /* MJExtension */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MJExtension; path = MJExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B4A4B3D6E35051C9F26378B9D04BD48 /* BarChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartView.swift; path = Source/Charts/Charts/BarChartView.swift; sourceTree = "<group>"; };
 		2B54BD609A955C1AC0CD9B933D0A9D1D /* HXAlbumListViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HXAlbumListViewController.h; path = HXPhotoPicker/Controller/HXAlbumListViewController.h; sourceTree = "<group>"; };
 		2B971F0FC0BB31F9CF8A26C86E48B7A8 /* HorizontalBarHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HorizontalBarHighlighter.swift; path = Source/Charts/Highlight/HorizontalBarHighlighter.swift; sourceTree = "<group>"; };
@@ -1321,7 +1320,7 @@
 		5AC707F2B1E8BBCAD263D11FEB27C4A7 /* SDWebImageDownloaderDecryptor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImageDownloaderDecryptor.h; path = SDWebImage/Core/SDWebImageDownloaderDecryptor.h; sourceTree = "<group>"; };
 		5B7BB0658FE35AE853BDF00080838986 /* HXPhotoEditStickerItemView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HXPhotoEditStickerItemView.m; path = HXPhotoPicker/HXPhotoEdit/View/HXPhotoEditStickerItemView.m; sourceTree = "<group>"; };
 		5BA085737DB106C478F5FFBBC3A9C240 /* HXPhotoView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HXPhotoView.h; path = HXPhotoPicker/View/HXPhotoView.h; sourceTree = "<group>"; };
-		5BA6046B4C2674409C0D5625F45F8769 /* BRPickerView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BRPickerView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BA6046B4C2674409C0D5625F45F8769 /* BRPickerView */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BRPickerView; path = BRPickerView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BCD3F1B8B9C69CA8DD81656D81E29DE /* NSString+MLLabel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSString+MLLabel.h"; path = "Classes/Category/NSString+MLLabel.h"; sourceTree = "<group>"; };
 		5C1F54B76795EB5BECF8A4D7CADA6EE7 /* HXCustomCollectionReusableView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HXCustomCollectionReusableView.m; path = HXPhotoPicker/View/HXCustomCollectionReusableView.m; sourceTree = "<group>"; };
 		5C239225BD9604B2C8764AC8828F166B /* HXPreviewContentView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HXPreviewContentView.m; path = HXPhotoPicker/View/HXPreviewContentView.m; sourceTree = "<group>"; };
@@ -1491,7 +1490,7 @@
 		8A2B3DCCFF3FCC54056ED2E1B8711E0F /* NSMutableAttributedString+MLLabel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSMutableAttributedString+MLLabel.h"; path = "Classes/Category/NSMutableAttributedString+MLLabel.h"; sourceTree = "<group>"; };
 		8AA05E5CE51AD07B8DA9797C72559F05 /* UIImage+MultiFormat.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+MultiFormat.m"; path = "SDWebImage/Core/UIImage+MultiFormat.m"; sourceTree = "<group>"; };
 		8AA3FAD4C8912C413A45B0A4A5257621 /* Reductions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Reductions.swift; path = Sources/Algorithms/Reductions.swift; sourceTree = "<group>"; };
-		8B8FAB0D627B17EDE1366984278705D9 /* MBProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MBProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B8FAB0D627B17EDE1366984278705D9 /* MBProgressHUD */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MBProgressHUD; path = MBProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C7016182BC6DC6A30EAB1BE5EE86CA7 /* SDAssociatedObject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDAssociatedObject.m; path = SDWebImage/Private/SDAssociatedObject.m; sourceTree = "<group>"; };
 		8C87DB83DAB221DC8B702FB5C3658C6C /* MJPropertyKey.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJPropertyKey.h; path = MJExtension/MJPropertyKey.h; sourceTree = "<group>"; };
 		8CD474E1145EE2DBB8B1278B3F298E0B /* UIFont+HXExtension.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIFont+HXExtension.h"; path = "HXPhotoPicker/Category/UIFont+HXExtension.h"; sourceTree = "<group>"; };
@@ -1525,7 +1524,7 @@
 		9772545E9E837FBCBFA2AE93D64537E9 /* HXPreviewImageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HXPreviewImageView.m; path = HXPhotoPicker/View/HXPreviewImageView.m; sourceTree = "<group>"; };
 		97C04C81E6CA3B9812A01AA5CEAF2431 /* Split.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Split.swift; path = Sources/Algorithms/Split.swift; sourceTree = "<group>"; };
 		9819C33C0B16C660695314AF0481CC53 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
-		98527D7196957AAB07B79E2E2AFDE23E /* IQKeyboardManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IQKeyboardManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		98527D7196957AAB07B79E2E2AFDE23E /* IQKeyboardManager */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = IQKeyboardManager; path = IQKeyboardManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98AD61EFDFD58C1F09196925D23B6946 /* Highlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Highlighter.swift; path = Source/Charts/Highlight/Highlighter.swift; sourceTree = "<group>"; };
 		98CF5DFB4E282D0C2A77123CE1D21250 /* HXPhotoEditStickerView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HXPhotoEditStickerView.m; path = HXPhotoPicker/HXPhotoEdit/View/HXPhotoEditStickerView.m; sourceTree = "<group>"; };
 		98D7A549619B26077324CC5648BD5545 /* SDImageCoderHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDImageCoderHelper.m; path = SDWebImage/Core/SDImageCoderHelper.m; sourceTree = "<group>"; };
@@ -1538,7 +1537,7 @@
 		9C62E09161230B72317E705039A75607 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+MJRefresh.m"; path = "MJRefresh/UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		9C790A0CB45392320112394949CD95EC /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "View+MASShorthandAdditions.h"; path = "Masonry/View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		9D35D135561B2DF48B31F1BA10332B9D /* Bugly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Bugly.debug.xcconfig; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DA05168EC367448854F6142D7E8E163 /* SDWebImageCacheKeyFilter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageCacheKeyFilter.m; path = SDWebImage/Core/SDWebImageCacheKeyFilter.m; sourceTree = "<group>"; };
 		9E164EE96A8E1BF81F2717E722736D0B /* Masonry.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Masonry.release.xcconfig; sourceTree = "<group>"; };
 		9E44879CE504E87CA803241CAA8CC218 /* UILabel+HXExtension.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UILabel+HXExtension.m"; path = "HXPhotoPicker/Category/UILabel+HXExtension.m"; sourceTree = "<group>"; };
@@ -1549,7 +1548,7 @@
 		9F19729E75CAF1900807188F2EC7AF04 /* MJRefreshAutoStateFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshAutoStateFooter.h; path = MJRefresh/Custom/Footer/Auto/MJRefreshAutoStateFooter.h; sourceTree = "<group>"; };
 		9F24E93E0094A08595D16736AC2D29D2 /* UIScrollView+MJExtension.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+MJExtension.h"; path = "MJRefresh/UIScrollView+MJExtension.h"; sourceTree = "<group>"; };
 		9F465EAB821254D55B1DA51C0B44DB10 /* SDWebImage.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SDWebImage.modulemap; sourceTree = "<group>"; };
-		9FACF3289B7C6E82E827255A2B80DCBB /* WMZCode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WMZCode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FACF3289B7C6E82E827255A2B80DCBB /* WMZCode */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = WMZCode; path = WMZCode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A02FA14340F1D6EC256C7002E8D541C8 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFSecurityPolicy.h; path = AFNetworking/AFSecurityPolicy.h; sourceTree = "<group>"; };
 		A046CDB06FAC815B157AAB7140240EE5 /* HXPhotoEditGridLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HXPhotoEditGridLayer.m; path = HXPhotoPicker/HXPhotoEdit/View/HXPhotoEditGridLayer.m; sourceTree = "<group>"; };
 		A0E52D01C102064515B31B20658CF53B /* SDAnimatedImageView+WebCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SDAnimatedImageView+WebCache.h"; path = "SDWebImage/Core/SDAnimatedImageView+WebCache.h"; sourceTree = "<group>"; };
@@ -1566,7 +1565,7 @@
 		A439BE1AF5619EF2C0BACE044D836F84 /* UILabel+HXExtension.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UILabel+HXExtension.h"; path = "HXPhotoPicker/Category/UILabel+HXExtension.h"; sourceTree = "<group>"; };
 		A4B8E7A7B20CB22A587788280782B250 /* IQUITextFieldView+Additions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "IQUITextFieldView+Additions.h"; path = "IQKeyboardManager/Categories/IQUITextFieldView+Additions.h"; sourceTree = "<group>"; };
 		A4E10424D604E1EF2C7C7D6DB69423CB /* HXPhotoEdit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HXPhotoEdit.h; path = HXPhotoPicker/HXPhotoEdit/HXPhotoEdit.h; sourceTree = "<group>"; };
-		A4FA15D44DF6BAC7550EDEED10862AA3 /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4FA15D44DF6BAC7550EDEED10862AA3 /* AFNetworking */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AFNetworking; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A50DA7F38594034D2E029238AC75F6CA /* SDImageIOAnimatedCoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDImageIOAnimatedCoder.h; path = SDWebImage/Core/SDImageIOAnimatedCoder.h; sourceTree = "<group>"; };
 		A59700343CF5C2BFACE913BBEBD7C53B /* PieRadarChartViewBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieRadarChartViewBase.swift; path = Source/Charts/Charts/PieRadarChartViewBase.swift; sourceTree = "<group>"; };
 		A5A5CA243C4E49F6B7208F2CF2442AAD /* HXPhotoPreviewViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HXPhotoPreviewViewController.m; path = HXPhotoPicker/Controller/HXPhotoPreviewViewController.m; sourceTree = "<group>"; };
@@ -1604,7 +1603,7 @@
 		AFED8D5B1138F05DD972DE56598FD115 /* SDWebImageCacheSerializer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImageCacheSerializer.h; path = SDWebImage/Core/SDWebImageCacheSerializer.h; sourceTree = "<group>"; };
 		AFF1C58B9E8F0A6BDA3FAFAFEAB9C0E1 /* CombinedChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CombinedChartData.swift; path = Source/Charts/Data/Implementations/Standard/CombinedChartData.swift; sourceTree = "<group>"; };
 		B03A8804533A54F3FBF6F7FE39705044 /* UIImage+ExtendedCacheData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ExtendedCacheData.m"; path = "SDWebImage/Core/UIImage+ExtendedCacheData.m"; sourceTree = "<group>"; };
-		B0B214D775196BA7CA8E17E53048A493 /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0B214D775196BA7CA8E17E53048A493 /* SDWebImage */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SDWebImage; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0D582BFCFB94B216CBAD1DEBEED0B97 /* Pods-ReservoirMonitoring-ReservoirMonitoringUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ReservoirMonitoring-ReservoirMonitoringUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		B0D9635A596BD1C633E65B399811B748 /* YAxisRendererRadarChart.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = YAxisRendererRadarChart.swift; path = Source/Charts/Renderers/YAxisRendererRadarChart.swift; sourceTree = "<group>"; };
 		B10046DDE1672F52715C54E13329B9C6 /* SGPageContentScrollView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SGPageContentScrollView.h; path = SGPagingView/SGPageContent/SGPageContentScrollView.h; sourceTree = "<group>"; };
@@ -1777,14 +1776,14 @@
 		E0BE598C700F5391A6647ACF099BF994 /* LineRadarRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineRadarRenderer.swift; path = Source/Charts/Renderers/LineRadarRenderer.swift; sourceTree = "<group>"; };
 		E142A9C02A4AB0428BA80AF188398F17 /* UIImage+MemoryCacheCost.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+MemoryCacheCost.h"; path = "SDWebImage/Core/UIImage+MemoryCacheCost.h"; sourceTree = "<group>"; };
 		E1457846AAF60A6BC5C7DCC2DF66D8D2 /* BRPickerView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BRPickerView-prefix.pch"; sourceTree = "<group>"; };
-		E2018080F4D81BC203076A2ED98BDA52 /* MLLabel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLLabel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2018080F4D81BC203076A2ED98BDA52 /* MLLabel */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MLLabel; path = MLLabel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2312E87A2E66415EDAF89596FB111AB /* MLTextAttachment.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MLTextAttachment.m; path = Classes/Expression/MLTextAttachment.m; sourceTree = "<group>"; };
 		E2745D069FCBBC4667526A2FD293CB27 /* HXPreviewVideoView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HXPreviewVideoView.h; path = HXPhotoPicker/View/HXPreviewVideoView.h; sourceTree = "<group>"; };
 		E327C535F6C608F358A673281EC63D78 /* SDImageAWebPCoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDImageAWebPCoder.h; path = SDWebImage/Core/SDImageAWebPCoder.h; sourceTree = "<group>"; };
 		E37412C03C8B164B9DA375570EF49502 /* NSImage+Compatibility.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSImage+Compatibility.m"; path = "SDWebImage/Core/NSImage+Compatibility.m"; sourceTree = "<group>"; };
 		E38694A0460AD41ED43062A13B266DDC /* HXPhotoViewTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HXPhotoViewTransition.m; path = HXPhotoPicker/TransitionAnimation/HXPhotoViewTransition.m; sourceTree = "<group>"; };
 		E389047C48A8DCACB6CF04ADE9C10682 /* ChartDataSetProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartDataSetProtocol.swift; path = Source/Charts/Data/Interfaces/ChartDataSetProtocol.swift; sourceTree = "<group>"; };
-		E49D6D248DD1CEE584E6776B9164A1B2 /* MJRefresh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MJRefresh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E49D6D248DD1CEE584E6776B9164A1B2 /* MJRefresh */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MJRefresh; path = MJRefresh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4AAD4F5E94E3B2042A19E38A1ECB807 /* AFNetworking-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AFNetworking-dummy.m"; sourceTree = "<group>"; };
 		E512B6E3979681BC801B7F111825EC45 /* XAxisRendererRadarChart.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = XAxisRendererRadarChart.swift; path = Source/Charts/Renderers/XAxisRendererRadarChart.swift; sourceTree = "<group>"; };
 		E54DE8F9F40C9D9FD6F6DA1A4D20413C /* HXPhotoEditStickerItemContentView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HXPhotoEditStickerItemContentView.h; path = HXPhotoPicker/HXPhotoEdit/View/HXPhotoEditStickerItemContentView.h; sourceTree = "<group>"; };
@@ -1844,7 +1843,7 @@
 		F15F22B9ECF10055197F4048D6151AD7 /* WMZCode-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "WMZCode-Info.plist"; sourceTree = "<group>"; };
 		F1ACFFDFE251048AF6B6FDC74344F8C6 /* HXPhotoEditGridMaskLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HXPhotoEditGridMaskLayer.m; path = HXPhotoPicker/HXPhotoEdit/View/HXPhotoEditGridMaskLayer.m; sourceTree = "<group>"; };
 		F2724876A7F25BA959F6D6A9F596607C /* BRPickerStyle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BRPickerStyle.h; path = BRPickerView/Base/BRPickerStyle.h; sourceTree = "<group>"; };
-		F3E7458F7D38C89A9DE4BBACD3450C88 /* Algorithms.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Algorithms.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3E7458F7D38C89A9DE4BBACD3450C88 /* SwiftAlgorithms */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftAlgorithms; path = Algorithms.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F445F7809ED07CC3388AD00F0E33A19A /* HXCollectionView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HXCollectionView.m; path = HXPhotoPicker/View/HXCollectionView.m; sourceTree = "<group>"; };
 		F46E897B139D4CF31ACD8CF71C7FCCE8 /* ScatterChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScatterChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/ScatterChartDataSet.swift; sourceTree = "<group>"; };
 		F49FFFCCD89EE79E8B889DB22769A66B /* HXPhotoSubViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HXPhotoSubViewCell.m; path = HXPhotoPicker/View/HXPhotoSubViewCell.m; sourceTree = "<group>"; };
@@ -2050,6 +2049,7 @@
 				88E79ADF8F13FC03C27C8DC3C3CF50EF /* MBProgressHUD.m */,
 				5284992B795686886C4608863C59F06E /* Support Files */,
 			);
+			name = MBProgressHUD;
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
@@ -2120,23 +2120,23 @@
 		1CB8283FB16DE355F1AC907B8338B1D8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A4FA15D44DF6BAC7550EDEED10862AA3 /* AFNetworking.framework */,
-				5BA6046B4C2674409C0D5625F45F8769 /* BRPickerView.framework */,
+				A4FA15D44DF6BAC7550EDEED10862AA3 /* AFNetworking */,
+				5BA6046B4C2674409C0D5625F45F8769 /* BRPickerView */,
 				A1C1B977ED8804E8AEEC884E7359EE58 /* Charts */,
-				24DDD4A0849B06C0942057220E1E81B2 /* HXPhotoPicker.framework */,
-				98527D7196957AAB07B79E2E2AFDE23E /* IQKeyboardManager.framework */,
-				1FFED36A657123030ABB700256D73F15 /* Masonry.framework */,
-				8B8FAB0D627B17EDE1366984278705D9 /* MBProgressHUD.framework */,
-				2B276B0A79173A1D6E83C9B4FB9A4A57 /* MJExtension.framework */,
-				E49D6D248DD1CEE584E6776B9164A1B2 /* MJRefresh.framework */,
-				E2018080F4D81BC203076A2ED98BDA52 /* MLLabel.framework */,
+				24DDD4A0849B06C0942057220E1E81B2 /* HXPhotoPicker */,
+				98527D7196957AAB07B79E2E2AFDE23E /* IQKeyboardManager */,
+				1FFED36A657123030ABB700256D73F15 /* Masonry */,
+				8B8FAB0D627B17EDE1366984278705D9 /* MBProgressHUD */,
+				2B276B0A79173A1D6E83C9B4FB9A4A57 /* MJExtension */,
+				E49D6D248DD1CEE584E6776B9164A1B2 /* MJRefresh */,
+				E2018080F4D81BC203076A2ED98BDA52 /* MLLabel */,
 				EF3337EA9EA0FA7007549DA39CD33F0D /* Pods-ReservoirMonitoring */,
-				153C4EAE58866F62E22F617430E2FBD2 /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework */,
+				153C4EAE58866F62E22F617430E2FBD2 /* Pods-ReservoirMonitoring-ReservoirMonitoringUITests */,
 				EB2288DD26DD239DF4FE6DBD22EEB5E1 /* Pods-ReservoirMonitoringTests */,
-				B0B214D775196BA7CA8E17E53048A493 /* SDWebImage.framework */,
-				0D08F33EA36158D9D0AC4ABDEA6EF3D7 /* SGPagingView.framework */,
-				F3E7458F7D38C89A9DE4BBACD3450C88 /* Algorithms.framework */,
-				9FACF3289B7C6E82E827255A2B80DCBB /* WMZCode.framework */,
+				B0B214D775196BA7CA8E17E53048A493 /* SDWebImage */,
+				0D08F33EA36158D9D0AC4ABDEA6EF3D7 /* SGPagingView */,
+				F3E7458F7D38C89A9DE4BBACD3450C88 /* SwiftAlgorithms */,
+				9FACF3289B7C6E82E827255A2B80DCBB /* WMZCode */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2172,6 +2172,7 @@
 				473FCE5CDE832B951CDD0AFE4580CF35 /* WMZCodeView.m */,
 				E694982C3A778E24943D03BDC381A2C7 /* Support Files */,
 			);
+			name = WMZCode;
 			path = WMZCode;
 			sourceTree = "<group>";
 		};
@@ -2192,6 +2193,7 @@
 				8C3CC713F66A1275669BB2DB354BE8AC /* Core */,
 				0A552EFEE32525FEF93489469FE90BAF /* Support Files */,
 			);
+			name = Charts;
 			path = Charts;
 			sourceTree = "<group>";
 		};
@@ -2296,6 +2298,7 @@
 				2C6638F7D0F6E250BFFCF35FE24C6177 /* NSString+MLLabel.m */,
 				E7D9A7EC944D3677352ED4010DF3C1BC /* Support Files */,
 			);
+			name = MLLabel;
 			path = MLLabel;
 			sourceTree = "<group>";
 		};
@@ -2309,6 +2312,7 @@
 				6E58C01FE415262900706DBB22C8FB3E /* StringPickerView */,
 				1EA88E5187D12A16461FFDDFC4DF1BB5 /* Support Files */,
 			);
+			name = BRPickerView;
 			path = BRPickerView;
 			sourceTree = "<group>";
 		};
@@ -2357,6 +2361,7 @@
 				F12B0CB17C4EBA3E4C4D1F228981EAB0 /* ViewController+MASAdditions.m */,
 				08ED30FD9D3EFAADC402529F21E8D69C /* Support Files */,
 			);
+			name = Masonry;
 			path = Masonry;
 			sourceTree = "<group>";
 		};
@@ -2366,6 +2371,7 @@
 				F5E41A56D4913F769E037DA9BF518A43 /* Frameworks */,
 				4F449FB48017B464DBF3CAF50CA5D21F /* Support Files */,
 			);
+			name = Bugly;
 			path = Bugly;
 			sourceTree = "<group>";
 		};
@@ -2417,6 +2423,7 @@
 				7F9DB64F2E7AE44E93958D605CE70BDA /* IQUIViewController+Additions.m */,
 				9AB414ACD648308733951C2CCB19095D /* Support Files */,
 			);
+			name = IQKeyboardManager;
 			path = IQKeyboardManager;
 			sourceTree = "<group>";
 		};
@@ -2442,6 +2449,7 @@
 				52737F1D8A9C4DA3E9D5976214A1378D /* Support Files */,
 				F4D8C90DACE2EB45BDE2191FCF3E51B4 /* UIKit */,
 			);
+			name = AFNetworking;
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
@@ -2687,6 +2695,7 @@
 				E1BB490F8FC8D405F61D61FC8B12A573 /* Resources */,
 				6A0A6DD3841F7593FE769FDE17C13DDC /* Support Files */,
 			);
+			name = MJRefresh;
 			path = MJRefresh;
 			sourceTree = "<group>";
 		};
@@ -2757,6 +2766,7 @@
 				AD1704E6860A0BA848C8F30BDAC730B0 /* Windows.swift */,
 				8B26522A661C3102B5DFA3682D6CA783 /* Support Files */,
 			);
+			name = SwiftAlgorithms;
 			path = SwiftAlgorithms;
 			sourceTree = "<group>";
 		};
@@ -3010,6 +3020,7 @@
 				BF982D14CFB965EDBCC75FAF6BD5030A /* Default */,
 				E843E21189D15F5460043896B393CB56 /* Support Files */,
 			);
+			name = HXPhotoPicker;
 			path = HXPhotoPicker;
 			sourceTree = "<group>";
 		};
@@ -3107,6 +3118,7 @@
 				E726DDC8522A45379EBE81BDA26D58C5 /* NSString+MJExtension.m */,
 				656FB4747C769DFAD6069C7290D413D6 /* Support Files */,
 			);
+			name = MJExtension;
 			path = MJExtension;
 			sourceTree = "<group>";
 		};
@@ -3188,6 +3200,7 @@
 				56B335C2215230F250550FFC2D1B9344 /* UIView+SGPagingView.m */,
 				E76723162D97DD1E5529383B6B397FD9 /* Support Files */,
 			);
+			name = SGPagingView;
 			path = SGPagingView;
 			sourceTree = "<group>";
 		};
@@ -3197,6 +3210,7 @@
 				FFABD207A68F0F3F009427BB3AA60012 /* Core */,
 				FF467FE44CC95CA2EF5C26F8939BA5CB /* Support Files */,
 			);
+			name = SDWebImage;
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
@@ -3806,7 +3820,7 @@
 			);
 			name = AFNetworking;
 			productName = AFNetworking;
-			productReference = A4FA15D44DF6BAC7550EDEED10862AA3 /* AFNetworking.framework */;
+			productReference = A4FA15D44DF6BAC7550EDEED10862AA3 /* AFNetworking */;
 			productType = "com.apple.product-type.framework";
 		};
 		2C511EE63C6E7D5843B971D1E441119E /* SwiftAlgorithms */ = {
@@ -3824,7 +3838,7 @@
 			);
 			name = SwiftAlgorithms;
 			productName = Algorithms;
-			productReference = F3E7458F7D38C89A9DE4BBACD3450C88 /* Algorithms.framework */;
+			productReference = F3E7458F7D38C89A9DE4BBACD3450C88 /* SwiftAlgorithms */;
 			productType = "com.apple.product-type.framework";
 		};
 		3847153A6E5EEFB86565BA840768F429 /* SDWebImage */ = {
@@ -3842,7 +3856,7 @@
 			);
 			name = SDWebImage;
 			productName = SDWebImage;
-			productReference = B0B214D775196BA7CA8E17E53048A493 /* SDWebImage.framework */;
+			productReference = B0B214D775196BA7CA8E17E53048A493 /* SDWebImage */;
 			productType = "com.apple.product-type.framework";
 		};
 		4D3BA58D0583DF37575CACAB3DDADC85 /* MJExtension */ = {
@@ -3860,7 +3874,7 @@
 			);
 			name = MJExtension;
 			productName = MJExtension;
-			productReference = 2B276B0A79173A1D6E83C9B4FB9A4A57 /* MJExtension.framework */;
+			productReference = 2B276B0A79173A1D6E83C9B4FB9A4A57 /* MJExtension */;
 			productType = "com.apple.product-type.framework";
 		};
 		55AF53E6C77A10ED4985E04D74A8878E /* Masonry */ = {
@@ -3878,7 +3892,7 @@
 			);
 			name = Masonry;
 			productName = Masonry;
-			productReference = 1FFED36A657123030ABB700256D73F15 /* Masonry.framework */;
+			productReference = 1FFED36A657123030ABB700256D73F15 /* Masonry */;
 			productType = "com.apple.product-type.framework";
 		};
 		6868056D761E163D10FDAF8CF1C4D9B8 /* MJRefresh */ = {
@@ -3896,7 +3910,7 @@
 			);
 			name = MJRefresh;
 			productName = MJRefresh;
-			productReference = E49D6D248DD1CEE584E6776B9164A1B2 /* MJRefresh.framework */;
+			productReference = E49D6D248DD1CEE584E6776B9164A1B2 /* MJRefresh */;
 			productType = "com.apple.product-type.framework";
 		};
 		7602D5D21A5338A31C247674A8CF9048 /* Pods-ReservoirMonitoring */ = {
@@ -3947,7 +3961,7 @@
 			);
 			name = WMZCode;
 			productName = WMZCode;
-			productReference = 9FACF3289B7C6E82E827255A2B80DCBB /* WMZCode.framework */;
+			productReference = 9FACF3289B7C6E82E827255A2B80DCBB /* WMZCode */;
 			productType = "com.apple.product-type.framework";
 		};
 		82B0A41D3031FF27D78E17B0A9A46FB0 /* MBProgressHUD */ = {
@@ -3965,7 +3979,7 @@
 			);
 			name = MBProgressHUD;
 			productName = MBProgressHUD;
-			productReference = 8B8FAB0D627B17EDE1366984278705D9 /* MBProgressHUD.framework */;
+			productReference = 8B8FAB0D627B17EDE1366984278705D9 /* MBProgressHUD */;
 			productType = "com.apple.product-type.framework";
 		};
 		A7CD5EB3EE5F378806678311F14D87E2 /* MLLabel */ = {
@@ -3983,7 +3997,7 @@
 			);
 			name = MLLabel;
 			productName = MLLabel;
-			productReference = E2018080F4D81BC203076A2ED98BDA52 /* MLLabel.framework */;
+			productReference = E2018080F4D81BC203076A2ED98BDA52 /* MLLabel */;
 			productType = "com.apple.product-type.framework";
 		};
 		BEB232833E3746142B81CF59A0EEF45D /* Pods-ReservoirMonitoring-ReservoirMonitoringUITests */ = {
@@ -4016,7 +4030,7 @@
 			);
 			name = "Pods-ReservoirMonitoring-ReservoirMonitoringUITests";
 			productName = Pods_ReservoirMonitoring_ReservoirMonitoringUITests;
-			productReference = 153C4EAE58866F62E22F617430E2FBD2 /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework */;
+			productReference = 153C4EAE58866F62E22F617430E2FBD2 /* Pods-ReservoirMonitoring-ReservoirMonitoringUITests */;
 			productType = "com.apple.product-type.framework";
 		};
 		BF03B0B2B8B052092CB5F90CC5FB3757 /* Charts */ = {
@@ -4053,7 +4067,7 @@
 			);
 			name = BRPickerView;
 			productName = BRPickerView;
-			productReference = 5BA6046B4C2674409C0D5625F45F8769 /* BRPickerView.framework */;
+			productReference = 5BA6046B4C2674409C0D5625F45F8769 /* BRPickerView */;
 			productType = "com.apple.product-type.framework";
 		};
 		EBE1CCF7C9247642E27204CE129B8EB7 /* Pods-ReservoirMonitoringTests */ = {
@@ -4090,7 +4104,7 @@
 			);
 			name = SGPagingView;
 			productName = SGPagingView;
-			productReference = 0D08F33EA36158D9D0AC4ABDEA6EF3D7 /* SGPagingView.framework */;
+			productReference = 0D08F33EA36158D9D0AC4ABDEA6EF3D7 /* SGPagingView */;
 			productType = "com.apple.product-type.framework";
 		};
 		F8051AA643C524FA4E210DD0E6E62332 /* HXPhotoPicker */ = {
@@ -4108,7 +4122,7 @@
 			);
 			name = HXPhotoPicker;
 			productName = HXPhotoPicker;
-			productReference = 24DDD4A0849B06C0942057220E1E81B2 /* HXPhotoPicker.framework */;
+			productReference = 24DDD4A0849B06C0942057220E1E81B2 /* HXPhotoPicker */;
 			productType = "com.apple.product-type.framework";
 		};
 		FBA456CB50E371584C11231929A0971E /* IQKeyboardManager */ = {
@@ -4126,7 +4140,7 @@
 			);
 			name = IQKeyboardManager;
 			productName = IQKeyboardManager;
-			productReference = 98527D7196957AAB07B79E2E2AFDE23E /* IQKeyboardManager.framework */;
+			productReference = 98527D7196957AAB07B79E2E2AFDE23E /* IQKeyboardManager */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -4136,7 +4150,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1240;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 12.0";
@@ -5073,7 +5087,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SDWebImage/SDWebImage-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SDWebImage/SDWebImage-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5097,7 +5111,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CBC0CEF89785A870E5423B4586B81AF3 /* Pods-ReservoirMonitoring-ReservoirMonitoringUITests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -5146,7 +5160,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/AFNetworking/AFNetworking-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/AFNetworking/AFNetworking-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5181,7 +5195,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/MJRefresh/MJRefresh-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/MJRefresh/MJRefresh-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5253,7 +5267,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SGPagingView/SGPagingView-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SGPagingView/SGPagingView-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5287,7 +5301,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/WMZCode/WMZCode-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/WMZCode/WMZCode-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5342,7 +5356,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -5390,7 +5403,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SwiftAlgorithms/SwiftAlgorithms-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SwiftAlgorithms/SwiftAlgorithms-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5462,7 +5475,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/BRPickerView/BRPickerView-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/BRPickerView/BRPickerView-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5497,7 +5510,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/IQKeyboardManager/IQKeyboardManager-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/IQKeyboardManager/IQKeyboardManager-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5531,7 +5544,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/MJExtension/MJExtension-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/MJExtension/MJExtension-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5566,7 +5579,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/AFNetworking/AFNetworking-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/AFNetworking/AFNetworking-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5620,7 +5633,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -5663,7 +5675,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/Masonry/Masonry-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Masonry/Masonry-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5734,7 +5746,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/HXPhotoPicker/HXPhotoPicker-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/HXPhotoPicker/HXPhotoPicker-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5760,7 +5772,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5786,7 +5798,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SwiftAlgorithms/SwiftAlgorithms-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SwiftAlgorithms/SwiftAlgorithms-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5821,7 +5833,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/MJExtension/MJExtension-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/MJExtension/MJExtension-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5893,7 +5905,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/HXPhotoPicker/HXPhotoPicker-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/HXPhotoPicker/HXPhotoPicker-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5927,7 +5939,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/BRPickerView/BRPickerView-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/BRPickerView/BRPickerView-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5952,7 +5964,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5978,7 +5990,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SDWebImage/SDWebImage-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SDWebImage/SDWebImage-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6012,7 +6024,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/IQKeyboardManager/IQKeyboardManager-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/IQKeyboardManager/IQKeyboardManager-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6047,7 +6059,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/MBProgressHUD/MBProgressHUD-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/MBProgressHUD/MBProgressHUD-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6082,7 +6094,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SGPagingView/SGPagingView-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SGPagingView/SGPagingView-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6106,7 +6118,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CF0F78E7AEC58564ECA7219FA884A4F5 /* Pods-ReservoirMonitoring-ReservoirMonitoringUITests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -6154,7 +6166,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/MLLabel/MLLabel-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/MLLabel/MLLabel-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6188,7 +6200,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/MLLabel/MLLabel-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/MLLabel/MLLabel-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6223,7 +6235,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/MBProgressHUD/MBProgressHUD-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/MBProgressHUD/MBProgressHUD-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6257,7 +6269,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/Masonry/Masonry-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Masonry/Masonry-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6363,7 +6375,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/MJRefresh/MJRefresh-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/MJRefresh/MJRefresh-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6397,7 +6409,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/WMZCode/WMZCode-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/WMZCode/WMZCode-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
