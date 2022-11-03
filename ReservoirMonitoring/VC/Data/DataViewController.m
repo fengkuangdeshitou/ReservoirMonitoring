@@ -27,6 +27,7 @@
 @property(nonatomic,assign) NSInteger scopeType;
 @property(nonatomic,strong) BRPickerStyle * style;
 @property(nonatomic,strong) NSString * queryDateStr;
+@property(nonatomic,assign) BOOL showPickerView;
 
 @end
 
@@ -46,6 +47,7 @@
         _style.titleLineColor = [UIColor colorWithHexString:@"#333333"];
         _style.doneBtnTitle = @"OK".localized;
         _style.cancelBtnTitle = @"Cancel".localized;
+        _style.language = @"zh-Hans";
     }
     return _style;
 }
@@ -69,6 +71,7 @@
     config.titleSelectedFont = [UIFont systemFontOfSize:14];
     config.showIndicator = false;
     self.titleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40) delegate:self titleNames:@[@"Day".localized,@"Month".localized,@"Year".localized,@"All".localized] configure:config];
+    self.titleView.resetSelectedIndex = 0;
     self.titleView.backgroundColor = [UIColor colorWithHexString:@"#1E1E1E"];
     [self.collectionView addSubview:self.titleView];
 }
@@ -96,7 +99,7 @@
         picker.maxDate = NSDate.date;
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         NSDateComponents *comps = [calendar components:NSCalendarUnitYear fromDate:NSDate.date];
-        [comps setYear:-5];
+        [comps setYear:-4];
         NSDate *minDate = [calendar dateByAddingComponents:comps toDate:NSDate.date options:0];
         picker.minDate = minDate;
         picker.resultBlock = ^(NSDate * _Nullable selectDate, NSString * _Nullable selectValue) {

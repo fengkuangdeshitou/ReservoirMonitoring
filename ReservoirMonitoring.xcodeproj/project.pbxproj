@@ -52,6 +52,7 @@
 		0F69685928364D0500F22E47 /* InstallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F69685728364D0400F22E47 /* InstallViewController.xib */; };
 		0F69685E28364E7B00F22E47 /* InstallCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F69685C28364E7B00F22E47 /* InstallCollectionViewCell.m */; };
 		0F69685F28364E7B00F22E47 /* InstallCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F69685D28364E7B00F22E47 /* InstallCollectionViewCell.xib */; };
+		0F7D2CA02913A63900D0D270 /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7D2C9F2913A63900D0D270 /* UITextView+Placeholder.m */; };
 		0FE00823290B774C00F705CC /* InstallationCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE00821290B774C00F705CC /* InstallationCompleteViewController.m */; };
 		0FE00824290B774C00F705CC /* InstallationCompleteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FE00822290B774C00F705CC /* InstallationCompleteViewController.xib */; };
 		0FE00829290B791E00F705CC /* CompleteImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE00827290B791E00F705CC /* CompleteImageTableViewCell.m */; };
@@ -280,6 +281,8 @@
 		0F69685B28364E7B00F22E47 /* InstallCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InstallCollectionViewCell.h; sourceTree = "<group>"; };
 		0F69685C28364E7B00F22E47 /* InstallCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstallCollectionViewCell.m; sourceTree = "<group>"; };
 		0F69685D28364E7B00F22E47 /* InstallCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallCollectionViewCell.xib; sourceTree = "<group>"; };
+		0F7D2C9E2913A63900D0D270 /* UITextView+Placeholder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextView+Placeholder.h"; sourceTree = "<group>"; };
+		0F7D2C9F2913A63900D0D270 /* UITextView+Placeholder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Placeholder.m"; sourceTree = "<group>"; };
 		0FE00820290B774C00F705CC /* InstallationCompleteViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InstallationCompleteViewController.h; sourceTree = "<group>"; };
 		0FE00821290B774C00F705CC /* InstallationCompleteViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstallationCompleteViewController.m; sourceTree = "<group>"; };
 		0FE00822290B774C00F705CC /* InstallationCompleteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallationCompleteViewController.xib; sourceTree = "<group>"; };
@@ -1112,6 +1115,8 @@
 				BDE88A122804714E00081114 /* BaseViewController+BarButtonItem.m */,
 				0F48C5DE287BF6580075F823 /* UIView+Hud.h */,
 				0F48C5DF287BF6580075F823 /* UIView+Hud.m */,
+				0F7D2C9E2913A63900D0D270 /* UITextView+Placeholder.h */,
+				0F7D2C9F2913A63900D0D270 /* UITextView+Placeholder.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1690,6 +1695,7 @@
 				BDE88A0F28046FE100081114 /* SetViewController.m in Sources */,
 				0F6968392834964500F22E47 /* WifiViewController.m in Sources */,
 				BDFA3ABC282F85F5004A7E8C /* InputTableViewCell.m in Sources */,
+				0F7D2CA02913A63900D0D270 /* UITextView+Placeholder.m in Sources */,
 				0F69684428349A3800F22E47 /* WifiInfoTableViewCell.m in Sources */,
 				BD2DEF5D28044B58004E8D7D /* NavigationViewController.m in Sources */,
 				BDFA3ACC2830EFA2004A7E8C /* SwitchTableViewCell.m in Sources */,
@@ -1949,7 +1955,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.32;
+				MARKETING_VERSION = 1.0.33;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1996,7 +2002,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.32;
+				MARKETING_VERSION = 1.0.33;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

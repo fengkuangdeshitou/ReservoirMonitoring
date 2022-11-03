@@ -55,9 +55,9 @@ NSString * const GetSwitchMode = @"/device/getSwitchMode";
 
 NSString * const SwitchDevice = @"/device/switchDevice";
 
-NSString * const QueryDataElectricity = @"/device/queryDataElectricity";
+NSString * const QueryDataElectricity = @"/device/queryDataElectricityV2";
 
-NSString * const QueryDataGraph = @"/device/queryDataGraph";
+NSString * const QueryDataGraph = @"/device/queryDataGraphV2";
 
 NSString * const Agreement = @"https://epcube-monitoring.com/uploadPath/Terms%20of%20Use%20&%20Service%20290622.pdf";
 

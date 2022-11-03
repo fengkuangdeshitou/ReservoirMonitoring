@@ -113,7 +113,7 @@
     // 布局子控制器的 frame
     [self P_layoutSubviews];
     // 选中按钮下标初始值
-    [self P_btn_action:self.btnMArr[_selectedIndex]];
+//    [self P_btn_action:self.btnMArr[_selectedIndex]];
 }
 
 #pragma mark - - - 布局子控制器的 frame

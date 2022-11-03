@@ -12,6 +12,7 @@
 #import "UserModel.h"
 #import "ServiceInputTableViewCell.h"
 #import "ServiceDescTableViewCell.h"
+#import "InfoViewController.h"
 @import AFNetworking;
 
 @interface ServiceViewController ()<UITableViewDelegate,UITextViewDelegate>
@@ -23,7 +24,6 @@
 @property(nonatomic,strong) NSTimer * timer;
 @property(nonatomic,assign) NSInteger timeCount;
 @property(nonatomic,strong) UserModel * model;
-@property(nonatomic,assign) CGFloat descHeight;
 
 @end
 
@@ -136,8 +136,10 @@
         }
     }else{
         [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
+        self.submit.userInteractionEnabled = true;
+        [self.submit showBorderWithRadius:25];
         [NSUserDefaults.standardUserDefaults removeObjectForKey:[self reasonCacheKey]];
-        if (RMHelper.getUserType) {
+        if (RMHelper.getUserType || self.model.defDevSgSn.length == 0) {
             self.submit.userInteractionEnabled = false;
             [self.submit setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
             self.submit.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
@@ -148,6 +150,15 @@
 - (IBAction)submitAction:(id)sender{
     if (self.model.defDevSgSn.length == 0) {
         [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Smart Gateway SN cannot be empty" btnTitle:nil completion:nil];
+        return;
+    }
+    if (self.model.phonenumber.length == 0){
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Personal contact missing, please provide a mobile phone number to proceed." btnTitle:nil completion:^{
+            InfoViewController * info = [[InfoViewController alloc] init];
+            info.title = @"Info";
+            info.hidesBottomBarWhenPushed = true;
+            [self.navigationController pushViewController:info animated:true];
+        }];
         return;
     }
     ServiceInputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
@@ -171,7 +182,7 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSString * data = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSLog(@"obj=%@",data);
-        [NSUserDefaults.standardUserDefaults setValue:self.dataArray[4][@"placeholder"] forKey:[self reasonCacheKey]];
+        [NSUserDefaults.standardUserDefaults setValue:self.dataArray[1][@"placeholder"] forKey:[self reasonCacheKey]];
         [NSUserDefaults.standardUserDefaults setValue:params[@"description"] forKey:[self descCacheKey]];
         NSString * string = [self getCurrentTimeString];
         NSLog(@"strint=%@",string);
@@ -208,17 +219,6 @@
     return string;
 }
 
-- (void)textViewDidChange:(UITextView *)textView{
-    CGRect bounds = textView.bounds;
-    CGSize maxSize = CGSizeMake(bounds.size.width, CGFLOAT_MAX);
-    CGSize newSize = [textView sizeThatFits:maxSize];
-    bounds.size = newSize;
-    textView.bounds = bounds;
-    self.descHeight = textView.bounds.size.height;
-    [self.tableView beginUpdates];
-    [self.tableView endUpdates];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 1) {
         SelecteTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SelecteTableViewCell class]) forIndexPath:indexPath];
@@ -229,7 +229,6 @@
         ServiceInputTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ServiceInputTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
         cell.content.text = self.dataArray[indexPath.row][@"placeholder"];
-        cell.content.delegate = self;
         cell.content.userInteractionEnabled = !RMHelper.getUserType && ![NSUserDefaults.standardUserDefaults objectForKey:[self descCacheKey]];
         return cell;
     }else{
@@ -264,7 +263,7 @@
     }else if (indexPath.row == 1){
         return 53;
     }else{
-        return indexPath.row == 2 ? (self.descHeight+20 < 53 ? 53 : self.descHeight+20) : 53;
+        return indexPath.row == 2 ? 151 : 53;
     }
 }
 
