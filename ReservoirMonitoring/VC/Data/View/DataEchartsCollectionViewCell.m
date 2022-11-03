@@ -14,6 +14,8 @@
 
 @property(nonatomic,strong) LineChartView * lineEchartsView;
 @property(nonatomic,strong) BarChartView * barEchartsView;
+@property(nonatomic,strong) NSMutableArray<BarChartDataSet*> * barChartDataSets;
+@property(nonatomic,strong) NSMutableArray<LineChartDataSet*> * lineChartDataSets;
 
 @property(nonatomic,weak)IBOutlet UIView * titleView;
 @property(nonatomic,weak)IBOutlet UIView * echarts;
@@ -192,14 +194,35 @@
     // Initialization code
     self.selectFlag = 0;
     self.energyTitle.text = @"Energy curve".localized;
-    self.titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV",@"Non-backup".localized,@"Backup loads".localized];
     self.independence.text = @"EP CUBE contribution ratio:".localized;
     self.power.text = @"Power outage:".localized;
     self.reducing.text = @"Reducing deforestation:".localized;
     self.trees.text = @"trees".localized;
     self.coal.text = @"Standard coal saved".localized;
-    self.normal = @[@"data_normal_0",@"data_normal_1",@"data_normal_2",@"data_normal_3",@"data_normal_4",@"data_normal_5"];
-    self.highlight = @[@"data_select_0",@"data_select_1",@"data_select_2",@"data_select_3",@"data_select_4",@"data_select_5"];
+    
+    [self.echarts addSubview:self.lineEchartsView];
+    [self.echarts addSubview:self.barEchartsView];
+    
+    self.barChartDataSets = [[NSMutableArray alloc] init];
+    self.lineChartDataSets = [[NSMutableArray alloc] init];
+}
+
+- (void)setBackUpType:(NSString *)backUpType{
+    _backUpType = backUpType;
+    for (UIView * view in self.titleView.subviews) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            [view removeFromSuperview];
+        }
+    }
+    if (backUpType.intValue == 1) {
+        self.titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV",@"Backup loads".localized];
+        self.normal = @[@"data_normal_0",@"data_normal_1",@"data_normal_2",@"data_normal_3",@"data_normal_5"];
+        self.highlight = @[@"data_select_0",@"data_select_1",@"data_select_2",@"data_select_3",@"data_select_5"];
+    }else{
+        self.titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV",@"Non-backup".localized,@"Backup loads".localized];
+        self.normal = @[@"data_normal_0",@"data_normal_1",@"data_normal_2",@"data_normal_3",@"data_normal_4",@"data_normal_5"];
+        self.highlight = @[@"data_select_0",@"data_select_1",@"data_select_2",@"data_select_3",@"data_select_4",@"data_select_5"];
+    }
     CGFloat width = (SCREEN_WIDTH-30)/self.normal.count;
     for (int i=0; i<self.normal.count; i++) {
         UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -211,54 +234,6 @@
         [self.titleView addSubview:button];
     }
     [self buttonClick:[self viewWithTag:10]];
-    
-    [self.echarts addSubview:self.lineEchartsView];
-    [self.echarts addSubview:self.barEchartsView];
-}
-
-- (void)setBackUpType:(NSString *)backUpType{
-    _backUpType = backUpType;
-    if (backUpType.intValue == 1) {
-        for (UIView * view in self.titleView.subviews) {
-            if ([view isKindOfClass:[UIButton class]]) {
-                [view removeFromSuperview];
-            }
-        }
-        self.titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV",@"Backup loads".localized];
-        self.normal = @[@"data_normal_0",@"data_normal_1",@"data_normal_2",@"data_normal_3",@"data_normal_5"];
-        self.highlight = @[@"data_select_0",@"data_select_1",@"data_select_2",@"data_select_3",@"data_select_5"];
-        CGFloat width = (SCREEN_WIDTH-30)/self.normal.count;
-        for (int i=0; i<self.normal.count; i++) {
-            UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button.frame = CGRectMake((width-0.5)*i, 3, width, 24);
-            [button setImage:[UIImage imageNamed:self.normal[i]] forState:UIControlStateNormal];
-            button.imageView.contentMode = UIViewContentModeScaleAspectFit;
-            button.tag = i+10;
-            [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-            [self.titleView addSubview:button];
-        }
-        [self buttonClick:[self viewWithTag:10]];
-    }else{
-        for (UIView * view in self.titleView.subviews) {
-            if ([view isKindOfClass:[UIButton class]]) {
-                [view removeFromSuperview];
-            }
-        }
-        self.titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV",@"Non-backup".localized,@"Backup loads".localized];
-        self.normal = @[@"data_normal_0",@"data_normal_1",@"data_normal_2",@"data_normal_3",@"data_normal_4",@"data_normal_5"];
-        self.highlight = @[@"data_select_0",@"data_select_1",@"data_select_2",@"data_select_3",@"data_select_4",@"data_select_5"];
-        CGFloat width = (SCREEN_WIDTH-30)/self.normal.count;
-        for (int i=0; i<self.normal.count; i++) {
-            UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button.frame = CGRectMake((width-0.5)*i, 3, width, 24);
-            [button setImage:[UIImage imageNamed:self.normal[i]] forState:UIControlStateNormal];
-            button.imageView.contentMode = UIViewContentModeScaleAspectFit;
-            button.tag = i+10;
-            [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-            [self.titleView addSubview:button];
-        }
-        [self buttonClick:[self viewWithTag:10]];
-    }
 }
 
 - (void)setDataArray:(NSArray *)dataArray{
@@ -329,7 +304,7 @@
                 NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
                 ChartDefaultValueFormatter *formatter = [[ChartDefaultValueFormatter alloc] initWithFormatter:numberFormatter];
                 [set setValueFormatter:formatter];
-                [dataSets addObject:set];
+                [self.barChartDataSets addObject:set];
             }
             if (dataSetMin == dataSetMax) {
                 dataSetMin = 0;
@@ -340,7 +315,7 @@
             }
             self.barEchartsView.leftAxis.axisMaximum = dataSetMax;
             self.barEchartsView.leftAxis.axisMinimum = dataSetMin;
-            BarChartData * data = [[BarChartData alloc] initWithDataSets:dataSets];
+            BarChartData * data = [[BarChartData alloc] initWithDataSets:self.barChartDataSets];
             data.barWidth = 0.4;
             [data groupBarsFromX:-0.5 groupSpace:0.12 barSpace:0.04];
             self.barEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
@@ -659,14 +634,26 @@
 
 - (void)buttonClick:(UIButton *)btn{
     self.selectFlag = btn.tag-10;
-    for (int i=0;i<self.normal.count;i++) {
-        UIButton * button = [self.titleView viewWithTag:i+10];
-        button.backgroundColor = UIColor.clearColor;
-        [button setImage:[UIImage imageNamed:self.normal[i]] forState:UIControlStateNormal];
+    btn.selected = !btn.selected;
+    if (btn.selected){
+        [btn setImage:[UIImage imageNamed:self.highlight[self.selectFlag]] forState:UIControlStateNormal];
+        [self addDadaSetForIndex:self.selectFlag];
+    }else{
+        btn.backgroundColor = UIColor.clearColor;
+        [btn setImage:[UIImage imageNamed:self.normal[self.selectFlag]] forState:UIControlStateNormal];
+        [self removeDataSetForIndex:self.selectFlag];
     }
-    [btn setImage:[UIImage imageNamed:self.highlight[self.selectFlag]] forState:UIControlStateNormal];
     self.current.text = self.titleArray[self.selectFlag];
-    [self formatEcharsArrayForIndex:self.selectFlag];
+//    [self formatEcharsArrayForIndex:self.selectFlag];
+}
+
+- (void)addDadaSetForIndex:(NSInteger)index{
+    
+}
+
+- (void)removeDataSetForIndex:(NSInteger)index{
+    [self.barChartDataSets removeObjectAtIndex:index];
+    [self.lineChartDataSets removeObjectAtIndex:index];
 }
 
 @end
