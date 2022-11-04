@@ -109,10 +109,10 @@
         _lineEchartsView.rightAxis.enabled = false;
         
         BalloonMarker * marker = [[BalloonMarker alloc]
-                                 initWithColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR]
+                                 initWithColor:[[UIColor colorWithHexString:@"#2d2e30"] colorWithAlphaComponent:0.96]
                                  font:[UIFont systemFontOfSize:12.0]
                                  textColor:UIColor.whiteColor
-                                 insets:UIEdgeInsetsMake(8.0, 8.0, 8.0, 0.0)
+                                 insets:UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0)
                                  scopeType:self.scopeType];
         marker.chartView = _lineEchartsView;
         marker.arrowSize = CGSizeMake(0, 0);
@@ -126,6 +126,7 @@
 - (void)setScopeType:(NSInteger)scopeType{
     _scopeType = scopeType;
     ((BalloonMarker*)self.lineEchartsView.marker).scopeType = scopeType;
+    ((XYMarkerView*)self.barEchartsView.marker).scopeType = scopeType;
 }
 
 - (BarChartView *)barEchartsView{
@@ -186,12 +187,13 @@
         _barEchartsView.rightAxis.enabled = false;
         _barEchartsView.hidden = true;
         XYMarkerView *marker = [[XYMarkerView alloc]
-                                      initWithColor: [UIColor clearColor]
+                                      initWithColor:[[UIColor colorWithHexString:@"#2d2e30"] colorWithAlphaComponent:0.96]
                                       font: [UIFont systemFontOfSize:12.0]
                                       textColor: UIColor.whiteColor
-                                      insets: UIEdgeInsetsMake(0, 0, 10, 0)
+                                      insets: UIEdgeInsetsMake(8, 8, 8, 8)
                                       ];
         marker.chartView = _barEchartsView;
+        marker.arrowSize = CGSizeMake(0, 0);
         marker.minimumSize = CGSizeMake(40.f, 20.f);
         _barEchartsView.marker = marker;
     }
@@ -540,41 +542,47 @@
     for (int i=0;i<self.normal.count;i++) {
         UIButton * button = [self.titleView viewWithTag:i+10];
         if (button.selected == true){
-            if (self.scopeType == 1){
-                [self.selectArray addObject:self.datas[i]];
-            }else{
-                [self.selectArray addObjectsFromArray:self.datas[i]];
-            }
             if (button.tag == 10){
                 if (self.scopeType == 1) {
+                    [self.selectArray addObject:self.datas[i]];
                     [self.selectTitleArray addObjectsFromArray:@[@"Gird"]];
-                    [self.selectColorArray addObjectsFromArray:@[@"#8cdfa5"]];
+                    [self.selectColorArray addObjectsFromArray:@[@"#0075ff"]];
                 }else{
+                    [self.selectArray addObjectsFromArray:self.datas[i]];
                     [self.selectTitleArray addObjectsFromArray:@[@"From Gird",@"To Gird"]];
-                    [self.selectColorArray addObjectsFromArray:@[@"#60acfc",@"#ff9f69"]];
+                    [self.selectColorArray addObjectsFromArray:@[@"#0075ff",@"#ff9f69"]];
                 }
             }else if (button.tag == 11) {
-                [self.selectTitleArray addObject:self.titleArray[btn.tag-10]];
+                [self.selectTitleArray addObject:self.titleArray[i]];
                 [self.selectColorArray addObject:@"#5cc49f"];
+                [self.selectArray addObject:self.datas[i]];
             }else if (button.tag == 12) {
-                [self.selectTitleArray addObject:self.titleArray[btn.tag-10]];
-                [self.selectColorArray addObject:@"#6370de"];
+                [self.selectTitleArray addObject:self.titleArray[i]];
+                [self.selectColorArray addObject:@"#6c47ff"];
+                [self.selectArray addObject:self.datas[i]];
             }else if (button.tag == 13) {
-                [self.selectTitleArray addObject:self.titleArray[btn.tag-10]];
+                [self.selectTitleArray addObject:self.titleArray[i]];
                 [self.selectColorArray addObject:@"#cf5195"];
+                [self.selectArray addObject:self.datas[i]];
             }else if (button.tag == 14) {
-                [self.selectTitleArray addObject:self.titleArray[btn.tag-10]];
+                [self.selectTitleArray addObject:self.titleArray[i]];
                 if (self.backUpType.intValue == 1) {
                     [self.selectColorArray addObject:@"#ab1500"];
                 }else{
                     [self.selectColorArray addObject:@"#fe5a5a"];
                 }
+                [self.selectArray addObject:self.datas[i]];
             }else if (button.tag == 15) {
-                [self.selectTitleArray addObject:self.titleArray[btn.tag-10]];
+                [self.selectTitleArray addObject:self.titleArray[i]];
                 [self.selectColorArray addObject:@"#ab1500"];
+                [self.selectArray addObject:self.datas[i]];
             }
         }
     }
+    ((BalloonMarker *)self.lineEchartsView.marker).textArray = self.selectTitleArray;
+    ((BalloonMarker *)self.lineEchartsView.marker).colorArray = self.selectColorArray;
+    ((XYMarkerView *)self.barEchartsView.marker).textArray = self.selectTitleArray;
+    ((XYMarkerView *)self.barEchartsView.marker).colorArray = self.selectColorArray;
     [self loadChartsData];
 }
 

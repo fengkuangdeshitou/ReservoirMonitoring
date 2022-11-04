@@ -24,6 +24,8 @@ open class BalloonMarker: MarkerImage
     @objc open var insets: UIEdgeInsets
     @objc open var minimumSize = CGSize()
     @objc open var scopeType:NSInteger = 1
+    @objc open var colorArray:[String] = []
+    @objc open var textArray:[String] = []
 
     fileprivate var label: String?
     fileprivate var _labelSize: CGSize = CGSize()
@@ -183,6 +185,13 @@ open class BalloonMarker: MarkerImage
         UIGraphicsPopContext()
         
         context.restoreGState()
+        
+        for (index,value) in colorArray.enumerated() {
+            let bezierPath = UIBezierPath(ovalIn: CGRect(x: rect.origin.x + 8, y: rect.origin.y + 18 + CGFloat(Double(index)*14.5), width: 6, height: 6))
+            UIColor(hexString: value) .setFill()
+            bezierPath.fill()
+        }
+        
     }
     
     open override func refreshContent(entry: ChartDataEntry, highlight: Highlight)
@@ -190,10 +199,29 @@ open class BalloonMarker: MarkerImage
         let formatter = self.chartView?.xAxis.valueFormatter as! IndexAxisValueFormatter
         let time = formatter.stringForValue(entry.x, axis: self.chartView?.xAxis)
         let key = self.scopeType == 1 ? "Time:" : self.scopeType == 2 ? "Day:" : "Month:";
+        var text = "      \(key)" + time + "\n"
+
         if self.scopeType == 1 {
-            setLabel(String("    \(key)" + time + "\n" + "    Data:" + String(format:"%.2f",entry.y) + "kW"))
+            for (idx,value) in textArray.enumerated(){
+                guard let dataSet = self.chartView?.data?.dataSets[idx] as? LineChartDataSet else { return }
+                guard let entries = dataSet.entriesForXValue(entry.x).first else { return }
+                text += ("      " + value + "：" + String(format:"%.2f",entries.y) + "kW")
+                if (idx != textArray.count - 1) {
+                    text += "\n"
+                }
+            }
+            setLabel(text)
         }else{
-            setLabel(String("    \(key)" + time + "\n" + "    Data:" + String(format:"%.2f",entry.y) + "kWh"))
+            for (idx,value) in textArray.enumerated(){
+                guard let dataSet = self.chartView?.data?.dataSets[idx] as? LineChartDataSet else { return }
+                guard let entries = dataSet.entriesForXValue(entry.x).first else { return }
+                text += ("      " + value + "：" + String(format:"%.2f",entries.y) + "kWh")
+                if (idx != textArray.count - 1) {
+                    text += "\n"
+                }
+            }
+            setLabel(text)
+//            setLabel(String("      \(key)" + time + "\n" + "      Data:" + String(format:"%.2f",entry.y) + "kWh"))
         }
     }
     
