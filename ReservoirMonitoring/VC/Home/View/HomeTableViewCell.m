@@ -340,6 +340,10 @@
 }
 
 - (IBAction)weatherAction:(id)sender{
+    if (RMHelper.isTouristsModel){
+        [RMHelper showToast:@"Visitor has no permission" toView:RMHelper.getCurrentVC.view];
+        return;
+    }
     WeatherViewController * weather = [[WeatherViewController alloc] init];
     weather.title = @"Weather forecast".localized;
     weather.hidesBottomBarWhenPushed = true;

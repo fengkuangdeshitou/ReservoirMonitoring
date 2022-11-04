@@ -55,6 +55,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.queryDateStr = [NSString stringWithFormat:@"%ld-%02ld-%02ld",[NSDate.date br_year],[NSDate.date br_month],[NSDate.date br_day]];
     self.collectionView.refreshControl = self.refreshController;
     [self.refreshController addTarget:self action:@selector(getCurrentDevice) forControlEvents:UIControlEventValueChanged];
     [self setLeftBarImageForSel:nil];
@@ -87,15 +88,13 @@
 
 - (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex{
     if (selectedIndex == 3){
+        self.queryDateStr = [NSString stringWithFormat:@"%ld",[NSDate.date br_year]];
         [self getCurrentDevice];
     }else{
-        if (!self.queryDateStr){
-            self.queryDateStr = [NSString stringWithFormat:@"%ld-%ld-%ld",[NSDate.date br_year],[NSDate.date br_month],[NSDate.date br_day]];
-            return;
-        }
         BRDatePickerView * picker = [[BRDatePickerView alloc] initWithPickerMode:selectedIndex == 0 ? BRDatePickerModeYMD : (selectedIndex == 1 ? BRDatePickerModeYM : BRDatePickerModeY)];
         picker.showUnitType = BRShowUnitTypeNone;
         picker.pickerStyle = self.style;
+        picker.numberFullName = true;
         picker.maxDate = NSDate.date;
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         NSDateComponents *comps = [calendar components:NSCalendarUnitYear fromDate:NSDate.date];
@@ -105,6 +104,9 @@
         picker.resultBlock = ^(NSDate * _Nullable selectDate, NSString * _Nullable selectValue) {
             self.queryDateStr = selectValue;
             [self getCurrentDevice];
+        };
+        picker.cancelBlock = ^{
+            [self.titleView setResetSelectedIndex:self.scopeType == 0 ? 3 : self.scopeType - 1];
         };
         [picker show];
     }
@@ -191,12 +193,12 @@
     }else{
         DataEchartsCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([DataEchartsCollectionViewCell class]) forIndexPath:indexPath];
         cell.time = self.titleView.selectedIndex;
-        cell.dataArray = self.data;
         cell.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",self.model.selfHelpRate] stringByAppendingString:@"%"];
         cell.treeNum.text = [NSString stringWithFormat:@"%.0f",self.model.treeNum];
         cell.coalValue.text = [NSString stringWithFormat:@"%.1f",self.model.coal];
         cell.scopeType = self.scopeType;
         cell.backUpType = self.backUpType;
+        cell.dataArray = self.data;
         return cell;
     }
 }

@@ -156,6 +156,7 @@
         [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Personal contact missing, please provide a mobile phone number to proceed." btnTitle:nil completion:^{
             InfoViewController * info = [[InfoViewController alloc] init];
             info.title = @"Info";
+            info.model = self.model;
             info.hidesBottomBarWhenPushed = true;
             [self.navigationController pushViewController:info animated:true];
         }];

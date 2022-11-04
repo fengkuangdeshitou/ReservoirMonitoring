@@ -383,6 +383,10 @@
 }
 
 - (void)changeDevice{
+    if (RMHelper.isTouristsModel){
+        [RMHelper showToast:@"Visitor has no permission" toView:RMHelper.getCurrentVC.view];
+        return;
+    }
     [DeviceSwitchView showDeviceSwitchViewWithDelegate:self dataArray:self.deviceArray];
 }
 
@@ -391,6 +395,10 @@
 }
 
 - (void)changeCurrentDeviceStatusAction{
+    if (RMHelper.isTouristsModel){
+        [RMHelper showToast:@"Visitor has no permission" toView:RMHelper.getCurrentVC.view];
+        return;
+    }
     SwitchModeViewController * model = [[SwitchModeViewController alloc] init];
     model.title = @"Switch operation mode".localized;
     model.deviceId = self.model.deviceId;

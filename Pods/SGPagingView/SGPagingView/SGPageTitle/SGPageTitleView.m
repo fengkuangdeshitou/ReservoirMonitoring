@@ -1004,7 +1004,21 @@
 #pragma mark - - - set
 - (void)setResetSelectedIndex:(NSInteger)resetSelectedIndex {
     _resetSelectedIndex = resetSelectedIndex;
-    [self P_btn_action:self.btnMArr[resetSelectedIndex]];
+//    [self P_btn_action:self.btnMArr[resetSelectedIndex]];
+    UIButton * button = self.btnMArr[resetSelectedIndex];
+    // 1、改变按钮的选择状态
+    [self P_changeSelectedButton:button];
+    // 2、标题滚动样式下选中标题居中处理
+    if (self.allBtnWidth > self.frame.size.width) {
+        _signBtnClick = YES;
+        [self P_selectedBtnCenter:button];
+    }
+    // 3、改变有关指示器的相关操作
+    if (self.configure.showIndicator) {
+        [self P_changeIndicatorWithButton:button];
+    }
+    // 5、标记按钮下标
+    _signBtnIndex = button.tag;
 }
 
 #pragma mark - - - 设置标题相关方法的实现
