@@ -71,7 +71,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(requestUserInfo) name:UIApplicationWillEnterForegroundNotification object:nil];
-    self.tableView.userInteractionEnabled = !RMHelper.isTouristsModel;
     [self setLeftBarImageForSel:nil];
     self.time.text = @"Can't submit twice in 30 minutes.".localized;
     [self.submit showBorderWithRadius:25];
@@ -139,7 +138,7 @@
         self.submit.userInteractionEnabled = true;
         [self.submit showBorderWithRadius:25];
         [NSUserDefaults.standardUserDefaults removeObjectForKey:[self reasonCacheKey]];
-        if (RMHelper.getUserType || self.model.defDevSgSn.length == 0) {
+        if (RMHelper.getUserType || self.model.defDevSgSn.length == 0 || RMHelper.isTouristsModel) {
             self.submit.userInteractionEnabled = false;
             [self.submit setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
             self.submit.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
@@ -230,7 +229,7 @@
         ServiceInputTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ServiceInputTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
         cell.content.text = self.dataArray[indexPath.row][@"placeholder"];
-        cell.content.userInteractionEnabled = !RMHelper.getUserType && ![NSUserDefaults.standardUserDefaults objectForKey:[self descCacheKey]];
+        cell.content.userInteractionEnabled = !RMHelper.getUserType && ![NSUserDefaults.standardUserDefaults objectForKey:[self descCacheKey]] && !RMHelper.isTouristsModel;
         return cell;
     }else{
         ServiceDescTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ServiceDescTableViewCell class]) forIndexPath:indexPath];
@@ -239,6 +238,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (RMHelper.isTouristsModel){
+        return;
+    }
     if (indexPath.row == self.dataArray.count-2) {
         if ([NSUserDefaults.standardUserDefaults objectForKey:[self reasonCacheKey]] || RMHelper.getUserType) {
             return;

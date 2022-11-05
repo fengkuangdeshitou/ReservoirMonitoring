@@ -356,6 +356,7 @@
             BRDatePickerView * picker = [[BRDatePickerView alloc] initWithPickerMode:BRDatePickerModeYMDHMS];
             picker.showUnitType = BRShowUnitTypeNone;
             picker.pickerStyle = self.style;
+            picker.numberFullName = true;
             picker.resultBlock = ^(NSDate * _Nullable selectDate, NSString * _Nullable selectValue) {
                 self.systemTime = selectValue;
                 [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];

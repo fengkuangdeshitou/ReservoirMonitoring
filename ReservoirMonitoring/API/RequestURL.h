@@ -91,6 +91,12 @@ extern NSString * const LogOff;
 
 extern NSString * const VisitorsLogin;
 
+extern NSString * const CountryCode;
+
+extern NSString * const SubmitInstall;
+
+extern NSString * const BatchUpload;
+
 @end
 
 NS_ASSUME_NONNULL_END

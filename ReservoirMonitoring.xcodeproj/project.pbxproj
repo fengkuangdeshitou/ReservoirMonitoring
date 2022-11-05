@@ -53,8 +53,10 @@
 		0F69685E28364E7B00F22E47 /* InstallCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F69685C28364E7B00F22E47 /* InstallCollectionViewCell.m */; };
 		0F69685F28364E7B00F22E47 /* InstallCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F69685D28364E7B00F22E47 /* InstallCollectionViewCell.xib */; };
 		0F7D2CA02913A63900D0D270 /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7D2C9F2913A63900D0D270 /* UITextView+Placeholder.m */; };
-		0FE00823290B774C00F705CC /* InstallationCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE00821290B774C00F705CC /* InstallationCompleteViewController.m */; };
-		0FE00824290B774C00F705CC /* InstallationCompleteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FE00822290B774C00F705CC /* InstallationCompleteViewController.xib */; };
+		0F99432129163ED90014DFCA /* CompletePhoneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F99431F29163ED90014DFCA /* CompletePhoneTableViewCell.m */; };
+		0F99432229163ED90014DFCA /* CompletePhoneTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F99432029163ED90014DFCA /* CompletePhoneTableViewCell.xib */; };
+		0F9943272916475C0014DFCA /* CountryCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9943252916475B0014DFCA /* CountryCodeViewController.m */; };
+		0F9943282916475C0014DFCA /* CountryCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F9943262916475C0014DFCA /* CountryCodeViewController.xib */; };
 		0FE00829290B791E00F705CC /* CompleteImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE00827290B791E00F705CC /* CompleteImageTableViewCell.m */; };
 		0FE0082A290B791E00F705CC /* CompleteImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FE00828290B791E00F705CC /* CompleteImageTableViewCell.xib */; };
 		0FE713F4283C830400B0733A /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE713F3283C830400B0733A /* Request.m */; };
@@ -283,9 +285,12 @@
 		0F69685D28364E7B00F22E47 /* InstallCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallCollectionViewCell.xib; sourceTree = "<group>"; };
 		0F7D2C9E2913A63900D0D270 /* UITextView+Placeholder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextView+Placeholder.h"; sourceTree = "<group>"; };
 		0F7D2C9F2913A63900D0D270 /* UITextView+Placeholder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Placeholder.m"; sourceTree = "<group>"; };
-		0FE00820290B774C00F705CC /* InstallationCompleteViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InstallationCompleteViewController.h; sourceTree = "<group>"; };
-		0FE00821290B774C00F705CC /* InstallationCompleteViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstallationCompleteViewController.m; sourceTree = "<group>"; };
-		0FE00822290B774C00F705CC /* InstallationCompleteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallationCompleteViewController.xib; sourceTree = "<group>"; };
+		0F99431E29163ED90014DFCA /* CompletePhoneTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompletePhoneTableViewCell.h; sourceTree = "<group>"; };
+		0F99431F29163ED90014DFCA /* CompletePhoneTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompletePhoneTableViewCell.m; sourceTree = "<group>"; };
+		0F99432029163ED90014DFCA /* CompletePhoneTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletePhoneTableViewCell.xib; sourceTree = "<group>"; };
+		0F9943242916475B0014DFCA /* CountryCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryCodeViewController.h; sourceTree = "<group>"; };
+		0F9943252916475B0014DFCA /* CountryCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountryCodeViewController.m; sourceTree = "<group>"; };
+		0F9943262916475C0014DFCA /* CountryCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountryCodeViewController.xib; sourceTree = "<group>"; };
 		0FE00826290B791E00F705CC /* CompleteImageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompleteImageTableViewCell.h; sourceTree = "<group>"; };
 		0FE00827290B791E00F705CC /* CompleteImageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompleteImageTableViewCell.m; sourceTree = "<group>"; };
 		0FE00828290B791E00F705CC /* CompleteImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompleteImageTableViewCell.xib; sourceTree = "<group>"; };
@@ -681,7 +686,7 @@
 				0F69685528364D0400F22E47 /* InstallViewController.h */,
 				0F69685628364D0400F22E47 /* InstallViewController.m */,
 				0F69685728364D0400F22E47 /* InstallViewController.xib */,
-				0FE0081F290B772A00F705CC /* InstallationComplete */,
+				0F9943232916473A0014DFCA /* CountryCode */,
 				0F69685A28364E6700F22E47 /* View */,
 			);
 			path = Install;
@@ -693,29 +698,24 @@
 				0F69685B28364E7B00F22E47 /* InstallCollectionViewCell.h */,
 				0F69685C28364E7B00F22E47 /* InstallCollectionViewCell.m */,
 				0F69685D28364E7B00F22E47 /* InstallCollectionViewCell.xib */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		0FE0081F290B772A00F705CC /* InstallationComplete */ = {
-			isa = PBXGroup;
-			children = (
-				0FE00820290B774C00F705CC /* InstallationCompleteViewController.h */,
-				0FE00821290B774C00F705CC /* InstallationCompleteViewController.m */,
-				0FE00822290B774C00F705CC /* InstallationCompleteViewController.xib */,
-				0FE00825290B78F700F705CC /* VIew */,
-			);
-			path = InstallationComplete;
-			sourceTree = "<group>";
-		};
-		0FE00825290B78F700F705CC /* VIew */ = {
-			isa = PBXGroup;
-			children = (
+				0F99431E29163ED90014DFCA /* CompletePhoneTableViewCell.h */,
+				0F99431F29163ED90014DFCA /* CompletePhoneTableViewCell.m */,
+				0F99432029163ED90014DFCA /* CompletePhoneTableViewCell.xib */,
 				0FE00826290B791E00F705CC /* CompleteImageTableViewCell.h */,
 				0FE00827290B791E00F705CC /* CompleteImageTableViewCell.m */,
 				0FE00828290B791E00F705CC /* CompleteImageTableViewCell.xib */,
 			);
-			path = VIew;
+			path = View;
+			sourceTree = "<group>";
+		};
+		0F9943232916473A0014DFCA /* CountryCode */ = {
+			isa = PBXGroup;
+			children = (
+				0F9943242916475B0014DFCA /* CountryCodeViewController.h */,
+				0F9943252916475B0014DFCA /* CountryCodeViewController.m */,
+				0F9943262916475C0014DFCA /* CountryCodeViewController.xib */,
+			);
+			path = CountryCode;
 			sourceTree = "<group>";
 		};
 		0FE713F1283C803D00B0733A /* API */ = {
@@ -1473,7 +1473,6 @@
 				BD2DEF6628044C1F004E8D7D /* HomeViewController.xib in Resources */,
 				BD907372280D5B0600044013 /* InfoTableViewCell.xib in Resources */,
 				BD8FDA62280EF17E000036DD /* DebugViewController.xib in Resources */,
-				0FE00824290B774C00F705CC /* InstallationCompleteViewController.xib in Resources */,
 				BDE88A74280B0E5D00081114 /* DataCollectionViewCell.xib in Resources */,
 				BDFA3AA62827A6C8004A7E8C /* GlobelDescAlertView.xib in Resources */,
 				0FEEECBA2875272800604699 /* ProtocolViewController.xib in Resources */,
@@ -1487,6 +1486,7 @@
 				0F3EBC1B282E8B51009CDBED /* GeneratorViewController.xib in Resources */,
 				BDB8170728BCFC0E00841A4A /* WriteOffDescViewController.xib in Resources */,
 				BDFA3AC2282F878F004A7E8C /* SelecteTableViewCell.xib in Resources */,
+				0F99432229163ED90014DFCA /* CompletePhoneTableViewCell.xib in Resources */,
 				0F3EBC0F282E8A5E009CDBED /* GridViewController.xib in Resources */,
 				BDFA3A9B28257325004A7E8C /* AddDeviceActionTableViewCell.xib in Resources */,
 				0F6968342833B70F00F22E47 /* WeatherCollectionViewCell.xib in Resources */,
@@ -1499,6 +1499,7 @@
 				BDE88A4228070EA000081114 /* HomeTableViewCell.xib in Resources */,
 				BDB8170228BCF68F00841A4A /* WriteOffViewController.xib in Resources */,
 				BDFA3ACD2830EFA2004A7E8C /* SwitchTableViewCell.xib in Resources */,
+				0F9943282916475C0014DFCA /* CountryCodeViewController.xib in Resources */,
 				BD907366280D4B4900044013 /* SetInfoTableViewCell.xib in Resources */,
 				0F69685928364D0500F22E47 /* InstallViewController.xib in Resources */,
 				0F69685F28364E7B00F22E47 /* InstallCollectionViewCell.xib in Resources */,
@@ -1665,6 +1666,7 @@
 				BD935B6028709AF600F1AF1A /* LineAnimatiionView.m in Sources */,
 				BD6DDA3A28A68F34004C5F22 /* DeviceManager.m in Sources */,
 				BDE88A482808771B00081114 /* HomeProgressView.m in Sources */,
+				0F9943272916475C0014DFCA /* CountryCodeViewController.m in Sources */,
 				BDE88A1D2805A0BF00081114 /* ImageAuthenticationView.m in Sources */,
 				BDE88A012804540C00081114 /* GlobalValue.m in Sources */,
 				BDFA3A9528256FF0004A7E8C /* AddDeviceSNTableViewCell.m in Sources */,
@@ -1673,6 +1675,7 @@
 				BD629B7728A2B16700D1A6B7 /* RefreshBackFooter.m in Sources */,
 				BD8FDA67280EF1DE000036DD /* DebugCollectionViewCell.m in Sources */,
 				BD8FDA46280EEB4A000036DD /* HelpViewController.m in Sources */,
+				0F99432129163ED90014DFCA /* CompletePhoneTableViewCell.m in Sources */,
 				BDE88A1828047B2600081114 /* LoginViewController.m in Sources */,
 				BDFA3AC5282F89F0004A7E8C /* SelectItemAlertView.m in Sources */,
 				BD8FDA7D280EFDDA000036DD /* ScanView.m in Sources */,
@@ -1715,7 +1718,6 @@
 				BDE889F928044DA700081114 /* RMHelper.m in Sources */,
 				BD8FDA40280D5F91000036DD /* UpdateViewController.m in Sources */,
 				BDE88A4E280A776500081114 /* DeviceSwitchView.m in Sources */,
-				0FE00823290B774C00F705CC /* InstallationCompleteViewController.m in Sources */,
 				0F6968512834CED800F22E47 /* PeripheralModel.m in Sources */,
 				0F0E90CB28507A3C0014B329 /* UWConfig.m in Sources */,
 				0FE00829290B791E00F705CC /* CompleteImageTableViewCell.m in Sources */,
@@ -1930,7 +1932,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ReservoirMonitoring/ReservoirMonitoring.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = LMDZYJF4B6;
@@ -1955,7 +1957,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.33;
+				MARKETING_VERSION = 1.0.34;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1978,7 +1980,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ReservoirMonitoring/ReservoirMonitoring.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = LMDZYJF4B6;
 				ENABLE_BITCODE = NO;
@@ -2002,7 +2004,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.33;
+				MARKETING_VERSION = 1.0.34;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

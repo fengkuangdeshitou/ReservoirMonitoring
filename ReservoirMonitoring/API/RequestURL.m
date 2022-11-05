@@ -93,4 +93,10 @@ NSString * const LogOff = @"/user/user/logOff";
 
 NSString * const VisitorsLogin = @"/open/common/visitorsLogin";
 
+NSString * const CountryCode = @"/common/countryCode/list";
+
+NSString * const SubmitInstall = @"/installLog/submit";
+
+NSString * const BatchUpload = @"/open/common/batchUploadImg";
+
 @end

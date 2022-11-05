@@ -38,11 +38,18 @@ typedef void(^RequestFailureBlock)(NSString *errorMsg);
         failure:(RequestFailureBlock)failure;
 
 - (void)upload:(NSString *)url
-         params:(NSDictionary *)params
+        params:(NSDictionary *)params
          image:(UIImage *)image
       progress:(RequestProgressBlock)progress
-        success:(RequestSuccessBlock)success
-        failure:(RequestFailureBlock)failure;
+       success:(RequestSuccessBlock)success
+       failure:(RequestFailureBlock)failure;
+
+- (void)upload:(NSString *)url
+        params:(NSDictionary *)params
+        images:(NSArray<UIImage*> *)images
+      progress:(RequestProgressBlock)progress
+       success:(RequestSuccessBlock)success
+       failure:(RequestFailureBlock)failure;
 
 - (void)cancelCurrentRequest;
 

@@ -112,61 +112,65 @@ open class BalloonMarker: MarkerImage
         if offset.y > 0
         {
             context.beginPath()
-            context.move(to: CGPoint(
-                x: rect.origin.x,
-                y: rect.origin.y + arrowSize.height))
-            context.addLine(to: CGPoint(
-                x: rect.origin.x + (rect.size.width - arrowSize.width) / 2.0,
-                y: rect.origin.y + arrowSize.height))
-            //arrow vertex
-            context.addLine(to: CGPoint(
-                x: point.x,
-                y: point.y))
-            context.addLine(to: CGPoint(
-                x: rect.origin.x + (rect.size.width + arrowSize.width) / 2.0,
-                y: rect.origin.y + arrowSize.height))
-            context.addLine(to: CGPoint(
-                x: rect.origin.x + rect.size.width,
-                y: rect.origin.y + arrowSize.height))
-            context.addLine(to: CGPoint(
-                x: rect.origin.x + rect.size.width,
-                y: rect.origin.y + rect.size.height))
-            context.addLine(to: CGPoint(
-                x: rect.origin.x,
-                y: rect.origin.y + rect.size.height))
-            context.addLine(to: CGPoint(
-                x: rect.origin.x,
-                y: rect.origin.y + arrowSize.height))
+            let path = UIBezierPath(roundedRect: rect, cornerRadius: 6)
+            context.addPath(path.cgPath)
+//            context.move(to: CGPoint(
+//                x: rect.origin.x,
+//                y: rect.origin.y + arrowSize.height))
+//            context.addLine(to: CGPoint(
+//                x: rect.origin.x + (rect.size.width - arrowSize.width) / 2.0,
+//                y: rect.origin.y + arrowSize.height))
+//            //arrow vertex
+//            context.addLine(to: CGPoint(
+//                x: point.x,
+//                y: point.y))
+//            context.addLine(to: CGPoint(
+//                x: rect.origin.x + (rect.size.width + arrowSize.width) / 2.0,
+//                y: rect.origin.y + arrowSize.height))
+//            context.addLine(to: CGPoint(
+//                x: rect.origin.x + rect.size.width,
+//                y: rect.origin.y + arrowSize.height))
+//            context.addLine(to: CGPoint(
+//                x: rect.origin.x + rect.size.width,
+//                y: rect.origin.y + rect.size.height))
+//            context.addLine(to: CGPoint(
+//                x: rect.origin.x,
+//                y: rect.origin.y + rect.size.height))
+//            context.addLine(to: CGPoint(
+//                x: rect.origin.x,
+//                y: rect.origin.y + arrowSize.height))
             context.fillPath()
         }
         else
         {
             context.beginPath()
-            context.move(to: CGPoint(
-                x: rect.origin.x,
-                y: rect.origin.y))
-            context.addLine(to: CGPoint(
-                x: rect.origin.x + rect.size.width,
-                y: rect.origin.y))
-            context.addLine(to: CGPoint(
-                x: rect.origin.x + rect.size.width,
-                y: rect.origin.y + rect.size.height - arrowSize.height))
-            context.addLine(to: CGPoint(
-                x: rect.origin.x + (rect.size.width + arrowSize.width) / 2.0,
-                y: rect.origin.y + rect.size.height - arrowSize.height))
-            //arrow vertex
-            context.addLine(to: CGPoint(
-                x: point.x,
-                y: point.y))
-            context.addLine(to: CGPoint(
-                x: rect.origin.x + (rect.size.width - arrowSize.width) / 2.0,
-                y: rect.origin.y + rect.size.height - arrowSize.height))
-            context.addLine(to: CGPoint(
-                x: rect.origin.x,
-                y: rect.origin.y + rect.size.height - arrowSize.height))
-            context.addLine(to: CGPoint(
-                x: rect.origin.x,
-                y: rect.origin.y))
+            let path = UIBezierPath(roundedRect: rect, cornerRadius: 6)
+            context.addPath(path.cgPath)
+//            context.move(to: CGPoint(
+//                x: rect.origin.x,
+//                y: rect.origin.y))
+//            context.addLine(to: CGPoint(
+//                x: rect.origin.x + rect.size.width,
+//                y: rect.origin.y))
+//            context.addLine(to: CGPoint(
+//                x: rect.origin.x + rect.size.width,
+//                y: rect.origin.y + rect.size.height - arrowSize.height))
+//            context.addLine(to: CGPoint(
+//                x: rect.origin.x + (rect.size.width + arrowSize.width) / 2.0,
+//                y: rect.origin.y + rect.size.height - arrowSize.height))
+//            //arrow vertex
+//            context.addLine(to: CGPoint(
+//                x: point.x,
+//                y: point.y))
+//            context.addLine(to: CGPoint(
+//                x: rect.origin.x + (rect.size.width - arrowSize.width) / 2.0,
+//                y: rect.origin.y + rect.size.height - arrowSize.height))
+//            context.addLine(to: CGPoint(
+//                x: rect.origin.x,
+//                y: rect.origin.y + rect.size.height - arrowSize.height))
+//            context.addLine(to: CGPoint(
+//                x: rect.origin.x,
+//                y: rect.origin.y))
             context.fillPath()
         }
         
@@ -187,7 +191,7 @@ open class BalloonMarker: MarkerImage
         context.restoreGState()
         
         for (index,value) in colorArray.enumerated() {
-            let bezierPath = UIBezierPath(ovalIn: CGRect(x: rect.origin.x + 8, y: rect.origin.y + 18 + CGFloat(Double(index)*14.5), width: 6, height: 6))
+            let bezierPath = UIBezierPath(ovalIn: CGRect(x: rect.origin.x + 8, y: rect.origin.y + 18.5 + CGFloat(Double(index)*14.5), width: 6, height: 6))
             UIColor(hexString: value) .setFill()
             bezierPath.fill()
         }
@@ -198,7 +202,7 @@ open class BalloonMarker: MarkerImage
     {
         let formatter = self.chartView?.xAxis.valueFormatter as! IndexAxisValueFormatter
         let time = formatter.stringForValue(entry.x, axis: self.chartView?.xAxis)
-        let key = self.scopeType == 1 ? "Time:" : self.scopeType == 2 ? "Day:" : "Month:";
+        let key = self.scopeType == 1 ? "Time：" : self.scopeType == 2 ? "Day：" : "Month：";
         var text = "      \(key)" + time + "\n"
 
         if self.scopeType == 1 {

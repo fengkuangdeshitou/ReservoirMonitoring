@@ -12,16 +12,20 @@
 @import Photos;
 @import AVFoundation;
 #import "GlobelDescAlertView.h"
+#import "CountryCodeViewController.h"
 
 @interface InfoViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
+@property(nonatomic,strong)IBOutlet UITableViewCell * phoneCell;
+@property(nonatomic,strong)IBOutlet UITextField * phoneTextfield;
+@property(nonatomic,weak)IBOutlet UILabel * phone;
 @property(nonatomic,weak)IBOutlet UIButton * save;
 @property(nonatomic,weak)IBOutlet UIButton * photoBtn;
 
-@property(nonatomic,strong)NSArray * dataArray;
-@property(nonatomic,strong)NSArray * iconArray;
-@property(nonatomic,strong)NSString * avatar;
+@property(nonatomic,strong) NSArray * dataArray;
+@property(nonatomic,strong) NSArray * iconArray;
+@property(nonatomic,strong) NSString * avatar;
 @property(nonatomic,strong) BRPickerStyle * style;
 
 @end
@@ -50,8 +54,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.save showBorderWithRadius:25];
-    self.dataArray = @[self.model.email?:@"--",self.model.nickName?:@"--",self.model.phonenumber?:@"--"];
+    NSString * phonenumber = self.model.phonenumber?:@"--";
+    if ([self.model.phonenumber containsString:@"-"]){
+        self.phone.text = [self.model.phonenumber componentsSeparatedByString:@"-"].firstObject;
+        phonenumber = [self.model.phonenumber componentsSeparatedByString:@"-"].lastObject;
+    }
+    self.dataArray = @[self.model.email?:@"--",self.model.nickName?:@"--",phonenumber];
     self.iconArray = @[@"icon_email",@"icon_info",@"icon_phone"];
+    
     self.photoBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.photoBtn sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",Host,self.model.avatar]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"info"]];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InfoTableViewCell class])];
@@ -67,6 +77,14 @@
     }else{
         return YES;
     }
+}
+
+- (IBAction)selectCountryCodeAction:(UIButton *)sender{
+    CountryCodeViewController * code = [[CountryCodeViewController alloc] init];
+    code.selectCountryCode = ^(NSDictionary * _Nonnull item) {
+        self.phone.text = [NSString stringWithFormat:@"+%@",item[@"countryCode"]];
+    };
+    [RMHelper.getCurrentVC.navigationController pushViewController:code animated:true];
 }
 
 - (IBAction)selectPhoto:(id)sender{
@@ -134,7 +152,7 @@
         [RMHelper showToast:@"Please input your name" toView:self.view];
         return;
     }
-    if ([self getModelValueForIndex:2].length == 0) {
+    if (self.phoneTextfield.text.length == 0) {
         [RMHelper showToast:@"Please input your phone" toView:self.view];
         return;
     }
@@ -142,7 +160,7 @@
     [params setValue:self.model.userId forKey:@"userId"];
     [params setValue:[self getModelValueForIndex:0] forKey:@"email"];
     [params setValue:[self getModelValueForIndex:1] forKey:@"nickName"];
-    [params setValue:[self getModelValueForIndex:2] forKey:@"phonenumber"];
+    [params setValue:[NSString stringWithFormat:@"%@-%@",self.phone.text,self.phoneTextfield.text] forKey:@"phonenumber"];
     if (self.avatar) {
         [params setValue:self.avatar forKey:@"avatar"];
     }
@@ -159,16 +177,22 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    InfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InfoTableViewCell class]) forIndexPath:indexPath];
-    cell.textfield.text = self.dataArray[indexPath.row];
-    cell.textfield.placeholderColor = [UIColor colorWithHexString:@"#A3A3A3"];
-    cell.icon.image = [UIImage imageNamed:self.iconArray[indexPath.row]];
-    cell.line.hidden = indexPath.row == self.iconArray.count - 1;
-    cell.textfield.userInteractionEnabled = indexPath.row!=0;
-    if(indexPath.row == 1){
-        cell.textfield.delegate = self;
+    if (indexPath.row == self.dataArray.count-1){
+        self.phoneTextfield.text = self.dataArray[indexPath.row];
+        self.phoneTextfield.placeholderColor = [UIColor colorWithHexString:@"#A3A3A3"];
+        return self.phoneCell;
+    }else{
+        InfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InfoTableViewCell class]) forIndexPath:indexPath];
+        cell.textfield.text = self.dataArray[indexPath.row];
+        cell.textfield.placeholderColor = [UIColor colorWithHexString:@"#A3A3A3"];
+        cell.icon.image = [UIImage imageNamed:self.iconArray[indexPath.row]];
+        cell.line.hidden = indexPath.row == self.iconArray.count - 1;
+        cell.textfield.userInteractionEnabled = indexPath.row!=0;
+        if(indexPath.row == 1){
+            cell.textfield.delegate = self;
+        }
+        return cell;
     }
-    return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

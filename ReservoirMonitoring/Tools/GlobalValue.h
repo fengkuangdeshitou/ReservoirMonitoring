@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GlobalValue : NSObject
 
 extern CGFloat const NavagationBarHeight;
+/**设备安装记录*/
+extern NSString * const DEVICEINSTALLIMG;
 
 
 /**主题颜色*/

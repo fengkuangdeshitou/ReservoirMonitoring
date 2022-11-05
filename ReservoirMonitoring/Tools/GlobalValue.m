@@ -11,7 +11,7 @@
 
 const CGFloat NavagationBarHeight = 44;
 
-
+NSString * const DEVICEINSTALLIMG = @"deviceInstallImg";
 
 NSString * const COLOR_MAIN_COLOR = @"#8CDFA5";
 

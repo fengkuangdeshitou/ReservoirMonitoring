@@ -195,6 +195,34 @@ static Request * _request = nil;
     }];
 }
 
+- (void)upload:(NSString *)url
+        params:(NSDictionary *)params
+        images:(NSArray<UIImage*> *)images
+      progress:(RequestProgressBlock)progress
+       success:(RequestSuccessBlock)success
+       failure:(RequestFailureBlock)failure{
+    [self.manager POST:[Host stringByAppendingString:url] parameters:params headers:self.headers constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        for (int i=0; i<images.count; i++) {
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(images[i], 0.4) name:@"file" fileName:@"1.jpg" mimeType:@"image/jpg/png"];
+        }
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSString * code = json[@"status"];
+        NSLog(@"url=%@,result=%@",url,json);
+        if (code.intValue == 200) {
+            success(json);
+        }else{
+            failure(json[@"message"]);
+            [RMHelper showToast:json[@"message"] toView:RMHelper.getCurrentVC.view];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"err=%@",error);
+        [self loadNetworkAlertData:error];
+    }];
+}
+
 - (void)loadNetworkAlertData:(NSError *)error{
     CTCellularData * cellularData = [[CTCellularData alloc] init];
     cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState restrictedState){
