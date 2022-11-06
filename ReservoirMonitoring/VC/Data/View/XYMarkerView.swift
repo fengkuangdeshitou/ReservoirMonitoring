@@ -27,7 +27,6 @@ open class XYMarkerView: BalloonMarker
         let time = formatter.stringForValue(round(entry.x), axis: self.chartView?.xAxis)
         let key = "Year："
         var text = "      \(key)" + time + "\n"
-        print(time)
         for (idx,value) in textArray.enumerated(){
             guard let dataSet = self.chartView?.data?.dataSets[idx] as? BarChartDataSet else { return }
             let entrys = dataSet.entryForXValue(entry.x, closestToY: 0)
