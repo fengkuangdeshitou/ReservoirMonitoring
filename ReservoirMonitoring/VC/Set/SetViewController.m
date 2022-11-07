@@ -63,6 +63,9 @@
     } success:^(NSDictionary * _Nonnull result) {
         self.loginout.hidden = false;
         self.model = [UserModel mj_objectWithKeyValues:result[@"data"]];
+        if (RMHelper.isTouristsModel){
+            self.model.userType = @"2";
+        }
         if (self.model.defDevId) {
             [NSUserDefaults.standardUserDefaults setValue:self.model.defDevId forKey:CURRENR_DEVID];
         }

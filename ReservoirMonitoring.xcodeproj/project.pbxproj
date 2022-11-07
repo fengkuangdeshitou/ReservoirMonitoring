@@ -57,6 +57,10 @@
 		0F99432229163ED90014DFCA /* CompletePhoneTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F99432029163ED90014DFCA /* CompletePhoneTableViewCell.xib */; };
 		0F9943272916475C0014DFCA /* CountryCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9943252916475B0014DFCA /* CountryCodeViewController.m */; };
 		0F9943282916475C0014DFCA /* CountryCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F9943262916475C0014DFCA /* CountryCodeViewController.xib */; };
+		0F99432D2918F74E0014DFCA /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F99432B2918F74E0014DFCA /* MessageViewController.m */; };
+		0F99432E2918F74E0014DFCA /* MessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F99432C2918F74E0014DFCA /* MessageViewController.xib */; };
+		0F9943332918F8BA0014DFCA /* MessageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9943312918F8BA0014DFCA /* MessageListTableViewCell.m */; };
+		0F9943342918F8BA0014DFCA /* MessageListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F9943322918F8BA0014DFCA /* MessageListTableViewCell.xib */; };
 		0FE00829290B791E00F705CC /* CompleteImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE00827290B791E00F705CC /* CompleteImageTableViewCell.m */; };
 		0FE0082A290B791E00F705CC /* CompleteImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FE00828290B791E00F705CC /* CompleteImageTableViewCell.xib */; };
 		0FE713F4283C830400B0733A /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE713F3283C830400B0733A /* Request.m */; };
@@ -291,6 +295,12 @@
 		0F9943242916475B0014DFCA /* CountryCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryCodeViewController.h; sourceTree = "<group>"; };
 		0F9943252916475B0014DFCA /* CountryCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountryCodeViewController.m; sourceTree = "<group>"; };
 		0F9943262916475C0014DFCA /* CountryCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountryCodeViewController.xib; sourceTree = "<group>"; };
+		0F99432A2918F74E0014DFCA /* MessageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		0F99432B2918F74E0014DFCA /* MessageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		0F99432C2918F74E0014DFCA /* MessageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageViewController.xib; sourceTree = "<group>"; };
+		0F9943302918F8BA0014DFCA /* MessageListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageListTableViewCell.h; sourceTree = "<group>"; };
+		0F9943312918F8BA0014DFCA /* MessageListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageListTableViewCell.m; sourceTree = "<group>"; };
+		0F9943322918F8BA0014DFCA /* MessageListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageListTableViewCell.xib; sourceTree = "<group>"; };
 		0FE00826290B791E00F705CC /* CompleteImageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompleteImageTableViewCell.h; sourceTree = "<group>"; };
 		0FE00827290B791E00F705CC /* CompleteImageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompleteImageTableViewCell.m; sourceTree = "<group>"; };
 		0FE00828290B791E00F705CC /* CompleteImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompleteImageTableViewCell.xib; sourceTree = "<group>"; };
@@ -718,6 +728,27 @@
 			path = CountryCode;
 			sourceTree = "<group>";
 		};
+		0F9943292918EEA20014DFCA /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				0F99432A2918F74E0014DFCA /* MessageViewController.h */,
+				0F99432B2918F74E0014DFCA /* MessageViewController.m */,
+				0F99432C2918F74E0014DFCA /* MessageViewController.xib */,
+				0F99432F2918F89A0014DFCA /* VIew */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		0F99432F2918F89A0014DFCA /* VIew */ = {
+			isa = PBXGroup;
+			children = (
+				0F9943302918F8BA0014DFCA /* MessageListTableViewCell.h */,
+				0F9943312918F8BA0014DFCA /* MessageListTableViewCell.m */,
+				0F9943322918F8BA0014DFCA /* MessageListTableViewCell.xib */,
+			);
+			path = VIew;
+			sourceTree = "<group>";
+		};
 		0FE713F1283C803D00B0733A /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -1140,6 +1171,7 @@
 				BDE88A0E28046FE100081114 /* SetViewController.xib */,
 				0F0511B1283E4AF8007E7680 /* UserModel.h */,
 				0F0511B2283E4AF8007E7680 /* UserModel.m */,
+				0F9943292918EEA20014DFCA /* Message */,
 				BDB816FD28BCF67B00841A4A /* WriteOff */,
 				BDFA3AA728295B4E004A7E8C /* Network */,
 				BD8FDA5D280EF16E000036DD /* Debug */,
@@ -1510,8 +1542,10 @@
 				BD8FDA47280EEB4A000036DD /* HelpViewController.xib in Resources */,
 				BDE88A1928047B2600081114 /* LoginViewController.xib in Resources */,
 				BDFA3AAC28295B63004A7E8C /* NetworkViewController.xib in Resources */,
+				0F99432E2918F74E0014DFCA /* MessageViewController.xib in Resources */,
 				BDE88A1028046FE100081114 /* SetViewController.xib in Resources */,
 				BD8FDA7A280EF904000036DD /* ScanViewController.xib in Resources */,
+				0F9943342918F8BA0014DFCA /* MessageListTableViewCell.xib in Resources */,
 				0F6968402834967700F22E47 /* WifiTableViewCell.xib in Resources */,
 				BDE88A342805D05000081114 /* ForgotViewController.xib in Resources */,
 			);
@@ -1647,6 +1681,7 @@
 				BDE88A382805D66200081114 /* SetPasswordViewController.m in Sources */,
 				BD8FDA5B280EEF88000036DD /* WarningTableViewCell.m in Sources */,
 				BD90736B280D535700044013 /* InfoViewController.m in Sources */,
+				0F99432D2918F74E0014DFCA /* MessageViewController.m in Sources */,
 				BD2DEF5928044B27004E8D7D /* TabbarViewController.m in Sources */,
 				0F69685E28364E7B00F22E47 /* InstallCollectionViewCell.m in Sources */,
 				BD1D5CBF290C09530041300D /* ServiceDescTableViewCell.m in Sources */,
@@ -1707,6 +1742,7 @@
 				BD8FDA73280EF5D7000036DD /* AddDeviceTableViewCell.m in Sources */,
 				BDF36C4628AD2DB200A7C835 /* Reachability.m in Sources */,
 				BDFA3AAB28295B63004A7E8C /* NetworkViewController.m in Sources */,
+				0F9943332918F8BA0014DFCA /* MessageListTableViewCell.m in Sources */,
 				0FE713F7283C831A00B0733A /* RequestURL.m in Sources */,
 				BD8FDA79280EF904000036DD /* ScanViewController.m in Sources */,
 				BDFA3AB7282F7D1B004A7E8C /* ServiceViewController.m in Sources */,
@@ -1957,7 +1993,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.35;
+				MARKETING_VERSION = 1.0.38;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2004,7 +2040,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.35;
+				MARKETING_VERSION = 1.0.38;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

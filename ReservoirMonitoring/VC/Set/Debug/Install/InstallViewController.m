@@ -24,11 +24,13 @@
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UICollectionView * collectionView;
 @property(nonatomic,weak)IBOutlet UIButton * config;
+@property(nonatomic,weak)IBOutlet NSLayoutConstraint * configBtnHeight;
+@property(nonatomic,weak)IBOutlet NSLayoutConstraint * configBtnTop;
 @property(nonatomic,weak)IBOutlet UIButton * back;
 @property(nonatomic,weak)IBOutlet UIButton * next;
 @property(nonatomic,strong) NSArray * dataArray;
 @property(nonatomic,assign) NSInteger current;
-@property(nonatomic,assign)CGFloat imageHeight;
+@property(nonatomic,assign) CGFloat imageHeight;
 @property(nonatomic,strong) NSMutableArray * urlArray;
 
 @end
@@ -38,7 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.dataArray = @[@"Add Device".localized,@"Bluetooth config".localized,@"Grid config".localized,@"Smart Gateway config".localized,@"Hybrid config".localized,@"Card config".localized,@"Wi-Fi config".localized,@"complete"];
+    self.dataArray = @[@"Add Device".localized,@"Bluetooth config".localized,@"Grid config".localized,@"Smart Gateway config".localized,@"Hybrid config".localized,@"Card config".localized,@"Wi-Fi config".localized,@"Finish"];
     [self.config showBorderWithRadius:25];
     [self.next showBorderWithRadius:25];
     [self.back showBorderWithRadius:25];
@@ -97,11 +99,31 @@
         [self.navigationController pushViewController:card animated:true];
     }else if (self.current == 6){
         WifiViewController * wifi = [[WifiViewController alloc] init];
-        wifi.title = @"Wi-Fi".localized;
+        wifi.title = @"Wi-Fi Config".localized;
         wifi.devId = [NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID];
         wifi.hidesBottomBarWhenPushed = true;
         [self.navigationController pushViewController:wifi animated:true];
+    }else if (self.current == 7){
+        [self submitInstallAction];
     }
+}
+
+- (void)submitInstallAction{
+    CompleteImageTableViewCell * imageCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    CompletePhoneTableViewCell * phoneCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    ServiceInputTableViewCell * descCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    if (imageCell.photos.count == 0){
+        [RMHelper showToast:@"Please add pictures" toView:self.view];
+        return;
+    }
+    if (phoneCell.textfield.text.length == 0){
+        [RMHelper showToast:@"Please input your phone" toView:self.view];
+        return;
+    }
+    [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
+    [self uploadImages:imageCell.photos completion:^(NSString *url) {
+        [self submitInstallLog:@{@"deviceId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID],@"photos":url,@"phone":[NSString stringWithFormat:@"%@-%@",phoneCell.phone.text,phoneCell.textfield.text],@"remark":descCell.content.text?:@""}];
+    }];
 }
 
 - (void)uploadImages:(NSArray *)images completion:(void(^)(NSString * url))completion{
@@ -132,30 +154,14 @@
 
 - (IBAction)nextAction:(id)sender{
     if (self.current == self.dataArray.count-1) {
-        CompleteImageTableViewCell * imageCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        CompletePhoneTableViewCell * phoneCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-        ServiceInputTableViewCell * descCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
-        if (imageCell.photos.count == 0){
-            [RMHelper showToast:@"Please add pictures" toView:self.view];
-            return;
-        }
-        if (phoneCell.textfield.text.length == 0){
-            [RMHelper showToast:@"Please input your phone" toView:self.view];
-            return;
-        }if (descCell.content.text.length == 0){
-            [RMHelper showToast:@"Please enter the description" toView:self.view];
-            return;
-        }
-        [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
-        [self uploadImages:imageCell.photos completion:^(NSString *url) {
-            [self submitInstallLog:@{@"deviceId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID],@"photos":url,@"phone":[NSString stringWithFormat:@"%@-%@",phoneCell.phone.text,phoneCell.textfield.text],@"description":descCell.content.text}];
-        }];
+        [self.navigationController popViewControllerAnimated:true];
     }else{
         self.current++;
         [self.tableView reloadData];
         [self.collectionView reloadData];
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.current inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:true];
         if (self.current == self.dataArray.count-1) {
+            [self.config setTitle:@"Submit" forState:UIControlStateNormal];
             [self.next setTitle:@"Finish".localized forState:UIControlStateNormal];
         }
     }
@@ -222,7 +228,6 @@
         CompleteImageTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CompleteImageTableViewCell class]) forIndexPath:indexPath];
         cell.updateFrameBlock = ^(CGRect frame){
             [tableView beginUpdates];
-            NSLog(@"cell.count=%ld",cell.photos.count);
             self.imageHeight = frame.size.height;
             [tableView endUpdates];
         };

@@ -55,7 +55,7 @@
         }
         self.dataArray = [[NSMutableArray alloc] initWithArray:@[
             @{@"title":@"",@"placeholder":@""},
-            @{@"title":@"Case Reason",@"placeholder":reason},
+            @{@"title":@"Category",@"placeholder":reason},
             @{@"title":@"Description".localized,@"placeholder":desc}
             ]];
         [self.tableView reloadData];
@@ -135,10 +135,11 @@
         }
     }else{
         [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
+        [self.submit setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
         self.submit.userInteractionEnabled = true;
         [self.submit showBorderWithRadius:25];
         [NSUserDefaults.standardUserDefaults removeObjectForKey:[self reasonCacheKey]];
-        if (RMHelper.getUserType || self.model.defDevSgSn.length == 0 || RMHelper.isTouristsModel) {
+        if (RMHelper.getUserType || !self.model.defDevSgSn || RMHelper.isTouristsModel) {
             self.submit.userInteractionEnabled = false;
             [self.submit setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
             self.submit.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
@@ -229,7 +230,7 @@
         ServiceInputTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ServiceInputTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
         cell.content.text = self.dataArray[indexPath.row][@"placeholder"];
-        cell.content.userInteractionEnabled = !RMHelper.getUserType && ![NSUserDefaults.standardUserDefaults objectForKey:[self descCacheKey]] && !RMHelper.isTouristsModel;
+        cell.content.userInteractionEnabled = !RMHelper.getUserType && ![NSUserDefaults.standardUserDefaults objectForKey:[self descCacheKey]] && !RMHelper.isTouristsModel && self.model.defDevSgSn;
         return cell;
     }else{
         ServiceDescTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ServiceDescTableViewCell class]) forIndexPath:indexPath];
@@ -238,7 +239,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (RMHelper.isTouristsModel){
+    if (RMHelper.isTouristsModel || !self.model.defDevSgSn){
         return;
     }
     if (indexPath.row == self.dataArray.count-2) {
@@ -266,7 +267,7 @@
     }else if (indexPath.row == 1){
         return 53;
     }else{
-        return indexPath.row == 2 ? 151 : 53;
+        return indexPath.row == 2 ? 156 : 53;
     }
 }
 

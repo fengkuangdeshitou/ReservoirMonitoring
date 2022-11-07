@@ -26,7 +26,7 @@
     self.question.text = [NSString stringWithFormat:@"For more information about troubleshooting, please refer to our %@.\nOur %@ will be available 24hrs Monday through Friday.",faq,hotline];
     self.question.lineBreakMode = NSLineBreakByWordWrapping;
     self.question.textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
-    self.question.font = [UIFont systemFontOfSize:13];
+    self.question.font = [UIFont systemFontOfSize:12];
     self.question.numberOfLines = 0;
     self.question.dataDetectorTypes = MLDataDetectorTypeAttributedLink;
     self.question.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithHexString:COLOR_MAIN_COLOR]};

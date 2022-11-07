@@ -93,6 +93,8 @@ extern NSString * const VisitorsLogin;
 
 extern NSString * const CountryCode;
 
+extern NSString * const CheckSumit;
+
 extern NSString * const SubmitInstall;
 
 extern NSString * const BatchUpload;

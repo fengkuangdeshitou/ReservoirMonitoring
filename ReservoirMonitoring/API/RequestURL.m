@@ -95,6 +95,8 @@ NSString * const VisitorsLogin = @"/open/common/visitorsLogin";
 
 NSString * const CountryCode = @"/common/countryCode/list";
 
+NSString * const CheckSumit = @"/installLog/checkSumit";
+
 NSString * const SubmitInstall = @"/installLog/submit";
 
 NSString * const BatchUpload = @"/open/common/batchUploadImg";

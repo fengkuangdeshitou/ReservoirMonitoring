@@ -31,6 +31,7 @@
     self.titleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40) delegate:self titleNames:@[@"Warning".localized,@"Fault".localized] configure:config];
     self.titleView.backgroundColor = [UIColor colorWithHexString:@"#1E1E1E"];
     [self.view addSubview:self.titleView];
+    [self.titleView setResetSelectedIndex:0];
     self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*2, 0);
     for (int i=0; i<2; i++) {
         WarningListView * list = [[WarningListView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT-NavagationHeight-self.titleView.height)];
