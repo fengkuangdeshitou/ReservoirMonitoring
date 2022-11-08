@@ -97,6 +97,13 @@ extern NSString * const SubmitInstall;
 
 extern NSString * const BatchUpload;
 
+extern NSString * const MessageTypeInfo;
+
+extern NSString * const QueryInstallLogInfo;
+
+extern NSString * const MessageList;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

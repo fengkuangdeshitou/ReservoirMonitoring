@@ -22,6 +22,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"Select Country/Region";
+    self.textfield.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
     [self getCountryCodeList];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textfieldTextChange) name:UITextFieldTextDidChangeNotification object:nil];
 }

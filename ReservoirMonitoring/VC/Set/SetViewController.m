@@ -17,6 +17,7 @@
 #import "UserModel.h"
 #import "GlobelDescAlertView.h"
 #import "WriteOffViewController.h"
+#import "MessageViewController.h"
 
 @interface SetViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -48,8 +49,8 @@
 #endif
     [self setRightBarButtonItemWithTitlt:[NSString stringWithFormat:@"%@%@",string,version] sel:nil];
 //    self.loginout.hidden = true;
-    self.dataArray = @[@"User Info".localized,@"Network".localized,@"Update".localized,@"FAQ".localized,@"Fault&Warning".localized,@"Commissioning".localized];
-    self.iconArray = @[@"icon_information",@"icon_list",@"icon_update",@"icon_help",@"icon_warning",@"icon_test"];
+    self.dataArray = @[@"User Info".localized,@"Network".localized,@"Update".localized,@"FAQ".localized,@"Fault&Warning".localized,@"Message".localized,@"Commissioning".localized];
+    self.iconArray = @[@"icon_information",@"icon_list",@"icon_update",@"icon_help",@"icon_warning",@"icon_message",@"icon_test"];
     [self.loginout setTitle:@"Log Out".localized forState:UIControlStateNormal];
     [self.loginout showBorderWithRadius:25];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SetInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SetInfoTableViewCell class])];
@@ -63,9 +64,10 @@
     } success:^(NSDictionary * _Nonnull result) {
         self.loginout.hidden = false;
         self.model = [UserModel mj_objectWithKeyValues:result[@"data"]];
-        if (self.model.defDevId) {
-            [NSUserDefaults.standardUserDefaults setValue:self.model.defDevId forKey:CURRENR_DEVID];
+        if (RMHelper.isTouristsModel){
+            self.model.userType = @"2";
         }
+        [NSUserDefaults.standardUserDefaults setValue:self.model.defDevId forKey:CURRENR_DEVID];
         [self.tableView reloadData];
     } failure:^(NSString * _Nonnull errorMsg) {
         
@@ -145,6 +147,11 @@
                     warning.hidesBottomBarWhenPushed = true;
                     [self.navigationController pushViewController:warning animated:true];
                 }else if (indexPath.row == 5){
+                    MessageViewController * message = [[MessageViewController alloc] init];
+                    message.title = self.dataArray[indexPath.row];
+                    message.hidesBottomBarWhenPushed = true;
+                    [self.navigationController pushViewController:message animated:true];
+                }else if (indexPath.row == 6){
                     DebugViewController * debug = [[DebugViewController alloc] init];
                     debug.title = self.dataArray[indexPath.row];
                     debug.hidesBottomBarWhenPushed = true;
@@ -164,9 +171,9 @@
         return 1;
     }else{
         if (self.model) {
-            return self.model.userType.intValue == 2 ? 5 : self.dataArray.count+1;
+            return self.model.userType.intValue == 2 ? 6 : self.dataArray.count+1;
         }else{
-            return 5;
+            return 6;
         }
     }
 }

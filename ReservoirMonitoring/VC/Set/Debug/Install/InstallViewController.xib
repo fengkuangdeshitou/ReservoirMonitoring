@@ -14,6 +14,8 @@
                 <outlet property="back" destination="ecJ-Td-oeD" id="AdD-hQ-hzV"/>
                 <outlet property="collectionView" destination="lsF-6b-Vly" id="rtS-bH-26p"/>
                 <outlet property="config" destination="uAH-fs-gpo" id="1I0-Zh-Cdd"/>
+                <outlet property="configBtnHeight" destination="Pwf-I0-lTA" id="Twn-Ph-lNM"/>
+                <outlet property="configBtnTop" destination="L2M-bY-WGd" id="GpS-c9-qK6"/>
                 <outlet property="next" destination="egv-Lz-YVD" id="4dQ-0r-j2U"/>
                 <outlet property="tableView" destination="pfo-Zp-O7V" id="jah-Sh-8RX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -62,7 +64,7 @@
                         <rect key="frame" x="0.0" y="994" width="414" height="200"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAH-fs-gpo">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAH-fs-gpo">
                                 <rect key="frame" x="35" y="50" width="344" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Pwf-I0-lTA"/>

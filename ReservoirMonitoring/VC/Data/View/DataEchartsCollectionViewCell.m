@@ -16,6 +16,7 @@
 @property(nonatomic,strong) BarChartView * barEchartsView;
 @property(nonatomic,strong) NSMutableArray * xArray;
 @property(nonatomic,strong) NSMutableArray * selectArray;
+@property(nonatomic,strong) NSMutableArray * selectIndexArray;
 @property(nonatomic,strong) NSMutableArray * datas;
 @property(nonatomic,strong) NSMutableArray * selectTitleArray;
 @property(nonatomic,strong) NSMutableArray * selectColorArray;
@@ -117,7 +118,6 @@
         marker.chartView = _lineEchartsView;
         marker.arrowSize = CGSizeMake(0, 0);
         _lineEchartsView.marker = marker;
-        _lineEchartsView.legend.form = ChartLegendFormLine;
         [_lineEchartsView setScaleMinima:1 scaleY:1];
     }
     return _lineEchartsView;
@@ -218,6 +218,7 @@
     self.xArray = [[NSMutableArray alloc] init];
     self.datas = [[NSMutableArray alloc] init];
     self.selectArray = [[NSMutableArray alloc] init];
+    self.selectIndexArray = [[NSMutableArray alloc] init];
     self.selectTitleArray = [[NSMutableArray alloc] init];
     self.selectColorArray = [[NSMutableArray alloc] init];
 
@@ -254,9 +255,7 @@
 
 - (void)setDataArray:(NSArray *)dataArray{
     _dataArray = dataArray;
-    if (dataArray.count > 0){
-        [self formatDataArray];
-    }
+    [self formatDataArray];
 }
 
 - (void)formatDataArray{
@@ -306,8 +305,20 @@
         [self.datas addObject:noBackupLoads];
     }
     [self.datas addObject:backupLoads];
-    UIButton * btn = [self.titleView viewWithTag:10];
-    [self buttonClick:btn];
+    if (self.selectIndexArray.count == 0){
+        UIButton * btn = [self.titleView viewWithTag:10];
+        [self buttonClick:btn];
+    }else{
+        for (int i=0;i<self.normal.count;i++) {
+            UIButton * button = [self.titleView viewWithTag:i+10];
+            for (int j = 0; j<self.selectIndexArray.count; j++) {
+                if (button.tag == [self.selectIndexArray[j] integerValue]){
+                    button.selected = true;
+                }
+            }
+        }
+        [self formatSelectData];
+    }
 }
 
 - (void)formatEcharsArrayForIndex:(NSInteger)index{
@@ -535,13 +546,18 @@
     if (self.datas.count == 0){
         return;
     }
+    [self.selectIndexArray removeAllObjects];
+    [self formatSelectData];
+}
+
+- (void)formatSelectData{
     [self.selectArray removeAllObjects];
     [self.selectTitleArray removeAllObjects];
     [self.selectColorArray removeAllObjects];
-    
     for (int i=0;i<self.normal.count;i++) {
         UIButton * button = [self.titleView viewWithTag:i+10];
         if (button.selected == true){
+            [self.selectIndexArray addObject:[NSString stringWithFormat:@"%ld",button.tag]];
             if (button.tag == 10){
                 if (self.scopeType == 1) {
                     [self.selectArray addObject:self.datas[i]];
@@ -663,6 +679,8 @@
             [set setColor:[UIColor colorWithHexString:self.selectColorArray[i]]];
             set.mode = LineChartModeHorizontalBezier;
             set.drawValuesEnabled = true;
+            set.drawHorizontalHighlightIndicatorEnabled = false;
+            set.drawVerticalHighlightIndicatorEnabled = false;
             [sets addObject:set];
             NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
             ChartDefaultValueFormatter *formatter = [[ChartDefaultValueFormatter alloc] initWithFormatter:numberFormatter];

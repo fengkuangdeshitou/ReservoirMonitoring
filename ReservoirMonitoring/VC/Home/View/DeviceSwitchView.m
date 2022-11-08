@@ -158,6 +158,10 @@
 }
 
 - (void)addDeviceClick{
+    if (RMHelper.isTouristsModel){
+        [RMHelper showToast:@"Visitor has no permission" toView:self];
+        return;
+    }
     [self dismiss];
     AddDeviceViewController * add = [[AddDeviceViewController alloc] init];
     add.title = @"Add Device".localized;
@@ -201,6 +205,10 @@
 }
 
 - (void)switchDeviceAction:(UIButton *)btn{
+    if (RMHelper.isTouristsModel){
+        [RMHelper showToast:@"Visitor has no permission" toView:self];
+        return;
+    }
     [BleManager.shareInstance disconnectPeripheral];
     DeviceSwitchTableViewCell * cell = (DeviceSwitchTableViewCell *)[[[btn superview] superview] superview];
     NSIndexPath * indexPath = [self.otherTableView indexPathForCell:cell];

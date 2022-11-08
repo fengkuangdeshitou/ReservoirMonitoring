@@ -13,6 +13,11 @@
 
 @implementation BaseViewController
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.view endEditing:true];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

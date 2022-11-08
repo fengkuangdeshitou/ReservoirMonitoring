@@ -324,6 +324,10 @@
 }
 
 - (IBAction)submitAction:(id)sender{
+    if (RMHelper.isTouristsModel){
+        [RMHelper showToast:@"Visitor has no permission" toView:RMHelper.getCurrentVC.view];
+        return;
+    }
     NSString * weather = self.weatherBtn.isSelected ? @"1" : @"0";
     PeakTimeTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:2]];
     SwitchProgressTableViewCell * cell1 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
@@ -603,6 +607,10 @@
 }
 
 - (void)clearBtnClick{
+    if (RMHelper.isTouristsModel){
+        [RMHelper showToast:@"Visitor has no permission" toView:self.view];
+        return;
+    }
     if (RMHelper.getUserType || (!RMHelper.getUserType && BleManager.shareInstance.isConnented)) {
         if (!BleManager.shareInstance.isConnented) {
             [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];

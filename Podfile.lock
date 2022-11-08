@@ -34,6 +34,8 @@ PODS:
   - HXPhotoPicker (3.3.2):
     - HXPhotoPicker/Default (= 3.3.2)
   - HXPhotoPicker/Default (3.3.2)
+  - HXPhotoPicker/SDWebImage (3.3.2):
+    - SDWebImage (~> 5.0)
   - IQKeyboardManager (6.5.10)
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
@@ -53,6 +55,7 @@ DEPENDENCIES:
   - Bugly
   - Charts
   - HXPhotoPicker
+  - HXPhotoPicker/SDWebImage
   - IQKeyboardManager
   - Masonry
   - MBProgressHUD
@@ -98,6 +101,6 @@ SPEC CHECKSUMS:
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
   WMZCode: af49031a787947dad474f6dba23270a2600d8124
 
-PODFILE CHECKSUM: 3ce545c2769899b3a009578681605d2ba7aca9ba
+PODFILE CHECKSUM: eccdcc4116c385b8fed3e1aabca6a3ba622076dc
 
 COCOAPODS: 1.11.3
