@@ -18,6 +18,7 @@
 #import "CompleteImageTableViewCell.h"
 #import "CompletePhoneTableViewCell.h"
 #import "ServiceInputTableViewCell.h"
+#import "GlobelDescAlertView.h"
 
 @interface InstallViewController ()
 
@@ -32,6 +33,10 @@
 @property(nonatomic,assign) NSInteger current;
 @property(nonatomic,assign) CGFloat imageHeight;
 @property(nonatomic,strong) NSMutableArray * urlArray;
+@property(nonatomic,strong) NSString * auditStatus;
+@property(nonatomic,strong) NSArray * photos;
+@property(nonatomic,strong) NSString * remark;
+@property(nonatomic,strong) NSString * appUserPhone;
 
 @end
 
@@ -60,11 +65,31 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ServiceInputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([ServiceInputTableViewCell class])];
 }
 
+- (void)queryInstallLogInfoCompletion:(void(^)(NSDictionary * resule))completion{
+    NSDictionary * params = @{};
+    if (self.installLogId){
+        params = @{@"installLogId":self.installLogId};
+    }else{
+        params = @{@"deviceId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID]};
+    }
+    [Request.shareInstance getUrl:QueryInstallLogInfo params:params progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        completion(result);
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
+}
+
 - (void)addDeviceSuccess{
     [self.navigationController popToViewController:self animated:true];
 }
 
 - (IBAction)configAction:(id)sender{
+    if (self.current > 0 && self.current<self.dataArray.count-1 && ![NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID]){
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please add device to continue" btnTitle:nil completion:nil];
+        return;
+    }
     if (self.current == 0) {
         AddDeviceViewController * add = [[AddDeviceViewController alloc] init];
         add.title = self.dataArray[self.current];
@@ -112,7 +137,7 @@
     CompleteImageTableViewCell * imageCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     CompletePhoneTableViewCell * phoneCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     ServiceInputTableViewCell * descCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
-    if (imageCell.photos.count == 0){
+    if (imageCell.images.count == 0){
         [RMHelper showToast:@"Please add pictures" toView:self.view];
         return;
     }
@@ -121,7 +146,7 @@
         return;
     }
     [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
-    [self uploadImages:imageCell.photos completion:^(NSString *url) {
+    [self uploadImages:imageCell.images completion:^(NSString *url) {
         [self submitInstallLog:@{@"deviceId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID],@"photos":url,@"phone":[NSString stringWithFormat:@"%@-%@",phoneCell.phone.text,phoneCell.textfield.text],@"remark":descCell.content.text?:@""}];
     }];
 }
@@ -153,9 +178,30 @@
 }
 
 - (IBAction)nextAction:(id)sender{
+    if (self.current == self.dataArray.count -2 && ![NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID]){
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please add device to continue" btnTitle:nil completion:nil];
+        return;
+    }
     if (self.current == self.dataArray.count-1) {
         [self.navigationController popViewControllerAnimated:true];
     }else{
+        if (self.current == self.dataArray.count - 2){
+            [self queryInstallLogInfoCompletion:^(NSDictionary *result) {
+                if ([result[@"data"] isKindOfClass:[NSDictionary class]]){
+                    self.appUserPhone = result[@"data"][@"appUserPhone"];
+                    self.auditStatus = result[@"data"][@"auditStatus"];
+                    NSString * photos = result[@"data"][@"photos"];
+                    self.photos = [photos componentsSeparatedByString:@","];
+                    self.remark = result[@"data"][@"remark"];
+                    if (self.auditStatus.intValue != 2){
+                        self.config.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
+                        [self.config setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+                        self.config.userInteractionEnabled = false;
+                    }
+                    [self.tableView reloadData];
+                }
+            }];
+        }
         self.current++;
         [self.tableView reloadData];
         [self.collectionView reloadData];
@@ -226,19 +272,32 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0){
         CompleteImageTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CompleteImageTableViewCell class]) forIndexPath:indexPath];
+        cell.photos = self.photos;
         cell.updateFrameBlock = ^(CGRect frame){
             [tableView beginUpdates];
             self.imageHeight = frame.size.height;
             [tableView endUpdates];
         };
+        cell.contentView.userInteractionEnabled = !self.auditStatus || self.auditStatus.intValue == 2;
         return cell;
     }else if (indexPath.row == 1){
         CompletePhoneTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CompletePhoneTableViewCell class]) forIndexPath:indexPath];
+        if (self.appUserPhone){
+            if ([self.appUserPhone containsString:@"-"]){
+                cell.phone.text = [self.appUserPhone componentsSeparatedByString:@"-"].firstObject;
+                cell.textfield.text = [self.appUserPhone componentsSeparatedByString:@"-"].lastObject;
+            }else{
+                cell.textfield.text = self.appUserPhone;
+            }
+        }
+        cell.textfield.userInteractionEnabled = !self.auditStatus || self.auditStatus.intValue == 2;
+        cell.codeBtn.userInteractionEnabled = !self.auditStatus || self.auditStatus.intValue == 2;
         return cell;
     }else{
         ServiceInputTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ServiceInputTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = @"Description";
-        cell.content.text = @"";
+        cell.content.text = self.remark;
+        cell.content.userInteractionEnabled = !self.auditStatus || self.auditStatus.intValue == 2;
         return cell;
     }
 }

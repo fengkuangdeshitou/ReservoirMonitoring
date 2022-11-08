@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,weak)IBOutlet UILabel * phone;
 @property(nonatomic,weak)IBOutlet UITextField * textfield;
+@property(nonatomic,weak)IBOutlet UIButton * codeBtn;
 
 @end
 

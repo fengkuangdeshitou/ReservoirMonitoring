@@ -75,7 +75,7 @@
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         [BleManager.shareInstance readWithCMDString:@"611" count:6 finish:^(NSArray * _Nonnull array) {
             if (array.count == 6) {
-                weakSelf.systemTime = [NSString stringWithFormat:@"%@-%02d-%02d %02d:%02d:%02d",array[0],[array[1] intValue],[array[2] intValue],[array[3] intValue],[array[4] intValue],[array[5] intValue]];
+                weakSelf.systemTime = [NSString stringWithFormat:@"%04d-%02d-%02d %02d:%02d:%02d",[array[0] intValue],[array[1] intValue],[array[2] intValue],[array[3] intValue],[array[4] intValue],[array[5] intValue]];
             }
             dispatch_semaphore_signal(semaphore);
         }];

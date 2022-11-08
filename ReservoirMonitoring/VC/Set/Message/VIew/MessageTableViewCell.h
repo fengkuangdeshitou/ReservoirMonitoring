@@ -6,10 +6,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MessageModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MessageListTableViewCell : UITableViewCell
+@interface MessageTableViewCell : UITableViewCell
+
+@property(nonatomic,strong) MessageModel * model;
+@property(nonatomic,weak)IBOutlet UIView * line;
 
 @end
 

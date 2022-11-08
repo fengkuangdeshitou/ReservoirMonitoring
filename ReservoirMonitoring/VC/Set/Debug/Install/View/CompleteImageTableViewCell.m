@@ -89,9 +89,20 @@
     };
     self.photoView.changeCompleteBlock = ^(NSArray<HXPhotoModel *> * _Nonnull allList, NSArray<HXPhotoModel *> * _Nonnull photos, NSArray<HXPhotoModel *> * _Nonnull videos, BOOL isOriginal) {
         [photos hx_requestImageWithOriginal:false completion:^(NSArray<UIImage *> * _Nullable imageArray, NSArray<HXPhotoModel *> * _Nullable errorArray) {
-            weakSelf.photos = imageArray;
+            weakSelf.images = imageArray;
         }];
     };
+}
+
+- (void)setPhotos:(NSArray *)photos{
+    _photos = photos;
+    NSMutableArray * assetModels = [[NSMutableArray alloc] init];
+    for (int i=0; i<photos.count; i++) {
+        HXCustomAssetModel * model = [HXCustomAssetModel assetWithNetworkImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",Host,photos[i]]] selected:true];
+        [assetModels addObject:model];
+    }
+    [self.manager addCustomAssetModel:assetModels];
+    [self.photoView refreshView];
 }
 
 - (UIView *)customView:(HXPhotoSubViewCell *)cell

@@ -59,7 +59,6 @@
             @{@"title":@"Description".localized,@"placeholder":desc}
             ]];
         [self.tableView reloadData];
-        self.submit.hidden = false;
         self.time.hidden = false;
         [self loadTimer];
     } failure:^(NSString * _Nonnull errorMsg) {
@@ -73,7 +72,7 @@
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(requestUserInfo) name:UIApplicationWillEnterForegroundNotification object:nil];
     [self setLeftBarImageForSel:nil];
     self.time.text = @"Can't submit twice in 30 minutes.".localized;
-    [self.submit showBorderWithRadius:25];
+    [self loadSubmitStyle:false];
     self.dataArray = [[NSMutableArray alloc] initWithArray:@[
         @{@"title":@"",@"placeholder":@""},
         @{@"title":@"Case Reason",@"placeholder":@"None".localized},
@@ -85,15 +84,26 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ServiceInputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([ServiceInputTableViewCell class])];
 }
 
+- (void)loadSubmitStyle:(BOOL)status{
+    if (status){
+        self.submit.userInteractionEnabled = true;
+        [self.submit showBorderWithRadius:25];
+        [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
+        [self.submit setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
+    }else{
+        self.submit.userInteractionEnabled = false;
+        [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
+        [self.submit setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+        self.submit.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
+    }
+}
+
 - (void)loadTimer{
     if ([NSUserDefaults.standardUserDefaults objectForKey:self.model.email]) {
         NSString * string = [NSUserDefaults.standardUserDefaults objectForKey:self.model.email];
         if ([[self getCurrentTimeString] integerValue] - [string integerValue] > 30*60) {
-            self.submit.userInteractionEnabled = true;
             [NSUserDefaults.standardUserDefaults removeObjectForKey:self.model.email];
-            [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
-            [self.submit setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
-            self.submit.layer.borderColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR].CGColor;
+            [self loadSubmitStyle:true];
             [NSUserDefaults.standardUserDefaults removeObjectForKey:[self reasonCacheKey]];
             [self.dataArray replaceObjectAtIndex:1 withObject:@{@"title":@"Case Reason",@"placeholder":@"None".localized}];
             [NSUserDefaults.standardUserDefaults removeObjectForKey:[self descCacheKey]];
@@ -112,11 +122,8 @@
             self.timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:true block:^(NSTimer * _Nonnull timer) {
                 self.timeCount --;
                 if (self.timeCount == 0) {
-                    self.submit.userInteractionEnabled = true;
                     [NSUserDefaults.standardUserDefaults removeObjectForKey:self.model.email];
-                    [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
-                    [self.submit setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
-                    self.submit.layer.borderColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR].CGColor;
+                    [self loadSubmitStyle:true];
                     [NSUserDefaults.standardUserDefaults removeObjectForKey:[self reasonCacheKey]];
                     [self.dataArray replaceObjectAtIndex:1 withObject:@{@"title":@"Case Reason",@"placeholder":@"None".localized}];
                     [NSUserDefaults.standardUserDefaults removeObjectForKey:[self descCacheKey]];
@@ -134,15 +141,10 @@
             [NSRunLoop.currentRunLoop addTimer:self.timer forMode:NSRunLoopCommonModes];
         }
     }else{
-        [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
-        [self.submit setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
-        self.submit.userInteractionEnabled = true;
-        [self.submit showBorderWithRadius:25];
+        [self loadSubmitStyle:true];
         [NSUserDefaults.standardUserDefaults removeObjectForKey:[self reasonCacheKey]];
         if (RMHelper.getUserType || !self.model.defDevSgSn || RMHelper.isTouristsModel) {
-            self.submit.userInteractionEnabled = false;
-            [self.submit setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
-            self.submit.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
+            [self loadSubmitStyle:false];
         }
     }
 }

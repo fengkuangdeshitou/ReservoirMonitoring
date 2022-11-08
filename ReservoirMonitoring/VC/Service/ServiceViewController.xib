@@ -29,7 +29,7 @@
                         <rect key="frame" x="0.0" y="894" width="414" height="150"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DG7-ie-T0a">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DG7-ie-T0a">
                                 <rect key="frame" x="35" y="40" width="344" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="0yf-7g-5MY"/>

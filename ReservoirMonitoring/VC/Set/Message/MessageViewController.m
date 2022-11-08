@@ -6,12 +6,14 @@
 //
 
 #import "MessageViewController.h"
-#import "MessageListTableViewCell.h"
+#import "MessageTableViewCell.h"
+#import "MessageModel.h"
+#import "MessageListViewController.h"
 
-@interface MessageViewController ()
+@interface MessageViewController ()<UITableViewDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
-@property(nonatomic,strong) NSArray * dataArray;
+@property(nonatomic,strong) NSArray<MessageModel*> * dataArray;
 
 
 @end
@@ -21,12 +23,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MessageListTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MessageListTableViewCell class])];
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MessageTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MessageTableViewCell class])];
+    [self getMessageList];
+}
+
+- (void)getMessageList{
+    [Request.shareInstance getUrl:MessageTypeInfo params:@{} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        self.dataArray = [MessageModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        [self.tableView reloadData];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MessageListTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MessageListTableViewCell class]) forIndexPath:indexPath];
+    MessageTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MessageTableViewCell class]) forIndexPath:indexPath];
+    cell.model = self.dataArray[indexPath.row];
+    cell.line.hidden = indexPath.row == self.dataArray.count-1;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    MessageListViewController * list = [[MessageListViewController alloc] init];
+    list.type = self.dataArray[indexPath.row].type;
+    list.title = self.dataArray[indexPath.row].typeName;
+    [self.navigationController pushViewController:list animated:true];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -35,6 +58,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 86;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 15;
 }
 
 /*

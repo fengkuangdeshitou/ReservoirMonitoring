@@ -118,7 +118,6 @@
         marker.chartView = _lineEchartsView;
         marker.arrowSize = CGSizeMake(0, 0);
         _lineEchartsView.marker = marker;
-        _lineEchartsView.legend.form = ChartLegendFormLine;
         [_lineEchartsView setScaleMinima:1 scaleY:1];
     }
     return _lineEchartsView;
@@ -680,6 +679,8 @@
             [set setColor:[UIColor colorWithHexString:self.selectColorArray[i]]];
             set.mode = LineChartModeHorizontalBezier;
             set.drawValuesEnabled = true;
+            set.drawHorizontalHighlightIndicatorEnabled = false;
+            set.drawVerticalHighlightIndicatorEnabled = false;
             [sets addObject:set];
             NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
             ChartDefaultValueFormatter *formatter = [[ChartDefaultValueFormatter alloc] initWithFormatter:numberFormatter];
