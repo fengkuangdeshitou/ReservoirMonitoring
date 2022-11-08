@@ -24,7 +24,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MessageTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MessageTableViewCell class])];
+    [self setRightBarButtonItemWithTitlt:@"Read all" sel:@selector(readAllAction)];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
     [self getMessageList];
+}
+
+- (void)readAllAction{
+    [Request.shareInstance getUrl:ReadAll params:@{} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        [self getMessageList];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (void)getMessageList{

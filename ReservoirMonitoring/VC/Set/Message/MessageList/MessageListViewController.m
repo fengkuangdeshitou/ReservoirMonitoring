@@ -30,17 +30,34 @@
         self.page++;
         [self getMessageListData];
     }];
+    [self setRightBarButtonItemWithTitlt:@"Read all" sel:@selector(readAllAction)];
+}
+
+- (void)readAllAction{
+    [Request.shareInstance getUrl:[NSString stringWithFormat:@"%@/%@",ReadAll,self.type] params:@{} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        self.page = 1;
+        [self getMessageListData];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (void)getMessageListData{
     [Request.shareInstance getUrl:MessageList params:@{@"type":self.type,@"pageNo":[NSString stringWithFormat:@"%ld",self.page],@"pageSize":@"10"} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
-        self.dataArray = [MessageModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        NSArray * modelArray = [MessageModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        if (self.page == 1){
+            self.dataArray = [[NSMutableArray alloc] initWithArray:modelArray];
+        }else{
+            [self.dataArray addObjectsFromArray:modelArray];
+        }
         [self.tableView.mj_footer endRefreshing];
         [self.tableView reloadData];
     } failure:^(NSString * _Nonnull errorMsg) {
-        
+        [self.tableView.mj_footer endRefreshing];
     }];
 }
 
@@ -48,6 +65,10 @@
     MessageListTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MessageListTableViewCell class]) forIndexPath:indexPath];
     cell.model = self.dataArray[indexPath.section];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

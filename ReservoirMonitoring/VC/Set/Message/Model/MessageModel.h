@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong) NSString * unReadyNum;
 @property(nonatomic,strong) NSString * type;
 
+@property(nonatomic,strong) NSString * ready;
+@property(nonatomic,strong) NSString * title;
+
 @end
 
 NS_ASSUME_NONNULL_END

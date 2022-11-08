@@ -105,4 +105,8 @@ NSString * const QueryInstallLogInfo = @"/installLog/queryInstallLogInfo";
 
 NSString * const MessageList = @"/message/messageList";
 
+NSString * const ReadAll = @"/message/readAll";
+
+NSString * const Read = @"/message/read";
+
 @end

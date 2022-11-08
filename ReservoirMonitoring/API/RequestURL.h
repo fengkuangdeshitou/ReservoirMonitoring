@@ -103,6 +103,10 @@ extern NSString * const QueryInstallLogInfo;
 
 extern NSString * const MessageList;
 
+extern NSString * const ReadAll;
+
+extern NSString * const Read;
+
 
 @end
 
