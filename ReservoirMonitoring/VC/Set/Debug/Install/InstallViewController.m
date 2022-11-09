@@ -142,7 +142,7 @@
         return;
     }
     if (phoneCell.textfield.text.length == 0){
-        [RMHelper showToast:@"Please input your phone" toView:self.view];
+        [RMHelper showToast:@"Please input User phone" toView:self.view];
         return;
     }
     [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
@@ -214,6 +214,9 @@
 }
 
 - (IBAction)backAction:(id)sender{
+    [self.config setTitle:@"Config" forState:UIControlStateNormal];
+    [self.config setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
+    [self.config showBorderWithRadius:25];
     [self.next setTitle:@"Next".localized forState:UIControlStateNormal];
     if (self.current == 0) {
         return;

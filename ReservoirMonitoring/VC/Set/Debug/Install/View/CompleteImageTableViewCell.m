@@ -96,6 +96,7 @@
 
 - (void)setPhotos:(NSArray *)photos{
     _photos = photos;
+    [self.manager clearSelectedList];
     NSMutableArray * assetModels = [[NSMutableArray alloc] init];
     for (int i=0; i<photos.count; i++) {
         HXCustomAssetModel * model = [HXCustomAssetModel assetWithNetworkImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",Host,photos[i]]] selected:true];

@@ -37,6 +37,9 @@ PODS:
   - HXPhotoPicker/SDWebImage (3.3.2):
     - SDWebImage (~> 5.0)
   - IQKeyboardManager (6.5.10)
+  - JCore (3.2.5-noidfa)
+  - JPush (4.8.1):
+    - JCore (>= 2.0.0)
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
   - MJExtension (3.4.1)
@@ -57,6 +60,8 @@ DEPENDENCIES:
   - HXPhotoPicker
   - HXPhotoPicker/SDWebImage
   - IQKeyboardManager
+  - JCore (= 3.2.5-noidfa)
+  - JPush (= 4.8.1)
   - Masonry
   - MBProgressHUD
   - MJExtension
@@ -74,6 +79,8 @@ SPEC REPOS:
     - Charts
     - HXPhotoPicker
     - IQKeyboardManager
+    - JCore
+    - JPush
     - Masonry
     - MBProgressHUD
     - MJExtension
@@ -91,6 +98,8 @@ SPEC CHECKSUMS:
   Charts: 354f86803d11d9c35de280587fef50d1af063978
   HXPhotoPicker: 3d0526bc46cd2a4510a777d5f57dfad8e683fcfd
   IQKeyboardManager: 45a1fa55c1a5b02c61ac0fd7fd5b62bb4ad20d97
+  JCore: 1d240c5d9c85def2850b17ffbd5b4d114ee4f90f
+  JPush: 2caabdb6d62d009bc07a9bd115d03c7c42512b5e
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
@@ -101,6 +110,6 @@ SPEC CHECKSUMS:
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
   WMZCode: af49031a787947dad474f6dba23270a2600d8124
 
-PODFILE CHECKSUM: eccdcc4116c385b8fed3e1aabca6a3ba622076dc
+PODFILE CHECKSUM: 3fa52e4cca1e58fa0f15fc1ded7720fb4b681bff
 
 COCOAPODS: 1.11.3

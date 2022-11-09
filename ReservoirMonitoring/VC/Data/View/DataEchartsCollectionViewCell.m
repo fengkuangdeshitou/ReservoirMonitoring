@@ -603,6 +603,8 @@
 }
 
 - (void)loadChartsData{
+    [self.lineEchartsView highlightValue:nil];
+    [self.barEchartsView highlightValue:nil];
     if (self.scopeType == 0){
         self.lineEchartsView.hidden = true;
         self.barEchartsView.hidden = false;

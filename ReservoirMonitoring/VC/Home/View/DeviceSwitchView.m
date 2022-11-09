@@ -29,7 +29,7 @@
 
 - (UIView *)normalView{
     if (!_normalView) {
-        _normalView = [[UIView alloc] initWithFrame:CGRectMake(self.otherTableView.width/2-60, 10, 120, 150)];
+        _normalView = [[UIView alloc] initWithFrame:CGRectMake(self.otherTableView.width/2-60, self.otherTableView.height/2-75, 120, 150)];
         UIImageView * icon = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 100, 84)];
         icon.image = [UIImage imageNamed:@"icon_empty"];
         [_normalView addSubview:icon];

@@ -23,8 +23,8 @@
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UIButton * loginout;
-@property(nonatomic,strong)NSArray * dataArray;
-@property(nonatomic,strong)NSArray * iconArray;
+@property(nonatomic,strong)NSMutableArray * dataArray;
+@property(nonatomic,strong)NSMutableArray * iconArray;
 @property(nonatomic,strong)UserModel * model;
 
 @end
@@ -48,9 +48,14 @@
     NSString * string = @"";
 #endif
     [self setRightBarButtonItemWithTitlt:[NSString stringWithFormat:@"%@%@",string,version] sel:nil];
-//    self.loginout.hidden = true;
-    self.dataArray = @[@"User Info".localized,@"Network".localized,@"Update".localized,@"FAQ".localized,@"Fault&Warning".localized,@"Message".localized,@"Commissioning".localized];
-    self.iconArray = @[@"icon_information",@"icon_list",@"icon_update",@"icon_help",@"icon_warning",@"icon_message",@"icon_test"];
+    self.dataArray = [[NSMutableArray alloc] initWithArray:@[@"User Info".localized,@"Network".localized,@"Update".localized,@"FAQ".localized,@"Fault&Warning".localized,@"Commissioning".localized]];
+    self.iconArray = [[NSMutableArray alloc] initWithArray:@[@"icon_information",@"icon_list",@"icon_update",@"icon_help",@"icon_warning",@"icon_test"]];
+    if (RMHelper.getUserType){
+        [self.dataArray addObject:@"Message".localized];
+        [self.dataArray addObject:@"Cancel account".localized];
+        [self.iconArray addObject:@"icon_message"];
+        [self.iconArray addObject:@"icon_delete"];
+    }
     [self.loginout setTitle:@"Log Out".localized forState:UIControlStateNormal];
     [self.loginout showBorderWithRadius:25];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SetInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SetInfoTableViewCell class])];
@@ -90,15 +95,9 @@
         return cell;
     }else{
         SetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SetTableViewCell class]) forIndexPath:indexPath];
-        if ((self.model.userType.intValue == 2 && indexPath.row == 4) || indexPath.row == self.dataArray.count) {
-            cell.titleLabel.text = @"Cancel account";
-            cell.icon.image = [UIImage imageNamed:@"icon_delete"];
-            cell.line.hidden = true;
-        }else{
-            cell.icon.image = [UIImage imageNamed:self.iconArray[indexPath.row]];
-            cell.titleLabel.text = self.dataArray[indexPath.row];
-            cell.line.hidden = false;
-        }
+        cell.icon.image = [UIImage imageNamed:self.iconArray[indexPath.row]];
+        cell.titleLabel.text = self.dataArray[indexPath.row];
+        cell.line.hidden = indexPath.row == self.dataArray.count-1;
         return cell;
     }
 }
@@ -108,19 +107,20 @@
         return;
     }
     if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
+        NSString * string = self.dataArray[indexPath.row];
+        if ([string isEqualToString:@"User Info".localized]){
             InfoViewController * info = [[InfoViewController alloc] init];
             info.model = self.model;
             info.hidesBottomBarWhenPushed = true;
             info.title = self.dataArray[indexPath.row];
             [self.navigationController pushViewController:info animated:true];
-        }else if(indexPath.row == 1){
+        }else if ([string isEqualToString:@"Network".localized]){
             NetworkViewController * network = [[NetworkViewController alloc] init];
             network.title = @"Bluetooth config".localized;
             network.showNext = true;
             network.hidesBottomBarWhenPushed = true;
             [self.navigationController pushViewController:network animated:true];
-        }else if(indexPath.row == 2){
+        }else if ([string isEqualToString:@"Update".localized]){
             if (DeviceManager.shareInstance.deviceNumber == 0) {
                 [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please add device to continue" btnTitle:nil completion:nil];
                 return;
@@ -129,35 +129,31 @@
             update.title = @"Software Version".localized;
             update.hidesBottomBarWhenPushed = true;
             [self.navigationController pushViewController:update animated:true];
-        }else if (indexPath.row == 3){
+        }else if ([string isEqualToString:@"FAQ".localized]){
             HelpViewController * help = [[HelpViewController alloc] init];
             help.title = self.dataArray[indexPath.row];
             help.hidesBottomBarWhenPushed = true;
             [self.navigationController pushViewController:help animated:true];
-        }else{
-            if (self.model.userType.intValue == 2 || indexPath.row == self.dataArray.count) {
-                WriteOffViewController * writeoff = [[WriteOffViewController alloc] init];
-                writeoff.title = @"Cancel account";
-                writeoff.hidesBottomBarWhenPushed = true;
-                [self.navigationController pushViewController:writeoff animated:true];
-            }else{
-                if (indexPath.row == 4){
-                    WarningViewController * warning = [[WarningViewController alloc] init];
-                    warning.title = self.dataArray[indexPath.row];
-                    warning.hidesBottomBarWhenPushed = true;
-                    [self.navigationController pushViewController:warning animated:true];
-                }else if (indexPath.row == 5){
-                    MessageViewController * message = [[MessageViewController alloc] init];
-                    message.title = self.dataArray[indexPath.row];
-                    message.hidesBottomBarWhenPushed = true;
-                    [self.navigationController pushViewController:message animated:true];
-                }else if (indexPath.row == 6){
-                    DebugViewController * debug = [[DebugViewController alloc] init];
-                    debug.title = self.dataArray[indexPath.row];
-                    debug.hidesBottomBarWhenPushed = true;
-                    [self.navigationController pushViewController:debug animated:true];
-                }
-            }
+        }else if ([string isEqualToString:@"Fault&Warning".localized]){
+            WarningViewController * warning = [[WarningViewController alloc] init];
+            warning.title = self.dataArray[indexPath.row];
+            warning.hidesBottomBarWhenPushed = true;
+            [self.navigationController pushViewController:warning animated:true];
+        }else if ([string isEqualToString:@"Commissioning".localized]){
+            DebugViewController * debug = [[DebugViewController alloc] init];
+            debug.title = self.dataArray[indexPath.row];
+            debug.hidesBottomBarWhenPushed = true;
+            [self.navigationController pushViewController:debug animated:true];
+        }else if ([string isEqualToString:@"Message".localized]){
+            MessageViewController * message = [[MessageViewController alloc] init];
+            message.title = self.dataArray[indexPath.row];
+            message.hidesBottomBarWhenPushed = true;
+            [self.navigationController pushViewController:message animated:true];
+        }else if ([string isEqualToString:@"Cancel account".localized]){
+            WriteOffViewController * writeoff = [[WriteOffViewController alloc] init];
+            writeoff.title = @"Cancel account";
+            writeoff.hidesBottomBarWhenPushed = true;
+            [self.navigationController pushViewController:writeoff animated:true];
         }
     }
 }
@@ -170,11 +166,7 @@
     if (section == 0) {
         return 1;
     }else{
-        if (self.model) {
-            return self.model.userType.intValue == 2 ? 6 : self.dataArray.count+1;
-        }else{
-            return 6;
-        }
+        return self.dataArray.count;
     }
 }
 

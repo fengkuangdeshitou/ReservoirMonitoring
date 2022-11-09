@@ -57,8 +57,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self resetNumberData];
+    self.leftValue = @"None";
+    self.rightValue = @"None";
     self.leftValueArray = @[@"",@""];
     self.rightValueArray = @[@"",@""];
+    self.count = 1;
     [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
     [self.submit showBorderWithRadius:25];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];

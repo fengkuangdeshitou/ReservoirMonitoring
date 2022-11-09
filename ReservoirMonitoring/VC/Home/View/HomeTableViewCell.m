@@ -302,7 +302,7 @@
                 itemView.descLabel.text = [NSString stringWithFormat:@"%.2f kWh",self.model.generatorElectricity];
             }else if (itemView.tag == 13) {
                 if (highlighte) {
-                    BOOL value = BleManager.shareInstance.isConnented ? self.model.evLight == 2 : [self.model.isOnline boolValue] && self.model.evLight == 2;
+                    BOOL value = BleManager.shareInstance.isConnented ? (self.model.evLight == 2 || self.model.generatorLight == 2) : [self.model.isOnline boolValue] && self.model.evLight == 2;
                     itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
                     itemView.statusButton.selected = value;
                 }else{
