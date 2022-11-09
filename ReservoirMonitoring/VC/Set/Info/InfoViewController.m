@@ -72,10 +72,18 @@
     NSInteger selectedLength = range.length;
     NSInteger replaceLength = string.length;
     NSInteger pointLength = existedLength - selectedLength + replaceLength;
-    if (pointLength > 30) {
-        return NO;
+    if (textField == self.phoneTextfield){
+        if (pointLength > 11) {
+            return NO;
+        }else{
+            return YES;
+        }
     }else{
-        return YES;
+        if (pointLength > 30) {
+            return NO;
+        }else{
+            return YES;
+        }
     }
 }
 
@@ -180,6 +188,7 @@
     if (indexPath.row == self.dataArray.count-1){
         self.phoneTextfield.text = self.dataArray[indexPath.row];
         self.phoneTextfield.placeholderColor = [UIColor colorWithHexString:@"#A3A3A3"];
+        self.phoneTextfield.delegate = self;
         return self.phoneCell;
     }else{
         InfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InfoTableViewCell class]) forIndexPath:indexPath];

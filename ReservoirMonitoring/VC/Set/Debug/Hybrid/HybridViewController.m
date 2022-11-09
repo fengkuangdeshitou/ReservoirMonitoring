@@ -78,7 +78,7 @@
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         [BleManager.shareInstance readWithCMDString:@"611" count:6 finish:^(NSArray * _Nonnull array) {
             if (array.count == 6) {
-                weakSelf.systemTime = [NSString stringWithFormat:@"%04d-%02d-%02d %02d:%02d:%02d",[array[0] intValue],[array[1] intValue],[array[2] intValue],[array[3] intValue],[array[4] intValue],[array[5] intValue]];
+                weakSelf.systemTime = [NSString stringWithFormat:@"%@-%@-%@ %@:%@:%@",array[0],array[1],array[2],array[3],array[4],array[5]];
             }
             dispatch_semaphore_signal(semaphore);
         }];
@@ -184,6 +184,14 @@
         [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
         return;
     }
+    if (!self.systemTime) {
+        [RMHelper showToast:@"Please select a time" toView:self.view];
+        return;
+    }
+    if (self.systemTime.length != 19){
+        [RMHelper showToast:@"Please select a correct format time" toView:self.view];
+        return;
+    }
     NSArray * leftArray = @[];
     if (self.leftOpen) {
         if (self.leftValueArray[0].length == 0 || self.leftValueArray[1].length == 0) {
@@ -200,10 +208,6 @@
             return;
         }
         rightArray = @[self.rightController,self.rightValueArray[0],self.rightValueArray[1]];
-    }
-    if (!self.systemTime) {
-        [RMHelper showToast:@"Please select time" toView:self.view];
-        return;
     }
     
     SelecteTableViewCell * hybrid = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:4]];

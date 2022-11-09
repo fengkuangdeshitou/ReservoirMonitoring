@@ -713,13 +713,13 @@
     }else if (self.selectArray.count == 3){
         width = 0.254;
     }else if (self.selectArray.count == 4){
-        width = 0.181;
+        width = 0.18;
     }else if (self.selectArray.count == 5){
-        width = 0.137;
+        width = 0.136;
     }else if (self.selectArray.count == 6){
-        width = 0.107;
+        width = 0.106;
     }else if (self.selectArray.count == 7){
-        width = 0.1;
+        width = 0.086;
     }
     return width;
 }

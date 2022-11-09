@@ -111,9 +111,9 @@ open class BalloonMarker: MarkerImage
 
         if offset.y > 0
         {
-            context.beginPath()
-            let path = UIBezierPath(roundedRect: rect, cornerRadius: 6)
-            context.addPath(path.cgPath)
+//            context.beginPath()
+//            let path = UIBezierPath(roundedRect: rect, cornerRadius: 6)
+//            context.addPath(path.cgPath)
 //            context.move(to: CGPoint(
 //                x: rect.origin.x,
 //                y: rect.origin.y + arrowSize.height))
@@ -139,13 +139,13 @@ open class BalloonMarker: MarkerImage
 //            context.addLine(to: CGPoint(
 //                x: rect.origin.x,
 //                y: rect.origin.y + arrowSize.height))
-            context.fillPath()
+//            context.fillPath()
         }
         else
         {
-            context.beginPath()
-            let path = UIBezierPath(roundedRect: rect, cornerRadius: 6)
-            context.addPath(path.cgPath)
+//            context.beginPath()
+//            let path = UIBezierPath(roundedRect: rect, cornerRadius: 6)
+//            context.addPath(path.cgPath)
 //            context.move(to: CGPoint(
 //                x: rect.origin.x,
 //                y: rect.origin.y))
@@ -171,7 +171,7 @@ open class BalloonMarker: MarkerImage
 //            context.addLine(to: CGPoint(
 //                x: rect.origin.x,
 //                y: rect.origin.y))
-            context.fillPath()
+//            context.fillPath()
         }
         
         if offset.y > 0 {
@@ -179,8 +179,17 @@ open class BalloonMarker: MarkerImage
         } else {
             rect.origin.y += self.insets.top
         }
-
+        
         rect.size.height -= self.insets.top + self.insets.bottom
+        
+        if (rect.origin.y + rect.size.height > (chartView?.frame.size.height)!){
+            rect.origin.y = (chartView?.frame.size.height)! - rect.size.height - 40
+        }
+
+        context.beginPath()
+        let path = UIBezierPath(roundedRect: CGRect(x: rect.origin.x, y: rect.origin.y-10, width: rect.size.width, height: rect.size.height+20), cornerRadius: 6)
+        context.addPath(path.cgPath)
+        context.fillPath()
         
         UIGraphicsPushContext(context)
         

@@ -203,7 +203,7 @@ static Request * _request = nil;
        failure:(RequestFailureBlock)failure{
     [self.manager POST:[Host stringByAppendingString:url] parameters:params headers:self.headers constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         for (int i=0; i<images.count; i++) {
-            [formData appendPartWithFileData:UIImageJPEGRepresentation(images[i], 0.4) name:@"file" fileName:@"1.jpg" mimeType:@"image/jpg/png"];
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(images[i], 0.4) name:@"file" fileName:[NSString stringWithFormat:@"%d.jpg",i] mimeType:@"image/jpg/png"];
         }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         

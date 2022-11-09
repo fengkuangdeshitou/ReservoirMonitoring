@@ -20,7 +20,7 @@
 #import "ServiceInputTableViewCell.h"
 #import "GlobelDescAlertView.h"
 
-@interface InstallViewController ()
+@interface InstallViewController ()<UITextFieldDelegate>
 
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,weak)IBOutlet UICollectionView * collectionView;
@@ -49,7 +49,7 @@
     [self.config showBorderWithRadius:25];
     [self.next showBorderWithRadius:25];
     [self.back showBorderWithRadius:25];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDeviceSuccess) name:ADD_DEVICE_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] addObserverForName:UPDATE_RESS_NOTIFICATION object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
         [self.navigationController popToViewController:self animated:true];
@@ -57,12 +57,36 @@
     [self.config setTitle:@"Config".localized forState:UIControlStateNormal];
     [self.next setTitle:@"Next".localized forState:UIControlStateNormal];
     [self.back setTitle:@"Back".localized forState:UIControlStateNormal];
-
+    [self loadBackBtnStyle];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([InstallCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([InstallCollectionViewCell class])];
     self.imageHeight = (SCREEN_WIDTH-15*2)/3;
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([CompleteImageTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([CompleteImageTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([CompletePhoneTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([CompletePhoneTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ServiceInputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([ServiceInputTableViewCell class])];
+}
+
+- (void)loadBackBtnStyle{
+    if (self.current == 0){
+        [self.back setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+        self.back.layer.borderColor = self.back.titleLabel.textColor.CGColor;
+        self.back.userInteractionEnabled = false;
+    }else{
+        [self.back setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
+        self.back.layer.borderColor = self.back.titleLabel.textColor.CGColor;
+        self.back.userInteractionEnabled = true;
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    NSInteger existedLength = textField.text.length;
+    NSInteger selectedLength = range.length;
+    NSInteger replaceLength = string.length;
+    NSInteger pointLength = existedLength - selectedLength + replaceLength;
+    if (pointLength > 11) {
+        return NO;
+    }else{
+        return true;
+    }
 }
 
 - (void)queryInstallLogInfoCompletion:(void(^)(NSDictionary * resule))completion{
@@ -203,6 +227,7 @@
             }];
         }
         self.current++;
+        [self loadBackBtnStyle];
         [self.tableView reloadData];
         [self.collectionView reloadData];
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.current inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:true];
@@ -222,6 +247,7 @@
         return;
     }
     self.current--;
+    [self loadBackBtnStyle];
     [self.tableView reloadData];
     [self.collectionView reloadData];
     [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.current inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:true];
@@ -293,6 +319,7 @@
                 cell.textfield.text = self.appUserPhone;
             }
         }
+        cell.textfield.delegate = self;
         cell.textfield.userInteractionEnabled = !self.auditStatus || self.auditStatus.intValue == 2;
         cell.codeBtn.userInteractionEnabled = !self.auditStatus || self.auditStatus.intValue == 2;
         return cell;

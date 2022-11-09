@@ -38,6 +38,11 @@
     [self.submit showBorderWithRadius:25];
     [self.previous showBorderWithRadius:25];
     [self.next showBorderWithRadius:25];
+    if (self.currentIndex == 0){
+        [self.previous setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+        self.previous.layer.borderColor = self.previous.titleLabel.textColor.CGColor;
+        self.previous.userInteractionEnabled = false;
+    }
 
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([InputTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];

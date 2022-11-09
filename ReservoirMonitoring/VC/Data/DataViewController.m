@@ -158,7 +158,6 @@
             self.valueArray = @[[NSString stringWithFormat:@"To grid:%.02f",self.model.gridElectricityTo],@(self.model.solarElectricity),@(self.model.generatorElectricity),@(self.model.evElectricity),@(self.model.nonBackUpElectricity),@(self.model.backUpElectricity)];
         }
         [self.refreshController endRefreshing];
-        [self.collectionView reloadData];
         [self getEcharsDataWithScopeType:scopeType queryDateStr:self.queryDateStr];
     } failure:^(NSString * _Nonnull errorMsg) {
         [self.refreshController endRefreshing];

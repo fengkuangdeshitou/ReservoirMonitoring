@@ -10,7 +10,7 @@
 #import "Register/RegisterViewController.h"
 #import "ForgotViewController.h"
 
-@interface LoginViewController ()<ImageAuthenticationViewDelegate>
+@interface LoginViewController ()<ImageAuthenticationViewDelegate,UITextFieldDelegate>
 
 @property(nonatomic,weak)IBOutlet UIButton * loginBtn;
 @property(nonatomic,weak)IBOutlet UILabel * email;
@@ -33,6 +33,7 @@
     self.password.text = @"Password".localized;
     self.emailtf.placeholder = @"Please input your Email".localized;
     self.passwordtf.placeholder = @"Please input your Password".localized;
+    self.passwordtf.delegate = self;
     [self.loginBtn setTitle:@"Login".localized forState:UIControlStateNormal];
     [self.create setTitle:@"Create account".localized forState:UIControlStateNormal];
     [self.forgot setTitle:@"Forget password".localized forState:UIControlStateNormal];
@@ -48,6 +49,18 @@
 - (IBAction)previewChangeAction:(UIButton *)sender{
     sender.selected = !sender.selected;
     self.passwordtf.secureTextEntry = !sender.selected;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    NSInteger existedLength = textField.text.length;
+    NSInteger selectedLength = range.length;
+    NSInteger replaceLength = string.length;
+    NSInteger pointLength = existedLength - selectedLength + replaceLength;
+    if (pointLength > 20) {
+        return NO;
+    }else{
+        return YES;
+    }
 }
 
 - (void)onAuthemticationSuccess{
