@@ -48,13 +48,14 @@
     NSString * string = @"";
 #endif
     [self setRightBarButtonItemWithTitlt:[NSString stringWithFormat:@"%@%@",string,version] sel:nil];
-    self.dataArray = [[NSMutableArray alloc] initWithArray:@[@"User Info".localized,@"Network".localized,@"Update".localized,@"FAQ".localized,@"Fault&Warning".localized,@"Commissioning".localized]];
-    self.iconArray = [[NSMutableArray alloc] initWithArray:@[@"icon_information",@"icon_list",@"icon_update",@"icon_help",@"icon_warning",@"icon_test"]];
+    self.dataArray = [[NSMutableArray alloc] initWithArray:@[@"User Info".localized,@"Network".localized,@"Update".localized,@"FAQ".localized,@"Fault&Warning".localized,@"Cancel account".localized]];
+    self.iconArray = [[NSMutableArray alloc] initWithArray:@[@"icon_information",@"icon_list",@"icon_update",@"icon_help",@"icon_warning",@"icon_delete"]];
     if (RMHelper.getUserType){
-        [self.dataArray addObject:@"Message".localized];
-        [self.dataArray addObject:@"Cancel account".localized];
-        [self.iconArray addObject:@"icon_message"];
-        [self.iconArray addObject:@"icon_delete"];
+        [self.dataArray insertObject:@"Commissioning".localized atIndex:self.dataArray.count-1];
+        [self.dataArray insertObject:@"Message".localized atIndex:self.dataArray.count-1];
+        
+        [self.iconArray insertObject:@"icon_test" atIndex:self.iconArray.count-1];
+        [self.iconArray insertObject:@"icon_message" atIndex:self.iconArray.count-1];
     }
     [self.loginout setTitle:@"Log Out".localized forState:UIControlStateNormal];
     [self.loginout showBorderWithRadius:25];

@@ -7,13 +7,14 @@
 
 #import "CompleteImageTableViewCell.h"
 #import "GlobelDescAlertView.h"
+#import "SelectImageCollectionViewCell.h"
 @import BRPickerView;
 @import HXPhotoPicker;
 
-@interface CompleteImageTableViewCell ()<HXPhotoViewCellCustomProtocol>
+@interface CompleteImageTableViewCell ()<HXPhotoViewCellCustomProtocol,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
+@property(nonatomic,weak)IBOutlet UICollectionView * collectionView;
 @property(nonatomic,strong) HXPhotoManager * manager;
-@property(nonatomic,strong) HXPhotoView * photoView;
 @property(nonatomic,strong) BRPickerStyle * style;
 
 @end
@@ -54,62 +55,91 @@
     self.manager.configuration.rowCount = 4;
     self.manager.configuration.openCamera = false;
     self.manager.configuration.photoCanEdit = false;
-    self.photoView = [HXPhotoView photoManager:self.manager];
-    self.photoView.spacing = 15;
-    self.photoView.interceptAddCellClick = true;
-    self.photoView.collectionView.bounces = false;
-    self.photoView.cellCustomProtocol = self;
-    [self.contentView addSubview:self.photoView];
-    HXWeakSelf;
-    self.photoView.didAddCellBlock = ^(HXPhotoView * _Nonnull myPhotoView) {
-        BRStringPickerView * picker = [[BRStringPickerView alloc] initWithPickerMode:BRStringPickerComponentSingle];
-        picker.pickerStyle = weakSelf.style;
-        picker.dataSourceArr = @[@"camera",@"photo album"];
-        picker.resultModelBlock = ^(BRResultModel * _Nullable resultModel) {
-            [weakSelf selectSourceType:resultModel.index];
-        };
-        [picker show];
-    };
-    [self.photoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(35);
-        make.left.mas_offset(15);
-        make.right.mas_equalTo(-15);
-        make.bottom.mas_equalTo(0);
-    }];
-    self.photoView.updateFrameBlock = ^(CGRect frame) {
-        NSInteger selectArrayCount = weakSelf.manager.afterSelectedCount+1;
-        CGFloat space = (SCREEN_WIDTH-60)/3;
-        if (weakSelf.updateFrameBlock){
-            if (selectArrayCount%3 == 0){
-                weakSelf.updateFrameBlock(CGRectMake(0, 0, SCREEN_WIDTH, selectArrayCount/3*(space+15)));
-            }else{
-                weakSelf.updateFrameBlock(CGRectMake(0, 0, SCREEN_WIDTH, (selectArrayCount/3+1)*(space+15)));
-            }
-        }
-    };
-    self.photoView.changeCompleteBlock = ^(NSArray<HXPhotoModel *> * _Nonnull allList, NSArray<HXPhotoModel *> * _Nonnull photos, NSArray<HXPhotoModel *> * _Nonnull videos, BOOL isOriginal) {
-        [photos hx_requestImageWithOriginal:false completion:^(NSArray<UIImage *> * _Nullable imageArray, NSArray<HXPhotoModel *> * _Nullable errorArray) {
-            weakSelf.images = imageArray;
-        }];
-    };
+    self.images = [[NSMutableArray alloc] init];
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([SelectImageCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([SelectImageCollectionViewCell class])];
 }
 
 - (void)setPhotos:(NSArray *)photos{
     _photos = photos;
-    [self.manager clearSelectedList];
-    NSMutableArray * assetModels = [[NSMutableArray alloc] init];
+    [self.images removeAllObjects];
     for (int i=0; i<photos.count; i++) {
-        HXCustomAssetModel * model = [HXCustomAssetModel assetWithNetworkImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",Host,photos[i]]] selected:true];
-        [assetModels addObject:model];
+        NSString * model = [NSString stringWithFormat:@"%@/%@",Host,photos[i]];
+        [self.images addObject:model];
     }
-    [self.manager addCustomAssetModel:assetModels];
-    [self.photoView refreshView];
+    [self updateCollectionViewHeight];
+    [self.collectionView reloadData];
 }
 
-- (UIView *)customView:(HXPhotoSubViewCell *)cell
-             indexPath:(NSIndexPath *)indexPath{
-    cell.imageView.layer.cornerRadius = 4;
-    return nil;
+- (void)updateCollectionViewHeight{
+    NSInteger selectArrayCount = self.images.count+1;
+    CGFloat space = (SCREEN_WIDTH-60)/3;
+    if (self.updateFrameBlock){
+        if (selectArrayCount%3 == 0){
+            self.updateFrameBlock(CGRectMake(0, 0, SCREEN_WIDTH, selectArrayCount/3*(space+15)));
+        }else{
+            self.updateFrameBlock(CGRectMake(0, 0, SCREEN_WIDTH, (selectArrayCount/3+1)*(space+15)));
+        }
+    }
+}
+
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    SelectImageCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([SelectImageCollectionViewCell class]) forIndexPath:indexPath];
+    if (indexPath.row == self.images.count){
+        cell.addView.hidden = false;
+    }else{
+        id obj = self.images[indexPath.row];
+        if ([obj isKindOfClass:[UIImage class]]){
+            cell.icon.image = obj;
+        }else{
+            [cell.icon sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                if (image){
+                    [self.images replaceObjectAtIndex:indexPath.row withObject:image];
+                }
+            }];
+        }
+        cell.addView.hidden = true;
+    }
+    cell.deleteBtn.tag = indexPath.row+10;
+    [cell.deleteBtn addTarget:self action:@selector(deleteImageAction:) forControlEvents:UIControlEventTouchUpInside];
+    return cell;
+}
+
+- (void)deleteImageAction:(UIButton *)btn{
+    [self.images removeObjectAtIndex:btn.tag-10];
+    [self updateCollectionViewHeight];
+    [self.collectionView reloadData];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == self.images.count){
+        BRStringPickerView * picker = [[BRStringPickerView alloc] initWithPickerMode:BRStringPickerComponentSingle];
+        picker.pickerStyle = self.style;
+        picker.dataSourceArr = @[@"camera",@"photo album"];
+        picker.resultModelBlock = ^(BRResultModel * _Nullable resultModel) {
+            [self selectSourceType:resultModel.index];
+        };
+        [picker show];
+    }
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return self.images.count+1;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return CGSizeMake((SCREEN_WIDTH-15*4)/3, (SCREEN_WIDTH-15*4)/3);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    return UIEdgeInsetsMake(0, 15, 0, 15);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
+    return 15;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+    return 15;
 }
 
 - (void)selectSourceType:(NSInteger)index{
@@ -138,7 +168,11 @@
         [RMHelper.getCurrentVC presentViewController:picker animated:true completion:nil];
     }else{
         [RMHelper.getCurrentVC hx_presentSelectPhotoControllerWithManager:self.manager didDone:^(NSArray<HXPhotoModel *> * _Nullable allList, NSArray<HXPhotoModel *> * _Nullable photoList, NSArray<HXPhotoModel *> * _Nullable videoList, BOOL isOriginal, UIViewController * _Nullable viewController, HXPhotoManager * _Nullable manager) {
-            [self.photoView refreshView];
+            [photoList hx_requestImageWithOriginal:false completion:^(NSArray<UIImage *> * _Nullable imageArray, NSArray<HXPhotoModel *> * _Nullable errorArray) {
+                [self.images addObjectsFromArray:imageArray];
+                [self updateCollectionViewHeight];
+                [self.collectionView reloadData];
+            }];
         } cancel:^(UIViewController * _Nullable viewController, HXPhotoManager * _Nullable manager) {
             
         }];
@@ -152,9 +186,9 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info{
     UIImage * image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    HXCustomAssetModel * model = [HXCustomAssetModel assetWithLocalImage:image selected:true];
-    [self.manager addCustomAssetModel:@[model]];
-    [self.photoView refreshView];
+    [self.images addObject:image];
+    [self updateCollectionViewHeight];
+    [self.collectionView reloadData];
     [RMHelper.getCurrentVC dismissViewControllerAnimated:true completion:nil];
 }
 

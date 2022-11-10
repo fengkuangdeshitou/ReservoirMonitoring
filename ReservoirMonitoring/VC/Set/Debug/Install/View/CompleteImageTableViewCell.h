@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CompleteImageTableViewCell : UITableViewCell
 
 @property(copy, nonatomic) void(^updateFrameBlock)(CGRect frame);
-@property(nonatomic,strong) NSArray * images;
+@property(nonatomic,strong) NSMutableArray * images;
 @property(nonatomic,strong) NSArray * photos;
 
 @end

@@ -39,7 +39,9 @@
                           channel:@"App Store"
                  apsForProduction:false
             advertisingIdentifier:nil];
-    
+    [JPUSHService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
+            
+    }];
     [UWConfig setUserLanguage:@"en"];
     [Bugly startWithAppId:@"dde48f2e31"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:LOGIN_SUCCESS object:nil];

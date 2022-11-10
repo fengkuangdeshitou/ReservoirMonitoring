@@ -16,6 +16,10 @@
 		0F0E90C7285047270014B329 /* TimeZoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0E90C5285047270014B329 /* TimeZoneViewController.m */; };
 		0F0E90C8285047270014B329 /* TimeZoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F0E90C6285047270014B329 /* TimeZoneViewController.xib */; };
 		0F0E90CB28507A3C0014B329 /* UWConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0E90CA28507A3C0014B329 /* UWConfig.m */; };
+		0F272789291CAAC00042A05B /* MessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F272787291CAAC00042A05B /* MessageDetailViewController.m */; };
+		0F27278A291CAAC00042A05B /* MessageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F272788291CAAC00042A05B /* MessageDetailViewController.xib */; };
+		0F27278E291CD23F0042A05B /* SelectImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27278C291CD23F0042A05B /* SelectImageCollectionViewCell.m */; };
+		0F27278F291CD23F0042A05B /* SelectImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F27278D291CD23F0042A05B /* SelectImageCollectionViewCell.xib */; };
 		0F2FEA1028F7FC9400361721 /* ServiceInputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2FEA0E28F7FC9400361721 /* ServiceInputTableViewCell.m */; };
 		0F2FEA1128F7FC9400361721 /* ServiceInputTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F2FEA0F28F7FC9400361721 /* ServiceInputTableViewCell.xib */; };
 		0F3EBC0E282E8A5E009CDBED /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3EBC0C282E8A5E009CDBED /* GridViewController.m */; };
@@ -235,6 +239,12 @@
 		0F0E90C6285047270014B329 /* TimeZoneViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeZoneViewController.xib; sourceTree = "<group>"; };
 		0F0E90C928507A3C0014B329 /* UWConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UWConfig.h; sourceTree = "<group>"; };
 		0F0E90CA28507A3C0014B329 /* UWConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UWConfig.m; sourceTree = "<group>"; };
+		0F272786291CAAC00042A05B /* MessageDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageDetailViewController.h; sourceTree = "<group>"; };
+		0F272787291CAAC00042A05B /* MessageDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageDetailViewController.m; sourceTree = "<group>"; };
+		0F272788291CAAC00042A05B /* MessageDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageDetailViewController.xib; sourceTree = "<group>"; };
+		0F27278B291CD23F0042A05B /* SelectImageCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectImageCollectionViewCell.h; sourceTree = "<group>"; };
+		0F27278C291CD23F0042A05B /* SelectImageCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectImageCollectionViewCell.m; sourceTree = "<group>"; };
+		0F27278D291CD23F0042A05B /* SelectImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		0F2FEA0D28F7FC9400361721 /* ServiceInputTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceInputTableViewCell.h; sourceTree = "<group>"; };
 		0F2FEA0E28F7FC9400361721 /* ServiceInputTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServiceInputTableViewCell.m; sourceTree = "<group>"; };
 		0F2FEA0F28F7FC9400361721 /* ServiceInputTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServiceInputTableViewCell.xib; sourceTree = "<group>"; };
@@ -574,6 +584,16 @@
 			path = TimeZone;
 			sourceTree = "<group>";
 		};
+		0F272785291CAAAC0042A05B /* MessageDetail */ = {
+			isa = PBXGroup;
+			children = (
+				0F272786291CAAC00042A05B /* MessageDetailViewController.h */,
+				0F272787291CAAC00042A05B /* MessageDetailViewController.m */,
+				0F272788291CAAC00042A05B /* MessageDetailViewController.xib */,
+			);
+			path = MessageDetail;
+			sourceTree = "<group>";
+		};
 		0F3EBC10282E8AF5009CDBED /* Inverter */ = {
 			isa = PBXGroup;
 			children = (
@@ -727,6 +747,9 @@
 				0FE00826290B791E00F705CC /* CompleteImageTableViewCell.h */,
 				0FE00827290B791E00F705CC /* CompleteImageTableViewCell.m */,
 				0FE00828290B791E00F705CC /* CompleteImageTableViewCell.xib */,
+				0F27278B291CD23F0042A05B /* SelectImageCollectionViewCell.h */,
+				0F27278C291CD23F0042A05B /* SelectImageCollectionViewCell.m */,
+				0F27278D291CD23F0042A05B /* SelectImageCollectionViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -779,6 +802,7 @@
 				0F99433B291A2FF50014DFCA /* MessageListViewController.h */,
 				0F99433C291A2FF50014DFCA /* MessageListViewController.m */,
 				0F99433D291A2FF50014DFCA /* MessageListViewController.xib */,
+				0F272785291CAAAC0042A05B /* MessageDetail */,
 				0F994340291A307D0014DFCA /* View */,
 			);
 			path = MessageList;
@@ -1531,6 +1555,7 @@
 				BDFA3AA128257686004A7E8C /* AddAddressViewController.xib in Resources */,
 				0F99433F291A2FF60014DFCA /* MessageListViewController.xib in Resources */,
 				0F69682A2833B0F100F22E47 /* WeatherTableViewCell.xib in Resources */,
+				0F27278F291CD23F0042A05B /* SelectImageCollectionViewCell.xib in Resources */,
 				BD907361280D4B1A00044013 /* SetTableViewCell.xib in Resources */,
 				BDE88A64280AC2B200081114 /* SwitchProgressTableViewCell.xib in Resources */,
 				BD8FDA6E280EF582000036DD /* AddDeviceViewController.xib in Resources */,
@@ -1562,6 +1587,7 @@
 				0F3EBC15282E8B05009CDBED /* InverterViewController.xib in Resources */,
 				BD8FDA41280D5F91000036DD /* UpdateViewController.xib in Resources */,
 				BDFA3ABD282F85F5004A7E8C /* InputTableViewCell.xib in Resources */,
+				0F27278A291CAAC00042A05B /* MessageDetailViewController.xib in Resources */,
 				0F3EBC1B282E8B51009CDBED /* GeneratorViewController.xib in Resources */,
 				BDB8170728BCFC0E00841A4A /* WriteOffDescViewController.xib in Resources */,
 				BDFA3AC2282F878F004A7E8C /* SelecteTableViewCell.xib in Resources */,
@@ -1735,6 +1761,7 @@
 				BD1D5CBF290C09530041300D /* ServiceDescTableViewCell.m in Sources */,
 				0F0A9CC02881790700B1D643 /* BlueListView.m in Sources */,
 				BDE88A2A2805C47C00081114 /* RegisterTableViewCell.m in Sources */,
+				0F272789291CAAC00042A05B /* MessageDetailViewController.m in Sources */,
 				BD8FDA52280EED5A000036DD /* WarningViewController.m in Sources */,
 				0F69684E2834C8F900F22E47 /* BleManager.m in Sources */,
 				BDE88A5E280ABD4600081114 /* SwitchModelTableViewCell.m in Sources */,
@@ -1746,6 +1773,7 @@
 				0F3EBC26282E8BC9009CDBED /* OtherViewController.m in Sources */,
 				BDE88A452807187600081114 /* HomeItemView.m in Sources */,
 				BD907371280D5B0600044013 /* InfoTableViewCell.m in Sources */,
+				0F27278E291CD23F0042A05B /* SelectImageCollectionViewCell.m in Sources */,
 				BD935B6028709AF600F1AF1A /* LineAnimatiionView.m in Sources */,
 				BD6DDA3A28A68F34004C5F22 /* DeviceManager.m in Sources */,
 				BDE88A482808771B00081114 /* HomeProgressView.m in Sources */,

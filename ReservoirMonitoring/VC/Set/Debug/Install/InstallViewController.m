@@ -148,7 +148,7 @@
         [self.navigationController pushViewController:card animated:true];
     }else if (self.current == 6){
         WifiViewController * wifi = [[WifiViewController alloc] init];
-        wifi.title = @"Wi-Fi Config".localized;
+        wifi.title = @"Wi-Fi config".localized;
         wifi.devId = [NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID];
         wifi.hidesBottomBarWhenPushed = true;
         [self.navigationController pushViewController:wifi animated:true];
@@ -241,6 +241,7 @@
 - (IBAction)backAction:(id)sender{
     [self.config setTitle:@"Config" forState:UIControlStateNormal];
     [self.config setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
+    self.config.userInteractionEnabled = true;
     [self.config showBorderWithRadius:25];
     [self.next setTitle:@"Next".localized forState:UIControlStateNormal];
     if (self.current == 0) {
@@ -338,7 +339,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0){
-        return self.imageHeight+35;
+        return self.imageHeight+20;
     }else if (indexPath.row == 1){
         return 70;
     }else{

@@ -109,4 +109,7 @@ NSString * const ReadAll = @"/message/readAll";
 
 NSString * const Read = @"/message/read";
 
+NSString * const MessageDetail = @"/message/message";
+
 @end
+

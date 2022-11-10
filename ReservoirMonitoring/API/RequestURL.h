@@ -107,6 +107,8 @@ extern NSString * const ReadAll;
 
 extern NSString * const Read;
 
+extern NSString * const MessageDetail;
+
 
 @end
 

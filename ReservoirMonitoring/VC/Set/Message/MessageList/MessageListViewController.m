@@ -9,6 +9,7 @@
 #import "MessageListTableViewCell.h"
 #import "MessageModel.h"
 #import "RefreshBackFooter.h"
+#import "MessageDetailViewController.h"
 
 @interface MessageListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -61,6 +62,16 @@
     }];
 }
 
+- (void)readMessage:(NSString *)messageId{
+    [Request.shareInstance getUrl:[NSString stringWithFormat:@"%@/%@",Read,messageId] params:@{} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MessageListTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MessageListTableViewCell class]) forIndexPath:indexPath];
     cell.model = self.dataArray[indexPath.section];
@@ -68,7 +79,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    MessageModel * model = self.dataArray[indexPath.section];
+    if (model.ready.intValue == 0){
+        model.ready = @"1";
+        [self readMessage:model.Id];
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    }
+    MessageDetailViewController * detail = [[MessageDetailViewController alloc] initWithMessageId:model.Id];
+    detail.title = model.title;
+    [self.navigationController pushViewController:detail animated:true];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

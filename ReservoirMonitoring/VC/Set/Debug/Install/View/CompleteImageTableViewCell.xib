@@ -22,13 +22,34 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="oUj-Et-nNG">
+                        <rect key="frame" x="0.0" y="32" width="321" height="94"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wl9-UN-WWu">
+                            <size key="itemSize" width="128" height="128"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <connections>
+                            <outlet property="dataSource" destination="KGk-i7-Jjw" id="spP-gy-EAQ"/>
+                            <outlet property="delegate" destination="KGk-i7-Jjw" id="pMn-Jt-MQP"/>
+                        </connections>
+                    </collectionView>
                 </subviews>
                 <color key="backgroundColor" red="0.047058823529411764" green="0.047058823529411764" blue="0.047058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="oUj-Et-nNG" secondAttribute="trailing" id="0bT-qq-9bT"/>
+                    <constraint firstItem="oUj-Et-nNG" firstAttribute="top" secondItem="NZt-4m-xPO" secondAttribute="bottom" constant="15" id="4qA-Wl-0JK"/>
                     <constraint firstItem="NZt-4m-xPO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="HsC-ZD-n9W"/>
+                    <constraint firstItem="oUj-Et-nNG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ORN-Aa-aRS"/>
                     <constraint firstItem="NZt-4m-xPO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="QGl-iN-dEi"/>
+                    <constraint firstAttribute="bottom" secondItem="oUj-Et-nNG" secondAttribute="bottom" id="cYd-Vh-y20"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="collectionView" destination="oUj-Et-nNG" id="hVA-Yy-Q3v"/>
+            </connections>
             <point key="canvasLocation" x="131.53846153846155" y="37.677725118483409"/>
         </tableViewCell>
     </objects>
