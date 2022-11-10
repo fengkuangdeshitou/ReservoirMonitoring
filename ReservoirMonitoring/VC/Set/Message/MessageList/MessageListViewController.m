@@ -86,7 +86,7 @@
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     }
     MessageDetailViewController * detail = [[MessageDetailViewController alloc] initWithMessageId:model.Id];
-    detail.title = model.title;
+    detail.title = @"Message details";
     [self.navigationController pushViewController:detail animated:true];
 }
 
@@ -99,7 +99,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 206;
+    return UITableViewAutomaticDimension;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{

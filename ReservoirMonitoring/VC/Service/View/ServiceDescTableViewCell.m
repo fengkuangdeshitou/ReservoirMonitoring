@@ -12,7 +12,7 @@
 @interface ServiceDescTableViewCell ()<MLLinkLabelDelegate>
 
 @property(nonatomic,weak)IBOutlet MLLinkLabel * question;
-
+@property(nonatomic,strong)NSString * hotline;
 @end
 
 @implementation ServiceDescTableViewCell
@@ -21,6 +21,7 @@
     [super awakeFromNib];
     // Initialization code
     
+    [self getHotlineNumber];
     NSString * faq = @"FAQ";
     NSString * hotline = @"hotline";
     self.question.text = [NSString stringWithFormat:@"For more information about troubleshooting, please refer to our %@.\nOur %@ will be available 24hrs Monday through Friday.",faq,hotline];
@@ -45,15 +46,27 @@
     
 }
 
-- (void)didClickLink:(MLLink *)link linkText:(NSString *)linkText linkLabel:(MLLinkLabel *)linkLabel{
+- (void)getHotlineNumber{
+    [Request.shareInstance getUrl:ServiceData params:@{} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        self.hotline = result[@"data"][@"hotline"];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
+}
+
+- (void)didClickLink:(MLLink *)link
+            linkText:(NSString *)linkText
+           linkLabel:(MLLinkLabel *)linkLabel{
     if ([linkText isEqualToString:@"FAQ"]){
         HelpViewController * help = [[HelpViewController alloc] init];
         help.hidesBottomBarWhenPushed = true;
         help.title = linkText;
         [RMHelper.getCurrentVC.navigationController pushViewController:help animated:true];
     }else if ([linkText isEqualToString:@"hotline"]){
-        NSString *telephoneNumber = @"+18007612990";
-        NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",telephoneNumber];
+        NSString *telephoneNumber = self.hotline;
+        NSMutableString * str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",telephoneNumber];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str] options:@{} completionHandler:nil];
     }
 }

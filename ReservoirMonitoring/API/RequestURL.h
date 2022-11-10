@@ -109,6 +109,7 @@ extern NSString * const Read;
 
 extern NSString * const MessageDetail;
 
+extern NSString * const ServiceData;
 
 @end
 

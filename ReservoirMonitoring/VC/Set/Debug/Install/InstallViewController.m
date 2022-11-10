@@ -341,7 +341,7 @@
     if (indexPath.row == 0){
         return self.imageHeight+20;
     }else if (indexPath.row == 1){
-        return 70;
+        return 60;
     }else{
         return 156;
     }

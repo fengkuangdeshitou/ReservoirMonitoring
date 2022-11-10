@@ -111,5 +111,7 @@ NSString * const Read = @"/message/read";
 
 NSString * const MessageDetail = @"/message/message";
 
+NSString * const ServiceData = @"/user/user/serviceData";
+
 @end
 

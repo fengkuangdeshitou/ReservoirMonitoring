@@ -61,6 +61,7 @@
     self.rightValue = @"None";
     self.leftValueArray = @[@"",@""];
     self.rightValueArray = @[@"",@""];
+    self.modelValue = @"Efficient mode";
     self.count = 1;
     [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
     [self.submit showBorderWithRadius:25];
@@ -326,7 +327,18 @@
     if (indexPath.section == 0) {
         SelecteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SelecteTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = indexPath.row == 0 ? @"System time".localized : @"E-stop".localized;
-        cell.content.text = indexPath.row == 0 ? self.systemTime : (self.stop.intValue == 1 ? @"E-Stop Enabled".localized : @"None".localized);
+        if (indexPath.row == 0){
+            if (self.systemTime){
+                cell.content.text = self.systemTime;
+                cell.content.textColor = UIColor.whiteColor;
+            }else{
+                cell.content.text = @"Please select";
+                cell.content.textColor = [UIColor colorWithHexString:@"#999999"];
+            }
+        }else{
+            cell.content.text = (self.stop.intValue == 1 ? @"E-Stop Enabled".localized : @"None".localized);
+            cell.content.textColor = UIColor.whiteColor;
+        }
         return cell;
     }else if (indexPath.section == 1 || indexPath.section == 2) {
         if (indexPath.row == 0) {

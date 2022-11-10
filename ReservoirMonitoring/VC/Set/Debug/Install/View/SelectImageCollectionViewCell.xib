@@ -33,13 +33,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="90" height="96"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vfF-F7-myC">
-                                <rect key="frame" x="9" y="22.000000000000004" width="72" height="52.333333333333343"/>
+                                <rect key="frame" x="9" y="24.333333333333332" width="72" height="47.333333333333343"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_add_image" translatesAutoresizingMaskIntoConstraints="NO" id="IK9-1D-9TS">
                                         <rect key="frame" x="27" y="0.0" width="18" height="18"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add pictures" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVt-Od-UTv">
-                                        <rect key="frame" x="0.0" y="38" width="72" height="14.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="33" width="72" height="14.333333333333336"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -50,7 +50,7 @@
                                     <constraint firstItem="PVt-Od-UTv" firstAttribute="centerX" secondItem="vfF-F7-myC" secondAttribute="centerX" id="1gA-gM-eIu"/>
                                     <constraint firstItem="PVt-Od-UTv" firstAttribute="leading" secondItem="vfF-F7-myC" secondAttribute="leading" id="RNx-bQ-tYi"/>
                                     <constraint firstItem="IK9-1D-9TS" firstAttribute="centerX" secondItem="vfF-F7-myC" secondAttribute="centerX" id="V8C-kC-SBS"/>
-                                    <constraint firstItem="PVt-Od-UTv" firstAttribute="top" secondItem="IK9-1D-9TS" secondAttribute="bottom" constant="20" id="h33-Mo-Vca"/>
+                                    <constraint firstItem="PVt-Od-UTv" firstAttribute="top" secondItem="IK9-1D-9TS" secondAttribute="bottom" constant="15" id="h33-Mo-Vca"/>
                                     <constraint firstAttribute="trailing" secondItem="PVt-Od-UTv" secondAttribute="trailing" id="jDu-md-gvP"/>
                                     <constraint firstAttribute="bottom" secondItem="PVt-Od-UTv" secondAttribute="bottom" id="ltB-jc-VPk"/>
                                     <constraint firstItem="IK9-1D-9TS" firstAttribute="top" secondItem="vfF-F7-myC" secondAttribute="top" id="tnu-zq-fPs"/>

@@ -134,6 +134,8 @@
 		BDB8170228BCF68F00841A4A /* WriteOffViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDB8170028BCF68F00841A4A /* WriteOffViewController.xib */; };
 		BDB8170628BCFC0E00841A4A /* WriteOffDescViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB8170428BCFC0E00841A4A /* WriteOffDescViewController.m */; };
 		BDB8170728BCFC0E00841A4A /* WriteOffDescViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDB8170528BCFC0E00841A4A /* WriteOffDescViewController.xib */; };
+		BDDC3EB8291D1D1200C66D44 /* MessageDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDDC3EB6291D1D1200C66D44 /* MessageDetailTableViewCell.m */; };
+		BDDC3EB9291D1D1200C66D44 /* MessageDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDDC3EB7291D1D1200C66D44 /* MessageDetailTableViewCell.xib */; };
 		BDE889F928044DA700081114 /* RMHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE889F828044DA700081114 /* RMHelper.m */; };
 		BDE889FD28044E7C00081114 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE889FC28044E7C00081114 /* UIColor+HexString.m */; };
 		BDE88A012804540C00081114 /* GlobalValue.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE88A002804540C00081114 /* GlobalValue.m */; };
@@ -430,6 +432,9 @@
 		BDB8170328BCFC0E00841A4A /* WriteOffDescViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WriteOffDescViewController.h; sourceTree = "<group>"; };
 		BDB8170428BCFC0E00841A4A /* WriteOffDescViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WriteOffDescViewController.m; sourceTree = "<group>"; };
 		BDB8170528BCFC0E00841A4A /* WriteOffDescViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WriteOffDescViewController.xib; sourceTree = "<group>"; };
+		BDDC3EB5291D1D1200C66D44 /* MessageDetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageDetailTableViewCell.h; sourceTree = "<group>"; };
+		BDDC3EB6291D1D1200C66D44 /* MessageDetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageDetailTableViewCell.m; sourceTree = "<group>"; };
+		BDDC3EB7291D1D1200C66D44 /* MessageDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageDetailTableViewCell.xib; sourceTree = "<group>"; };
 		BDE889F728044DA700081114 /* RMHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMHelper.h; sourceTree = "<group>"; };
 		BDE889F828044DA700081114 /* RMHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMHelper.m; sourceTree = "<group>"; };
 		BDE889FB28044E7C00081114 /* UIColor+HexString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexString.h"; sourceTree = "<group>"; };
@@ -590,6 +595,7 @@
 				0F272786291CAAC00042A05B /* MessageDetailViewController.h */,
 				0F272787291CAAC00042A05B /* MessageDetailViewController.m */,
 				0F272788291CAAC00042A05B /* MessageDetailViewController.xib */,
+				BDDC3EB4291D1CFF00C66D44 /* View */,
 			);
 			path = MessageDetail;
 			sourceTree = "<group>";
@@ -1179,6 +1185,16 @@
 			path = WriteOff;
 			sourceTree = "<group>";
 		};
+		BDDC3EB4291D1CFF00C66D44 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BDDC3EB5291D1D1200C66D44 /* MessageDetailTableViewCell.h */,
+				BDDC3EB6291D1D1200C66D44 /* MessageDetailTableViewCell.m */,
+				BDDC3EB7291D1D1200C66D44 /* MessageDetailTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		BDE889F628044D8B00081114 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -1571,6 +1587,7 @@
 				BDFA3A8E28256154004A7E8C /* Localizable.strings in Resources */,
 				0F994345291A30970014DFCA /* MessageListTableViewCell.xib in Resources */,
 				0FE0082A290B791E00F705CC /* CompleteImageTableViewCell.xib in Resources */,
+				BDDC3EB9291D1D1200C66D44 /* MessageDetailTableViewCell.xib in Resources */,
 				BDE88A242805C3F800081114 /* RegisterViewController.xib in Resources */,
 				BDE88A53280A7C0300081114 /* DeviceSwitchTableViewCell.xib in Resources */,
 				BDE88A79280B12A900081114 /* DataEchartsCollectionViewCell.xib in Resources */,
@@ -1782,6 +1799,7 @@
 				BDE88A012804540C00081114 /* GlobalValue.m in Sources */,
 				BDFA3A9528256FF0004A7E8C /* AddDeviceSNTableViewCell.m in Sources */,
 				BDE88A2E2805CDC100081114 /* UIView+Border.m in Sources */,
+				BDDC3EB8291D1D1200C66D44 /* MessageDetailTableViewCell.m in Sources */,
 				BDE88A73280B0E5D00081114 /* DataCollectionViewCell.m in Sources */,
 				BD629B7728A2B16700D1A6B7 /* RefreshBackFooter.m in Sources */,
 				BD8FDA67280EF1DE000036DD /* DebugCollectionViewCell.m in Sources */,
@@ -2071,7 +2089,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.40;
+				MARKETING_VERSION = 1.0.41;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2118,7 +2136,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.40;
+				MARKETING_VERSION = 1.0.41;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
