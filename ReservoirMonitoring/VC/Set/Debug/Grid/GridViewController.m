@@ -47,7 +47,7 @@
         [BleManager.shareInstance readWithCMDString:@"625" count:1 finish:^(NSArray * array){
             int value = 0;
             if([array.firstObject intValue] < 2){
-                value = [array.firstObject intValue];
+                value = 1-[array.firstObject intValue];
             };
             [weakSelf exchangeDictFor:0 value:@[@"Whole home".localized,@"Partial home".localized][1-value]];
             NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[0]];
@@ -136,6 +136,7 @@
             NSInteger status = [array.firstObject integerValue];
             if (status == 4){
                 [RMHelper showToast:@"Please shutdown the EP Cube system before changing electric grid standards." toView:self.view];
+                [UIApplication.sharedApplication.keyWindow hiddenHUD];
                 return;
             }else{
                 dispatch_semaphore_signal(sem);

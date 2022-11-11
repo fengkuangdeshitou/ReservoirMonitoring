@@ -225,7 +225,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0F041D482887A924000DE04B /* ReservoirMonitoring.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ReservoirMonitoring.entitlements; sourceTree = "<group>"; };
 		0F041D4E28882560000DE04B /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		0F0511B1283E4AF8007E7680 /* UserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		0F0511B2283E4AF8007E7680 /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
@@ -265,6 +264,17 @@
 		0F3EBC23282E8BC9009CDBED /* OtherViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OtherViewController.h; sourceTree = "<group>"; };
 		0F3EBC24282E8BC9009CDBED /* OtherViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OtherViewController.m; sourceTree = "<group>"; };
 		0F3EBC25282E8BC9009CDBED /* OtherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OtherViewController.xib; sourceTree = "<group>"; };
+		0F46F191291E2AE800350A84 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		0F46F193291E2AFB00350A84 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		0F46F195291E2B0200350A84 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		0F46F197291E2B0A00350A84 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		0F46F199291E2B4600350A84 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		0F46F19B291E2B9100350A84 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0F46F19D291E2B9F00350A84 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		0F46F19F291E2BB100350A84 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		0F46F1A1291E2BBA00350A84 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		0F46F1A3291E2BC400350A84 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		0F46F1A5291E2BCC00350A84 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		0F48C5DE287BF6580075F823 /* UIView+Hud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Hud.h"; sourceTree = "<group>"; };
 		0F48C5DF287BF6580075F823 /* UIView+Hud.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Hud.m"; sourceTree = "<group>"; };
 		0F56766828422744008271E0 /* DevideModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevideModel.h; sourceTree = "<group>"; };
@@ -326,6 +336,7 @@
 		0F994341291A30970014DFCA /* MessageListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageListTableViewCell.h; sourceTree = "<group>"; };
 		0F994342291A30970014DFCA /* MessageListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageListTableViewCell.m; sourceTree = "<group>"; };
 		0F994343291A30970014DFCA /* MessageListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageListTableViewCell.xib; sourceTree = "<group>"; };
+		0F9DD6DB291E596F00593C44 /* ReservoirMonitoring.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ReservoirMonitoring.entitlements; sourceTree = "<group>"; };
 		0FE00826290B791E00F705CC /* CompleteImageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompleteImageTableViewCell.h; sourceTree = "<group>"; };
 		0FE00827290B791E00F705CC /* CompleteImageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompleteImageTableViewCell.m; sourceTree = "<group>"; };
 		0FE00828290B791E00F705CC /* CompleteImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompleteImageTableViewCell.xib; sourceTree = "<group>"; };
@@ -856,6 +867,17 @@
 		6C601691DA04C12B7D142288 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0F46F1A5291E2BCC00350A84 /* WebKit.framework */,
+				0F46F1A3291E2BC400350A84 /* libsqlite3.tbd */,
+				0F46F1A1291E2BBA00350A84 /* libresolv.tbd */,
+				0F46F19F291E2BB100350A84 /* UserNotifications.framework */,
+				0F46F19D291E2B9F00350A84 /* libz.tbd */,
+				0F46F19B291E2B9100350A84 /* Security.framework */,
+				0F46F199291E2B4600350A84 /* CoreGraphics.framework */,
+				0F46F197291E2B0A00350A84 /* SystemConfiguration.framework */,
+				0F46F195291E2B0200350A84 /* CoreTelephony.framework */,
+				0F46F193291E2AFB00350A84 /* CoreFoundation.framework */,
+				0F46F191291E2AE800350A84 /* CFNetwork.framework */,
 				0F041D4E28882560000DE04B /* NetworkExtension.framework */,
 				11BA0DE0AA9A215EC56692FA /* Pods_ReservoirMonitoring.framework */,
 				0F582A4DCB34D84D2C390CBD /* Pods_ReservoirMonitoring_ReservoirMonitoringUITests.framework */,
@@ -915,7 +937,7 @@
 		BD2DEF1D28044A6E004E8D7D /* ReservoirMonitoring */ = {
 			isa = PBXGroup;
 			children = (
-				0F041D482887A924000DE04B /* ReservoirMonitoring.entitlements */,
+				0F9DD6DB291E596F00593C44 /* ReservoirMonitoring.entitlements */,
 				BD2DEF1E28044A6E004E8D7D /* AppDelegate.h */,
 				BD2DEF1F28044A6E004E8D7D /* AppDelegate.m */,
 				0FE713F8283C857600B0733A /* Third */,
@@ -2089,7 +2111,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.41;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ReservoirMonitoring/Third/JPush",
+				);
+				MARKETING_VERSION = 1.0.42;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2136,7 +2162,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.41;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ReservoirMonitoring/Third/JPush",
+				);
+				MARKETING_VERSION = 1.0.42;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

@@ -359,26 +359,6 @@ SOFTWARE.
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright jpush.cn</string>
-			<key>License</key>
-			<string>Copyright</string>
-			<key>Title</key>
-			<string>JCore</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
-			<string>Copyright jiguang.cn</string>
-			<key>License</key>
-			<string>Copyright</string>
-			<key>Title</key>
-			<string>JPush</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
 			<string>Copyright © 2009-2020 Matej Bukovinski
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -490,6 +470,16 @@ SOFTWARE.</string>
 			<string>MIT</string>
 			<key>Title</key>
 			<string>MLLabel</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
+			<string>Copyright engagelab.cn</string>
+			<key>License</key>
+			<string>Copyright</string>
+			<key>Title</key>
+			<string>MTPush</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

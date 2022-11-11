@@ -11,10 +11,10 @@
 #import "LoginViewController.h"
 #import "UWConfig.h"
 #import <Bugly/Bugly.h>
-#import "JPUSHService.h"
+#import <MTPushService.h>
 #import <UserNotifications/UserNotifications.h>
 
-@interface AppDelegate ()<JPUSHRegisterDelegate>
+@interface AppDelegate ()<MTPushRegisterDelegate>
 
 @end
 
@@ -26,20 +26,20 @@
 //    [UWConfig setUserLanguage:@"zh-Hans"];
     sleep(2);
     
-    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
-    entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound|JPAuthorizationOptionProvidesAppNotificationSettings;
+    MTPushRegisterEntity * entity = [[MTPushRegisterEntity alloc] init];
+    entity.types = MTPushAuthorizationOptionAlert|MTPushAuthorizationOptionBadge|MTPushAuthorizationOptionSound|MTPushAuthorizationOptionProvidesAppNotificationSettings;
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
       // 可以添加自定义 categories
       // NSSet<UNNotificationCategory *> *categories for iOS10 or later
       // NSSet<UIUserNotificationCategory *> *categories for iOS8 and iOS9
     }
-    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
-    [JPUSHService setupWithOption:launchOptions
-                           appKey:@"548cfae206418418e90ae4d7"
+    [MTPushService registerForRemoteNotificationConfig:entity delegate:self];
+    [MTPushService setupWithOption:launchOptions
+                           appKey:@"6858da78bce469a1492408ba"
                           channel:@"App Store"
                  apsForProduction:false
             advertisingIdentifier:nil];
-    [JPUSHService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
+    [MTPushService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
             
     }];
     [UWConfig setUserLanguage:@"en"];
@@ -73,7 +73,7 @@
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
     /// Required - 注册 DeviceToken
-    [JPUSHService registerDeviceToken:deviceToken];
+    [MTPushService registerDeviceToken:deviceToken];
 }
 
 // iOS 12 Support

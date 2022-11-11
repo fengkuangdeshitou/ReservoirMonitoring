@@ -6,6 +6,7 @@
 //
 
 #import "MessageDetailTableViewCell.h"
+#import "InstallViewController.h"
 
 @interface MessageDetailTableViewCell ()
 
@@ -27,6 +28,13 @@
     self.titleLabel.text = model.title;
     self.timeLabel.text = model.createTime;
     self.content.text = model.content;
+}
+
+- (IBAction)installAction:(id)sender{
+    InstallViewController * install = [[InstallViewController alloc] init];
+    install.title = @"Installation";
+    install.installLogId = self.model.Id;
+    [RMHelper.getCurrentVC.navigationController pushViewController:install animated:true];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

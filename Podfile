@@ -20,8 +20,7 @@ pod 'SGPagingView', '~> 1.7.2'
 pod 'Bugly'
 pod 'HXPhotoPicker'
 pod 'HXPhotoPicker/SDWebImage'
-pod 'JCore', '3.2.5-noidfa'
-pod 'JPush', '4.8.1'
+pod 'MTPush'
   # Pods for ReservoirMonitoring
 
   target 'ReservoirMonitoringTests' do
