@@ -47,11 +47,11 @@
         [BleManager.shareInstance readWithCMDString:@"625" count:1 finish:^(NSArray * array){
             int value = 0;
             if([array.firstObject intValue] < 2){
-                value = 1-[array.firstObject intValue];
+                value = [array.firstObject intValue];
             };
             [weakSelf exchangeDictFor:0 value:@[@"Whole home".localized,@"Partial home".localized][1-value]];
             NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dataArray[0]];
-            dict[@"value"] = [NSString stringWithFormat:@"%d",1-value];
+            dict[@"value"] = [NSString stringWithFormat:@"%d",value];
             self.dataArray[0] = dict;
             dispatch_semaphore_signal(semaphore);
         }];
@@ -135,7 +135,7 @@
         [BleManager.shareInstance readWithCMDString:@"510" count:1 finish:^(NSArray * _Nonnull array) {
             NSInteger status = [array.firstObject integerValue];
             if (status == 4){
-                [RMHelper showToast:@"Please shutdown the EP Cube system before changing electric grid standards." toView:self.view];
+                [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please shutdown the EP Cube system before changing electric grid standards." btnTitle:nil completion:nil];
                 [UIApplication.sharedApplication.keyWindow hiddenHUD];
                 return;
             }else{
