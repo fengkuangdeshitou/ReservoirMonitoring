@@ -113,5 +113,7 @@ NSString * const MessageDetail = @"/message/message";
 
 NSString * const ServiceData = @"/user/user/serviceData";
 
+NSString * const SettingAlias = @"/common/jpush/settingAlias";
+
 @end
 

@@ -71,12 +71,12 @@
 
 - (void)getRegistrationId{
     [MTPushService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
-        [self uploadPushRegistrationId];
+        [self uploadPushRegistrationId:registrationID];
     }];
 }
 
-- (void)uploadPushRegistrationId{
-    [Request.shareInstance postUrl:@"" params:@{} progress:^(float progress) {
+- (void)uploadPushRegistrationId:(NSString *)registrationId{
+    [Request.shareInstance getUrl:SettingAlias params:@{@"registrationId":registrationId} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
         

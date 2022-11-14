@@ -111,6 +111,8 @@ extern NSString * const MessageDetail;
 
 extern NSString * const ServiceData;
 
+extern NSString * const SettingAlias;
+
 @end
 
 NS_ASSUME_NONNULL_END
