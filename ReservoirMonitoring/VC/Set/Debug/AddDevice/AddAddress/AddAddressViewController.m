@@ -85,6 +85,7 @@
             self.countrieID = item[@"value"];
             self.province.text = @"";
             self.provinceID = @"";
+            self.code.text = @"";
         }
     };
     [self.navigationController pushViewController:time animated:true];

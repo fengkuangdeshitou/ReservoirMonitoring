@@ -133,7 +133,7 @@
         
         UIButton * addButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.contentView addSubview:addButton];
-        [addButton showBorderWithRadius:16];
+        [addButton showBorderWithRadius:22];
         [addButton setTitle:@"Add device".localized forState:UIControlStateNormal];
         [addButton addTarget:self action:@selector(addDeviceClick) forControlEvents:UIControlEventTouchUpInside];
         addButton.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -141,7 +141,7 @@
                     make.centerX.mas_equalTo(self.contentView.mas_centerX);
             make.bottom.mas_equalTo(-15);
             make.width.mas_equalTo(200);
-            make.height.mas_equalTo(32);
+            make.height.mas_equalTo(44);
         }];
         
         NSArray<DevideModel*> * array = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
@@ -213,10 +213,14 @@
     DeviceSwitchTableViewCell * cell = (DeviceSwitchTableViewCell *)[[[btn superview] superview] superview];
     NSIndexPath * indexPath = [self.otherTableView indexPathForCell:cell];
     DevideModel * model = self.searchArray.count==0?self.dataArray[indexPath.section]:self.searchArray[indexPath.section];
+    [self showHUDToast:@"Loading"];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        Request.shareInstance.hiddenHUD = true;
         [Request.shareInstance getUrl:SwitchDevice params:@{@"id":model.deviceId} progress:^(float progress) {
                 
         } success:^(NSDictionary * _Nonnull result) {
+            Request.shareInstance.hiddenHUD = false;
+            [self hiddenHUD];
             [NSUserDefaults.standardUserDefaults setValue:model.deviceId forKey:CURRENR_DEVID];
             [self getDeviceList:^{
                 if (RMHelper.getLoadDataForBluetooth) {
@@ -225,7 +229,8 @@
             }];
             [[NSNotificationCenter defaultCenter] postNotificationName:SWITCH_DEVICE_NOTIFICATION object:nil];
         } failure:^(NSString * _Nonnull errorMsg) {
-            
+            Request.shareInstance.hiddenHUD = false;
+            [self hiddenHUD];
         }];
     });
 }

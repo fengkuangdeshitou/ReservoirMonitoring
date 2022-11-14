@@ -681,8 +681,9 @@
             [set setColor:[UIColor colorWithHexString:self.selectColorArray[i]]];
             set.mode = LineChartModeHorizontalBezier;
             set.drawValuesEnabled = true;
-            set.drawHorizontalHighlightIndicatorEnabled = false;
-            set.drawVerticalHighlightIndicatorEnabled = false;
+//            set.drawHorizontalHighlightIndicatorEnabled = false;
+//            set.drawVerticalHighlightIndicatorEnabled = false;
+            set.highlightColor = [UIColor colorWithHexString:self.selectColorArray[i]];
             [sets addObject:set];
             NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
             ChartDefaultValueFormatter *formatter = [[ChartDefaultValueFormatter alloc] initWithFormatter:numberFormatter];

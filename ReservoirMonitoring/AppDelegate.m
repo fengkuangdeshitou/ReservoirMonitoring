@@ -39,9 +39,6 @@
                           channel:@"App Store"
                  apsForProduction:false
             advertisingIdentifier:nil];
-    [MTPushService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
-            
-    }];
     [UWConfig setUserLanguage:@"en"];
     [Bugly startWithAppId:@"dde48f2e31"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:LOGIN_SUCCESS object:nil];
@@ -65,9 +62,27 @@
 }
 
 - (void)loginSuccess{
+    [self getRegistrationId];
     TabbarViewController * tabbar = [[TabbarViewController alloc] init];
     self.window.rootViewController = tabbar;
     [self.window makeKeyAndVisible];
+    
+}
+
+- (void)getRegistrationId{
+    [MTPushService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
+        [self uploadPushRegistrationId];
+    }];
+}
+
+- (void)uploadPushRegistrationId{
+    [Request.shareInstance postUrl:@"" params:@{} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (void)application:(UIApplication *)application
@@ -83,6 +98,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
     }else{
         //从通知设置界面进入应用
     }
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application{
+    [application setApplicationIconBadgeNumber:0];
 }
 
 @end

@@ -27,11 +27,20 @@
     self.page = 1;
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MessageListTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MessageListTableViewCell class])];
     [self getMessageListData];
+    self.tableView.refreshControl = self.refreshController;
+    [self.refreshController addTarget:self action:@selector(refreshMessageData) forControlEvents:UIControlEventValueChanged];
     self.tableView.mj_footer = [RefreshBackFooter footerWithRefreshingBlock:^{
         self.page++;
         [self getMessageListData];
     }];
     [self setRightBarButtonItemWithTitlt:@"Read all" sel:@selector(readAllAction)];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+}
+
+- (void)refreshMessageData{
+    [self.refreshController endRefreshing];
+    self.page = 1;
+    [self getMessageListData];
 }
 
 - (void)readAllAction{

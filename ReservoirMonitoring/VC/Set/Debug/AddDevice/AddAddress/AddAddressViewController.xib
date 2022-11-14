@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -52,7 +52,7 @@
                             <rect key="frame" x="0.0" y="45" width="384" height="62"/>
                             <subviews>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gxC-I9-aY4">
-                                    <rect key="frame" x="15" y="0.0" width="342.5" height="62"/>
+                                    <rect key="frame" x="15" y="0.0" width="372.5" height="62"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <connections>
@@ -74,7 +74,7 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="62" id="435-zk-IRw"/>
                                 <constraint firstItem="gxC-I9-aY4" firstAttribute="leading" secondItem="xY4-NZ-SMC" secondAttribute="leading" constant="15" id="IP8-2j-b1u"/>
-                                <constraint firstItem="G6C-Yo-OJv" firstAttribute="leading" secondItem="gxC-I9-aY4" secondAttribute="trailing" id="Rqf-xL-5fU"/>
+                                <constraint firstItem="G6C-Yo-OJv" firstAttribute="leading" secondItem="gxC-I9-aY4" secondAttribute="trailing" constant="-30" id="Rqf-xL-5fU"/>
                                 <constraint firstItem="G6C-Yo-OJv" firstAttribute="centerY" secondItem="xY4-NZ-SMC" secondAttribute="centerY" id="ToT-F5-DeP"/>
                                 <constraint firstItem="u8a-dJ-Rgk" firstAttribute="leading" secondItem="xY4-NZ-SMC" secondAttribute="leading" constant="15" id="dUy-nr-kYi"/>
                                 <constraint firstItem="gxC-I9-aY4" firstAttribute="top" secondItem="xY4-NZ-SMC" secondAttribute="top" id="eo7-AY-zEp"/>
@@ -88,7 +88,7 @@
                             <rect key="frame" x="0.0" y="107" width="384" height="62"/>
                             <subviews>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ShR-2S-TkB">
-                                    <rect key="frame" x="15" y="0.0" width="342.5" height="62"/>
+                                    <rect key="frame" x="15" y="0.0" width="372.5" height="62"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <connections>
@@ -115,7 +115,7 @@
                                 <constraint firstItem="ShR-2S-TkB" firstAttribute="leading" secondItem="cnV-Dq-ota" secondAttribute="leading" constant="15" id="BkX-K1-x46"/>
                                 <constraint firstAttribute="bottom" secondItem="ShR-2S-TkB" secondAttribute="bottom" id="P8t-jq-NDm"/>
                                 <constraint firstAttribute="trailing" secondItem="0ls-c2-VPL" secondAttribute="trailing" constant="16" id="XXC-rZ-E2w"/>
-                                <constraint firstItem="0ls-c2-VPL" firstAttribute="leading" secondItem="ShR-2S-TkB" secondAttribute="trailing" id="cOs-JV-v5d"/>
+                                <constraint firstItem="0ls-c2-VPL" firstAttribute="leading" secondItem="ShR-2S-TkB" secondAttribute="trailing" constant="-30" id="cOs-JV-v5d"/>
                                 <constraint firstAttribute="bottom" secondItem="Kdm-76-gZQ" secondAttribute="bottom" id="hhd-Rc-Ayg"/>
                                 <constraint firstAttribute="height" constant="62" id="zPO-nA-pFS"/>
                             </constraints>

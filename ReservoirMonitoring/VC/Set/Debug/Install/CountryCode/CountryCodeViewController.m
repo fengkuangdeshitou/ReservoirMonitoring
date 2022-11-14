@@ -47,9 +47,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"CountryCell"];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CountryCell"];
     }
     NSDictionary * item = self.isSearch ?self.searchArray[indexPath.row] : self.dataArray[indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@  +%@",item[@"countryName"],item[@"countryCode"]];
@@ -61,7 +61,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self.view endEditing:false];
+    [self.view endEditing:true];
     if (self.isSearch) {
         if (self.selectCountryCode) {
             self.selectCountryCode(self.searchArray[indexPath.row]);
@@ -70,7 +70,6 @@
         if (self.selectCountryCode) {
             self.selectCountryCode(self.dataArray[indexPath.row]);
         }
-        
     }
     [self.navigationController popViewControllerAnimated:true];
 }

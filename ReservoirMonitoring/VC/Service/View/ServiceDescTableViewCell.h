@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ServiceDescTableViewCell : UITableViewCell
 
+@property(nonatomic,strong)NSString * hotline;
+
 @end
 
 NS_ASSUME_NONNULL_END

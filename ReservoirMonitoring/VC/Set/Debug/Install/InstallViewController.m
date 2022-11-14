@@ -263,8 +263,10 @@
     cell.rightLine.hidden = indexPath.row == self.dataArray.count-1;
     if (indexPath.row<=self.current) {
         cell.indexLabel.backgroundColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+        cell.indexLabel.textColor = [UIColor colorWithHexString:@"#333333"];
     }else{
         cell.indexLabel.backgroundColor = [UIColor colorWithHexString:@"#999999"];
+        cell.indexLabel.textColor = UIColor.whiteColor;
     }
     if (indexPath.row < self.current) {
         cell.leftLine.backgroundColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];

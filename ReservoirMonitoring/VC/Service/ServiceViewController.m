@@ -24,6 +24,7 @@
 @property(nonatomic,strong) NSTimer * timer;
 @property(nonatomic,assign) NSInteger timeCount;
 @property(nonatomic,strong) UserModel * model;
+@property(nonatomic,strong) NSString * hotline;
 
 @end
 
@@ -32,6 +33,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self requestUserInfo];
+    [self getHotlineNumber];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -82,6 +84,16 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ServiceDescTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([ServiceDescTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelecteTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([SelecteTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ServiceInputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([ServiceInputTableViewCell class])];
+}
+
+- (void)getHotlineNumber{
+    [Request.shareInstance getUrl:ServiceData params:@{} progress:^(float progress) {
+            
+    } success:^(NSDictionary * _Nonnull result) {
+        self.hotline = result[@"data"][@"hotline"];
+    } failure:^(NSString * _Nonnull errorMsg) {
+        
+    }];
 }
 
 - (void)loadSubmitStyle:(BOOL)status{
@@ -236,6 +248,7 @@
         return cell;
     }else{
         ServiceDescTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ServiceDescTableViewCell class]) forIndexPath:indexPath];
+        cell.hotline = self.hotline;
         return cell;
     }
 }
