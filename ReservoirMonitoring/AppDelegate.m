@@ -75,9 +75,7 @@
     content.body = detail;
     content.badge = @([UIApplication sharedApplication].applicationIconBadgeNumber + 1);
     content.sound = [UNNotificationSound defaultSound];
-    content.userInfo = @{
-                         @"detail":detail
-                         };
+    content.userInfo = @{@"detail":detail};
     NSString *requestIdentifier = [NSString stringWithFormat:@"%lf", [[NSDate date] timeIntervalSince1970]];
     UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifier content:content trigger:timeTrigger];
     [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {

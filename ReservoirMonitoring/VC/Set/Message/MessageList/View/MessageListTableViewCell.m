@@ -6,6 +6,7 @@
 //
 
 #import "MessageListTableViewCell.h"
+@import BRPickerView;
 
 @interface MessageListTableViewCell ()
 
@@ -27,7 +28,7 @@
     _model = model;
     self.title.text = model.title;
     self.content.text = model.content;
-    self.time.text = model.createTime;
+    self.time.text = [NSDate br_stringFromDate:[NSDate dateWithTimeIntervalSince1970:model.createTimestamp.longLongValue/1000] dateFormat:@"yyyy-MM-dd HH:mm:ss"];
     self.ready.hidden = model.ready.intValue == 1;
 }
 

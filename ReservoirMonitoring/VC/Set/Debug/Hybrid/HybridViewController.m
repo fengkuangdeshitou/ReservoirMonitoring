@@ -274,11 +274,9 @@
                     @"formType":@"2",
                     @"systemTime":weakSelf.systemTime,
                     @"estop":weakSelf.stop?:@"0",
-//                    @"controlCircuitLeft":weakSelf.leftOpen?@"1":@"0",
                     @"controlCircuitLeft":weakSelf.leftController,
                     @"lbrand":weakSelf.leftOpen?weakSelf.leftValueArray[0]:@"0",
                     @"lmodel":weakSelf.leftOpen?weakSelf.leftValueArray[1]:@"0",
-//                    @"controlCircuitRight":weakSelf.rightOpen?@"1":@"0",
                     @"controlCircuitRight":weakSelf.rightController,
                     @"rbrand":weakSelf.rightOpen?weakSelf.rightValueArray[0]:@"0",
                     @"rmodel":weakSelf.rightOpen?weakSelf.rightValueArray[1]:@"0",
@@ -359,6 +357,7 @@
         SelecteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SelecteTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = indexPath.section == 3 ? @"Generator operation mode".localized : @"Qty of Hybrid".localized;
         cell.content.text = indexPath.section == 3 ? self.modelValue : [NSString stringWithFormat:@"%d",self.count];
+        cell.content.textColor = UIColor.whiteColor;
         return cell;
     }
     else{

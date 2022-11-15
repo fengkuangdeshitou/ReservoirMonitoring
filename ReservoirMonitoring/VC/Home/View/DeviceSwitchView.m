@@ -321,8 +321,9 @@
 }
 
 - (void)queryClick{
-    self.searchArray = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name CONTAINS %@ || rtuSn CONTAINS %@",self.search.text,self.search.text]];
+    self.searchArray = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name CONTAINS %@ || rtuSn CONTAINS %@ || sgSn CONTAINS %@",self.search.text,self.search.text,self.search.text]];
     [self.otherTableView reloadData];
+    self.normalView.hidden = self.searchArray.count > 0 || self.search.text.length == 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{

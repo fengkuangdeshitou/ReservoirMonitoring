@@ -59,8 +59,21 @@
         [RMHelper showToast:@"please input inverter SN" toView:self.view];
         return;
     }
+    if (self.inverteSN.length != 21) {
+        [RMHelper showToast:@"SN code invalid, please check again" toView:self.view];
+        return;
+    }
     if (self.batterySN.length == 0) {
         [RMHelper showToast:@"please input battery SN" toView:self.view];
+        return;
+    }
+    if (self.batterySN.length != 21) {
+        [RMHelper showToast:@"SN code invalid, please check again" toView:self.view];
+        return;
+    }
+    NSArray * filter = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length != 21"]];
+    if (filter.count > 0){
+        [RMHelper showToast:@"SN code invalid, please check again" toView:self.view];
         return;
     }
     self.indexArray = [[NSMutableArray alloc] init];

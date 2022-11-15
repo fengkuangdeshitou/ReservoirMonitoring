@@ -6,6 +6,7 @@
 //
 
 #import "MessageTableViewCell.h"
+@import BRPickerView;
 
 @interface MessageTableViewCell ()
 
@@ -29,7 +30,7 @@
     self.icon.image = [UIImage imageNamed:[NSString stringWithFormat:@"icon_message_%@",model.type]];
     self.titleLabel.text = model.typeName;
     self.subTitleLabel.text = model.content;
-    self.timeLabel.text = model.createTime;
+    self.timeLabel.text = [NSDate br_stringFromDate:[NSDate dateWithTimeIntervalSince1970:model.createTimeStamp.longLongValue/1000] dateFormat:@"yyyy-MM-dd HH:mm:ss"];
     self.unReadyNum.text = [model.unReadyNum stringByAppendingString:@" "];
     self.unReadyNum.hidden = model.unReadyNum.intValue == 0;
 }

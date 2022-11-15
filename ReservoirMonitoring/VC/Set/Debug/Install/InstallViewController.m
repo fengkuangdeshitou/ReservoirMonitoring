@@ -63,6 +63,10 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([CompleteImageTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([CompleteImageTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([CompletePhoneTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([CompletePhoneTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ServiceInputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([ServiceInputTableViewCell class])];
+    if (self.installLogId){
+        self.current = self.dataArray.count-2;
+        [self nextAction:nil];
+    }
 }
 
 - (void)loadBackBtnStyle{

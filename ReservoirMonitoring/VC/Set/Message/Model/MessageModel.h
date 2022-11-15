@@ -14,12 +14,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong) NSString * content;
 @property(nonatomic,strong) NSString * typeName;
 @property(nonatomic,strong) NSString * createTime;
+@property(nonatomic,strong) NSString * createTimestamp;
+@property(nonatomic,strong) NSString * createTimeStamp;
 @property(nonatomic,strong) NSString * unReadyNum;
 @property(nonatomic,strong) NSString * type;
+
 
 @property(nonatomic,strong) NSString * Id;
 @property(nonatomic,strong) NSString * ready;
 @property(nonatomic,strong) NSString * title;
+@property(nonatomic,strong) NSString * reserved2;
 
 @end
 
