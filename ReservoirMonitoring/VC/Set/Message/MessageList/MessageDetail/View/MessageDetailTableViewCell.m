@@ -37,7 +37,7 @@
 - (IBAction)installAction:(id)sender{
     InstallViewController * install = [[InstallViewController alloc] init];
     install.title = @"Installation";
-    install.installLogId = self.model.Id;
+    install.installLogId = self.model.reserved1;
     [RMHelper.getCurrentVC.navigationController pushViewController:install animated:true];
 }
 

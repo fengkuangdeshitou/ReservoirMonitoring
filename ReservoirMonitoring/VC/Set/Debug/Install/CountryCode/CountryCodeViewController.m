@@ -61,15 +61,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self.view endEditing:true];
-    if (self.isSearch) {
-        if (self.selectCountryCode) {
-            self.selectCountryCode(self.searchArray[indexPath.row]);
-        }
-    }else{
-        if (self.selectCountryCode) {
-            self.selectCountryCode(self.dataArray[indexPath.row]);
-        }
+    if (self.selectCountryCode) {
+        self.selectCountryCode(self.isSearch ? self.searchArray[indexPath.row] : self.dataArray[indexPath.row]);
     }
     [self.navigationController popViewControllerAnimated:true];
 }

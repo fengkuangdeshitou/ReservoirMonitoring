@@ -44,7 +44,6 @@
     // Initialization code
     
     self.manager = [HXPhotoManager managerWithType:HXPhotoManagerSelectedTypePhoto];
-    self.manager.configuration.photoMaxNum = 20;
     self.manager.configuration.themeColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
     self.manager.configuration.navBarBackgroudColor = [UIColor colorWithHexString:COLOR_BACK_COLOR];
     self.manager.configuration.navigationTitleColor = UIColor.whiteColor;
@@ -123,7 +122,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.images.count+1;
+    return self.images.count < 20 ? self.images.count+1 : 20;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -167,6 +166,8 @@
         picker.delegate = self;
         [RMHelper.getCurrentVC presentViewController:picker animated:true completion:nil];
     }else{
+        [self.manager clearSelectedList];
+        self.manager.configuration.photoMaxNum = 20-self.images.count;
         [RMHelper.getCurrentVC hx_presentSelectPhotoControllerWithManager:self.manager didDone:^(NSArray<HXPhotoModel *> * _Nullable allList, NSArray<HXPhotoModel *> * _Nullable photoList, NSArray<HXPhotoModel *> * _Nullable videoList, BOOL isOriginal, UIViewController * _Nullable viewController, HXPhotoManager * _Nullable manager) {
             [photoList hx_requestImageWithOriginal:false completion:^(NSArray<UIImage *> * _Nullable imageArray, NSArray<HXPhotoModel *> * _Nullable errorArray) {
                 [self.images addObjectsFromArray:imageArray];
