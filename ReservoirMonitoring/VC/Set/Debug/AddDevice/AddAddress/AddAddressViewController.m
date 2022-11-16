@@ -81,11 +81,13 @@
             self.province.text = item[@"label"];
             self.provinceID = item[@"value"];
         }else{
-            self.countries.text = item[@"label"];
-            self.countrieID = item[@"value"];
-            self.province.text = @"";
-            self.provinceID = @"";
-            self.code.text = @"";
+            if (![self.countrieID isEqualToString:item[@"value"]]){
+                self.countries.text = item[@"label"];
+                self.countrieID = item[@"value"];
+                self.province.text = @"";
+                self.provinceID = @"";
+                self.code.text = @"";
+            }
         }
     };
     [self.navigationController pushViewController:time animated:true];

@@ -47,6 +47,8 @@
 
 - (IBAction)nextAction:(id)sender{
     [self.view endEditing:true];
+    self.indexArray = [[NSMutableArray alloc] init];
+    [self.tableView reloadData];
     if (self.sgSn.length == 0) {
         [RMHelper showToast:@"Please input device SN".localized toView:self.view];
         return;
@@ -60,6 +62,8 @@
         return;
     }
     if (self.inverteSN.length != 21) {
+        [self.indexArray addObject:@(1)];
+        [self.tableView reloadData];
         [RMHelper showToast:@"SN code invalid, please check again" toView:self.view];
         return;
     }
@@ -68,19 +72,27 @@
         return;
     }
     if (self.batterySN.length != 21) {
+        [self.indexArray addObject:@(2)];
+        [self.tableView reloadData];
         [RMHelper showToast:@"SN code invalid, please check again" toView:self.view];
         return;
     }
-    NSArray * filter = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length != 21"]];
-    if (filter.count > 0){
-        [RMHelper showToast:@"SN code invalid, please check again" toView:self.view];
-        return;
-    }
-    self.indexArray = [[NSMutableArray alloc] init];
     NSMutableArray * array = [[NSMutableArray alloc] init];
     [array addObject:self.sgSn];
     [array addObjectsFromArray:self.dataArray];
     NSLog(@"arr=%@",array);
+    NSArray * filter = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length != 21"]];
+    if (filter.count > 0){
+        [RMHelper showToast:@"SN code invalid, please check again" toView:self.view];
+        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isEqualToString:filter.firstObject]){
+                [self.indexArray addObject:@(idx)];
+                [self.tableView reloadData];
+            }
+        }];
+        return;
+    }
+    
     for (int i=0; i<array.count-1; i++) {
         NSString * current = array[i];
         for (int j=i+1; j<array.count; j++) {

@@ -68,7 +68,6 @@
 
 - (void)networkDidReceiveMessage:(NSNotification *)notification {
     NSDictionary * userInfo = [notification userInfo];
-    NSString *title = [userInfo valueForKey:@"title"];
     NSString *detail = [userInfo valueForKey:@"content"];
     UNTimeIntervalNotificationTrigger *timeTrigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:.5f repeats:NO];
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
@@ -98,12 +97,13 @@
     TabbarViewController * tabbar = [[TabbarViewController alloc] init];
     self.window.rootViewController = tabbar;
     [self.window makeKeyAndVisible];
-    
 }
 
 - (void)getRegistrationId{
     [MTPushService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
-        [self uploadPushRegistrationId:registrationID];
+        if (registrationID){
+            [self uploadPushRegistrationId:registrationID];
+        }
     }];
 }
 

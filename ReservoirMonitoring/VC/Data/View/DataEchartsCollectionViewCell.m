@@ -642,7 +642,7 @@
         self.barEchartsView.leftAxis.axisMinimum = dataSetMin;
         BarChartData * data = [[BarChartData alloc] initWithDataSets:dataSets];
         data.barWidth = [self barWidth];
-        [data groupBarsFromX:-0.5 groupSpace:0.12 barSpace:0.04];
+        [data groupBarsFromX:-0.5 groupSpace:0.2 barSpace:0];
         self.barEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:self.xArray];
         self.barEchartsView.data = self.xArray.count == 0 ? nil : data;
         [self.barEchartsView setScaleMinima:1 scaleY:0];
@@ -712,15 +712,15 @@
     }else if (self.selectArray.count == 2){
         width = 0.4;
     }else if (self.selectArray.count == 3){
-        width = 0.254;
+        width = 0.265;
     }else if (self.selectArray.count == 4){
-        width = 0.18;
+        width = 0.2;
     }else if (self.selectArray.count == 5){
-        width = 0.136;
+        width = 0.16;
     }else if (self.selectArray.count == 6){
-        width = 0.106;
+        width = 0.133;
     }else if (self.selectArray.count == 7){
-        width = 0.086;
+        width = 0.115;
     }
     return width;
 }

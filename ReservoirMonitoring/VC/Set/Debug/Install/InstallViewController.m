@@ -66,6 +66,9 @@
     if (self.installLogId){
         self.current = self.dataArray.count-2;
         [self nextAction:nil];
+        self.back.userInteractionEnabled = false;
+        [self.back setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+        self.back.layer.borderColor = self.back.titleLabel.textColor.CGColor;
     }
 }
 
@@ -233,8 +236,11 @@
         self.current++;
         [self loadBackBtnStyle];
         [self.tableView reloadData];
-        [self.collectionView reloadData];
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.current inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:true];
+        [self.collectionView performBatchUpdates:^{
+            [self.collectionView reloadData];
+        } completion:^(BOOL finished) {
+            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.current inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:true];
+        }];
         if (self.current == self.dataArray.count-1) {
             [self.config setTitle:@"Submit" forState:UIControlStateNormal];
             [self.next setTitle:@"Finish".localized forState:UIControlStateNormal];

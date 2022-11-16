@@ -74,6 +74,15 @@
         tap.delegate = self;
         [self addGestureRecognizer:tap];
         
+        [NSNotificationCenter.defaultCenter addObserverForName:UITextFieldTextDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+            UITextField * textfield = note.object;
+            if (textfield.text.length == 0){
+                self.normalView.hidden = true;
+                self.searchArray = @[];
+                [self.otherTableView reloadData];
+            }
+        }];
+        
         self.delegate = delegate;
         self.dataArray = dataArray;
         

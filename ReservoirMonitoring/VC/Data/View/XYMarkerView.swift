@@ -29,7 +29,7 @@ open class XYMarkerView: BalloonMarker
         var text = "      \(key)" + time + "\n"
         for (idx,value) in textArray.enumerated(){
             guard let dataSet = self.chartView?.data?.dataSets[idx] as? BarChartDataSet else { return }
-            let entrys = dataSet.entryForXValue(entry.x, closestToY: 0)
+            let entrys = dataSet.entryForXValue(round(entry.x), closestToY: 0)
             text += ("      " + value + "：" + String(format:"%.2f",entrys!.y) + "kWh")
             if (idx != textArray.count - 1) {
                 text += "\n"
