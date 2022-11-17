@@ -49,14 +49,12 @@
         [self.tableView reloadData];
         NSArray * array = self.list[0];
         NSMutableArray * absArray = [[NSMutableArray alloc] init];
-        NSMutableArray<NSNumber *> * absIndexArray = [[NSMutableArray alloc] init];
         NSInteger time = [NSDate.date timeIntervalSince1970];
         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [absArray addObject:@(labs([obj[@"date"] integerValue] - time))];
-            [absIndexArray addObject:@(idx)];
+            [absArray addObject:@(labs([obj[@"dt_utc"] integerValue] - time))];
         }];
-        NSArray * absSort = [absArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            return obj1 < obj2;
+        NSArray * absSort = [absArray sortedArrayUsingComparator:^NSComparisonResult(NSNumber *  _Nonnull obj1, NSNumber *  _Nonnull obj2) {
+            return obj1.integerValue > obj2.integerValue;
         }];
         __block NSInteger index = 0;
         [absArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

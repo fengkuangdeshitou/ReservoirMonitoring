@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.textfield.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textfieldTextChange) name:UITextFieldTextDidChangeNotification object:nil];
     if (!self.listArray) {
         [self getTimeZoneData];

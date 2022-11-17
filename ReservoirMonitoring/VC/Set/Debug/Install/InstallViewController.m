@@ -236,8 +236,9 @@
         self.current++;
         [self loadBackBtnStyle];
         [self.tableView reloadData];
+        [self.collectionView reloadData];
         [self.collectionView performBatchUpdates:^{
-            [self.collectionView reloadData];
+
         } completion:^(BOOL finished) {
             [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.current inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:true];
         }];

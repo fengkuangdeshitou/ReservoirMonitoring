@@ -85,9 +85,11 @@
     if (filter.count > 0){
         [RMHelper showToast:@"SN code invalid, please check again" toView:self.view];
         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isEqualToString:filter.firstObject]){
-                [self.indexArray addObject:@(idx)];
-                [self.tableView reloadData];
+            for (int i=0; i<filter.count; i++) {
+                if ([obj isEqualToString:filter[i]]){
+                    [self.indexArray addObject:@(idx)];
+                    [self.tableView reloadData];
+                }
             }
         }];
         return;

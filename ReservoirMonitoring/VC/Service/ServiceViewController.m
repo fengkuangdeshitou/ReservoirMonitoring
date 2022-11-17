@@ -77,7 +77,7 @@
     [self loadSubmitStyle:false];
     self.dataArray = [[NSMutableArray alloc] initWithArray:@[
         @{@"title":@"",@"placeholder":@""},
-        @{@"title":@"Case Reason",@"placeholder":@"None".localized},
+        @{@"title":@"Category",@"placeholder":@"None".localized},
         @{@"title":@"Description".localized,@"placeholder":@""}
         ]];
     [self loadTimer];

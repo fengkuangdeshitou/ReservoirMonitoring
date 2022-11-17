@@ -25,11 +25,22 @@
 
 - (void)setModel:(NSArray *)model{
     _model = model;
+    CGFloat min = 1000;
+    CGFloat max = 0;
+    for (int i=0; i<model.count; i++) {
+        NSDictionary * item = model[i];
+        if ([item[@"main"][@"temp_min"] floatValue] < min){
+            min = [item[@"main"][@"temp_min"] floatValue];
+        }
+        if ([item[@"main"][@"temp_max"] floatValue] > max){
+            max = [item[@"main"][@"temp_max"] floatValue];
+        }
+    }
     NSDate * date = [NSDate dateWithTimeIntervalSince1970:[model[0][@"date"] longLongValue]/1000];
     self.weak.text = [self formatWeekString:date.br_weekdayString];
     // - 32)*5/9
-    self.min.text = [NSString stringWithFormat:@"%.0f°",[model[0][@"main"][@"temp_max"] floatValue]];
-    self.max.text = [NSString stringWithFormat:@"%.0f°",[model[0][@"main"][@"temp_min"] floatValue]];
+    self.min.text = [NSString stringWithFormat:@"%.0f°",min];
+    self.max.text = [NSString stringWithFormat:@"%.0f°",max];
     self.icon.image = [UIImage imageNamed:model[0][@"weather"][0][@"icon"]];
 }
 

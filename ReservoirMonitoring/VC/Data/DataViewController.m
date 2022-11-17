@@ -196,7 +196,7 @@
         cell.treeNum.text = [NSString stringWithFormat:@"%.0f",self.model.treeNum];
         cell.coalValue.text = [NSString stringWithFormat:@"%.1f",self.model.coal];
         cell.scopeType = self.scopeType;
-        cell.backUpType = @"0";
+        cell.backUpType = self.backUpType;
         cell.dataArray = self.data;
         return cell;
     }

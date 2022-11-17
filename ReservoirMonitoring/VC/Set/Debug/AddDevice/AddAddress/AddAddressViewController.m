@@ -87,6 +87,8 @@
                 self.province.text = @"";
                 self.provinceID = @"";
                 self.code.text = @"";
+                self.timeZone.text = @"";
+                self.zoneId = @"";
             }
         }
     };

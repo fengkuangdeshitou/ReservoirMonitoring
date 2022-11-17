@@ -29,8 +29,9 @@
     _model = model;
     self.icon.image = [UIImage imageNamed:[NSString stringWithFormat:@"icon_message_%@",model.type]];
     self.titleLabel.text = model.typeName;
-    self.subTitleLabel.text = model.content;
+    self.subTitleLabel.text = model.content?:@"No message";
     self.timeLabel.text = [NSDate br_stringFromDate:[NSDate dateWithTimeIntervalSince1970:model.createTimeStamp.longLongValue/1000] dateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    self.timeLabel.hidden = !model.createTime;
     self.unReadyNum.text = [model.unReadyNum stringByAppendingString:@" "];
     self.unReadyNum.hidden = model.unReadyNum.intValue == 0;
 }

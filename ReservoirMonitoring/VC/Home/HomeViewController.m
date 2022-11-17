@@ -139,6 +139,7 @@
             }
             self.tableView.hidden = false;
         }else{
+            self.navigationItem.rightBarButtonItem = nil;
             self.tableView.hidden = true;
         }
         [self.refreshController endRefreshing];

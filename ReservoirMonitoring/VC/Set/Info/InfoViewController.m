@@ -96,6 +96,7 @@
 }
 
 - (IBAction)selectPhoto:(id)sender{
+    [self.view endEditing:true];
     BRStringPickerView * picker = [[BRStringPickerView alloc] initWithPickerMode:BRStringPickerComponentSingle];
     picker.pickerStyle = self.style;
     picker.dataSourceArr = @[@"camera",@"photo album"];
