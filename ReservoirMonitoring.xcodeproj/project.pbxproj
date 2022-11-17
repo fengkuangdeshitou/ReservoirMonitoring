@@ -70,6 +70,7 @@
 		0F99433F291A2FF60014DFCA /* MessageListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F99433D291A2FF50014DFCA /* MessageListViewController.xib */; };
 		0F994344291A30970014DFCA /* MessageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F994342291A30970014DFCA /* MessageListTableViewCell.m */; };
 		0F994345291A30970014DFCA /* MessageListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F994343291A30970014DFCA /* MessageListTableViewCell.xib */; };
+		0FA9848E2925D2B800A74649 /* NSArray+HighOrderFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9848D2925D2B800A74649 /* NSArray+HighOrderFunction.m */; };
 		0FE00829290B791E00F705CC /* CompleteImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE00827290B791E00F705CC /* CompleteImageTableViewCell.m */; };
 		0FE0082A290B791E00F705CC /* CompleteImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FE00828290B791E00F705CC /* CompleteImageTableViewCell.xib */; };
 		0FE713F4283C830400B0733A /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE713F3283C830400B0733A /* Request.m */; };
@@ -337,6 +338,8 @@
 		0F994342291A30970014DFCA /* MessageListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageListTableViewCell.m; sourceTree = "<group>"; };
 		0F994343291A30970014DFCA /* MessageListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageListTableViewCell.xib; sourceTree = "<group>"; };
 		0F9DD6DB291E596F00593C44 /* ReservoirMonitoring.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ReservoirMonitoring.entitlements; sourceTree = "<group>"; };
+		0FA9848C2925D2B800A74649 /* NSArray+HighOrderFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+HighOrderFunction.h"; sourceTree = "<group>"; };
+		0FA9848D2925D2B800A74649 /* NSArray+HighOrderFunction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+HighOrderFunction.m"; sourceTree = "<group>"; };
 		0FE00826290B791E00F705CC /* CompleteImageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompleteImageTableViewCell.h; sourceTree = "<group>"; };
 		0FE00827290B791E00F705CC /* CompleteImageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompleteImageTableViewCell.m; sourceTree = "<group>"; };
 		0FE00828290B791E00F705CC /* CompleteImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompleteImageTableViewCell.xib; sourceTree = "<group>"; };
@@ -1255,6 +1258,8 @@
 				0F48C5DF287BF6580075F823 /* UIView+Hud.m */,
 				0F7D2C9E2913A63900D0D270 /* UITextView+Placeholder.h */,
 				0F7D2C9F2913A63900D0D270 /* UITextView+Placeholder.m */,
+				0FA9848C2925D2B800A74649 /* NSArray+HighOrderFunction.h */,
+				0FA9848D2925D2B800A74649 /* NSArray+HighOrderFunction.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1789,6 +1794,7 @@
 			files = (
 				0FE713FC283C859000B0733A /* Toast+UIView.m in Sources */,
 				0F69683F2834967700F22E47 /* WifiTableViewCell.m in Sources */,
+				0FA9848E2925D2B800A74649 /* NSArray+HighOrderFunction.m in Sources */,
 				BDE88A6D280ACA8B00081114 /* TimeTableViewCell.m in Sources */,
 				BDE88A382805D66200081114 /* SetPasswordViewController.m in Sources */,
 				0F994344291A30970014DFCA /* MessageListTableViewCell.m in Sources */,

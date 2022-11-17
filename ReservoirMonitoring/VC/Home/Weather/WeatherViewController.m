@@ -8,6 +8,7 @@
 #import "WeatherViewController.h"
 #import "WeatherInfoTableViewCell.h"
 #import "WeatherTableViewCell.h"
+#import "NSArray+HighOrderFunction.h"
 
 @interface WeatherViewController ()
 
@@ -46,9 +47,27 @@
             [self.list addObject:value];
         }
         [self.tableView reloadData];
-        self.temp.text = [NSString stringWithFormat:@"%.0f",[self.list[0][0][@"main"][@"temp"] floatValue]];
-        NSString * interval = [NSString stringWithFormat:@"%.0f°-%.0f°",[self.list[0][0][@"main"][@"temp_min"] floatValue],[self.list[0][0][@"main"][@"temp_max"] floatValue]];
-        self.weather.text = [NSString stringWithFormat:@"%@\n%@",interval,self.list[0][0][@"weather"][0][@"description"]];
+        NSArray * array = self.list[0];
+        NSMutableArray * absArray = [[NSMutableArray alloc] init];
+        NSMutableArray<NSNumber *> * absIndexArray = [[NSMutableArray alloc] init];
+        NSInteger time = [NSDate.date timeIntervalSince1970];
+        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [absArray addObject:@(labs([obj[@"date"] integerValue] - time))];
+            [absIndexArray addObject:@(idx)];
+        }];
+        NSArray * absSort = [absArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return obj1 < obj2;
+        }];
+        __block NSInteger index = 0;
+        [absArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (obj == absSort.firstObject){
+                index = idx;
+            }
+        }];
+        NSDictionary * today = array[index];
+        self.temp.text = [NSString stringWithFormat:@"%.0f",[today[@"main"][@"temp"] floatValue]];
+        NSString * interval = [NSString stringWithFormat:@"%.0f°-%.0f°",[today[@"main"][@"temp_min"] floatValue],[today[@"main"][@"temp_max"] floatValue]];
+        self.weather.text = [NSString stringWithFormat:@"%@\n%@",interval,today[@"weather"][0][@"description"]];
         self.symbol.hidden = false;
     } failure:^(NSString * _Nonnull errorMsg) {
         
