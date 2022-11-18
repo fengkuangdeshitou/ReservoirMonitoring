@@ -80,57 +80,50 @@
             [linePath addLineToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.origin.y)];
         }
     }else if (self.source == AnimationSourceSolar){
-        if (self.direction == AnimationStartDirectionTop) {
+//        if (self.direction == AnimationStartDirectionTop) {
             [linePath moveToPoint:CGPointMake(rect.size.width/2, rect.origin.y)];
             [linePath addLineToPoint:CGPointMake(rect.size.width/2, rect.size.height)];
-        }else if(self.direction == AnimationStartDirectionBottom){
-            [linePath moveToPoint:CGPointMake(rect.size.width/2, rect.size.height)];
-            [linePath addLineToPoint:CGPointMake(rect.size.width/2, rect.origin.y)];
-        }
+//        }else if(self.direction == AnimationStartDirectionBottom){
+//            [linePath moveToPoint:CGPointMake(rect.size.width/2, rect.size.height)];
+//            [linePath addLineToPoint:CGPointMake(rect.size.width/2, rect.origin.y)];
+//        }
     }else if (self.source == AnimationSourceGenerator){
-        if (self.direction == AnimationStartDirectionRightTop) {
+//        if (self.direction == AnimationStartDirectionRightTop) {
             [linePath moveToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.origin.y)];
             [linePath addLineToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.size.height*0.4)];
             [linePath addLineToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.size.height*0.4)];
             [linePath addLineToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.size.height)];
-        }else if (self.direction == AnimationStartDirectionLeftBottom){
-            [linePath moveToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.size.height)];
-            [linePath addLineToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.size.height*0.6)];
-            [linePath addLineToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.size.height*0.6)];
-            [linePath addLineToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.origin.y)];
-        }
+//        }else if (self.direction == AnimationStartDirectionLeftBottom){
+//            [linePath moveToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.size.height)];
+//            [linePath addLineToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.size.height*0.6)];
+//            [linePath addLineToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.size.height*0.6)];
+//            [linePath addLineToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.origin.y)];
+//        }
     }else if (self.source == AnimationSourceEV){
-        if (self.direction == AnimationStartDirectionRightTop) {
+//        if (self.direction == AnimationStartDirectionRightTop) {
             [linePath moveToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.origin.y)];
-            [linePath addLineToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.size.height*0.4)];
-            [linePath addLineToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.size.height*0.4)];
-            [linePath addLineToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.size.height)];
-        }else if (self.direction == AnimationStartDirectionLeftBottom){
-            [linePath moveToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.size.height)];
-            [linePath addLineToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.size.height*0.6)];
             [linePath addLineToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.size.height*0.6)];
-            [linePath addLineToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.origin.y)];
-        }
+            [linePath addLineToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.size.height*0.6)];
+            [linePath addLineToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.size.height)];
+//        }else if (self.direction == AnimationStartDirectionLeftBottom){
+//            [linePath moveToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.size.height)];
+//            [linePath addLineToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.size.height*0.6)];
+//            [linePath addLineToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.size.height*0.6)];
+//            [linePath addLineToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.origin.y)];
+//        }
     }else if (self.source == AnimationSourceNonbackup){
-        if (self.direction == AnimationStartDirectionTop) {
+//        if (self.direction == AnimationStartDirectionTop) {
             [linePath moveToPoint:CGPointMake(rect.size.width/2, rect.origin.y)];
             [linePath addLineToPoint:CGPointMake(rect.size.width/2, rect.size.height)];
-        }else if (self.direction == AnimationStartDirectionBottom){
-            [linePath moveToPoint:CGPointMake(rect.size.width/2, rect.size.height)];
-            [linePath addLineToPoint:CGPointMake(rect.size.width/2, rect.origin.y)];
-        }
+//        }else if (self.direction == AnimationStartDirectionBottom){
+//            [linePath moveToPoint:CGPointMake(rect.size.width/2, rect.size.height)];
+//            [linePath addLineToPoint:CGPointMake(rect.size.width/2, rect.origin.y)];
+//        }
     }else if (self.source == AnimationSourceBackupLoads) {
-        if (self.direction == AnimationStartDirectionLeftTop) {
-            [linePath moveToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.origin.y)];
-            [linePath addLineToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.size.height*0.4)];
-            [linePath addLineToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.size.height*0.4)];
-            [linePath addLineToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.size.height)];
-        }else if (self.direction == AnimationStartDirectionRightBottom){
-            [linePath moveToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.size.height)];
-            [linePath addLineToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.size.height*0.6)];
-            [linePath addLineToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.size.height*0.6)];
-            [linePath addLineToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.origin.y)];
-        }
+        [linePath moveToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.origin.y)];
+        [linePath addLineToPoint:CGPointMake(rect.origin.x+linePath.lineWidth/2+self.pointView.width/2, rect.size.height*0.6)];
+        [linePath addLineToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.size.height*0.6)];
+        [linePath addLineToPoint:CGPointMake(rect.size.width-linePath.lineWidth/2-self.pointView.width/2, rect.size.height)];
     }
         
     if (self.showAnimation) {

@@ -24,8 +24,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MessageTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MessageTableViewCell class])];
+    self.tableView.refreshControl = self.refreshController;
+    [self.refreshController addTarget:self action:@selector(refreshMessageData) forControlEvents:UIControlEventValueChanged];
     [self setRightBarButtonItemWithTitlt:@"Read all" sel:@selector(readAllAction)];
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+    [self getMessageList];
+}
+
+- (void)refreshMessageData{
+    [self.refreshController endRefreshing];
     [self getMessageList];
 }
 

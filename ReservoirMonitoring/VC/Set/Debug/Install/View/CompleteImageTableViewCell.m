@@ -111,6 +111,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == self.images.count){
+        [self endEditing:true];
         BRStringPickerView * picker = [[BRStringPickerView alloc] initWithPickerMode:BRStringPickerComponentSingle];
         picker.pickerStyle = self.style;
         picker.dataSourceArr = @[@"camera",@"photo album"];

@@ -80,6 +80,7 @@
                 self.normalView.hidden = true;
                 self.searchArray = @[];
                 [self.otherTableView reloadData];
+                self.normalView.hidden = self.otherTableView.visibleCells.count > 0;
             }
         }];
         
@@ -144,6 +145,7 @@
         [self.contentView addSubview:addButton];
         [addButton showBorderWithRadius:22];
         [addButton setTitle:@"Add device".localized forState:UIControlStateNormal];
+        [addButton setTitleColor:[UIColor colorWithHexString:COLOR_MAIN_COLOR] forState:UIControlStateNormal];
         [addButton addTarget:self action:@selector(addDeviceClick) forControlEvents:UIControlEventTouchUpInside];
         addButton.titleLabel.font = [UIFont systemFontOfSize:14];
         [addButton mas_makeConstraints:^(MASConstraintMaker *make) {

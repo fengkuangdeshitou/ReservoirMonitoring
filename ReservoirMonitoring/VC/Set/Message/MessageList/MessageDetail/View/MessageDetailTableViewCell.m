@@ -28,7 +28,8 @@
 - (void)setModel:(MessageModel *)model{
     _model = model;
     self.titleLabel.text = model.title;
-    self.timeLabel.text = [NSDate br_stringFromDate:[NSDate dateWithTimeIntervalSince1970:model.createTimestamp.longLongValue/1000] dateFormat:@"yyyy-MM-dd HH:mm:ss"];;
+    self.timeLabel.text = [NSDate br_stringFromDate:[NSDate dateWithTimeIntervalSince1970:model.createTimestamp.longLongValue/1000] dateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    self.timeLabel.hidden = !model.createTimestamp;
     self.content.text = model.content;
     self.detailBtn.userInteractionEnabled = model.type.intValue == 3 && model.reserved2.intValue == 0;
     self.detailBtn.backgroundColor = self.detailBtn.userInteractionEnabled ? UIColor.clearColor : [UIColor colorWithHexString:COLOR_BACK_COLOR];

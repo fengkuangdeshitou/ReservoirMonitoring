@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.dataArray = @[@"Installation".localized,@"Grid config".localized,@"SG config".localized,@"Hybrid Config".localized,@"Card config".localized,@"Other config".localized];
+    self.dataArray = @[@"Installation".localized,@"Grid config".localized,@"SG config".localized,@"Hybrid config".localized,@"Card config".localized,@"Other config".localized];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DebugCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([DebugCollectionViewCell class])];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(ressNotification:) name:UPDATE_RESS_NOTIFICATION object:nil];
 }

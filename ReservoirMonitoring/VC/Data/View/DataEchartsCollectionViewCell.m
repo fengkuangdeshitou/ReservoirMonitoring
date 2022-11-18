@@ -212,6 +212,10 @@
     self.trees.text = @"trees".localized;
     self.coal.text = @"Standard coal saved".localized;
     
+    self.titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV",@"Non-backup".localized,@"Backup loads".localized];
+    self.normal = @[@"data_normal_0",@"data_normal_1",@"data_normal_2",@"data_normal_3",@"data_normal_4",@"data_normal_5"];
+    self.highlight = @[@"data_select_0",@"data_select_1",@"data_select_2",@"data_select_3",@"data_select_4",@"data_select_5"];
+    
     [self.echarts addSubview:self.lineEchartsView];
     [self.echarts addSubview:self.barEchartsView];
     
@@ -231,23 +235,35 @@
             [view removeFromSuperview];
         }
     }
-    if (backUpType.intValue == 1) {
-        self.titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV",@"Backup loads".localized];
-        self.normal = @[@"data_normal_0",@"data_normal_1",@"data_normal_2",@"data_normal_3",@"data_normal_5"];
-        self.highlight = @[@"data_select_0",@"data_select_1",@"data_select_2",@"data_select_3",@"data_select_5"];
-    }else{
-        self.titleArray = @[@"Grid".localized,@"Solar".localized,@"Generator".localized,@"EV",@"Non-backup".localized,@"Backup loads".localized];
-        self.normal = @[@"data_normal_0",@"data_normal_1",@"data_normal_2",@"data_normal_3",@"data_normal_4",@"data_normal_5"];
-        self.highlight = @[@"data_select_0",@"data_select_1",@"data_select_2",@"data_select_3",@"data_select_4",@"data_select_5"];
+    if (backUpType.intValue == 1 && [self.selectIndexArray[0] intValue] == 14){
+        [self.selectIndexArray removeObject:@"14"];
+        if (self.selectIndexArray.count == 1){
+            [self.selectIndexArray addObject:@"10"];
+        }
     }
-    CGFloat width = (SCREEN_WIDTH-30)/self.normal.count;
-    for (int i=0; i<self.normal.count; i++) {
+    // 1 5个 0 6个
+    CGFloat width = (SCREEN_WIDTH-30)/(self.titleArray.count-self.backUpType.intValue);
+    for (int i=0; i<6; i++) {
         UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake((width-0.5)*i, 3, width, 24);
-        [button setImage:[UIImage imageNamed:self.normal[i]] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:self.highlight[i]] forState:UIControlStateSelected];
-        button.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        if (backUpType.intValue == 1){
+            if (i<4){
+                button.frame = CGRectMake((width-0.5)*i, 3, width, 24);
+                [button setImage:[UIImage imageNamed:self.normal[i]] forState:UIControlStateNormal];
+                [button setImage:[UIImage imageNamed:self.highlight[i]] forState:UIControlStateSelected];
+            }else if (i == 4){
+                button.frame = CGRectMake((width-0.5)*i, 3, 0, 24);
+            }else{
+                button.frame = CGRectMake((width-0.5)*(i-1), 3, width, 24);
+                [button setImage:[UIImage imageNamed:self.normal[i-1]] forState:UIControlStateNormal];
+                [button setImage:[UIImage imageNamed:self.highlight[i-1]] forState:UIControlStateSelected];
+            }
+        }else{
+            button.frame = CGRectMake((width-0.5)*i, 3, width, 24);
+            [button setImage:[UIImage imageNamed:self.normal[i]] forState:UIControlStateNormal];
+            [button setImage:[UIImage imageNamed:self.highlight[i]] forState:UIControlStateSelected];
+        }
         button.tag = i+10;
+        button.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.titleView addSubview:button];
     }
@@ -299,17 +315,13 @@
     [self.datas addObject:solar];
     [self.datas addObject:generator];
     [self.datas addObject:ev];
-    if (self.backUpType.intValue == 1) {
-
-    }else{
-        [self.datas addObject:noBackupLoads];
-    }
+    [self.datas addObject:noBackupLoads];
     [self.datas addObject:backupLoads];
     if (self.selectIndexArray.count == 0){
         UIButton * btn = [self.titleView viewWithTag:10];
         [self buttonClick:btn];
     }else{
-        for (int i=0;i<self.normal.count;i++) {
+        for (int i=0;i<self.titleArray.count;i++) {
             UIButton * button = [self.titleView viewWithTag:i+10];
             for (int j = 0; j<self.selectIndexArray.count; j++) {
                 if (button.tag == [self.selectIndexArray[j] integerValue]){
@@ -318,218 +330,6 @@
             }
         }
         [self formatSelectData];
-    }
-}
-
-- (void)formatEcharsArrayForIndex:(NSInteger)index{
-    NSMutableArray * xArray = [[NSMutableArray alloc] init];
-    NSMutableArray * yArray = [[NSMutableArray alloc] init];
-    NSMutableArray * fromArray = [[NSMutableArray alloc] init];
-    NSMutableArray * toArray= [[NSMutableArray alloc] init];
-    NSInteger scopeType = 1;
-    for (int i=0; i<self.dataArray.count; i++) {
-        NSDictionary * dict = self.dataArray[i];
-        NSDictionary * item = dict[@"nodeVo"];
-        scopeType = [dict[@"scopeType"] integerValue];
-        [xArray addObject:[NSString stringWithFormat:@"%@",dict[@"nodeName"]]];
-        if (index == 0) {
-            if (scopeType == 1) {
-                [yArray addObject:[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@",item[@"gridPower"]]]];
-            }else{
-                [fromArray addObject:[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@",item[@"gridElectricityFrom"]]]];
-                [toArray addObject:[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@",item[@"gridElectricityTo"]]]];
-            }
-        }else if (index == 1) {
-            [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"solarPower"] : item[@"solarElectricity"]]];
-        }else if (index == 2) {
-            [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"generatorPower"] : item[@"generatorElectricity"]]];
-        }else if (index == 3) {
-            [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"evPower"] : item[@"evElectricity"]]];
-        }else if (index == 4) {
-            if (self.backUpType.intValue == 1) {
-                [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"backUpPower"] : item[@"backUpElectricity"]]];
-            }else{
-                [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"nonBackUpPower"] : item[@"nonBackUpElectricity"]]];
-            }
-        }else if (index == 5) {
-            [yArray addObject:[NSString stringWithFormat:@"%@",scopeType == 1 ? item[@"backUpPower"] : item[@"backUpElectricity"]]];
-        }
-    }
-//    xArray = @[@"1",@"2",@"3",@"4",@"5",@"6"];
-//    yArray = @[@"-0.0",@"-0.0",@"-0.0",@"-0.0",@"-0.0",@"-10.6"];
-    if (scopeType == 0) {
-        self.lineEchartsView.hidden = true;
-        self.barEchartsView.hidden = false;
-        if (self.selectFlag == 0) {
-            double dataSetMax = 0;
-            double dataSetMin = 0;
-            NSArray * datas = @[fromArray,toArray];
-            NSMutableArray<BarChartDataSet*> *dataSets = [[NSMutableArray alloc] init];
-            for (int i = 0; i < datas.count; i++) {
-                NSMutableArray<BarChartDataEntry*> *yValues = [[NSMutableArray alloc] init];
-                NSArray * data = datas[i];
-                for (int j=0; j<data.count; j++) {
-                    dataSetMax = MAX([data[j] doubleValue], dataSetMax);
-                    dataSetMin = MIN([data[j] doubleValue], dataSetMin);
-                    BarChartDataEntry * entry = [[BarChartDataEntry alloc] initWithX:j y:[data[j] doubleValue]];
-                    [yValues addObject:entry];
-                }
-
-                BarChartDataSet * set = [[BarChartDataSet alloc] initWithEntries:yValues label:[NSString stringWithFormat:@"第%d个图例",i]];
-                [set setColors:@[[UIColor colorWithHexString:i == 0 ? @"#F7B500" : COLOR_MAIN_COLOR]]];
-                set.valueColors = @[UIColor.clearColor];
-                set.highlightColor = UIColor.clearColor;
-                NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-                ChartDefaultValueFormatter *formatter = [[ChartDefaultValueFormatter alloc] initWithFormatter:numberFormatter];
-                [set setValueFormatter:formatter];
-                [dataSets addObject:set];
-            }
-            if (dataSetMin == dataSetMax) {
-                dataSetMin = 0;
-                dataSetMax = 1.4;
-            }else{
-                dataSetMax = dataSetMax <= 0 ? 0 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
-                dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin - (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
-            }
-            self.barEchartsView.leftAxis.axisMaximum = dataSetMax;
-            self.barEchartsView.leftAxis.axisMinimum = dataSetMin;
-            BarChartData * data = [[BarChartData alloc] initWithDataSets:dataSets];
-            data.barWidth = 0.4;
-            [data groupBarsFromX:-0.5 groupSpace:0.12 barSpace:0.04];
-            self.barEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
-            self.barEchartsView.data = xArray.count == 0 ? nil : data;
-            [self.barEchartsView setScaleMinima:1 scaleY:0];
-            [self.barEchartsView setVisibleXRangeMinimum:6];
-            [self.barEchartsView notifyDataSetChanged];
-            [self.barEchartsView.data notifyDataChanged];
-        }else{
-            double dataSetMax = 0;
-            double dataSetMin = 0;
-            NSMutableArray *array = [NSMutableArray array];
-            for (int i = 0; i < xArray.count; i++) {
-                dataSetMax = MAX([yArray[i] doubleValue], dataSetMax);
-                dataSetMin = MIN([yArray[i] doubleValue], dataSetMin);
-                BarChartDataEntry *entry = [[BarChartDataEntry alloc] initWithX:i y:[yArray[i] doubleValue]];
-                [array addObject:entry];
-            }
-            //set
-            BarChartDataSet *set = [[BarChartDataSet alloc] initWithEntries:array label:@""];
-            [set setColors:@[[UIColor colorWithHexString:@"#F7B500"]]];
-            //显示柱图值并格式化
-            NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-            ChartDefaultValueFormatter *formatter = [[ChartDefaultValueFormatter alloc] initWithFormatter:numberFormatter];
-            [set setValueFormatter:formatter];
-            set.highlightColor = UIColor.clearColor;
-            self.barEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
-            if (dataSetMin == dataSetMax) {
-                dataSetMin = 0;
-                dataSetMax = 1.4;
-            }else{
-                dataSetMax = dataSetMax <= 0 ? 0 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
-                dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin - (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
-            }
-            NSLog(@"dataSetMax=%f,%f",dataSetMax,dataSetMin);
-            self.barEchartsView.leftAxis.axisMaximum = dataSetMax;
-            self.barEchartsView.leftAxis.axisMinimum = dataSetMin;
-            BarChartData *data = [[BarChartData alloc] initWithDataSet:set];
-            self.barEchartsView.data = xArray.count == 0 ? nil : data;
-            [self.barEchartsView setScaleMinima:1 scaleY:0];
-            [self.barEchartsView setVisibleXRangeMinimum:6];
-            [self.barEchartsView notifyDataSetChanged];
-            [self.barEchartsView.data notifyDataChanged];
-        }
-    }else{
-        self.lineEchartsView.hidden = false;
-        self.barEchartsView.hidden = true;
-        double dataSetMax = 0;
-        double dataSetMin = 0;
-        if (scopeType == 1 || (scopeType != 1 && self.selectFlag != 0)) {
-            self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
-            NSMutableArray<ChartDataEntry*> * array = [[NSMutableArray alloc] init];
-            for (int i=0; i<yArray.count; i++) {
-                double index = (double)i;
-                double value = [yArray[i] doubleValue];
-                dataSetMax = MAX(value, dataSetMax);
-                dataSetMin = MIN(value, dataSetMin);
-                ChartDataEntry * entry = [[ChartDataEntry alloc] initWithX:index y:value];
-                [array addObject:entry];
-            }
-            LineChartDataSet * set = [[LineChartDataSet alloc] initWithEntries:array label:@""];
-            set.axisDependency = AxisDependencyLeft;
-            set.valueTextColor = UIColor.clearColor;
-            set.lineWidth = 1;
-            set.circleRadius = 0;
-            set.circleHoleRadius = 0;
-            set.cubicIntensity = 0.2;
-            set.drawFilledEnabled = true;
-            set.fillColor = [UIColor colorWithHexString:@"#F7B500"];
-            set.fillAlpha = 0.3;
-            [set setColor:[UIColor colorWithHexString:@"#F7B500"]];
-            set.mode = LineChartModeHorizontalBezier;
-            set.drawValuesEnabled = true;
-            NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-            ChartDefaultValueFormatter *formatter = [[ChartDefaultValueFormatter alloc] initWithFormatter:numberFormatter];
-            [set setValueFormatter:formatter];
-            if (dataSetMin == dataSetMax) {
-                dataSetMin = 0;
-                dataSetMax = 1.4;
-            }else{
-                dataSetMax = dataSetMax <= 0 ? 0 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
-                dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin - (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
-            }
-            self.lineEchartsView.leftAxis.axisMaximum = dataSetMax;
-            self.lineEchartsView.leftAxis.axisMinimum = dataSetMin;
-            LineChartData *data = [[LineChartData alloc] initWithDataSets:@[set]];
-            self.lineEchartsView.data = xArray.count == 0 ? nil : data;
-            [self.lineEchartsView notifyDataSetChanged];
-            [self.lineEchartsView.data notifyDataChanged];
-        }else{
-            self.lineEchartsView.xAxis.valueFormatter = [[ChartIndexAxisValueFormatter alloc] initWithValues:xArray];
-            NSArray * datas = @[fromArray,toArray];
-            NSMutableArray * sets = [[NSMutableArray alloc] init];
-            for (int i=0; i<datas.count; i++) {
-                NSArray * data = datas[i];
-                NSMutableArray<ChartDataEntry*> * array = [[NSMutableArray alloc] init];
-                for (int j=0; j<data.count; j++) {
-                    double index = (double)j;
-                    double value = [data[j] doubleValue];
-                    dataSetMax = MAX(value, dataSetMax);
-                    dataSetMin = MIN(value, dataSetMin);
-                    ChartDataEntry * entry = [[ChartDataEntry alloc] initWithX:index y:value];
-                    [array addObject:entry];
-                }
-                LineChartDataSet * set = [[LineChartDataSet alloc] initWithEntries:array label:@""];
-                set.axisDependency = AxisDependencyLeft;
-                set.valueTextColor = UIColor.clearColor;
-                set.lineWidth = 2;
-                set.circleRadius = 0;
-                set.circleHoleRadius = 0;
-                set.cubicIntensity = 0.2;
-                set.drawFilledEnabled = true;
-                set.fillColor = [UIColor colorWithHexString:i==0?@"#F7B500":COLOR_MAIN_COLOR];
-                set.fillAlpha = 0.3;
-                [set setColor:[UIColor colorWithHexString:i==0?@"#F7B500":COLOR_MAIN_COLOR]];
-                set.mode = LineChartModeHorizontalBezier;
-                set.drawValuesEnabled = true;
-                [sets addObject:set];
-                NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-                ChartDefaultValueFormatter *formatter = [[ChartDefaultValueFormatter alloc] initWithFormatter:numberFormatter];
-                [set setValueFormatter:formatter];
-            }
-            if (dataSetMin == dataSetMax) {
-                dataSetMin = 0;
-                dataSetMax = 1.4;
-            }else{
-                dataSetMax = dataSetMax <= 0 ? 0 : dataSetMax + (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
-                dataSetMin = dataSetMin >= 0 ? 0 : dataSetMin - (fabs(dataSetMax) + fabs(dataSetMin)) * 0.4;
-            }
-            self.lineEchartsView.leftAxis.axisMaximum = dataSetMax;
-            self.lineEchartsView.leftAxis.axisMinimum = dataSetMin;
-            LineChartData *data = [[LineChartData alloc] initWithDataSets:sets];
-            self.lineEchartsView.data = xArray.count == 0 ? nil : data;
-            [self.lineEchartsView notifyDataSetChanged];
-            [self.lineEchartsView.data notifyDataChanged];
-        }
     }
 }
 
@@ -554,7 +354,7 @@
     [self.selectArray removeAllObjects];
     [self.selectTitleArray removeAllObjects];
     [self.selectColorArray removeAllObjects];
-    for (int i=0;i<self.normal.count;i++) {
+    for (int i=0;i<self.titleArray.count;i++) {
         UIButton * button = [self.titleView viewWithTag:i+10];
         if (button.selected == true){
             [self.selectIndexArray addObject:[NSString stringWithFormat:@"%ld",button.tag]];
@@ -582,11 +382,7 @@
                 [self.selectArray addObject:self.datas[i]];
             }else if (button.tag == 14) {
                 [self.selectTitleArray addObject:self.titleArray[i]];
-                if (self.backUpType.intValue == 1) {
-                    [self.selectColorArray addObject:@"#ab1500"];
-                }else{
-                    [self.selectColorArray addObject:@"#fe5a5a"];
-                }
+                [self.selectColorArray addObject:@"#fe5a5a"];
                 [self.selectArray addObject:self.datas[i]];
             }else if (button.tag == 15) {
                 [self.selectTitleArray addObject:self.titleArray[i]];
