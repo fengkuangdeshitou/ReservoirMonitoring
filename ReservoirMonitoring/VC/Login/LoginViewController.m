@@ -68,6 +68,7 @@
             
     } success:^(NSDictionary * _Nonnull result) {
         [NSUserDefaults.standardUserDefaults setValue:result[@"data"][@"token"] forKey:@"token"];
+        [RMHelper saveTouristsModel:false];
         [self getUserInfo];
     } failure:^(NSString * _Nonnull errorMsg) {
         

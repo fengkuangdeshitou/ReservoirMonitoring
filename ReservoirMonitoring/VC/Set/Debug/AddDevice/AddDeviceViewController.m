@@ -61,20 +61,8 @@
         [RMHelper showToast:@"please input inverter SN" toView:self.view];
         return;
     }
-    if (self.inverteSN.length != 21) {
-        [self.indexArray addObject:@(1)];
-        [self.tableView reloadData];
-        [RMHelper showToast:@"SN code invalid, please check again" toView:self.view];
-        return;
-    }
     if (self.batterySN.length == 0) {
         [RMHelper showToast:@"please input battery SN" toView:self.view];
-        return;
-    }
-    if (self.batterySN.length != 21) {
-        [self.indexArray addObject:@(2)];
-        [self.tableView reloadData];
-        [RMHelper showToast:@"SN code invalid, please check again" toView:self.view];
         return;
     }
     NSMutableArray * array = [[NSMutableArray alloc] init];
