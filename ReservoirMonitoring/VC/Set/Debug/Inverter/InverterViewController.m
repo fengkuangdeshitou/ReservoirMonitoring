@@ -30,7 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.count = 1;
-    self.title = [NSString stringWithFormat:@"Hybrid%ld Config",self.currentIndex+1];
+    self.title = [NSString stringWithFormat:@"Hybrid%ld config",self.currentIndex+1];
     [self loadRessNumber];
     [self.submit setTitle:@"Submit".localized forState:UIControlStateNormal];
     [self.previous setTitle:@"Back".localized forState:UIControlStateNormal];

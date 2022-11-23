@@ -89,7 +89,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self.view endEditing:true];
     if (self.isSearch) {
         if (self.selectTimeZone) {
             self.selectTimeZone(self.searchArray[indexPath.row]);

@@ -19,9 +19,10 @@ platform :ios do
 
   desc "iOS 打包+上传"
   lane :app do
-    # add actions here: https://docs.fastlane.tools/actions
-
-  	build_app(export_method: "ad-hoc")
+  	build_app(
+      export_method: "ad-hoc",
+      configuration: "Debug"
+      )
   	pgyer(api_key: "71e067eb9ddc4f899866d55cb357874e")
 
   end

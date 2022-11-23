@@ -80,8 +80,12 @@
             
     } success:^(NSDictionary * _Nonnull result) {
         NSDictionary * data = result[@"data"];
-        NSInteger userType = [data[@"userType"] integerValue];
-        [RMHelper setUserType:userType<=1];
+        if (data[@"userType"]){
+            NSInteger userType = [data[@"userType"] integerValue];
+            [RMHelper setUserType:userType<=1];
+        }else{
+            [RMHelper setUserType:false];
+        }
         [NSUserDefaults.standardUserDefaults setValue:[NSString stringWithFormat:@"%@",data[@"defDevId"]] forKey:CURRENR_DEVID];
         [[NSNotificationCenter defaultCenter] postNotificationName:LOGIN_SUCCESS object:nil];
     } failure:^(NSString * _Nonnull errorMsg) {

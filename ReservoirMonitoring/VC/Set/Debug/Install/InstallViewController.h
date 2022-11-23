@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface InstallViewController : BaseViewController
 
 @property(nonatomic,strong) NSString * installLogId;
+@property(nonatomic,strong) NSString * deviceId;
 
 @end
 

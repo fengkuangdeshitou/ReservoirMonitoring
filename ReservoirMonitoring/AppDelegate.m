@@ -33,6 +33,7 @@
       // NSSet<UNNotificationCategory *> *categories for iOS10 or later
       // NSSet<UIUserNotificationCategory *> *categories for iOS8 and iOS9
     }
+    NSLog(@"version=%@",NSBundle.mainBundle.infoDictionary);
     [MTPushService registerForRemoteNotificationConfig:entity delegate:self];
     [MTPushService setupWithOption:launchOptions
                            appKey:@"6858da78bce469a1492408ba"
@@ -93,7 +94,9 @@
 }
 
 - (void)loginSuccess{
-    [self getRegistrationId];
+    if (!RMHelper.isTouristsModel){
+        [self getRegistrationId];
+    }
     TabbarViewController * tabbar = [[TabbarViewController alloc] init];
     self.window.rootViewController = tabbar;
     [self.window makeKeyAndVisible];

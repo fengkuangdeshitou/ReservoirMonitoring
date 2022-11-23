@@ -63,12 +63,15 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([CompleteImageTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([CompleteImageTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([CompletePhoneTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([CompletePhoneTableViewCell class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ServiceInputTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([ServiceInputTableViewCell class])];
-    if (self.installLogId){
+    if (self.installLogId || self.deviceId){
         self.current = self.dataArray.count-2;
         [self nextAction:nil];
         self.back.userInteractionEnabled = false;
         [self.back setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
         self.back.layer.borderColor = self.back.titleLabel.textColor.CGColor;
+    }
+    if (!self.deviceId){
+        self.deviceId = [NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID];
     }
 }
 
@@ -101,7 +104,7 @@
     if (self.installLogId){
         params = @{@"installLogId":self.installLogId};
     }else{
-        params = @{@"deviceId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID]};
+        params = @{@"deviceId":self.deviceId};
     }
     [Request.shareInstance getUrl:QueryInstallLogInfo params:params progress:^(float progress) {
             
@@ -156,7 +159,7 @@
     }else if (self.current == 6){
         WifiViewController * wifi = [[WifiViewController alloc] init];
         wifi.title = @"Wi-Fi config".localized;
-        wifi.devId = [NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID];
+        wifi.devId = self.deviceId;
         wifi.hidesBottomBarWhenPushed = true;
         [self.navigationController pushViewController:wifi animated:true];
     }else if (self.current == 7){
@@ -178,7 +181,7 @@
     }
     [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
     [self uploadImages:imageCell.images completion:^(NSString *url) {
-        [self submitInstallLog:@{@"deviceId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID],@"photos":url,@"phone":[NSString stringWithFormat:@"%@-%@",phoneCell.phone.text,phoneCell.textfield.text],@"remark":descCell.content.text?:@""}];
+        [self submitInstallLog:@{@"deviceId":self.deviceId,@"photos":url,@"phone":[NSString stringWithFormat:@"%@-%@",phoneCell.phone.text,phoneCell.textfield.text],@"remark":descCell.content.text?:@""}];
     }];
 }
 
@@ -200,9 +203,13 @@
     } success:^(NSDictionary * _Nonnull result) {
         [UIApplication.sharedApplication.keyWindow hiddenHUD];
         [RMHelper showToast:result[@"message"] toView:self.view];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.navigationController popViewControllerAnimated:true];
-        });
+        self.config.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
+        [self.config setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+        self.config.userInteractionEnabled = false;
+        for (int i=0; i<self.tableView.visibleCells.count; i++) {
+            UITableViewCell * cell = self.tableView.visibleCells[i];
+            cell.contentView.userInteractionEnabled = false;
+        }
     } failure:^(NSString * _Nonnull errorMsg) {
         [UIApplication.sharedApplication.keyWindow hiddenHUD];
     }];

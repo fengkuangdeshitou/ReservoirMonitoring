@@ -43,15 +43,14 @@
 
 - (IBAction)timeAction:(id)sender{
     if (self.time == 0) {
-        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"EP CUBE contribution ratio = (battery energy consumption/ total energy consumption ) %, daily rating stands for the performance of last 24h" btnTitle:nil completion:nil];
+        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"EP CUBE contribution ratio = (battery energy consumption / total energy consumption)%, daily rating stands for the performance of the current day." btnTitle:nil completion:nil];
     }else if (self.time == 1){
-        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"EP CUBE contribution ratio = (battery energy consumption/ total energy consumption ) %, monthly rating stands for the performance of last month." btnTitle:nil completion:nil];
+        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"EP CUBE contribution ratio = (battery energy consumption / total energy consumption)%, monthly rating stands for the performance of the current month." btnTitle:nil completion:nil];
     }else if (self.time == 2){
-        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"EP CUBE contribution ratio = (battery energy consumption/ total energy consumption ) %, annual rating stands for the performance of last year." btnTitle:nil completion:nil];
+        [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"EP CUBE contribution ratio = (battery energy consumption / total energy consumption)%, yearly rating stands for the performance of the current year." btnTitle:nil completion:nil];
     }else{
         [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"EP CUBE contribution ratio = (battery energy consumption/ total energy consumption ) %, total rating stands for the performance since installation." btnTitle:nil completion:nil];
     }
-    
 }
 
 - (LineChartView *)lineEchartsView{
@@ -235,7 +234,7 @@
             [view removeFromSuperview];
         }
     }
-    if (backUpType.intValue == 1 && [self.selectIndexArray[0] intValue] == 14){
+    if (backUpType.intValue == 1 && [self.selectIndexArray containsObject:@"14"]){
         [self.selectIndexArray removeObject:@"14"];
         if (self.selectIndexArray.count == 1){
             [self.selectIndexArray addObject:@"10"];
@@ -248,21 +247,17 @@
         if (backUpType.intValue == 1){
             if (i<4){
                 button.frame = CGRectMake((width-0.5)*i, 3, width, 24);
-                [button setImage:[UIImage imageNamed:self.normal[i]] forState:UIControlStateNormal];
-                [button setImage:[UIImage imageNamed:self.highlight[i]] forState:UIControlStateSelected];
             }else if (i == 4){
                 button.frame = CGRectMake((width-0.5)*i, 3, 0, 24);
             }else{
                 button.frame = CGRectMake((width-0.5)*(i-1), 3, width, 24);
-                [button setImage:[UIImage imageNamed:self.normal[i-1]] forState:UIControlStateNormal];
-                [button setImage:[UIImage imageNamed:self.highlight[i-1]] forState:UIControlStateSelected];
             }
         }else{
             button.frame = CGRectMake((width-0.5)*i, 3, width, 24);
-            [button setImage:[UIImage imageNamed:self.normal[i]] forState:UIControlStateNormal];
-            [button setImage:[UIImage imageNamed:self.highlight[i]] forState:UIControlStateSelected];
         }
         button.tag = i+10;
+        [button setImage:[UIImage imageNamed:self.normal[i]] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:self.highlight[i]] forState:UIControlStateSelected];
         button.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.titleView addSubview:button];

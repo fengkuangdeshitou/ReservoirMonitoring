@@ -7,6 +7,7 @@
 
 #import "MessageListTableViewCell.h"
 @import BRPickerView;
+#import "InstallViewController.h"
 
 @interface MessageListTableViewCell ()
 

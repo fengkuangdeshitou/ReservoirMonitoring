@@ -109,6 +109,8 @@
         NetworkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NetworkTableViewCell class]) forIndexPath:indexPath];
         cell.bleIcon.hidden = true;
         cell.address.text = @"WIFI status：";
+        cell.icon.image = [UIImage imageNamed:@"icon_machine_big"];
+        cell.cententHeight.constant = 15;
         if (self.deviceSSID) {
             if ([self.wifi isEqualToString:@"connected"]) {
                 cell.status.text = @"Connected";
@@ -249,7 +251,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return indexPath.section == 0 ? 80 : 78;
+    return indexPath.section == 0 ? 110 : 78;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

@@ -18,7 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong) NSString * createTimeStamp;
 @property(nonatomic,strong) NSString * unReadyNum;
 @property(nonatomic,strong) NSString * type;
-
+@property(nonatomic,strong) NSString * installType;
+@property(nonatomic,strong) NSString * deviceId;
 @property(nonatomic,strong) NSString * Id;
 @property(nonatomic,strong) NSString * ready;
 @property(nonatomic,strong) NSString * title;

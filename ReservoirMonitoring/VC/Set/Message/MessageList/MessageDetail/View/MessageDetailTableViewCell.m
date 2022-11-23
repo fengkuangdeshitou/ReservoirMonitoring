@@ -36,9 +36,16 @@
 }
 
 - (IBAction)installAction:(id)sender{
+    if (self.model.installType.intValue != 1 && self.model.installType.intValue != 3){
+        return;
+    }
     InstallViewController * install = [[InstallViewController alloc] init];
+    if (self.model.installType.intValue == 1){
+        install.deviceId = self.model.deviceId;
+    }else if (self.model.installType.intValue == 3){
+        install.installLogId = self.model.reserved1;
+    }
     install.title = @"Installation";
-    install.installLogId = self.model.reserved1;
     [RMHelper.getCurrentVC.navigationController pushViewController:install animated:true];
 }
 

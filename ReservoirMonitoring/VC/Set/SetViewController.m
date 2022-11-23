@@ -40,14 +40,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setLeftBarImageForSel:nil];
-    
-    NSString * version = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
 #ifdef DEBUG
-    NSString * string = @"debug_";
+    NSString * versionString = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
+    NSString * version = [NSString stringWithFormat:@"debug_%@",versionString];
 #else
-    NSString * string = @"";
+    NSString * version = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
 #endif
-    [self setRightBarButtonItemWithTitlt:[NSString stringWithFormat:@"%@%@",string,version] sel:nil];
+    [self setRightBarButtonItemWithTitlt:version sel:nil];
     self.dataArray = [[NSMutableArray alloc] initWithArray:@[@"User Info".localized,@"Network".localized,@"Update".localized,@"FAQ".localized,@"Cancel account".localized]];
     self.iconArray = [[NSMutableArray alloc] initWithArray:@[@"icon_information",@"icon_list",@"icon_update",@"icon_help",@"icon_delete"]];
     if (RMHelper.getUserType){

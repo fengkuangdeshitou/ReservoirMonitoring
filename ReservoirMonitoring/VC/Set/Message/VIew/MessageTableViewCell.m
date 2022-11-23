@@ -32,8 +32,9 @@
     self.subTitleLabel.text = model.content?:@"No message";
     self.timeLabel.text = [NSDate br_stringFromDate:[NSDate dateWithTimeIntervalSince1970:model.createTimeStamp.longLongValue/1000] dateFormat:@"yyyy-MM-dd HH:mm:ss"];
     self.timeLabel.hidden = !model.createTime;
-    self.unReadyNum.text = [model.unReadyNum stringByAppendingString:@" "];
-    self.unReadyNum.hidden = model.unReadyNum.intValue == 0;
+    NSString * num = model.unReadyNum.intValue > 99 ? @"99" : model.unReadyNum;
+    self.unReadyNum.text = [num stringByAppendingString:@"  "];
+    self.unReadyNum.hidden = num.intValue == 0;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

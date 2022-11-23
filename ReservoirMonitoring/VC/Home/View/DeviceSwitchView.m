@@ -29,17 +29,18 @@
 
 - (UIView *)normalView{
     if (!_normalView) {
-        _normalView = [[UIView alloc] initWithFrame:CGRectMake(self.otherTableView.width/2-60, self.otherTableView.height/2-75, 120, 150)];
+        _normalView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 120, 120)];
         UIImageView * icon = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 100, 84)];
         icon.image = [UIImage imageNamed:@"icon_empty"];
         [_normalView addSubview:icon];
-        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 130, _normalView.width, 20)];
+        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, _normalView.width, 20)];
         label.text = @"No other device";
         label.textAlignment = 1;
         label.textColor = UIColor.whiteColor;
         label.font = [UIFont systemFontOfSize:16];
         [_normalView addSubview:label];
     }
+    _normalView.frame = CGRectMake(SCREEN_WIDTH/2-_normalView.width/2-15, self.otherTableView.height/2-_normalView.height/2, _normalView.width, _normalView.height);
     return _normalView;
 }
 
@@ -80,28 +81,33 @@
                 self.normalView.hidden = true;
                 self.searchArray = @[];
                 [self.otherTableView reloadData];
-                self.normalView.hidden = self.otherTableView.visibleCells.count > 0;
+                self.normalView.hidden = self.otherTableView.visibleCells.count > 1;
             }
         }];
         
         self.delegate = delegate;
         self.dataArray = dataArray;
-        
-        self.contentView = [[UIView alloc] initWithFrame:CGRectMake(15, 90, SCREEN_WIDTH-30, self.height-90*2)];
+        CGFloat height = SCREEN_HEIGHT*0.7;
+        self.contentView = [[UIView alloc] initWithFrame:CGRectMake(15, (SCREEN_HEIGHT-height)/2, SCREEN_WIDTH-30, height)];
         self.contentView.backgroundColor = [UIColor colorWithHexString:@"#1B1B1B"];
         self.contentView.layer.cornerRadius = 4;
         self.contentView.clipsToBounds = true;
         [self addSubview:self.contentView];
         
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, self.contentView.height-56) style:UITableViewStyleGrouped];
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.backgroundColor = UIColor.clearColor;
         self.tableView.scrollEnabled = false;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.contentView addSubview:self.tableView];
+        [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.mas_equalTo(0);
+            make.width.mas_equalTo(self.contentView.width);
+            make.height.mas_equalTo(self.contentView.height-56);
+        }];
         
-        self.otherTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 255, SCREEN_WIDTH-30, self.contentView.height-320) style:UITableViewStylePlain];
+        self.otherTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         self.otherTableView.delegate = self;
         self.otherTableView.dataSource = self;
         self.otherTableView.backgroundColor = UIColor.clearColor;
@@ -111,6 +117,12 @@
         self.otherTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         self.otherTableView.estimatedSectionFooterHeight = 0;
         [self.contentView addSubview:self.otherTableView];
+        [self.otherTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(0);
+            make.top.mas_equalTo(250);
+            make.width.mas_equalTo(SCREEN_WIDTH-30);
+            make.bottom.mas_equalTo(-74);
+        }];
         
         UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 52)];
         headerView.backgroundColor = UIColor.clearColor;
@@ -163,6 +175,14 @@
         [self.otherTableView reloadData];
         [self.otherTableView addSubview:self.normalView];
         self.normalView.hidden = self.dataArray.count > 1;
+        
+        CGFloat contentHeight = self.tableView.contentSize.height+self.otherTableView.contentSize.height;
+        if (contentHeight < 340 + self.normalView.height){
+            contentHeight = 340 + self.normalView.height;
+        }
+        CGFloat containerHeight = contentHeight > SCREEN_HEIGHT-90*2 ? SCREEN_HEIGHT-90*2 : contentHeight;
+        self.contentView.frame = CGRectMake(15, SCREEN_HEIGHT/2-containerHeight/2, self.contentView.width, containerHeight);
+        [self.contentView layoutIfNeeded];
         
     }
     return self;
@@ -334,7 +354,11 @@
 - (void)queryClick{
     self.searchArray = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name CONTAINS %@ || rtuSn CONTAINS %@ || sgSn CONTAINS %@",self.search.text,self.search.text,self.search.text]];
     [self.otherTableView reloadData];
-    self.normalView.hidden = self.searchArray.count > 0 || self.search.text.length == 0;
+    if (self.search.text.length > 0){
+        self.normalView.hidden = self.searchArray.count > 0 || self.search.text.length == 0;
+    }else{
+        self.normalView.hidden = self.dataArray.count > 1;
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
@@ -349,7 +373,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return tableView == self.tableView ? 10 : 10;
+    return tableView == self.tableView ? 10 : 0.01;
 }
 
 - (void)show{

@@ -301,7 +301,7 @@
 }
 
 - (IBAction)timeAction:(id)sender{
-    [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"EP CUBE contribution ratio = (battery energy consumption/ total energy consumption ) %, daily rating stands for the performance of last 24h" btnTitle:nil completion:nil];
+    [GlobelDescAlertView showAlertViewWithTitle:@"Description".localized desc:@"EP CUBE contribution ratio = (battery energy consumption / total energy consumption)%, daily rating stands for the performance of the current day." btnTitle:nil completion:nil];
 }
 
 - (IBAction)weatherAction:(id)sender{

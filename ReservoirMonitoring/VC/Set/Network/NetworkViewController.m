@@ -151,6 +151,7 @@
         NetworkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NetworkTableViewCell class]) forIndexPath:indexPath];
         cell.bleIcon.image = [UIImage imageNamed:@"bluetooth_gray"];
         cell.model = self.dataArray[indexPath.row];
+        cell.line.hidden = indexPath.row == self.dataArray.count-1;
         return cell;
     }
 }

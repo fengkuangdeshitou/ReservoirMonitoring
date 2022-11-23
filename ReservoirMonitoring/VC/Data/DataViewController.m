@@ -122,6 +122,8 @@
         if (array.count > 0) {
             self.devId = array.firstObject.deviceId;
             [self getHomeData:array.firstObject.sgSn];
+        }else{
+            [self.collectionView reloadData];
         }
     } failure:^(NSString * _Nonnull errorMsg) {
         [self.refreshController endRefreshing];

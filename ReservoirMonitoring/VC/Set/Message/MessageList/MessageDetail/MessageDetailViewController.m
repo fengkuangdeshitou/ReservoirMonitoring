@@ -33,8 +33,11 @@
     // Do any additional setup after loading the view from its nib.
     
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MessageDetailTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MessageDetailTableViewCell class])];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self getMessageDetail];
-    
 }
 
 - (void)getMessageDetail{

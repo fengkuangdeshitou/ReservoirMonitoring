@@ -28,6 +28,10 @@
     [self.refreshController addTarget:self action:@selector(refreshMessageData) forControlEvents:UIControlEventValueChanged];
     [self setRightBarButtonItemWithTitlt:@"Read all" sel:@selector(readAllAction)];
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithHexString:COLOR_MAIN_COLOR];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self getMessageList];
 }
 
