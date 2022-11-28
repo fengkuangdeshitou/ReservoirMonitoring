@@ -82,6 +82,20 @@
 }
 
 - (IBAction)logoutAtion:(id)sender{
+    if (!RMHelper.isTouristsModel){
+        [Request.shareInstance getUrl:SettingAlias params:@{@"registrationId":@""} progress:^(float progress) {
+                
+        } success:^(NSDictionary * _Nonnull result) {
+            [self logout];
+        } failure:^(NSString * _Nonnull errorMsg) {
+            
+        }];
+    }else{
+        [self logout];
+    }
+}
+
+- (void)logout{
     [RMHelper saveTouristsModel:false];
     [BleManager.shareInstance disconnectPeripheral];
     [NSUserDefaults.standardUserDefaults removeObjectForKey:@"token"];

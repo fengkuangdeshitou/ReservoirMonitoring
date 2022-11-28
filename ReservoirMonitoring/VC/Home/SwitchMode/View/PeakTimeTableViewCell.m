@@ -182,12 +182,10 @@
 }
 
 - (void)addButtonClck:(UIButton *)btn{
-    for (NSArray * array in self.dataArray) {
-        for (NSDictionary * item in array) {
-            if ([item[@"startTime"] length] == 0 && [item[@"endTime"] length] == 0){
-                [RMHelper showToast:@"Please select a time before adding" toView:RMHelper.getCurrentVC.view];
-                return;
-            }
+    for (NSDictionary * item in self.dataArray[btn.tag-10]) {
+        if ([item[@"startTime"] length] == 0 || [item[@"endTime"] length] == 0){
+            [RMHelper showToast:@"Please select a time before adding" toView:RMHelper.getCurrentVC.view];
+            return;
         }
     }
     NSInteger index = btn.tag-10;

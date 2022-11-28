@@ -13,6 +13,7 @@
 #import <Bugly/Bugly.h>
 #import <MTPushService.h>
 #import <UserNotifications/UserNotifications.h>
+#import "MessageDetailViewController.h"
 
 @interface AppDelegate ()<MTPushRegisterDelegate,UNUserNotificationCenterDelegate>
 
@@ -33,12 +34,11 @@
       // NSSet<UNNotificationCategory *> *categories for iOS10 or later
       // NSSet<UIUserNotificationCategory *> *categories for iOS8 and iOS9
     }
-    NSLog(@"version=%@",NSBundle.mainBundle.infoDictionary);
     [MTPushService registerForRemoteNotificationConfig:entity delegate:self];
     [MTPushService setupWithOption:launchOptions
                            appKey:@"6858da78bce469a1492408ba"
                           channel:@"App Store"
-                 apsForProduction:false
+                 apsForProduction:true
             advertisingIdentifier:nil];
     
     // 使用 UNUserNotificationCenter 来管理通知
@@ -62,20 +62,34 @@
     }else{
         [self loadLoginController];
     }
-    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-    [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kMTCNetworkDidReceiveMessageNotification object:nil];
+//    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+//    [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kMTCNetworkDidReceiveMessageNotification object:nil];
+    
+    NSDictionary * userInfo = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (userInfo){
+        if ([userInfo objectForKey:@"extras"]){
+            NSDictionary * extras = [userInfo objectForKey:@"extras"];
+            NSString * messageId = [extras objectForKey:@"notifyId"];
+            [self pushToMessageDetails:messageId];
+        }else if ([userInfo objectForKey:@"notifyId"]){
+            NSString * messageId = [userInfo objectForKey:@"notifyId"];
+            [self pushToMessageDetails:messageId];
+        }
+    }
+    
     return YES;
 }
 
 - (void)networkDidReceiveMessage:(NSNotification *)notification {
     NSDictionary * userInfo = [notification userInfo];
-    NSString *detail = [userInfo valueForKey:@"content"];
+    NSDictionary * extras = [userInfo objectForKey:@"extras"];
+    NSString * detail = [userInfo valueForKey:@"content"];
     UNTimeIntervalNotificationTrigger *timeTrigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:.5f repeats:NO];
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
     content.body = detail;
     content.badge = @([UIApplication sharedApplication].applicationIconBadgeNumber + 1);
     content.sound = [UNNotificationSound defaultSound];
-    content.userInfo = @{@"detail":detail};
+    content.userInfo = @{@"detail":detail,@"extras":extras};
     NSString *requestIdentifier = [NSString stringWithFormat:@"%lf", [[NSDate date] timeIntervalSince1970]];
     UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifier content:content trigger:timeTrigger];
     [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
@@ -91,6 +105,9 @@
     NavigationViewController * nav = [[NavigationViewController alloc] initWithRootViewController:login];
     login.title = @"Login".localized;
     self.window.rootViewController = nav;
+    if ([NSUserDefaults.standardUserDefaults objectForKey:@"token"]) {
+        [self uploadPushRegistrationId:@""];
+    }
 }
 
 - (void)loginSuccess{
@@ -127,20 +144,46 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
 }
 
 // iOS 12 Support
-- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(UNNotification *)notification{
-    if (notification && [notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+- (void)mtpNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(UNNotification *)notification{
+    if (notification) {
         //从通知界面直接进入应用
+          
     }else{
         //从通知设置界面进入应用
     }
 }
 
-- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+       willPresentNotification:(UNNotification *)notification
+         withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
     completionHandler(UNNotificationPresentationOptionSound | UNNotificationPresentationOptionAlert);
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+didReceiveNotificationResponse:(UNNotificationResponse *)response
+         withCompletionHandler:(void (^)(void))completionHandler{
+    UNNotificationContent * content = response.notification.request.content;
+    NSDictionary * userInfo = [content userInfo];
+    if ([userInfo objectForKey:@"extras"]){
+        NSDictionary * extras = [userInfo objectForKey:@"extras"];
+        NSString * messageId = [extras objectForKey:@"notifyId"];
+        [self pushToMessageDetails:messageId];
+    }else if ([userInfo objectForKey:@"notifyId"]){
+        NSString * messageId = [userInfo objectForKey:@"notifyId"];
+        [self pushToMessageDetails:messageId];
+    }
+    completionHandler();
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application{
     [application setApplicationIconBadgeNumber:0];
+}
+
+- (void)pushToMessageDetails:(NSString *)messageId{
+    MessageDetailViewController * detail = [[MessageDetailViewController alloc] initWithMessageId:messageId];
+    detail.title = @"Message details";
+    detail.hidesBottomBarWhenPushed = true;
+    [RMHelper.getCurrentVC.navigationController pushViewController:detail animated:true];
 }
 
 @end

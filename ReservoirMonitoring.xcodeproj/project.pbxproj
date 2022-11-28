@@ -2121,7 +2121,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ReservoirMonitoring/Third/JPush",
 				);
-				MARKETING_VERSION = 1.0.51;
+				MARKETING_VERSION = 1.0.54;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2173,7 +2173,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ReservoirMonitoring/Third/JPush",
 				);
-				MARKETING_VERSION = 1.0.51;
+				MARKETING_VERSION = 1.0.54;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuxu.energy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

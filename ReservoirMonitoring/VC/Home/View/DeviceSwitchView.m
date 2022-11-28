@@ -174,7 +174,6 @@
         [self.tableView reloadData];
         [self.otherTableView reloadData];
         [self.otherTableView addSubview:self.normalView];
-        self.normalView.hidden = self.dataArray.count > 1;
         
         CGFloat contentHeight = self.tableView.contentSize.height+self.otherTableView.contentSize.height;
         if (contentHeight < 340 + self.normalView.height){
@@ -183,7 +182,7 @@
         CGFloat containerHeight = contentHeight > SCREEN_HEIGHT-90*2 ? SCREEN_HEIGHT-90*2 : contentHeight;
         self.contentView.frame = CGRectMake(15, SCREEN_HEIGHT/2-containerHeight/2, self.contentView.width, containerHeight);
         [self.contentView layoutIfNeeded];
-        
+        self.normalView.hidden = self.dataArray.count > 1;
     }
     return self;
 }

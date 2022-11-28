@@ -70,15 +70,22 @@
         [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
         return;
     }
+    NSDictionary * params = @{
+        @"devId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID],
+        @"formType":@"5",
+        @"controlMode":value,
+        @"loadConfigViaBlue":RMHelper.getLoadDataForBluetooth?@"1":@"0",
+        @"register":registerCell.textfield.text,
+        @"value":valueCell.textfield.text
+    };
     [BleManager.shareInstance writeWithCMDString:@"600" array:@[value] finish:^{
-        [self uploadDebugConfig:@{
-            @"devId":[NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID],
-            @"formType":@"5",
-            @"controlMode":value,
-            @"loadConfigViaBlue":RMHelper.getLoadDataForBluetooth?@"1":@"0",
-            @"register":registerCell.textfield.text,
-            @"value":valueCell.textfield.text
-        }];
+        if (registerCell.textfield.text.length == 4 && valueCell.textfield.text.length == 4){
+            [BleManager.shareInstance writeWithCMDString:registerCell.textfield.text array:@[valueCell.textfield.text] finish:^{
+                [self uploadDebugConfig:params];
+            }];
+        }else{
+            [self uploadDebugConfig:params];
+        }
     }];
 }
 
@@ -112,7 +119,7 @@
         InputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
         cell.titleLabel.text = self.dataArray[indexPath.row][@"title"];
         cell.textfield.placeholder = self.dataArray[indexPath.row][@"placeholder"];
-        cell.textfield.keyboardType = UIKeyboardTypeNumberPad;
+//        cell.textfield.keyboardType = UIKeyboardTypeNumberPad;
         return cell;
     }
 }
