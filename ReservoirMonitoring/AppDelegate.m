@@ -26,7 +26,7 @@
     // Override point for customization after application launch.
 //    [UWConfig setUserLanguage:@"zh-Hans"];
     sleep(2);
-    
+    [self clearAllPushMessage];
     MTPushRegisterEntity * entity = [[MTPushRegisterEntity alloc] init];
     entity.types = MTPushAuthorizationOptionAlert|MTPushAuthorizationOptionBadge|MTPushAuthorizationOptionSound|MTPushAuthorizationOptionProvidesAppNotificationSettings;
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
@@ -101,6 +101,7 @@
 }
 
 - (void)loadLoginController{
+    [self clearAllPushMessage];
     LoginViewController * login = [[LoginViewController alloc] init];
     NavigationViewController * nav = [[NavigationViewController alloc] initWithRootViewController:login];
     login.title = @"Login".localized;
@@ -176,7 +177,12 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application{
-    [application setApplicationIconBadgeNumber:0];
+    [self clearAllPushMessage];
+}
+
+- (void)clearAllPushMessage{
+    [UNUserNotificationCenter.currentNotificationCenter removeAllDeliveredNotifications];
+    UIApplication.sharedApplication.applicationIconBadgeNumber = 0;
 }
 
 - (void)pushToMessageDetails:(NSString *)messageId{
