@@ -861,8 +861,8 @@
 		0FE713F9283C859000B0733A /* Toast */ = {
 			isa = PBXGroup;
 			children = (
-				0FE713FA283C859000B0733A /* Toast+UIView.m */,
 				0FE713FB283C859000B0733A /* Toast+UIView.h */,
+				0FE713FA283C859000B0733A /* Toast+UIView.m */,
 			);
 			path = Toast;
 			sourceTree = "<group>";

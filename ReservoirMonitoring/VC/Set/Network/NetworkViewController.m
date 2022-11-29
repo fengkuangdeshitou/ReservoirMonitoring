@@ -10,7 +10,6 @@
 #import "WifiViewController.h"
 #import "BleManager.h"
 #import "PeripheralModel.h"
-#import "AddDeviceViewController.h"
 #import "DevideModel.h"
 #import "GlobelDescAlertView.h"
 #import "WifiInfoTableViewCell.h"
@@ -50,11 +49,10 @@
     [Request.shareInstance getUrl:DeviceList params:@{} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
-        self.dataArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-        NSArray<DevideModel*> * filter = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect == %@",@"1"]];
+        NSArray * modelArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        NSArray<DevideModel*> * filter = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect == %@",@"1"]];
         if (filter.count > 0) {
             self.model = filter.firstObject;
-            NSLog(@"a=%@",BleManager.shareInstance.rtusn);
             if (BleManager.shareInstance.isConnented) {
                 if ([BleManager.shareInstance.rtusn isEqualToString:self.model.rtuSn]) {
                     self.model.isConnected = BleManager.shareInstance.isConnented;
@@ -63,7 +61,8 @@
                 }
             }
         }
-        self.normalView.hidden = self.dataArray.count > 1;
+        self.dataArray = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect != %@",@"1"]];
+        self.normalView.hidden = self.dataArray.count > 0;
         [self.tableView reloadData];
     } failure:^(NSString * _Nonnull errorMsg) {
         
@@ -81,46 +80,11 @@
         }];
         return;
     }
-//    AddDeviceViewController * add = [[AddDeviceViewController alloc] init];
-//    add.title = @"Add Device".localized;
-//    [self.navigationController pushViewController:add animated:true];
     WifiViewController * wifi = [[WifiViewController alloc] init];
     wifi.title = @"Wi-Fi config".localized;
     wifi.devId = self.model.deviceId;
     [self.navigationController pushViewController:wifi animated:true];
 }
-
-//- (void)bluetoothDidUpdateState:(CBCentralManager *)central{
-//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            switch (central.state) {
-//                case CBManagerStateUnknown:
-//                    NSLog(@"未知状态");
-//                    break;
-//                case CBManagerStateResetting:
-//                    NSLog(@"重启状态");
-//                    break;
-//                case CBManagerStateUnsupported:
-//                    NSLog(@"不支持");
-//                    break;
-//                case CBManagerStateUnauthorized:
-//                    NSLog(@"未授权");
-//                    break;
-//                case CBManagerStatePoweredOff:{
-//                    NSLog(@"蓝牙未开启");
-//                    [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Bluetooth permission required, please go to setting and enable usage." btnTitle:nil completion:^{
-//                        [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
-//                    }];
-//                }
-//                    break;
-//                case CBManagerStatePoweredOn:{
-//                    NSLog(@"蓝牙已开启");
-//                    break;;
-//                }
-//            }
-//        });
-//    });
-//}
 
 - (void)bluetoothDidConnectPeripheral:(CBPeripheral *)peripheral{
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -212,8 +176,7 @@
     if (indexPath.section == 0) {
         return 135;
     }else{
-        DevideModel * model = self.dataArray[indexPath.row];
-        return [model.rtuSn isEqualToString:self.model.rtuSn] ? 0.01 : 80;
+        return 80;
     }
 }
 

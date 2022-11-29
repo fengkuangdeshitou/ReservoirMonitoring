@@ -144,19 +144,7 @@
     
     RegisterTableViewCell * password = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
     RegisterTableViewCell * confir = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
-    if (password.textfield.text.length == 0){
-        [RMHelper showToast:password.textfield.placeholder toView:self.view];
-        return;
-    }
     if (password.textfield.text.length < 6 || password.textfield.text.length > 20){
-        [RMHelper showToast:@"Please enter 6-20 digit password".localized toView:self.view];
-        return;
-    }
-    if (confir.textfield.text.length == 0){
-        [RMHelper showToast:confir.textfield.placeholder toView:self.view];
-        return;
-    }
-    if (confir.textfield.text.length < 6 || confir.textfield.text.length > 20){
         [RMHelper showToast:@"Please enter 6-20 digit password".localized toView:self.view];
         return;
     }
