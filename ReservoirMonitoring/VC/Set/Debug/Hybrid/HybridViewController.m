@@ -189,7 +189,7 @@
         return;
     }
     if (self.systemTime.length != 19){
-        [RMHelper showToast:@"Please select a correct format time" toView:self.view];
+        [RMHelper showToast:@"Please select the time in the correct format" toView:self.view];
         return;
     }
     NSArray * leftArray = @[];

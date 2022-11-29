@@ -180,10 +180,14 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 }
 
 - (void)pushToMessageDetails:(NSString *)messageId{
-    MessageDetailViewController * detail = [[MessageDetailViewController alloc] initWithMessageId:messageId];
-    detail.title = @"Message details";
-    detail.hidesBottomBarWhenPushed = true;
-    [RMHelper.getCurrentVC.navigationController pushViewController:detail animated:true];
+    if ([RMHelper.getCurrentVC isKindOfClass:[MessageDetailViewController class]]){
+        [NSNotificationCenter.defaultCenter postNotificationName:UPDATE_MESSAGEDETAIL_NOTIFICATION object:messageId];
+    }else{
+        MessageDetailViewController * detail = [[MessageDetailViewController alloc] initWithMessageId:messageId];
+        detail.title = @"Message details";
+        detail.hidesBottomBarWhenPushed = true;
+        [RMHelper.getCurrentVC.navigationController pushViewController:detail animated:false];
+    }
 }
 
 @end

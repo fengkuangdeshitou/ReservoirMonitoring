@@ -45,4 +45,6 @@ NSString * const ADD_DEVICE_NOTIFICATION = @"add_device_notification";
 
 NSString * const UPDATE_RESS_NOTIFICATION = @"update_ress_notification";
 
+NSString * const UPDATE_MESSAGEDETAIL_NOTIFICATION = @"update_messageDetail_notification";
+
 @end

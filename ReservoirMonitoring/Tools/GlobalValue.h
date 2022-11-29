@@ -53,6 +53,8 @@ extern NSString * const CLEAR_NOTIFICATION;
 extern NSString * const ADD_DEVICE_NOTIFICATION;
 /**RESS设置成功*/
 extern NSString * const UPDATE_RESS_NOTIFICATION;
+/**通知详情更新*/
+extern NSString * const UPDATE_MESSAGEDETAIL_NOTIFICATION;
 
 @end
 

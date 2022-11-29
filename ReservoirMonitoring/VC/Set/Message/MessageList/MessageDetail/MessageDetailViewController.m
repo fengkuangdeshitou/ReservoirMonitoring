@@ -32,7 +32,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(messageDetailUpdate:) name:UPDATE_MESSAGEDETAIL_NOTIFICATION object:nil];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MessageDetailTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MessageDetailTableViewCell class])];
+}
+
+- (void)messageDetailUpdate:(NSNotification *)notification{
+    self.messageId = notification.object;
+    [self getMessageDetail];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

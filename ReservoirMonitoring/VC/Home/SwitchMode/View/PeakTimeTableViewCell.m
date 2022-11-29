@@ -217,6 +217,7 @@
     }else{
         self.superPeakTimeChange = true;
     }
+    [self.tableView reloadData];
     [self updateTableViewHeight];
 }
 
