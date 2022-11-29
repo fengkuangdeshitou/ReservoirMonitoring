@@ -81,12 +81,11 @@
                 self.normalView.hidden = true;
                 self.searchArray = @[];
                 [self.otherTableView reloadData];
-                self.normalView.hidden = self.otherTableView.visibleCells.count > 1;
+                self.normalView.hidden = self.otherTableView.visibleCells.count > 0;
             }
         }];
         
         self.delegate = delegate;
-        self.dataArray = dataArray;
         CGFloat height = SCREEN_HEIGHT*0.7;
         self.contentView = [[UIView alloc] initWithFrame:CGRectMake(15, (SCREEN_HEIGHT-height)/2, SCREEN_WIDTH-30, height)];
         self.contentView.backgroundColor = [UIColor colorWithHexString:@"#1B1B1B"];
@@ -167,10 +166,11 @@
             make.height.mas_equalTo(44);
         }];
         
-        NSArray<DevideModel*> * array = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
+        NSArray<DevideModel*> * array = [dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
         if (array.count>0) {
             self.currentDevice = array.firstObject;
         }
+        self.dataArray = [dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect != %@",@"1"]];
         [self.tableView reloadData];
         [self.otherTableView reloadData];
         [self.otherTableView addSubview:self.normalView];
@@ -182,7 +182,7 @@
         CGFloat containerHeight = contentHeight > SCREEN_HEIGHT-90*2 ? SCREEN_HEIGHT-90*2 : contentHeight;
         self.contentView.frame = CGRectMake(15, SCREEN_HEIGHT/2-containerHeight/2, self.contentView.width, containerHeight);
         [self.contentView layoutIfNeeded];
-        self.normalView.hidden = self.dataArray.count > 1;
+        self.normalView.hidden = self.dataArray.count > 0;
     }
     return self;
 }
@@ -203,15 +203,16 @@
     [Request.shareInstance getUrl:DeviceList params:@{} progress:^(float progress) {
             
     } success:^(NSDictionary * _Nonnull result) {
-        self.dataArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-        NSArray<DevideModel*> * array = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
+        NSArray * modelArray = [DevideModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        NSArray<DevideModel*> * array = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect = %@",@"1"]];
         if (array.count>0) {
             self.currentDevice = array.firstObject;
         }
+        self.dataArray = [modelArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lastConnect != %@",@"1"]];
         [self.tableView reloadData];
         [self.otherTableView reloadData];
         [self.otherTableView addSubview:self.normalView];
-        self.normalView.hidden = self.dataArray.count > 1;
+        self.normalView.hidden = self.dataArray.count > 0;
         completion();
     } failure:^(NSString * _Nonnull errorMsg) {
         
@@ -279,11 +280,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.otherTableView) {
         DevideModel * model = self.search.text.length > 0 ? self.searchArray[indexPath.section] : self.dataArray[indexPath.section];
-        if ([model.rtuSn isEqualToString:self.currentDevice.rtuSn]) {
-            return 0.01;
-        }else{
-            return UITableViewAutomaticDimension;
-        }
+        return UITableViewAutomaticDimension;
     }
     return UITableViewAutomaticDimension;
 }
@@ -351,12 +348,12 @@
 }
 
 - (void)queryClick{
-    self.searchArray = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name CONTAINS %@ || rtuSn CONTAINS %@ || sgSn CONTAINS %@",self.search.text,self.search.text,self.search.text]];
+    self.searchArray = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name CONTAINS [cd] %@ || rtuSn CONTAINS [cd] %@ || sgSn CONTAINS [cd] %@",self.search.text,self.search.text,self.search.text]];
     [self.otherTableView reloadData];
     if (self.search.text.length > 0){
         self.normalView.hidden = self.searchArray.count > 0 || self.search.text.length == 0;
     }else{
-        self.normalView.hidden = self.dataArray.count > 1;
+        self.normalView.hidden = self.dataArray.count > 0;
     }
 }
 

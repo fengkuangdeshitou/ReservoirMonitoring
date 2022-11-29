@@ -64,14 +64,6 @@
         [RMHelper showToast:@"Please enter 6-20 digit password".localized toView:self.view];
         return;
     }
-    if (self.confirm.text.length == 0) {
-        [RMHelper showToast:self.confirm.placeholder toView:self.view];
-        return;
-    }
-    if (self.confirm.text.length < 6 || self.confirm.text.length > 20){
-        [RMHelper showToast:@"Please enter 6-20 digit password".localized toView:self.view];
-        return;
-    }
     if (![self.password.text isEqualToString:self.confirm.text]) {
         [RMHelper showToast:@"The two passwords you entered are different" toView:self.view];
         return;

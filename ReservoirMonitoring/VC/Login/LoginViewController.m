@@ -44,6 +44,7 @@
 
 - (void)changePassword:(NSNotification *)notification{
     self.emailtf.text = notification.object;
+    self.passwordtf.text = @"";
 }
 
 - (IBAction)previewChangeAction:(UIButton *)sender{

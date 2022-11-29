@@ -243,6 +243,7 @@
         cell.textfield.secureTextEntry = true;
         cell.showBtn.hidden = false;
         cell.textfield.delegate = self;
+        cell.textfield.keyboardType = UIKeyboardTypeDefault;
     }else{
         cell.textfield.secureTextEntry = false;
         cell.showBtn.hidden = true;
@@ -250,6 +251,7 @@
             cell.textfield.delegate = self;
             cell.textfield.tag = 10;
         }
+        cell.textfield.keyboardType = indexPath.row == 2 ? UIKeyboardTypeNumberPad : UIKeyboardTypeDefault;
     }
     [cell.showBtn addTarget:self action:@selector(textfieldSecureChange:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
