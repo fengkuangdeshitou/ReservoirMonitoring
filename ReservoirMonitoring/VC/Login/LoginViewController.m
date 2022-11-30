@@ -95,7 +95,7 @@
 }
 
 - (IBAction)loginAction:(id)sender{
-    if (self.email.text.length == 0) {
+    if (self.emailtf.text.length == 0) {
         [RMHelper showToast:self.emailtf.placeholder toView:self.view];
         return;
     }

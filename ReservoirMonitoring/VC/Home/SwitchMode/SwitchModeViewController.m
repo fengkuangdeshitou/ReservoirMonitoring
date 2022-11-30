@@ -118,21 +118,6 @@
                 }
             }
         }
-//        if (data[@"superPeakTimeList"]) {
-//            NSArray * superPeakTimeArray = data[@"superPeakTimeList"];
-//            for (int i=0; i<superPeakTimeArray.count; i++) {
-//                NSString * string = superPeakTimeArray[i];
-//                if ([string containsString:@"_"]) {
-//                    NSArray * timeArray = [string componentsSeparatedByString:@"_"];
-//                    NSString * startTime = timeArray[0];
-//                    NSString * endTime = timeArray[1];
-//                    NSDictionary * dict = @{@"startTime":startTime,@"endTime":endTime,@"price":timeArray.count>=2?timeArray[2]:@"0"};
-//                    [self.superPeakTimeArray addObject:dict];
-//                }else{
-//                    [self.superPeakTimeArray addObject:@{@"startTime":@"",@"endTime":@"",@"price":@""}];
-//                }
-//            }
-//        }
         [self.tableView reloadData];
     } failure:^(NSString * _Nonnull errorMsg) {
         
@@ -434,42 +419,47 @@
         }
     }
     NSLog(@"params=%@",params);
+    if (self.flag == 2) {
+        if ([offPeakArray[0] isEqualToString:@"__"] && [params[@"offPeakTimeList"][0] isEqualToString:@"__"]){
+            [RMHelper showToast:@"Please select a time" toView:self.view];
+            return;
+        }
+        if ([offPeakArray[0] componentsSeparatedByString:@"_"][0].length == 0) {
+            [RMHelper showToast:@"please select start time" toView:self.view];
+            return;
+        }
+        if ([offPeakArray[0] componentsSeparatedByString:@"_"][1].length == 0) {
+            [RMHelper showToast:@"please select end time" toView:self.view];
+            return;
+        }
+        if (offPeakArray.count > 1) {
+            if ([offPeakArray[1] componentsSeparatedByString:@"_"][0].length == 0) {
+                [RMHelper showToast:@"please select start time" toView:self.view];
+                return;
+            }
+            if ([offPeakArray[1] componentsSeparatedByString:@"_"][1].length == 0) {
+                [RMHelper showToast:@"please select end time" toView:self.view];
+                return;
+            }
+        }
+        if (offPeakArray.count > 2) {
+            if ([offPeakArray[2] componentsSeparatedByString:@"_"][0].length == 0) {
+                [RMHelper showToast:@"please select start time" toView:self.view];
+                return;
+            }
+            if ([offPeakArray[2] componentsSeparatedByString:@"_"][1].length == 0) {
+                [RMHelper showToast:@"please select end time" toView:self.view];
+                return;
+            }
+        }
+    }
+    
     if (RMHelper.getUserType || (!RMHelper.getUserType && BleManager.shareInstance.isConnented)) {
         if (!BleManager.shareInstance.isConnented) {
             [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
             return;
         }
         [params setValue:@"1" forKey:@"onlySave"];
-        if (self.flag == 2) {
-            if ([offPeakArray[0] componentsSeparatedByString:@"_"][0].length == 0) {
-                [RMHelper showToast:@"please select start time" toView:self.view];
-                return;
-            }
-            if ([offPeakArray[0] componentsSeparatedByString:@"_"][1].length == 0) {
-                [RMHelper showToast:@"please select end time" toView:self.view];
-                return;
-            }
-            if (offPeakArray.count > 1) {
-                if ([offPeakArray[1] componentsSeparatedByString:@"_"][0].length == 0) {
-                    [RMHelper showToast:@"please select start time" toView:self.view];
-                    return;
-                }
-                if ([offPeakArray[1] componentsSeparatedByString:@"_"][1].length == 0) {
-                    [RMHelper showToast:@"please select end time" toView:self.view];
-                    return;
-                }
-            }
-            if (offPeakArray.count > 2) {
-                if ([offPeakArray[2] componentsSeparatedByString:@"_"][0].length == 0) {
-                    [RMHelper showToast:@"please select start time" toView:self.view];
-                    return;
-                }
-                if ([offPeakArray[2] componentsSeparatedByString:@"_"][1].length == 0) {
-                    [RMHelper showToast:@"please select end time" toView:self.view];
-                    return;
-                }
-            }
-        }
         __weak typeof(self) weakSelf = self;
         if (BleManager.shareInstance.isConnented) {
             [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
@@ -611,12 +601,12 @@
         [RMHelper showToast:@"Visitor has no permission" toView:self.view];
         return;
     }
+    __weak typeof(self) weakSelf = self;
     if (RMHelper.getUserType || (!RMHelper.getUserType && BleManager.shareInstance.isConnented)) {
         if (!BleManager.shareInstance.isConnented) {
             [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
             return;
         }
-        __weak typeof(self) weakSelf = self;
         [GlobelDescAlertView showAlertViewWithTitle:@"Clear" desc:@"Are you sure you want to clear the configuration" btnTitle:nil completion:^{
             [BleManager.shareInstance writeWithCMDString:@"751" string:@"1" finish:^{
                 [weakSelf clearDataAction];
@@ -624,7 +614,7 @@
         }];
     }else{
         [GlobelDescAlertView showAlertViewWithTitle:@"Clear" desc:@"Are you sure you want to clear the configuration" btnTitle:nil completion:^{
-            [self clearDataAction];
+            [weakSelf clearDataAction];
         }];
     }
 }
@@ -633,7 +623,18 @@
     [Request.shareInstance getUrl:ClearTouMode params:@{@"devId":self.deviceId} progress:^(float progress) {
                         
     } success:^(NSDictionary * _Nonnull result) {
+        [self.touArray removeAllObjects];
+        [self.peakTimeArray removeAllObjects];
+        NSDictionary * item = @{@"startTime":@"",@"endTime":@"",@"price":@""};
+        [self.touArray addObject:item];
+        [self.peakTimeArray addObject:item];
         [[NSNotificationCenter defaultCenter] postNotificationName:CLEAR_NOTIFICATION object:nil];
+        BOOL value = [result[@"data"] boolValue];
+        if (!value) {
+            [RMHelper showToast:result[@"message"] toView:self.view];
+        }else{
+            [RMHelper showToast:@"Success" toView:self.view];
+        }
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];
