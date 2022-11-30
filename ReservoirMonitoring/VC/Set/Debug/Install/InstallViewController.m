@@ -180,9 +180,23 @@
         return;
     }
     [UIApplication.sharedApplication.keyWindow showHUDToast:@"Loading"];
-    [self uploadImages:imageCell.images completion:^(NSString *url) {
-        [self submitInstallLog:@{@"deviceId":self.deviceId,@"photos":url,@"phone":[NSString stringWithFormat:@"%@-%@",phoneCell.phone.text,phoneCell.textfield.text],@"remark":descCell.content.text?:@""}];
-    }];
+    NSMutableArray * urlArray = [[NSMutableArray alloc] init];
+    NSMutableArray * imageArray = [[NSMutableArray alloc] init];
+    for (int i=0; i<imageCell.images.count; i++) {
+        if ([imageCell.images[i] isKindOfClass:[UIImage class]]){
+            [imageArray addObject:imageCell.images[i]];
+        }else{
+            [urlArray addObject:imageCell.images[i]];
+        }
+    }
+    if (imageArray.count > 0){
+        [self uploadImages:imageArray completion:^(NSString *url) {
+            [urlArray addObjectsFromArray:[url componentsSeparatedByString:@","]];
+            [self submitInstallLog:@{@"deviceId":self.deviceId,@"photos":[urlArray componentsJoinedByString:@","],@"phone":[NSString stringWithFormat:@"%@-%@",phoneCell.phone.text,phoneCell.textfield.text],@"remark":descCell.content.text?:@""}];
+        }];
+    }else{
+        [self submitInstallLog:@{@"deviceId":self.deviceId,@"photos":[urlArray componentsJoinedByString:@","],@"phone":[NSString stringWithFormat:@"%@-%@",phoneCell.phone.text,phoneCell.textfield.text],@"remark":descCell.content.text?:@""}];
+    }
 }
 
 - (void)uploadImages:(NSArray *)images completion:(void(^)(NSString * url))completion{

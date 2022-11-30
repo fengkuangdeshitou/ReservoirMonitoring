@@ -348,7 +348,7 @@
 }
 
 - (void)queryClick{
-    self.searchArray = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name CONTAINS [cd] %@ || rtuSn CONTAINS [cd] %@ || sgSn CONTAINS [cd] %@",self.search.text,self.search.text,self.search.text]];
+    self.searchArray = [self.dataArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name CONTAINS [cd] %@ || sgSn CONTAINS [cd] %@",self.search.text,self.search.text]];
     [self.otherTableView reloadData];
     if (self.search.text.length > 0){
         self.normalView.hidden = self.searchArray.count > 0 || self.search.text.length == 0;

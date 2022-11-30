@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong) NSString * createTimeStamp;
 @property(nonatomic,strong) NSString * unReadyNum;
 @property(nonatomic,strong) NSString * type;
+/// 1未安装类型 2=安装审核通过 3=安装审核驳回
 @property(nonatomic,strong) NSString * installType;
 @property(nonatomic,strong) NSString * deviceId;
 @property(nonatomic,strong) NSString * Id;

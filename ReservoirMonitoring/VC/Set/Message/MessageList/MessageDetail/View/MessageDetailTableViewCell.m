@@ -40,9 +40,8 @@
         return;
     }
     InstallViewController * install = [[InstallViewController alloc] init];
-    if (self.model.installType.intValue == 1){
-        install.deviceId = self.model.deviceId;
-    }else if (self.model.installType.intValue == 3){
+    install.deviceId = self.model.deviceId;
+    if (self.model.installType.intValue == 3){
         install.installLogId = self.model.reserved1;
     }
     install.title = @"Installation";

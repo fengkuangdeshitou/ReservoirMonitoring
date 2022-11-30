@@ -36,7 +36,7 @@
                  apsForProduction:true
             advertisingIdentifier:nil];
     [MTPushService setBadge:0];
-    
+    [self clearIconBadegNumber];
     [UWConfig setUserLanguage:@"en"];
     [Bugly startWithAppId:@"dde48f2e31"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:LOGIN_SUCCESS object:nil];
@@ -75,8 +75,13 @@
 }
 
 - (void)unregisterForRemoteNotifications{
-    [UNUserNotificationCenter.currentNotificationCenter removeAllDeliveredNotifications];
     [UIApplication.sharedApplication unregisterForRemoteNotifications];
+}
+
+- (void)clearIconBadegNumber{
+    UIApplication.sharedApplication.applicationIconBadgeNumber = 0;
+    [MTPushService setBadge:0];
+    [UNUserNotificationCenter.currentNotificationCenter removeAllDeliveredNotifications];
 }
 
 - (void)networkDidReceiveMessage:(NSNotification *)notification {
@@ -101,6 +106,7 @@
 
 - (void)loadLoginController{
     [self unregisterForRemoteNotifications];
+    [self clearIconBadegNumber];
     LoginViewController * login = [[LoginViewController alloc] init];
     NavigationViewController * nav = [[NavigationViewController alloc] initWithRootViewController:login];
     login.title = @"Login".localized;
@@ -136,6 +142,10 @@
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application{
+    [self clearIconBadegNumber];
 }
 
 - (void)application:(UIApplication *)application

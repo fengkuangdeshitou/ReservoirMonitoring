@@ -90,11 +90,7 @@
         if ([obj isKindOfClass:[UIImage class]]){
             cell.icon.image = obj;
         }else{
-            [cell.icon sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-                if (image){
-                    [self.images replaceObjectAtIndex:indexPath.row withObject:image];
-                }
-            }];
+            [cell.icon sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:nil];
         }
         cell.addView.hidden = true;
     }

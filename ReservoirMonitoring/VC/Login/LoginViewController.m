@@ -103,6 +103,10 @@
         [RMHelper showToast:self.passwordtf.placeholder toView:self.view];
         return;
     }
+    if (self.passwordtf.text.length < 6 || self.passwordtf.text.length > 20) {
+        [RMHelper showToast:@"Please enter 6-20 digit password" toView:self.view];
+        return;
+    }
     [self.view endEditing:true];
     [ImageAuthenticationView showImageAuthemticationWithDelegate:self];
 }

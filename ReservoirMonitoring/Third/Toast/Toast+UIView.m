@@ -250,6 +250,7 @@ static const NSString * CSToastActivityViewKey  = @"CSToastActivityViewKey";
         messageLabel.numberOfLines = CSToastMaxMessageLines;
         messageLabel.font = [UIFont systemFontOfSize:CSToastFontSize];
         messageLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
         messageLabel.textColor = [UIColor whiteColor];
         messageLabel.backgroundColor = [UIColor clearColor];
         messageLabel.alpha = 1.0;
