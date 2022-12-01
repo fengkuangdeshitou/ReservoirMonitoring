@@ -20,7 +20,6 @@
 @property(nonatomic,weak)IBOutlet UITextField * emailtf;
 @property(nonatomic,weak)IBOutlet UITextField * passwordtf;
 
-
 @end
 
 @implementation LoginViewController

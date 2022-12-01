@@ -25,6 +25,8 @@
 @property(nonatomic,assign) NSInteger timeCount;
 @property(nonatomic,strong) UserModel * model;
 @property(nonatomic,strong) NSString * hotline;
+@property(nonatomic,strong) NSString * cacheCategory;
+@property(nonatomic,strong) NSString * cacheDesc;
 
 @end
 
@@ -40,6 +42,12 @@
     [super viewWillDisappear:animated];
     [self.timer invalidate];
     self.timer = nil;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (![RMHelper.getCurrentVC isKindOfClass:[InfoViewController class]] && ![RMHelper.getCurrentVC isKindOfClass:NSClassFromString(@"HelpViewController")]){
+            self.cacheCategory = nil;
+            self.cacheDesc = nil;
+        }
+    });
 }
 
 - (void)requestUserInfo{
@@ -50,10 +58,18 @@
         NSString * reason = @"None".localized;
         if ([NSUserDefaults.standardUserDefaults objectForKey:[self reasonCacheKey]]) {
             reason = [NSUserDefaults.standardUserDefaults objectForKey:[self reasonCacheKey]];
+        }else{
+            if (self.cacheCategory){
+                reason = self.cacheCategory;
+            }
         }
         NSString * desc = @"";
         if ([NSUserDefaults.standardUserDefaults objectForKey:[self descCacheKey]]) {
             desc = [NSUserDefaults.standardUserDefaults objectForKey:[self descCacheKey]];
+        }else{
+            if (self.cacheDesc){
+                desc = self.cacheDesc;
+            }
         }
         self.dataArray = [[NSMutableArray alloc] initWithArray:@[
             @{@"title":@"",@"placeholder":@""},
@@ -168,6 +184,9 @@
     }
     if (self.model.phonenumber.length == 0){
         [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Personal contact missing, please provide a mobile phone number to proceed." btnTitle:nil completion:^{
+            ServiceInputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+            self.cacheCategory = self.dataArray[1][@"placeholder"];
+            self.cacheDesc = cell.content.text;
             InfoViewController * info = [[InfoViewController alloc] init];
             info.title = @"Info";
             info.model = self.model;

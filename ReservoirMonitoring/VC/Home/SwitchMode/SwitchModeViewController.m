@@ -313,6 +313,10 @@
         [RMHelper showToast:@"Visitor has no permission" toView:RMHelper.getCurrentVC.view];
         return;
     }
+    if (RMHelper.getUserType && !BleManager.shareInstance.isConnented) {
+        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
+        return;
+    }
     NSString * weather = self.weatherBtn.isSelected ? @"1" : @"0";
     PeakTimeTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:2]];
     SwitchProgressTableViewCell * cell1 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
@@ -334,7 +338,6 @@
     if (self.flag != 2) {
         [params setValue:@[@"__"] forKey:@"offPeakTimeList"];
         [params setValue:@[@"__"] forKey:@"peakTimeList"];
-//        [params setValue:@[@"__"] forKey:@"superPeakTimeList"];
     }else{
         for (int i=0; i<[cell.dataArray[0] count]; i++) {
             NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:0];
@@ -352,6 +355,10 @@
             [offPeakArray addObject:string];
         }
         [params setValue:offPeakArray forKey:@"offPeakTimeList"];
+        if (offPeakArray.count == 1 && [offPeakArray[0] isEqualToString:@"__"]){
+            [RMHelper showToast:@"Please select a Off-peak time" toView:self.view];
+            return;
+        }
         if ([RMHelper hasRepeatedTimeForArray:offPeakArray]) {
             [RMHelper showToast:@"Off-peak time overlap" toView:self.view];
             return;
@@ -377,42 +384,15 @@
             [RMHelper showToast:@"Peak time overlap" toView:self.view];
             return;
         }
-//        NSMutableArray * superPeakTimeArray = [[NSMutableArray alloc] init];
-//        for (int i=0; i<[cell.dataArray[2] count]; i++) {
-//            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:2];
-//            TimeTableViewCell * timeCell = [cell.tableView cellForRowAtIndexPath:indexPath];
-//            NSLog(@"start=%@,end=%@",timeCell.startTime.text,timeCell.endTime.text);
-//            if (timeCell.startTime.text.length == 0 && timeCell.endTime.text.length > 0) {
-//                [RMHelper showToast:@"Please select super peak start time" toView:self.view];
-//                return;
-//            }
-//            if (timeCell.endTime.text.length == 0 && timeCell.startTime.text.length > 0) {
-//                [RMHelper showToast:@"Please select super peak end time" toView:self.view];
-//                return;
-//            }
-//            NSString * string = [NSString stringWithFormat:@"%@_%@_%@",timeCell.startTime.text,timeCell.endTime.text,timeCell.electricity.text];
-//            [superPeakTimeArray addObject:string];
-//        }
-//        [params setValue:superPeakTimeArray forKey:@"superPeakTimeList"];
-//        if ([RMHelper hasRepeatedTimeForArray:superPeakTimeArray]) {
-//            [RMHelper showToast:@"Super-peak time overlap" toView:self.view];
-//            return;
-//        }
         NSMutableArray * selectedTime = [[NSMutableArray alloc] init];
         NSArray * offPeakTimeList = params[@"offPeakTimeList"];
         NSArray * peakTimeList = params[@"peakTimeList"];
-//        NSArray * superPeakTimeList = params[@"superPeakTimeList"];
         [selectedTime addObjectsFromArray:offPeakTimeList];
         [peakTimeList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if (![obj isEqualToString:@"__"]) {
                 [selectedTime addObject:obj];
             }
         }];
-//        [superPeakTimeList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//            if (![obj isEqualToString:@"__"]) {
-//                [selectedTime addObject:obj];
-//            }
-//        }];
         if ([RMHelper hasRepeatedTimeForArray:selectedTime]) {
             [RMHelper showToast:@"Selected time overlap" toView:self.view];
             return;
@@ -455,10 +435,6 @@
     }
     
     if (RMHelper.getUserType || (!RMHelper.getUserType && BleManager.shareInstance.isConnented)) {
-        if (!BleManager.shareInstance.isConnented) {
-            [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
-            return;
-        }
         [params setValue:@"1" forKey:@"onlySave"];
         __weak typeof(self) weakSelf = self;
         if (BleManager.shareInstance.isConnented) {

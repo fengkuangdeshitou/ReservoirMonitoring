@@ -90,7 +90,12 @@
         if ([obj isKindOfClass:[UIImage class]]){
             cell.icon.image = obj;
         }else{
-            [cell.icon sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:nil];
+            if ([obj hasPrefix:Host]){
+                NSString * url = [obj stringByReplacingOccurrencesOfString:Host withString:@""];
+                [cell.icon sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Host,url]] placeholderImage:nil];
+            }else{
+                [cell.icon sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:nil];
+            }
         }
         cell.addView.hidden = true;
     }
