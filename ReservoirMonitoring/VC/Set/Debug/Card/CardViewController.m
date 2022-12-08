@@ -62,9 +62,7 @@
     [self.queryBtn showBorderWithRadius:25];
     [self.statusBtn showBorderWithRadius:25];
     [self.activaBtn showBorderWithRadius:25];
-    if (!BleManager.shareInstance.isConnented) {
-        [GlobelDescAlertView showAlertViewWithTitle:@"Tips" desc:@"Please connect the bluetooth device first" btnTitle:nil completion:nil];
-    }
+    [self queryAction:nil];
 }
 
 - (IBAction)queryAction:(id)sender{

@@ -207,6 +207,7 @@
                               @"description":cell.content.text.length>0?cell.content.text:@"",
                               @"external":@"1"};
     NSLog(@"params=%@",params);
+    [self.view showHUDToast:@"Loading"];
     AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
@@ -214,6 +215,7 @@
     [manager POST:@"https://webto.salesforce.com/servlet/servlet.WebToCase" parameters:params headers:@{} progress:^(NSProgress * _Nonnull uploadProgress) {
             
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [self.view hiddenHUD];
         NSString * data = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSLog(@"obj=%@",data);
         [NSUserDefaults.standardUserDefaults setValue:self.dataArray[1][@"placeholder"] forKey:[self reasonCacheKey]];
@@ -224,7 +226,7 @@
         [self loadTimer];
         [GlobelDescAlertView showAlertViewWithTitle:@"Ticket received".localized desc:@"The manufacturer will contact you via Email or phone call within the next hour regarding the case, please pay attention.".localized btnTitle:nil completion:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-
+        [self.view hiddenHUD];
     }];
 }
 

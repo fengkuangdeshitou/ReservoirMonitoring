@@ -9,7 +9,6 @@
 #import "DebugCollectionViewCell.h"
 #import "GridViewController.h"
 #import "InverterViewController.h"
-#import "GeneratorViewController.h"
 #import "HybridViewController.h"
 #import "OtherViewController.h"
 #import "CardViewController.h"
@@ -47,6 +46,11 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSString * deviceId = [NSUserDefaults.standardUserDefaults objectForKey:CURRENR_DEVID];
+    if (indexPath.row != 0 && deviceId.length == 0){
+        [RMHelper showToast:@"Please add device to continue" toView:self.view];
+        return;
+    }
     NSString * title = self.dataArray[indexPath.row];
     if (indexPath.row == 0) {
         InstallViewController * install = [[InstallViewController alloc] init];
@@ -60,13 +64,7 @@
         HybridViewController * hybrid = [[HybridViewController alloc] init];
         hybrid.title = title;
         [self.navigationController pushViewController:hybrid animated:true];
-    }
-//    else if (indexPath.row == 3){
-//        GeneratorViewController * generator = [[GeneratorViewController alloc] init];
-//        generator.title = title;
-//        [self.navigationController pushViewController:generator animated:true];
-//    }
-    else if (indexPath.row == 3){
+    }else if (indexPath.row == 3){
         InverterViewController * inverter = [[InverterViewController alloc] init];
         inverter.title = title;
         [self.navigationController pushViewController:inverter animated:true];

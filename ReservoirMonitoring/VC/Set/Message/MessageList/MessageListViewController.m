@@ -16,6 +16,7 @@
 @property(nonatomic,weak)IBOutlet UITableView * tableView;
 @property(nonatomic,strong) NSMutableArray<MessageModel*> * dataArray;
 @property(nonatomic,assign) NSInteger page;
+@property(nonatomic,weak)IBOutlet UIView * normalView;
 
 @end
 
@@ -49,6 +50,7 @@
     } success:^(NSDictionary * _Nonnull result) {
         self.page = 1;
         [self getMessageListData];
+        self.normalView.hidden = self.dataArray.count != 0;
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];
