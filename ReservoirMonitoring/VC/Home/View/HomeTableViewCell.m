@@ -107,7 +107,7 @@
     if (BleManager.shareInstance.isConnented) {
         CGFloat divided = model.evElectricity+model.nonBackUpElectricity+model.backUpElectricity;
         CGFloat rate = ((model.evElectricity + model.nonBackUpElectricity + model.backUpElectricity)-model.gridElectricity)/divided*100;
-        self.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",divided==0?0:rate] stringByAppendingString:@"%"];
+        self.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",divided<=0?0:rate] stringByAppendingString:@"%"];
     }else{
         self.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",model.selfHelpRate] stringByAppendingString:@"%"];
     }
@@ -237,7 +237,8 @@
             HomeItemView * itemView = (HomeItemView *)view;
             if (itemView.tag == 10) {
                 if (highlighte) {
-                    BOOL value = BleManager.shareInstance.isConnented ? self.model.gridLight == 1 : [self.model.isOnline boolValue] && self.model.gridLight == 1;
+                    NSString * fridLightValue = [RMHelper toBinarySystemWithDecimalSystem:(int)self.model.gridLight length:8];
+                    BOOL value = BleManager.shareInstance.isConnented ? [fridLightValue substringWithRange:NSMakeRange(fridLightValue.length-1, 1)].intValue == 1 : [self.model.isOnline boolValue] && self.model.gridLight == 1;
                     itemView.descLabel.textColor = [UIColor colorWithHexString:value?COLOR_MAIN_COLOR:@"#747474"];
                     itemView.statusButton.selected = value;
                 }else{

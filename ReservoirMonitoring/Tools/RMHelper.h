@@ -50,6 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)saveTouristsModel:(BOOL)model;
 /// 是否游客模式
 + (BOOL)isTouristsModel;
+/// 10进制转2进制
++ (NSString *)toBinarySystemWithDecimalSystem:(int)num length:(int)length;
 
 @end
 

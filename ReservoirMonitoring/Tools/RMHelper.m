@@ -155,4 +155,37 @@ static NSString * K_TOURISTSMODEL = @"TOURISTSMODEL";
     return [NSUserDefaults.standardUserDefaults boolForKey:K_TOURISTSMODEL];
 }
 
+//  十进制转二进制
++ (NSString *)toBinarySystemWithDecimalSystem:(int)num length:(int)length{
+    int remainder = 0;      //余数
+    int divisor = 0;        //除数
+    NSString * prepare = @"";
+    while (true)
+    {
+        remainder = num%2;
+        divisor = num/2;
+        num = divisor;
+        prepare = [prepare stringByAppendingFormat:@"%d",remainder];
+
+        if (divisor == 0)
+        {
+            break;
+        }
+    }
+    //倒序输出
+    NSString * result = @"";
+    for (int i = length -1; i >= 0; i --)
+    {
+        if (i <= prepare.length - 1) {
+            result = [result stringByAppendingFormat:@"%@",
+                      [prepare substringWithRange:NSMakeRange(i , 1)]];
+
+        }else{
+            result = [result stringByAppendingString:@"0"];
+
+        }
+    }
+    return result;
+}
+
 @end

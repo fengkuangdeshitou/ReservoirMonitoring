@@ -50,7 +50,6 @@
     } success:^(NSDictionary * _Nonnull result) {
         self.page = 1;
         [self getMessageListData];
-        self.normalView.hidden = self.dataArray.count != 0;
     } failure:^(NSString * _Nonnull errorMsg) {
         
     }];
@@ -68,6 +67,7 @@
         }
         [self.tableView.mj_footer endRefreshing];
         [self.tableView reloadData];
+        self.normalView.hidden = self.dataArray.count != 0;
     } failure:^(NSString * _Nonnull errorMsg) {
         [self.tableView.mj_footer endRefreshing];
     }];

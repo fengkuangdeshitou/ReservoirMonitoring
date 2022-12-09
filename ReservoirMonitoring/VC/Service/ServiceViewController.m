@@ -40,14 +40,18 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.timer invalidate];
-    self.timer = nil;
+    [self removeTimer];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (![RMHelper.getCurrentVC isKindOfClass:[InfoViewController class]] && ![RMHelper.getCurrentVC isKindOfClass:NSClassFromString(@"HelpViewController")]){
             self.cacheCategory = nil;
             self.cacheDesc = nil;
         }
     });
+}
+
+- (void)removeTimer{
+    [self.timer invalidate];
+    self.timer = nil;
 }
 
 - (void)requestUserInfo{
@@ -126,42 +130,41 @@
     }
 }
 
+- (void)resetTableivewData{
+    [NSUserDefaults.standardUserDefaults removeObjectForKey:self.model.email];
+    [NSUserDefaults.standardUserDefaults removeObjectForKey:[self reasonCacheKey]];
+    [NSUserDefaults.standardUserDefaults removeObjectForKey:[self descCacheKey]];
+    [self.dataArray replaceObjectAtIndex:1 withObject:@{@"title":@"Case Reason",@"placeholder":@"None".localized}];
+    [self.dataArray replaceObjectAtIndex:2 withObject:@{@"title":@"Description",@"placeholder":@""}];
+    [self.tableView reloadData];
+}
+
 - (void)loadTimer{
     if ([NSUserDefaults.standardUserDefaults objectForKey:self.model.email]) {
         NSString * string = [NSUserDefaults.standardUserDefaults objectForKey:self.model.email];
         if ([[self getCurrentTimeString] integerValue] - [string integerValue] > 30*60) {
-            [NSUserDefaults.standardUserDefaults removeObjectForKey:self.model.email];
+            if (self.timer){
+                [self removeTimer];
+            }
             [self loadSubmitStyle:true];
-            [NSUserDefaults.standardUserDefaults removeObjectForKey:[self reasonCacheKey]];
-            [self.dataArray replaceObjectAtIndex:1 withObject:@{@"title":@"Case Reason",@"placeholder":@"None".localized}];
-            [NSUserDefaults.standardUserDefaults removeObjectForKey:[self descCacheKey]];
-            [self.dataArray replaceObjectAtIndex:2 withObject:@{@"title":@"Description",@"placeholder":@""}];
-            [self.tableView reloadData];
+            [self resetTableivewData];
             return;
         }
+        [self loadSubmitStyle:false];
         self.timeCount = 30*60-([[self getCurrentTimeString] integerValue] - [string integerValue]);
         NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"mm:ss"];
         [self.submit setTitle:[formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.timeCount]] forState:UIControlStateNormal];
-        self.submit.userInteractionEnabled = false;
-        [self.submit setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
-        self.submit.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
         if (!_timer) {
             self.timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:true block:^(NSTimer * _Nonnull timer) {
                 self.timeCount --;
                 if (self.timeCount == 0) {
-                    [NSUserDefaults.standardUserDefaults removeObjectForKey:self.model.email];
+                    [self removeTimer];
                     [self loadSubmitStyle:true];
-                    [NSUserDefaults.standardUserDefaults removeObjectForKey:[self reasonCacheKey]];
-                    [self.dataArray replaceObjectAtIndex:1 withObject:@{@"title":@"Case Reason",@"placeholder":@"None".localized}];
-                    [NSUserDefaults.standardUserDefaults removeObjectForKey:[self descCacheKey]];
-                    [self.dataArray replaceObjectAtIndex:2 withObject:@{@"title":@"Description",@"placeholder":@""}];
-                    [self.tableView reloadData];
+                    [self resetTableivewData];
                 }else{
-                    self.submit.userInteractionEnabled = false;
+                    [self loadSubmitStyle:false];
                     [self.submit setTitle:[formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.timeCount]] forState:UIControlStateNormal];
-                    [self.submit setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
-                    self.submit.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
                     ServiceInputTableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
                     cell.content.userInteractionEnabled = false;
                 }
