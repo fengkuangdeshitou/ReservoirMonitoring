@@ -25,7 +25,10 @@
 @property(nonatomic,strong) NSString * batterySN;
 @property(nonatomic,strong) NSString * userEmail;
 @property(nonatomic,strong) NSMutableArray * indexArray;
-
+@property(nonatomic,strong) NSString * countrieID;
+@property(nonatomic,strong) NSString * provinceID;
+@property(nonatomic,strong) NSString * countries;
+@property(nonatomic,strong) NSString * province;
 @end
 
 @implementation AddDeviceViewController
@@ -156,10 +159,47 @@
         if (result[@"data"][@"userEmail"]){
             self.userEmail = result[@"data"][@"userEmail"];
         }
-        [self pushViewControler];
+        [self getAddressInfo];
     } failure:^(NSString * _Nonnull errorMsg) {
 
     }];
+}
+
+- (void)getAddressInfo{
+    if (self.addressIds.length > 0) {
+        [Request.shareInstance postUrl:DeviceBindAddressInfo params:@{@"devId":self.devId,@"countryNameEn":@"",@"countryCode":[self.addressIds componentsSeparatedByString:@","].firstObject,} progress:^(float progress) {
+                
+        } success:^(NSDictionary * _Nonnull result) {
+            NSArray * list = result[@"data"][@"list"];
+            for (NSDictionary * item in list) {
+                int value = [item[@"value"] intValue];
+                if (value == [[self.addressIds componentsSeparatedByString:@","].firstObject intValue]) {
+                    self.countries = item[@"label"];
+                    self.countrieID = item[@"value"];
+                    NSArray * children = item[@"children"];
+                    for (NSDictionary * dic in children) {
+                        int subValue = [dic[@"value"] intValue];
+                        if (subValue == [[self.addressIds componentsSeparatedByString:@","].lastObject intValue]) {
+                            self.province = dic[@"label"];
+                            self.provinceID = item[@"value"];
+                            [self pushViewControler];
+                            break;
+                        }
+                    }
+                }
+            }
+        } failure:^(NSString * _Nonnull errorMsg) {
+            
+        }];
+    }else{
+        [Request.shareInstance postUrl:DeviceBindAddressInfo params:@{@"devId":self.devId,@"countryNameEn":@"",@"countryCode":@""} progress:^(float progress) {
+                
+        } success:^(NSDictionary * _Nonnull result) {
+            [self pushViewControler];
+        } failure:^(NSString * _Nonnull errorMsg) {
+            
+        }];
+    }
 }
 
 - (void)pushViewControler{

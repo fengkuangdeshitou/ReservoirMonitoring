@@ -24,8 +24,6 @@
 @property(nonatomic,weak)IBOutlet UIView * emailView;
 @property(nonatomic,strong) CLLocationManager * manager;
 @property(nonatomic,strong) NSArray * dataArray;
-@property(nonatomic,strong) NSString * countrieID;
-@property(nonatomic,strong) NSString * provinceID;
 @property(nonatomic,strong) NSString * zoneId;
 
 @end

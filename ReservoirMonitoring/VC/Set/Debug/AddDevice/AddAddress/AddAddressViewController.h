@@ -19,7 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong) NSString * inverteSN;
 @property(nonatomic,strong) NSString * batterySN;
 @property(nonatomic,strong) NSString * userEmail;
-
+@property(nonatomic,strong) NSString * countrieID;
+@property(nonatomic,strong) NSString * provinceID;
 @end
 
 NS_ASSUME_NONNULL_END
