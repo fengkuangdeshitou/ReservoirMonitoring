@@ -23,7 +23,6 @@
 @property(nonatomic,weak)IBOutlet UILabel * timeZone;
 @property(nonatomic,weak)IBOutlet UIView * emailView;
 @property(nonatomic,strong) CLLocationManager * manager;
-@property(nonatomic,strong) NSArray * dataArray;
 @property(nonatomic,strong) NSString * zoneId;
 
 @end
@@ -114,44 +113,13 @@
     self.code.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
     self.email.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
     
-    [self getAddressInfo];
-    self.emailView.hidden = !RMHelper.getUserType;
-}
-
-- (void)getAddressInfo{
-    if (self.addressIds.length > 0) {
-        [Request.shareInstance postUrl:DeviceBindAddressInfo params:@{@"devId":self.devId,@"countryNameEn":self.countries.text?:@"",@"countryCode":[self.addressIds componentsSeparatedByString:@","].firstObject,} progress:^(float progress) {
-                
-        } success:^(NSDictionary * _Nonnull result) {
-            self.dataArray = result[@"data"][@"list"];
-            for (NSDictionary * item in self.dataArray) {
-                int value = [item[@"value"] intValue];
-                if (value == [[self.addressIds componentsSeparatedByString:@","].firstObject intValue]) {
-                    self.countries.text = item[@"label"];
-                    self.countrieID = item[@"value"];
-                    NSArray * children = item[@"children"];
-                    for (NSDictionary * dic in children) {
-                        int subValue = [dic[@"value"] intValue];
-                        if (subValue == [[self.addressIds componentsSeparatedByString:@","].lastObject intValue]) {
-                            self.province.text = dic[@"label"];
-                            self.provinceID = item[@"value"];
-                        }
-                    }
-                }
-            }
-        } failure:^(NSString * _Nonnull errorMsg) {
-            
-        }];
+    if (self.provinceString){
+        self.province.text = self.provinceString;
+        self.countries.text = self.countrieString;
     }else{
-        [Request.shareInstance postUrl:DeviceBindAddressInfo params:@{@"devId":self.devId,@"countryNameEn":@"",@"countryCode":@""} progress:^(float progress) {
-                
-        } success:^(NSDictionary * _Nonnull result) {
-            self.dataArray = result[@"data"][@"list"];
-            [self.manager startUpdatingLocation];
-        } failure:^(NSString * _Nonnull errorMsg) {
-            
-        }];
+        [self.manager startUpdatingLocation];
     }
+    self.emailView.hidden = !RMHelper.getUserType;
 }
 
 - (IBAction)timeAction:(id)sender{

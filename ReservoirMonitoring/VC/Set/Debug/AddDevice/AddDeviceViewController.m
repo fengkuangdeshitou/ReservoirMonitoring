@@ -29,6 +29,8 @@
 @property(nonatomic,strong) NSString * provinceID;
 @property(nonatomic,strong) NSString * countries;
 @property(nonatomic,strong) NSString * province;
+@property(nonatomic,strong) NSArray * list;
+
 @end
 
 @implementation AddDeviceViewController
@@ -170,8 +172,8 @@
         [Request.shareInstance postUrl:DeviceBindAddressInfo params:@{@"devId":self.devId,@"countryNameEn":@"",@"countryCode":[self.addressIds componentsSeparatedByString:@","].firstObject,} progress:^(float progress) {
                 
         } success:^(NSDictionary * _Nonnull result) {
-            NSArray * list = result[@"data"][@"list"];
-            for (NSDictionary * item in list) {
+            self.list = result[@"data"][@"list"];
+            for (NSDictionary * item in self.list) {
                 int value = [item[@"value"] intValue];
                 if (value == [[self.addressIds componentsSeparatedByString:@","].firstObject intValue]) {
                     self.countries = item[@"label"];
@@ -195,6 +197,7 @@
         [Request.shareInstance postUrl:DeviceBindAddressInfo params:@{@"devId":self.devId,@"countryNameEn":@"",@"countryCode":@""} progress:^(float progress) {
                 
         } success:^(NSDictionary * _Nonnull result) {
+            self.list = result[@"data"][@"list"];
             [self pushViewControler];
         } failure:^(NSString * _Nonnull errorMsg) {
             
@@ -213,6 +216,13 @@
     address.devId = self.devId;
     address.name = self.name;
     address.snItems = [self.dataArray componentsJoinedByString:@","];
+    if (self.province){
+        address.countrieID = self.countrieID;
+        address.provinceID = self.provinceID;
+        address.countrieString = self.countries;
+        address.provinceString = self.province;
+    }
+    address.dataArray = self.list;
     if(self.userEmail){
         address.userEmail = self.userEmail;
     };
