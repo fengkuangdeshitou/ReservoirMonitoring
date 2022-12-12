@@ -113,11 +113,11 @@
     self.code.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
     self.email.placeholderColor = [UIColor colorWithHexString:COLOR_PLACEHOLDER_COLOR];
     
-    if (self.provinceString){
+    if (!self.provinceString && !self.countrieString){
+        [self.manager startUpdatingLocation];
+    }else{
         self.province.text = self.provinceString;
         self.countries.text = self.countrieString;
-    }else{
-        [self.manager startUpdatingLocation];
     }
     self.emailView.hidden = !RMHelper.getUserType;
 }

@@ -184,12 +184,12 @@
                         if (subValue == [[self.addressIds componentsSeparatedByString:@","].lastObject intValue]) {
                             self.province = dic[@"label"];
                             self.provinceID = item[@"value"];
-                            [self pushViewControler];
                             break;
                         }
                     }
                 }
             }
+            [self pushViewControler];
         } failure:^(NSString * _Nonnull errorMsg) {
             
         }];
@@ -217,10 +217,12 @@
     address.name = self.name;
     address.snItems = [self.dataArray componentsJoinedByString:@","];
     if (self.province){
-        address.countrieID = self.countrieID;
         address.provinceID = self.provinceID;
-        address.countrieString = self.countries;
         address.provinceString = self.province;
+    }
+    if (self.countries){
+        address.countrieID = self.countrieID;
+        address.countrieString = self.countries;
     }
     address.dataArray = self.list;
     if(self.userEmail){
