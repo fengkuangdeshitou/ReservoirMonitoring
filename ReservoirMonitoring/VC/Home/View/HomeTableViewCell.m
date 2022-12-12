@@ -107,7 +107,7 @@
     if (BleManager.shareInstance.isConnented) {
         CGFloat divided = model.evElectricity+model.nonBackUpElectricity+model.backUpElectricity;
         CGFloat rate = ((model.evElectricity + model.nonBackUpElectricity + model.backUpElectricity)-model.gridElectricity)/divided*100;
-        self.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",divided<=0?0:rate] stringByAppendingString:@"%"];
+        self.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",divided<=0?0:(rate<=0?0:rate)] stringByAppendingString:@"%"];
     }else{
         self.selfHelpRate.text = [[NSString stringWithFormat:@"%.0f",model.selfHelpRate] stringByAppendingString:@"%"];
     }
@@ -311,21 +311,6 @@
     weather.hidesBottomBarWhenPushed = true;
     weather.deviceId = self.model.deviceId;
     [RMHelper.getCurrentVC.navigationController pushViewController:weather animated:true];
-}
-
-- (BOOL)formatPower:(CGFloat)value{
-    BOOL power = false;
-    if (value > 32768) {
-        int result = value-65535;
-        if (result > 50) {
-            power = true;
-        }
-    }else{
-        if (value > 0) {
-            power = true;
-        }
-    }
-    return power;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

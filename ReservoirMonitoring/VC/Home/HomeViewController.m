@@ -178,6 +178,7 @@
     } success:^(NSDictionary * _Nonnull result) {
         self.model.weather = result[@"data"];
         [self.tableView reloadData];
+        [self.tableView reloadData];
         Request.shareInstance.hiddenHUD = false;
     } failure:^(NSString * _Nonnull errorMsg) {
         [self.tableView reloadData];
@@ -367,7 +368,7 @@
             power = true;
         }
     }else{
-        if (value > 0) {
+        if (value >= 0) {
             power = true;
         }
     }
